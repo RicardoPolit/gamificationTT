@@ -1,7 +1,8 @@
 # GIT Ignore
-#
 # Excluding All Files
 *
-
 # Including .gitignore file
 !.gitignore
+!README.md
+# Including Plugins Development Files, one-plugin-per-line
+!./blocks/simplehtml/*
