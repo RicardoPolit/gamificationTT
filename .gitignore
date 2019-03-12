@@ -1,0 +1,7 @@
+# GIT Ignore
+#
+# Excluding All Files
+*
+
+# Including .gitignore file
+!.gitignore
