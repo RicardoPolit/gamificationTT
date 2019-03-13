@@ -18,12 +18,14 @@ Es importante leer la documentación y familizarse con la misma, para trabajar e
 1. Elimina el directorio **.git** y los archivos **.gitignore** y **.gitattributes**
 2. Crea un repositorio local
 
+
     git init
     touch .gitignore
     git add .gitignore
     git commit -m "Initial Import"
 
 3. Añade el repositorio remoto
+
 
     git remote add origin git@github.com:RicardoPolit/gamificationTT.git
     git push -u origin master
@@ -38,6 +40,7 @@ A partir del cuarto punto se pueden ocupar los comandos habituales de git: *pull
 1. Abre el archivo oculto *.gitignore*
 2. Ingresa las dos lineas correspondientes al directorio de tu plugin
 
+
     !/path-to-plugin/pluginType_pluginName/
     !/path-to-plugin/PluginType_pluginName/**/*
 
@@ -45,22 +48,22 @@ A partir del cuarto punto se pueden ocupar los comandos habituales de git: *pull
 | Plugin                                           | Plugin                                              | Plugin                                      |
 | ------------------------------------------------ | --------------------------------------------------- | ------------------------------------------- |
 |                    Activity Modules **Dan**      |                    Questions Types **Richard**      |                    Course Reports           |
-|                    Antivirus plugins             |                    Question Behaviours              |                    Gradebook export         |
+|                  ~~Antivirus plugins~~           |                    Question Behaviours              |                    Gradebook export         |
 |                    Assignment submission plugins |                    Questions Import/Export Formats  |                    Gradebook import         |
-|                    Assignment feedback plugins   |                    Questions Import/Export Formats  |                    Gradebook reports        |
-|                    Book tools                    |                    Editors                          |                    Advanced Grading Methods |
+|                    Assignment feedback plugins   |                    Text Filters                     |                    Gradebook reports        |
+| :x:              ~~Book tools~~                  |                    Editors                          |                    Advanced Grading Methods |
 |                    Database Fields **David**     |                    Atto Editor Plugins              |                    MNET Services            |
-|                    Database Presets              |                    TinyMCE editor Plugins           |                    Web Service Protocols    |
+|                    Database Presets              | :x:              ~~TinyMCE editor Plugins~~         |                    Web Service Protocols    |
 |                    LTI sources                   |                    Enrolment Plugins                |                    Repository Plugins       |
 |                    File Converters               |                    Authentication Plugins           |                    Portfolio plugins        |
-|                    LTI services                  |                    Admin Tools                      |                    Search Engines           |
-|                    Machine Learning Backends     |                    Log Stores                       |                    Media Players            |
+| :x:              ~~LTI services~~                |                    Admin Tools                      |                    Search Engines           |
+|                    Machine Learning Backends     | :x:              ~~Log Stores~~                     |                    Media Players            |
 |                    Quiz Reports                  |                    Availability Conditions          |                    Plagiarism Plugins       |
-|                    Quiz Access Rules             |                    Calendar Types                   |                    Cache Store              |
-|                    SCORM Reports                 |                    Messaging Consumers              |                    Cache Locks              |
+|                    Quiz Access Rules             |                    Calendar Types                   | :x:              ~~Cache Store~~            |
+|                    SCORM Reports                 |                    Messaging Consumers              | :x:              ~~Cache Locks~~            |
 |                    Workshop Grading Strategies   |                    Course Formats                   |                    Themes                   |
 |                    Workshop Allocations Methods  |                    Data Formats                     |                    Local Plugins            |
-|                    Workshop Evaluaction Methods  | :heavy_check_mark: User Profile Fields              |                    Legacy Assignment Types  |
+|                    Workshop Evaluaction Methods  | :heavy_check_mark: User Profile Fields              | :x:              ~~Legacy Assignment Types~~ |
 | :heavy_check_mark: Blocks                        |                    Reports                          |                    Ledacy Admin Reports     |
 
 
