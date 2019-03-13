@@ -15,36 +15,43 @@ Es importante leer la documentación y familizarse con la misma, para trabajar e
 
 ### Anadir repositorio a la carpeta de instalacion de Moodle
 
-1. Elimina el directorio **.git** y los archivos **.gitignore** y **.gitattributes**
-2. Crea un repositorio local
+Elimina el directorio **.git** y los archivos **.gitignore** y **.gitattributes**
 
+    rm -r .git .gitignore .gitattributes
+    
+Crea un repositorio local
 
     git init
     touch .gitignore
     git add .gitignore
     git commit -m "Initial Import"
 
-3. Añade el repositorio remoto
-
+Añade el repositorio remoto
 
     git remote add origin git@github.com:RicardoPolit/gamificationTT.git
     git push -u origin master
 
-4. Empieza a desarrollar !!!
+Empieza a desarrollar !!!
 
-A partir del cuarto punto se pueden ocupar los comandos habituales de git: *pull*,*add*, *commit*, *push*, etc
+    git pull 
+    git add 
+    git commit
+    git push
 
 
 ### Añade avances y plugins a Git
 
-1. Abre el archivo oculto *.gitignore*
-2. Ingresa las dos lineas correspondientes al directorio de tu plugin
+Abre el archivo oculto *.gitignore*
 
+    nano .gitignore
+    
+Ingresa las dos lineas correspondientes al directorio de tu plugin
 
     !/path-to-plugin/pluginType_pluginName/
     !/path-to-plugin/PluginType_pluginName/**/*
 
 ## Pruebas de Concepto
+
 | Plugin                                           | Plugin                                              | Plugin                                      |
 | ------------------------------------------------ | --------------------------------------------------- | ------------------------------------------- |
 |                    Activity Modules **Dan**      |                    Questions Types **Richard**      |                    Course Reports           |
