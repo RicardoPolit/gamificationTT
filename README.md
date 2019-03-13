@@ -42,7 +42,8 @@ A partir del cuarto punto se pueden ocupar los comandos habituales de git: *pull
     !/path-to-plugin/PluginType_pluginName/**/*
 
 ## Pruebas de Concepto
-
+| Plugin                                           | Plugin                                              | Plugin                                      |
+| ------------------------------------------------ | --------------------------------------------------- | ------------------------------------------- |
 |                    Activity Modules **Dan**      |                    Questions Types **Richard**      |                    Course Reports           |
 |                    Antivirus plugins             |                    Question Behaviours              |                    Gradebook export         |
 |                    Assignment submission plugins |                    Questions Import/Export Formats  |                    Gradebook import         |
