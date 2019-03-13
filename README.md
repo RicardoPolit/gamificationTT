@@ -1,92 +1,65 @@
-# Gamification TT
+# Gamedle Project
 
-## Gamedle
+Este repositorio contiene todo el trabajo desarrollado durante el desarrollo del trabajo terminal 2018-B029 "Gamificación en una Plataforma Web de Aprendizaje"
 
-### Instalation Guide
+## Creando el Entorno de Desarrollo
 
-1. Delete the ".git" directory, ".gitignore" and ".gitattributes" files
-2. Create your local repository
+### Primeros pasos
+
+Es importante leer la documentación y familizarse con la misma, para trabajar en este repositorio se debe de leer como mínimo:
+
+1. [Moodle Arquitecture](https://docs.moodle.org/dev/Moodle_architecture) Documentación acerca de como está organizado Moodle
+2. [Plugin Files](https://docs.moodle.org/dev/Plugin_files#db.2Finstall.xml) Documentación de los archivos que conforma un plugin
+3. [Plugin Dev Tutorial](https://docs.moodle.org/dev/Tutorial) Tutorias para el Desarrollo de Plugins
+
+
+### Anadir repositorio a la carpeta de instalacion de Moodle
+
+1. Elimina el directorio **.git** y los archivos **.gitignore** y **.gitattributes**
+2. Crea un repositorio local
+
     git init
     touch .gitignore
     git add .gitignore
     git commit -m "Initial Import"
-3. Add the remote repository to the project
+
+3. Añade el repositorio remoto
+
     git remote add origin git@github.com:RicardoPolit/gamificationTT.git
     git push -u origin master
-4. Work as always
-    ...
-    git push
-    ...
 
-### Must Read Docs
+4. Empieza a desarrollar !!!
 
-Estos debe de leer antes de empezar a tirar código
+A partir del cuarto punto se pueden ocupar los comandos habituales de git: *pull*,*add*, *commit*, *push*, etc
 
-- **[Moodle Arquitecture](https://docs.moodle.org/dev/Moodle_architecture)**
-- **[Plugin Files](https://docs.moodle.org/dev/Plugin_files#db.2Finstall.xml)**
-- **[Plugin Dev Tutorial](https://docs.moodle.org/dev/Tutorial)**
 
-### Add Development to Git
+### Añade avances y plugins a Git
 
-1. Abre el archivo oculto .gitignore
-2. Ingresa la linea correspondiente al directorio de tu plugin
-    !/path-to-your/pluginType_pluginName/*
-3. Verifica con git status que la ruta especificada este añadida
+1. Abre el archivo oculto *.gitignore*
+2. Ingresa las dos lineas correspondientes al directorio de tu plugin
+
+    !/path-to-plugin/pluginType_pluginName/
+    !/path-to-plugin/PluginType_pluginName/**/*
 
 ## Pruebas de Concepto
+| - [ ] Activity Modules **Dan**      | - [ ] Questions Types **Richard**           | - [ ] Course Reports              |
+| - [ ] Antivirus plugins             | - [ ] Question Behaviours                   | - [ ] Gradebook export            |
+| - [ ] Assignment submission plugins | - [ ] Questions Import/Export Formats       | - [ ] Gradebook import            |
+| - [ ] Assignment feedback plugins   | - [ ] Questions Import/Export Formats       | - [ ] Gradebook reports           |
+| - [ ] Book tools (no Docs)          | - [ ] Editors                               | - [ ] Advanced Grading Methods    |
+| - [ ] Database Fields **David**     | - [ ] Atto Editor Plugins                   | - [ ] MNET Services               |
+| - [ ] Database Presets              | - [ ] TinyMCE editor Plugins                | - [ ] Web Service Protocols       |
+| - [ ] LTI sources                   | - [ ] Enrolment Plugins                     | - [ ] Repository Plugins          |
+| - [ ] File Converters               | - [ ] Authentication Plugins                | - [ ] Portfolio plugins           |
+| - [ ] LTI services (no Docs)        | - [ ] Admin Tools                           | - [ ] Search Engines              |
+| - [ ] Machine Learning Backends     | - [ ] Log Stores                            | - [ ] Media Players               |
+| - [ ] Quiz Reports                  | - [ ] Availability Conditions               | - [ ] Plagiarism Plugins          |
+| - [ ] Quiz Access Rules             | - [ ] Calendar Types                        | - [ ] Cache Store (no Docs)       |
+| - [ ] SCORM Reports                 | - [ ] Messaging Consumers                   | - [ ] Cache Locks (no Docs)       |
+| - [ ] Workshop Grading Strategies   | - [ ] Course Formats                        | - [ ] Themes                      |
+| - [ ] Workshop Allocations Methods  | - [ ] Data Formats                          | - [ ] Local Plugins               |
+| - [ ] Workshop Evaluaction Methods  | - [x] User Profile Fields                   | - [ ] Legacy Assignment Types (no Docs) |
+| - [x] Blocks                        | - [ ] Reports                               | - [ ] Ledacy Admin Reports        |
 
-### Lista de Plugins
-- [ ] Activity Modules **Dan**
-- [ ] Antivirus plugins
-- [ ] Assignment submission plugins
-- [ ] Assignment feedback plugins
-- [ ] Book tools (no Docs)
-- [ ] Database Fields **David**
-- [ ] Database Presets
-- [ ] LTI sources
-- [ ] File Converters
-- [ ] LTI services (no Docs)
-- [ ] Machine Learning Backends
-- [ ] Quiz Reports
-- [ ] Quiz Access Rules
-- [ ] SCORM Reports
-- [ ] Workshop Grading Strategies
-- [ ] Workshop Allocations Methods
-- [ ] Workshop Evaluaction Methods
-- [x] Blocks
-- [ ] Questions Types **Richard**
-- [ ] Question Behaviours
-- [ ] Questions Import/Export Formats
-- [ ] Text Filters
-- [ ] Editors
-- [ ] Atto Editor Plugins
-- [ ] TinyMCE editor Plugins
-- [ ] Enrolment Plugins
-- [ ] Authentication Plugins
-- [ ] Admin Tools
-- [ ] Log Stores
-- [ ] Availability Conditions
-- [ ] Calendar Types
-- [ ] Messaging Consumers
-- [ ] Course Formats
-- [ ] Data Formats
-- [x] User Profile Fields
-- [ ] Reports
-- [ ] Course Reports
-- [ ] Gradebook export
-- [ ] Gradebook import
-- [ ] Gradebook reports
-- [ ] Advanced Grading Methods
-- [ ] MNET Services
-- [ ] Web Service Protocols
-- [ ] Repository Plugins
-- [ ] Portfolio plugins
-- [ ] Search Engines
-- [ ] Media Players
-- [ ] Plagiarism Plugins
-- [ ] Cache Store (no Docs)
-- [ ] Cache Locks (no Docs)
-- [ ] Themes
-- [ ] Local Plugins
-- [ ] Legacy Assignment Types (no Docs)
-- [ ] Ledacy Admin Reports
+
+
