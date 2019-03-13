@@ -42,24 +42,24 @@ A partir del cuarto punto se pueden ocupar los comandos habituales de git: *pull
     !/path-to-plugin/PluginType_pluginName/**/*
 
 ## Pruebas de Concepto
-| - [ ] Activity Modules **Dan**      | - [ ] Questions Types **Richard**           | - [ ] Course Reports              |
-| - [ ] Antivirus plugins             | - [ ] Question Behaviours                   | - [ ] Gradebook export            |
-| - [ ] Assignment submission plugins | - [ ] Questions Import/Export Formats       | - [ ] Gradebook import            |
-| - [ ] Assignment feedback plugins   | - [ ] Questions Import/Export Formats       | - [ ] Gradebook reports           |
-| - [ ] Book tools (no Docs)          | - [ ] Editors                               | - [ ] Advanced Grading Methods    |
-| - [ ] Database Fields **David**     | - [ ] Atto Editor Plugins                   | - [ ] MNET Services               |
-| - [ ] Database Presets              | - [ ] TinyMCE editor Plugins                | - [ ] Web Service Protocols       |
-| - [ ] LTI sources                   | - [ ] Enrolment Plugins                     | - [ ] Repository Plugins          |
-| - [ ] File Converters               | - [ ] Authentication Plugins                | - [ ] Portfolio plugins           |
-| - [ ] LTI services (no Docs)        | - [ ] Admin Tools                           | - [ ] Search Engines              |
-| - [ ] Machine Learning Backends     | - [ ] Log Stores                            | - [ ] Media Players               |
-| - [ ] Quiz Reports                  | - [ ] Availability Conditions               | - [ ] Plagiarism Plugins          |
-| - [ ] Quiz Access Rules             | - [ ] Calendar Types                        | - [ ] Cache Store (no Docs)       |
-| - [ ] SCORM Reports                 | - [ ] Messaging Consumers                   | - [ ] Cache Locks (no Docs)       |
-| - [ ] Workshop Grading Strategies   | - [ ] Course Formats                        | - [ ] Themes                      |
-| - [ ] Workshop Allocations Methods  | - [ ] Data Formats                          | - [ ] Local Plugins               |
-| - [ ] Workshop Evaluaction Methods  | - [x] User Profile Fields                   | - [ ] Legacy Assignment Types (no Docs) |
-| - [x] Blocks                        | - [ ] Reports                               | - [ ] Ledacy Admin Reports        |
 
+|                    Activity Modules **Dan**      |                    Questions Types **Richard**      |                    Course Reports           |
+|                    Antivirus plugins             |                    Question Behaviours              |                    Gradebook export         |
+|                    Assignment submission plugins |                    Questions Import/Export Formats  |                    Gradebook import         |
+|                    Assignment feedback plugins   |                    Questions Import/Export Formats  |                    Gradebook reports        |
+|                    Book tools                    |                    Editors                          |                    Advanced Grading Methods |
+|                    Database Fields **David**     |                    Atto Editor Plugins              |                    MNET Services            |
+|                    Database Presets              |                    TinyMCE editor Plugins           |                    Web Service Protocols    |
+|                    LTI sources                   |                    Enrolment Plugins                |                    Repository Plugins       |
+|                    File Converters               |                    Authentication Plugins           |                    Portfolio plugins        |
+|                    LTI services                  |                    Admin Tools                      |                    Search Engines           |
+|                    Machine Learning Backends     |                    Log Stores                       |                    Media Players            |
+|                    Quiz Reports                  |                    Availability Conditions          |                    Plagiarism Plugins       |
+|                    Quiz Access Rules             |                    Calendar Types                   |                    Cache Store              |
+|                    SCORM Reports                 |                    Messaging Consumers              |                    Cache Locks              |
+|                    Workshop Grading Strategies   |                    Course Formats                   |                    Themes                   |
+|                    Workshop Allocations Methods  |                    Data Formats                     |                    Local Plugins            |
+|                    Workshop Evaluaction Methods  | :heavy_check_mark: User Profile Fields              |                    Legacy Assignment Types  |
+| :heavy_check_mark: Blocks                        |                    Reports                          |                    Ledacy Admin Reports     |
 
 
