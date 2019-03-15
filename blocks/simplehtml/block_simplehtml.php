@@ -13,19 +13,13 @@
 */
 
 class block_simplehtml extends block_base{
-	
-	/* ATRIBUTES */
-	//private $attr = "";
 
-	/* CONSTRUCTOR METHODS */
-	//function __construct(){}
-
-	@Override
+    /* @Override */
 	public function init(){
 	    $this->title = get_string("simplehtml","block_simplehtml");
 	}
 
-	@Override
+	/* @Override */
 	public function get_content() {
 	    if($this->content !== null){
 	        return $this->content;
@@ -36,6 +30,7 @@ class block_simplehtml extends block_base{
 	    $this->content->footer = "The footer goes here!";
 	}
 }
+
 
 /*
  * Moodle Block Plugin Docs

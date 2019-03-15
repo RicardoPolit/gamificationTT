@@ -45,7 +45,7 @@ Abre el archivo oculto *.gitignore*
 
     nano .gitignore
     
-Ingresa las dos lineas correspondientes al directorio de tu plugin
+Ingresa las dos lineas correspondientes al directorio del plugin
 
     !/path-to-plugin/pluginType_pluginName/
     !/path-to-plugin/PluginType_pluginName/**/*
