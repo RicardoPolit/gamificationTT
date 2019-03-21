@@ -1,0 +1,12 @@
+
+# Files: Excluding all
+*.*
+# Files: Including important
+!.gitignore
+!README.md  
+
+# Folders: Excluding all
+*/*
+# Folders: Including plugins tested
+!blocks/simplehtml/
+!blocks/simplehtml/**/*
