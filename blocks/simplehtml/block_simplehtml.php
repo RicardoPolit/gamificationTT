@@ -14,6 +14,10 @@
 
 class block_simplehtml extends block_base{
 
+    public $gamedle_image;
+    public $gamedle_text;
+    public $gamedle_footer;
+
     /* @Override */
 	public function init(){
 	    $this->title = get_string("simplehtml","block_simplehtml");
@@ -26,8 +30,8 @@ class block_simplehtml extends block_base{
 	    }
 	    
 	    $this->content = new StdClass;
-	    $this->content->text = "The content of our SimpleHTML block!";
-	    $this->content->footer = "The footer goes here!";
+	    $this->content->text = $this->gamedle_text;
+	    $this->content->footer = $this->gamedle_footer;
 	}
 }
 
