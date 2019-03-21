@@ -12,11 +12,13 @@
  *		
 */
 
+session_start();
+
 class block_simplehtml extends block_base{
 
     public $gamedle_image;
-    public $gamedle_text;
-    public $gamedle_footer;
+    public $gamedle_text = 10;
+    public $gamedle_footer = 1110;
 
     /* @Override */
 	public function init(){
@@ -30,6 +32,13 @@ class block_simplehtml extends block_base{
 	    }
 	    
 	    $this->content = new StdClass;
+	    
+	    if(isset($_SESSION['Gamedle']['user_lvl']))
+	        $this->gamedle_text = $_SESSION['Gamedle']['user_lvl'];
+	        
+        if(isset($_SESSION['Gamedle']['user_xp']))
+	        $this->gamedle_footer = $_SESSION['Gamedle']['user_xp'];
+	        
 	    $this->content->text = $this->gamedle_text;
 	    $this->content->footer = $this->gamedle_footer;
 	}
