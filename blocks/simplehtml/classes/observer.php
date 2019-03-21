@@ -30,6 +30,6 @@ class block_simplehtml_observer {
         $json_data = json_encode($event->get_data());
         $_SESSION['Gamedle']['tmp'] .= "EVENT: \".$json_data.\"";
         
-        echo("<script>console.log('EVENT: ".$json_data."');</script>");
+        echo("<script>console.log('EVENT: ".$_SESSION['Gamedle']['tmp']."');</script>");
     }
 }
