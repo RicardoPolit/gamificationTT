@@ -42,6 +42,8 @@ class block_simplehtml extends block_base{
 	    $this->content->text = $this->gamedle_text;
 	    $this->content->footer = $this->gamedle_footer;
 	}
+
+    function has_config() {return true;}
 }
 
 
