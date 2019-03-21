@@ -15,6 +15,12 @@
 defined('MOODLE_INTERNAL') || die();
 session_start();
 
+function escapeJS($input){
+        $input = str_replace("\\","\\\\",$input);
+        $input = str_replace("\n"," * ",$input);
+        return $input;
+}
+
 class block_simplehtml_observer {
 
     public static function update(\core\event\base $event) {
@@ -22,14 +28,15 @@ class block_simplehtml_observer {
         
         if(!isset($_SESSION['Gamedle']['tmp'])){
             $_SESSION['Gamedle'] = array();
-            $_SESSION['Gamedle']['tmp'] = "";
+            $_SESSION['Gamedle']['tmp'] = escapeJS($event->get_data()['eventname']);
         }
-        $_SESSION['Gamedle']['user_lvl'] = 3;
-        $_SESSION['Gamedle']['user_xp'] = 300;
+        else{
+            $_SESSION['Gamedle']['tmp'] .= escapeJS("\n".$event->get_data()['eventname']);
+            $_SESSION['Gamedle']['user_lvl'] = 3;
+            $_SESSION['Gamedle']['user_xp'] = 300;
+        }
         
         $json_data = json_encode($event->get_data());
-        $_SESSION['Gamedle']['tmp'] .= "EVENT: \".$json_data.\"";
-        
         echo("<script>console.log('EVENT: ".$_SESSION['Gamedle']['tmp']."');</script>");
     }
 }
