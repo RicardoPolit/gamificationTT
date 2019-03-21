@@ -12,30 +12,40 @@
  *		
 */
 
+session_start();
+
 class block_simplehtml extends block_base{
-	
-	/* ATRIBUTES */
-	//private $attr = "";
 
-	/* CONSTRUCTOR METHODS */
-	//function __construct(){}
+    public $gamedle_image;
+    public $gamedle_text = 10;
+    public $gamedle_footer = 1110;
 
-	@Override
+    /* @Override */
 	public function init(){
 	    $this->title = get_string("simplehtml","block_simplehtml");
 	}
 
-	@Override
+	/* @Override */
 	public function get_content() {
 	    if($this->content !== null){
 	        return $this->content;
 	    }
 	    
 	    $this->content = new StdClass;
-	    $this->content->text = "The content of our SimpleHTML block!";
-	    $this->content->footer = "The footer goes here!";
+	    
+	    if(isset($_SESSION['Gamedle']['user_lvl']))
+	        $this->gamedle_text = $_SESSION['Gamedle']['user_lvl'];
+	        
+        if(isset($_SESSION['Gamedle']['user_xp']))
+	        $this->gamedle_footer = $_SESSION['Gamedle']['user_xp'];
+	        
+	    $this->content->text = $this->gamedle_text;
+	    $this->content->footer = $this->gamedle_footer;
 	}
+
+    function has_config() {return true;}
 }
+
 
 /*
  * Moodle Block Plugin Docs

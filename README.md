@@ -9,6 +9,7 @@ Este repositorio contiene todo el trabajo desarrollado durante el desarrollo del
 Es importante leer la documentación y familizarse con la misma, para trabajar en este repositorio se debe de leer como mínimo:
 
 1. [Moodle Arquitecture](https://docs.moodle.org/dev/Moodle_architecture) Documentación acerca de como está organizado Moodle
+2. [Comunication Between Components](https://docs.moodle.org/dev/Communication_Between_Components) Comunicación entre componentes
 2. [Plugin Files](https://docs.moodle.org/dev/Plugin_files#db.2Finstall.xml) Documentación de los archivos que conforma un plugin
 3. [Plugin Dev Tutorial](https://docs.moodle.org/dev/Tutorial) Tutorias para el Desarrollo de Plugins
 
@@ -45,7 +46,7 @@ Abre el archivo oculto *.gitignore*
 
     nano .gitignore
     
-Ingresa las dos lineas correspondientes al directorio de tu plugin
+Ingresa las dos lineas correspondientes al directorio del plugin
 
     !/path-to-plugin/pluginType_pluginName/
     !/path-to-plugin/PluginType_pluginName/**/*

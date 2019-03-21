@@ -1,0 +1,20 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: ricardo
+ * Date: 21/03/19
+ * Time: 02:01 PM
+ */
+
+$settings->add(new admin_setting_heading(
+    'headerconfig',
+    get_string('headerconfig', 'block_simplehtml'),
+    get_string('descconfig', 'block_simplehtml')
+));
+
+$settings->add(new admin_setting_configcheckbox(
+    'simplehtml/Allow_HTML',
+    get_string('labelallowhtml', 'block_simplehtml'),
+    get_string('descallowhtml', 'block_simplehtml'),
+    '0'
+));
