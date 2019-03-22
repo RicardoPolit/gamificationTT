@@ -51,6 +51,12 @@ Ingresa las dos lineas correspondientes al directorio del plugin
     !/path-to-plugin/pluginType_pluginName/
     !/path-to-plugin/PluginType_pluginName/**/*
 
+### Recomendaciones
+
+Si se va a desarrollar se recomienda editar la siguiente linea en el archivo config.php de la carpeta moodle
+
+    $CFG->wwwroot   = 'http://'.gethostbyname(gethostname())."/moodle";
+
 ## Pruebas de Concepto
 
 | Plugin                                           | Plugin                                              | Plugin                                      |
