@@ -51,6 +51,15 @@ Ingresa las dos lineas correspondientes al directorio del plugin
     !/path-to-plugin/pluginType_pluginName/
     !/path-to-plugin/PluginType_pluginName/**/*
 
+## Usar XMLDB Editor
+
+Se necesita que el plugin tenga la carpeta db con todos los permisos.
+
+    mkdir db
+    chmod 777 -R db/
+
+
+
 ## Pruebas de Concepto
 
 | Plugin                                           | Plugin                                              | Plugin                                      |
