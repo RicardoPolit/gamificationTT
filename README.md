@@ -51,6 +51,7 @@ Ingresa las dos lineas correspondientes al directorio del plugin
     !/path-to-plugin/pluginType_pluginName/
     !/path-to-plugin/PluginType_pluginName/**/*
 
+<<<<<<< HEAD
 ## Usar XMLDB Editor
 
 Se necesita que el plugin tenga la carpeta db con todos los permisos.
@@ -59,6 +60,13 @@ Se necesita que el plugin tenga la carpeta db con todos los permisos.
     chmod 777 -R db/
 
 
+=======
+### Recomendaciones
+
+Si se va a desarrollar se recomienda editar la siguiente linea en el archivo config.php de la carpeta moodle
+
+    $CFG->wwwroot   = 'http://'.gethostbyname(gethostname())."/moodle";
+>>>>>>> 44b69117ab6bcc9aa25dc07bce28b35a5621749a
 
 ## Pruebas de Concepto
 
