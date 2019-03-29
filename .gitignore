@@ -10,11 +10,5 @@
 # Folders: Including plugins tested
 !blocks/simplehtml/
 !blocks/simplehtml/**/*
-<<<<<<< HEAD
 !local/gamedlemaster
 !local/gamedlemaster/**/*
-
-=======
-# !blocks/gamedle/ HOT FIX
-# !blocks/gamedle/**/* HOT FIX
->>>>>>> 44b69117ab6bcc9aa25dc07bce28b35a5621749a
