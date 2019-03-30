@@ -10,3 +10,5 @@
 # Folders: Including plugins tested
 !blocks/simplehtml/
 !blocks/simplehtml/**/*
+!local/gamedlemaster
+!local/gamedlemaster/**/*

@@ -51,6 +51,20 @@ Ingresa las dos lineas correspondientes al directorio del plugin
     !/path-to-plugin/pluginType_pluginName/
     !/path-to-plugin/PluginType_pluginName/**/*
 
+## Usar XMLDB Editor
+
+Se necesita que el plugin tenga la carpeta db con todos los permisos.
+
+    mkdir db
+    chmod 777 -R db/
+
+
+### Recomendaciones
+
+Si se va a desarrollar se recomienda editar la siguiente linea en el archivo config.php de la carpeta moodle
+
+    $CFG->wwwroot   = 'http://'.gethostbyname(gethostname())."/moodle";
+
 ## Pruebas de Concepto
 
 | Plugin                                           | Plugin                                              | Plugin                                      |
@@ -60,8 +74,8 @@ Ingresa las dos lineas correspondientes al directorio del plugin
 |                    Assignment submission plugins |                    Questions Import/Export Formats  |                    Gradebook import         |
 |                    Assignment feedback plugins   |                    Text Filters                     |                    Gradebook reports        |
 | :x:              ~~Book tools~~                  |                    Editors                          |                    Advanced Grading Methods |
-|                    Database Fields **David**     |                    Atto Editor Plugins              |                    MNET Services            |
-|                    Database Presets              | :x:              ~~TinyMCE editor Plugins~~         |                    Web Service Protocols    |
+|           :heavy_check_mark:  Database Fields    |                    Atto Editor Plugins              |                    MNET Services            |
+|           :heavy_check_mark:  Database Presets   | :x:              ~~TinyMCE editor Plugins~~         |                    Web Service Protocols    |
 |                    LTI sources                   |                    Enrolment Plugins                |                    Repository Plugins       |
 |                    File Converters               |                    Authentication Plugins           |                    Portfolio plugins        |
 | :x:              ~~LTI services~~                |                    Admin Tools                      |                    Search Engines           |
@@ -69,9 +83,9 @@ Ingresa las dos lineas correspondientes al directorio del plugin
 |                    Quiz Reports                  |                    Availability Conditions          |                    Plagiarism Plugins       |
 |                    Quiz Access Rules             |                    Calendar Types                   | :x:              ~~Cache Store~~            |
 |                    SCORM Reports                 |                    Messaging Consumers              | :x:              ~~Cache Locks~~            |
-|                    Workshop Grading Strategies   |                    Course Formats                   |                    Themes                   |
+|                    Workshop Grading Strategies   |                    Course Formats                   |                    Themes **David**         |
 |                    Workshop Allocations Methods  |                    Data Formats                     |                    Local Plugins            |
-|                    Workshop Evaluaction Methods  | :heavy_check_mark: User Profile Fields              | :x:              ~~Legacy Assignment Types~~ |
+|                    Workshop Evaluaction Methods  | :heavy_check_mark: User Profile Fields              | :x:             ~~Legacy Assignment Types~~ |
 | :heavy_check_mark: Blocks                        |                    Reports                          |                    Ledacy Admin Reports     |
 
 
