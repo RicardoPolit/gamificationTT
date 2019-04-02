@@ -33,6 +33,12 @@ class block_simplehtml extends block_base{
 	    
 	    $this->content = new StdClass;
 	    
+	    global $PAGE;
+	    $PAGE->requires->js_call_amd('block_simplehtml/levelUp', 'init');
+	    /*$PAGE->requires->js_amd_inline("require([], function ($) {
+                alert('Hey Hey Hey')
+            });");*/	    
+	    
 	    if(isset($_SESSION['Gamedle']['user_lvl']))
 	        $this->gamedle_text = $_SESSION['Gamedle']['user_lvl'];
 	        
