@@ -13,7 +13,6 @@
 */
 
 defined('MOODLE_INTERNAL') || die();
-session_start();
 
 function escapeJS($input){
         $input = str_replace("\\","\\\\",$input);
@@ -21,7 +20,7 @@ function escapeJS($input){
         return $input;
 }
 
-class block_simplehtml_observer {
+class block_gmxp_observer {
 
     public static function update(\core\event\base $event) {
         // This code works when put inside the corresponding 'store' function in blocks/recent_activity/classes/observer.php

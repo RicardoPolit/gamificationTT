@@ -12,10 +12,13 @@
  *		
 */
 
-$string['pluginname'] = 'Simple HTML block';
-$string['simplehtml'] = 'Simple HTML';
-$string['simplehtml:addinstance'] = 'Add a new simple HTML block';
-$string['simplehtml:myaddinstance'] = 'Add a new simple HTML block to the My Moodle page';
+/* GENERAL STRINGS */
+$string['pluginname'] = 'Gamedle Level';
+$string['gmxp'] = 'Gamedle Level';
+$string['gmxp:addinstance']   = 'Add a new simple HTML block';
+$string['gmxp:myaddinstance'] = 'Add a new simple HTML block to the My Moodle page';
+
+/* ADMIN FORM STRINGS */
 $string['headerconfigLevels'] = 'Level experience  settings';
 $string['descconfigLevels'] = 'Set the increment to go up in the levels';
 $string['typeOfIncrement'] = 'Type of increment';

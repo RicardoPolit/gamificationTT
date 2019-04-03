@@ -15,8 +15,8 @@
 defined('MOODLE_INTERNAL') || die();
 $observers = array (
     array (
-        'eventname' => '*',
-        'callback'  => 'block_simplehtml_observer::update',
+        'eventname' => 'course_completed',
+        'callback'  => 'block_gmxp_observer::update',
     )
 );
 

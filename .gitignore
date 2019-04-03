@@ -8,7 +8,7 @@
 # Folders: Excluding all
 */*
 # Folders: Including plugins tested
-!blocks/simplehtml/
-!blocks/simplehtml/**/*
+!blocks/gmxp/
+!blocks/gmxp/**/*
 !local/gamedlemaster
 !local/gamedlemaster/**/*
