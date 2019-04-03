@@ -6,12 +6,14 @@
  *
  */
 
-echo 'Esto todavia no sirve :v está en proceso.';
+namespace block_simplehtml;
 
 defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/formslib.php');
 
 use moodleform;
+
+admin_externalpage_setup('visualsSimple');
 
 class visualsSimple extends moodleform {
 

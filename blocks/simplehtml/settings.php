@@ -9,13 +9,13 @@
 const ROUTE_GET_PARAM = '_r';
 
 $settings->add(new admin_setting_heading(
-    'headerconfigLevels',
+    'block_simplehtml/headerconfigLevels',
     get_string('headerconfigLevels', 'block_simplehtml'),
     get_string('descconfigLevels', 'block_simplehtml')
 ));
 
 $settings->add(new admin_setting_configselect(
-    'simplehtml/typeOfIncrement',
+    'block_simplehtml/typeOfIncrement',
     get_string('typeOfIncrement', 'block_simplehtml'),
     get_string('typeOfIncrementDesc', 'block_simplehtml'),
     'linear',
@@ -23,7 +23,7 @@ $settings->add(new admin_setting_configselect(
 ));
 
 $settings->add(new admin_setting_configtext(
-    'simplehtml/numValorIncrement',
+    'block_simplehtml/numValorIncrement',
     get_string('titleIncre', 'block_simplehtml'),
     get_string('descIncre', 'block_simplehtml'),
     1.3,
@@ -32,37 +32,25 @@ $settings->add(new admin_setting_configtext(
 ));
 
 $settings->add(new admin_setting_heading(
-    'headerconfigLevelsFormat',
+    'block_simplehtml/headerconfigLevelsFormat',
     get_string('headerconfigLevelsFormat', 'block_simplehtml'),
     get_string('headerconfigLevelsFormatDesc', 'block_simplehtml')
 ));
 
 $settings->add(new admin_setting_configtext(
-    'simplehtml/defaultLevelsMessage',
+    'block_simplehtml/defaultLevelsMessage',
     get_string('titleDefMessage', 'block_simplehtml'),
     get_string('descDefMessage', 'block_simplehtml'),
     'CONGRATULATIONS',
     PARAM_TEXT,
-    20
+    50
 ));
 
-$settings->add(new admin_setting_configtext(
-    'simplehtml/defaultLevelsImage',
-    get_string('defaultLevelsImage', 'block_simplehtml'),
-    get_string('defaultLevelsImageDesc', 'block_simplehtml'),
-    '/image/wow.png',
-    PARAM_TEXT,
-    20
+$settings->add(new admin_setting_configstoredfile(
+    'block_simplehtml/imageDefecto',
+    new lang_string('defaultLevelsImage', 'block_simplehtml'),
+    new lang_string('defaultLevelsImageDesc', 'block_simplehtml'),
+    'level_images_simplehtml',
+    0,
+    ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => '.png']
 ));
-
-/*
-$catname = 'block_simplehtml_category';
-
-$settings = new admin_category($catname, 'block_simplehtml');
-$settings->visiblename = get_string('generalsettings', 'admin');
-
-$settingspage = new admin_externalpage('block_simplehtml_default_visuals',
-    get_string('defaultvisuals', 'block_simplehtml'),
-    new moodle_url('/blocks/simplehtml/visualsSimple.php'));
-$settings->add($catname, $settingspage);
-*/

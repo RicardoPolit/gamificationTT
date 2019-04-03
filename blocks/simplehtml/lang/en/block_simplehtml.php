@@ -27,4 +27,4 @@ $string['headerconfigLevelsFormatDesc'] = 'Here you have the option of having on
 $string['titleDefMessage'] = 'Default congratulations message';
 $string['descDefMessage'] = 'Write your own congratulations message for all the levels';
 $string['defaultLevelsImage'] = 'Default levels image';
-$string['defaultLevelsImageDesc'] = 'Write the url of your own image to be display in the levels';
+$string['defaultLevelsImageDesc'] = 'Upload the default image for the levels.';
