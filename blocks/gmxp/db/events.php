@@ -15,7 +15,7 @@
 defined('MOODLE_INTERNAL') || die();
 $observers = array (
     array (
-        'eventname' => 'course_completed',
+        'eventname' => 'mod_quiz\event\attempt_submitted',
         'callback'  => 'block_gmxp_observer::update',
     )
 );

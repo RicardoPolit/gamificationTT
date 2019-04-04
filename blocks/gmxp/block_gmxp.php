@@ -17,13 +17,13 @@ session_start();
 class block_gmxp extends block_base{
 
     /* @Override */
+	global $PAGE;
+
 	public function init(){
 	    $this->title = get_string("gmxp","block_gmxp");
 	}
 
-	public function get_content() {
-	
-	    global $PAGE;
+	public function get_content() {	
 	
 	    if($this->content !== null){
 	        return $this->content;
@@ -31,13 +31,16 @@ class block_gmxp extends block_base{
 
 	    $this->content = new StdClass;
 	    $this->content->text   = $this->htmlMedal(null,13);
+
+            $this->representarDeExperiencia();
+
 	    $this->content->footer = $this->htmlProgressBar(3,100,200,100);
 	    $this->content->footer.= $this->htmlPopUp(null,13,26);
 	   
 	    $experience = array("inicio"=>0,"final"=>53);
 	    $PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
 	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
-	    
+
 	    return $this->content;
 	}
 
@@ -81,6 +84,30 @@ class block_gmxp extends block_base{
                     "</div>
                </div>";
     }
+    private function representarDeExperiencia($PAGE)
+        {
+            global $USER;
+            $exp_act = $_SESSION['Gamedle']['user_xp'] ;
+            $exp_neces = $this->calcularExpNecesaria();
+            $porcentaje  = $exp_act*100/$exp_neces;
+            $this->content->footer = $this->htmlProgressBar("#1177d1",$porcentaje,$exp_act,$exp_neces,$this->calcularExpAcumulada($exp_act));
+            if($_SESSION['Gamedle']['xp_por_dar'] > 0) //El usuario recebirá la experiencia
+                {
+                    if($_SESSION['Gamedle']['xp_por_dar'] >= $exp_neces) //La experiencia que recibirá es más de la que necesita el nivel
+                        {
+                            $_SESSION['Gamedle']['xp_por_dar'] = $_SESSION['Gamedle']['xp_por_dar'] - $exp_neces;
+                            $this->content->footer.= $this->htmlPopUp(null,13,"#31a7f1",26,"#1177d1");
+                        }
+                    else
+                        {
+                            $_SESSION['Gamedle']['xp_por_dar'] = 0;
+                            $porcentajef  = ($exp_act+$_SESSION['Gamedle']['xp_por_dar'])*100/$exp_neces;
+                            $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array(array("inicio"=>$porcentaje,"final"=>$porcentajef)));
+
+                        }
+                }
+        }
+
 }
 
 
