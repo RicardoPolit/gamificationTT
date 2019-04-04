@@ -1,29 +1,28 @@
 
 define(['block_gmxp/experienceUp'], function(experienceUp) {
 
-// Get the modal
-var modal = document.getElementById('myModal');
-var btn = document.getElementById("myBtn");
-
-    var popup = $("#gmxp-popup")[0];
-    console.log(popup)
-
-    var a = Object
-        a.inicio = 4
-        a.final = 100
-
-    function hidePopup(){ popup.style.display = "none"; experienceUp.parametrized($("gmxp-progress")[0],a);  }
+    /*var popup = $("#gmxp-popup")[0];
+    function hidePopup(params){
+        popup.style.display = "none";
+        experienceUp.parametrized($(".gmxp-progress")[0],params);
+    }*/
  
     return {
         init: function(){
-            popup.style.display = "block";
-            $("#gmxp-popup").on("click", hidePopup);
+            params = Object
+            params.inicio = 12;
+            params.final  = 134;
             
+            experienceUp.parametrized($(".gmxp-progress")[0],params);
+            
+            /*popup.style.display = "block";
+            
+            $("#gmxp-popup").on("click", hidePopup(params));
             window.onkeydown = function(e) {
-                hidePopup()
+                hidePopup(params);
                 if (e.keyCode == 32 && e.target == document.body)
                     e.preventDefault();
-            };
+            };*/
             
         }
         

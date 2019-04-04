@@ -55,7 +55,7 @@ $settings->add(new admin_setting_configtext(
     get_string('titleDefMessage', 'block_gmxp'),
     get_string('descDefMessage', 'block_gmxp'),
     'CONGRATULATIONS',
-    PARAM_CLEANHTML,
+    PARAM_RAW,
     50
 ));
 
