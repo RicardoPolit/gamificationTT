@@ -33,7 +33,7 @@ class block_gmxp extends block_base{
 	    $this->content->text   = $this->htmlMedal(null,13,"#31a7f1");
 	    $this->content->footer = $this->htmlProgressBar("#1177d1");
 	    
-	    $PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init');
+	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init');
 	    return $this->content;
 	}
 
