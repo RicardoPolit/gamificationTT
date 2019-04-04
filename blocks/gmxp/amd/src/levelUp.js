@@ -5,23 +5,26 @@ define(['block_gmxp/experienceUp'], function(experienceUp) {
 var modal = document.getElementById('myModal');
 var btn = document.getElementById("myBtn");
 
-    var popup = $(".gmxp-popup")[0];
+    var popup = $("#gmxp-popup")[0];
+    console.log(popup)
 
-    function hidePopup(){
-        popup.style.display = "none";
-    }
+    var a = Object
+        a.inicio = 4
+        a.final = 100
+
+    function hidePopup(){ popup.style.display = "none"; experienceUp.parametrized($("gmxp-progress")[0],a);  }
  
     return {
         init: function(){
-            var a = Object
-                a.inicio = 4
-                a.final = 100
-                
             popup.style.display = "block";
-            experienceUp.parametrized($(".gmxp-progress")[1],a)
-            alert("Felicitaciones");
+            $("#gmxp-popup").on("click", hidePopup);
             
-            setTimeout(hidePopup,10000);
+            window.onkeydown = function(e) {
+                hidePopup()
+                if (e.keyCode == 32 && e.target == document.body)
+                    e.preventDefault();
+            };
+            
         }
         
     };

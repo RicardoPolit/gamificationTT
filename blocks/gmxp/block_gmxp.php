@@ -34,7 +34,12 @@ class block_gmxp extends block_base{
         $this->representarDeExperiencia($PAGE);
 
 	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init');
+	    $this->content->footer = $this->htmlProgressBar("#1177d1",3,100,200,100);
 	    
+	    $this->content->footer.= $this->htmlPopUp(null,13,"#31a7f1",26,"#1177d1");
+	    
+	    //$PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array(array("inicio"=>4,"final"=>99)));
+	    $PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init');
 	    return $this->content;
 	}
 
@@ -68,10 +73,13 @@ class block_gmxp extends block_base{
     }
     
     private function htmlPopup($urlimage,$level,$color,$progress,$color2){
-        return "<div class=\"gmxp-popup\">
-                   <div class=\"gmxp-content\">".
+        return "<div id=\"gmxp-popup\">
+                   <div id=\"gmxp-content\">
+                        <div class=\"gmxp-title\">¡FELICIDADES!<br>".get_config('block_gmxp','defaultLevelsName')."</div>".
                         $this->htmlMedal($urlimage,$level,$color).
                         //$this->htmlProgressBar($color2,$progress).
+                        "<div class=\"gmxp-level-name\"><b>NOMBRE NIVEL</b></div>".
+                        "<div class=\"gmxp-desc\">Descripcion de un nivel bien bonito carnal</div>".
                     "</div>
                </div>";
     }
