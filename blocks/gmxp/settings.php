@@ -12,11 +12,17 @@ $settings->add(new admin_setting_heading(
     get_string('descconfigLevels', 'block_gmxp')
 ));
 
+$settings->add(new admin_setting_configcheckbox(
+    'block_gmxp/isActive',
+    get_string('checkboxisActive', 'block_gmxp'),
+    get_string('checkboxisActivedesc', 'block_gmxp'),
+    1));
+
 $settings->add(new admin_setting_configselect(
     'block_gmxp/typeOfIncrement',
     get_string('typeOfIncrement', 'block_gmxp'),
     get_string('typeOfIncrementDesc', 'block_gmxp'),
-    'linear',
+    'percentage',
     array('linear','percentage')
 ));
 
@@ -36,12 +42,30 @@ $settings->add(new admin_setting_heading(
 ));
 
 $settings->add(new admin_setting_configtext(
+    'block_gmxp/defaultLevelsName',
+    get_string('titleDefName', 'block_gmxp'),
+    get_string('descDefName', 'block_gmxp'),
+    'Casual Levels',
+    PARAM_TEXT,
+    20
+));
+
+$settings->add(new admin_setting_configtext(
     'block_gmxp/defaultLevelsMessage',
     get_string('titleDefMessage', 'block_gmxp'),
     get_string('descDefMessage', 'block_gmxp'),
     'CONGRATULATIONS',
     PARAM_TEXT,
     50
+));
+
+$settings->add(new admin_setting_configcolourpicker(
+    'block_gmxp/defaultColorPickerLevels',
+    get_string('defColorPick', 'block_gmxp'),
+    get_string('defColorPickdesc','block_gmxp'),
+    '#0B619F',
+    null,
+    true
 ));
 
 $settings->add(new admin_setting_configstoredfile(
