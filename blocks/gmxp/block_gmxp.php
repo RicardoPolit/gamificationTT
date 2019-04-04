@@ -12,11 +12,9 @@
  *		
 */
 
-class block_gmxp extends block_base{
+session_start();
 
-    public $gamedle_image;
-    public $gamedle_text = 10;
-    public $gamedle_footer = 1110;
+class block_gmxp extends block_base{
 
     /* @Override */
 	public function init(){
@@ -25,20 +23,38 @@ class block_gmxp extends block_base{
 
 	/* @Override */
 	public function get_content() {
+	
+	    global $PAGE;
+	
 	    if($this->content !== null){
 	        return $this->content;
 	    }
 	    
 	    $this->content = new StdClass;
+	    $this->content->text   = $this->htmlMedal(null,0);
+	    $this->content->footer = $this->htmlProgressBar("#1177d1");
 	    
-	    global $PAGE;
 	    $PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init');
-	        
-	    $this->content->text = $this->gamedle_text;
-	    $this->content->footer = $this->gamedle_footer;
+	    return $this->content;
 	}
 
-    function has_config() {return true;}
+    function has_config() { return true; }
+    function hide_header() { return false; }
+  
+    /* PRIVATE METHODS TO ORGANIZE VIEW */  
+    private function htmlMedal($urlimage,$level,$color){
+        if($urlimage==null)
+            $urlimage = "https://www.expressmedals.com/v/vspfiles/photos/030-1.jpg";
+            
+        if($level<1)
+            $level = 1;
+            
+        return "<div><img src=\"$urlimage\" class=\"gmxp-medal\"/></div>";
+    }
+    
+    private function htmlProgressBar($color){
+        return "<div class=\"gmxp-bar\"><div class=\"gmxp-progress\" style=\"width:50%;background-color:$color\"></div></div>";
+    }
 }
 
 
