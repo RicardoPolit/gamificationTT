@@ -58,10 +58,12 @@
     width: 40%; /* Could be more or less, depending on screen size */
 }
 
+.gmxp-txt-lvl { width: 100%; }
+.gmxp-txt-lvl, b { float: right; }
+
 #gmxp-content > div { width: 100%; text-align:center; }
 #gmxp-content .gmxp-medal { width:50%; }
 #gmxp-popup div .gmxp-title { font-size: 3em; line-height: 1.1em; padding-top:30px; }
 #gmxp-popup div .gmxp-level-name { font-size: 3em; }
 #gmxp-popup div .gmxp-desc { font-size: 1.7em; padding-bottom: 30px; }
-
 
