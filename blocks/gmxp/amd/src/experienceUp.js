@@ -13,10 +13,9 @@
 
 define(['jquery'], function($) {
 
-    function experienceUp(ini,fin){
+    function experienceUp(progressBar,ini,fin){
         
         if( fin > 100 ) fin = 100;
-        var progressBar = $(".gmxp-progress")[0];
         var width = ini;
         var id = setInterval(draw,30);
         
@@ -27,7 +26,9 @@ define(['jquery'], function($) {
             if( width > fin )
                 clearInterval(id);
         }
-    }
+    }    
  
-    return { init: function(params) { experienceUp(params.inicio,params.final); } };
+    return { init: function(params){ experienceUp($(".gmxp-progress")[0],params.inicio,params.final,); },
+             parametrized: function(progressBar,params){ experienceUp(progressBar,params.inicio,params.final); }
+         };
 });
