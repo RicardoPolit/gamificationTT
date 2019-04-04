@@ -33,13 +33,17 @@ class block_gmxp extends block_base{
 	    $this->content->text   = $this->htmlMedal(null,13,"#31a7f1");
 	    $this->content->footer = $this->htmlProgressBar("#1177d1",3);
 	    
+	    $this->content->footer.= $this->htmlPopUp(null,13,"#31a7f1",26,"#1177d1");
+	    
 	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array(array("inicio"=>4,"final"=>99)));
+	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init');
+	    
 	    return $this->content;
 	}
 
     function has_config() { return true; }
     function hide_header() { return false; }
-  
+    
   
     /* PRIVATE METHODS TO ORGANIZE VIEW */
     private function htmlMedal($urlimage,$level,$color){
@@ -57,6 +61,15 @@ class block_gmxp extends block_base{
     
     private function htmlProgressBar($color,$progress){
         return "<div class=\"gmxp-bar\"><div class=\"gmxp-progress\" style=\"width:$progress%;background-color:$color\"></div></div>";
+    }
+    
+    private function htmlPopup($urlimage,$level,$color,$progress,$color2){
+        return "<div class=\"gmxp-popup\">
+                   <div class=\"gmxp-content\">".
+                        $this->htmlMedal($urlimage,$level,$color).
+                        $this->htmlProgressBar($color2,$progress).
+                    "</div>
+               </div>";
     }
 }
 

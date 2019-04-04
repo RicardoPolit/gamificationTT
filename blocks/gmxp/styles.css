@@ -11,23 +11,17 @@
  *		
 */
 
-.gmxp-container {
-    position: relative;
-}
-
-.gmxp-medal {
-    width:100%;
-}
+.gmxp-container { position: relative; }
+.gmxp-medal     { width:100%; }
 
 .gmxp-level {
     position: absolute;
     left: 0;
     top: 50%;
-    transform: translate(0, -50%);
-    
+    transform: translate(0, -50%);    
     width: 100%;
     text-align: center;
-    font-size: 6em;    
+    font-size: 6em;
 }
 
 .gmxp-bar, .gmxp-progress{
@@ -43,6 +37,28 @@
     background-color: lightgrey;
 }
 
-.gmxp-progress {
-    height: 10px;
+.gmxp-progress { height: 10px; }
+
+/* ===================================================================== */
+
+.gmxp-popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top:  0;
+    width:  100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
 }
+
+.gmxp-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    width: 40%; /* Could be more or less, depending on screen size */
+}
+
+/*.gmxp-popup .gmxp-bar {      margin-top:30px; }
+.gmxp-popup .gmxp-progress { height: 30px; }*/
+
+
