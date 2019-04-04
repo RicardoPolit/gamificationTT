@@ -17,7 +17,6 @@ session_start();
 class block_gmxp extends block_base{
 
     /* @Override */
-	global $PAGE;
 
 	public function init(){
 	    $this->title = get_string("gmxp","block_gmxp");
@@ -25,21 +24,21 @@ class block_gmxp extends block_base{
 
 	public function get_content() {	
 	
+	    global $PAGE;
+	    
 	    if($this->content !== null){
 	        return $this->content;
 	    }
 
 	    $this->content = new StdClass;
-	    $this->content->text   = $this->htmlMedal(null,13);
-
-            $this->representarDeExperiencia();
-
+	    $this->content->text   = $this->htmlMedal(null,3);
+        //$this->representarDeExperiencia();
 	    $this->content->footer = $this->htmlProgressBar(3,100,200,100);
-	    $this->content->footer.= $this->htmlPopUp(null,13,26);
+	    $this->content->footer.= $this->htmlPopUp(null,3,26);
 	   
 	    $experience = array("inicio"=>0,"final"=>53);
 	    $PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
-	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
+	    //$PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
 
 	    return $this->content;
 	}
@@ -84,7 +83,8 @@ class block_gmxp extends block_base{
                     "</div>
                </div>";
     }
-    private function representarDeExperiencia($PAGE)
+    
+    /*private function representarDeExperiencia()
         {
             global $USER;
             $exp_act = $_SESSION['Gamedle']['user_xp'] ;
@@ -106,7 +106,7 @@ class block_gmxp extends block_base{
 
                         }
                 }
-        }
+        }*/
 
 }
 
