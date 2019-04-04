@@ -46,3 +46,13 @@
 .gmxp-progress {
     height: 10px;
 }
+
+.gmxp-txt-lvl {
+    width: 100%;
+
+}
+
+
+.gmxp-txt-lvl, b {
+    float: right;
+}

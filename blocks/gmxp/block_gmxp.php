@@ -28,10 +28,10 @@ class block_gmxp extends block_base{
 	    if($this->content !== null){
 	        return $this->content;
 	    }
-	    
+
 	    $this->content = new StdClass;
 	    $this->content->text   = $this->htmlMedal(null,13,"#31a7f1");
-	    $this->content->footer = $this->htmlProgressBar("#1177d1",3);
+	    $this->content->footer = $this->htmlProgressBar("#1177d1",3,100,200,100);
 	    
 	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array(array("inicio"=>4,"final"=>99)));
 	    return $this->content;
@@ -55,8 +55,15 @@ class block_gmxp extends block_base{
                </div>";
     }
     
-    private function htmlProgressBar($color,$progress){
-        return "<div class=\"gmxp-bar\"><div class=\"gmxp-progress\" style=\"width:$progress%;background-color:$color\"></div></div>";
+    private function htmlProgressBar($color,$progress,$exp_act,$exp_neces,$acumulada){
+        return "<div class=\"gmxp-bar\">
+                    <div class=\"gmxp-progress\" style=\"width:$progress%;background-color:$color\">
+                    </div>
+                </div>
+                <div>
+                    <p  class='gmxp-txt-lvl'> Exp. del Nivel: <b>$exp_act/$exp_neces </b></p>
+                    <p  class='gmxp-txt-lvl'> Exp. total: <b > $acumulada</b></p>
+                </div>";
     }
 }
 
