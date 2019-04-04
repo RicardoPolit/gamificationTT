@@ -21,7 +21,6 @@ class block_gmxp extends block_base{
 	    $this->title = get_string("gmxp","block_gmxp");
 	}
 
-	/* @Override */
 	public function get_content() {
 	
 	    global $PAGE;
@@ -31,7 +30,7 @@ class block_gmxp extends block_base{
 	    }
 	    
 	    $this->content = new StdClass;
-	    $this->content->text   = $this->htmlMedal(null,0);
+	    $this->content->text   = $this->htmlMedal(null,13,"#31a7f1");
 	    $this->content->footer = $this->htmlProgressBar("#1177d1");
 	    
 	    $PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init');
@@ -41,15 +40,19 @@ class block_gmxp extends block_base{
     function has_config() { return true; }
     function hide_header() { return false; }
   
-    /* PRIVATE METHODS TO ORGANIZE VIEW */  
+  
+    /* PRIVATE METHODS TO ORGANIZE VIEW */
     private function htmlMedal($urlimage,$level,$color){
         if($urlimage==null)
-            $urlimage = "https://www.expressmedals.com/v/vspfiles/photos/030-1.jpg";
+            $urlimage = "http://www.escom.ipn.mx/images/escudoESCOM.jpg";
             
         if($level<1)
             $level = 1;
             
-        return "<div><img src=\"$urlimage\" class=\"gmxp-medal\"/></div>";
+        return "<div class=\"gmxp-container\">
+                   <img class=\"gmxp-medal\" src=\"$urlimage\" />
+                   <div class=\"gmxp-level\" style=\"color:$color\">$level</div>
+               </div>";
     }
     
     private function htmlProgressBar($color){
