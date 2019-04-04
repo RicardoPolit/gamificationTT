@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/gamedlemaster/db" VERSION="20190401" COMMENT="Prueba de concepto para la creacion de los XML"
+<XMLDB PATH="local/gamedlemaster/db" VERSION="20190404" COMMENT="Prueba de concepto para la creacion de los XML"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -110,19 +110,6 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="gmdl_componente" COMMENT="Informacion de los componentes">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="nombre" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Nombre del componente"/>
-        <FIELD NAME="activo" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Si el componente esta o no activado"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="nombre" UNIQUE="true" FIELDS="nombre"/>
-      </INDEXES>
-    </TABLE>
     <TABLE NAME="gmdl_condicion" COMMENT="Condicion que se usa para desbloquear logros, estas pueden ser usadas por diversos logros y así no se repetirian">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
@@ -138,7 +125,7 @@
     <TABLE NAME="gmdl_logro" COMMENT="Caraceristicas del logro visibles para el alumno">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="gmdl_id_componente" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Refrencia  nuestra tabla componente"/>
+        <FIELD NAME="modulo" TYPE="char" LENGTH="15" NOTNULL="true" SEQUENCE="false" COMMENT="Refrencia  nuestra tabla componente"/>
         <FIELD NAME="icono" TYPE="char" LENGTH="100" NOTNULL="true" DEFAULT="./" SEQUENCE="false" COMMENT="ruta al icono del logro"/>
         <FIELD NAME="nombre" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="El logro" SEQUENCE="false" COMMENT="Nombre identificativo al logro para el usuario"/>
         <FIELD NAME="descripcion" TYPE="char" LENGTH="140" NOTNULL="true" DEFAULT="Has algo!" SEQUENCE="false" COMMENT="Texto que le indica al usuario como desbloquear el logro"/>
@@ -146,8 +133,10 @@
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="gmdl_id_componente" TYPE="foreign" FIELDS="gmdl_id_componente" REFTABLE="gmdl_componente" REFFIELDS="id"/>
       </KEYS>
+      <INDEXES>
+        <INDEX NAME="nombre" UNIQUE="true" FIELDS="nombre"/>
+      </INDEXES>
     </TABLE>
     <TABLE NAME="gmdl_evento" COMMENT="Eventos que por el momento nos indican que logros pueden llegar a desbloquear">
       <FIELDS>
