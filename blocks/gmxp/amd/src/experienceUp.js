@@ -1,5 +1,5 @@
 
-define(['experienciaUp'], function($) {
+define(['jquery'], function($) {
  
     return {
         init: function() {
