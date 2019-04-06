@@ -49,16 +49,25 @@ class block_gmxp extends block_base{
   
     /* PRIVATE METHODS TO ORGANIZE VIEW */
     private function htmlMedal($urlimage,$level){
-        if($urlimage==null)
-            $urlimage = "http://www.escom.ipn.mx/images/escudoESCOM.jpg";
+        if($urlimage==null){
+
+            $logo = get_config('core_admin', 'logo');
+            $filepath = ((int) 0 . 'x' . (int) 0) . '/';
+
+            $urlimage = moodle_url::make_pluginfile_url(context_system::instance()->id, 'core_admin', 'logo', $filepath,
+                theme_get_revision(), $logo);
+
+            //$urlimage = moodle_url::make_pluginfile_url(context_system::instance()->id, 'block_gmxp', 'imageDefecto', $filepath, 1554571406, get_config('block_gmxp', 'imageDefecto'));
+        }
+
             
         if($level<1)
             $level = 1;
             
-        return "<div class=\"gmxp-container\">
-                   <img class=\"gmxp-medal\" src=\"$urlimage\" />
+        return "<div class=\"gmxp-container\">".
+                   "<img class=\"gmxp-medal\" src=\"$urlimage\" />
                    <div class=\"gmxp-level\" style=\"color:".get_config('block_gmxp','defaultColorPickerLevels')."\">$level</div>
-               </div>";
+               </div>".$urlimage;
     }
     
     private function htmlProgressBar($progress,$exp_act,$exp_neces,$acumulada){
@@ -67,9 +76,9 @@ class block_gmxp extends block_base{
                       style=\"width:$progress%;background-color:".get_config('block_gmxp','defaultColorPickerLevels')."\">
                     </div>
                 </div>
-                <div>
-                    <p  class='gmxp-txt-lvl'> Exp. del Nivel: <b>$exp_act/$exp_neces </b></p>
-                    <p  class='gmxp-txt-lvl'> Exp. total: <b > $acumulada</b></p>
+                <div class='gmxp-txt-lvl'>
+                    Level XP: <b>$exp_act/$exp_neces </b><br>
+                    Total XP: <b> $acumulada</b>
                 </div>";
     }
     
