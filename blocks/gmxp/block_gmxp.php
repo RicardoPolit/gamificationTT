@@ -17,7 +17,6 @@ session_start();
 class block_gmxp extends block_base{
 
     /* @Override */
-
 	public function init(){
 	    $this->title = get_string("gmxp","block_gmxp");
 	}
@@ -25,49 +24,43 @@ class block_gmxp extends block_base{
 	public function get_content() {	
 	
 	    global $PAGE;
-	    
+
 	    if($this->content !== null){
 	        return $this->content;
 	    }
 
 	    $this->content = new StdClass;
-	    $this->content->text   = $this->htmlMedal(null,3);
+	    $this->content->text   = $this->htmlMedal(3);
         //$this->representarDeExperiencia();
 	    $this->content->footer = $this->htmlProgressBar(3,100,200,100);
-	    $this->content->footer.= $this->htmlPopUp(null,3,26);
+	    $this->content->footer.= $this->htmlPopUp(3,26);
 	   
 	    $experience = array("inicio"=>0,"final"=>53);
 	    $PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
 	    //$PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
-
 	    return $this->content;
 	}
 
     function has_config() { return true; }
     function hide_header() { return false; }
-    
-  
+
+
     /* PRIVATE METHODS TO ORGANIZE VIEW */
-    private function htmlMedal($urlimage,$level){
-        if($urlimage==null){
+    private function getLevelImage(){
+        $image = get_config('block_gmxp', 'imageDefecto');
+        return moodle_url::make_pluginfile_url($this->context->id, 'block_gmxp', "level_images_simplehtml", 110, "/level1", $image);
+    }
 
-            $logo = get_config('core_admin', 'logo');
-            $filepath = ((int) 0 . 'x' . (int) 0) . '/';
-
-            $urlimage = moodle_url::make_pluginfile_url(context_system::instance()->id, 'core_admin', 'logo', $filepath,
-                theme_get_revision(), $logo);
-
-            //$urlimage = moodle_url::make_pluginfile_url(context_system::instance()->id, 'block_gmxp', 'imageDefecto', $filepath, 1554571406, get_config('block_gmxp', 'imageDefecto'));
-        }
-
+    private function htmlMedal($level){
+        $urlimage = $this->getLevelImage();
             
         if($level<1)
             $level = 1;
-            
+
         return "<div class=\"gmxp-container\">".
                    "<img class=\"gmxp-medal\" src=\"$urlimage\" />
                    <div class=\"gmxp-level\" style=\"color:".get_config('block_gmxp','defaultColorPickerLevels')."\">$level</div>
-               </div>".$urlimage;
+               </div>";
     }
     
     private function htmlProgressBar($progress,$exp_act,$exp_neces,$acumulada){
@@ -82,11 +75,13 @@ class block_gmxp extends block_base{
                 </div>";
     }
     
-    private function htmlPopup($urlimage,$level,$progress){
+    private function htmlPopup($level,$progress){
+        $urlimage = $this->getLevelImage();
+
         return "<div id=\"gmxp-popup\">
                    <div id=\"gmxp-content\">
                         <div class=\"gmxp-title\">".get_config('block_gmxp','defaultLevelsMessage')."</div>".
-                        $this->htmlMedal($urlimage,$level).
+                        $this->htmlMedal($level).
                         "<div class=\"gmxp-level-name\"><b>".get_config('block_gmxp','defaultLevelsName')."</b></div>".
                         "<div class=\"gmxp-desc\">Descripcion de un nivel bien bonito carnal</div>".
                     "</div>
@@ -116,7 +111,6 @@ class block_gmxp extends block_base{
                         }
                 }
         }*/
-
 }
 
 
