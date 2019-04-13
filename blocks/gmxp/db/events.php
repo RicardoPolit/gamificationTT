@@ -21,12 +21,13 @@ $observers = array (
     array (
         'eventname' => 'core\event\course_completed',
         'callback'  => 'block_gmxp_observer::courseCompleted',
-        'internal'  => false
+        'internal'  => false,
+        'priority'  => 9999,
     ),
     array (
         'eventname' => 'core\event\course_completion_updated',
         'callback'  => 'block_gmxp_observer::courseCompletionUpdated',
-    )
+    ),
 );
 
 ?>
