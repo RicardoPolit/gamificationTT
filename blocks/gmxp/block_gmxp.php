@@ -31,13 +31,18 @@ class block_gmxp extends block_base{
 
 	    $this->content = new StdClass;
 	    $this->content->text   = $this->htmlMedal(3);
+
         //$this->representarDeExperiencia();
 	    $this->content->footer = $this->htmlProgressBar(3,100,200,100);
-	    $this->content->footer.= $this->htmlPopUp(3,26);
+	    $this->content->footer.= $this->htmlPopUp(3);
 	   
 	    $experience = array("inicio"=>0,"final"=>53);
-	    $PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
-	    //$PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
+	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
+	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
+	    
+	    echo("<script>console.log('AS: ". $_SESSION['Gamedle']['AS'] ."');</script>"); // DEBUG FOR EVENTS
+        echo("<script>console.log('CC: ". $_SESSION['Gamedle']['CC']. "');</script>"); // DEBUG FOR EVENTS
+        echo("<script>console.log('CCU: ".$_SESSION['Gamedle']['CCU']."');</script>"); // DEBUG FOR EVENTS
 	    return $this->content;
 	}
 
@@ -75,9 +80,7 @@ class block_gmxp extends block_base{
                 </div>";
     }
     
-    private function htmlPopup($level,$progress){
-        $urlimage = $this->getLevelImage();
-
+    private function htmlPopup($level){
         return "<div id=\"gmxp-popup\">
                    <div id=\"gmxp-content\">
                         <div class=\"gmxp-title\">".get_config('block_gmxp','defaultLevelsMessage')."</div>".
