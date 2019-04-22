@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/gamedlemaster/db" VERSION="20190404" COMMENT="Prueba de concepto para la creacion de los XML"
+<XMLDB PATH="local/gamedlemaster/db" VERSION="20190422" COMMENT="Prueba de concepto para la creacion de los XML"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -16,57 +16,20 @@
         <KEY NAME="mdl_id_usuario" TYPE="unique" FIELDS="mdl_id_usuario"/>
       </KEYS>
     </TABLE>
-    <TABLE NAME="gmdl_curso" COMMENT="Configuraciones individuales de los cursos gamificados">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="mdl_id_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a la tabla course de moodle"/>
-        <FIELD NAME="habilitado" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="SI el curso quiere contar o no con gamificacion"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="mdl_id_curso" TYPE="unique" FIELDS="mdl_id_curso"/>
-      </KEYS>
-    </TABLE>
     <TABLE NAME="gmdl_alumno" COMMENT="Un usuario se conviete en alumno, cuando cursa un curso">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="gmdl_id_usuario" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a la tabla gmdl_usuario"/>
-        <FIELD NAME="gmdl_id_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a la tabla gmdl_curso"/>
+        <FIELD NAME="mdl_id_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a la tabla gmdl_curso"/>
         <FIELD NAME="experiencia_total_recibida" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Experiencia que ha recibido el usuario a lo largo del curso"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
         <KEY NAME="gmdl_id_usuario" TYPE="foreign" FIELDS="gmdl_id_usuario" REFTABLE="gmdl_usuario" REFFIELDS="mdl_id_usuario"/>
-        <KEY NAME="gmdl_id_curso" TYPE="foreign" FIELDS="gmdl_id_curso" REFTABLE="gmdl_curso" REFFIELDS="mdl_id_curso"/>
+        <KEY NAME="mdl_id_curso" TYPE="foreign" FIELDS="mdl_id_curso" REFTABLE="course" REFFIELDS="id"/>
       </KEYS>
       <INDEXES>
-        <INDEX NAME="gmdl_id_usuario-gmdl_id_curso" UNIQUE="true" FIELDS="gmdl_id_usuario, gmdl_id_curso"/>
-      </INDEXES>
-    </TABLE>
-    <TABLE NAME="gmdl_seccion_curso" COMMENT="Configuracion de las secciones que contiene un curso">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="mdl_id_seccion_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="experiencia_de_seccion" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="La experiencia que tendra esta seccion"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="mdl_id_seccion_curso" UNIQUE="true" FIELDS="mdl_id_seccion_curso"/>
-      </INDEXES>
-    </TABLE>
-    <TABLE NAME="gmdl_actividad_seccion" COMMENT="Configuraciones de las actividades de las secciones de los cursos, una especializacion de la tabla mdl_course_modules">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="mdl_id_actividad_seccion" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="experiencia_de_actividad" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="La experiencia que se dara al terminar dicha actividad"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="mdl_id_actividad_seccion" UNIQUE="true" FIELDS="mdl_id_actividad_seccion"/>
+        <INDEX NAME="gmdl_id_usuario-mdl_id_curso" UNIQUE="true" FIELDS="gmdl_id_usuario, mdl_id_curso"/>
       </INDEXES>
     </TABLE>
     <TABLE NAME="gmdl_nivel_categoria_curso" COMMENT="Nivel que tiene un usuario en un tipo de curso">
@@ -93,18 +56,8 @@
         <FIELD NAME="nivel_inferior" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Limite cerrado inferior del nivel que debe de tener el alumno"/>
         <FIELD NAME="nivel_superior" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Limite cerrado superior del nivel que debe tener el alumno"/>
         <FIELD NAME="imagen" TYPE="char" LENGTH="150" NOTNULL="true" DEFAULT="./" SEQUENCE="false" COMMENT="ruta donde se guardara la imagen del usuario"/>
-        <FIELD NAME="mensaje" TYPE="char" LENGTH="200" NOTNULL="true" DEFAULT="Eres el mejor, bien hecho!" SEQUENCE="false" COMMENT="Mensaje que se le mostrara al usuario al subir a un nivel dentro de ese rango"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-      </KEYS>
-    </TABLE>
-    <TABLE NAME="gmdl_configuracion" COMMENT="Opciones globales de configuracion">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="nombre" TYPE="char" LENGTH="50" NOTNULL="true" SEQUENCE="false" COMMENT="Cadena identificadora de la configuracion"/>
-        <FIELD NAME="valor" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" COMMENT="Cadena que almacena el estado actual de la configuracion"/>
-        <FIELD NAME="descripcion" TYPE="char" LENGTH="250" NOTNULL="true" SEQUENCE="false" COMMENT="Explicacion al usuario de que hace eta opcion de la configuracion"/>
+        <FIELD NAME="mensaje" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="Eres el mejor, bien hecho!" SEQUENCE="false" COMMENT="Mensaje que se le mostrara al usuario al subir a un nivel dentro de ese rango"/>
+        <FIELD NAME="descripcion" TYPE="char" LENGTH="200" NOTNULL="true" DEFAULT="Los niveles son infinitos, o crees poderme demostrar lo contrario?" SEQUENCE="false" COMMENT="Una descripcion para el rango"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -130,6 +83,7 @@
         <FIELD NAME="nombre" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="El logro" SEQUENCE="false" COMMENT="Nombre identificativo al logro para el usuario"/>
         <FIELD NAME="descripcion" TYPE="char" LENGTH="140" NOTNULL="true" DEFAULT="Has algo!" SEQUENCE="false" COMMENT="Texto que le indica al usuario como desbloquear el logro"/>
         <FIELD NAME="experiencia_de_logro" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="100" SEQUENCE="false" COMMENT="La experiencia que otorgara el logro al ser desbloqueado"/>
+        <FIELD NAME="tipo" TYPE="char" LENGTH="1" NOTNULL="true" DEFAULT="A" SEQUENCE="false" COMMENT="Que tipo de logro es. SI a nivel curso o plataforma y si es una advertencia o un logro normal"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -141,11 +95,14 @@
     <TABLE NAME="gmdl_evento" COMMENT="Eventos que por el momento nos indican que logros pueden llegar a desbloquear">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="nombre_evento" TYPE="char" LENGTH="30" NOTNULL="true" SEQUENCE="false" COMMENT="Nombre del evento"/>
+        <FIELD NAME="nombre_evento" TYPE="char" LENGTH="100" NOTNULL="true" SEQUENCE="false" COMMENT="Nombre del evento"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
+      <INDEXES>
+        <INDEX NAME="nombre_evento" UNIQUE="true" FIELDS="nombre_evento"/>
+      </INDEXES>
     </TABLE>
     <TABLE NAME="gmdl_evento_logro" COMMENT="Evento que puede desbloquear el logro indicado">
       <FIELDS>
@@ -177,20 +134,39 @@
         <INDEX NAME="gmdl_id_logro-gmdl_id_condicion" UNIQUE="true" FIELDS="gmdl_id_logro, gmdl_id_condicion"/>
       </INDEXES>
     </TABLE>
-    <TABLE NAME="gmdl_usuario_logro" COMMENT="Bitacora que ve que logros ya desbloqueo o que no ha desbloqueado el usuaio">
+    <TABLE NAME="gmdl_usuario_logro_curso" COMMENT="Bitacora que ve que logros ya desbloqueo o que no ha desbloqueado el usuaio">
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="gmdl_id_usuario" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a nuestra tabla usuario"/>
         <FIELD NAME="gmdl_id_logro" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia  a  nuestra tabla de logro"/>
-        <FIELD NAME="gmdl_id_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
-        <FIELD NAME="desbloqueado" TYPE="int" LENGTH="1" NOTNULL="true" SEQUENCE="false" COMMENT="Bandera que indica si esta desbloqueado el logro"/>
+        <FIELD NAME="mdl_id_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+        <FIELD NAME="cuando" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="fecha de cuando se obtuvo este logro"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
         <KEY NAME="gmdl_id_usuario" TYPE="foreign" FIELDS="gmdl_id_usuario" REFTABLE="gmdl_usuario" REFFIELDS="mdl_id_usuario"/>
         <KEY NAME="gmdl_id_logro" TYPE="foreign" FIELDS="gmdl_id_logro" REFTABLE="gmdl_logro" REFFIELDS="id"/>
-        <KEY NAME="gmdl_id_curso" TYPE="foreign" FIELDS="gmdl_id_curso" REFTABLE="gmdl_curso" REFFIELDS="mdl_id_curso"/>
+        <KEY NAME="mdl_id_curso" TYPE="foreign" FIELDS="mdl_id_curso" REFTABLE="course" REFFIELDS="id"/>
       </KEYS>
+      <INDEXES>
+        <INDEX NAME="gmdl_id_usuario-gmdl_id_logro-mdl_id_curso" UNIQUE="true" FIELDS="gmdl_id_usuario, gmdl_id_logro, mdl_id_curso"/>
+      </INDEXES>
+    </TABLE>
+    <TABLE NAME="gmdl_usuario_logro_global" COMMENT="Aqui se guardan todos los logros globales desboqueados">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="gmdl_id_usuario" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a nuestra tabla usuario"/>
+        <FIELD NAME="gmdl_id_logro" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia  a  nuestra tabla de logro"/>
+        <FIELD NAME="cuando" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="fecha de cuando se obtuvo este logro"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="gmdl_id_usuario" TYPE="foreign" FIELDS="gmdl_id_usuario" REFTABLE="gmdl_usuario" REFFIELDS="mdl_id_usuario"/>
+        <KEY NAME="gmdl_id_logro" TYPE="foreign" FIELDS="gmdl_id_logro" REFTABLE="gmdl_logro" REFFIELDS="id"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="gmdl_id_usuario-gmdl_id_logro" UNIQUE="true" FIELDS="gmdl_id_usuario, gmdl_id_logro"/>
+      </INDEXES>
     </TABLE>
   </TABLES>
 </XMLDB>

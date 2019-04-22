@@ -2,23 +2,36 @@
 
 
 
-	   function xmldb_local_gamedlemaster_upgrade($oldversion,$block)
+	   function xmldb_local_gamedlemaster_upgrade($oldversion)
        {
 
            if ($oldversion < 2019033100) {
 
                upgrades2019033100();
                upgrades2019040300();
+               upgrades2019042100();
+               upgrades2019042101();
            }
            else if ($oldversion < 2019040300) {
 
                upgrades2019040300();
+               upgrades2019042100();
+               upgrades2019042101();
            }
-           else if($oldversion < 2019040306 )
+           /*else if($oldversion < 2019040306 )
                 {
-                    copiarUsuarios();
+                    //copiarUsuarios();
                     upgrade_plugin_savepoint(true, 2019040306, 'local', 'gamedlemaster');
+                }*/
+           else if($oldversion < 2019042100)
+                {
+                    upgrades2019042100();
+                    upgrades2019042101();
                 }
+           else if($oldversion < 2019042101)
+               {
+                   upgrades2019042101();
+               }
 
 			return true;
 		}
@@ -231,9 +244,248 @@ function upgrades2019040300()
             $dbman->drop_table($table);
         }
 
-        copiarUsuarios();
+        //copiarUsuarios();
         upgrade_plugin_savepoint(true, 2019040300, 'local', 'gamedlemaster');
     }
+
+function upgrades2019042100()
+{
+
+
+    global $DB;
+    $dbman = $DB->get_manager();
+
+    // Define key gmdl_id_curso (foreign) to be dropped form gmdl_alumno.
+    $table = new xmldb_table('gmdl_alumno');
+    $key = new xmldb_key('gmdl_id_curso', XMLDB_KEY_FOREIGN, array('gmdl_id_curso'), 'gmdl_curso', array('mdl_id_curso'));
+    // Launch drop key gmdl_id_curso.
+    $dbman->drop_key($table, $key);
+
+
+    // Define index gmdl_id_usuario-gmdl_id_curso (unique) to be dropped form gmdl_alumno.
+    $table = new xmldb_table('gmdl_alumno');
+    $index = new xmldb_index('gmdl_id_usuario-gmdl_id_curso', XMLDB_INDEX_UNIQUE, array('gmdl_id_usuario', 'gmdl_id_curso'));
+    // Conditionally launch drop index gmdl_id_usuario-gmdl_id_curso.
+    if ($dbman->index_exists($table, $index)) {
+        $dbman->drop_index($table, $index);
+    }
+
+
+    // Rename field mdl_id_curso on table gmdl_alumno to mdl_id_curso.
+    $table = new xmldb_table('gmdl_alumno');
+    $field = new xmldb_field('gmdl_id_curso', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'gmdl_id_usuario');
+    // Launch rename field mdl_id_curso.
+    $dbman->rename_field($table, $field, 'mdl_id_curso');
+
+
+    // Define key mdl_id_curso (foreign-unique) to be added to gmdl_alumno.
+    $table = new xmldb_table('gmdl_alumno');
+    $key = new xmldb_key('mdl_id_curso', XMLDB_KEY_FOREIGN_UNIQUE, array('mdl_id_curso'), 'course', array('id'));
+    // Launch add key mdl_id_curso.
+    $dbman->add_key($table, $key);
+
+
+
+    // Define index gmdl_id_usuario-mdl_id_curso (unique) to be added to gmdl_alumno.
+    $table = new xmldb_table('gmdl_alumno');
+    $index = new xmldb_index('gmdl_id_usuario-mdl_id_curso', XMLDB_INDEX_UNIQUE, array('gmdl_id_usuario', 'mdl_id_curso'));
+    // Conditionally launch add index gmdl_id_usuario-mdl_id_curso.
+    if (!$dbman->index_exists($table, $index)) {
+        $dbman->add_index($table, $index);
+    }
+
+
+
+    // Define key gmdl_id_curso (foreign) to be dropped form gmdl_usuario_logro.
+    $table = new xmldb_table('gmdl_usuario_logro');
+    $key = new xmldb_key('gmdl_id_curso', XMLDB_KEY_FOREIGN, array('gmdl_id_curso'), 'gmdl_curso', array('mdl_id_curso'));
+    // Launch drop key gmdl_id_curso.
+    $dbman->drop_key($table, $key);
+
+
+
+    // Rename field gmdl_id_curso on table gmdl_usuario_logro to mdl_id_curso.
+    $table = new xmldb_table('gmdl_usuario_logro');
+    $field = new xmldb_field('gmdl_id_curso', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'gmdl_id_logro');
+    // Launch rename field gmdl_id_curso.
+    $dbman->rename_field($table, $field, 'mdl_id_curso');
+
+
+    // Define key mdl_id_curso (foreign-unique) to be added to gmdl_usuario_logro.
+    $table = new xmldb_table('gmdl_usuario_logro');
+    $key = new xmldb_key('mdl_id_curso', XMLDB_KEY_FOREIGN_UNIQUE, array('mdl_id_curso'), 'course', array('id'));
+    // Launch add key mdl_id_curso.
+    $dbman->add_key($table, $key);
+
+
+
+    // Define field desbloqueado to be dropped from gmdl_usuario_logro.
+    $table = new xmldb_table('gmdl_usuario_logro');
+    $field = new xmldb_field('desbloqueado');
+    // Conditionally launch drop field desbloqueado.
+    if ($dbman->field_exists($table, $field)) {
+        $dbman->drop_field($table, $field);
+    }
+
+
+    // Define field cuando to be added to gmdl_usuario_logro.
+    $table = new xmldb_table('gmdl_usuario_logro');
+    $field = new xmldb_field('cuando', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'mdl_id_curso');
+    // Conditionally launch add field cuando.
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+
+
+
+    // Define table gmdl_usuario_logro_curso to be renamed to NEWNAMEGOESHERE.
+    $table = new xmldb_table('gmdl_usuario_logro');
+    // Launch rename table for gmdl_usuario_logro_curso.
+    $dbman->rename_table($table, 'gmdl_usuario_logro_curso');
+
+
+    // Define field tipo to be added to gmdl_logro.
+    $table = new xmldb_table('gmdl_logro');
+    $field = new xmldb_field('tipo', XMLDB_TYPE_CHAR, '1', null, XMLDB_NOTNULL, null, 'A', 'experiencia_de_logro');
+    // Conditionally launch add field tipo.
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+
+
+    // Changing precision of field mensaje on table gmdl_rango_nivel to (50).
+    $table = new xmldb_table('gmdl_rango_nivel');
+    $field = new xmldb_field('mensaje', XMLDB_TYPE_CHAR, '50', null, XMLDB_NOTNULL, null, 'Eres el mejor, bien hecho!', 'imagen');
+    // Launch change of precision for field mensaje.
+    $dbman->change_field_precision($table, $field);
+
+
+
+    // Define field descripcion to be added to gmdl_rango_nivel.
+    $table = new xmldb_table('gmdl_rango_nivel');
+    $field = new xmldb_field('descripcion', XMLDB_TYPE_CHAR, '200', null, XMLDB_NOTNULL, null, 'Los niveles son infinitos, o crees poderme demostrar lo contrario?', 'mensaje');
+    // Conditionally launch add field descripcion.
+    if (!$dbman->field_exists($table, $field)) {
+        $dbman->add_field($table, $field);
+    }
+
+
+    // Define table gmdl_seccion_curso to be dropped.
+    $table = new xmldb_table('gmdl_seccion_curso');
+    // Conditionally launch drop table for gmdl_seccion_curso.
+    if ($dbman->table_exists($table)) {
+        $dbman->drop_table($table);
+    }
+
+    // Define table gmdl_seccion_curso to be dropped.
+    $table = new xmldb_table('gmdl_actividad_seccion');
+    // Conditionally launch drop table for gmdl_seccion_curso.
+    if ($dbman->table_exists($table)) {
+        $dbman->drop_table($table);
+    }
+
+
+    // Define table gmdl_seccion_curso to be dropped.
+    $table = new xmldb_table('gmdl_curso');
+    // Conditionally launch drop table for gmdl_seccion_curso.
+    if ($dbman->table_exists($table)) {
+        $dbman->drop_table($table);
+    }
+
+
+
+    // Define table gmdl_usuario_logro_global to be created.
+    $table = new xmldb_table('gmdl_usuario_logro_global');
+
+    // Adding fields to table gmdl_usuario_logro_global.
+    $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+    $table->add_field('gmdl_id_usuario', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+    $table->add_field('gmdl_id_logro', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+    $table->add_field('cuando', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+    // Adding keys to table gmdl_usuario_logro_global.
+    $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+    $table->add_key('gmdl_id_usuario', XMLDB_KEY_FOREIGN, array('gmdl_id_usuario'), 'gmdl_usuario', array('mdl_id_usuario'));
+    $table->add_key('gmdl_id_logro', XMLDB_KEY_FOREIGN, array('gmdl_id_logro'), 'gmdl_logro', array('id'));
+
+    // Adding indexes to table gmdl_usuario_logro_global.
+    $table->add_index('gmdl_id_usuario-gmdl_id_logro', XMLDB_INDEX_UNIQUE, array('gmdl_id_usuario', 'gmdl_id_logro'));
+
+    // Conditionally launch create table for gmdl_usuario_logro_global.
+    if (!$dbman->table_exists($table)) {
+        $dbman->create_table($table);
+    }
+
+
+
+    // Gamedlemaster savepoint reached.
+    upgrade_plugin_savepoint(true, 2019042100, 'local', 'gamedlemaster');
+
+
+}
+
+function upgrades2019042101()
+{
+
+
+    global $DB;
+    $dbman = $DB->get_manager();
+    // Define key mdl_id_curso (foreign-unique) to be dropped form gmdl_alumno.
+        $table = new xmldb_table('gmdl_alumno');
+        $key = new xmldb_key('mdl_id_curso', XMLDB_KEY_FOREIGN_UNIQUE, array('mdl_id_curso'), 'course', array('id'));
+    // Launch drop key mdl_id_curso.
+        $dbman->drop_key($table, $key);
+
+
+    // Define key mdl_id_curso (foreign) to be added to gmdl_alumno.
+    $table = new xmldb_table('gmdl_alumno');
+    $key = new xmldb_key('mdl_id_curso', XMLDB_KEY_FOREIGN, array('mdl_id_curso'), 'course', array('id'));
+    // Launch add key mdl_id_curso.
+    $dbman->add_key($table, $key);
+
+
+    // Define key mdl_id_curso (foreign-unique) to be dropped form gmdl_usuario_logro_curso.
+    $table = new xmldb_table('gmdl_usuario_logro_curso');
+    $key = new xmldb_key('mdl_id_curso', XMLDB_KEY_FOREIGN_UNIQUE, array('mdl_id_curso'), 'course', array('id'));
+    // Launch drop key mdl_id_curso.
+    $dbman->drop_key($table, $key);
+
+
+    // Define key mdl_id_curso (foreign) to be added to gmdl_usuario_logro_curso.
+    $table = new xmldb_table('gmdl_usuario_logro_curso');
+    $key = new xmldb_key('mdl_id_curso', XMLDB_KEY_FOREIGN, array('mdl_id_curso'), 'course', array('id'));
+    // Launch add key mdl_id_curso.
+    $dbman->add_key($table, $key);
+
+
+    // Define index gmdl_id_usuario-gmdl_id_logro-mdl_id_curso (unique) to be added to gmdl_usuario_logro_curso.
+    $table = new xmldb_table('gmdl_usuario_logro_curso');
+    $index = new xmldb_index('gmdl_id_usuario-gmdl_id_logro-mdl_id_curso', XMLDB_INDEX_UNIQUE, array('gmdl_id_usuario', 'gmdl_id_logro', 'mdl_id_curso'));
+
+    // Conditionally launch add index gmdl_id_usuario-gmdl_id_logro-mdl_id_curso.
+    if (!$dbman->index_exists($table, $index)) {
+        $dbman->add_index($table, $index);
+    }
+
+    // Changing precision of field nombre_evento on table gmdl_evento to (100).
+    $table = new xmldb_table('gmdl_evento');
+    $field = new xmldb_field('nombre_evento', XMLDB_TYPE_CHAR, '100', null, XMLDB_NOTNULL, null, null, 'id');
+    // Launch change of precision for field nombre_evento.
+    $dbman->change_field_precision($table, $field);
+
+
+    // Define index nombre_evento (unique) to be added to gmdl_evento.
+    $table = new xmldb_table('gmdl_evento');
+    $index = new xmldb_index('nombre_evento', XMLDB_INDEX_UNIQUE, array('nombre_evento'));
+    // Conditionally launch add index nombre_evento.
+    if (!$dbman->index_exists($table, $index)) {
+        $dbman->add_index($table, $index);
+    }
+
+
+    // Gamedlemaster savepoint reached.
+    upgrade_plugin_savepoint(true, 2019042101, 'local', 'gamedlemaster');
+}
 
 function copiarUsuarios()
     {
