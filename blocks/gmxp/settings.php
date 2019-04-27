@@ -23,7 +23,7 @@ $settings->add(new admin_setting_configselect(
     get_string('typeOfIncrement', 'block_gmxp'),
     get_string('typeOfIncrementDesc', 'block_gmxp'),
     'percentage',
-    array('linear','percentage')
+    array(get_string('typeOfIncrementA', 'block_gmxp'),get_string('typeOfIncrementB', 'block_gmxp'))
 ));
 
 $settings->add(new admin_setting_configtext(
@@ -33,6 +33,16 @@ $settings->add(new admin_setting_configtext(
     1.3,
     PARAM_FLOAT,
     5
+));
+
+
+$settings->add(new admin_setting_configtext(
+    'block_gmxp/firstExpRequiried',
+    get_string('titleFirstExpRequired', 'block_gmxp'),
+    get_string('descFirstExpRequired', 'block_gmxp'),
+    1000,
+    PARAM_INT,
+    10
 ));
 
 $settings->add(new admin_setting_heading(
@@ -47,7 +57,7 @@ $settings->add(new admin_setting_configtext(
     get_string('descDefName', 'block_gmxp'),
     'Casual Levels',
     PARAM_TEXT,
-    20
+    60
 ));
 
 $settings->add(new admin_setting_configtext(
@@ -59,6 +69,17 @@ $settings->add(new admin_setting_configtext(
     50
 ));
 
+
+
+$settings->add(new admin_setting_configtext(
+    'block_gmxp/defaultLevelsDescription',
+    get_string('titleDefDescription', 'block_gmxp'),
+    get_string('descDefDescription', 'block_gmxp'),
+    'The levels are infinite or not?',
+    PARAM_RAW,
+    200
+));
+
 $settings->add(new admin_setting_configcolourpicker(
     'block_gmxp/defaultColorPickerLevels',
     get_string('defColorPick', 'block_gmxp'),
@@ -67,6 +88,17 @@ $settings->add(new admin_setting_configcolourpicker(
     null,
     true
 ));
+
+$settings->add(new admin_setting_configcolourpicker(
+    'block_gmxp/defaultColorPickerPrrogessBar',
+    get_string('defColorPickProgressBar', 'block_gmxp'),
+    get_string('defColorPickdesc','block_gmxp'),
+    '#0B619F',
+    null,
+    true
+));
+
+
 
 $settings->add(new admin_setting_configstoredfile(
     'block_gmxp/imageDefecto',

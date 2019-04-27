@@ -18,9 +18,9 @@
  */
 
 $plugin->component = 'block_gmxp';  // Recommended since 2.0.2 (MDL-26035). Required since 3.0 (MDL-48494)
-$plugin->version =  2019041314;     // YYYYMMDDHH (year, month, day, 24-hr time)
+$plugin->version =  2019042601;     // YYYYMMDDHH (year, month, day, 24-hr time)
 $plugin->requires = 2010112400;     // YYYYMMDDHH (This is the release version for Moodle 2.0)
 
 $plugin->dependencies = array(
-    'local_gamedlemaster' => ANY_VERSION // Should Specify the version
+    'local_gamedlemaster' => 2019042101 // Should Specify the version
 );
