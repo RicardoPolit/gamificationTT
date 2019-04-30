@@ -22,7 +22,7 @@ $settings->add(new admin_setting_configselect(
     'block_gmxp/typeOfIncrement',
     get_string('typeOfIncrement', 'block_gmxp'),
     get_string('typeOfIncrementDesc', 'block_gmxp'),
-    'percentage',
+    0,
     array(get_string('typeOfIncrementA', 'block_gmxp'),get_string('typeOfIncrementB', 'block_gmxp'))
 ));
 
