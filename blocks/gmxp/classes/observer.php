@@ -24,12 +24,18 @@ class block_gmxp_observer {
 
     private static function createSessionValues(){
 
-        if(!isset($_SESSION['Gamedle']['tmp'])){
+        if(!isset($_SESSION['Gamedle']))
             $_SESSION['Gamedle'] = array();
-            $_SESSION['Gamedle']['AS']  = "";
-            $_SESSION['Gamedle']['CC']  = "";
-            $_SESSION['Gamedle']['CCU'] = "";
-
+        
+        if(!isset($_SESSION['Gamedle']['AS']))
+            $_SESSION['Gamedle']['AS'] = "";
+            
+        if(!isset($_SESSION['Gamedle']['CC']))
+            $_SESSION['Gamedle']['CC'] = "";
+            
+        if(!isset($_SESSION['Gamedle']['CCU']))
+            $_SESSION['Gamedle']['CCU']  = "";
+            
             /*global $USER;
             global $DB;
             $result = $DB->get_record('gmdl_usuario',[ 'mdl_id_usuario' => $USER->id]);
@@ -40,7 +46,6 @@ class block_gmxp_observer {
             //$json_data = json_encode($event->get_data());
 
             //$_SESSION['Gamedle']['CC'] .= " * ".escapeJS($event->get_data()['eventname']);
-        }
     }
 
     public static function update(\mod_quiz\event\attempt_submitted $event) {
@@ -50,11 +55,10 @@ class block_gmxp_observer {
         $_SESSION['Gamedle']['AS'] .= "\\\\".json_encode($event->get_data())." * ";
     }
 
-    public static function courseCompleted(\core\event\course_completed $event){
+    public static function courseCompleted(\core\event\base $event){
         block_gmxp_observer::createSessionValues();
         $_SESSION['Gamedle']['CC'] .= "\\\\".json_encode($event->get_data());
     }
-
 
     public static function courseCompletionUpdated(\core\event\course_completion_updated $event){
         block_gmxp_observer::createSessionValues();
