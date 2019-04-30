@@ -70,7 +70,6 @@ $settings->add(new admin_setting_configtext(
 ));
 
 
-
 $settings->add(new admin_setting_configtext(
     'block_gmxp/defaultLevelsDescription',
     get_string('titleDefDescription', 'block_gmxp'),
@@ -90,15 +89,13 @@ $settings->add(new admin_setting_configcolourpicker(
 ));
 
 $settings->add(new admin_setting_configcolourpicker(
-    'block_gmxp/defaultColorPickerPrrogessBar',
+    'block_gmxp/defaultColorPickerProgressBar',
     get_string('defColorPickProgressBar', 'block_gmxp'),
     get_string('defColorPickdesc','block_gmxp'),
     '#0B619F',
     null,
     true
 ));
-
-
 
 $settings->add(new admin_setting_configstoredfile(
     'block_gmxp/imageDefecto',

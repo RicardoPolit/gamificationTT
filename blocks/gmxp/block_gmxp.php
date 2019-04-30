@@ -71,7 +71,7 @@ class block_gmxp extends block_base{
     private function htmlProgressBar($progress,$exp_act,$exp_neces,$acumulada){
         return "<div class=\"gmxp-bar\">
                     <div class=\"gmxp-progress\"
-                      style=\"width:$progress%;background-color:".get_config('block_gmxp','defaultColorPickerLevels')."\">
+                      style=\"width:$progress%;background-color:".get_config('block_gmxp','defaultColorPickerProgressBar')."\">
                     </div>
                 </div>
                 <div class='gmxp-txt-lvl'>
