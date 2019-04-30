@@ -22,7 +22,7 @@ $settings->add(new admin_setting_configselect(
     'block_gmxp/typeOfIncrement',
     get_string('typeOfIncrement', 'block_gmxp'),
     get_string('typeOfIncrementDesc', 'block_gmxp'),
-    'percentage',
+    0,
     array(get_string('typeOfIncrementA', 'block_gmxp'),get_string('typeOfIncrementB', 'block_gmxp'))
 ));
 
@@ -66,17 +66,18 @@ $settings->add(new admin_setting_configtext(
     get_string('descDefMessage', 'block_gmxp'),
     'CONGRATULATIONS',
     PARAM_RAW,
-    50
+    60
 ));
 
 
-$settings->add(new admin_setting_configtext(
+$settings->add(new admin_setting_configtextarea(
     'block_gmxp/defaultLevelsDescription',
     get_string('titleDefDescription', 'block_gmxp'),
     get_string('descDefDescription', 'block_gmxp'),
     'The levels are infinite or not?',
     PARAM_RAW,
-    200
+    5,
+    5
 ));
 
 $settings->add(new admin_setting_configcolourpicker(
