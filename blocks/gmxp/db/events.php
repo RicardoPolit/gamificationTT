@@ -16,15 +16,27 @@ defined('MOODLE_INTERNAL') || die();
 $observers = array (
     array (
         'eventname' => 'mod_quiz\event\attempt_submitted',
-        'callback'  => 'block_gmxp_observer::update',
+        'callback'  => 'block_gmxp_observer::attempt_submitted',
+    ),
+    array (
+        'eventname' => 'core\event\assessable_submitted',
+        'callback'  => 'block_gmxp_observer::assessable_submittedC',
+    ),
+    array (
+        'eventname' => 'mod_assign\event\assessable_submitted',
+        'callback'  => 'block_gmxp_observer::assessable_submittedM',
+    ),
+    array (
+        'eventname' => 'mod_choice\event\answer_submitted',
+        'callback'  => 'block_gmxp_observer::answer_submitted',
+    ),
+    array (
+        'eventname' => 'mod_feedback\event\response_submitted',
+        'callback'  => 'block_gmxp_observer::response_submitted',
     ),
     array (
         'eventname' => 'core\event\course_completed',
-        'callback'  => 'block_gmxp_observer::courseCompleted',
-    ),
-    array (
-        'eventname' => 'core\event\course_completion_updated',
-        'callback'  => 'block_gmxp_observer::courseCompletionUpdated',
+        'callback'  => 'block_gmxp_observer::course_completed',
     ),
 );
 

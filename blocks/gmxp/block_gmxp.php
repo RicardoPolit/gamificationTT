@@ -38,11 +38,15 @@ class block_gmxp extends block_base{
 	   
 	    $experience = array("inicio"=>0,"final"=>53);
 	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
-	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
-	    
-	    echo("<script>console.log('AS: ". $_SESSION['Gamedle']['AS'] ."');</script>"); // DEBUG FOR EVENTS
-        echo("<script>console.log('CC: ". $_SESSION['Gamedle']['CC']. "');</script>"); // DEBUG FOR EVENTS
-        echo("<script>console.log('CCU: ".$_SESSION['Gamedle']['CCU']."');</script>"); // DEBUG FOR EVENTS
+	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));	    
+        
+        echo("<script>console.log('Att: ".$_SESSION['Gamedle']['AttemptS'].  "');</script>");
+        echo("<script>console.log('AsC: ".$_SESSION['Gamedle']['AssesableC']."');</script>");
+        echo("<script>console.log('AsM: ".$_SESSION['Gamedle']['AssesableM']."');</script>");
+        echo("<script>console.log('Ans: ".$_SESSION['Gamedle']['AnswerS'].   "');</script>");
+        echo("<script>console.log('Res: ".$_SESSION['Gamedle']['Response'].  "');</script>");
+        echo("<script>console.log('Cou: ". file_get_contents( "proof.txt" ). "');</script>");
+        
 	    return $this->content;
 	}
 
