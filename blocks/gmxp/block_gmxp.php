@@ -12,8 +12,6 @@
  *		
 */
 
-session_start();
-
 class block_gmxp extends block_base{
 
     /* @Override */
@@ -21,7 +19,7 @@ class block_gmxp extends block_base{
 	    $this->title = get_string("gmxp","block_gmxp");
 	}
 
-	public function get_content() {	
+	public function get_content() {
 	
 	    global $PAGE;
 
@@ -39,14 +37,12 @@ class block_gmxp extends block_base{
 	    $experience = array("inicio"=>0,"final"=>53);
 	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
 	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));	    
+	    
+	    if(isset($_SESSION['Gamedle']))
+        $this->debugWebConsole("USER",$_SESSION['Gamedle']);
         
-        echo("<script>console.log('Att: ".$_SESSION['Gamedle']['AttemptS'].  "');</script>");
-        echo("<script>console.log('Com: ".$_SESSION['Gamedle']['Completion']."');</script>");
-        echo("<script>console.log('AsM: ".$_SESSION['Gamedle']['AssesableM']."');</script>");
-        echo("<script>console.log('Ans: ".$_SESSION['Gamedle']['AnswerS'].   "');</script>");
-        echo("<script>console.log('Res: ".$_SESSION['Gamedle']['Response'].  "');</script>");
+        //if(isset($_SESSION['Gamedle']['XP']['Extra']))
         //echo("<script>console.log('Cou: ". file_get_contents( "proof.txt" ). "');</script>");
-        
 	    return $this->content;
 	}
 
@@ -93,6 +89,10 @@ class block_gmxp extends block_base{
                         "<div class=\"gmxp-desc\">Descripcion de un nivel bien bonito carnal</div>".
                     "</div>
                </div>";
+    }
+    
+    private function debugWebConsole($tag,$object){
+        echo("<script>console.log('".$tag.": ".json_encode($object)."');</script>");
     }
     
     /*private function representarDeExperiencia()
