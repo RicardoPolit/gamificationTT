@@ -19,7 +19,7 @@ $observers = array (
         'callback'  => 'block_gmxp_observer::attempt_submitted',
     ),
     array (
-        'eventname' => 'core\event\assessable_submitted',
+        'eventname' => 'core\event\course_module_completion_updated',
         'callback'  => 'block_gmxp_observer::assessable_submittedC',
     ),
     array (

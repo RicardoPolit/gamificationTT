@@ -41,11 +41,11 @@ class block_gmxp extends block_base{
 	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));	    
         
         echo("<script>console.log('Att: ".$_SESSION['Gamedle']['AttemptS'].  "');</script>");
-        echo("<script>console.log('AsC: ".$_SESSION['Gamedle']['AssesableC']."');</script>");
+        echo("<script>console.log('Com: ".$_SESSION['Gamedle']['Completion']."');</script>");
         echo("<script>console.log('AsM: ".$_SESSION['Gamedle']['AssesableM']."');</script>");
         echo("<script>console.log('Ans: ".$_SESSION['Gamedle']['AnswerS'].   "');</script>");
         echo("<script>console.log('Res: ".$_SESSION['Gamedle']['Response'].  "');</script>");
-        echo("<script>console.log('Cou: ". file_get_contents( "proof.txt" ). "');</script>");
+        //echo("<script>console.log('Cou: ". file_get_contents( "proof.txt" ). "');</script>");
         
 	    return $this->content;
 	}
