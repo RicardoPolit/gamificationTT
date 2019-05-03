@@ -12,5 +12,6 @@
 !blocks/gmxp/**/*
 !local/gamedlemaster
 !local/gamedlemaster/**/*
+!course/format/
 !course/format/gamedle
 !course/format/gamedle/**/*
