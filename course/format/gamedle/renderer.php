@@ -11,9 +11,9 @@
  *               - DESCRIPCION
  *		
 */
-
 defined('MOODLE_INTERNAL') || die();
+require_once($CFG->dirroot.'/course/format/topics/renderer.php');
 
-$plugin->component = 'format_gamedle';
-$plugin->version =  2019050217; // YYYYMMDDHH (year, month, day, 24-hr time)
-$plugin->requires = 2014111000; // YYYYMMDDHH (This is the release version for Moodle 2.8)
+class format_gamedle_renderer extends format_topics_renderer{
+	
+}

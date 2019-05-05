@@ -16,63 +16,93 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot. '/course/format/topics/lib.php');
 
-class format_buttons extends format_topics{
-	
-	/* ATRIBUTES */
-	public function course_format_options($foreditform = false) {
-	
-	    // Static variable in order to no recreate it.
-        static $options = false;    
-        if($options === false){
+class format_gamedle extends format_topics {
+
+    /**
+     * Definitions of the additional options that this course format uses for course
+     *
+     *  Please read the docs of format/lib.php file.
+     *
+     * Topics format uses the following options (inherited):
+     * - coursedisplay
+     * - hiddensections
+     *
+     * Course format options can be accessed as:
+     * $this->get_course()->OPTIONNAME (inside the format class)
+     * course_get_format($course)->get_course()->OPTIONNAME (outside of format class)
+     *
+     * All course options are returned by calling:
+     * $this->get_format_options();
+     *
+     * @param bool $foreditform
+     * @return array of options
+     */
+    public function course_format_options($foreditform = false) {
+        static $options = false;
+        if ($options === false) {
             $courseconfig = get_config('moodlecourse');
-            
-            /* Default options for Topics Format */
-            $options = array(
-                'hiddensections' => array(
-                    'default' => $courseconfig->hiddensections,
-                    'type' => PARAM_INT,
-                ),
-                'coursedisplay' => array(
-                    'default' => $courseconfig->coursedisplay,
-                    'type' => PARAM_INT,
-                ),
+
+            $options = array();
+            $options['hiddensections'] = array(
+                'default' => $courseconfig->hiddensections,
+                'type' => PARAM_INT,
             );
-            
-            /* Added options for Gamedle */
+            $options['coursedisplay'] = array(
+                'default' => $courseconfig->coursedisplay,
+                'type' => PARAM_INT,
+            );
+            $options['xpEnabled'] = array(
+                'default' => 1,
+                'type' => PARAM_INT,
+            );
         }
-        
-        if($foreditform && !isset($options['coursedisplay']['label'])){
-        
-            /* Default options for Topics Format */
-            $optionsEdit = array(
-                'hiddensections' => array(
-                    'label' => new lang_string('hiddensections'),
-                    'element_type' => 'select',
-                    'element_attributes' => array( array(
+        if ($foreditform && !isset($options['coursedisplay']['label'])) {
+            $optionsedit = array();
+
+            $optionsedit['hiddensections'] = array(
+                'label' => new lang_string('hiddensections'),
+                'element_type' => 'select',
+                'element_attributes' => array(
+                    array(
                         0 => new lang_string('hiddensectionscollapsed'),
-                        1 => new lang_string('hiddensectionsinvisible'))
-                    ),
-                    'help' => 'hiddensections',
-                    'help_component' => 'moodle',
+                        1 => new lang_string('hiddensectionsinvisible')
+                    )
                 ),
-                'coursedisplay' => array(
-                    'label' => new lang_string('coursedisplay'),
-                    'element_type' => 'select',
-                    'element_attributes' => array(array(
-                        COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
-                        COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi'))
-                    ),
-                    'help' => 'coursedisplay',
-                    'help_component' => 'moodle',
-                )
+                'help' => 'hiddensections',
+                'help_component' => 'moodle',
             );
-            
-            /* Added options for Gamedle */
-            
-            $options = array_merge_recursive($options, $optionsEdit);
+
+            $optionsedit['coursedisplay'] = array(
+                'label' => new lang_string('coursedisplay'),
+                'element_type' => 'select',
+                'element_attributes' => array(
+                    array(
+                        COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
+                        COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
+                    )
+                ),
+                'help' => 'coursedisplay',
+                'help_component' => 'moodle',
+            );
+
+            $optionsedit['xpEnabled'] = array(
+                'label' => new lang_string('optionXP','format_gamedle'),
+                'element_type' => 'advcheckbox',
+                'element_attributes' => array(
+                    new lang_string('optionXP_desc','format_gamedle'),
+                    //array(0 => new lang_string('optionEnableXPDesc')),
+                ),
+                'help' => 'optionXP',
+                'help_component' => 'format_gamedle',
+            );
+
+            $options = array_merge_recursive($options, $optionsedit);
         }
-        
         return $options;
+    }
+
+    public function edit_form_validation($data, $files, $errors) {
+        return array();
     }
 }
 
