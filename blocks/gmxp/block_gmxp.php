@@ -20,7 +20,7 @@ class block_gmxp extends block_base{
 	}
 
 	public function get_content() {
-	
+		
 	    global $PAGE;
 
 	    if($this->content !== null){
@@ -68,14 +68,14 @@ class block_gmxp extends block_base{
                </div>";
     }
     
-    private function htmlProgressBar($progress,$exp_act,$exp_neces,$acumulada){
+    private function htmlProgressBar($progress,$exp_updated,$exp_need,$acumulada){
         return "<div class=\"gmxp-bar\">
                     <div class=\"gmxp-progress\"
                       style=\"width:$progress%;background-color:".get_config('block_gmxp','defaultColorPickerProgressBar')."\">
                     </div>
                 </div>
                 <div class='gmxp-txt-lvl'>
-                    Level XP: <b>$exp_act/$exp_neces </b><br>
+                    Level XP: <b>$exp_updated/$exp_need </b><br>
                     Total XP: <b> $acumulada</b>
                 </div>";
     }
