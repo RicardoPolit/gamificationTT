@@ -26,7 +26,7 @@ class block_gmxp_observer {
             $eventdata = $event->get_data();
             if(isset($eventdata['other']['completionstate']) && $eventdata['other']['completionstate'] == 1){
             
-                $_SESSION['Gamedle']['debug'] = "aDASDASDass";
+                $_SESSION['Gamedle']['debug'] = "Proof from gmxp_observer";
                 /* TODO: Check if all activities are done.
                  *  If( allActivities.done ){
                  *     calculateSeccionXP();
@@ -37,7 +37,7 @@ class block_gmxp_observer {
         }
     }
     
-    public static function course_completed(\core\event\course_completed $event){
+    public static function course_completed(core\event\course_completed $event){
         $fp = fopen('proof.txt', 'a+');
         fwrite($fp, "\\\\".json_encode($event->get_data())." * " );
         fclose($fp);
