@@ -13,11 +13,7 @@
 */
 
 defined('MOODLE_INTERNAL') || die();
-$observers = array (
-    array (
-        'eventname' => 'core\event\course_module_completion_updated',
-        'callback'  => 'block_gmxp_observer::module_completion_updated',
-    ),
-);
 
-?>
+$plugin->component = 'format_gamedle';
+$plugin->version =  2019050220; // YYYYMMDDHH (year, month, day, 24-hr time)
+$plugin->requires = 2014111000; // YYYYMMDDHH (This is the release version for Moodle 2.8)
