@@ -16,20 +16,21 @@ defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot. '/course/format/topics/lib.php');
 
+/**
+ * Course format options can be accessed as:
+ * $this->get_course()->OPTIONNAME (inside the format class)
+ * course_get_format($course)->get_course()->OPTIONNAME (outside of format class)
+ */
+
 class format_gamedle extends format_topics {
 
     /**
      * Definitions of the additional options that this course format uses for course
-     *
      *  Please read the docs of format/lib.php file.
      *
      * Topics format uses the following options (inherited):
      * - coursedisplay
      * - hiddensections
-     *
-     * Course format options can be accessed as:
-     * $this->get_course()->OPTIONNAME (inside the format class)
-     * course_get_format($course)->get_course()->OPTIONNAME (outside of format class)
      *
      * All course options are returned by calling:
      * $this->get_format_options();
@@ -39,7 +40,7 @@ class format_gamedle extends format_topics {
      */
     public function course_format_options($foreditform = false) {
         static $options = false;
-        if ($options === false) {
+        if ($options === false) { // Create the options for first time
             $courseconfig = get_config('moodlecourse');
 
             $options = array();
@@ -55,7 +56,8 @@ class format_gamedle extends format_topics {
                 'default' => 1,
                 'type' => PARAM_INT,
             );
-        }
+            
+        } // Create the elements of the form in course edir/settings
         if ($foreditform && !isset($options['coursedisplay']['label'])) {
             $optionsedit = array();
 
@@ -90,7 +92,6 @@ class format_gamedle extends format_topics {
                 'element_type' => 'advcheckbox',
                 'element_attributes' => array(
                     new lang_string('optionXP_desc','format_gamedle'),
-                    //array(0 => new lang_string('optionEnableXPDesc')),
                 ),
                 'help' => 'optionXP',
                 'help_component' => 'format_gamedle',
@@ -101,7 +102,22 @@ class format_gamedle extends format_topics {
         return $options;
     }
 
+    /**
+     * @Override to perform extra validation of the format options
+     *  Please read the docs of format/lib.php file.
+     *
+     * @param array $data array of ("fieldname"=>value) of submitted data
+     * @param array $files array of uploaded files "element_name"=>tmp_file_path
+     * @param array $errors errors already discovered in edit form validation
+     * @return array of "element_name"=>"error_description" if there are errors,
+     *         or an empty array if everything is OK.
+     *         Do not repeat errors from $errors param here
+     */
     public function edit_form_validation($data, $files, $errors) {
+    
+        /* TODO: Perform extra validation
+         *  and return in case of error detected
+         */
         return array();
     }
 }
