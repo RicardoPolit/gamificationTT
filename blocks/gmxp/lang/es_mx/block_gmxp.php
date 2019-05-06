@@ -26,7 +26,7 @@ $string['typeOfIncrementA'] = 'Porcentaje';
 $string['typeOfIncrementB'] = 'Lineal';
 $string['typeOfIncrementDesc'] = 'Selecciona el tipo de incremento';
 $string['titleIncre'] = 'Valor del incremento';
-$string['descIncre'] = 'Ingresa el valor del incremento que se tendrá por nivel, si seleccionaste el tipo de incremento "porcentaje" el valor debe estar en el rango [1.0 - 2.0]';
+$string['descIncre'] = 'Ingresa el valor del incremento que se tendrá por nivel, si seleccionaste el tipo de incremento "porcentaje" el valor debe estar en el rango [1.1 - 2.0]';
 $string['headerconfigLevelsFormat'] = 'Configuración del formato de los niveles';
 $string['headerconfigLevelsFormatDesc'] = 'Aquí podrás configurar el color, la imagen y los textos que aparecen para cada nivel';
 $string['titleDefMessage'] = 'Mensaje de felicitaciones';
@@ -40,8 +40,17 @@ $string['checkboxisActivedesc'] = '¿El componente está activado?';
 $string['defColorPick'] = 'Color del número de nivel';
 $string['defColorPickProgressBar'] = 'Color de la barra de progreso';
 $string['defColorPickdesc'] = 'Elige el color de tu agrado';
+
 $string['titleFirstExpRequired'] = 'Exp. primer nivel';
 $string['descFirstExpRequired'] = 'Experiencia requerida para completar el nivel 1';
+
+
+
+$string['titleExpGiven'] = 'Exp. por curso';
+$string['descExpGiven'] = 'Experiencia con la que un curso cuenta para repartirse entre sus secciones';
+
+
+
 
 $string['titleDefDescription'] = 'Descripción de niveles';
 $string['descDefDescription'] = 'Agrega un mensaje que motive a los usuarios a obtener más experiencia';

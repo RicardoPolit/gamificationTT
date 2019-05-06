@@ -45,6 +45,17 @@ $settings->add(new admin_setting_configtext(
     10
 ));
 
+
+$settings->add(new admin_setting_configtext(
+    'block_gmxp/firstExpGiven',
+    get_string('titleExpGiven', 'block_gmxp'),
+    get_string('descExpGiven', 'block_gmxp'),
+    1500,
+    PARAM_INT,
+    10
+));
+
+
 $settings->add(new admin_setting_heading(
     'block_gmxp/headerconfigLevelsFormat',
     get_string('headerconfigLevelsFormat', 'block_gmxp'),

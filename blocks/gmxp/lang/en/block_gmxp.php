@@ -26,7 +26,7 @@ $string['typeOfIncrementA'] = 'Percentage';
 $string['typeOfIncrementB'] = 'Linear';
 $string['typeOfIncrementDesc'] = 'Select the type of increment';
 $string['titleIncre'] = 'Increment value of levels';
-$string['descIncre'] = 'Set the increment value of the levels, if you set the type percentage the value has to be on range [1.0 - 2-0]';
+$string['descIncre'] = 'Set the increment value of the levels, if you set the type percentage the value has to be on range [1.1 - 2.0]';
 $string['headerconfigLevelsFormat'] = 'Format of levels settings';
 $string['headerconfigLevelsFormatDesc'] = 'Here you have the option of having one default image and message for all the levels or customize blocks of levels';
 $string['titleDefMessage'] = 'Default congratulations message';
@@ -42,6 +42,10 @@ $string['defColorPickProgressBar'] = 'Progress Bar color';
 $string['defColorPickdesc'] = 'Choose the default levels color';
 $string['titleFirstExpRequired'] = 'First level exp.';
 $string['descFirstExpRequired'] = 'Experience point required to complete the first level';
+
+
+$string['titleExpGiven'] = 'Exp. per course';
+$string['descExpGiven'] = 'How many experience points a course has that can be divided in each of its courses';
 
 $string['titleDefDescription'] = 'Levels description';
 $string['descDefDescription'] = 'Add a level description to motivate the user to get more experience';
