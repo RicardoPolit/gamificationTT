@@ -38,8 +38,8 @@ class block_gmxp extends block_base{
 	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
 	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));	    
 	    
-	    if(isset($_SESSION['Gamedle']))
-        $this->debugWebConsole("USER",$_SESSION['Gamedle']);
+	    if(isset($_SESSION['Gamedle']['debug']))
+        $this->debugWebConsole("USER",$_SESSION['Gamedle']['debug']);
         
         //if(isset($_SESSION['Gamedle']['XP']['Extra']))
         //echo("<script>console.log('Cou: ". file_get_contents( "proof.txt" ). "');</script>");

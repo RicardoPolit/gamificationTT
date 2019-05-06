@@ -21,8 +21,12 @@ class block_gmxp_observer {
         
         global $USER;
         $courseGamified = true;
-        if( $courseGamified  &&  $event->relateduserid == $USER->id )
-            if($event->other->completionstate == 1){
+        if( $courseGamified  &&  $event->relateduserid == $USER->id ){
+        
+            $eventdata = $event->get_data();
+            if(isset($eventdata['other']['completionstate']) && $eventdata['other']['completionstate'] == 1){
+            
+                $_SESSION['Gamedle']['debug'] = "aDASDASDass";
                 /* TODO: Check if all activities are done.
                  *  If( allActivities.done ){
                  *     calculateSeccionXP();
@@ -30,8 +34,7 @@ class block_gmxp_observer {
                  *  }
                  */
             }
-            
-        //"\\\\".json_encode($event->get_data())." * ";
+        }
     }
     
     public static function course_completed(\core\event\course_completed $event){
