@@ -22,7 +22,22 @@ class format_gamedle_observer {
             $_SESSION['Gamedle']['format'] = "";
         }
             
-        $_SESSION['Gamedle']['format'] = "Gamedle Format Observer";
+        $courseid = $event->get_data()['courseid'];
+        $course   = get_course($courseid);
+
+        /* if (course->isGamified) */
+        if( $course->format === "gamedle" ){
+
+            $course = course_get_format($course)->get_course();
+            if( $course->xpEnabled == 1 ){
+                $_SESSION['Gamedle']['format'] = "Yes it Gamified and enabled";
+            }
+            else
+                $_SESSION['Gamedle']['format'] = "";
+        }
+        else
+            $_SESSION['Gamedle']['format'] = "";
+
         /* TODO  
          *   Handle event
          */

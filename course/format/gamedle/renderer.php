@@ -25,7 +25,7 @@ class format_gamedle_renderer extends format_topics_renderer{
          */
         
         if(isset($_SESSION['Gamedle']['format']))
-        $this->debugWebConsole("USER",$_SESSION['Gamedle']['format']);
+        $this->debugWebConsole("GFR",json_encode($_SESSION['Gamedle']['format']));
     }
     
     private function debugWebConsole($tag,$object){
@@ -36,7 +36,6 @@ class format_gamedle_renderer extends format_topics_renderer{
 
         global $PAGE;
         $o = parent::section_right_content($section,$course,$onsectionpage);
-        $this->currentMission += 1;
 
         $input = "";
         if($PAGE->user_is_editing())
