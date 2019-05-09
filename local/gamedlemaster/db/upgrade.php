@@ -11,12 +11,14 @@
                upgrades2019040300();
                upgrades2019042100();
                upgrades2019042101();
+               upgrades2019050800();
            }
            else if ($oldversion < 2019040300) {
 
                upgrades2019040300();
                upgrades2019042100();
                upgrades2019042101();
+               upgrades2019050800();
            }
            /*else if($oldversion < 2019040306 )
                 {
@@ -27,11 +29,18 @@
                 {
                     upgrades2019042100();
                     upgrades2019042101();
+                    upgrades2019050800();
                 }
            else if($oldversion < 2019042101)
                {
                    upgrades2019042101();
+                   upgrades2019050800();
                }
+               else if($oldversion < 2019050800)
+                {
+
+                    upgrades2019050800();
+                }
 
 			return true;
 		}
@@ -485,6 +494,69 @@ function upgrades2019042101()
 
     // Gamedlemaster savepoint reached.
     upgrade_plugin_savepoint(true, 2019042101, 'local', 'gamedlemaster');
+}
+
+
+
+function upgrades2019050800()
+{
+
+
+    global $DB;
+    $dbman = $DB->get_manager();
+
+    // Define table gmdl_alumno to be dropped.
+    $table = new xmldb_table('gmdl_alumno');
+    // Conditionally launch drop table for gmdl_alumno.
+    if ($dbman->table_exists($table)) {
+        $dbman->drop_table($table);
+    }
+
+
+    // Define table gmdl_seccion_curso to be created.
+    $table = new xmldb_table('gmdl_seccion_curso');
+    // Adding fields to table gmdl_seccion_curso.
+    $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+    $table->add_field('mdl_id_seccion_curso', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+    $table->add_field('experiencia_de_seccion', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+    // Adding keys to table gmdl_seccion_curso.
+    $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+    $table->add_key('mdl_id_seccion_curso', XMLDB_KEY_UNIQUE, array('mdl_id_seccion_curso'));
+    // Conditionally launch create table for gmdl_seccion_curso.
+    if (!$dbman->table_exists($table)) {
+        $dbman->create_table($table);
+    }
+
+
+    // Define table gmdl_recompensas_seccion to be created.
+    $table = new xmldb_table('gmdl_recompensas_seccion');
+
+    // Adding fields to table gmdl_recompensas_seccion.
+    $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+    $table->add_field('gmdl_id_usuario', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+    $table->add_field('gmdl_id_seccion_curso', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+    $table->add_field('experiencia_dada', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+
+    // Adding keys to table gmdl_recompensas_seccion.
+    $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+    $table->add_key('gmdl_id_usuario', XMLDB_KEY_FOREIGN, array('gmdl_id_usuario'), 'gmdl_usuario', array('mdl_id_usuario'));
+    $table->add_key('gmdl_id_seccion_curso', XMLDB_KEY_FOREIGN, array('gmdl_id_seccion_curso'), 'gmdl_seccion_curso', array('mdl_id_seccion_curso'));
+
+    // Adding indexes to table gmdl_recompensas_seccion.
+    $table->add_index('gmd_id_usuario-gmdl_id_seccion_curso', XMLDB_INDEX_UNIQUE, array('gmdl_id_usuario', 'gmdl_id_seccion_curso'));
+
+    // Conditionally launch create table for gmdl_recompensas_seccion.
+    if (!$dbman->table_exists($table)) {
+        $dbman->create_table($table);
+    }
+
+
+
+    // Gamedlemaster savepoint reached.
+    upgrade_plugin_savepoint(true, 2019050800, 'local', 'gamedlemaster');
+
+
+
 }
 
 function copiarUsuarios()
