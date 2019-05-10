@@ -22,7 +22,6 @@ class block_gmxp extends block_base{
 	public function get_content() {
 		
 	    global $PAGE;
-
 	    if($this->content !== null){
 	        return $this->content;
 	    }
@@ -36,40 +35,11 @@ class block_gmxp extends block_base{
 	   
 	    $experience = array("inicio"=>0,"final"=>53);
 	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
-	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));	    
+	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
 	    
-	    
-	    /*
-	    $this->debugWebConsole("DB.",$DB->get_records_select('course_sections', 'course = ?', array($courseid),'','id,section'));*/
-	    //$this->debugWebConsole("USER",$user = $DB->get_records_sql('SELECT * FROM {course_sections} WHERE course = 20;'));
-	    
-	    global $DB; // lib/dml/moodle_database
-	    $courseid = "20";
-        $sections = $DB->get_records_select('course_sections', 'course = ?', array($courseid),'','id,section');
-        $numsec = count($sections);
-        $totalxp = (int)get_config('block_gmxp','firstExpGiven');
+	    /*if(isset($_SESSION['Gamedle']['format']))
+        $this->debugWebConsole("USER",$_SESSION['Gamedle']['format']);*/
         
-        if($numsec==1){
-            $_SESSION['Gamedle']['format'] = array($sections,$totalxp);
-            return;
-        }
-        
-        $numsec--; // excluding section 0
-        $sectionx = floor($totalxp/$numsec);
-        $sectionLast = $sectionx + ($totalxp - ($sectionx*$numsec));
-        
-        /** 
-         * TODO: Update records in the database
-         */
-        $_SESSION['Gamedle']['format'] = array($sections,$sectionx,$sectionLast);
-        return;
-	    
-	    
-	    if(isset($_SESSION['Gamedle']['format']))
-        $this->debugWebConsole("USER",$_SESSION['Gamedle']['format']);
-        
-        //if(isset($_SESSION['Gamedle']['XP']['Extra']))
-        //echo("<script>console.log('Cou: ". file_get_contents( "proof.txt" ). "');</script>");
 	    return $this->content;
 	}
 

@@ -25,7 +25,7 @@ class format_gamedle_renderer extends format_topics_renderer{
          */
         
         if(isset($_SESSION['Gamedle']['format']))
-        $this->debugWebConsole("GFR",json_encode($_SESSION['Gamedle']['format']));
+        $this->debugWebConsole("GFR",$_SESSION['Gamedle']['format']);
     }
     
     private function debugWebConsole($tag,$object){

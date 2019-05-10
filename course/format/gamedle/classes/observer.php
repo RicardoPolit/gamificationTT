@@ -28,12 +28,15 @@ class format_gamedle_observer {
             if( $course->xpEnabled == 1 ){
             
                 global $DB; // lib/dml/moodle_database
-                $sections = $DB->get_records_select('course_sections', 'course = ?', array($courseid),'','id,section');
+                $sections = $DB->get_records('course_sections',['course'=>$course->id]);
+                //$sections = $DB->get_records_select('course_sections', 'course = ?', array($course->id));
+                //$sections = $DB->get_records_sql("SELECT id,section FROM {" . 'course_sections' . "} course = ?", array($course->id));
+                
                 $numsec = count($sections);
                 $totalxp = (int)get_config('block_gmxp','firstExpGiven');
                 
                 if($numsec==1){
-                    $_SESSION['Gamedle']['format'] = array($sections,$totalxp);
+                    $_SESSION['Gamedle']['format'] = array(1,$sections,$totalxp);
                     return;
                 }
                 
@@ -45,7 +48,6 @@ class format_gamedle_observer {
                  * TODO: Update records in the database
                  */
                 $_SESSION['Gamedle']['format'] = array($sections,$sectionx,$sectionLast);
-                return;
             }
             else
                 $_SESSION['Gamedle']['format'] = "Debug: Format Gamedle but not enabled XP";
