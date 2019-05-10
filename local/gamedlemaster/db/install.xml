@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/gamedlemaster/db" VERSION="20190422" COMMENT="Prueba de concepto para la creacion de los XML"
+<XMLDB PATH="local/gamedlemaster/db" VERSION="20190509" COMMENT="Prueba de concepto para la creacion de los XML"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -15,22 +15,6 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
         <KEY NAME="mdl_id_usuario" TYPE="unique" FIELDS="mdl_id_usuario"/>
       </KEYS>
-    </TABLE>
-    <TABLE NAME="gmdl_alumno" COMMENT="Un usuario se conviete en alumno, cuando cursa un curso">
-      <FIELDS>
-        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
-        <FIELD NAME="gmdl_id_usuario" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a la tabla gmdl_usuario"/>
-        <FIELD NAME="mdl_id_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a la tabla gmdl_curso"/>
-        <FIELD NAME="experiencia_total_recibida" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Experiencia que ha recibido el usuario a lo largo del curso"/>
-      </FIELDS>
-      <KEYS>
-        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
-        <KEY NAME="gmdl_id_usuario" TYPE="foreign" FIELDS="gmdl_id_usuario" REFTABLE="gmdl_usuario" REFFIELDS="mdl_id_usuario"/>
-        <KEY NAME="mdl_id_curso" TYPE="foreign" FIELDS="mdl_id_curso" REFTABLE="course" REFFIELDS="id"/>
-      </KEYS>
-      <INDEXES>
-        <INDEX NAME="gmdl_id_usuario-mdl_id_curso" UNIQUE="true" FIELDS="gmdl_id_usuario, mdl_id_curso"/>
-      </INDEXES>
     </TABLE>
     <TABLE NAME="gmdl_nivel_categoria_curso" COMMENT="Nivel que tiene un usuario en un tipo de curso">
       <FIELDS>
@@ -62,6 +46,33 @@
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
+    </TABLE>
+    <TABLE NAME="gmdl_seccion_curso" COMMENT="Esta tabla se usa para guardar las configuraciones de Gamedle de una sección">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="mdl_id_seccion_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Atributo que referencia a la tabla mdl_course_sections"/>
+        <FIELD NAME="experiencia_de_seccion" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="mdl_id_seccion_curso" TYPE="unique" FIELDS="mdl_id_seccion_curso"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="gmdl_recompensas_seccion" COMMENT="Llevar un registro de qué recompensas se le han dado al usuario al completar una sección">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="gmdl_id_usuario" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia al usuario gamificado"/>
+        <FIELD NAME="gmdl_id_seccion_curso" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Referencia a la sección gamificada de un curso de moodle"/>
+        <FIELD NAME="experiencia_dada" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Atributo que nos dice la experiencia de una sección ya fue otorgada. 0: No se ha dado 1: Ya se dio"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="gmdl_id_usuario" TYPE="foreign" FIELDS="gmdl_id_usuario" REFTABLE="gmdl_usuario" REFFIELDS="mdl_id_usuario"/>
+        <KEY NAME="gmdl_id_seccion_curso" TYPE="foreign" FIELDS="gmdl_id_seccion_curso" REFTABLE="gmdl_seccion_curso" REFFIELDS="mdl_id_seccion_curso"/>
+      </KEYS>
+      <INDEXES>
+        <INDEX NAME="gmd_id_usuario-gmdl_id_seccion_curso" UNIQUE="true" FIELDS="gmdl_id_usuario, gmdl_id_seccion_curso"/>
+      </INDEXES>
     </TABLE>
     <TABLE NAME="gmdl_condicion" COMMENT="Condicion que se usa para desbloquear logros, estas pueden ser usadas por diversos logros y así no se repetirian">
       <FIELDS>
