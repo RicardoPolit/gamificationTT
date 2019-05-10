@@ -117,3 +117,7 @@ $settings->add(new admin_setting_configstoredfile(
     0,
     ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => '.png']
 ));
+
+$settingsurl = new moodle_url('/blocks/gmxp/visualsSimple.php');
+$external = new admin_externalpage('block_gmxp_ext', "Manage visualSimple", $settingsurl) ;
+$ADMIN->add('modules', $external);
