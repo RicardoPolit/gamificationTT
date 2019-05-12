@@ -24,6 +24,28 @@ require_once($CFG->dirroot. '/course/format/topics/lib.php');
 
 class format_gamedle extends format_topics {
 
+    private $sections = array();
+
+    public function experienceEnabled(){
+        return ($this->get_course()->xpEnabled == 1);
+    }
+    
+    public function createSectionXP($section){
+    
+        $select = array(
+            'course'  => $this->get_course()->id,
+            'section' => $section
+        );
+            
+        global $DB;
+        $id  = $DB->get_record('course_sections', $select, 'id');
+    
+        $record = new stdClass();
+        $record->mdl_id_seccion_curso   = $id->id;
+        $record->experiencia_de_seccion = 0;
+        $DB->insert_record('gmdl_seccion_curso', $record);
+    }
+
     /**
      * Definitions of the additional options that this course format uses for course
      *  Please read the docs of format/lib.php file.
@@ -62,16 +84,16 @@ class format_gamedle extends format_topics {
             $optionsedit = array();
 
             $optionsedit['hiddensections'] = array(
-                'label' => new lang_string('hiddensections'),
+                'label' => new lang_string('hiddenmissions','format_gamedle'),
                 'element_type' => 'select',
                 'element_attributes' => array(
                     array(
-                        0 => new lang_string('hiddensectionscollapsed'),
-                        1 => new lang_string('hiddensectionsinvisible')
+                        0 => new lang_string('hiddenmissionscollapsed','format_gamedle'),
+                        1 => new lang_string('hiddenmissionsinvisible','format_gamedle')
                     )
                 ),
-                'help' => 'hiddensections',
-                'help_component' => 'moodle',
+                'help' => 'hiddenmissions',
+                'help_component' => 'format_gamedle',
             );
 
             $optionsedit['coursedisplay'] = array(
@@ -79,8 +101,8 @@ class format_gamedle extends format_topics {
                 'element_type' => 'select',
                 'element_attributes' => array(
                     array(
-                        COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single'),
-                        COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi')
+                        COURSE_DISPLAY_SINGLEPAGE => new lang_string('coursedisplay_single','format_gamedle'),
+                        COURSE_DISPLAY_MULTIPAGE => new lang_string('coursedisplay_multi','format_gamedle')
                     )
                 ),
                 'help' => 'coursedisplay',

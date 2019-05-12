@@ -19,6 +19,11 @@ $observers = array (
         'callback'  => 'format_gamedle_observer::course_created',
         'internal'  => false,
     ),
+    array (
+        'eventname' => 'core\event\course_section_created',
+        'callback'  => 'format_gamedle_observer::course_section_created',
+        'internal'  => false,
+    ),
 );
 
 ?>

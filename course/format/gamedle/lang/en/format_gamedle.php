@@ -19,6 +19,14 @@ $string['optionXP'] = 'Gamedle Experience';
 $string['optionXP_desc'] = 'Give experience points';
 $string['optionXP_help'] = 'This option allows you to enable/disable the experience obtaining for students';
 
+$string['hiddenmissions'] = "Hidden missions";
+$string['hiddenmissionscollapsed'] = "Hidden missions are shown in collapsed form";
+$string['hiddenmissionsinvisible'] = "Hidden missions are completely invisible";
+$string['hiddenmissions_help'] = "This settings determines whether hidden missions are displayed to students in collapsed form (perhaps for a course in weekly format to indicate holidays) or a completely hidden";
+
+$string['coursedisplay_single'] = "Show all missions on one page";
+$string['coursedisplay_multi']  = "Show one mission per page";
+
 $string['section0name']    = 'Intro';
 $string['sectionname']     = 'Mission';
 $string['currentsection']  = 'This mission';
