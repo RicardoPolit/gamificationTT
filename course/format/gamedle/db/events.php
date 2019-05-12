@@ -14,15 +14,19 @@
 
 defined('MOODLE_INTERNAL') || die();
 $observers = array (
-    array (
+    /*array (
         'eventname' => 'core\event\course_created',
         'callback'  => 'format_gamedle_observer::course_created',
         'internal'  => false,
-    ),
+    ),*/
     array (
         'eventname' => 'core\event\course_section_created',
         'callback'  => 'format_gamedle_observer::course_section_created',
         'internal'  => false,
+    ),
+    array (
+        'eventname' => 'core\event\enrol_instance_created',
+        'callback'  => 'format_gamedle_observer::enrol_instance_created',
     ),
 );
 

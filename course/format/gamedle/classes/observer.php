@@ -16,24 +16,17 @@ defined('MOODLE_INTERNAL') || die();
 
 class format_gamedle_observer {
     
-    /** Variable sectionXP
-     *  Stores array of courses recently created and their sections
-     *  Usage:
-     *      sectionXP[ courseid ] = num_sections;
-     */
-    private static $sectionsXP = array();
-    
     private static function checkSession(){
         if(!isset($_SESSION['Gamedle']['format']))
             $_SESSION['Gamedle']['format'] = "";
     }
     
-    public static function course_created(core\event\course_created $event){
+    /*public static function course_created(core\event\course_created $event){
     
         // Saving course id with sections
-        /*$courseid = $event->get_data()['courseid'];
-        format_gamedle_observer::$sectionsXP[$courseid] = -1;*/
-    }
+        $courseid = $event->get_data()['courseid'];
+        format_gamedle_observer::$sectionsXP[$courseid] = -1;
+    }*/
     
     public static function course_section_created(core\event\course_section_created $event){
         
@@ -45,16 +38,17 @@ class format_gamedle_observer {
             if( $format->experienceEnabled() )
                 $format->createSectionXP($section);
     }
-}
-
-    /*            
-        $sections = $DB->get_records('course_sections',['course'=>$course->id]);
-        $totalxp = (int)get_config('block_gmxp','firstExpGiven');
+    
+    public static function enrol_instance_created(core\event\enrol_instance_created $event){
         
-        if($numsec==1){}
-        $numsec--; // excluding section 0
-        $sectionx = floor($totalxp/$numsec);
-        $sectionLast = $sectionx + ($totalxp - ($sectionx*$numsec));
-    */
+        $courseid = $event->get_data()['courseid'];
+        $format   = course_get_format($courseid);
+        
+        if( $format->get_format() === "gamedle" )
+            if( $format->experienceEnabled() )
+                if( !$format->isExperienceSet() )
+                    $format->setDefaultSectionXP();
+    }
+}
     
 

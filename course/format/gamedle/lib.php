@@ -24,26 +24,138 @@ require_once($CFG->dirroot. '/course/format/topics/lib.php');
 
 class format_gamedle extends format_topics {
 
-    private $sections = array();
+    private $sections   = array(); // Ids en tabla course_sections
+    private $sectionsXP = array(); // Ids en tabla gmdl_seccion_curso
 
     public function experienceEnabled(){
         return ($this->get_course()->xpEnabled == 1);
     }
     
     public function createSectionXP($section){
+
+        $id  = $this->getSectionid($section);
+        
+        global $DB;    
+        $record = new stdClass();
+        $record->mdl_id_seccion_curso   = $id;
+        $record->experiencia_de_seccion = 0;
+        $DB->insert_record('gmdl_seccion_curso', $record);
+    }
     
-        $select = array(
+    public function setSectionXP($section,$experiencia){
+                
+        $sectionid = $this->getSectionid($section);
+        $id        = $this->getSectionXPid($section);
+        
+        global $DB;
+        $record = new stdClass();
+        $record->id                     = $id;
+        $record->mdl_id_seccion_curso   = $sectionid;
+        $record->experiencia_de_seccion = $experiencia;
+        
+        $DB->update_record('gmdl_seccion_curso', $record);
+    }
+    
+    public function setDefaultSectionXP(){
+        
+        $numsec  = $this->getSectionNum();
+        $totalxp = (int)get_config('block_gmxp','firstExpGiven');
+        
+        if( $numsec==1 ){ // course only has section 0
+            $this->setSectionXP(0,$totalxp);
+            return;
+        }
+        
+        $numsec--; // excluding section 0
+        $exp = floor($totalxp/$numsec);
+        $last = $exp + ($totalxp - ($exp*$numsec));
+        
+        for($i=1;$i<$numsec;$i++)
+            $this->setSectionXP($i,$exp);
+            
+        $this->setSectionXP($numsec,$last);
+    }
+    
+    public function isExperienceSet(){
+        
+        $num = $this->getSectionNum();
+        
+        global $DB;
+        for($x=0;$x<$num;$x++){
+        
+            $where = array(
+                'id' => $this->getSectionXPid(0));
+                
+            $sec = $DB->get_record('gmdl_seccion_curso',$where,'experiencia_de_seccion');
+            
+            if($sec->experiencia_de_seccion != 0)
+                return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Metodo usado para obtener el numero de secciones del curso
+     */
+    public function getSectionNum(){
+        $where = array(
+            'course'  => $this->get_course()->id,
+        );
+           
+        global $DB;
+        return $DB->count_records('course_sections', $where);
+    }
+    
+    /** 
+     * Metodo usado para nbtiener el id de las seccionesXP
+     *
+     * El identificador que devuelve este elemento es el
+     * que esta presente en la tabla 'gmdl_seccion_curso' 
+     *
+     * Este metodo evita pedir consultas a la base de datos
+     * recurrentemente
+     */
+    private function getSectionXPid(int $section){
+        
+        if( isset($this->sectionsXP[$section]) )
+            return $this->sectionsXP[$section];
+        
+        $sectionid = $this->getSectionid($section);
+        $where = array(
+            'mdl_id_seccion_curso' => $sectionid
+        );
+        
+        global $DB;
+        $id = $DB->get_record('gmdl_seccion_curso',$where,'id');
+        
+        $this->sectionsXP[$section] = $id->id;
+        return $this->sectionsXP[$section];
+    }
+    
+    /** 
+     * Metodo usado para nbtiener el id de las secciones
+     *
+     * El identificador que devuelve este elemento es el
+     * que esta presente en la tabla 'course_sections' 
+     *
+     * Este metodo evita pedir consultas a la base de datos
+     * recurrentemente
+     */
+    private function getSectionid(int $section){
+        
+        if( isset($this->sections[$section]) )
+            return $this->sections[$section];
+            
+        $where = array(
             'course'  => $this->get_course()->id,
             'section' => $section
         );
-            
+        
         global $DB;
-        $id  = $DB->get_record('course_sections', $select, 'id');
-    
-        $record = new stdClass();
-        $record->mdl_id_seccion_curso   = $id->id;
-        $record->experiencia_de_seccion = 0;
-        $DB->insert_record('gmdl_seccion_curso', $record);
+        $id  = $DB->get_record('course_sections', $where, 'id');
+        
+        $this->sections[$section] = $id->id;
+        return $this->sections[$section];
     }
 
     /**
@@ -52,13 +164,7 @@ class format_gamedle extends format_topics {
      *
      * Topics format uses the following options (inherited):
      * - coursedisplay
-     * - hiddensections
-     *
-     * All course options are returned by calling:
-     * $this->get_format_options();
-     *
-     * @param bool $foreditform
-     * @return array of options
+     * - hiddensectionss
      */
     public function course_format_options($foreditform = false) {
         static $options = false;
