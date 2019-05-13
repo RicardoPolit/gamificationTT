@@ -35,11 +35,26 @@ class format_gamedle extends format_topics {
 
         $id  = $this->getSectionid($section);
         
-        global $DB;    
+        global $DB;
         $record = new stdClass();
         $record->mdl_id_seccion_curso   = $id;
         $record->experiencia_de_seccion = 0;
         $DB->insert_record('gmdl_seccion_curso', $record);
+    }
+    
+    public function getSectionXP(int $section){
+        
+        $id = $this->getSectionXPid($section);
+        
+        global $DB;
+        $where = array(
+            'id' => $id
+        );
+        
+        global $DB;
+        $exp = $DB->get_record('gmdl_seccion_curso',$where,'experiencia_de_seccion');
+        
+        return $exp->experiencia_de_seccion;
     }
     
     public function setSectionXP($section,$experiencia){

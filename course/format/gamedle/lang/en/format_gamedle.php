@@ -36,6 +36,9 @@ $string['showfromothers']  = 'Show mission';
 $string['deletesection']   = 'Delete mission';
 $string['addsections']     = 'Add missions';
 
+$string['btnSaveXP'] = 'Save XP configuration';
+$string['btnDefaultXP'] = 'Set default XP';
+
 /*
 $string['editsectionname'] = 'Edit mission name';
 $string['newsectionname']  = 'New name for mission {$a}';
