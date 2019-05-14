@@ -13,28 +13,68 @@
 
 define(['jquery'], function($) {
  
+    function validate(totalxp){
+        var sectionsXP = Array();
+        var a = 0;
+        var exit = false;
+        
+        $('.gmxp-section').each(function(){
+        
+            var id = $(this).attr('data-section');
+            var value = $(this).val();
+            var regex = /^\d+$/;
+            
+            if( !regex.test(value) ){ exit = true; return; }
+        
+            sectionsXP[id] = value;
+            a += parseInt(value);
+        });
+        
+        if( !exit && a == totalxp ){
+            $("#gmxp-sum").hide();
+            $("#submitError").css('color','#000');
+            requestChanges(false,sectionsXP);
+            
+        } else {
+            if(!exit){
+                $("#gmxp-sum-val").html(a);
+                $("#gmxp-sum").show();
+            }
+            $("#submitError").css('color','#CF0000');
+        }
+    }
+    
+    function requestChanges(auto,data){
+    
+        var obj = { defaultXP:auto };
+        if(!auto)
+            obj["data"] = data;
+        
+        console.log("TODO: requestChanges -> Make AJAX send following object");
+        console.log(obj);
+    }
+ 
     return {
         form: function(totalxp){
-        
-            console.log("TODO: Pasar como parametros los strings para mensajes");
+            totalxp = parseInt(totalxp);
+            
+            $('.gmxp-section').on('keyup',function(e){
+                var regex = /^\d+$/;
+                var input = $(this).val();
+                var num   = $(this).attr('data-section');
+                
+                if( regex.test(input) )
+                    $('#xpError'+num).hide();
+                else
+                    $('#xpError'+num).show();
+            });
             
             $('#submitXP').on('click',function(){
-            
-                totalxp = parseInt(totalxp);
-                var a = 0;
-                $('.sectionXP').each(function(){
-                    a += parseInt($(this).val());
-                    console.log("Section #" + $(this).attr('data-section') + ":" + $(this).val() );
-                })
-                
-                if( a == totalxp )
-                    alert("TODO: Send data to server");
-                else
-                    alert("TODO: Send error message to form");
+                validate(totalxp);
             });
             
             $('#defaultXP').on('click',function(){
-                alert("TODO: Send request to server");
+                requestChanges(true);
             });
         }
     };

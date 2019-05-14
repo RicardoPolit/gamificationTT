@@ -36,8 +36,11 @@ $string['showfromothers']  = 'Show mission';
 $string['deletesection']   = 'Delete mission';
 $string['addsections']     = 'Add missions';
 
-$string['btnSaveXP'] = 'Save XP configuration';
+$string['btnSaveXP']    = 'Save XP configuration';
 $string['btnDefaultXP'] = 'Set default XP';
+$string['msgError']     = 'The sum of all mission XP must be {$a}';
+$string['msgErrorSum']  = 'The sum is '; // Concat with JS code
+$string['msgErrorNum']  = 'This value must be an integer';
 
 /*
 $string['editsectionname'] = 'Edit mission name';

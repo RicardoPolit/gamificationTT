@@ -1,0 +1,36 @@
+/*
+ * UNIVERSITY:  INSTITUTO POLITECNICO NACIONAL (IPN)
+ *              ESCUELA SUPERIOR DE COMPUTO (ESCOM)
+ *   SUBJECT:     _
+ *   PROFESSOR:   _
+ *
+ * DESARROLLADORES: Daniel Ortega
+ *
+ * PRACTICE _:  TITULO DE LA PRACTICA
+ *               - DESCRIPCION
+ *		
+*/
+
+.gmxp-submit-error {
+    text-align:right;
+    margin-top:10px;
+}
+
+.gmxp-btn {
+    float:right;
+    margin:10px;
+}
+
+.gmxp-section-error {
+    text-align:right;
+    display:none;
+    color:#CF0000;
+}
+
+#gmxp-sum {
+    display:none;
+}
+
+.gmxp-section {
+    text-align:right;
+}
