@@ -34,16 +34,16 @@ class format_gamedle_renderer extends format_topics_renderer{
             echo '
             <div class="form-group fitem btn-cancel" style="float:right;margin:10px">
                 <span data-fieldtype="submit">
-                    <input id="" class="btn btn-secondary" type="submit" value="'.get_string('btnDefaultXP','format_gamedle').'">
+                    <input id="defaultXP" class="btn btn-secondary" type="submit" value="'.get_string('btnDefaultXP','format_gamedle').'">
                 </span>
-                <div id="" class="form-control-feedback invalid-feedback"></div>
+                <div class="form-control-feedback invalid-feedback"></div>
             </div>
-            <div id="" class="form-control-feedback invalid-feedback"></div>
-            <div id="" class="form-group fitem form-submit" style="float:right;margin:10px">
-                <span id="" data-fieldtype="submit">
-                    <input id="" class="btn btn-primary" type="submit" value="'.get_string('btnSaveXP','format_gamedle').'">
+            <div class="form-control-feedback invalid-feedback"></div>
+            <div class="form-group fitem form-submit" style="float:right;margin:10px">
+                <span data-fieldtype="submit">
+                    <input id="submitXP" class="btn btn-primary" type="submit" value="'.get_string('btnSaveXP','format_gamedle').'">
                 </span>
-                <div id="" class="form-control-feedback invalid-feedback"></div>
+                <div class="form-control-feedback invalid-feedback"></div>
             </div>';
 
     }
@@ -56,7 +56,7 @@ class format_gamedle_renderer extends format_topics_renderer{
         
         global $PAGE;
         if($PAGE->user_is_editing())
-            $input = '<div>Mission XP: <input type="text" value="'.$exp.'" style="text-align:right"></div>';
+            $input = '<div>Mission XP: <input type="text" class="sectionXP" value="'.$exp.'" style="text-align:right" data-section="'.$section->section.'"></div>';
         
         return $o.$input;
     }

@@ -48,14 +48,10 @@ require_once($CFG->libdir.'/completionlib.php');
     // Include course format js module
     $PAGE->requires->js('/course/format/topics/format.js');
     
-    $object = array(
-        "msg1" => "P1",
-        "msg2" => "Pasando objeto como parametro",
-    );
-    
-    $PAGE->requires->js_call_amd('format_gamedle/experienceCourse', 'funcionA', array($object));
-    $PAGE->requires->js_call_amd('format_gamedle/experienceCourse', 'funcionB', array("P2","Pasando parametros como array"));
-    
-    
+    /**
+     * STARTS GAMEDLE MODIFICATIONS
+     */
+    $totalxp = (int)get_config('block_gmxp','firstExpGiven');
+    $PAGE->requires->js_call_amd('format_gamedle/form_xp','form',array($totalxp));
     
     
