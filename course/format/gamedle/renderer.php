@@ -33,18 +33,19 @@ class format_gamedle_renderer extends format_topics_renderer{
                         <span id="gmxp-sum-val"></span>
                     </span>
                 </div>
-                <div class="form-group fitem btn-cancel gmxp-btn">
+                <div class="btn-cancel gmxp-btn">
                     <span data-fieldtype="submit">
                         <input id="defaultXP" class="btn btn-secondary" type="submit" value="'.
                             get_string('btnDefaultXP','format_gamedle').'">
                     </span>
                 </div>
-                <div class="form-group fitem form-submit gmxp-btn">
+                <div class="form-submit gmxp-btn">
                     <span data-fieldtype="submit">
                         <input id="submitXP" class="btn btn-primary" type="submit" value="'.
                             get_string('btnSaveXP','format_gamedle').'">
                     </span>
-                </div>';
+                </div>
+                <div id="submitmsg" style="clear:right;text-align:right;margin-right:30px"></div>';
         }
     }
 

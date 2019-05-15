@@ -26,9 +26,10 @@ require_once($CFG->libdir.'/completionlib.php');
     }
     // End backwards-compatible aliasing..
 
+    // Obtaining the context, format and adding course format options
     $context = context_course::instance($course->id);
-    // Retrieve course format option fields and add them to the $course object.
-    $course = course_get_format($course)->get_course();
+    $format = course_get_format($course);
+    $course = $format->get_course();
 
     if (($marker >=0) && has_capability('moodle/course:setcurrentsection', $context) && confirm_sesskey()) {
         $course->marker = $marker;
@@ -51,7 +52,11 @@ require_once($CFG->libdir.'/completionlib.php');
     /**
      * STARTS GAMEDLE MODIFICATIONS
      */
-    $totalxp = (int)get_config('block_gmxp','firstExpGiven');
-    $PAGE->requires->js_call_amd('format_gamedle/form_xp','form',array($totalxp));
-    
+     
+    if ($PAGE->user_is_editing() && $format->get_format()==="gamedle") {
+        $_SESSION['Gamedle']['format'] = $course->id;
+        $totalxp = (int)get_config('block_gmxp','firstExpGiven');
+        $PAGE->requires->js_call_amd('format_gamedle/form_xp','form',array($totalxp));
+    } else
+        $_SESSION['Gamedle']['format'] = false;
     

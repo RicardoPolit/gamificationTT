@@ -59,7 +59,16 @@ define(['jquery'], function($) {
     		url: proto+"//"+host+path,
     		data: obj,
     		success: function(resp){
-    		    alert(resp);
+    		    obj = JSON.parse(resp);
+    		    
+    		    if( obj.status == "BAD" )
+    		        alert( obj.msg );
+    		        
+		        else if( auto )
+		            location.reload();
+		            
+	            else
+	                $("#submitmsg").html(obj.msg);
     		},
     		error: function(err,or){
     			alert('SERVER ERROR: '+ proto+"//"+host+path);
