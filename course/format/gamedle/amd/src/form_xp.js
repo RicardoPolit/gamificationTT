@@ -63,12 +63,9 @@ define(['jquery'], function($) {
     		    
     		    if( obj.status == "BAD" )
     		        alert( obj.msg );
-    		        
-		        else if( auto )
+
+		        else
 		            location.reload();
-		            
-	            else
-	                $("#submitmsg").html(obj.msg);
     		},
     		error: function(err,or){
     			alert('SERVER ERROR: '+ proto+"//"+host+path);
