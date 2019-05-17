@@ -15,17 +15,17 @@ define(['jquery'], function($) {
  
     function validate(totalxp){
         var sectionsXP = Array();
+        var exit  = false;
+        var regex = /^\d+$/;
         var a = 0;
-        var exit = false;
         
         $('.gmxp-section').each(function(){
         
             var id = $(this).attr('data-section');
             var value = $(this).val();
-            var regex = /^\d+$/;
             
             if( !regex.test(value) ){ exit = true; return; }
-        
+            
             sectionsXP[id] = value;
             a += parseInt(value);
         });
@@ -50,8 +50,27 @@ define(['jquery'], function($) {
         if(!auto)
             obj["data"] = data;
         
-        console.log("TODO: requestChanges -> Make AJAX send following object");
-        console.log(obj);
+        var proto = window.location.protocol;
+        var host  = window.location.hostname;
+        var path  = window.location.pathname.replace('view.php','format/gamedle/cli/courseXP.php');
+        
+        $.ajax({
+    		method:"post",
+    		url: proto+"//"+host+path,
+    		data: obj,
+    		success: function(resp){
+    		    obj = JSON.parse(resp);
+    		    
+    		    if( obj.status == "BAD" )
+    		        alert( obj.msg );
+
+		        else
+		            location.reload();
+    		},
+    		error: function(err,or){
+    			alert('SERVER ERROR: '+ proto+"//"+host+path);
+    		}
+    	});
     }
  
     return {

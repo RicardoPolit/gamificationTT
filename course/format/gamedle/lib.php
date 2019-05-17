@@ -70,7 +70,7 @@ class format_gamedle extends format_topics {
         
         $DB->update_record('gmdl_seccion_curso', $record);
     }
-    
+
     public function setDefaultSectionXP(){
         
         $numsec  = $this->getSectionNum();
@@ -90,7 +90,26 @@ class format_gamedle extends format_topics {
             
         $this->setSectionXP($numsec,$last);
     }
-    
+
+    /**
+     * @Override Whether this format allows to delete an specific section
+     *
+     * Do not call this function directly, instead use {@link course_can_delete_section()}
+     *
+     * @param int|stdClass|section_info $section
+     * @return bool
+     */
+    public function can_delete_section($section) {
+
+        if (is_object($section))
+            $sectionnum = $section->section;
+        else
+            $sectionnum = $section;
+
+        // If sectionXP is 0, then it can be deleted
+        return ($this->getSectionXP($sectionnum) == 0);
+    }
+
     public function isExperienceSet(){
         
         $num = $this->getSectionNum();
@@ -108,7 +127,7 @@ class format_gamedle extends format_topics {
         }
         return false;
     }
-    
+
     /**
      * Metodo usado para obtener el numero de secciones del curso
      */
