@@ -70,6 +70,27 @@ class format_gamedle extends format_topics {
         
         $DB->update_record('gmdl_seccion_curso', $record);
     }
+    
+    public function delete_section($section, $forcedeleteifnotempty = false) {
+        
+        global $DB;
+        $sectionxp = $section;
+        if (!is_object($sectionxp)) {
+            $sectionxp = $DB->get_record('course_sections', array('course' => $this->get_courseid(), 'section' => $sectionxp),
+                'id,section,sequence,summary');
+        }
+        
+        $succeed = parent::delete_section($section, $forcedeleteifnotempty);
+        if( $succeed === true ){
+            $where = array( 'mdl_id_seccion_curso'  => $sectionxp->id );
+            $DB->delete_records('gmdl_seccion_curso', $where);
+            
+            $this->sections   = array();
+            $this->sectionsXP = array();
+        }
+        
+        return $succeed;
+    }
 
     public function setDefaultSectionXP(){
         
