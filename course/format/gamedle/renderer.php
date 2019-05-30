@@ -57,14 +57,19 @@ class format_gamedle_renderer extends format_topics_renderer{
         $o   = parent::section_right_content($section,$course,$onsectionpage);
         
         global $PAGE;
-        if($PAGE->user_is_editing())
-            $input.= '<div>Mission XP: '.
-                        '<input type="text" class="gmxp-section" value="'.$exp.'" data-section="'.$id.'">
-                      </div>
-                      <div id="xpError'. $id.'" class="gmxp-section-error">'.
-                        get_string('msgErrorNum','format_gamedle').
-                      '</div>';
-        
+        if($PAGE->user_is_editing()){        
+            $input .= '<div>Mission XP: ';
+            
+            if($this->format->isExperienceGiven($section->section))
+                $input .= '<input type="text" class="gmxp-section" value="'.$exp.'" data-section="'.$id.'" disabled>';
+            else
+                $input .= '<input type="text" class="gmxp-section" value="'.$exp.'" data-section="'.$id.'">';
+            
+            $input .= '</div>
+                <div id="xpError'. $id.'" class="gmxp-section-error">'.
+                    get_string('msgErrorNum','format_gamedle').
+                '</div>';
+        }
         return $o.$input;
     }
     

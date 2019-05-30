@@ -148,6 +148,19 @@ class format_gamedle extends format_topics {
         }
         return false;
     }
+    
+    /**
+     * Metodo usado para saber si la experiencia de esta sección ya ha sido otorgada
+     *
+     * @param int $section. Numero de la sección
+     * @return bool
+     */
+    public function isExperienceGiven(int $section){
+    
+        global $DB;
+        $id = $this->getSectionXPid($section);
+        return $DB->record_exists('gmdl_recompensas_seccion',[ "gmdl_id_seccion_curso" => $id ]);
+    }
 
     /**
      * Metodo usado para obtener el numero de secciones del curso
@@ -162,7 +175,7 @@ class format_gamedle extends format_topics {
     }
     
     /** 
-     * Metodo usado para nbtiener el id de las seccionesXP
+     * Metodo usado para obtiener el id de las seccionesXP
      *
      * El identificador que devuelve este elemento es el
      * que esta presente en la tabla 'gmdl_seccion_curso' 
@@ -182,7 +195,6 @@ class format_gamedle extends format_topics {
         
         global $DB;
         $id = $DB->get_record('gmdl_seccion_curso',$where,'id');
-        
         $this->sectionsXP[$section] = $id->id;
         return $this->sectionsXP[$section];
     }
