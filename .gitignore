@@ -10,6 +10,8 @@
 # Folders: Including plugins tested
 !blocks/gmxp/
 !blocks/gmxp/**/*
+!blocks/gmlb/
+!blocks/gmlb/**/*
 !local/gamedlemaster
 !local/gamedlemaster/**/*
 !course/format/
