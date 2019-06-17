@@ -13,6 +13,7 @@
 */
 
 require(__DIR__.'/../../config.php');
+require(__DIR__.'/classes/gmlb_table.php');
 
 // https://docs.moodle.org/dev/Page_API#A_simple_example
 
@@ -26,20 +27,19 @@ require(__DIR__.'/../../config.php');
     $PAGE->set_title("Leaderboards");
     $PAGE->set_heading("Leaderboards");
     $PAGE->set_button("Go to Leaderboards");
+    $PAGE->set_headingmenu("holamundo");
+
+    /**
+     *  Using PAGE->navbar->add() hides the settings gear icon
+     */
+    $PAGE->navbar->add('Leaderboard', new moodle_url("/blocks/gmlb/leaderboard.php"));
+
 
     echo $OUTPUT->header();
-    echo "<h1>";
-    
-        echo "HERE YOU MUST PRINT THE TABLE<br>";
-        echo "HERE YOU MUST PRINT THE TABLE<br>";
-        echo "HERE YOU MUST PRINT THE TABLE<br>";
-        echo "HERE YOU MUST PRINT THE TABLE<br>";
-        echo "HERE YOU MUST PRINT THE TABLE<br>";
-        echo "HERE YOU MUST PRINT THE TABLE<br>";
-        echo "HERE YOU MUST PRINT THE TABLE<br>";
-        echo "HERE YOU MUST PRINT THE TABLE<br>";
-        
-    echo "</h1>";
+
+        $table = new gmlb_table();
+        $table->out(40, true);
+
     echo $OUTPUT->footer();
 
 ?>
