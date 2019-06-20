@@ -17,7 +17,10 @@ require(__DIR__.'/classes/gmlb_table.php');
 
 // https://docs.moodle.org/dev/Page_API#A_simple_example
 
-    $course = $DB->get_record('course', array('id' => 50));
+    if(!isset($_GET['course']))
+        $_GET['course'] = 1;
+
+    $course = $DB->get_record('course', array('id' => $_GET['course']));
     $context = context_course::instance($course->id);
 
     $PAGE->set_url(new moodle_url("/blocks/gmlb/leaderboard.php"));
@@ -33,7 +36,6 @@ require(__DIR__.'/classes/gmlb_table.php');
      *  Using PAGE->navbar->add() hides the settings gear icon
      */
     $PAGE->navbar->add('Leaderboard', new moodle_url("/blocks/gmlb/leaderboard.php"));
-
 
     echo $OUTPUT->header();
 

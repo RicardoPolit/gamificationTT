@@ -16,12 +16,12 @@ require_once "$CFG->libdir/tablelib.php";
 
 class gmlb_table extends flexible_table{
 
-    function col_firstname($row){
-        return "-".$row->firstname."-";
-    }
+    /**
+     * 
+     */
     
     function __construct(){
-        parent::__construct(1);
+        parent::__construct('leaderboard');
         global $CFG;
         
         // Define the list of columns to show.
@@ -34,51 +34,95 @@ class gmlb_table extends flexible_table{
         
         $this->define_baseurl($CFG->wwwroot."/blocks/gmlb/leaderboard.php");
     }
+
+    /**
+     * This method displays the rank when formating
+     * column rank managed with autoincrement
+     */
+
+    function col_rank($row){
+        static $count = 1;
+        return $count++;
+    }
+    
+    /**
+     * This method displays the current level when formating
+     * column level
+     */
+    
+    function col_level($row){
+        return $row->nivel_actual;
+    }
+    
+    /**
+     * This method displays the progress bar when formatting
+     * column xp.
+     */
+    
+    function col_xp($row){
+    
+        // Getting the values in order to calculate the XP of the level
+        $typeOfIncrement = get_config('block_gmxp','typeOfIncrement');
+        $increment  = get_config('block_gmxp','numValorIncrement');
+        $xpLevelOne = get_config('block_gmxp','firstExpRequiried');
+        $xpPoints = $row->experiencia_actual;
+        
+        if($typeOfIncrement==0) // Percentual
+            $requiredXP = $xpLevelOne*( $increment^($row->nivel_actual-1) );
+        
+        else // $typeOfIncrement==1 // Lineal
+            $requiredXP = $xpLevelOne + ( $increment*($row->nivel_actual+1) );
+            
+        $progress = $xpPoints / $requiredXP;
+        
+        return "<div class=\"gmxp-bar\">
+                    <div class=\"gmxp-progress\"
+                      style=\"width:$progress%;background-color:".get_config('block_gmxp','defaultColorPickerProgressBar')."\">
+                    </div>
+                </div>
+                <div class='gmxp-txt-lvl'>
+                    <b>Level XP: $xpPoints/$xpLevelOne </b><br>
+                </div>";
+    }
+    
+    /**
+     * Method to display when cannot find "method col_column"
+     */
+    
+    function other_cols($column, $row) {
+        return "Method col_$column(\$row) not exists<br>\n".json_encode($row);
+    }
+    
+    
+    /**
+     * This function gets the data of gamified users 
+     * and format it as rows in the table
+     */
     
     function out($pagesize, $useinitialsbar, $downloadhelpbutton='') {
+        
+        // Required due to override this method of parent class
         $this->setup();
-
-/*
-        // Compute where to start from.
-        if (empty($this->fence)) {
-            $requestedpage = optional_param($this->request[TABLE_VAR_PAGE], null, PARAM_INT);
-            if ($requestedpage === null) {
-                $mypos = $this->leaderboard->get_position($this->userid);
-                if ($mypos !== null) {
-                    $this->currpage = floor($mypos / $pagesize);
-                }
-            }
-            $this->pagesize($pagesize, $this->leaderboard->get_count());
-            $limit = new limit($pagesize, (int) $this->get_page_start());
-
-        } else {
-            $this->pagesize($this->fence->get_count(), $this->fence->get_count());
-            $limit = $this->fence;
-        }
-
-        $ranking = $this->leaderboard->get_ranking($limit);
-        foreach ($ranking as $rank) {
-            $classes = ($this->userid == $rank->get_state()->get_id()) ? 'highlight-row' : '';
-        }
-        */
         
-        /*$this->set_sql(
-            "{user}.id, nivel_actual, firstname, lastname, experiencia_actual",
-            "{gmdl_usuario}, {user}",
-            'mdl_id_usuario = {user}.id');*/
-        
+        // Retrieving data of the moodle database
         global $DB;
-        $users = $DB->get_records('user', null, '', '*');
+        $rank = 1;
+        $users = $DB->get_records_sql(
+            'SELECT {user}.id, firstnamephonetic, lastnamephonetic, middlename, '.
+                   'alternatename, firstname, lastname, nivel_actual, experiencia_actual '.
+            'FROM {user}, {gmdl_usuario} '.
+            'WHERE {user}.id = {gmdl_usuario}.mdl_id_usuario');
+            
+        // All the name attributes are required to call the function col_fullname
+        // this function internally calls the function fullname in moodlelib.php
         
+        // Iterate over rows to format them
         foreach( $users as $user ){
-            $this->add_data_keyed(array(
-                'rank' => 1,
-                'level' => 13,
-                'fullname' => $this->col_fullname($user),
-                'xp' => 13
-            ));
+            $this->add_data_keyed($this->format_row($user));
         }
-        
+ 
+        // Required due to override this method of parent class
         $this->finish_output();
     }
+
 }
