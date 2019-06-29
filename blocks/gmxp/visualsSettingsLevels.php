@@ -92,15 +92,73 @@ class visualsSettingsLevels extends moodleform {
         return $errors;
     }
 
+    public function setSections(){
+
+        $rawdata = get_config('block_gmxp','sections');
+
+        if($rawdata != null){
+
+            $jsondata = json_decode($rawdata);
+
+            $newdata = [
+                'sections' => $jsondata->sections
+            ];
+            for ($i = 1; $i <= $jsondata->sections; $i++) {
+                $newdata['sectlvlS_' . $i] = $jsondata->sectlvlS->{$i};
+                $newdata['sectlvlE_' . $i] = $jsondata->sectlvlE->{$i};
+            }
+
+            $this->set_data($newdata);
+
+        }
+
+    }
+
 }
 
 $pageAux = new visualsSettingsLevels();
 
+$pageAux->setSections();
+
+if ($pageAux->is_cancelled()) {
+
+
+} else if ($data = $pageAux->get_data()) {
+
+
+    $newdata = [
+        'sections' => $data->sections,
+        'sectlvlS' => [
+            '1' => $data->{'sectlvlS_1'}
+        ],
+        'sectlvlE' => [
+            '1' => $data->{'sectlvlE_1'}
+        ]
+    ];
+    for ($i = 2; $i <= $data->sections; $i++) {
+        $newdata['sectlvlS'][$i] = $data->{'sectlvlS_' . $i};
+        $newdata['sectlvlE'][$i] = $data->{'sectlvlE_' . $i};
+    }
+
+        set_config('sections',json_encode($newdata),'block_gmxp');
+
+
+
+} else {
+
+        //se procesa si la información no es validada
+
+}
+
 $output = $pageAux->render();
+
+
 
 echo $OUTPUT->header();
 echo $output;
 echo $OUTPUT->footer();
+
+
 
 //$dataAux = $pageAux->get_data();
 
