@@ -1,100 +1,92 @@
 \chapter{Introducción}
 \label{ch:introduccion}
 
-Este documento tiene la finalidad de establecer formalmente la documentación del proyecto de trabajo terminal no. 2018-B029 que tiene como nombre {\bf\TituloTT}. La documentación de este proyecto contiene la investigación acerca de la Gamificación, las decisiones más relevantes tomadas en relación al proyecto, el análisis y diseño de los módulos encontrados. %, plan de pruebas
-
-%\begin{quote}
-%Este documento debe ser aprobado por los directores del Trabajo Terminal: {\it M. en C. Sandra Ivette Bautista Rosales} y {\it M. en C. Edgar Armando Catalán Salgado}. El documento aprobado debe tener las firmas de ambos directores en la portada de la versión impresa.
-%\end{quote}    
-
-\noindent A partir de este momento se le nombra {\bf\TituloProy} al proyecto para la realización del trabajo terminal 2018-B029: {\TituloTT}.
+Este documento tiene la finalidad de establecer formalmente la documentación del trabajo terminal no. {\numeroTT} que tiene como nombre {\bf\tituloTT}.
 
 \section{Organización del contenido}
 
-Este capítulo de \nameref{ch:introduccion} tiene como propósito presentar la gamificación, incluyendo sus antecedentes, su uso en la educación y los distintos marcos de trabajo que fueron investigados. En lo referente a la definición del proyecto, se detalla la problemática, nuestra propuesta de solución a la misma, %su justificación; posteriormente se presenta 
-el objetivo principal, estado del arte, y los alcances y limitaciones que tiene el trabajo terminal.\\
+Este capítulo de \nameref{ch:introduccion} tiene como propósito presentar la gamificación, incluyendo sus antecedentes, su uso en la educación y los distintos marcos de trabajo que fueron investigados. En lo referente a la definición del proyecto, se detalla el problema, nuestra propuesta de solución a la misma, el objetivo principal, estado del arte, y los alcances y limitaciones que tiene el trabajo terminal.\\
 
-\noindent La \bb{Parte I: Investigación} contiene a los capítulos de \nameref*{ch:marcoTeorico} y \nameref*{ch:pruebasConcepto}.
+\noindent La \bb{Parte I: Investigación} contiene a los siguientes capítulos:%
 
-\begin{itemize}
-    \item El capítulo \hyperrefx{ch:marcoTeorico} tiene como propósito establecer el soporte conceptual y documental del proyecto, especifica el glosario de términos y los marcos de referencia usados, además contiene la elección del sistema gestor de aprendizaje sobre el cual se desarrollaran las distintas funcionalidades.
+    \begin{itemize}
+        \item \nameref{ch:marcoTeorico}, que establece el soporte conceptual y documental, 
+        especifica los marcos de trabajo usados y además contiene la elección de la 
+        plataforma base.
+        
+        \item \nameref{ch:curvaAprendizaje}, que presenta los resultados obtenidos durante 
+        las pruebas de concepto, los problemas encontrados y las soluciones o alternativas 
+        propuestas a dicho problemas.
     
-    \item El capítulo \hyperrefx{ch:pruebasConcepto} presentar los resultados obtenidos durante la realización de las pruebas de concepto realizadas con el propósito de conocer como es el desarrollo de nuevas funcionalidades en el sistema gestor de aprendizaje elegido.
-\end{itemize}
+        \item \nameref{ch:modAlcance}, especifica a los actores y requerimientos funcionales
+        y no funcionales identificados, tambien presenta el diseño modular de la propuesta
+        de solución planteada en este trabajo terminal.
+        
+        \item \nameref{ch:modDominio}, que contiene el esquema relacional de la base de 
+        datos, contemplando todos los módulos, la relación con las relaciones del core de 
+        moodle y la especificación de los atributos.
+    \end{itemize}
 
-\clearpage\noindent En la \bb{Parte II: Gamedle} contiene los capítulos de \nameref*{ch:modAlcance} y de \nameref*{ch:modDominio}.
-
-\begin{itemize}
-    \item El capítulo \hyperrefx{ch:modAlcance} especifica a los actores identificados, los items del product backlog incluyendo requerimientos funcionales y no funcionales, y los módulos identificados en los que se divide Gamedle.
-    
-    \item El capítulo \hyperrefx{ch:modDominio} contiene las restricciones que moodle tiene respecto a la creación de nuevas tablas, el esquema relacional de la base de datos y la especificación de los atributos, y finalmente un análisis de las formas normales.
-\end{itemize}
-
-\noindent Los siguientes capítulos incluidos en esta parte contiene el análisis y diseño de los distintos módulos identificados: %
-\nameref{mod:experiencia} (capitulo \ref*{mod:experiencia}), 
-Módulo de Recompensa, 
-%\nameref{mod:recompensa} (capitulo \ref*{mod:recompensa}), 
-Módulo Financiero, 
-%\nameref{mod:financiero} (capitulo \ref*{mod:financiero}), 
-Módulo Personalización, 
-%\nameref{mod:personalizacion} (capitulo \ref*{mod:personalizacion}), 
-Módulo de Seguimiento y 
-%\nameref{mod:seguimiento} (capitulo \ref*{mod:seguimiento}) y 
-Módulo de Competencias
-%\nameref{mod:competencias} (capitulo \ref*{mod:competencias}).\\
-\nolinebreak Tomando en cuenta los tiempos contemplados en el desarrollo del proyecto, únicamente se incluye el módulo de experiencia.
-
+\noindent Posteriormente a la investigación se decidió destinar una parte de este documento a cada módulo identificado. Los módulos son \bb{Experiencia}, \bb{Recompensa}, \bb{Financiero}, \bb{Personalización}, \bb{Competencia} y \bb{Seguimiento}. Cada parte contiene el análisis, diseño y pruebas del módulo correspondiente.\\
 \clearpage
+
 
 
 \section{Antecedentes}
 \label{sec:antecedentes}
 
-La idea de utilizar mecánicas de juegos para resolver problemas y atraer distintas audiencias ha sido utilizada a lo largo del tiempo. Por ejemplo, el ejército ha estado usando juegos y simulaciones para el entrenamiento de los soldados, y Estados Unidos ha sido un pionero en el uso de videojuegos en diferentes instalaciones militares \cite{GamByDesign}. %Otro ejemplo: desde la década de 1960, diversos autores han estado escribiendo libros que exploran el lado juguetón/lúdico de la vida y la psicología, mientras que en la década de 1980, en el ámbito cinematográfico, Hollywood ha estado en la senda de la gamificación con películas como War Games. \cite{GamByDesign1}
+La idea de utilizar mecánicas de juegos para resolver problemas y atraer distintas audiencias ha sido utilizada a lo largo del tiempo. Por ejemplo, el ejército ha estado usando juegos y simulaciones para el entrenamiento de los soldados, y Estados Unidos ha sido un pionero en el uso de videojuegos en diferentes instalaciones militares \cite{GamByDesign}.
+
 
 \subsection{Definición de Gamificación}
 
-La Gamificación es un anglicismo proveniente del término en ingles {\it''Gamification''}, la palabra más cercana en el lenguaje español para referirse a la Gamificación es {\it''ludificación''}. Sin embargo, ninguna de las dos palabras se encuentra definida ni por el Diccionario del español de México, ni por el diccionario de la Real Academia de la lengua Española. A continuación se presentan las definiciones propuestas por distintos autores.
+La Gamificación es un anglicismo proveniente del término en ingles {\it``Gamification''}, la palabra más cercana en el lenguaje español para referirse a la Gamificación es {\it''ludificación''}. Sin embargo, ninguna de las dos palabras se encuentra definida en el Diccionario del español de México, o en el diccionario de la Real Academia de la lengua Española. A continuación se presentan las definiciones propuestas por distintos autores.
 
-\begin{itemize}
+    \begin{itemize}
 
-    \item Gartner define la gamificación como \textit{''El uso de la mecánica del juego y el diseño de la experiencia para involucrar y motivar digitalmente a las personas para que logren sus objetivos''} \cite{definicion3} % (según lo citado en Burke, 2014)
+        \item Gartner define la gamificación como \textit{``El uso de la mecánica del juego y 
+        el diseño de la experiencia para involucrar y motivar digitalmente a las personas para 
+        que logren sus objetivos''} \cite{definicion3} % (según lo citado en Burke, 2014)
+        
+        \item Según Kapp, la \textit{``Gamificacion está utilizando la mecánica basada en juegos, 
+        la estética y el pensamiento de juego para involucrar a las personas, motivar la acción, 
+        promover el aprendizaje y resolver problemas''} \cite{definicion4} % (2012)
+        
+        \item Zichermann y Cunningham definieron la Gamificación como \textit{``El proceso del 
+        pensamiento del juego y la mecánica del juego para involucrar a los usuarios y resolver 
+        problemas''} \cite{GamByDesign} %(p. 14) % (2011) 
+        
+        \item Huotari y Hamari proporcionan una definición desde una perspectiva de marketing
+         de servicio como \textit{``Un proceso de mejora de un servicio con posibilidades para 
+         experiencias de juego para respaldar la creación de valor general del usuario''} \cite{definicion6}  %(p. 20). (2012)
+        
+        \item Deterding, Khaled, Nacke y Dixon \textit{``Gamificación es el uso de elementos 
+        presentes en el diseño de juegos en contextos distintos a los juegos''} \cite{definicion7} %(p. 2). (2011) 
     
-    \item Según Kapp, la \textit{''Gamification está utilizando la mecánica basada en juegos, la estética y el pensamiento de juego para involucrar a las personas, motivar la acción, promover el aprendizaje y resolver problemas''} \cite{definicion4} % (2012)
-    
-    \item Zichermann y Cunningham definieron la Gamificación como \textit{''El proceso del pensamiento del juego y la mecánica del juego para involucrar a los usuarios y resolver problemas''} \cite{GamByDesign} %(p. 14) % (2011) 
-    
-    \item Huotari y Hamari proporcionan una definición desde una perspectiva de marketing de servicio como \textit{''Un proceso de mejora de un servicio con posibilidades para experiencias de juego para respaldar la creación de valor general del usuario''} \cite{definicion6}  %(p. 20). (2012)
-    
-    \item Deterding, Khaled, Nacke y Dixon \textit{''Gamificación es el uso de elementos presentes en el diseño de juegos en contextos distintos a los juegos''} \cite{definicion7} %(p. 2). (2011) 
-\end{itemize}
+    \end{itemize}
 
-\noindent A pesar de las propuestas realizadas, 
-%\noindent A pesar de existen distintas definiciones, 
-todavía no existe una definición que sea ampliamente aceptada o que esté establecida formalmente \cite{definicion2}. Durante el desarrollo de este trabajo terminal nos referimos a la \hypertarget{def:gamificacion}{Gamificación} como ''el uso de mecánicas de juegos en un entorno no lúdico''.
+\noindent A pesar de las propuestas realizadas, todavía no existe una definición que sea ampliamente aceptada o que esté establecida formalmente \cite{definicion2}. Durante el desarrollo de este trabajo terminal nos referimos a la \hyperlink{tGamificacion}{Gamificación} como ``el uso de mecánicas de juegos en un entorno no lúdico''.
+
 
 \subsubsection{Inicios de la Gamificación}
 
-    El término ''Gamificación'' se originó en la industria de los medios digitales. El primer uso documentado se remonta a 2008, pero el término no tuvo una adopción generalizada antes de la segunda mitad de 2010. Actualmente se siguen introduciendo términos nuevos para referirse a la Gamificación, como ''juegos de productividad'', ''entretenimiento de vigilancia'', ''Funware'', ''diseño lúdico'', ''juegos de comportamiento”, ”capa de juego” o ”juego aplicado”. Sin embargo, el término ”Gamificación” se ha institucionalizado como el término general \cite{definicion1}.\\
+El término ``Gamificación'' se originó en la industria de los medios digitales. El primer uso documentado se remonta a 2008, pero el término no tuvo una adopción generalizada antes de la segunda mitad de 2010. Actualmente se siguen introduciendo términos nuevos para referirse a la Gamificación, como ``juegos de productividad'', ``entretenimiento de vigilancia'', ``Funware'', ``diseño lúdico'', ``juegos de comportamiento'', ``capa de juego'' o ``juego aplicado''. Sin embargo, el término ``Gamificación'' se ha institucionalizado como el término general \cite{definicion1}.\\
     
-    %\noindent Hace trescientos años, el filósofo escocés David Hume sentó las bases para comprender la motivación de los jugadores con sus puntos de vista sobre la primacía del ser irracional.\\
-    
-    \noindent Muchos investigadores creen que la Gamificación tiene el potencial de motivar y activar comportamientos específicos al mismo tiempo que fomenta la lealtad a la experiencia Gamificada. Además, tiene el potencial de: hacer las actividades no lúdicas más divertidas, motivar a las personas a realizar tareas y mantenerlas en un estado de flujo. \cite{education1}\\
-    % DAN: Buscar una forma mejor de decir: ''Estado de flujo''.
+\noindent Muchos investigadores creen que la Gamificación tiene el potencial de motivar y activar comportamientos específicos al mismo tiempo que fomenta la lealtad a la experiencia Gamificada. Además, tiene el potencial de hacer las actividades no lúdicas más divertidas, motivar a las personas a realizar tareas y mantenerlas constantemente. \cite{education1}
 
 \clearpage
+
 \subsubsection{Gamificación en la educación}
-   
-    En la educación, la Gamificación se ha visto como una solución potencial para problemas de participación y motivación en entornos educativos, ya que incorpora una amplia gama de enfoques para la enseñanza y el aprendizaje. La Gamificación educativa utiliza sistemas de reglas similares a los juegos, experiencias de los jugadores y roles culturales con el propósito de moldear el comportamiento del aprendiz \cite{education1}.\\
+
+En la educación, la Gamificación se ha visto como una solución potencial para problemas de participación y motivación en entornos educativos, ya que incorpora una amplia gama de enfoques para la enseñanza y el aprendizaje. La Gamificación educativa utiliza sistemas de reglas similares a los juegos, experiencias de los jugadores y roles culturales con el propósito de moldear el comportamiento del aprendiz \cite{education1}.\\
     
-    \noindent De acuerdo con Brull y Finlayson, la Gamificación 
-    %el aprendizaje basado en juegos 
-    permite que los alumnos participen y creen una comunidad de aprendizaje, donde puedan experimentar emociones como frustración, asombro, misterio y diversión, mismas que permiten crear una conexión personal con el juego educativo y con otros compañeros, disfrutando de la libertad de experimentar y fallar en un entorno agradable \cite{education3}.\\ % (2016)
+\noindent De acuerdo con Brull y Finlayson, la Gamificación permite que los alumnos participen y creen una comunidad de aprendizaje, donde puedan experimentar emociones como frustración, asombro, misterio y diversión, mismas que permiten crear una conexión personal con el juego educativo y con otros compañeros, disfrutando de la libertad de experimentar y fallar en un entorno agradable \cite{education3}.\\ % (2016)
     
-    \noindent Existe evidencia de que los alumnos involucrados en entornos con Gamificación mejoran su aprendizaje e incrementan su motivación y compromiso \cite{education4}; % (Chu y Hung, 2015)
-    % DAN: Expandir el estudio de Chu y Hung
-    por ejemplo, en Estados Unidos se han aplicado elementos de Gamificación en niveles de primaria y preparatoria, los cuales han propiciado un incremento en la capacidad retención de los alumnos y en el compromiso por parte de los mismos \cite{education3}; % (Brull y Finlayson, 2016)
-    la Gamificación también ha sido aplicada con éxito en niveles de secundaria ayudando a mejorar las calificaciones en las pruebas o exámenes de los alumnos involucrados \cite{education2},\cite{education5}. % (Admiraal {\it et al}. 2014)
+\noindent Existe evidencia de que los alumnos involucrados en entornos con Gamificación mejoran su aprendizaje e incrementan su motivación y compromiso \cite{education4}; % (Chu y Hung, 2015)
+% DAN: Expandir el estudio de Chu y Hung
+
+por ejemplo, en Estados Unidos se han aplicado elementos de Gamificación en niveles de primaria y preparatoria, los cuales han propiciado un incremento en la capacidad retención de los alumnos y en el compromiso por parte de los mismos \cite{education3};
+la Gamificación también ha sido aplicada con éxito en niveles de secundaria ayudando a mejorar las calificaciones en las pruebas o exámenes de los alumnos involucrados \cite{education2},\cite{education5}.
 
 \section{Problema}
 \label{sec:problematica}
