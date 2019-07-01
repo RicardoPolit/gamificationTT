@@ -1,0 +1,193 @@
+\subsection{Product Backlog: Preparación del proyecto}
+
+En esta sección se describirán las actividades para la preparación del proyecto, teniendo cada una un valor para su realización.\\
+
+La tabla \ref{table:prepProy} muestra en orden de mayor a menor valor, las actividades a realizar en la preparación del proyecto.\\
+
+\subsubsection{Actividades}
+
+\begin{filecontents*}{prep-proy.csv}
+%termID    , description                               , logten
+ A1 , Elegir sistema gestor de aprendizaje donde se desarrollará , 9 
+ A2 , Investigar marco de trabajo de gamificación , 10  
+ A3 , Investigar antecedentes definiciones y usos de gamificación , 10 
+ A4 , Realizar pruebas de concepto de Moodle , 8 
+ A5 , Definir el modelo de dominio (Alcance tt1) , 9  
+ A6 , Realizar diagrama de componentes de Moodle , 8  
+ A7 , Definir módulo de experiencia , 9  
+ A8 , Definir módulo financiero , 9 
+ A9 , Definir módulo de competencias , 9 
+ A10 , Definir módulo de personalización , 9 
+ A11 , Definir módulo de recompensa , 9 
+ A12 , Definir módulo de seguimiento , 9 
+ A13 , Establecer forma de trabajo (SCRUM) , 10 
+ A14 , Realización artefactos de soporte , 9 
+ A15 , Elaborar capitulo de introducción , 8 
+ A16 , Definir modelo de alcance , 9 
+ A17 , Probar distintos entornos de desarrollo , 8 
+ A18 , Filtrar los tipos plugins que pudiéramos usar , 8 
+ A19 , Familiarizarse con el uso de Moodle siendo administrador , 8 
+ A20 , Buscar plugins de Moodle que implementen gamificación y compararlos , 8 
+\end{filecontents*}
+\DTLloaddb[noheader,keys={ID,Descripción,Valor}]{prep-proy}{prep-proy.csv}
+
+\begin{multicols}{2}
+\DTLassign{prep-proy}{1}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se investigarán los diferentes sistemas disponibles y se elegirá el que se acomode más a nuestras necesidades
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{2}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Investigarán al menos 3 marcos de trabajo para la implementación de la gamificación y se elegirá que métodos se utilizarán para el desarrollo del proyecto. 
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{3}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se debe de leer de donde viene la gamificación, que autores la definen y en dónde ha sido utilizada. Esto con el fin de obtener un mejor contexto de ella.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{4}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Las pruebas de concepto de Moodle tienen la finalidad de obtener conocimiento para realizar de manera eficiente el desarrollo de los plugins.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{5}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se deberá de tener el modelo de la base de datos para diseñar como se manejará la información en el proyecto.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{6}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Los diagramas de componentes de Moodle funcionarán para tener una mejor idea de que se va a desarrollar a lo largo del proyecto, y como esos componentes se diferencian uno de los otros, así como la comunicación entre los mismos.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{7}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se define el modulo de experiencia, el cual se encargará de otorgar experiencia a los usuarios, definir sus niveles, y llevar un seguimiento de avance en los cursos.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{8}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se define el modulo financiero, el cual se encargará de administrar los puntos de intercambio del proyecto, como es que el usuario los obtiene y que puede intercambiar con ellos.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{9}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se define el modulo de competencias, se definirán todas las competencias propuestas para el proyecto.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{10}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se define el modulo de personalización, se escribirá acerca que se podrá personalizar en el proyecto de acuerdo a los niveles, puntos de intercambio y permisos que tengan los usuarios.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{11}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se define el modulo de recompensa, este modulo se encarga de administrar el otorgamiento de las diferentes recompensas que se podrán obtener a los largo de los cursos y de la plataforma, también se tiene que definir que recompensas serán dadas a los usuarios.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{12}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se define el modulo de seguimiento, este modulo se encarga de dar seguimiento de los cursos realizados.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{13}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se establecerá la forma en la que se quiere trabajar en el proyecto, para así realizar conforme a los que dicte el marco de trabajo, las actividades y los entregables.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{14}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} De acuerdo al marco de trabajo elegido para el desarrollo del proyecto, se realizarán los artefactos de soporte que dicho marco defina.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{15}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\end{multicols}
+
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se escribirá el capitulo de introducción del reporte técnico el cual contiene los siguientes apartados:
+    	
+    	\begin{enumerate}
+    	    \item Organización del contenido
+    	    \item Antecedentes
+    	    \item Definición de Gamificación
+    	    \item Problemática
+    	    \item Propuesta de solución
+    	    \item Justificación
+    	    \item Objetivos
+    	    \item Estado del arte
+    	    \item Alcances y limitaciones
+    	\end{enumerate}
+    	
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{16}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se define el modelo de alcance del proyecto, esto debe de tener los requerimientos de usuario y los requerimientos del sistema.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{17}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se deberá de probar diferentes entornos de desarrollo para poder elegir el que se acomode más a las necesidades del proyecto. Así como a las especificaciones de éste mismo y las capacidades del equipo de desarrollo.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{18}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Investigación acerca de los diferentes tipos de plugins que nos ofrece Moodle, para elegir correctamente los que se tendrán que desarrollar de acuerdo a los componentes que se quieren realizar.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{19}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Ya que el equipo de desarrollo no tiene experiencia con Moodle, se tendrá que familiarizar con éste, para poder desarrollar efectivamente los componentes propuestos y tener conocimiento de las necesidades de un administrador de Moodle.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLassign{prep-proy}{20}{\ida=ID,\desc=Descripción,\Valor=Valor}
+\begin{itemize}
+    	\item[\bf \ida] {\bf \desc:} Se investigará si es que existen plugins en Moodle que ya implementen la gamificación, si es que existen, se compararán para mostrar sus ventajas y desventajas y también se utilizarán como herramientas de apoyo.
+        \item[Prior.] \Valor
+\end{itemize}
+
+\DTLsort{Valor=descending}{prep-proy}
+
+\noindent
+\begin{table}
+\centering
+\begin{tabular}{| c | l | c |}
+  \hline
+  \bfseries ID & 
+  \bfseries Descripción & 
+    \bfseries Valor \\\hline%  
+  \DTLforeach{prep-proy}{%
+    \ida=ID,\termdesc=Descripción,\Valor=Valor}{%
+    \ida & \termdesc & \Valor \\\hline%
+  }%
+\end{tabular}
+\caption{Preparación de proyecto}
+\label{table:prepProys}
+\end{table}
+
+%\addtable{| c | l | c |}{tbl:prepProy}{%
+    %{\bf Id} & {\bf Descripción} & {\bf Valor}\\%\hline
+    %\DTLforeach{prep-proy}{\ida=ID,\termdesc=Descripción,\Valor=Valor}{%
+        %\ida & \termdesc & \Valor\\}%\hline}%
+%}{Preparacion de Proyecto}

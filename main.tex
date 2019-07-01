@@ -1,0 +1,60 @@
+\documentclass[10pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{academic}
+%\usepackage{pdfpages}
+%\usepackage{datatool,filecontents,tabularx,booktabs}
+
+\title{\TituloTT\bigskip}
+\subtitle{Trabajo Terminal No. 2018-B029, Esquema de trabajo, Sem:2019-2}
+\author{David Flores Casanova, Ricardo Naranjo Polit, Daniel Isai Ortega}
+\organization{Escuela Superior de Cómputo, Instituto Politécnico Nacional, México\\
+    \email{david.flores@live.com.mx}, \email{dortegaz1500@alumno.ipn.mx} }
+\date{Borrador del \today}
+
+\begin{document}
+
+    \ThisLLCornerWallPaper{1.0}{images/image}
+    
+    \frontmatter
+        \maketitle
+        \thispagestyle{empty}
+    	\tableofcontents
+    	\listoffigures		
+    	
+	\mainmatter
+	    \include{01introduccion}
+	    
+	    \part{Investigación}\label{part:investigacion}
+	        \include{02marcoTeorico}
+	        \include{03pruebasC}
+	        
+        \part{Gamedle}\label{part:modulos}
+    	    \include{04modAlcance}
+            \include{05modDominio}
+            
+    	    \include{06modExp}
+	        \include{06modExpP}
+    	    
+    	    \include{07modRecomp}
+    	    %\include{08modSeguim}
+    	    %\include{09modComp}
+    	    %\include{10modFinanc}
+    	    %\include{11modPerson}
+    	    \include{12conclusiones}
+    	    
+    \backmatter
+        \include{references}
+        %\chapter{Anexos}
+	    %\section{Documento de Metodología}
+	    %\section{Reporte de pruebas de concepto}
+	    
+        \include{glosario}
+\end{document}
+
+% LINKS PARA ESPECIFICAR EL SERVIDR BAJO EL CUAL SE TRABAJARÁ (PRODUCCIÓN)
+
+% https://docs.moodle.org/36/en/Installing_Moodle
+% https://docs.moodle.org/35/en/Performance_recommendations
+% https://docs.moodle.org/35/en/PHP
+

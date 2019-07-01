@@ -1,0 +1,444 @@
+\chapter{Marco Teórico}
+\label{ch:marcoTeorico}
+
+Este capítulo tiene como propósito establecer el soporte conceptual y documental del proyecto, especifica el glosario de términos, los marcos de referencia usados, una presentación de los sistemas gestores de aprendizaje contemplados y la elección del sistema gestor de aprendizaje sobre el cual se desarrollaran las distintas funcionalidades.
+
+\section{Marcos de trabajo para la Gamificación}
+\subsection{Octalysis}
+\label{sec:octalysis}
+
+    Gracias a la investigación que realizó Yu-Kai Chou durante 10 años, se dio cuenta que existen 8 ejes que motivan a la gente a realizar cualquier actividad (Figura \ref{fig:octalysis}). De estos ejes basó su marco de trabajo $"$Octalysis$"$ para poder implementar de una manera sistemática la Gamificación, y al mismo tiempo obteniendo flexibilidad en la misma.
+    
+    \addfigure[(adaptado de {\it Octalysis} \cite{libro1})]%
+        {.95}{images/octalysis}{fig:octalysis}{Principios de gamificación según Octalysis}
+    
+\begin{comment}
+\begin{enumerate}
+    \item \principioI
+    \item \principioII
+    \item \principioIII
+    \item \principioIV
+    \item \principioV
+    \item \principioVI
+    \item \principioVII
+    \item \principioVIII
+\end{enumerate}
+\end{comment}
+    
+    \noindent A continuación se describe cada uno de los principios, incluyendo su nombre en inglés y la interpretación que realizamos al lenguaje español, además se detallan algunas herramientas que permiten implementar o dan soporte a los principios.
+    
+    \subsubsection{\principioI}
+    \label{subsec:principioI}
+  
+    Este principio trata de motivar al jugador al convencerlo de que son parte de algo más grande que ellos.\cite[p. 66]{libro2} Algunos ejemplos de como se puede lograr esto son:
+    
+    \begin{enumerate}
+    
+        \item \textbf{Narrativa.} Esta herramienta da el contexto del porqué el jugador debe de realizar la actividad. Generalmente se utiliza una historia para que el jugador conozca a qué motivo más grande pertenece, y la razón por la cual está realizando las actividades. La narrativa puede ser un pequeño vídeo al principio del sistema que explique su historia, o tan profundo como tematizar todo el sistema de acuerdo a esa narrativa.\cite[p. 81]{libro2}
+        
+        \item \textbf{Héroe de la humanidad.} Este método de aplicar el principio 1 \principioI, se realiza al hacer que el jugador pertenezca a un cambio más grande que él, que las actividades que realiza en el sistema conllevan a consecuencias humanitarias buenas y reales en el mundo. Esto lo motiva a seguir realizando actividades para seguir ayudando.\cite[p. 82]{libro2}
+        
+        \item \textbf{Elitismo.} Esta estrategia lleva a un siguiente nivel la creencia de pertenecer a algo más grande que ellos. Se deben de tener equipos para que los jugadores que pertenecen a éstos realicen las actividades no solamente por su beneficio si no para el beneficio del equipo y para derrotar a sus equipos rivales. Se debe de tener especial cuidado con esta estrategia puesto que puede tener resultados negativos si no se tiene una competencia sana.\cite[p. 83]{libro2}
+    
+    \end{enumerate}
+    
+    \subsubsection{\principioII}
+    \label{subsec:principioII}
+    
+    Este es el principio donde las personas son impulsadas por un sentido de crecimiento y la necesidad de lograr un objetivo específico.\cite[p. 91]{libro2} Los siguientes ejemplos tratan impulsar este sentido de crecimiento al recompensar al jugador:
+    
+    \begin{enumerate}
+        
+        \item \textbf{Barra de progreso.} Esta herramienta se beneficia de que la gente le molesta que les digan que tienen cosas incompletas, por lo cual se sienten impulsadas a completarlo. Hay que tener cuidado al implementar una barra de progreso puesto que debe de llenarse al realizar actividades que requieran un esfuerzo significativo para lograr el impulso necesario y el sentimiento de crecimiento.\cite[p. 113]{libro2}
+        
+        \item \textbf{Símbolos de logro.} La función de los símbolos de logro es que un jugador pueda mostrar a los otros que realizó una actividad importante y complicada, esto les da sentido de realización. Estos símbolos pueden ser casi cualquier cosa: insignias, estrellas, sombreros, uniformes, etc. Lo importante es el significado y el esfuerzo detrás de cada uno de ellos.\cite[p. 117]{libro2}
+        
+        \item \textbf{Puntos de estatus.} Estos puntos tienen finalidades internas y externas. Internamente ayuda al sistema a saber cuanto falta para que el jugador termine una actividad. Externamente le da al jugador retroalimentación de su progreso en la actividad u objetivo. Así como en el punto anterior (símbolos de logro) es necesario que solo se obtengan los puntos de estatus al realizar alguna acción que sea importante para el sistema.\cite[p. 118]{libro2}
+        
+        \item \textbf{Tabla de líderes.} Es un elemento de juego en el que se posiciona a los jugadores basado en algún criterio que está influenciado por el comportamiento hacía las acciones deseadas por el sistema. Estas acciones pueden ser: completar una actividad, realizar una encuesta, etc. Uno de los problemas que puede llegar a tener esta tabla es el de desmotivar a los jugadores al mostrarles que existe una diferencia enorme entre su posición en la tabla y el de los jugadores en los primeros lugares, la manera de atacar el problema es mostrando al jugador los lugares directamente encima de él en la tabla puesto que estos lugares si son alcanzables en un corto periodo de tiempo.\cite[p. 121]{libro2}
+        
+    \end{enumerate}
+    
+    \subsubsection{\principioIII}
+    \label{subsec:prinpcioIII}
+    
+    El principio trata acerca de impulsar la creatividad en las personas, esta creatividad se puede ofrecer por medio de toma de decisiones, y ayudan al usuario a motivarse por medio del pensamiento creativo \cite[p. 126]{libro2}. Los siguientes ejemplos tratan de impulsar este sentido de creatividad:
+    
+    \begin{enumerate}
+        \item \textbf{Amplificadores.} \cite[p. 146]{libro2} Los amplificadores son momentos en el sistema en los cuales se les da una ventaja a los usuarios por un corto tiempo, esto los motiva a usar el sistema lo más que puedan durante esa ventaja para no desperdiciarla, un ejemplo son las ofertas de relámpago de la plataforma de compras en linea $"$Amazon$"$.
+        
+        \item \textbf{Percepción de elección.} \cite[p. 150]{libro2} La percepción de elección se le ofrece al usuario cuando se le presentan varias opciones a elegir, esto lo hace sentir que es tomado en cuenta, y la opción que decida seguir la realizará de manera motivada. Se le llama percepción de elección porque se le pueden mostrar varias opciones al usuario pero se le guía a elegir la opción que se quiere por medio de incentivos.
+    \end{enumerate}
+    
+    \subsubsection{\principioIV}
+    \label{subsec:principioIV}
+    
+    Representa la motivación que está incitada por nuestros sentimientos obtener algo y consecuentemente el deseo de mejorarlo, protegerlo y obtener más de eso. Este principio involucra muchos elementos como productos virtuales  y dinero virtual, pero también es el principal principio que nos motiva a coleccionar estampas y acumular recursos. Por lo mismo a un nivel más abstracto es el principio que nos motiva a invertir nuestro tiempo y recursos en personalizar algo a nuestro gusto \cite[p. 161]{libro2}. A continuación se muestran varios ejemplos de componentes que pueden aplicar este principio:
+    
+    \begin{enumerate}
+        \item \textbf{Construcción desde cero.} \cite[p. 182]{libro2} Este ejemplo trata acerca de como el usuario siente pertenencia cuando crea un objeto desde cero puesto que lo realizó a su gusto. Es importante que el proceso de creación no sea tedioso para evitar el efecto contrario.
+        
+        \item \textbf{Conjunto de colección.} \cite[p. 183]{libro2} Al darle elementos de personalización a los usuarios como imágenes de perfil, o darles logros al volverlos parte de un conjunto de colección los motiva a conseguir todos los elementos para obtener todo el conjunto.
+        
+        \item \textbf{Puntos intercambiables} \cite[p. 187]{libro2} Estos puntos a diferencia de los puntos de estatus, sirven para obtener bienes en el sistema, por lo cual al obtener algún bien, nos motiva a protegerlo y mejorarlo. La manera en que se obtienen estos puntos es esencial para elegir en que se actividades se quieren enfatizar que el usuario realice.
+        
+        \item \textbf{Apego menor.} \cite[p. 189]{libro2} Al estar monitoreando datos o valores constantemente a lo largo de cierto tiempo, estos datos empiezan a importarnos y se llega a la motivación de mejorarlos, por lo cual se deben de enseñar constantemente los puntos de progreso de los usuarios para que se sientan motivados al aumentarlos.
+
+    \end{enumerate}
+    
+    \subsubsection{\principioV}
+    \label{subsec:principioV}
+    
+    Involucra actividades inspiradas por lo que otras personas piensan, hacen o dicen. Este principio es el motor detrás de varios temas como tutorías, competiciones, envidia, actividades grupales, tesoro social y compañerismo. Se basa en el deseo de conectar y compararse con otros individuos.\cite[p. 197]{libro2} Algunos ejemplos son:
+    
+    \begin{enumerate}
+        
+        \item \textbf{Tutorías.} \cite[p. 215]{libro2} Las tutorías son una herramienta poderosa para mantener motivado a los usuarios puesto que les da una experiencia personalizada con el sistema por medio de su tutor, y les ayuda a sobrepasar obstáculos que son comunes en ese entorno.
+        
+        \item \textbf{Estante de trofeos.} \cite[p. 218]{libro2} El estante de trofeos permite al usuario mostrar que cosas ha logrado, lo cual se exhibe por si mismo, los estantes de trofeos son vistos cuando se entra en la oficina de alguien y en las paredes se ven los premios, certificados y credenciales que ha conseguido. En los juegos se puede ver como coronas, logros, o avatares. En muchos juegos los elementos y equipo de los avatares solo pueden ser conseguidos después de llegar a una dificultad muy grande. Esto permite que todos puedan ver que ese usuario ha logrado muchas cosas. 
+        
+        \item \textbf{Actividad en grupo.} \cite[p. 221]{libro2} Las actividades en grupo son muy efectivas en la colaboración así como en propaganda viral, porque requiere la participación grupal antes que algún individuo consiga el estado ganador. Un ejemplo claro es el de ofrecer descuento en algún producto de una tienda, pero ese descuento solo es aplicable si la tienda vende una cierta cantidad de el producto en concreto, esto hace que las personas inviten a sus conocidos a comprar el producto para poder conseguir el descuento, lo cual logra publicidad gratis.
+        
+        \item \textbf{Ancla de conformidad.} \cite[p. 226]{libro2} La ancla de conformidad, habla de motivar a los usuarios al mostrarles las diferencias entre sus puntajes, comportamiento o progreso, respecto a los demás que se encuentran en el sistema. Esto los hace querer ser parte de la norma, o hasta sobresalir del grupo al realizar constantemente actividades mejores y más difíciles.
+        
+        \item \textbf{Competencias.} \cite[p. 210]{libro2} Las competencias son una manera de motivar a los usuarios a ser mejores que sus iguales, al estar constantemente comparando sus habilidades con la de los otros. También ayuda a mantener un historial sobre el progreso de los usuarios a lo largo de las actividades. Es importante recalcar que según el autor Mario Herger \cite{libro25} las competencias se deben implementar en casos especiales, de lo contrario obtendrían un resultado negativo al esperado, uno de los puntos que propone en el que se debe de aplicar la competencia es cuando el sistema es de aprendizaje, puesto que la competencia motiva a los usuarios a querer aprender más y ser mejores que sus compañeros.
+        
+    \end{enumerate}
+    
+    \subsubsection{\principioVI}
+    \label{subsec:principioVI}
+        Es el principio que motiva debido a que no podemos tener inmediatamente algún objeto o porque existe una gran dificultad para obtenerlo\cite[p. 233]{libro2}. Algunos ejemplos de como aplicar el principio son:
+        
+        \begin{enumerate}
+            \item \textbf{Colgado o mostrar los objetos.}\cite[p. 252]{libro2} Al mostrarle a los usuarios los objetos que no pueden obtener o que son muy difíciles de obtener, los hace que los deseen con más fuerza. Por ejemplo cuando se muestran en una tienda o como objetos bloqueados, esto motiva a los usuarios a querer conseguirlos.
+            
+            \item \textbf{Tapas magnéticas.}\cite[p. 256]{libro2} Son limitaciones que se le ponen al número de veces que un usuario puede realizar alguna acción, que a su vez lo motiva a querer realizar las acciones más veces. Se habla de que nunca se debe de dar al usuario un sentido de abundancia infinita, porque eso hace que no se le den importancia a las acciones a realizar.
+            
+            \item \textbf{Dinámica de citas.}\cite[p. 258]{libro2} Este ejemplo trata de implementar escasez en el tiempo, al sólo poder realizar ciertas acciones en una determinada hora del día, esto motiva al usuario y hace que se esté más atento para no perderse el momento del día y poder realizar la acción deseada.
+            
+            \item \textbf{Descansos de tortura.}\cite[p. 261]{libro2} Se trata de limitar al usuario a utilizar el sistema solo por cierto tiempo y que tenga que esperar para poder volver a utilizarlo. Esto hace que el usuario busque cualquier método necesario para terminar el tiempo de espera, esos métodos pueden ser el pagar dinero o realizar alguna acción deseada por los dueños del sistema.
+        \end{enumerate}
+    \subsubsection{\principioVII}
+    \label{subsec:principioVII}
+       Se motiva y se mantienen enganchados a los usuarios al no permitirles adivinar cual va a ser el siguiente suceso que ocurrirá, esto los hace curiosos y los mantiene atentos a los resultados de sus acciones deseadas en el sistema \cite[p. 273]{libro2}. Ejemplos de su implementación:
+       
+       \begin{enumerate}
+           \item \textbf{Elección que brilla.}\cite[p. 297]{libro2} Este tipo de implementación aborda la curiosidad del usuario al mostrarle una opción que se encuentra resaltada en el sistema, lo cual hace que el usuario quiera descubrir por qué es que se encuentra brillando y así se puede llegar a guiar al usuario hacia ciertas acciones deseadas.
+           
+           \item \textbf{Cajas misteriosas o Cajas de botín.}\cite[p. 299]{libro2} Una de las maneras en que se puede implementar este principio es por medio de recompensas al realizar ciertas acciones deseadas, pero estas recompensas deben de ser aleatorias para mantener interesado al usuario en la posibilidad de recibir cierta recompensa que ellos desean.
+           
+           \item \textbf{Huevos de pascua.}\cite[p. 301]{libro2} A diferencia de las cajas de botín o cajas misteriosas, las recompensas de tipo huevos de pascua no son obtenidas por realizar una acción deseada que el usuario conozca, si no que se dan inesperadamente a los usuarios. Esto las hace tener cierto grado de sorpresa al ser recibidas.
+           
+           \item \textbf{Lotería.}\cite[p. 305]{libro2} Este tipo de implementación también está enfocada en las recompensas, pero en especifico se recompensa solo a ciertos usuarios ganadores. Pero esta probabilidad de ganar la recompensa aumenta al mantenerse más tiempo en el sistema, lo cual motiva a los usuarios a estar en el y seguir obteniendo las recompensas.
+       \end{enumerate}
+    \subsubsection{\principioVIII}
+    \label{subsec:principioVIII}
+        Este principio motiva a través del miedo de perder algún objeto o que ocurran eventos indeseables. Existen muchas situaciones en las cuales se actúan basados en el miedo de perder algo que representa nuestra inversión de tiempo, esfuerzo, dinero o otros recursos\cite{libro3}. Ejemplos de su implementación:
+        
+        \begin{enumerate}
+            \item \textbf{Herencia legítima.}\cite{libro3} Esto es cuando un sistema primero hace creer al usuario que algo pertenece a ellos de manera legítima, y luego los hace sentir que se los van a quitar si no realizan una acción deseada.
+            
+            \item \textbf{Oportunidades evanescentes.}\cite{libro3} Una oportunidad evanescente es una oportunidad que va a desaparecer si el usuario no realiza una acción deseada. Un ejemplo real es las ofertas limitadas que te fuerzan a decidir si comprar un articulo en ese momento o perder la oferta.
+            
+            \item \textbf{Estancamiento del status quo.}\cite{libro3} Este tipo de implementación se realiza al tener que hacer acciones deseadas para mantener el status quo que ellos tienen. Esto vuelve en habito el realizar estas acciones y se motivan para no perder su status.
+            
+            \item \textbf{La prisión de costo hundido.}\cite{libro3} Esto ocurre cuando se invierte tanto tiempo en algo, que aún cuando ya no es disfrutable, se continua realizado las acciones deseables e invirtiendo más tiempo porque no se quiere sentir la perdida de todo el tiempo invertido.
+            
+        \end{enumerate}
+    
+
+\clearpage
+\subsection{For The Win}
+\label{sec:ForTheWin}
+    Dan Hunter y Kevin Werbach crearon un marco de trabajo que se centra en aplicar la gamificación en los negocios y/o en las empresas. Esto siguiendo 6 pasos y conociendo los elementos de juego. El marco de trabajo no tiene un nombre por si mismo, sino que el nombre se lo asignamos utilizando el título de su libro ''\textit{For The Win:  How game thinking can revolutionize your business}''.
+    
+\subsubsection{Elementos de juego}
+    
+    \noindent De acuerdo con For The Win, para implementar gamificación se necesitan contemplar los tres tipos de elementos de juego, Dinámicas, Mecánicas y Componentes. Los tipos de elementos son organizados en una pirámide (figura 
+    \ref{fig:FTW_Piramide}) de acuerdo con su nivel de abstracción 
+    y el objetivo que tienen \cite[pp. 55-57]{FrameWorkForTheWin}.
+    
+    \addfigure[(adaptado de {\it For The Win} \cite{FrameWorkForTheWin})]%
+        {.35}{images/ForTheWin_Piramide}{fig:FTW_Piramide}{Niveles de clasificación de elementos de juego según For The Win}
+    
+    \begin{multicols}{2}
+        \noindent\textbf{Nivel: Dinámicas}. Las dinámicas son lo más abstracto, es la temática que envuelve a todo el sistema. Existen 5 dinámicas, las cuales son:
+        
+        \begin{enumerate}
+            \item Restricciones
+            \item Emociones
+            \item Historia
+            \item Progresión
+            \item Relaciones sociales
+        \end{enumerate}
+
+\vfill\null
+\columnbreak
+
+        \noindent\textbf{Nivel: Mecánicas}. Las mecánicas son el motivo para que se haga alguna acción, son las que mantienen enganchado al jugador. Existen 10 mecánicas, las cuales son:
+        
+        \begin{enumerate}
+            \item Desafíos
+            \item Suerte 
+            \item Competencia
+            \item Cooperación
+            \item Retroalimentación 
+            \item Obtención de elementos
+            \item Recompensas
+            \item Transacciones
+            \item Turnos
+            \item Ganadores y perdedores\\
+        \end{enumerate}
+        
+    \end{multicols}
+\clearpage
+
+        \noindent\textbf{Nivel: Componentes} Los componentes son la forma de implementar las mecánicas y las dinámicas. Existen 15 componentes, los cuales son:
+        
+    \begin{multicols}{2}
+        \begin{enumerate}
+            \item Logros
+            \item Avatares
+            \item Insignias
+            \item Peleas de jefes finales
+            \item Colecciones
+            \item Combates
+            \item Desbloqueo de contenido
+            \item Regalos e intercambios
+            \item Tablas de líderes
+            \item Niveles de personaje (Experiencia)
+            \item Puntos
+            \item Misiones
+            \item Esquemas sociales
+            \item Equipos
+            \item Moneda virtual
+        \end{enumerate}
+    \end{multicols}
+    
+    
+    \noindent  For The Win establece que para cumplir con gamificación no es necesario tener cada uno de los elementos anteriores, ya que establece que antes de cantidad se necesita calidad, refiriéndose a que los elementos tengan coherencia entre sí.
+    
+    \subsubsection{ Proceso de implementación}
+    
+    For the Win indica que el proceso consta de 6 pasos que especifican cómo introducir la gamififación, cada uno de los pasos se describen a continuación \cite[pp. 60-70]{FrameWorkForTheWin}.\\
+    
+    \noindent \textbf{1.- Definir los objetivos del negocio}\\
+    
+    \noindent Los objetivos no se refieren a los planteados en la visión y misión de la empresa, sino al ''¿Por qué?'' se está haciendo este sistema que tiene implementada la gamificación.\\
+    
+    \noindent \textbf{2.- Delimita las acciones de tus usuarios}\\
+    
+    \noindent Ya definido el objetivo, se tiene que ver que acciones tus usuarios podrán desarrollar en el sistema, dichas acciones deben ser concretas y específicas. Por ejemplo: Iniciar sesión el la página web, compartir la información del trabajo vía twitter y comentar en una publicación de facebook. 
+    
+    \noindent Dichas acciones tienen que estar relacionadas con el ''¿Por qué?''.\\
+    
+    \noindent \textbf{3.- Describe a tus usuarios}\\
+    
+    \noindent ¿Qué usuarios estarán usando tu sistema? y aún más importante, ¿cuál es tu relación con ellos? y/o ¿qué tanto sabes de ellos? Esto para poder conocer qué podría motivarlos.\\
+    
+    
+    \noindent \textbf{4.- Define tus actividades de inicio a fin}\\
+    
+    \noindent Conociendo a tus usuarios y tus objetivos ya puedes diseñar que actividades tendrá tu sistema y cómo es el flujo en cada una de ellas. En los juegos siempre las actividades tienen un inicio y a veces tienen un final. Y hay veces que se tienen ciclos antes de llegar al final. Por eso mismo se debe tomar en cuenta que hay 2 posibles formas de crear tu flujo de actividad: de forma de ciclo y forma de escaleras.\\
+    
+    
+    
+    
+    \noindent \textbf{5.- Nunca olvides la diversión}\\
+    
+    \noindent Antes de empezar a usar el sistema se tiene que dar un paso atrás y preguntarte si al menos tú consideras que es divertido, si a ti te gustaría probar el hacer dichas actividades voluntariamente.\\
+    
+    
+    \noindent \textbf{6.- Utiliza las herramientas adecuadas para el trabajo}\\
+    
+    \noindent En esta paso se tiene que especificar qué elementos de juego se utilizarán a lo largo de las actividades diseñadas anteriormente y empezar a codificarlas en tu sistema.\\
+    
+%\subsection{Marco de trabajo C}
+% TODO: Agregar el paper que habla d epapers aquí.
+
+\begin{comment}
+\section{Elección de Marco de Trabajo}
+
+%Hemos decidido utilizar  a Yukai-Cho(Octalysis)
+
+    Gracias a que Octalysis divide la implementación de la Gamificación en 8 principios, da una flexibilidad mayor en su implementación puesto que se pueden elegir diferentes herramientas para implementar sus principios, a diferencia de los otros autores que solo enumeran las herramientas más usadas (puntos, insignias y tablas de clasificación.) y no dan cabida al uso de otras distintas decidimos utilizar 0ctalysis por las ventajas.
+     
+     - Modularidad de principios
+     - 
+     
+     
+    Que principios se tendrán.
+\end{comment}
+
+\section{Sistemas de gestión de aprendizaje}
+    Sistema de gestión de aprendizaje es la traducción de Learning Managment System (LMS) del Inglés.
+    A continuación se enlistan las definiciones de distintos autores acerca de los sistemas gestores de aprendizaje:
+    
+    \begin{itemize}
+        \item Un sistema de gestión de aprendizaje es un software que incluye  una lista de servicios que le permiten y ayudan al profesor con la gestión de sus cursos. \cite{LMS_1}
+        \item  Un sistema de gestión de aprendizaje es una aplicación de software basada en web diseñada para manejar material didáctico, interacción con el estudiante, herramientas de evaluación y reportes del progreso de aprendizaje de los estudiantes. \cite{LMS_2}
+        \item  Un sistema de gestión de aprendizaje es un software para el manejo y presentación de materiales didácticos en la internet, además de ofrecer funcionalidades para la colaboración en línea. \cite{LMS_3}
+    \end{itemize}
+
+    \noindent Se puede observar que las definiciones tienen como idea central la gestión del material didáctico y los cursos. La definición que usaremos a lo largo de este Trabajo Terminal es: Un sistema de gestión de aprendizaje, es un software que incluye una lista de servicios que permiten gestionar material didáctico y la gestión de cursos.\\
+    
+    %\noindent Existen varios sistemas gestores de aprendizaje disponibles para su uso actualmente, sin embargo, necesitamos uno que se adapte a las necesidades de este trabajo terminal, es por eso que se realizó la siguiente tabla comparativa para poder determinar que sistema gestor de aprendizaje se utilizará.
+
+
+    \noindent Existen varios sistema de gestión de aprendizaje disponibles para su uso actualmente. Se realizó la siguiente tabla comparativa para poder determinar que sistema gestor de aprendizaje se utilizará.
+    
+\begin{comment}
+    Todos los LMS investigados:
+        Moodle*
+        Claroline
+        Docebo*
+        SAP Litmos*
+        Gnosis Conect*
+        TalentLMS*
+        eFront
+        Sakai
+        Edmodo
+        ATutor*
+\end{comment}
+\clearpage
+    \addtable{| m{13em} |m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.8cm}|}{tbl:LMSs}{
+        {\bf Carácterísticas} & 
+        \begin{center}{\bf Moodle} \cite{PagMoodle} \end{center} &
+        \begin{center}{\bf ATutor} \cite{PagATutor} \end{center}&
+        \begin{center}{\bf Docebo} \cite{PagDocebo} \end{center}& 
+        \begin{center}{\bf SAP\newline Litmos} \cite{PagSAPLitmos} \end{center}&
+        \begin{center}{\bf Gnosis Connect} \cite{PagGnosisConnect} \end{center}&
+        \begin{center}{\bf TalentLMS} \cite{PagTalentLMS}\end{center}\\\hline
+        Comparte su documentación de código & Sí & Sí & Sí & Sí & No & No \\\hline
+        Soporta idioma Español o Inglés& Sí & Sí & Sí & Sí & Sí & Sí\\\hline
+        Licencia &       GPLv3 &   GPL &    Propia &    Propia &    Propia &    Propia \\\hline
+        Redistribuye su código fuente & Sí & Sí & No & No & No & No \\\hline
+        Permite la incorporación de componentes desarrollados por gente externa&   Sí & Sí & Sí & Sí & No & No  \\\hline
+    }{Tabla comparativa de los sistemas de gestión de aprendizaje}
+    
+    \noindent A continuación se presenta el por qué de cada característica:
+    \begin{itemize}
+        \item Comparte su documentación de código: Debido a que queremos adaptarnos a sistemas existentes, necesitamos entender cómo funciona su estructura, cómo tienen separados sus archivos y cómo se usarían sus funciones. Sin la necesidad de leer todo el código desde el inicio. 
+        \item Soporta idioma Español o Inglés: No solo se requiere que la documentación exista, sino que sea entendible para los desarrolladores de este trabajo terminal, y los idiomas que los desarrolladores manejan son inglés y español.
+        \item Licencia: Saber qué sistema gestor de aprendizaje pudiera llegar a permitirnos el conocer su código y trabajar con él.
+        \item Redistribuye su código fuente: Las licencias GPL tienen como palabra clave la distribución del código binario, es por eso que productos que son servicios de software pueden tener dicha licencia y no distribuir su código fuente.
+        \item Permite la incorporación de componentes desarrollados por gente externa: No se quiere modificar directamente el código fuente del sistema, se quiere poder extender sus funcionalidades.
+    \end{itemize}
+    
+    
+\begin{comment}
+    \noindent Las fuentes para cada columna de la tabla se obtuvieron de las respectivas páginas de los sistemas gestores de aprendizaje. Dichas páginas se pueden encontrar en:
+    \begin{itemize}
+        \item Moodle: {https://moodle.com/}
+        \item ATutor: {https://atutor.github.io/}
+        \item Docebo: {https://www.docebo.com/es/}
+        \item Litmos: {https://www.litmos.com/es-LA/}
+        \item Gnosis Conect: {https://www.gnosisconnect.com/}
+        \item TalentLMS: {https://www.talentlms.com/}
+    \end{itemize}
+\end{comment}   
+    
+    %Con lo anterior se entiende que Moodle y ATutor cumplen con nuestras necesidades, sin embargo, por preferencia de nuestros directores se decidió que Moodle será el que se usará para este trabajo terminal.
+    \noindent Con el cuadro  \ref{tbl:LMSs} se entiende que Moodle y ATutor son las mejores opciones , sin embargo, se decidió utilizar Moodle al final debido a los siguientes motivos:
+    
+    \begin{itemize}
+        \item Moodle está siendo actualmente utilizado por Celex ESCOM, lo cual abre la oportunidad de solicitar soporte a un administrador de Moodle con experiencia valiosa.
+        \item ATutor especifica que utiliza la licencia GPL, sin embargo, no especifica ninguna versión. Lo cual provoca no saber a ciencia cierta a que versión se acata.
+        \item ATutor cuenta con enlaces rotos asociados a su licencia, lo cual refleja poca importancia en su documentación.
+    \end{itemize}
+\clearpage    
+\section{Moodle}
+
+Moodle es una plataforma de aprendizaje diseñada para brindar a los educadores, administradores y alumnos un único sistema sólido, seguro e integrado para crear entornos de aprendizaje personalizados \cite{aboutMoodle}. Moodle inicialmente hace referencia al acrónimo en inglés {\it Modular Object Oriented Dynamic Learning Environment} o en español Entorno de Aprendizaje Dinamico y Modular Orientado a Objetos \cite{aboutMoodle19}.\\
+% https://docs.moodle.org/all/es/Acerca_de_Moodle
+% https://docs.moodle.org/all/es/19/Acerca_de_Moodle
+
+\noindent Moodle es proporcionado gratuitamente como programa de código Abierto, bajo la GNU-GPL (GNU General Public License), esta licencia permite que Moodle sea adecuado y personalizado libremente ya que su configuración modular y diseño inter-operable permite a los desarrolladores crear plugins e integrar aplicaciones externas para lograr funcionalidades específicas \cite{aboutMoodle}.
+
+% La Licencia GPL indica que que cualquier persona puede adaptar, extender o modificar, tanto para proyectos comerciales como no-comerciales, sin pago de cuotas por licenciamiento, bajo la condición de que, al darse una copia de la aplicación se brinde tambien él código fuente de la misma. \cite{GPL}\\
+% http://mchapman.com/amb/soft/gpl.pdf
+
+\begin{quote}
+    Durante el desarrollo del trabajo terminal se utiliza la versión 3.5 de moodle, debido a que es la versión más reciente con soporte a largo plazo (Moodle 3.5 LTS) al mes de febrero de 2019. \cite{moodleHistorial}
+    % https://docs.moodle.org/all/es/dev/Historia_de_las_versiones#Moodle_3.6
+\end{quote}
+\subsection{Arquitectura de Moodle}
+
+    Moodle trabaja sobre una arquitectura cliente-servidor, específicamente requiere de un servidor web con soporte para PHP y acceso a una base de datos (MySQL, PostgreSQL, Microsoft SQL Server, MariaDB u Oracle).\\
+    
+    \noindent Como se puede ver en la figura \ref{moodle:arch}, la estructura interna que tiene Moodle está divida en los {\it componentes requeridos}, que incluyen el núcleo y los subsistemas; y los {\it elementos opcionales} que incluyen propiamente los plugins con sus respectivos subplugins. Moodle está diseñado para ser altamente extensible y personalizable a través del desarrollo de plugins sin la necesidad de modificar el núcleo o los subsistemas. \cite{moodleArch}.
+    % https://docs.moodle.org/dev/Moodle_architecture
+    
+    \addfigure[(adaptado de {\it Moodle Architecture}  \cite{moodleArch})]%
+        {0.4}{images/MoodleArch}{moodle:arch}{Componentes que conforman la estructura interna de Moodle}
+    
+    \noindent Debido a que Moodle está conformado tanto de elementos requeridos (núcleo/core y subsistemas) como opcionales (plugins), los tipos de comunicación permitidos estan regidos por un conjunto de reglas descritas a continuación \cite{moodleComponets}.
+    % https://docs.moodle.org/dev/Communication_Between_Components
+    
+    \begin{itemize}
+        \item{ Es permitido que cualquier componente se puede comunicar con los componentes requeridos de moodle (núcleo y los subsistemas). }
+        \item{ Cualquier componente puede comunicarse con sí mismo. }
+        \item { Es permitido comunicarse con otros componentes de los cuales se especifique explicitamente la dependencia. }
+        \item {Los subplugins pueden comunicarse con el plugin que los contiene, y con cualquier otro plugin del cual dependan explícitamente.}
+        \item {Todas las demás comunicaciones entre componentes están prohibidas.}
+    \end{itemize}
+    
+\subsection{Núcleo de Moodle}
+El núcleo de Moodle contiene las bibliotecas que proporcionan funcionalidades que requieren todas las demás partes de Moodle. El código del núcleo no puede ser eliminado sin comprometer la funcionalidad básica de Moodle, El núcleo de Moodle siempre está disponible y se puede llamar de forma segura desde cualquier otro componente \cite{moodleComponets}. \\
+
+\noindent El núcleo proporciona un conjunto de 51 APIs que forman parte del núcleo \cite{moodleCoreAPIs}, las 51 API son listadas a continuación.
+% https://docs.moodle.org/dev/Core_APIs
+
+\begin{multicols}{3}
+    \input{include/coreAPIs}
+\end{multicols}
+\subsection{Subsistemas}
+Los subsistemas son grupos de funciones y clases que forman parte del núcleo, pero se agrupan lógicamente al mismo. Están vinculados a una función particular y bajo condiciones especificas pueden desactivarse/habilitarse \cite{moodleComponets}.
+    
+\subsection{Plugins y subplugins}\label{subsec:plugins}
+Los plugins son componentes opcionales que permiten extender las funcionalidades de Moodle. Hay muchos tipos diferentes de plugins, y cada plugin permite brindar distintas funcionalidades correspondientes al tipo de plugin que se esté desarrollando. El desarrollo de plugins es la manera recomendada para extender la funcionalidad de Moodle.\\
+
+\noindent Actualmente Moodle menciona en su documentación 54 tipos de plugins los cuales son listados a continuación.
+
+\begin{multicols}{3}
+    \input{include/pluginTypes}
+\end{multicols}
+
+\clearpage
+\noindent Para la mayoría de los tipos plugins, Moodle tiene una estructura estandarizada para los archivos que debe contener un plugin. En la figura \ref{fig:pluginFiles} se representa dicha estructura. Los archivos y directorios son descritos a continuación \cite{moodlePluginfiles}:
+
+\addfigure{0.8}{diagrams/PluginFiles}{fig:pluginFiles}{Organización de los archivos presentes en la mayoría de los plugins}
+
+\begin{quote}
+\input{include/pluginFiles}
+\end{quote}
+
+\subsection{Requerimientos}
+
+Moodle es desarrollado principalmente utilizando Linux como sistema operativo usando Apache como servidor web; PostgreSQL / MySQL / MariaDB como gestores de bases de datos; y PHP como lenguaje principal del lado del servidor. Se recomienda que Moodle sea instalado utilizando un entorno con las mismas tecnologías. \cite{moodleInstall} \\
+
+\noindent Los requisitos básicos de hardware son los siguientes:
+
+    \begin{itemize}
+        \item 200MB de Disco duro para el código de moodle más el espacio requerido para almacenar el contenido, moodle como mínimo recomienda 5GB.
+        \item Procesador 1GHz como mínimo. Recomendado 2GHz dual-core o mayor.
+        \item 512 MB de memoria RAM, 1GB o más recomendado, y para servidores en entorno de producción se recomiendan 8GB.
+    \end{itemize}
+\clearpage    
+\noindent Los requisitos de software varían dependiendo de la versión de moodle, para la versión 3.5 LTS son los siguientes \cite{moodleReleaseNotes}:
+% https://docs.moodle.org/dev/Moodle_3.5_release_notes
+    
+    \begin{itemize}
+        \item PHP Versión 7.0 como mínimo, PHP 7.1.x and 7.2.x también son soportados.
+        %PHP 7.x could have some engine limitations
+        \item Extensión {\it Intl} de PHP
+        \item Bases de datos
+            \begin{itemize}
+                \item PostgreSQL v9.3 o mayor
+                \item MySQL v5.5.31 o mayor
+                \item MariaDB v5.5.31 o mayor
+                \item Microsoft SQL Server 2008 o mayor
+                \item Oracle Database v10.2 o mayor
+            \end{itemize}
+        \item[] (Recomendación), Si se usa MySQL o MariaDB, deberán estar configurados para soportar en conjunto de caracteres {\it utf8mb4}.
+    \end{itemize}

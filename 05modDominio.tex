@@ -1,0 +1,871 @@
+\chapter{Modelo de Dominio de Datos}
+\label{ch:modDominio}
+\label{ch:BaseDeDatos}
+
+Este capítulo describe las decisiones tomadas en relación a la base de datos propuesta para ser utilizada durante el proyecto, el esquema relacional, la especificación de los atributos y finalmente un análisis de las formas normales sobre la base de datos propuesta.\\
+
+    \noindent Moodle cuenta con su propio lenguaje de definición de datos (DDL, Data Definition Language), y lenguaje de manipulación de datos (DML, Data Management Language), que añaden una capa de abstracción independiente del sistema gestor de base de datos que se este utilizando. Moodle tiene soporte para funcionar sobre bases de datos MySQL, PostgresSQL, MariaDB, MSSQL y Oracle \cite{moodleInstall}.\\
+
+    \noindent Debido a la capa de abstracción que moodle tiene con respecto al acceso a datos y a que las nuevas funcionalidades se desarrollaran mediante desarrollo de plugins. se decidió utilizar las herramientas que proporciona moodle para la creación de las tablas requeridas para implementar Gamificación.
+    
+\section{Pautas de Moodle para la base de datos}
+    
+    %[] https://www.oreilly.com/library/view/high-performance-mysql/9781449332471/
+Moodle permite extender su esquema de base de datos mediante la instalación de plugins. Esto no solo nos lleva a conocer y entender su esquema de datos hasta un cierto punto, sino también, nos lleva a apegarnos a las restricciones que impone Moodle para la creación de la base de datos de los componentes.\\
+
+    \noindent Tampoco hay que olvidar lo que significa el desarrollo de componentes, ya que, deben permitirle al usuario instalarlos y desinstalarlos cuando ella quiera y no tener ningún tipo de problema en su plataforma de Moodle, es decir, los componentes deben tener un bajo acoplamiento \cite[pp. 244-245]{defAcoplamiento} con Moodle.\\
+    
+    \noindent Moodle presenta varias pautas a seguir \cite{moodlePautasBD1},\cite{ moodlePautasBD2}, donde el público objetivo de las mismas es muy amplio. Por ello a continuación se presentan las pautas consideradas más relevantes e importantes.
+    
+\subsection{Pautas en tablas y atributos}
+    \begin{enumerate}
+        \item Cada tabla debe tener como llave primaria un atributo llamado ''id'' de tipo entero con una longitud de 10 dígitos que sea auto-incremental. 
+        \item Si se está desarrollando un componente que es una actividad para un curso, el esquema del componente deberá tener una tabla principal que lleve el mismo nombre que el componente y dicha tabla deberá contener como mínimo los siguientes campos: el principal anteriormente explicado ''id', una referencia al curso ''course'' y un nombre ''name''. 
+        %\item Además del punto anterior, toda tabla que contenga información extra o relacionada con la actividad, por ejemplo preguntas de un examen, deberá llamarse (nombre de la actividad)\_(información extra), dicha información extra deberá estar en plural. Siguiendo con el ejemplo seria; examen\_preguntas.
+        %\item Las tablas deberán tener un nombre en singular, exceptuando el ejemplo anterior o uno que defina la misma estructura.
+        \item Los nombres de atributos y tablas deberán estar en minúsculas y el único caracter especial que se puede usar en ellos es el guión bajo.
+        \item El nombre de las llaves deberá tener los nombres de los campos que se utiliza para crearlas (Excluyendo los atributos de otras tablas). Dichos nombres deberán ser separados por el signo menos ''-''.
+        \item Se recomienda que el nombre de las tablas no pase de 28 caracteres
+        \item Se recomienda que el nombre de los atributos no exceda los 30 caracteres.
+        \item Los atributos que referencien a otra tabla deberán tener el nombre de la tabla a la que hace referencia y la palabra ''id'' en su nombre. Por ejemplo, la\_otra\_tabla\_id.
+        \item Solo se definirá un atributo como llave única (UNIQUE KEY), si este es apuntado por otro atributo, ya sea en la misma o en otra tabla con una llave foránea (FOREIGN KEY).
+        \item No se deben de usar vistas, debido a que no existe soporte para ellas.
+        \item Si se quiere tener un valor único no se deben usar llaves únicas (UNIQUE KEY), se recomienda utilizar en su lugar un índice único (UNIQUE INDEX)
+    \end{enumerate}
+     
+\subsection{Pautas en tipos de datos}
+        
+         Moodle establece la relación entre sus tipos de datos -los cuales se ingresan en el XMLDB Editor- y los tipos de dato que se guardan en los distintos gestores de base de datos \cite{moodleTiposBD}.  Gracias a esto, existen nuevas restricciones:
+        \begin{enumerate}
+            \item El tipo de dato de fecha, es guardado como un número entero de 10 dígitos ( int(10) ).
+            \item El tamaño indicado para un entero establece el tipo de entero que se usará, esto usando los rangos que tiene cada gestor de base de datos. Por ejemplo: INT(10) = BIGINT en MySQL.
+            \item No existe la posibilidad de indicar un número sin signo.
+        \end{enumerate}
+        
+\clearpage        
+\section{Esquema de la base de datos}
+    
+    %Con lo anteriormente especificado y de acuerdo a las 2 primeras formas normales especificadas por Edgar Frank Codd \cite[ paǵ. 161-182]{libroBaseDeDatosEspaniol} se diseñó el esquema de la base de datos. A continuación se presentan de manera muy resumida dichas formas normales.
+    %[V] Libro que me pasó CAT (David)
+    
+    %\includepdf[page={1}]{diagrams/DB/BaseDeDatos}
+    %\addfigureScaleAndAangle{0.45}{270}{diagrams/DB/EsquemaGlobal}{fig:EGBD}{Esquema de la base de datos}
+    \addfigure{1}{diagrams/DB/BaseDeDatos_en}{fig:EGBD}{Esquema de la base de datos}
+
+\clearpage
+
+\section{Diccionario de datos}
+    
+    Como se especificó en la sección \textbf{Pautas de Moodle para la base de datos} existe un atributo que estará presente en todas las tablas, es por ello, que se optó por especificar dicho atributo de manera genérica, en lugar de repetir dicha definición por cada una de las tablas.\\
+    
+    \begin{center}
+    \begin{tabular}{| m{0.12\textwidth} | m{0.12\textwidth} | m{0.22\textwidth} | m{0.3\textwidth} | m{0.1\textwidth} |}\hline
+        {\bf Atributo} & {\bf Tipo} & {\bf Descripción} & {\bf Restricciones} & {\bf Módulo} \\\hline
+        \attr{id}{Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}{Identificador que permite diferenciar cada registro de una tabla y existe en todas las tablas}{%
+            \Titem{ Llave Primaria}
+            \Titem{ Auto-incremento}
+        }{General}
+    \end{tabular}%
+    \end{center}%
+    
+    \subsection*{Tabla mdl\_config\_plugins}
+    
+    En esta tabla Moodle guarda todas las configuraciones globales relacionadas a los plugins instalados, las cuales terminan cargándose en memoria en una variable global de php para su fácil acceso. \\
+    
+    \begin{center}
+    \begin{tabular}{| m{0.12\textwidth} | m{0.12\textwidth} | m{0.22\textwidth} | m{0.3\textwidth} | m{0.1\textwidth} |}\hline
+        {\bf Atributo} & {\bf Tipo} & {\bf Descripción} & {\bf Restricciones} & {\bf Módulo} \\\hline
+        
+        \attr{plugin}
+            {Cadena de \newline caracteres. \newline \textbf{Tamaño:}\newline 100 caracteres}
+            {Nombre del componente (plugin).}
+                {
+                    \Titem{ Valor por defecto: 'core'}
+                    \Titem{ No nulo.}
+                }
+            { Moodle }
+        
+        \attr{name}
+            {Cadena de \newline  caracteres. \newline \textbf{Tamaño:}\newline 100 caracteres}
+            {Nombre de la configuración.}
+                {
+                    \Titem{ No nulo.}
+                }
+            { Moodle }
+            
+        \attr{value}
+            {Cadena de \newline caracteres. \newline \textbf{Tamaño:}\newline 4,294,967,295 caracteres}
+            {Valor de la configuración guardado en una cadena de caracteres.}
+                {
+                    \Titem{ No nulo.}
+                }
+            { Moodle }
+        
+    \end{tabular}%
+    \end{center}%
+    \noindent La combinación de los atributos \textbf{(plugin, nombre)} es un índice único.\\
+\clearpage    
+    \noindent Por el momento se están guardando las siguientes configuraciones:
+    
+    \begin{center}
+    \begin{tabular}{| m{0.25\textwidth} | m{0.30\textwidth} | m{0.15\textwidth} | m{0.18\textwidth}|}\hline
+        {\bf Nombre} & {\bf Descripción} & {\bf Módulo} & {\bf Sub-módulo}  \\\hline
+        
+        Modulo de exp. activo &
+            Bandera que nos indica si el módulo está activado o no &
+            Experiencia & Esquema de \newline experiencia\\\hline 
+         
+        Tipo de incremento &
+            Si el incremento de experiencia necesaria por nivel es lineal o porcentual &
+            Experiencia & Esquema de \newline experiencia \\\hline 
+         
+        Cantidad de incremento &
+            Número decimal que indica cuánto se incrementa la experiencia necesaria por cada nivel &
+            Experiencia & Esquema de \newline experiencia \\\hline
+        
+        Experiencia por actividad &
+            Cantidad de experiencia que da cualquier actividad al ser completada &
+            Experiencia & Esquema de \newline experiencia \\\hline 
+        
+        Experiencia del nivel 1 &
+            Cantidad de experiencia asociada al nivel 1 &
+            Experiencia & Esquema de \newline experiencia \\\hline 
+        
+        Nombre del nivel &
+            Nombre que reciben los niveles por defecto. &
+            Experiencia & Niveles \\\hline 
+        
+        Mensaje de felicitaciones &
+            Mensaje que aparece cuando un usuario sube de nivel. &
+            Experiencia & Niveles \\\hline 
+        
+        Descripción del rango &
+            Mensaje que aparece por defecto, si el nivel no pertenece a ningún rango. &
+            Experiencia & Niveles \\\hline 
+            
+        Imagen del nivel &
+            Imagen del nivel por defecto (Se almacena la ruta de la imagen, después de haber sido copiada). &
+            Experiencia & Niveles \\\hline 
+        
+        Color del número del nivel &
+            Color que tendrá el número del nivel por defecto. &
+            Experiencia & Niveles \\\hline 
+        
+        Color de la barra de progreso &
+            Color que tendrá la barra de progreso de los niveles por defecto. &
+            Experiencia & Niveles \\\hline
+            
+    \end{tabular}%
+    \end{center}%
+    
+\clearpage    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%        Usuario         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}{usuario}{%
+    Esta tabla es una especialización de la tabla {\bf mdl\_user} de Moodle. Se decidió especializar la entidad usuario de moodle creando esta entidad, debido a que se requerían añadir nuevos atributos a dicha entidad sin modificar las tablas que requiere moodle.}
+            
+            \attrM{id\_usuario}
+            {Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona un usuario de Moodle con uno nuestro}
+                {%
+                    \Titem{ Llave foránea \textbf{única} a {\bf mdl\_user (id)}}
+                    \Titem{ No nulo}
+                }
+            {General}
+            
+            \attr{nivel\_actual}
+            {Número \newline natural.\newline \textbf{Tamaño:}\newline 10 dígitos}
+            {Nivel actual del usuario.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            \attr{experiencia\_ actual}
+            {Número \newline entero.\newline \textbf{Tamaño:}\newline 10 dígitos }
+            {Experiencia actual del nivel del usuario.}
+                {
+                    \Titem{ Su valor es $ \geq 0$}
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+    \end{Entidad}
+    
+    %\noindent Se les otorga una longitud de 10 dígitos a los atributos \textbf{nivel\_actual} y \textbf{experiencia\_actual} por que se desea que sean un infinito simbólico.\\
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Alumno   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {alumno}
+            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_usuario} y \textbf{mdl\_course}. Se le nombra alumno, porque el único usuario que se le otorgará experiencia mientras participa en un curso es al alumno, por ende, los únicos usuarios de un curso que se almacenarán en esta tabla son los que tenga un papel de alumno.\\}
+            
+            \attrG{id\_ usuario}
+            {Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona un usuario con un papel de alumno. }
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_usuario (mdl\_id\_ usuario)}}
+                    \Titem{ No nulo}
+                }
+            {General}
+            
+            \attrM{id\_ curso}
+            {Número \newline natural. \newline \textbf{Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona un curso con un papel de alumno.}
+                {
+                    \Titem{ Llave foránea  a \textbf{mdl\_course (id)}.}
+                    \Titem{ No nulo.}
+                }
+            {General}
+            
+            \attr{experiencia\_ total\_ recibida}
+            {Número \newline entero. \newline \textbf{Tamaño:}\newline 10 dígitos}
+            {Toda la experiencia que ha recibido un usuario haciendo las actividades de un determinado curso.}
+                {
+                    \Titem{ Su valor es $ \geq 0$}
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            
+    \end{Entidad}
+
+        
+    \noindent La combinación de los atributos ( \textbf{gmdl\_id\_usuario } y \textbf{mdl\_id\_curso} ) es un índice único. 
+            
+
+    
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Nivel categoría curso   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {nivel\_categoria\_curso}
+            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_usuario} y \textbf{mdl\_categoria\_curso} .\\}
+            
+            \attrG{id\_ usuario}
+            {Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona un usuario con un nivel. }
+                {%
+                    \Titem{ Llave foránea  a \textbf{gmdl\_usuario (mdl\_id\_usuario)}}
+                    \Titem{ No nulo}
+                }
+            {General}
+            
+            \attrM{id\_ categoria\_ curso}
+            {Número \newline natural. \newline \textbf{Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona un nivel con una categoría de curso de Moodle.}
+                {
+                    \Titem{ Llave foránea  a \textbf{mdl\_course\_categories (id)}.}
+                    \Titem{ No nulo.}
+                }
+            {General}
+            
+            \attr{nivel\_actual}
+            {Número \newline natural.\newline \textbf{Tamaño:}\newline 10 dígitos}
+            {Nivel actual del usuario en una categoría de cursos.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            \attr{experiencia\_ actual}
+            {Número entero  \newline \textbf{Tamaño:}\newline 10 dígitos }
+            {Experiencia actual del usuario de su nivel actual en una categoría de cursos.}
+                {
+                    \Titem{ Su valor es $ \geq 0$}
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+    \end{Entidad}
+
+    \noindent La combinación de los atributos ( \textbf{gmdl\_id\_usuario } y \textbf{mdl\_categoria\_curso} ) es un índice único. 
+\clearpage    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Rango Nivel   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {rango\_nivel}
+            {Esta tabla permite la especificación de rangos de niveles, para una mejor personalización de estos últimos.\\}
+            
+            
+            \attr{nombre}
+            {Cadena de \newline caracteres \newline \textbf{Tamaño:}\newline 60 caracteres}
+            {Nivel actual del usuario en una categoría de cursos.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            \attr{nivel\_inferior}
+            {Número \newline natural. \newline \textbf{Tamaño:}\newline 10 dígitos }
+            {Nivel mínimo requerido que puede tener un usuario para estar dentro del rango.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            \attr{nivel\_superior}
+            {Número \newline natural. \newline \textbf{Tamaño:}\newline 10 dígitos }
+            {Nivel máximo que puede tener un usuario para estar dentro del rango.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            \attr{imagen}
+            {Cadena de \newline caracteres \newline \textbf{Tamaño:}\newline 150 caracteres}
+            {Ruta donde se guarda la imagen asociada al rango.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            
+            \attr{mensaje}
+            {Cadena de \newline caracteres \newline \textbf{Tamaño:}\newline 50 caracteres}
+            {Mensaje de felicitaciones que se le muestra al usuario al subir de nivel.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            \attr{descripcion}
+            {Cadena de \newline caracteres \newline \textbf{Tamaño:}\newline 200 caracteres}
+            {Descripción del rango, que se le muestra al usuario al subir de nivel.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            
+    \end{Entidad}
+
+\begin{comment}
+    
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Logro   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {logro}
+            {Esta tabla guarda toda la información que se le presenta al usuario cuando ve un logro.\\}
+            
+            
+            \attr{icono}
+            {Cadena de caracteres \newline \textbf{Tamaño:}\newline 100 caracteres}
+            {Ruta donde se guardará el icono del logro..}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            \attr{nombre}
+            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 50 caracteres}
+            { Nombre  \textbf{único} del logro.}
+                {
+                    \Titem{ Índice único.}
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            
+            
+            \attr{descripción}
+            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 140 caracteres}
+            {Descripción que le indica al usuario, cómo se desbloquea el logro.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            \attr{modulo}
+            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 15 caracteres}
+            {Nombre del módulo al que pertenece el logro.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            
+            \attr{experiencia\_ de\_logro}
+            {Número entero positivo \newline \textbf{Tamaño:}\newline 10 dígitos }
+            {Experiencia que otorga el logro al ser desbloqueado.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Experiencia}
+            
+            
+            
+            \attr{tipo}
+            {Caracter \newline {\bf Tamaño:} \newline 1 caracter }
+                {
+                    Caracter que nos indica que tipo de logro es.
+                    \newline ''A'': El logro es a nivel curso.
+                    \newline ''B'': El logro es a nivel curso y es una advertencia.
+                    \newline ''C'': El logro es a nivel plataforma.
+                    \newline ''D'': El logro es a nivel plataforma y es una advertencia.
+                }
+                {
+                    \Titem{ Sus únicos valores posibles son: \{'A','B','C','D'\}.}
+                    \Titem{ No nulo.}
+                    
+                }
+            {Recompensa}
+            
+    \end{Entidad}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Evento   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {evento}
+            {Esta tabla guarda todos los eventos que pueden llegar a desbloquear logros.\\}
+            
+            \attr{nombre\_ evento}
+            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 100 caracteres}
+            { Nombre  \textbf{único} del evento.}
+                {
+                    \Titem{ Índice único.}
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            
+    \end{Entidad}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Evento logro  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {evento\_logro}
+            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_logro} y \textbf{gmdl\_evento}.\\}
+            
+            \attrG{id\_ logro}
+            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
+            { Atributo que relaciona un logro con una lista de eventos. }
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}}
+                    \Titem{ No nulo}
+                }
+            {General}
+            
+            
+            \attrG{id\_ evento}
+            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
+            { Atributo que relaciona un evento con una lista de logros.}
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_evento(id)}}
+                    \Titem{ No nulo}
+                }
+            {General}
+    \end{Entidad}
+    
+    
+    \noindent La combinación de los atributos ( \textbf{gmdl\_id\_logro } y \textbf{gmdl\_id\_evento } ) es un índice único. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Condicion  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {condicion}
+            {Esta tabla guarda todos las condiciones que pueden llegar a tener los logros.\\}
+            
+            \attr{tabla}
+            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 50 caracteres}
+            { Nombre de la tabla, la cual contiene la información para saber si la condición se cumple o no.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            \attr{atributo}
+            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 30 caracteres}
+            { Nombre del atributo que se usará para ver si la condición se cumple o no.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            \attr{expresión}
+            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 50 caracteres}
+            { Expresión a usar con el atributo y el valor.}
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            \attr{valor}
+            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 45 caracteres}
+            {Valor que establece la referencia para saber si la condición de cumple o no. }
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+    \end{Entidad}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Condicion Logro  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {condicion\_logro}
+            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_logro} y \textbf{gmdl\_condicion}.\\}
+            
+            \attrG{id\_ logro}
+            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona a un logro con una lista de condiciones. }
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}}
+                    \Titem{ No nulo}
+                }
+            {General}
+            
+            
+            \attrG{id\_ condicion}
+            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona a una condición con una lista de logros. }
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_condicion(id)}}
+                    \Titem{ No nulo}
+                }
+            {General}
+    \end{Entidad}
+
+    \noindent La combinación de los atributos ( \textbf{gmdl\_id\_logro } y \textbf{gmdl\_id\_condicion } ) es un índice único. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Usuario Logro Curso  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    \begin{Entidad}
+        {usuario\_logro\_curso}
+            {Esta tabla es la relación ternaria entre las tablas \textbf{gmdl\_curso }, \textbf{gmdl\_usuario} y \textbf{gmdl\_logro}.\\
+            \noindent Si un logro de un curso es desbloqueado por un usuario, se ingresará dicho registro en esta tabla.\\}
+            
+            \attrG{id\_ logro}
+            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona un logro con usuarios y cursos. }
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}.}
+                    \Titem{ No nulo.}
+                }
+            {General}
+            
+            \attrG{id\_ usuario}
+            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
+            {Atributo que relaciona a un usuario con logros y cursos. }
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_usuario(mdl\_ id\_usuario)} .}
+                    \Titem{ No nulo.}
+                }
+            {General}
+            
+            \attrM{id\_ curso}
+            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
+            {Atributo que relaciona a un curso con usuarios y logros. }
+                {%
+                    \Titem{ Llave foránea a \textbf{mdl\_curso(id)}.}
+                    \Titem{ No nulo.}
+                }
+            {General}
+            
+            \attr{cuando}
+            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
+            {  Fecha que nos indica cuándo el logro fue desbloqueado.        }
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            
+            
+    \end{Entidad}
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%    Usuario Logro Global  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    
+    
+    \begin{Entidad}
+        {usuario\_logro\_global}
+            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_usuario} y \textbf{gmdl\_logro}.\\
+            \noindent Si un logro es desbloqueado por un usuario, se ingresará dicho registro en esta tabla.\\}
+            
+            \attrG{id\_ logro}
+            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
+            {Atributo que relaciona un logro con usuarios y cursos. }
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}.}
+                    \Titem{ No nulo.}
+                }
+            {General}
+            
+            \attrG{id\_ usuario}
+            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
+            {Atributo que relaciona a un usuario con logros y cursos. }
+                {%
+                    \Titem{ Llave foránea a \textbf{gmdl\_usuario(mdl\_ id\_usuario)} .}
+                    \Titem{ No nulo.}
+                }
+            {General}
+            
+            \attr{cuando}
+            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
+            {  Fecha que nos indica cuándo el logro fue desbloqueado.        }
+                {
+                    \Titem{ No nulo.}
+                }
+            {Recompensa}
+            
+            
+            
+    \end{Entidad}
+    
+    
+    
+\end{comment} 
+\clearpage
+\section{Formas normales}
+
+    %En esta sección se analiza el cumplimiento de las seis formas normales propuestas por Frank Codd y de la forma normal Boyce-Codd, con el propósito a que se quiere reducir en lo mayor posible la redundancia de datos. Si existe alguna forma normal que no sea cumplida, %se analizarán los cambios requeridos para su cumplimiento. En caso de que no se pueda, se especificará el por qué.  
+%
+    Debido a que las pautas de Moodle entorpecen el diseño de la base de datos, se analizará si afectan en redundancia. Para ello se tomarán en cuenta las 6+2 formas normales con el esquema de la base de datos propuesto.
+%   
+\subsection*{Primera forma normal}
+    
+    Cada tabla en un esquema de base de datos se considera en primera forma normal si y solo si, cumple las siguientes condiciones \cite[pág. 154]{libroBaseDeDatosIngles}: 
+    
+    \begin{enumerate}
+        \item Tiene un dominio atómico. Un dominio es atómico si y solo si, cada elemento del dominio es indivisible \cite[pág. 161]{libroBaseDeDatosEspaniol}.
+        \item Cada registro debe de tener el mismo número de valores.
+        \item Cada registro debe ser único.
+    \end{enumerate}  
+    
+    \noindent Un ejemplo de un dominio no atómico es tener todos los teléfonos de un cliente en un mismo elemento. "\textit{Teléfono\_A},  \textit{Teléfono\_B}".  Haciendo lo anterior el elemento puede albergar más de un valor, haciendo que ya no sea indivisible.\\
+    
+    \noindent Continuando con el ejemplo anterior, si en lugar de guardar todos los teléfonos en un atributo, se crean más atributos para poder guardar todos los teléfonos del cliente que tiene más teléfonos. Se incumple con el segundo punto de la primera forma normal.\\
+    
+    
+    \noindent \textbf{Se cumple} con esta forma normal en nuestro esquema de la base de datos porqué no existe ningún atributo en ninguna tabla que no sea atómico.
+    
+    
+\subsection*{Segunda forma normal}
+    
+    Cada tabla en un esquema de base de datos se considera en segunda forma normal si y solo si, cumple las siguientes 2 condiciones \cite[pág. 159]{libroBaseDeDatosIngles}:
+    \begin{enumerate}
+        \item Cumple con la primera forma normal.
+        \item Todo atributo que no forma parte de la clave primaria debe depender funcionalmente de toda la clave primaria.
+    \end{enumerate}
+    
+    \noindent \textbf{Se cumple} con esta forma normal gracias a que no se cuenta con ninguna clave primaria compuesta. Esto gracias a las pautas de moodle, que nos hacen diferenciar un registro únicamente con un número entero positivo. 
+    
+\clearpage    
+\subsection*{Tercera forma normal}
+    
+    Cada tabla en un esquema de base de datos se considera en tercera forma normal si y solo si, cumple con las siguientes 2 condiciones \cite[pág. 163]{libroBaseDeDatosIngles}:
+    
+    \begin{enumerate}
+        \item Cumple con la segunda forma normal.
+        \item No existen dependencias funcionales transitivas a la clave primaria.
+    \end{enumerate}
+    
+    \noindent \textbf{No se cumple} con esta forma normal en las siguientes tablas de la base de datos.
+    \begin{itemize}
+        \item \textbf{gmdl\_usuario}
+        \item \textbf{gmdl\_alumno}
+        %\item \textbf{gmdl\_logro}
+        %\item \textbf{gmdl\_condicion}
+        %\item \textbf{gmdl\_usuario\_logro\_curso}
+        %\item \textbf{gmdl\_usuario\_logro\_global}
+        %\item \textbf{gmdl\_evento\_logro}
+        %\item \textbf{gmdl\_condicion\_logro}
+    \end{itemize}
+  
+    \noindent Se tiene el mismo problema en cada una de las tablas anteriores, porque en sus atributos contienen una llave candidata que terminó no formando parte de la llave primaria. Gracias a esto se crea una dependencia funcional a la llave candidata y la llave candidata depende funcionalmente de la llave primaria, generando así el no cumplimiento de esta forma normal.
+    
+    \noindent Dicho problema se puede solventar tomando en consideración la forma normal de Boyce-Codd, es por eso que no se realizarán cambios a dichas tablas de la base de datos.
+ 
+\subsection*{Forma normal de Boyce-Codd (FNBC)}
+    
+    Cada tabla en un esquema de base de datos se considera en la forma normal de Boyce-Codd si y solo si, cumple con las siguientes condiciones \cite[pág. 168]{libroBaseDeDatosIngles}:
+    
+    \begin{enumerate}
+        \item Todos los atributos no claves de la tabla deben depender funcionalmente de toda una clave candidata.
+        \item Toda dependencia funcional de la tabla debe ser hacia una clave candidata.
+    \end{enumerate}
+    
+    \noindent Esta forma normal extiende las anteriores formas normales diciendo que en una entidad puede haber más de una clave candidata y que todos los atributos de esa entidad deben depender de una de esas claves. Gracias a esto se considera a la forma normal de Boyce-Codd como una alternativa a la segunda y tercer forma normal.\\
+    
+    
+    \noindent \textbf{Se cumple} con la forma normal de Boyce-Codd. Si recordamos las tablas que no cumplieron con la tercera forma normal, tienen el mismo problema de tener una dependencia funcional hacia la llave candidata, y con esta forma normal no existe ese problema. \\
+    
+     
+     
+    
+\clearpage    
+\subsection*{Cuarta forma normal}
+    
+    Cada tabla en un esquema de base de datos se considera en cuarta forma normal si y solo si, cumple con las siguientes 2 condiciones \cite[pág. 182]{libroBaseDeDatosIngles}:
+    
+    \begin{enumerate}
+        \item Cumple con la tercera forma normal o con la forma normal de Boyce-Codd.
+        \item No existen dependencias multivaloradas.
+    \end{enumerate}
+    
+    \noindent Una dependencia multivalorada $ A \twoheadrightarrow B$ se cumple si en una relación legal \textit{r(R)}, para todo par de tuplas $t_1$ y $t_2$    tales que $t_1[A] = t_2[A]$, existen unas tuplas $t_3$ y $t_4$ de \textit{r} tales que \cite[pág. 180]{libroBaseDeDatosEspaniol}:
+    
+    \begin{center}
+           $t_1[A] = t_2[A] = t_3[A] = t_4[A]$\\
+           $t_3[B] = t_1[B]$\\
+           $t_3[R - B] = t_2[R - B]$\\
+           $t_4[B] = t_2[B]$\\
+           $t_4[R - B] = t_1[R - B]$
+    \end{center}
+    
+    \noindent En otras palabras, si existe una relación ternaria cuyas claves foráneas A, B y C, donde C y B están relacionadas con A, pero son independientes entre sí, dicha relación tiene una dependencia multivalorada \cite[pág. 118]{libroBaseDeDatosInglesCuarteEnAdelante}.\\
+    
+    \noindent \textbf{Se cumple} con esta forma normal, debido a que no se cuentan con relaciones ternarias en la base de datos.
+    
+\begin{comment}
+    \noindent Si se ve nuestro esquema de la base de datos, solo se cuenta con una relación que contempla 3 tablas que es \textbf{gmdl\_usuario\_logro\_curso}. Sus claves foráneas son \textbf{gmdl\_id\_curso} que hace referencia a un curso, \textbf{gmdl\_id\_logro} que hace referencia a un logro y \textbf{gmdl\_id\_usuario} que hace referencia a un usuario.\\
+    
+    \noindent En dicha tabla, las claves se relacionan de la siguiente manera:
+    \begin{itemize}
+        \item Un usuario desbloquea logros de un curso.
+        \item Un curso cuenta con logros que fueron desbloqueados por usuarios.
+        \item Un logro fue desbloqueado por usuarios en uno o más cursos.
+    \end{itemize}
+    
+    \noindent \textbf{Se cumple} con la cuarta forma normal. Observando las relaciones anteriores podemos observar que no existe una dependencia multivalorada porque cada atributo se relaciona/depende de los otros 2.
+\end{comment}    
+    
+ 
+    
+\subsection*{Quinta forma normal}
+
+    Cada tabla en un esquema de base de datos se considera en quinta forma normal si y solo si, cumple con las siguientes 2 condiciones \cite[pág. 124]{libroBaseDeDatosInglesCuarteEnAdelante}:
+    
+    \begin{enumerate}
+        \item Cumple con la cuarta forma normal.
+        \item Todas las dependencias de unión ''JOIN'' están implicadas por las claves candidatas.
+    \end{enumerate}
+    
+    \noindent Una dependencia de unión ''JOIN'' ocurre cuando una tabla puede volver a ser formada correctamente (refiriéndonos a que los registros permanezcan intactos) uniendo 2 o más tablas cuyos atributos sean de la tabla original \cite[pág. 124]{libroBaseDeDatosInglesCuarteEnAdelante}.\\
+    
+    \noindent Respecto a que las uniones ''JOIN'' estén implicadas por las claves candidatas, se refiere a que los atributos que se utilicen como pivote (para hacer dicha separación) no sean otros que los que son claves candidatas.\\
+\begin{comment}
+    \noindent  La única tabla que puede llegar a darnos problemas con esta forma normal es la misma que se analizó en la cuarta forma normal. Para analizar si esta tabla (\textbf{gmdl\_usuario\_logro\_curso}) cumple con esta forma tenemos que listar sus atributos.
+    \begin{itemize}
+        \item id
+        \item gmdl\_id\_logro
+        \item gmdl\_id\_usuario
+        \item gmdl\_id\_curso
+        \item cuando
+    \end{itemize}
+    
+    \noindent  Las únicas 2 formas en las que se puede dividir la anterior tabla, conservando los mismos registros son las siguientes:
+    \begin{multicols}{2}
+    
+    \noindent Utilizando como pivote el atributo ''id''. 
+    \begin{itemize}
+        \item A1(id, gmdl\_id\_usuario)
+        \item A2(id, gmdl\_id\_logro)
+        \item A3(id, gmdl\_id\_curso)
+        \item A4(id, cuando)
+    \end{itemize}
+    \noindent \textbf{Nota:} Se pueden desarrollar distintas combinaciones con lo anterior, sin embargo, siempre se usa como pivote al atributo ''id'' es por eso que no se contemplan.
+    \columnbreak
+    
+    \noindent Utilizando como pivote la llave candidata ''gmdl\_id\_usuario, gmdl\_id\_logro , gmdl\_id\_curso''.
+    \begin{itemize}
+        \item B1(id, gmdl\_id\_usuario, gmdl\_id\_logro , gmdl\_id\_curso)
+        \item B2(gmdl\_id\_usuario, gmdl\_id\_logro , gmdl\_id\_curso, cuando)
+    \end{itemize}
+    
+    \end{multicols}
+\end{comment}    
+    
+    \noindent \textbf{Se cumple} con esta forma normal, debido a que ninguna de las tablas en el esquema puede ser dividida sin contemplar como pivote a una clave candidata.
+    
+    
+\clearpage
+\subsection*{Sexta forma normal}
+    
+    No se cuenta con una definición formal de esta forma normal.\\
+    
+    \noindent La sexta forma normal trata de datos que son temporales, refiriéndose a que estos pueden cambiar en un futuro. Siendo más específicos, si la base de datos necesita llevar un historial para poder hacer estadísticas, dichas estadísticas no deberían presentar diferentes resultados sin importar cuándo se consulten \cite[pág. 125-126]{libroBaseDeDatosInglesCuarteEnAdelante}.\\
+    
+    \noindent Lo anterior se puede ver más a detalle con el ejemplo de; ¿cuánto se ha vendido el mes ''X''?.
+    
+    \noindent Si el único atributo que se tiene para calcular lo anterior es el ''precio'' en una tabla ''producto''. Esto incumple la sexta forma normal, ya que, cuando el precio de dicho producto cambie, la consulta para determinar cuánto se ha ganado el mes ''X'' con ese producto también cambiaría.\\
+    
+    
+    \noindent \textbf{Se cumple} con la sexta forma normal, debido a que no tenemos datos temporales que puedan llegar a afectar de esa forma a nuestra interpretación de los datos. \\
+    
+    \noindent Los únicos datos temporales que se tienen son; El nivel\_actual y la experiencia\_actual tanto del usuario como del tipo de categoría del curso. Ambos en sus sendas tablas \textbf{gmdl\_usuario} y \textbf{gmdl\_nivel\_categoria\_curso}
+    
+    
+\subsection*{Forma normal de dominio clave}
+
+    Una tabla cumple con la forma normal de dominio/clave si todas las restricciones que se tienen en los datos están asociados con una clave o un dominio \cite[p. 193]{libroBaseDeDatosIngles}.
+    
+    \begin{itemize}
+        \item Un dominio es cualquier limitación que se tengan en los datos para ser guardados en una cierta columna en una base de datos. Esto refiriéndonos a las limitaciones como las llaves foráneas o el tipo de dato.
+        \item La clave es una clave única.
+    \end{itemize}
+    
+    \noindent Esta forma normal es considerada como la perfecta forma normal.\\
+    
+    \noindent \textbf{No se cumple} con esta formal, gracias a los atributos nivel\_actual y la experiencia\_actual tanto del usuario como del tipo de categoría del curso. Ambos en sus sendas tablas \textbf{gmdl\_usuario} y \textbf{gmdl\_nivel\_categoria\_curso}.\\ 
+    
+    \noindent El atributo experiencia\_actual tiene un límite superior dependiendo del valor del atributo nivel\_actual. La forma para reparar este problema es creando una tabla ''nivel'', sin embargo, se desea que los niveles sean un infinito simbólico.
+    
+    
+    
+    
+    
+\begin{comment}
+    
+    \noindent \textbf{No se cumple} con esta forma normal en la tabla \textbf{gmdl\_condicion} debido a que  los valores del atributo ''atributo'' dependen del valor del atributo ''tabla''.
+    
+    \noindent Se considera que el incumplimiento anterior no será atendido, esto por que para resolverlo se necesitaría crear 2 tablas extras que contengan todas las tablas relacionadas con Moodle y todos los atributos asociados con esas tablas. Estas tablas actuarían como un catálogo para la tabla \textbf{gmdl\_condicion} y se tendrían que estar actualizando si se quiere que los plugins a desarrollar tengan compatibilidad con versiones posteriores de Moodle.
+    
+    \noindent Otro motivo por el cual no se atiende es que los datos de la tabla \textbf{gmdl\_condicion} nunca cambiarán una vez que se haya creado la base de datos y llenado los valores por defecto.
+\end{comment}    
