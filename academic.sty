@@ -24,14 +24,35 @@ Do not distribute source file]
   \usepackage{enumitem}		    % For Listing
   \usepackage{multicol}		    % Multicolumn Environment
 	\setlength{\columnsep}{0.5cm}
+  \usepackage{comment}
 
-  \usepackage[hmargin=2cm,vmargin=3.5cm, head=2cm]{geometry} % Text Margin Management
+%  \usepackage[hmargin=2cm,vmargin=3.5cm, head=2cm]{geometry} % Text Margin Management
   \usepackage[pdftex,bookmarks,colorlinks]{hyperref}
     \hypersetup{linkcolor=color:link,citecolor=secundario}
     
-  \usepackage{tikz} % http://texample.net/tikz/examples/
-    \usetikzlibrary{mindmap,trees} %arrow,automata
-    \usetikzlibrary{arrows}
+  %\usepackage{tikz} % http://texample.net/tikz/examples/
+    %\usetikzlibrary{mindmap,trees} %arrow,automata
+    %\usetikzlibrary{arrows}
+
+% GAMIFICATION
+
+\def\principioIx{Epic Meaning \& Calling\ }
+\def\principioIIx{Development \& Accomplishment\ }
+\def\principioIIIx{Empowerment of Creativity \& FeedBack\ }
+\def\principioIVx{OwnerShip \& Posession\ }
+\def\principioVx{Social Influence \& Relateness\ }
+\def\principioVIx{Scarcity \& Impatience\ }
+\def\principioVIIx{Unpredictability \& Curiosity\ }
+\def\principioVIIIx{Loss \& Avoidance\ }
+
+\def\principioI{\principioIx (Diferenciación y Pertenencia)\ }
+\def\principioII{\principioIIx (Desarrollo y Recompensa)\ }
+\def\principioIII{\principioIIIx (Descubrimiento y Retroalimentación)\ }
+\def\principioIV{\principioIVx (Personalización)\ }
+\def\principioV{\principioVx (Motivo e Impulso Social)\ }
+\def\principioVI{\principioVIx (Codicia)\ }
+\def\principioVII{\principioVIIx (Impredecibilidad y Curiosidad)\ }
+\def\principioVIII{\principioVIIIx (Miedo a la Pérdida)\ }
 
 % COLOR DEFINICIÓN
 
@@ -47,8 +68,8 @@ Do not distribute source file]
 % HEADER % FOOTER MANAGEMENT
 
   \pagestyle{fancy}
-  \fancyhead[LE]{\includegraphics[width=0.1\textwidth]{images/ipn-escom}\\}
-  \fancyhead[RO]{\includegraphics[width=0.1\textwidth]{images/ipn-escom}\\}
+  \fancyhead[LE]{\includegraphics[width=0.1\textwidth]{res/escom}\\}
+  \fancyhead[RO]{\includegraphics[width=0.1\textwidth]{res/escom}\\}
   %\fancyhead[RE,LO]{} 
   %\fancyfoot[RO,LE]{\footnotesize\thepage}
   %\fancyfoot[CO,CE]{\tiny\color{color:second} Address, PostalCode, telefono, email}
@@ -233,29 +254,6 @@ Do not distribute source file]
         \hyperref[#1]{\ref*{#1} \nameref*{#1}}%
     }
     
-% GAMIFICACION MACROS 
-
-\def\TituloTT{Gamificación en una plataforma Web de Aprendizaje}
-\def\TituloProy{Gamedle}
-
-\def\principioIx{Epic Meaning \& Calling\ }
-\def\principioIIx{Development \& Accomplishment\ }
-\def\principioIIIx{Empowerment of Creativity \& FeedBack\ }
-\def\principioIVx{OwnerShip \& Posession\ }
-\def\principioVx{Social Influence \& Relateness\ }
-\def\principioVIx{Scarcity \& Impatience\ }
-\def\principioVIIx{Unpredictability \& Curiosity\ }
-\def\principioVIIIx{Loss \& Avoidance\ }
-
-\def\principioI{\principioIx (Diferenciación y Pertenencia)\ }
-\def\principioII{\principioIIx (Desarrollo y Recompensa)\ }
-\def\principioIII{\principioIIIx (Descubrimiento y Retroalimentación)\ }
-\def\principioIV{\principioIVx (Personalización)\ }
-\def\principioV{\principioVx (Motivo e Impulso Social)\ }
-\def\principioVI{\principioVIx (Codicia)\ }
-\def\principioVII{\principioVIIx (Impredecibilidad y Curiosidad)\ }
-\def\principioVIII{\principioVIIIx (Miedo a la Pérdida)\ }
-    
     
 \newenvironment{Entidad}[2]{%
     \subsection*{Tabla gmdl\_#1}
@@ -291,22 +289,22 @@ Do not distribute source file]
 
 %\newcounter{theUserStory}
 %\setcounter{theUserStory}{1}
-\newenvironment{UserStory}[3]{%
-    \phantomsection
-    \noindent\bb{\large\fbox{\bf US-#1} #2}\\\\#3\\\\
-    \addtocounter{subsection}{1}
-    \addcontentsline{toc}{subsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}. ~~ US-#1 #2}
+%\newenvironment{UserStory}[3]{%
+%    \phantomsection
+%    \noindent\bb{\large\fbox{\bf US-#1} #2}\\\\#3\\\\
+%    \addtocounter{subsection}{1}
+%    \addcontentsline{toc}{subsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}. ~~ US-#1 #2}
     %\noindent\bb{\large\fbox{\bf US-\arabic{theUserStory}} #1}\\\\%
-    \noindent\bb{Criterio de Aceptación}%
-    \begin{center}
-    \begin{tabular}{c|p{0.8\textwidth}}
-        {\bf Estado} & {\bf Descripción}\\\hline
-}{
-    \end{tabular}
-    \end{center}%\stepcounter{theUserStory}
-    \hfill\par\bigskip\bigskip
-}
+%    \noindent\bb{Criterio de Aceptación}%
+%    \begin{center}
+%    \begin{tabular}{c|p{0.8\textwidth}}
+%        {\bf Estado} & {\bf Descripción}\\\hline
+%}{
+%    \end{tabular}
+%    \end{center}%\stepcounter{theUserStory}
+%    \hfill\par\bigskip\bigskip
+%}
 
-\gdef\done{\CheckedBox}
-\gdef\todo{\Square}
-\newcommand{\criteria}[2][\todo]{\Large#1 & #2 \\ }
+%\gdef\done{\CheckedBox}
+%\gdef\todo{\Square}
+%\newcommand{\criteria}[2][\todo]{\Large#1 & #2 \\ }
