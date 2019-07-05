@@ -8,7 +8,7 @@ admin_externalpage_setup('block_gmxp_ext');
 
 // functionality like processing form submissions goes here
 
-class visualsSettingsLevels extends moodleform {
+class gmxadminformsections extends moodleform {
 
     protected $config;
 
@@ -116,12 +116,13 @@ class visualsSettingsLevels extends moodleform {
 
 }
 
-$pageAux = new visualsSettingsLevels();
+$pageAux = new gmxadminformsections();
 
 $pageAux->setSections();
 
 if ($pageAux->is_cancelled()) {
 
+    header("Refresh:0; url=http://127.0.1.1/moodle/admin/category.php?category=block_gmxp_category");
 
 } else if ($data = $pageAux->get_data()) {
 
@@ -135,9 +136,12 @@ if ($pageAux->is_cancelled()) {
             '1' => $data->{'sectlvlE_1'}
         ]
     ];
+
     for ($i = 2; $i <= $data->sections; $i++) {
+
         $newdata['sectlvlS'][$i] = $data->{'sectlvlS_' . $i};
         $newdata['sectlvlE'][$i] = $data->{'sectlvlE_' . $i};
+
     }
 
         set_config('sections',json_encode($newdata),'block_gmxp');
@@ -157,9 +161,3 @@ $output = $pageAux->render();
 echo $OUTPUT->header();
 echo $output;
 echo $OUTPUT->footer();
-
-
-
-//$dataAux = $pageAux->get_data();
-
-//echo $dataAux;

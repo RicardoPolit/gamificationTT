@@ -122,7 +122,7 @@ $settingsAux[] = (new admin_setting_configstoredfile(
 
 $settings = new admin_category('block_gmxp_category', 'Gamedle Level');
 
-$settingsurl = new moodle_url('/blocks/gmxp/visualsSettingsLevels.php');
+$settingsurl = new moodle_url('/blocks/gmxp/gmx_admin_form_sections.php');
 $external = new admin_externalpage('block_gmxp_ext', get_string('nameVisualSettings','block_gmxp'), $settingsurl);
 
 $settingspage = new admin_settingpage('block_gmxp_default_settings', get_string('nameGeneralSettings','block_gmxp'));
