@@ -1,12 +1,97 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{academic}[2017/08/19, v3.0 Author: Daniel Ortega
-Do not distribute source file]
+\ProvidesPackage{academic}[2017/08/19, v3.0 Author: Daniel Ortega Do not distribute source file]
 
 % USED PACKAGES & HYPERSETUP ...
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc} 
+\RequirePackage[utf8]{inputenc}  % Codificación de caracteres en UTF-8.
+\RequirePackage[spanish]{babel}  % Cambia las variables del documento a español.
+
+%\usepackage[hmargin=2cm,vmargin=3.5cm, head=2cm]{geometry} % Text Margin Management
+\RequirePackage[pdftex,bookmarks,colorlinks]{hyperref} % Manejo de vinculos o links
+\RequirePackage{graphicx}                              % Manejo de imágenes.
+\RequirePackage{multicol}                              % Manejo de multiples columnas.
+
+\RequirePackage[usenames,dvipsnames]{xcolor} % Para usar y definir colores.
+\RequirePackage{fancyhdr}                    % Manejo de encabezados.
+\RequirePackage[Sonny]{fncychap}             % Manejo de capítulos: Sonny, Lenny, Glenn, Conny, Rejne and Bjarne.
+
+\RequirePackage{cmbright}        % Fuente de letras, otras opciones: arev, cmbright, pxfonts, tgadventor 
+\RequirePackage{txfonts}         % Altera Fuente de letra usado para eliminar warnings 
+\RequirePackage{marvosym}        % Algunos símbolos.
+
+%=====================================================
+% Definición de colores.
+%=====================================================
+\definecolor{primary}{rgb}{0.0, 0.3, 0.55}
+\definecolor{secondary}{rgb}{0.0, 0.5, 0.8}
+\definecolor{tertiary}{rgb}{0.4, 0.4, 0.4}
+
+%=====================================================
+% Colores para las referencias del documento.
+%=====================================================
+\hypersetup{linkcolor=primary}
+\hypersetup{urlcolor=secondary}
+\hypersetup{filecolor=secondary}
+\hypersetup{citecolor=tertiary}
+
+%%=====================================================
+%% Estilo para Parte
+%======================================================
+\let\varPart=\part
+\renewcommand{\part}[1]{{\color{primary}\varPart{#1}}}
+
+%%=====================================================
+%% Estilo para los Capítulos y secciones
+%=====================================================
+\ChTitleVar{\Large\sf\color{primary}}
+\ChNameVar{\Large\sf\color{primary}}
+
+\let\LaTeX@startsection\@startsection
+\renewcommand{\@startsection}[6]{\LaTeX@startsection%
+{#1}{#2}{#3}{#4}{#5}{\color{primary}\raggedright #6}}
+
+%=====================================================
+% Texto para el índice y los pies de las tablas.
+%=====================================================
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\listtablename}{Índice de tablas}
+
+\renewcommand\textbullet{\ensuremath{\bullet}} % Usado para evitar warnings de fuentes
+\renewcommand{\labelitemi}{\color{primary}\textbullet}
+\renewcommand{\labelitemii}{\color{secondary}$\circ$}
+\renewcommand{\labelitemiii}{\color{secondary}\textbullet}
+\renewcommand{\labelitemiv}{\color{secondary}\textbullet}
+
+\pagestyle{fancy}
+\fancyhead[LE]{\includegraphics[height=35pt]{res/headerPar}}
+\fancyhead[RO]{\includegraphics[height=35pt]{res/HeaderImp}}
+
+\newcommand{\pf}{\bf\color{primary}}
+
+\newcommand{\addfigure}[5][]{
+    \begin{figure}[htbp!]
+        \begin{center}
+            \includegraphics[width=#2\textwidth]{#3}
+            \caption{#5}
+            \label{#4}
+            \small{#1}
+        \end{center}
+    \end{figure}
+}
+
+\newcommand{\addtable}[4]{
+	\begin{table}[hbtp!]
+    	\centering
+		\begin{tabular}{#1} \hline
+				#3 %\hline
+			\end{tabular}
+		\caption{#4}
+		\label{#2} 
+	\end{table}
+}
+
+\begin{comment}
   \usepackage[usenames,dvipsnames]{xcolor}         % Para usar y definir colores.
-  \usepackage[spanish]{babel}   % spanish, english
   \usepackage{cmbright}		    % Font: arev, cmbright, pxfonts.
   \usepackage{fancyhdr}		    % Header & Footer Management
   \usepackage{graphicx}		    % Image Management
@@ -25,45 +110,6 @@ Do not distribute source file]
   \usepackage{multicol}		    % Multicolumn Environment
 	\setlength{\columnsep}{0.5cm}
   \usepackage{comment}
-
-%  \usepackage[hmargin=2cm,vmargin=3.5cm, head=2cm]{geometry} % Text Margin Management
-  \usepackage[pdftex,bookmarks,colorlinks]{hyperref}
-    \hypersetup{linkcolor=color:link,citecolor=secundario}
-    
-  %\usepackage{tikz} % http://texample.net/tikz/examples/
-    %\usetikzlibrary{mindmap,trees} %arrow,automata
-    %\usetikzlibrary{arrows}
-
-% GAMIFICATION
-
-\def\principioIx{Epic Meaning \& Calling\ }
-\def\principioIIx{Development \& Accomplishment\ }
-\def\principioIIIx{Empowerment of Creativity \& FeedBack\ }
-\def\principioIVx{OwnerShip \& Posession\ }
-\def\principioVx{Social Influence \& Relateness\ }
-\def\principioVIx{Scarcity \& Impatience\ }
-\def\principioVIIx{Unpredictability \& Curiosity\ }
-\def\principioVIIIx{Loss \& Avoidance\ }
-
-\def\principioI{\principioIx (Diferenciación y Pertenencia)\ }
-\def\principioII{\principioIIx (Desarrollo y Recompensa)\ }
-\def\principioIII{\principioIIIx (Descubrimiento y Retroalimentación)\ }
-\def\principioIV{\principioIVx (Personalización)\ }
-\def\principioV{\principioVx (Motivo e Impulso Social)\ }
-\def\principioVI{\principioVIx (Codicia)\ }
-\def\principioVII{\principioVIIx (Impredecibilidad y Curiosidad)\ }
-\def\principioVIII{\principioVIIIx (Miedo a la Pérdida)\ }
-
-% COLOR DEFINICIÓN
-
-  \definecolor{color:first}{rgb}{  0.1, 0.3, 0.7}  % azul
-  \definecolor{color:second}{rgb}{ 0.2, 0.2, 0.2}  % negro
-  \definecolor{color:section}{rgb}{0.1, 0.3, 0.7}  % azul
-  \definecolor{color:link}{rgb}{   0.1, 0.3, 0.7}  % azul
-  \definecolor{color:alert}{rgb}{  0.8, 0.1, 0.0}  % red
-  \definecolor{code:green}{rgb}{   0.0, 0.5, 0.0}  % green
-  \definecolor{secundario}{rgb}{   0.45,0.45,0.45} % grey
-  \definecolor{color:light}{rgb}{  0.91,0.96,0.99} % light blue
 
 % HEADER % FOOTER MANAGEMENT
 
@@ -163,17 +209,6 @@ Do not distribute source file]
             \end{center}
         \end{figure}
    	}
-   	
-   	\newcommand{\addtable}[4]{
-		\begin{table}[hbtp!]
-	    	\centering
-			\begin{tabular}{#1} \hline
-					#3 %\hline
-				\end{tabular}
-			\caption{#4}
-			\label{#2} 
-		\end{table}
-	}
     
     \newcommand{\addlongtable}[4]{
         \begin{longtable}{#1}
@@ -277,16 +312,6 @@ Do not distribute source file]
 % Shortcuty \backlash macro
 \newcommand{\bs}{$\backslash$}
 
-\newenvironment{glosario}[1]{
-    \section*{#1}
-    \begin{quote}
-    \begin{description}
-}{
-    \end{description}
-    \end{quote}
-}
-
-
 %\newcounter{theUserStory}
 %\setcounter{theUserStory}{1}
 %\newenvironment{UserStory}[3]{%
@@ -308,3 +333,5 @@ Do not distribute source file]
 %\gdef\done{\CheckedBox}
 %\gdef\todo{\Square}
 %\newcommand{\criteria}[2][\todo]{\Large#1 & #2 \\ }
+
+\end{comment}

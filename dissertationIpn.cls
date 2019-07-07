@@ -13,10 +13,6 @@
 \RequirePackage[spanish]{babel}                          % Cambia las variables del documento a español.
 \RequirePackage{graphicx}                                % Manejo de imágenes.
 \RequirePackage[hmargin=2cm,vmargin=3.5cm]{geometry}     % Manejo de márgenes del documento.
-              %[hmargin=2cm,vmargin=3.5cm, head=2cm]{geometry} % Text Margin Management              
-              %\RequirePackage{cmbright}                                % Fuente de letras, otras opciones: arev, cmbright, pxfonts.
-              %\RequirePackage{tgadventor}                              % Altera Fuente de letra usado para eliminar warnings 
-              %\RequirePackage[pdftex, bookmarks, colorlinks]{hyperref} % Manejo de vinculos o links
 
 %=====================================================
 % Instituto. e.g INSTITUTO POLITECNICO NACIONAL
@@ -113,3 +109,23 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Author Daniel Ortega (https://gilab.com/DanielOrtegaZ)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% GAMIFICATION
+
+\def\principioIx{Epic Meaning \& Calling\ }
+\def\principioIIx{Development \& Accomplishment\ }
+\def\principioIIIx{Empowerment of Creativity \& FeedBack\ }
+\def\principioIVx{OwnerShip \& Posession\ }
+\def\principioVx{Social Influence \& Relateness\ }
+\def\principioVIx{Scarcity \& Impatience\ }
+\def\principioVIIx{Unpredictability \& Curiosity\ }
+\def\principioVIIIx{Loss \& Avoidance\ }
+
+\def\principioI{\principioIx (Diferenciación y Pertenencia)\ }
+\def\principioII{\principioIIx (Desarrollo y Recompensa)\ }
+\def\principioIII{\principioIIIx (Descubrimiento y Retroalimentación)\ }
+\def\principioIV{\principioIVx (Personalización)\ }
+\def\principioV{\principioVx (Motivo e Impulso Social)\ }
+\def\principioVI{\principioVIx (Codicia)\ }
+\def\principioVII{\principioVIIx (Impredecibilidad y Curiosidad)\ }
+\def\principioVIII{\principioVIIIx (Miedo a la Pérdida)\ }
