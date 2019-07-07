@@ -20,14 +20,14 @@ Este capítulo de \nameref{ch:introduccion} tiene como propósito presentar la g
     
         \item \nameref{ch:modAlcance}, especifica a los actores y requerimientos funcionales
         y no funcionales identificados, tambien presenta el diseño modular de la propuesta
-        de solución planteada en este trabajo terminal.
+        de solución planteada en este capítulo.
         
         \item \nameref{ch:modDominio}, que contiene el esquema relacional de la base de 
         datos, contemplando todos los módulos, la relación con las relaciones del core de 
         moodle y la especificación de los atributos.
     \end{itemize}
 
-\noindent Posteriormente a la investigación se decidió destinar una parte de este documento a cada módulo identificado. Los módulos son \bb{Experiencia}, \bb{Recompensa}, \bb{Financiero}, \bb{Personalización}, \bb{Competencia} y \bb{Seguimiento}. Cada parte contiene el análisis, diseño y pruebas del módulo correspondiente.\\
+\noindent Posteriormente a la investigación se decidió destinar una parte de este documento a cada módulo identificado. Los módulos son \nameref{mod:exp}, \nameref{mod:recomp}, \nameref{mod:financ}, \nameref{mod:pers}, \nameref{mod:comp} y \nameref{mod:seguim}. Cada parte contiene el análisis, diseño y pruebas del módulo correspondiente.\\
 \clearpage
 
 
@@ -81,33 +81,28 @@ El término ``Gamificación'' se originó en la industria de los medios digitale
 En la educación, la Gamificación se ha visto como una solución potencial para problemas de participación y motivación en entornos educativos, ya que incorpora una amplia gama de enfoques para la enseñanza y el aprendizaje. La Gamificación educativa utiliza sistemas de reglas similares a los juegos, experiencias de los jugadores y roles culturales con el propósito de moldear el comportamiento del aprendiz \cite{education1}.\\
     
 \noindent De acuerdo con Brull y Finlayson, la Gamificación permite que los alumnos participen y creen una comunidad de aprendizaje, donde puedan experimentar emociones como frustración, asombro, misterio y diversión, mismas que permiten crear una conexión personal con el juego educativo y con otros compañeros, disfrutando de la libertad de experimentar y fallar en un entorno agradable \cite{education3}.\\ % (2016)
-    
-\noindent Existe evidencia de que los alumnos involucrados en entornos con Gamificación mejoran su aprendizaje e incrementan su motivación y compromiso \cite{education4}; % (Chu y Hung, 2015)
-% DAN: Expandir el estudio de Chu y Hung
 
-por ejemplo, en Estados Unidos se han aplicado elementos de Gamificación en niveles de primaria y preparatoria, los cuales han propiciado un incremento en la capacidad retención de los alumnos y en el compromiso por parte de los mismos \cite{education3};
-la Gamificación también ha sido aplicada con éxito en niveles de secundaria ayudando a mejorar las calificaciones en las pruebas o exámenes de los alumnos involucrados \cite{education2},\cite{education5}.
+\NOTE{Mencionar edades y condiciones del estudio}
+\noindent Existe evidencia de que los alumnos involucrados en entornos con Gamificación mejoran su aprendizaje e incrementan su motivación y compromiso \cite{education4}; por ejemplo, en Estados Unidos se han aplicado elementos de Gamificación en niveles de primaria y preparatoria, los cuales han propiciado un incremento en la capacidad retención de los alumnos y en el compromiso por parte de los mismos \cite{education3}; la Gamificación también ha sido aplicada con éxito en niveles de secundaria ayudando a mejorar las calificaciones en las pruebas o exámenes de los alumnos involucrados \cite{education2},\cite{education5}.
+
 
 \section{Problema}
 \label{sec:problematica}
 
-    Los sistemas de aprendizaje en línea tienen como reto el retener al estudiante a lo largo de los cursos \cite{problematica1}, y la Gamificación se centra en incrementar la motivación, experiencia y compromiso del usuario, razón por la cual, ha comenzado a ser implementada en los sistemas de aprendizaje en línea. Los resultados muestran que los alumnos inscritos en una versión de un curso con Gamificación obtienen mejores resultados de aprendizaje. \cite{problematica2}\\
-    % CATALÁN: Ampliar/Ejemplificar los mejores resultados de aprendizaje.
-    %   DAN: 
-    %       Poner el estudio y sus resultados en ''Gamificacion en la educación''
-    %   DAN:
-    %       Los estudios comentados anteriormente muestran que los alumnos inscritos en una versión de un curso con Gamificación obtienen mejores resultados tanto de X como de Y.
+Los sistemas de aprendizaje en línea tienen como reto el retener al estudiante a lo largo de los cursos \cite{problematica1}, y la Gamificación se centra en incrementar la motivación, experiencia y compromiso del usuario, razón por la cual, ha comenzado a ser implementada en los sistemas de aprendizaje en línea. Los resultados muestran que los alumnos inscritos en una versión de un curso con Gamificación obtienen mejores resultados de aprendizaje. \cite{problematica2}\\
+\NOTE{Mostrar los resultados}
     
-    \noindent Sin embargo, implementar elementos o mecánicas de Gamificación sin tomar en cuenta la coherencia entre sus distintas funcionalidades \cite{FrameWorkForTheWin}, es decir que diferentes componentes y mecánicas no hayan sido analizados y diseñados cuidadosamente identificando a los usuarios, puede conducir a resultados poco significativos, o en el peor caso, negativos. \cite{problematica3}\\
+\noindent Sin embargo, implementar mecánicas de Gamificación sin tomar en cuenta la interdependencia entre los distintos elementos de gamificación \cite[p. ]{FrameWorkForTheWin}, es decir que diferentes componentes y mecánicas no hayan sido analizados y diseñados cuidadosamente identificando a los usuarios, puede conducir a resultados poco significativos o negativos. \cite{problematica3}\\
     
-    \noindent El problema principal encontrado con base en la investigación %\footnote{La investigación y los marcos de trabajo se encuentran presentes en el capítulo \hyperrefx{ch:marcoTeorico}}
-    es la siguiente:
+    \noindent El problema principal encontrado con base en la investigación es la siguiente:
     
     \begin{quote}
     \colorbox{blue!05}{\parbox{\dimexpr\linewidth-2\fboxsep}{\strut
-    Los sistemas de aprendizaje en linea
-    no proporcionan un entorno de trabajo en donde las funcionalidades\par (propias, %añadidas
-    o extendidas) dedicadas a la Gamificación trabajen de forma coherente\cite{coherencia}.
+    
+        Los sistemas de aprendizaje en linea no proporcionan un entorno de
+        trabajo en donde las funcionalidades\par (propias o extendidas) 
+        dedicadas a la Gamificación trabajen de forma coherente\cite{coherencia}.
+        
     \strut}}%
     \end{quote}
 
@@ -132,20 +127,21 @@ la Gamificación también ha sido aplicada con éxito en niveles de secundaria a
     % -> SOPORTE RESTRINGIDO
     % -> PROYECTO DE INGENIERÍA DE SOFTWARE
 
-    La escolarización tradicional es percibida como ineficaz y aburrida por muchos estudiantes. Si bien los maestros buscan continuamente nuevos enfoques de enseñanza, Una gran parte de los maestros está de acuerdo en que las escuelas de hoy enfrentan problemas importantes entorno a la motivación y el compromiso de los estudiantes. \cite{objetivo1}.\\
+La escolarización tradicional es percibida como ineficaz y aburrida por muchos estudiantes. Si bien los maestros buscan continuamente nuevos enfoques de enseñanza, Una gran parte de los maestros está de acuerdo en que las escuelas de hoy enfrentan problemas importantes entorno a la motivación y el compromiso de los estudiantes. \cite{objetivo1}.\\
     % DAN: Considero el párrafo muy simple
 
-    \noindent Estos problemas están relacionados directamente con el principal reto que los sistemas de aprendizaje en linea afrontan: {\it''el evitar la deserción de los estudiantes a lo largo de los cursos''} \cite{objetivo1}. Existen dos tipos de factores que afectan la decisión de los estudiantes de mantenerse o desertar en sistemas de aprendizaje en linea. Los {\it Factores externos}, relacionados con el trabajo, la salud y las relaciones personales, y los {\it Factores internos} relacionados con la integración social y académica, usabilidad y la motivación \cite{problematica1}, \cite{dropoutOnline}.\\
+\noindent Estos problemas están relacionados directamente con el principal reto que los sistemas de aprendizaje en linea afrontan: {\it''el evitar la deserción de los estudiantes a lo largo de los cursos''} \cite{objetivo1}. Existen dos tipos de factores que afectan la decisión de los estudiantes de mantenerse o desertar en sistemas de aprendizaje en linea. Los {\it Factores externos}, relacionados con el trabajo, la salud y las relaciones personales, y los {\it Factores internos} relacionados con la integración social y académica, usabilidad y la motivación \cite{problematica1}, \cite{dropoutOnline}.\\
     
     % Existe una correlación entre los distintos tipos de factores, la presencia de un factor interno puede afectar (positivamente o negativamente) uno o más factores externos, y viceversa. Por ejemplo, cuando los alumnos tienen una gran carga de trabajo y poco tiempo para estudiar, es más probable que abandonen un curso cuando no pueden obtener retroalimentación de sus compañeros o evaluadores.\\ % Si se está utilizando el diseño y la tecnología adecuados, es probable que algunos problemas externos se mitiguen. Por lo tanto, la relación entre los factores internos y los factores externos se expresa como inter-correlación en lugar de como una influencia unilateral. \cite{droupoutOnline}
     
-    \noindent Muchos maestros buscan continuamente nuevos enfoques de enseñanza los cuales les permitan satisfacer o reducir los problemas de motivación, compromiso y deserción \cite{objetivo1}. 
-    Un enfoque capaz de proveer una solución potencial es utilizar la Gamificación ya que permite que los estudiantes mejoren su aprendizaje e incrementen su motivación y compromiso, lo cual brinda soporte a reducir los factores internos que conducen a la deserción \cite{dropoutOnline}.\\
+\noindent Muchos maestros buscan continuamente nuevos enfoques de enseñanza los cuales les permitan satisfacer o reducir los problemas de motivación, compromiso y deserción \cite{objetivo1}. \nolinebreak
+
+Un enfoque capaz de proveer una solución potencial es utilizar la Gamificación ya que permite que los estudiantes mejoren su aprendizaje e incrementen su motivación y compromiso, lo cual brinda soporte a reducir los factores internos que conducen a la deserción \cite{dropoutOnline}.\\
     % DAN: La linea anterior podría se comentada
     
-    \noindent El considerar la Gamificación como principal enfoque para combatir los problemas de motivación, compromiso y deserción en sistemas de aprendizaje en linea: implica la introducción de marcos de trabajo adecuados, además de una infraestructura tecnológica capaz de soportar las funcionalidades a añadir para su implementación \cite{mappingStudy}.\\
+\noindent El considerar la Gamificación como principal enfoque para combatir los problemas de motivación, compromiso y deserción en sistemas de aprendizaje en linea: implica la introducción de marcos de trabajo adecuados, además de una infraestructura tecnológica capaz de soportar las funcionalidades a añadir para su implementación \cite{mappingStudy}.\\
     
-    \noindent Sin embargo, la falta de los componentes tecnológicos es uno de los principales obstáculos encontrados, por lo cual es necesario el desarrollo de nuevos componentes de software que puedan apoyar de manera eficiente la implementación de la Gamificación en diversos contextos educativos, lo que contribuiría a una adopción a mayor escala, así como a la investigación sobre la viabilidad y eficacia de la Gamificación en la educación \cite{mappingStudy}.\\
+\noindent Sin embargo, la falta de los componentes tecnológicos es uno de los principales obstáculos encontrados, por lo cual es necesario el desarrollo de nuevos componentes de software que puedan apoyar de manera eficiente la implementación de la Gamificación en diversos contextos educativos, lo que contribuiría a una adopción a mayor escala, así como a la investigación sobre la viabilidad y eficacia de la Gamificación en la educación \cite{mappingStudy}.\\
     
     %\noindent El hecho de implementar Gamificación en un sistema de aprendizaje implica considerar la infraestructura tecnológica y un marco de instrucción apropiado. Sin embargo, los sistemas de gestión de cursos de hoy en día todavía ofrecen soporte restringido para cursos de gamificación. \cite{mappingStudy}\\
     % DAN: El anterior párrafo puede descomentarse (Dan don't recommend it)
@@ -154,27 +150,9 @@ la Gamificación también ha sido aplicada con éxito en niveles de secundaria a
     %HABLAR ACERCA DE PORQUE ES COHERENTE LO QUE VAMOS A DESARROLLAR
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
-
-    \noindent Como se menciona en el problema, los sistemas de aprendizaje en linea contemplados en la investigación realizada no proporcionan un entorno de trabajo en donde las funcionalidades (propias, añadidas o extendidas) dedicadas a la Gamificación trabajen de forma coherente.\\
+\noindent Como se menciona en el problema, los sistemas de aprendizaje en linea contemplados en la investigación realizada no proporcionan un entorno de trabajo en donde las funcionalidades (propias, añadidas o extendidas) dedicadas a la Gamificación trabajen de forma coherente.\\
     
-    \noindent Por ello se decidió desarrollar componentes de software coherentes que extiendan la funcionalidad de un sistema de aprendizaje en linea, tomando como referencia los 6 pasos propuestos por el marco de trabajo {\it For The Win} \cite{FrameWorkForTheWin}, lo cual da como resultado que los componentes trabajen de forma coherente. 
-    
-\begin{comment}
-    Los seis pasos son:
-    
-    \begin{quote}
-    \begin{enumerate}
-        \item Definir los objetivos del sistema.
-        \item Definir los comportamientos que queremos que tengan los usuarios.
-        \item Describir nuestro usuarios.
-        \item Desarrollar los ciclos de las actividades.
-        %\item Recuerda que tiene que ser divertido.
-        \item Considerar en todo momento la diversión.
-        \item Elije los componentes apropiados para el sistema.
-    \end{enumerate}
-    \end{quote}
-\end{comment}    
+\noindent Por ello se decidió desarrollar componentes de software coherentes que extiendan la funcionalidad de un sistema de aprendizaje en linea, tomando como referencia los 6 pasos propuestos por el marco de trabajo {\it For The Win} \cite{FrameWorkForTheWin}, lo cual da como resultado que los componentes trabajen de forma coherente.
     
 \begin{comment}
 
@@ -184,7 +162,6 @@ la Gamificación también ha sido aplicada con éxito en niveles de secundaria a
     % CONSIDER MOVING TO ESTADO DEL ARTE
     % The  majority  of  the  papers  report  encouraging  results  from  the  experiments,  including  significantly  higher engagement of students in forums, projects and other learning activities ((Anderson et al., 2014),(Caton \& Greenhill, 2013), (Akpolat \& Slany, 2014)), increased attendance, participation, and material downloads (Barata, Gama, Jorge, \& Gonçalves,  2013), positive effect on the quantity of students’ contributions/answers, without a corresponding reduction  in  their  quality (Denny,  2013)]; increasedpercentage  of  passing  students  and  participation  in  voluntary activities and challenging assignments(Iosup \& Epema, 2014), and minimizing the  gap between the lowest and the top  graders (Barata,  Gama,  Jorge,  \&  Gonçalves,  2013).  Hakulinen  et  al. (2014)concludethat  achievement  badges can be  used to affect  the  behavior of students even  when the  badges have  no impact on the  grading.The  papers of this group also report that students considered the gamified instancesto be more motivating, interesting and easier to learn as compared to other courses((Mak, 2013), (Barata et al., 2013), (de Byl \& Hooper, 2013), (Mitchell, Danino, \& May, 2013),(Leong \& Yanjie, 2011)).  [X]
 \end{comment}
-
 
 \clearpage
 \section{Objetivos}
@@ -213,36 +190,37 @@ la Gamificación también ha sido aplicada con éxito en niveles de secundaria a
    
     \begin{table}[h!]
     \centering   
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline
-        & \rotatebox[origin=c]{270}{ \textbf{Duolingo} \cite{PagDuolingo}} &
-        \rotatebox[origin=c]{270}{\textbf{Moodle}  \cite{PagMoodle}} &
-        \rotatebox[origin=c]{270}{\textbf{Docebo}  \cite{PagDocebo}} &
-        \rotatebox[origin=c]{270}{\textbf{SAP Litmos}   \cite{PagSAPLitmos}} &
-        \rotatebox[origin=c]{270}{\textbf{ATutor}   \cite{PagATutor}}& 
-        \rotatebox[origin=c]{270}{\textbf{ALEKS}   \cite{PagALEKS}}&
-        \rotatebox[origin=c]{270}{\textbf{Udemy}   \cite{PagUdemy}}&
-        \rotatebox[origin=c]{270}{\textbf{TalentLMS}   \cite{PagTalentLMS}}\\\hline 
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline &
+        \rotatebox[origin=c]{270}{\bf Duolingo   \cite{PagDuolingo}} &
+        \rotatebox[origin=c]{270}{\bf Moodle     \cite{PagMoodle}} &
+        \rotatebox[origin=c]{270}{\bf Docebo     \cite{PagDocebo}} &
+        \rotatebox[origin=c]{270}{\bf SAP Litmos \cite{PagSAPLitmos}} &
+        \rotatebox[origin=c]{270}{\bf ATutor     \cite{PagATutor}}& 
+        \rotatebox[origin=c]{270}{\bf ALEKS      \cite{PagALEKS}}&
+        \rotatebox[origin=c]{270}{\bf Udemy      \cite{PagUdemy}}&
+        \rotatebox[origin=c]{270}{\bf TalentLMS  \cite{PagTalentLMS}}\\\hline 
+        
       Propia & X & X &  & X &  & X & X & X \\\hline
       Extendida & & X & X & X & X & & & \\\hline
       \end{tabular}
+      
     \caption{Implementación de gamificación}
     \label{table:LMS_GMFC}
     \end{table}
        
-    \noindent Al decir \textbf{Propia} en el cuadro \ref{table:LMS_GMFC} nos referimos a que el sistema gestor de aprendizaje ya tiene integrado en su funcionalidad la implementación  de gamificación. Y al decir \textbf{Extendida} nos referimos a que existen componentes externos (plugins) que implementan gamificación. \\
+\noindent Al decir \textbf{Propia} en el cuadro \ref{table:LMS_GMFC} nos referimos a que el sistema gestor de aprendizaje ya tiene integrado en su funcionalidad la implementación  de gamificación. Y al decir \textbf{Extendida} nos referimos a que existen componentes externos (plugins) que implementan gamificación. \\
     
-    \noindent A continuación se describen los sistemas en el cuadro \ref{table:LMS_GMFC} y los elementos de gamificación con los que cuentan, de acuerdo con los marcos de referencia \nameref{sec:ForTheWin} y \nameref{sec:octalysis}.
+\noindent A continuación se describen los sistemas en el cuadro \ref{table:LMS_GMFC} y los elementos de gamificación con los que cuentan, de acuerdo con los marcos de referencia \nameref{sec:ForTheWin} y \nameref{sec:octalysis}.
     %ya sean, elementos de juego del marco de trabajo \textbf{''For the win''} o principios según el marco de trabajo \textbf{''Octalysis''}.\\
     
 \begin{multicols}{2}    
 \subsection*{Duolingo}
     
-    Duolingo es un sistema de aprendizaje dedicado a los idiomas, es un servicio web que te brinda la posibilidad de crearte una cuenta y seleccionar entre 9 idiomas para aprender, los cuales son: Inglés, guaraní, francés, alemán, catalán, espartano, italiano, portugués y ruso.\\
+Duolingo es un sistema de aprendizaje dedicado a los idiomas, es un servicio web que te brinda la posibilidad de crearte una cuenta y seleccionar entre 9 idiomas para aprender, los cuales son: Inglés, guaraní, francés, alemán, catalán, espartano, italiano, portugués y ruso.\\
     
-    \noindent Duolingo divide un idioma en secciones y cada sección contiene sub-secciones, que a su vez contienen unidades que se dividen en 5 niveles cada una. Al inicio Duolingo solo te permite empezar una unidad.
+\noindent Duolingo divide un idioma en secciones y cada sección contiene sub-secciones, que a su vez contienen unidades que se dividen en 5 niveles cada una. Al inicio Duolingo solo te permite empezar una unidad.
     
-    \noindent Al completar el primer nivel de todas las unidades de una sub-sección, Duolingo te permite avanzar a la siguiente sub-sección. Y para poder acceder a la siguiente sección Duolingo te pide que completes una cierta cantidad de niveles de unidades.\\
-    
+\noindent Al completar el primer nivel de todas las unidades de una sub-sección, Duolingo te permite avanzar a la siguiente sub-sección. Y para poder acceder a la siguiente sección Duolingo te pide que completes una cierta cantidad de niveles de unidades.\\
     
 \clearpage
     
