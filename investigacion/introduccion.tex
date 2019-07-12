@@ -5,24 +5,24 @@ Este documento tiene la finalidad de establecer formalmente la documentación de
 
 \section{Organización del contenido}
 
-Este capítulo de \nameref{ch:introduccion} tiene como propósito presentar la gamificación, incluyendo sus antecedentes, su uso en la educación y los distintos marcos de trabajo que fueron investigados. En lo referente a la definición del proyecto, se detalla el problema, nuestra propuesta de solución a la misma, el objetivo principal, estado del arte, y los alcances y limitaciones que tiene el trabajo terminal.\\
+Este capítulo, \hyperrefx{ch:introduccion}, tiene como propósito presentar la gamificación, incluyendo sus antecedentes, su uso en la educación y los distintos marcos de trabajo que fueron investigados. En lo referente a la definición del proyecto, se detalla el problema, nuestra propuesta de solución a la misma, el objetivo principal, estado del arte, y los alcances y limitaciones que tiene el trabajo terminal.\\
 
 \noindent La {\pf Parte I: Investigación} contiene a los siguientes capítulos:%
 
     \begin{itemize}
-        \item \nameref{ch:marcoTeorico}, que establece el soporte conceptual y documental, 
+        \item \hyperrefx{ch:marcoTeorico}, establece el soporte conceptual y documental, 
         especifica los marcos de trabajo usados y además contiene la elección de la 
-        plataforma base.
+        plataforma sobre la cual se trabajará.
         
-        \item \nameref{ch:curvaAprendizaje}, que presenta los resultados obtenidos durante 
+        \item \hyperrefx{ch:curvaAprendizaje}, presenta los resultados obtenidos durante 
         las pruebas de concepto, los problemas encontrados y las soluciones o alternativas 
-        propuestas a dicho problemas.
+        propuestas a dichos problemas.
     
-        \item \nameref{ch:modAlcance}, especifica a los actores y requerimientos funcionales
+        \item \hyperrefx{ch:modAlcance}, especifica a los actores y requerimientos funcionales
         y no funcionales identificados, tambien presenta el diseño modular de la propuesta
         de solución planteada en este capítulo.
         
-        \item \nameref{ch:modDominio}, que contiene el esquema relacional de la base de 
+        \item \hyperrefx{ch:modDominio}, contiene el esquema relacional de la base de 
         datos, contemplando todos los módulos, la relación con las relaciones del core de 
         moodle y la especificación de los atributos.
     \end{itemize}
@@ -40,7 +40,7 @@ La idea de utilizar mecánicas de juegos para resolver problemas y atraer distin
 
 \subsection{Definición de Gamificación}
 
-La Gamificación es un anglicismo proveniente del término en ingles {\it ``Gamification''}, la palabra más cercana en el lenguaje español para referirse a la Gamificación es {\it ''ludificación''}. Sin embargo, ninguna de las dos palabras se encuentra definida en el Diccionario del español de México, o en el diccionario de la Real Academia de la lengua Española. A continuación se presentan las definiciones propuestas por distintos autores.
+La Gamificación es un anglicismo proveniente del término en ingles {\it ``Gamification''}, la palabra más cercana en el lenguaje español para referirse a la Gamificación es {\it ''ludificación''}. Sin embargo, ninguna de las dos palabras se encuentra definida en el Diccionario del español de México o en el diccionario de la Real Academia de la lengua Española. A continuación se presentan las definiciones propuestas por distintos autores.
 
     \begin{itemize}
 
@@ -66,7 +66,7 @@ La Gamificación es un anglicismo proveniente del término en ingles {\it ``Gami
     
     \end{itemize}
 
-\noindent A pesar de las propuestas realizadas, todavía no existe una definición que sea ampliamente aceptada o que esté establecida formalmente \cite{Seaborn}. Durante el desarrollo de este trabajo terminal nos referimos a la \hyperlink{tGamificacion}{Gamificación} como ``el uso de mecánicas de juegos en un entorno no lúdico''.
+\noindent A pesar de las propuestas realizadas, todavía no existe una definición que sea ampliamente aceptada o que esté establecida formalmente \cite{Seaborn}. Durante el desarrollo de este trabajo terminal nos referimos a \hyperlink{tGamificacion}{Gamificación} como ``el uso de mecánicas de juegos en un entorno no lúdico''.
 
 
 \subsubsection{Inicios de la Gamificación}
@@ -83,34 +83,26 @@ En la educación, la Gamificación se ha visto como una solución potencial para
     
 \noindent De acuerdo con Brull y Finlayson, la Gamificación permite que los alumnos participen y creen una comunidad de aprendizaje, donde puedan experimentar emociones como frustración, asombro, misterio y diversión, mismas que permiten crear una conexión personal con el juego educativo y con otros compañeros, disfrutando de la libertad de experimentar y fallar en un entorno agradable \cite{BrullFinlayson}.\\
 
-\noindent Existe evidencia de que los alumnos involucrados en entornos con Gamificación mejoran su aprendizaje e incrementan su motivación y compromiso \cite{ChuHung}; por ejemplo, en Estados Unidos se han aplicado elementos de Gamificación en niveles de primaria y preparatoria, los cuales han propiciado un incremento en la capacidad retención de los alumnos y en el compromiso por parte de los mismos \cite{BrullFinlayson}; la Gamificación también ha sido aplicada con éxito en niveles de secundaria ayudando a mejorar las calificaciones en las pruebas o exámenes de los alumnos involucrados \cite{UPIICSA},\cite{Admiraal}.
+\noindent Existe evidencia de que los alumnos involucrados en entornos con Gamificación mejoran su aprendizaje e incrementan su motivación y compromiso \cite{ChuHung}; por ejemplo, en Estados Unidos se han aplicado elementos de Gamificación en niveles de primaria y preparatoria, los cuales han propiciado un incremento en la capacidad retención de los alumnos y en el compromiso por parte de los mismos \cite{BrullFinlayson}; la Gamificación también ha sido aplicada con éxito en niveles de secundaria ayudando a mejorar las calificaciones en las pruebas o exámenes de los alumnos involucrados \cite{UPIICSA},\cite{Admiraal}.\\
 
+\noindent{\bf\color{red} INSERTAR TABLA DE RESULTADOS}
+\clearpage
 
 
 \section{Problema}
 \label{sec:problematica}
 
 Los sistemas de aprendizaje en línea tienen como reto el retener al estudiante a lo largo de los cursos \cite{DropOut}, y la Gamificación se centra en incrementar la motivación, experiencia y compromiso del usuario, razón por la cual, ha comenzado a ser implementada en los sistemas de aprendizaje en línea. Los resultados muestran que los alumnos inscritos en una versión de un curso con Gamificación obtienen mejores resultados de aprendizaje. \cite{GamInE-Learning}\\
-    
-\noindent Sin embargo, implementar mecánicas de Gamificación sin tomar en cuenta la interdependencia entre los distintos elementos de gamificación \cite{FrameWorkForTheWin}, es decir que diferentes componentes y mecánicas no hayan sido analizados y diseñados cuidadosamente identificando a los usuarios, puede conducir a resultados poco significativos o negativos. \cite{Wood-Reiners}\\
 
-\noindent{\bf\color{red} ESTRUCTURAR:} Implementar gamificación requiere ``game-thinking design'', y que dicho diseño sea coherente con los objetivos que la institución o empresa tenga (Leer ForTheWin).\\
-    
-    \noindent El problema principal encontrado con base en la investigación es la siguiente:
-    
+\noindent Sin embargo, el realizar una correcta implementación de gamificación requiere dos tipos de habilidades, el diseño basado en juegos y el entendimiento de las técnicas del entorno bajo el cual se deseá implementar \cite[p. 7]{FrameWorkForTheWin}. Si alguno de estos puntos no es analizado y diseñado propiamente, la implementación de la gamificación fracasará y en el peor de los casos ocasionará resultados negativos. \cite{Wood-Reiners}.\\
+
+\noindent Muchas de las propuestas de gamificación que se pueden encontrar fueron diseñadas pensando en un entorno específico y funcionan en dicho entorno, pero existe la posibilidad de que no funcionen adecuadamente en un entorno diferente o simplemente cuando se traten de utilizar junto con otras propuestas.\\
+
+    \noindent La razon por la cual definimos el problema de la siguiente manera:
+
     \begin{quote}
     \colorbox{blue!05}{\parbox{\dimexpr\linewidth-2\fboxsep}{\strut%
     %
-        Los sistemas de aprendizaje en linea no proporcionan un entorno de
-        trabajo en donde las funcionalidades\par (propias o extendidas) 
-        dedicadas a la Gamificación trabajen de forma coherente\cite{coherencia}.
-    %    
-    \strut}}%
-    \end{quote}
-
-    \begin{quote}
-    \colorbox{blue!05}{\parbox{\dimexpr\linewidth-2\fboxsep}{\strut%
-    {\bf\color{red} OPTION 2:}%
         Los sistemas de aprendizaje en linea no proporcionan un entorno
         de trabajo donde las funcionalidades (propias o extendidas) dedicadas
         a la gamificación sean lo suficientemente flexibles para brindar un
@@ -118,25 +110,16 @@ Los sistemas de aprendizaje en línea tienen como reto el retener al estudiante 
     %
     \strut}}%
     \end{quote}
-\clearpage
+    
 
 \section{Propuesta de Solución}
 \label{sec:propuesta}
 
-    Nuestra propuesta de solución es la siguiente:
-    
-    \begin{quote}
-    \colorbox{blue!05}{\parbox{\dimexpr\linewidth-2\fboxsep}{\strut
-        Desarrollar componentes que permitan implementar Gamificación dentro
-        de una plataforma de aprendizaje en linea, tomando como referencia 
-        distintos marcos de trabajo que nos guíen en el diseño e implementación
-        de elementos de Gamificación de forma coherente.
-    \strut}}
-    \end{quote}
+    \noindent Como propuesta de solución ante el problema anteriormente definido, se pretende:
     
     \begin{quote}
     \colorbox{blue!05}{\parbox{\dimexpr\linewidth-2\fboxsep}{\strut%
-    {\bf\color{red} OPTION 2:}%
+    %
         Desarrollar componentes que permitan implementar Gamificación dentro
         de una plataforma de aprendizaje en linea, tomando como referencia 
         distintos marcos de trabajo que nos guíen en el diseño e implementación
@@ -146,6 +129,7 @@ Los sistemas de aprendizaje en línea tienen como reto el retener al estudiante 
     %
     \strut}}%
     \end{quote}
+\clearpage
 
 
 \section{Justificación}
@@ -158,7 +142,7 @@ Los sistemas de aprendizaje en línea tienen como reto el retener al estudiante 
     % -> SOPORTE RESTRINGIDO
     % -> PROYECTO DE INGENIERÍA DE SOFTWARE
 
-La escolarización tradicional es percibida como ineficaz y aburrida por muchos estudiantes. Si bien los maestros buscan continuamente nuevos enfoques de enseñanza, Una gran parte de los maestros está de acuerdo en que las escuelas de hoy enfrentan problemas importantes entorno a la motivación y el compromiso de los estudiantes. \cite{objetivo1}.\\
+La escolarización tradicional es percibida como ineficaz y aburrida por muchos estudiantes. Si bien los maestros buscan continuamente nuevos enfoques de enseñanza, una gran parte de los maestros está de acuerdo en que las escuelas de hoy enfrentan problemas importantes entorno a la motivación y el compromiso de los estudiantes. \cite{objetivo1}.\\
     % DAN: Considero el párrafo muy simple
 
 \noindent Estos problemas están relacionados directamente con el principal reto que los sistemas de aprendizaje en linea afrontan: {\it''el evitar la deserción de los estudiantes a lo largo de los cursos''} \cite{objetivo1}. Existen dos tipos de factores que afectan la decisión de los estudiantes de mantenerse o desertar en sistemas de aprendizaje en linea. Los {\it Factores externos}, relacionados con el trabajo, la salud y las relaciones personales, y los {\it Factores internos} relacionados con la integración social y académica, usabilidad y la motivación \cite{DropOut}, \cite{dropoutOnline}.\\

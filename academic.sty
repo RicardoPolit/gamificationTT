@@ -90,6 +90,10 @@
 	\end{table}
 }
 
+\newcommand{\hyperrefx}[1]{%
+    \hyperref[#1]{\ref*{#1} \nameref*{#1}}%
+}
+
 \begin{comment}
   \usepackage[usenames,dvipsnames]{xcolor}         % Para usar y definir colores.
   \usepackage{cmbright}		    % Font: arev, cmbright, pxfonts.
@@ -284,10 +288,6 @@
     \newcommand{\IUref}[2][]{\nameref{#2}#1}
     
     \newcommand{\UCnote}[1]{{\color{gray}\em ({#1})}}
-    
-    \newcommand{\hyperrefx}[1]{%
-        \hyperref[#1]{\ref*{#1} \nameref*{#1}}%
-    }
     
     
 \newenvironment{Entidad}[2]{%
