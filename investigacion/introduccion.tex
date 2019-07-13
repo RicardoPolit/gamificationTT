@@ -86,8 +86,9 @@ En la educación, la Gamificación se ha visto como una solución potencial para
 \noindent Existe evidencia de que los alumnos involucrados en entornos con Gamificación mejoran su aprendizaje e incrementan su motivación y compromiso \cite{ChuHung}; por ejemplo, en Estados Unidos se han aplicado elementos de Gamificación en niveles de primaria y preparatoria, los cuales han propiciado un incremento en la capacidad retención de los alumnos y en el compromiso por parte de los mismos \cite{BrullFinlayson}; la Gamificación también ha sido aplicada con éxito en niveles de secundaria ayudando a mejorar las calificaciones en las pruebas o exámenes de los alumnos involucrados \cite{UPIICSA},\cite{Admiraal}.\\
 
 \noindent{\bf\color{red} INSERTAR TABLA DE RESULTADOS}
-\clearpage
+%\addtable{definicion}{tbl:mappingStudy}{content}{caption}
 
+\clearpage
 
 \section{Problema}
 \label{sec:problematica}
@@ -129,6 +130,11 @@ Los sistemas de aprendizaje en línea tienen como reto el retener al estudiante 
     %
     \strut}}%
     \end{quote}
+    
+\noindent Como se mencionó anteriormente, el implementar Gamificación requiere tanto habilidades de diseño basado en juegos como conocimiento específico acerca del entorno sobre el cual se trabajará. Para el diseño basado en juegos, se utilizarán como guía distintos marcos de trabajo para el diseño de los elementos de gamificación que desarrollaremos.\\
+
+\noindent Por otra parte, se les proporcionará a los docentes/profesores la flexibilidad suficiente para que ellos puedan organizar el contenido del curso de la forma en que ellos considerén, tambien se les proporcionara en lo mayor posible que puedan elegir los elementos que quieren incluir en su curso de acuerdo con las restricciones y recomendaciones a nivel plataforma en torno a la gamificación.
+    
 \clearpage
 
 
@@ -191,46 +197,65 @@ La escolarización tradicional es percibida como ineficaz y aburrida por muchos 
     \strut}}
     \end{quote}
 
-% \noindent\textbf{Por qué?, Qué?, Cuando?, Dónde?, Quién?.}\\
-\noindent Se desarrollarán diversas herramientas para implementar Gamificación en la educación en línea, para apoyar a resolver el problema anteriormente abordado. durante el desarrollo del trabajo terminal son considerados los marcos de referencia {\it For The Win} \cite{FrameWorkForTheWin} que define una forma coherente para implementar la gamificación, y {\it Octalysis} \cite{libro1} que permite segmentar la gamificación en 8 principios.\\
+\noindent La herramienta que crearemos, estará compuesta por un conjunto de elementos de gamificación los cuales sean configurables con la finalidad de brindar un mayor soporte a las necesidades del administrador de la plataforma, profesores y alumnos, como se mencionó anteriormente en la propuesta de solución. Tambien, para un diseño apropiado de los elementos de gamificación se tomará como guía distintos marcos de trabajo de gamificación.\\
 
-%\noindent Debido a la naturaleza de nuestras herramientas, unas permitirán a los profesores usarlas en sus cursos y otras serán implementadas al nivel plataforma. Se utilizarán los 6 pasos propuestos por la metodología "For the win" para asegurar la coherencia entre las herramientas desarrolladas.
+Los objetivos específicos son los siguientes:
+
+    \begin{quote}
+    %\colorbox{blue!05}{\parbox{\dimexpr\linewidth-2\fboxsep}{\strut%
+    \begin{itemize}%
+    %
+        \item Elección de la forma de trabajo sobre la cual se
+              desarrollará el trabajo terminal.
+              
+        \item Elección de los marcos de trabajo que se utilizarán como
+              guía para el diseño e implementación de elementos de gamificación.
+        
+        \item Elección de la plataforma de aprendizaje en linea sobre
+              la cual se desarrollaran los elementos.
+              
+        \item Diseño modular del sistema.
+        
+        \item Diseño, Desarrollo, implementación y pruebas de cada uno de
+              los módulos que se planteen.
+    %
+    \end{itemize}
+    %\strut}}
+    \end{quote}
+
+    
 
 \section{Estado del Arte}
 \label{sec:estadoArte}
 
    % El estado del arte se compone de 2 partes. Una que compara las soluciones con gamificación en sistemas dedicados al aprendizaje y la otra que compara las soluciones con gamificación en plugins de Moodle.
     
-    Con nuestra investigación encontramos varios sistemas dedicados al aprendizaje que cuentan con gamificación. A continuación se presenta una tabla que indica cómo es que dichos sistemas cuentan con gamificación.
+Con nuestra investigación encontramos varios sistemas dedicados al aprendizaje que cuentan con gamificación. A continuación se presenta una tabla que indica cómo es que dichos sistemas cuentan con gamificación.
    
-   
-    \begin{table}[h!]
-    \centering   
-    \begin{tabular}{|c|c|c|c|c|c|c|c|c|} \hline &
-        \rotatebox[origin=c]{270}{\bf Duolingo   \cite{PagDuolingo}} &
-        \rotatebox[origin=c]{270}{\bf Moodle     \cite{PagMoodle}} &
-        \rotatebox[origin=c]{270}{\bf Docebo     \cite{PagDocebo}} &
-        \rotatebox[origin=c]{270}{\bf SAP Litmos \cite{PagSAPLitmos}} &
-        \rotatebox[origin=c]{270}{\bf ATutor     \cite{PagATutor}}& 
-        \rotatebox[origin=c]{270}{\bf ALEKS      \cite{PagALEKS}}&
-        \rotatebox[origin=c]{270}{\bf Udemy      \cite{PagUdemy}}&
-        \rotatebox[origin=c]{270}{\bf TalentLMS  \cite{PagTalentLMS}}\\\hline 
+    \def\aux{90}
+    \addtable{|c|c|c|c|c|c|c|c|c|}{table:LMS_GMFC}{& %
         
-      Propia & X & X &  & X &  & X & X & X \\\hline
-      Extendida & & X & X & X & X & & & \\\hline
-      \end{tabular}
-      
-    \caption{Implementación de gamificación}
-    \label{table:LMS_GMFC}
-    \end{table}
+        \rotatebox[origin=c]{\aux}{Duolingo   \cite{PagDuolingo}}  &
+        \rotatebox[origin=c]{\aux}{Moodle     \cite{PagMoodle}}    &
+        \rotatebox[origin=c]{\aux}{Docebo     \cite{PagDocebo}}    &
+        \rotatebox[origin=c]{\aux}{SAP Litmos \cite{PagSAPLitmos}} &
+        \rotatebox[origin=c]{\aux}{ATutor     \cite{PagATutor}}    & 
+        \rotatebox[origin=c]{\aux}{ALEKS      \cite{PagALEKS}}     &
+        \rotatebox[origin=c]{\aux}{Udemy      \cite{PagUdemy}}     &
+        \rotatebox[origin=c]{\aux}{TalentLMS  \cite{PagTalentLMS}} \\\hline 
+        
+        Propia    & X & X &   & X &   & X & X & X \\\hline
+        Extendida &   & X & X & X & X &   &   &   \\\hline
+        
+    }{Implementación de gamificación}
        
-\noindent Al decir \textbf{Propia} en el cuadro \ref{table:LMS_GMFC} nos referimos a que el sistema gestor de aprendizaje ya tiene integrado en su funcionalidad la implementación  de gamificación. Y al decir \textbf{Extendida} nos referimos a que existen componentes externos (plugins) que implementan gamificación. \\
+\noindent Al decir \textbf{Propia} en el cuadro \ref{table:LMS_GMFC} nos referimos a que el sistema gestor de aprendizaje ya tiene integrado en su funcionalidad la implementación  de gamificación. Y al decir \textbf{Extendida} nos referimos a que existen componentes externos (plugins) que implementan gamificación.\\
     
 \noindent A continuación se describen los sistemas en el cuadro \ref{table:LMS_GMFC} y los elementos de gamificación con los que cuentan, de acuerdo con los marcos de referencia \nameref{sec:ForTheWin} y \nameref{sec:octalysis}.
-
+\clearpage
 
     
-\begin{multicols}{2}    
+\begin{multicols*}{2}    
 \subsection*{Duolingo}
     
 Duolingo es un sistema de aprendizaje dedicado a los idiomas, es un servicio web que
@@ -313,7 +338,7 @@ fortalecer el capital humano de una empresa.\\
     \end{itemize}
 
 
-
+\clearpage
 \subsection*{ATutor}
 
 ATutor es un un sitema gestor de aprendizaje de software libre. Para poder
@@ -352,8 +377,8 @@ Esto lo mantienen controlado utilizando únicamente ciertos tipos de cursos.\\
         
     \end{itemize}
     
-    
-    
+\vfill\null
+\columnbreak
 \subsection*{Udemy}
 
 Udemy es un servicio web que te permite tomar cursos y/o subir tus cursos.
@@ -396,14 +421,14 @@ en línea donde pueda crear y gestionar sus cursos y los alumnos puedan entrar a
         
     \end{itemize}
     
-\end{multicols}
+\end{multicols*}
 
 
 
 \clearpage
 \subsection{Moodle}
    
-En la sección del marco teórico se especifica Moodle más a fondo y el cómo se desarrollan plugins para el mismo. Es por eso que nos limitamos a hacer comparativas de los elementos de gamificación con los que cuentan los diferentes plugins en la siguiente tabla:
+En la sección del marco teórico se especifica Moodle más a fondo y el cómo se desarrollan plugins para el mismo. Es por eso que nos limitamos a hacer comparativas de los elementos de gamificación con los que cuentan los diferentes plugins en la tabla \ref{tbl:pluginscreated}
 
 %\noindent En la tabla \ref{table:pluginComp} se comparan los diferentes plugins que existen en el sistema Moodle.
    
@@ -411,34 +436,32 @@ En la sección del marco teórico se especifica Moodle más a fondo y el cómo s
 
 %Ya sabiendo que se utilizará Moodle, podemos fijarnos en las soluciones existentes, que en este caso serían los componentes (traducción de plugins del inglés) que cuentan con gamificación. La tabla \ref{table:1} compara de acuerdo a sus elementos los diferentes  componentes que implementan gamficación en la plataforma Moodle \cite{arte1}.
  
-\begin{table}[h!]
-\centering
-\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|} 
- \hline
- Elementos/Plugins & \rotatebox[origin=c]{270}{LevelUp! \cite{arte2}} & \rotatebox[origin=c]{270}{Ranking block \cite{arte3}} & \rotatebox[origin=c]{270}{Game \cite{arte4}} & \rotatebox[origin=c]{270}{Quizventure \cite{arte5}} & \rotatebox[origin=c]{270}{Stash \cite{arte6}} & \rotatebox[origin=c]{270}{Mootivated \cite{arte7}} & \rotatebox[origin=c]{270}{UNEDrivial \cite{arte8}} & \rotatebox[origin=c]{270}{Stamp collection \cite{arte9}} & \rotatebox[origin=c]{270}{Exabis games \cite{arte10}} & \rotatebox[origin=c]{270}{Badge leader \cite{arte11}} \\\hline
- Competencias & & & X & X & & & X & & X & \\\hline
- Niveles & X & & & & & & & & & \\\hline
- Desbloqueo de contenido & X & & & & X & & & & & \\
- \hline
- Logros & X & & & & & & X & & & X \\
- \hline
- Esquema financiero & & & & & & & & & & \\
- \hline
- Cajas de botín & & & & & & & & & & \\
- \hline
- Puntos & X & X & & & & & & & X & \\
- \hline
- Tienda & & & & & & & & & & \\
- \hline
- Tabla lideres & X &  & & & & & X & X & & X \\
- \hline
- Barra de progreso & X & & & & & & & & & \\
- \hline
-\end{tabular}
-\caption{Tabla de comparación de componentes externos (plugins) en Moodle}
-\label{table:pluginComp}
-\end{table}
 
+    \addtable{|l|c|c|c|c|c|c|c|c|c|c|}{tbl:pluginscreated}{%
+        Elementos/Plugins &
+        \rotatebox[origin=c]{\aux}{LevelUp!         \cite{arte2}}  &
+        \rotatebox[origin=c]{\aux}{Ranking block    \cite{arte3}}  &
+        \rotatebox[origin=c]{\aux}{Game             \cite{arte4}}  &
+        \rotatebox[origin=c]{\aux}{Quizventure      \cite{arte5}}  &
+        \rotatebox[origin=c]{\aux}{Stash            \cite{arte6}}  &
+        \rotatebox[origin=c]{\aux}{Mootivated       \cite{arte7}}  &
+        \rotatebox[origin=c]{\aux}{UNEDrivial       \cite{arte8}}  &
+        \rotatebox[origin=c]{\aux}{Stamp collection \cite{arte9}}  &
+        \rotatebox[origin=c]{\aux}{Exabis games     \cite{arte10}} &
+        \rotatebox[origin=c]{\aux}{Badge leader     \cite{arte11}} \\\hline
+        
+        Competencias            &   &   & X & X &   &   & X &   & X &   \\\hline
+        Niveles                 & X &   &   &   &   &   &   &   &   &   \\\hline
+        Desbloqueo de contenido & X &   &   &   & X &   &   &   &   &   \\\hline
+        Logros                  & X &   &   &   &   &   & X &   &   & X \\\hline
+        Esquema financiero      &   &   &   &   &   &   &   &   &   &   \\\hline
+        Cajas de botín          &   &   &   &   &   &   &   &   &   &   \\\hline
+        Puntos                  & X & X &   &   &   &   &   &   & X &   \\\hline
+        Tienda                  &   &   &   &   &   &   &   &   &   &   \\\hline
+        Tabla lideres           & X &   &   &   &   &   & X & X &   & X \\\hline
+        Barra de progreso       & X &   &   &   &   &   &   &   &   &   \\\hline
+        
+    }{Tabla de comparación de componentes externos (plugins) en Moodle}
 
 
 \section{Alcances y Limitaciones}
@@ -448,32 +471,27 @@ En la sección del marco teórico se especifica Moodle más a fondo y el cómo s
 \label{subsec:alcances}
 %General
 
-Es importante recalcar que se utiliza el marco de trabajo Scrum \cite{scrum1}, por lo cual se cuenta con un Product Backlog. Según la guía de Scrum \cite{scrum2} el Product Backlog es un documento en el que se encuentran los requerimientos del usuario y es el que se consulta al inicio de cada sprint para obtener los objetivo del sprint en cuestión. También se menciona que este documento siempre se encuentra en constante cambio, agregando, modificando o hasta eliminando requerimientos, por lo cual el alcance del proyecto podría llegar a variar en función de la evolución de éste.\\
+Es importante recalcar que se utiliza el marco de trabajo Scrum \cite{scrum1}, por lo cual se cuenta con un Product Backlog. Según la guía de Scrum \cite{scrum2} el Product Backlog es un documento en el que se encuentran los requerimientos del usuario y es el que se consulta al inicio de cada sprint para obtener los objetivo del sprint en cuestión. También se menciona que este documento siempre se encuentra en constante cambio, agregando, modificando o hasta eliminando requerimientos, por lo cual el alcance del proyecto podría llegar a variar en función de la evolución de éste.
 
-    A continuación se mencionan los principios a los cuales se decidió dar soporte:
+    %A continuación se mencionan los principios a los cuales se decidió dar soporte:
      
-        \begin{quote}
-        \begin{enumerate}
-            \item \principioI
-            \item \principioII
-            \item \principioIII
-            \item \principioIV
-            \item \principioV
-            \item \principioVI
-            \item \principioVII
-            \item \principioVIII
-        \end{enumerate}
-        \end{quote}
-
+        %\begin{quote}
+        %\begin{enumerate}
+            %\item \principioI
+            %\item \principioII
+            %\item \principioIII
+            %\item \principioIV
+            %\item \principioV
+            %\item \principioVI
+            %\item \principioVII
+            %\item \principioVIII
+        %\end{enumerate}
+        %\end{quote}
 
 \subsection{Limitaciones}
 \label{subsec:limitaciones}
 
-{\bf\color{red} NO ESTA DENTRO DE NUESTRO ALCANCE EL DISEÑO DE LOS CURSOS, EL TIPO DE CONTENIDO, DE LA MISMA FORMA PROPORCIONAMOS UNA GUIA Y RECOMENDACIONES SOBRE COMO GAMIFICAR UN CURSO, BRINDAMOS LA HERRAMIENTA PERO NO PODEMOS ASEGURAR QUE UN CURSO ESTE CORRECTAMENTE GMAIFICADO O NO DEBIDO A QUE NO ESTAMOS CAPACITADOS PARA ELLO, NO ES NUESTRA CARRERA, NUESTRO OBJETIVO SOLO ES PROPORCIONAR UNA HERRAMIENTA FLEXIBLE QUE APORTE UN MOTOR DE GAMIFICACIÓN PARA LOS DOCENTES}
+{\bf\color{red} NO ESTA DENTRO DE NUESTRO ALCANCE EL DISEÑO DE LOS CURSOS, EL TIPO DE CONTENIDO, DE LA MISMA FORMA PROPORCIONAMOS UNA GUIA Y RECOMENDACIONES SOBRE COMO GAMIFICAR UN CURSO, BRINDAMOS LA HERRAMIENTA PERO NO PODEMOS ASEGURAR QUE UN CURSO ESTE CORRECTAMENTE GAMIFICADO O NO DEBIDO A QUE NO ESTAMOS CAPACITADOS PARA ELLO, NUESTRA PRINCIPAL MOTIVACIÓN CONSISTE EN PROPORCIONAR UNA HERRAMIENTA FLEXIBLE QUE APORTE ELEMENTOS DE GAMIFICACIÓN CONFIGURABLES PARA EL ADMINISTRADOR, PROFESORES Y ALUMNOS}
 
-%Hemos decidido user 7 de los 8 principios
-     
-%\noindent El principio 3, \principioIII se centra en impulsar la creatividad y curiosidad del usuario. Se decidió no incluirlo en el desarrollo debido a que los cursos por naturaleza son lineales, por lo tanto no existe la posibilidad de contar con distintos caminos que se generen conforme el usuario va tomando decisiones; además en las plataformas de aprendizaje los cursos tienen una comunicación asíncrona lo cual limita la capacidad de ofrecer una retroalimentación inmediata al usuario. %del usuario tengan una alta retroalimentación de la plataforma.
-    %definan un nuevo camino % Se vean reflejadas
-    %durante el curso.
+
 
