@@ -18,7 +18,7 @@ function Usage {
 
 # Command to compile LaTex
 latexCmd="pdflatex --interaction=nonstopmode --output-directory=output"
-glossariesCmd="makeglossaries -d output/"
+glossariesCmd="makeglossaries -d output/ -q"
 
 # Commands for colorized Output
 ackGreen=" ack --filter --passthru --color --color-match=green  \"Output written on|This is pdfTeX|Info\""
