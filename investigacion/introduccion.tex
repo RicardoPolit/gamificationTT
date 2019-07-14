@@ -5,14 +5,14 @@ Este documento tiene la finalidad de establecer formalmente la documentación de
 
 \section{Organización del contenido}
 
-Este capítulo, \hyperrefx{ch:introduccion}, tiene como propósito presentar la gamificación, incluyendo sus antecedentes, su uso en la educación y los distintos marcos de trabajo que fueron investigados. En lo referente a la definición del proyecto, se detalla el problema, nuestra propuesta de solución a la misma, el objetivo principal, estado del arte, y los alcances y limitaciones que tiene el trabajo terminal.\\
+Este capítulo (\hyperrefx{ch:introduccion}), tiene como propósito presentar la gamificación, incluyendo sus antecedentes y uso en la educación. En lo referente a la definición del proyecto, se detalla el problema, nuestra propuesta de solución, el objetivo general y los específicos, el estado del arte, y finalmente los alcances y limitaciones de este trabajo terminal.\\
 
 \noindent La {\pf Parte I: Investigación} contiene a los siguientes capítulos:%
 
     \begin{itemize}
         \item \hyperrefx{ch:marcoTeorico}, establece el soporte conceptual y documental, 
         especifica los marcos de trabajo usados y además contiene la elección de la 
-        plataforma sobre la cual se trabajará.
+        metodología a usar y de la plataforma sobre la cual se trabajará.
         
         \item \hyperrefx{ch:curvaAprendizaje}, presenta los resultados obtenidos durante 
         las pruebas de concepto, los problemas encontrados y las soluciones o alternativas 
@@ -23,11 +23,11 @@ Este capítulo, \hyperrefx{ch:introduccion}, tiene como propósito presentar la 
         de solución planteada en este capítulo.
         
         \item \hyperrefx{ch:modDominio}, contiene el esquema relacional de la base de 
-        datos, contemplando todos los módulos, la relación con las relaciones del core de 
-        moodle y la especificación de los atributos.
+        datos, contemplando todos los módulos, la relación con las tablas del núcleo (core)
+        de moodle y la especificación de los atributos.
     \end{itemize}
 
-\noindent Posteriormente a la investigación se decidió destinar una parte de este documento a cada módulo identificado. Los módulos son \nameref{mod:exp}, \nameref{mod:recomp}, \nameref{mod:financ}, \nameref{mod:pers}, \nameref{mod:comp} y \nameref{mod:seguim}. Cada parte contiene el análisis, diseño y pruebas del módulo correspondiente.\\
+\noindent Posteriormente a la investigación y definición del alcance se decidió destinar una parte de este documento a cada módulo identificado. Los módulos son \hyperref[mod:exp]{AAA}, \autoref{mod:recomp}, \nameref{mod:financ}, \nameref{mod:pers}, \nameref{mod:comp} y \nameref{mod:seguim}. Cada parte contiene el análisis, diseño y pruebas del módulo correspondiente.\\
 \clearpage
 
 
@@ -66,7 +66,7 @@ La Gamificación es un anglicismo proveniente del término en ingles {\it ``Gami
     
     \end{itemize}
 
-\noindent A pesar de las propuestas realizadas, todavía no existe una definición que sea ampliamente aceptada o que esté establecida formalmente \cite{Seaborn}. Durante el desarrollo de este trabajo terminal nos referimos a \hyperlink{tGamificacion}{Gamificación} como ``el uso de mecánicas de juegos en un entorno no lúdico''.
+\noindent A pesar de las propuestas realizadas, todavía no existe una definición que sea ampliamente aceptada o que esté establecida formalmente \cite{Seaborn}. Durante el desarrollo de este trabajo terminal nos referimos a \gls{gamificacion} como ``el uso de mecánicas de juegos en un entorno no lúdico''.
 
 
 \subsubsection{Inicios de la Gamificación}
@@ -148,14 +148,17 @@ Los sistemas de aprendizaje en línea tienen como reto el retener al estudiante 
     % -> SOPORTE RESTRINGIDO
     % -> PROYECTO DE INGENIERÍA DE SOFTWARE
 
-La escolarización tradicional es percibida como ineficaz y aburrida por muchos estudiantes. Si bien los maestros buscan continuamente nuevos enfoques de enseñanza, una gran parte de los maestros está de acuerdo en que las escuelas de hoy enfrentan problemas importantes entorno a la motivación y el compromiso de los estudiantes. \cite{objetivo1}.\\
-    % DAN: Considero el párrafo muy simple
+Uno de los principales problemas presentes en la educación son la falta de motivación y compromiso de los estudiantes \cite{objetivo1}, ante este problema existen muchas propuestas tanto de investigaciones científicas como conocimiento adquirido empiricamente por parte de los profesores. Uno de los enfoques utilizados como propuesta es el diseñar las actividades escolares de tal forma que sean más atractivas para los estudiantes de distintos niveles (ver tabla \ref{tbl:mapping}) incluyendo mecánicas de juegos, a lo que llamamos Gamificación.
 
-\noindent Estos problemas están relacionados directamente con el principal reto que los sistemas de aprendizaje en linea afrontan: {\it''el evitar la deserción de los estudiantes a lo largo de los cursos''} \cite{objetivo1}. Existen dos tipos de factores que afectan la decisión de los estudiantes de mantenerse o desertar en sistemas de aprendizaje en linea. Los {\it Factores externos}, relacionados con el trabajo, la salud y las relaciones personales, y los {\it Factores internos} relacionados con la integración social y académica, usabilidad y la motivación \cite{DropOut}, \cite{dropoutOnline}.\\
+%La escolarización tradicional es percibida como ineficaz y aburrida por muchos estudiantes. Si bien los maestros buscan continuamente nuevos enfoques de enseñanza, una gran parte de los maestros está de acuerdo en que las escuelas de hoy enfrentan problemas importantes entorno a la motivación y el compromiso de los estudiantes. \cite{objetivo1}.\\
+
+\noindent Sin embargo cuando se desea incluir dichas mecánicas de juego en las plataformas de aprendizaje en línea, se afrontará con la tarea de ver como rediseñar las mecánicas para que puedan ser implementadas en la plataforma y las que no puedan ser implementadas entonces serán desechadas por el hecho de que la plataforma no provee al usuario con esa funcionalidad. 
+
+%\noindent Estos problemas están relacionados directamente con el principal reto que los sistemas de aprendizaje en linea afrontan: {\it''el evitar la deserción de los estudiantes a lo largo de los cursos''} \cite{objetivo1}. Existen dos tipos de factores que afectan la decisión de los estudiantes de mantenerse o desertar en sistemas de aprendizaje en linea. Los {\it Factores externos}, relacionados con el trabajo, la salud y las relaciones personales, y los {\it Factores internos} relacionados con la integración social y académica, usabilidad y la motivación \cite{DropOut}, \cite{dropoutOnline}.\\
     
-    % Existe una correlación entre los distintos tipos de factores, la presencia de un factor interno puede afectar (positivamente o negativamente) uno o más factores externos, y viceversa. Por ejemplo, cuando los alumnos tienen una gran carga de trabajo y poco tiempo para estudiar, es más probable que abandonen un curso cuando no pueden obtener retroalimentación de sus compañeros o evaluadores.\\ % Si se está utilizando el diseño y la tecnología adecuados, es probable que algunos problemas externos se mitiguen. Por lo tanto, la relación entre los factores internos y los factores externos se expresa como inter-correlación en lugar de como una influencia unilateral. \cite{droupoutOnline}
+% Existe una correlación entre los distintos tipos de factores, la presencia de un factor interno puede afectar (positivamente o negativamente) uno o más factores externos, y viceversa. Por ejemplo, cuando los alumnos tienen una gran carga de trabajo y poco tiempo para estudiar, es más probable que abandonen un curso cuando no pueden obtener retroalimentación de sus compañeros o evaluadores.\\ % Si se está utilizando el diseño y la tecnología adecuados, es probable que algunos problemas externos se mitiguen. Por lo tanto, la relación entre los factores internos y los factores externos se expresa como inter-correlación en lugar de como una influencia unilateral. \cite{droupoutOnline}
     
-\noindent Muchos maestros buscan continuamente nuevos enfoques de enseñanza los cuales les permitan satisfacer o reducir los problemas de motivación, compromiso y deserción \cite{objetivo1}. Un enfoque capaz de proveer una solución potencial es utilizar la Gamificación ya que permite que los estudiantes mejoren su aprendizaje e incrementen su motivación y compromiso, lo cual brinda soporte a reducir los factores internos que conducen a la deserción \cite{dropoutOnline}.\\
+%\noindent Muchos maestros buscan continuamente nuevos enfoques de enseñanza los cuales les permitan satisfacer o reducir los problemas de motivación, compromiso y deserción \cite{objetivo1}. Un enfoque capaz de proveer una solución potencial es utilizar la Gamificación ya que permite que los estudiantes mejoren su aprendizaje e incrementen su motivación y compromiso, lo cual brinda soporte a reducir los factores internos que conducen a la deserción \cite{dropoutOnline}.\\
     % DAN: La linea anterior podría se comentada
     
 \noindent El considerar la Gamificación como principal enfoque para combatir los problemas de motivación, compromiso y deserción en sistemas de aprendizaje en linea: implica la introducción de marcos de trabajo adecuados, además de una infraestructura tecnológica capaz de soportar las funcionalidades a añadir para su implementación \cite{mappingStudy}.\\
@@ -428,7 +431,7 @@ en línea donde pueda crear y gestionar sus cursos y los alumnos puedan entrar a
 \clearpage
 \subsection{Moodle}
    
-En la sección del marco teórico se especifica Moodle más a fondo y el cómo se desarrollan plugins para el mismo. Es por eso que nos limitamos a hacer comparativas de los elementos de gamificación con los que cuentan los diferentes plugins en la tabla \ref{tbl:pluginscreated}
+En la sección del \nameref{ch:marcoTeorico} se especifica Moodle más a fondo y el cómo se desarrollan plugins para el mismo. Es por eso que nos limitamos a hacer comparativas de los elementos de gamificación con los que cuentan los diferentes plugins en la tabla \ref{tbl:pluginscreated}
 
 %\noindent En la tabla \ref{table:pluginComp} se comparan los diferentes plugins que existen en el sistema Moodle.
    
@@ -467,9 +470,7 @@ En la sección del marco teórico se especifica Moodle más a fondo y el cómo s
 \section{Alcances y Limitaciones}
 \label{sec:alcancesLimitaciones}
 
-\subsection{Alcances}
-\label{subsec:alcances}
-%General
+%
 
 Es importante recalcar que se utiliza el marco de trabajo Scrum \cite{scrum1}, por lo cual se cuenta con un Product Backlog. Según la guía de Scrum \cite{scrum2} el Product Backlog es un documento en el que se encuentran los requerimientos del usuario y es el que se consulta al inicio de cada sprint para obtener los objetivo del sprint en cuestión. También se menciona que este documento siempre se encuentra en constante cambio, agregando, modificando o hasta eliminando requerimientos, por lo cual el alcance del proyecto podría llegar a variar en función de la evolución de éste.
 
