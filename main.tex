@@ -1,6 +1,7 @@
 \documentclass[10pt]{dissertationIpn}
 \usepackage{comment}
 \usepackage{academic}
+\usepackage{glossaries}
 
 \instituto[res/ipn]{ INSTITUTO POLITÉCNICO NACIONAL }
 \escuela[res/escom]{ ESCUELA SUPERIOR DE CÓMPUTO }
@@ -17,7 +18,7 @@
            
 \date{\today}
 
-
+\input{investigacion/glosario}
 \begin{document}
     
     \frontmatter
@@ -32,7 +33,7 @@
     	
 	\mainmatter
 	    \include{investigacion/introduccion}
-	    
+
 	    \part{Investigación}\label{part:investigacion}
             \include{investigacion/marcoTeorico}
             %\include{investigacion/curvaAprendizaje}
@@ -50,7 +51,8 @@
     	    
     \backmatter
         \include{investigacion/references}
-        \include{investigacion/glosario}
+        \printglossary
+        %\printglossaries
         
 \end{document}
 

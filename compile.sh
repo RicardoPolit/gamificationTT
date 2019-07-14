@@ -9,14 +9,16 @@ function Usage {
 	echo "  The principal LaTeX file have not been specified"
 	echo "    Usage: ./compile.sh [-f|--Full] {TeX File}"
 	echo "  Example"
-	echo "    ./compile.sh example.tex"
-	echo "    ./compile.sh -f example.tex"
+	echo "    ./compile.sh example"
+	echo "    ./compile.sh -f example"
 	echo "  Note: You must have installed 'ack' and 'grep' commands"
+    echo "  The Tex File should be specified without .tex"
 	echo ""
 }
 
 # Command to compile LaTex
 latexCmd="pdflatex --interaction=nonstopmode --output-directory=output"
+glossariesCmd="makeglossaries -d output/"
 
 # Commands for colorized Output
 ackGreen=" ack --filter --passthru --color --color-match=green  \"Output written on|This is pdfTeX|Info\""
@@ -35,13 +37,15 @@ if [ -z "$1" ]; then
 elif [ -z "$2" ]; then
     echo ""
     mkdir -p output
-	echo $(eval "${latexCmd} ${1} | ${grepAll} | ${ackGreen} | ${ackYellow} | ${ackRed} | ${ackBlue}")
+	echo $(eval "${latexCmd} ${1}.tex | ${grepAll} | ${ackGreen} | ${ackYellow} | ${ackRed} | ${ackBlue}")
+    echo $(eval "${glossariesCmd} ${1}")
 	mv output/*.pdf ./
     
 elif [ $1 == "--Full" ] || [ $1 == "-f" ]; then
     echo ""
     mkdir -p output
-    echo $(eval "${latexCmd} ${2} | ${ackGreen} | ${ackYellow} | ${ackRed} | ${ackBlue}")
+    echo $(eval "${latexCmd} ${2}.tex | ${ackGreen} | ${ackYellow} | ${ackRed} | ${ackBlue}")
+    echo $(eval "${glossariesCmd} ${2}")
     mv output/*.pdf ./
     
 else

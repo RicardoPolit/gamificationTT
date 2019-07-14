@@ -1,3 +1,17 @@
+
+
+\newcommand{\term}[3]{%
+    \newglossaryentry{#1}{name={#2},description={#3}}%
+}
+
+\makeglossaries
+
+    \term{gamificacion}{gamificación}{% 
+        La experiencia o puntos de experiencia son un valor que permite
+        cuantificar la expertiz que un usuario tiene en un juego.
+        Comunmente son denotados por las abreviaciones 'xp' o 'exp'. }
+
+\begin{comment}
 \chapter{Glosario}
 
 % ===============================================================================
@@ -6,8 +20,6 @@
 
 \newcommand{\term}[2]{\item[\hypertarget{#1}{#2}]}
 \newenvironment{glosario}{\begin{description}}{\end{description}}
-
-\begin{glosario}
 
     \term{tGamificacion}{Gamificación} La experiencia o puntos de experiencia son un 
     valor que permite cuantificar la expertiz que un usuario tiene en un juego. 
@@ -26,19 +38,8 @@
     \item[Plugin] Componentes que permiten añadir características y funcionalidades
     adicionales a las que proporciona Moodle de forma nativa.
     % https://docs.moodle.org/37/en/Installing_plugins
-    
-\end{glosario}
 
-
-
-
-
-
-
-
-
-
-\begin{comment}
+%\begin{comment}
 \subsection*{Logros}
 
     Según el Diccionario del Español de México (DEM) logro es un ''Acto de lograr o conseguir algo''  y según el Diccionario del Español de México (DEM) lograr es, ''Llegar a tener algo que se deseaba, o conseguir el resultado que se buscaba''. \\
