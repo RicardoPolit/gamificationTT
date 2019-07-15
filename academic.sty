@@ -34,13 +34,7 @@
 \hypersetup{filecolor=secondary}
 \hypersetup{citecolor=tertiary}
 
-%%=====================================================
-%% Estilo para Parte
-%======================================================
-\let\varPart=\part
-\renewcommand{\part}[1]{{\color{primary}\varPart{#1}}}
-
-%%=====================================================
+%=====================================================
 %% Estilo para los Capítulos y secciones
 %=====================================================
 \ChTitleVar{\Large\sf\color{primary}}
@@ -49,6 +43,14 @@
 \let\LaTeX@startsection\@startsection
 \renewcommand{\@startsection}[6]{\LaTeX@startsection%
 {#1}{#2}{#3}{#4}{#5}{\color{primary}\raggedright #6}}
+
+%%=====================================================
+%% Estilo para Parte
+%======================================================
+\makeatletter
+\let\oldpart\part
+\def\part#1{\def\@currentlabelname{#1}{\color{primary}\oldpart{#1}}}
+\makeatother
 
 %=====================================================
 % Texto para el índice y los pies de las tablas.
