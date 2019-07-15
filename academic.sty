@@ -96,73 +96,35 @@
     \hyperref[#1]{\ref*{#1} \nameref*{#1}}%
 }
 
-\begin{comment}
-  \usepackage[usenames,dvipsnames]{xcolor}         % Para usar y definir colores.
-  \usepackage{cmbright}		    % Font: arev, cmbright, pxfonts.
-  \usepackage{fancyhdr}		    % Header & Footer Management
-  \usepackage{graphicx}		    % Image Management
-  \usepackage{wallpaper}	    % Image background Management
-  \usepackage{marvosym} 	    % Simbols.
-  \usepackage{wasysym}
-  %\usepackage{color} 		    % Color Definitions.
-  \usepackage[Sonny]{fncychap}	% Chapter Management: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne. 
-  \usepackage{listings}	        % Code Syntax	
-  \usepackage{comment}		    % Coment Environment
-  \usepackage{longtable}	    % Using Long Table
-  %\usepackage{makecell}         % 
-  \usepackage{colortbl}         % 
-  \usepackage{float}            % 
-  \usepackage{enumitem}		    % For Listing
-  \usepackage{multicol}		    % Multicolumn Environment
-	\setlength{\columnsep}{0.5cm}
-  \usepackage{comment}
-
-% HEADER % FOOTER MANAGEMENT
-
-  \pagestyle{fancy}
-  \fancyhead[LE]{\includegraphics[width=0.1\textwidth]{res/escom}\\}
-  \fancyhead[RO]{\includegraphics[width=0.1\textwidth]{res/escom}\\}
-  %\fancyhead[RE,LO]{} 
-  %\fancyfoot[RO,LE]{\footnotesize\thepage}
-  %\fancyfoot[CO,CE]{\tiny\color{color:second} Address, PostalCode, telefono, email}
+\newenvironment{Titemize}{\vspace{-1em}\setlength{\leftskip}{0.5em}}{\vspace{-1em}\paragraph{}}
+  \newcommand{\Titem}[1]{\par{\color{color:first}%{\textbullet\hspace{2pt}}}#1\newline}
+  {\textbullet}}\ #1\par}
+  
       
-% MAIN PAGE COMMANDS
+\newenvironment{Entidad}[2]{%
+    \subsection*{Tabla gmdl\_#1}
+    {#2}
+    \begin{center}
+    \begin{tabular}{| m{0.12\textwidth} | m{0.14\textwidth} | m{0.2\textwidth} | m{0.3\textwidth} | m{0.1\textwidth} |}\hline
+    {\bf Atributo} & {\bf Tipo} & {\bf Descripción} & {\bf Restricciones} & {\bf Módulo} \\\hline
+}{%
+    \end{tabular}% 
+    \end{center}%
+}
 
-  \newcommand{\varSubTitle}{}
-  \newcommand{\subtitle}[1]{\renewcommand{\varSubTitle}{#1}}
+\newcommand{\attr}[5]{%
+    \begin{center}#1\end{center}& {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& \begin{center}#5\end{center}\\\hline
+}
 
-  \newcommand{\varTitle}[1]{} \let\varTitle=\title
-  \renewcommand{\title}[1]{\varTitle{{\fontsize{30pt}{30pt}\color{color:first}\bf #1}\\%bigskip\\
-		{\LARGE \color{color:second}\varSubTitle}~{}\bigskip\\
-        \color{color:section}\rule{\textwidth}{1mm}}}
+\newcommand{\attrG}[5]{ \begin{center}gmdl\_\par#1\end{center}& {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& {\begin{center}#5\end{center}}\\\hline}
 
-  \newcommand{\varOrganization}{}
-  \newcommand{\organization}[1]{\renewcommand{\varOrganization}{#1}}
+\newcommand{\attrM}[5]{ \begin{center}mdl\_\par#1\end{center}&  {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& {\begin{center}#5\end{center}}\\\hline}
 
-  \newcommand{\varAuthor}[1]{} \let\varAuthor=\author
-  \renewcommand{\author}[1]{\varAuthor{\bf\color{color:link}#1\\
-  		\color{color:second}\varOrganization}}
-
-% OTHER COMMANDS 
-
-  \ChTitleVar{\Large\sf\color{color:section}}
-  \ChNameVar{\Large\sf\color{color:section}}
-
-  \let\LaTeX@startsection\@startsection
-  \renewcommand{\@startsection}[6]{\LaTeX@startsection%
-  {#1}{#2}{#3}{#4}{#5}{\color{color:section}\raggedright #6}} 
-
-% ORGANIZATION COMMANDS
-
-  \newcommand{\varPart}[1]{} \let\varPart=\part
-  \renewcommand{\part}[1]{{\color{color:section}\varPart{#1}}}
-
+\begin{comment}
+      
 % TABLES ITEMIZA DEFINITION
 
   \renewcommand{\labelitemi}{\color{color:section}\textbullet}
-  \newenvironment{Titemize}{\vspace{-1em}\setlength{\leftskip}{0.5em}}{\vspace{-1em}\paragraph{}}
-  \newcommand{\Titem}[1]{\par{\color{color:first}%{\textbullet\hspace{2pt}}}#1\newline}
-  {\textbullet}}\ #1\par}
 
   \newenvironment{CUTitemize}{
   \vspace{0em}\setlength{\leftskip}{0.5em}
@@ -290,26 +252,6 @@
     \newcommand{\IUref}[2][]{\nameref{#2}#1}
     
     \newcommand{\UCnote}[1]{{\color{gray}\em ({#1})}}
-    
-    
-\newenvironment{Entidad}[2]{%
-    \subsection*{Tabla gmdl\_#1}
-    {#2}
-    \begin{center}
-    \begin{tabular}{| m{0.12\textwidth} | m{0.14\textwidth} | m{0.2\textwidth} | m{0.3\textwidth} | m{0.1\textwidth} |}\hline
-    {\bf Atributo} & {\bf Tipo} & {\bf Descripción} & {\bf Restricciones} & {\bf Módulo} \\\hline
-}{%
-    \end{tabular}% 
-    \end{center}%
-}
-
-\newcommand{\attr}[5]{%
-    \begin{center}#1\end{center}& {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& \begin{center}#5\end{center}\\\hline
-}
-
-\newcommand{\attrG}[5]{ \begin{center}gmdl\_\par#1\end{center}& {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& {\begin{center}#5\end{center}}\\\hline}
-
-\newcommand{\attrM}[5]{ \begin{center}mdl\_\par#1\end{center}&  {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& {\begin{center}#5\end{center}}\\\hline}
 
 % Shortcuty \backlash macro
 \newcommand{\bs}{$\backslash$}

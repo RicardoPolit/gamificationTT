@@ -50,16 +50,18 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
     
     %\includepdf[page={1}]{diagrams/DB/BaseDeDatos}
     %\addfigureScaleAndAangle{0.45}{270}{diagrams/DB/EsquemaGlobal}{fig:EGBD}{Esquema de la base de datos}
-    \addfigure{1}{diagrams/DB/BaseDeDatos_en}{fig:EGBD}{Esquema de la base de datos}
+    \addfigure{1}{modulos/diagrams/DB/BaseDeDatos_en}{fig:EGBD}{Esquema de la base de datos}
 
 \clearpage
 
+\begin{comment}
+
 \section{Diccionario de datos}
     
-    Como se especificó en la sección \textbf{Pautas de Moodle para la base de datos} existe un atributo que estará presente en todas las tablas, es por ello, que se optó por especificar dicho atributo de manera genérica, en lugar de repetir dicha definición por cada una de las tablas.\\
+    Como se especificó en la sección \textbf{Pautas de Moodle para la base de datos} existe un atributo que estará presente en todas las tablas, es por ello, que se optó por especificar dicho atributo de manera genérica, en lugar de repetir dicha definición por cada una de las tablas.
     
     \begin{center}
-    \begin{tabular}{| m{0.12\textwidth} | m{0.12\textwidth} | m{0.22\textwidth} | m{0.3\textwidth} | m{0.1\textwidth} |}\hline
+    \begin{tabular}{| p{0.12\textwidth} | p{0.12\textwidth} | p{0.22\textwidth} | p{0.3\textwidth} | p{0.1\textwidth} |}\hline
         {\bf Atributo} & {\bf Tipo} & {\bf Descripción} & {\bf Restricciones} & {\bf Módulo} \\\hline
         \attr{id}{Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}{Identificador que permite diferenciar cada registro de una tabla y existe en todas las tablas}{%
             \Titem{ Llave Primaria}
@@ -357,6 +359,8 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
             
             
     \end{Entidad}
+
+\end{comment}
 
 \begin{comment}
     
@@ -661,6 +665,8 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
     
     
 \end{comment} 
+
+\begin{comment} 
 \clearpage
 \section{Formas normales}
 
@@ -763,6 +769,8 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
     
     \noindent \textbf{Se cumple} con esta forma normal, debido a que no se cuentan con relaciones ternarias en la base de datos.
     
+\end{comment}
+
 \begin{comment}
     \noindent Si se ve nuestro esquema de la base de datos, solo se cuenta con una relación que contempla 3 tablas que es \textbf{gmdl\_usuario\_logro\_curso}. Sus claves foráneas son \textbf{gmdl\_id\_curso} que hace referencia a un curso, \textbf{gmdl\_id\_logro} que hace referencia a un logro y \textbf{gmdl\_id\_usuario} que hace referencia a un usuario.\\
     
@@ -777,7 +785,7 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
 \end{comment}    
     
  
-    
+\begin{comment}
 \subsection*{Quinta forma normal}
 
     Cada tabla en un esquema de base de datos se considera en quinta forma normal si y solo si, cumple con las siguientes 2 condiciones \cite[pág. 124]{libroBaseDeDatosInglesCuarteEnAdelante}:
@@ -790,6 +798,9 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
     \noindent Una dependencia de unión ''JOIN'' ocurre cuando una tabla puede volver a ser formada correctamente (refiriéndonos a que los registros permanezcan intactos) uniendo 2 o más tablas cuyos atributos sean de la tabla original \cite[pág. 124]{libroBaseDeDatosInglesCuarteEnAdelante}.\\
     
     \noindent Respecto a que las uniones ''JOIN'' estén implicadas por las claves candidatas, se refiere a que los atributos que se utilicen como pivote (para hacer dicha separación) no sean otros que los que son claves candidatas.\\
+    
+\end{comment}
+    
 \begin{comment}
     \noindent  La única tabla que puede llegar a darnos problemas con esta forma normal es la misma que se analizó en la cuarta forma normal. Para analizar si esta tabla (\textbf{gmdl\_usuario\_logro\_curso}) cumple con esta forma tenemos que listar sus atributos.
     \begin{itemize}
@@ -822,6 +833,7 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
     \end{multicols}
 \end{comment}    
     
+\begin{comment}
     \noindent \textbf{Se cumple} con esta forma normal, debido a que ninguna de las tablas en el esquema puede ser dividida sin contemplar como pivote a una clave candidata.
     
     
@@ -859,7 +871,7 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
     
     
     
-    
+\end{comment}
     
 \begin{comment}
     

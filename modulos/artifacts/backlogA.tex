@@ -8,16 +8,16 @@
 
 \newenvironment{RF}[2]{
     \begin{itemize}
-        \item[\bf \hypertarget{RF\arabic{theRF}}{RF\arabic{theRF}}] 
-        %\item[\bf RF\arabic{theRF}] 
-        {\bf #1:} {#2}}{
+        \item[\bf \hypertarget{RF\arabic{theRF}}{RF\arabic{theRF}}] {\bf #1:} {#2}
+}{
     \end{itemize}
     \stepcounter{theRF}
-    }
+}
 
 \newenvironment{RNF}[2]{\begin{itemize}\item[\bf RNF\arabic{theRNF}] {\bf #1:} {#2}}{\end{itemize}\stepcounter{theRNF}}
-\newcommand{\Sprint}[1]{{\color{color:first}\fbox{Sprint #1}}}
+\newcommand{\Sprint}[1]{{\color{primary}\fbox{Sprint #1}}}
 \newcommand{\PBitem}{\item[] \quad}
+
 %\noindent\bb{Sprint 1: Marco Teorico, Metodología, Alcance TT-I}
 \begin{Actividad}{Investigar Scrum}{% 
     Redactar el capítulo de I del documento de metodología el cual describe el marco de trabajo Scrum, basándose en la guía oficial.} 
