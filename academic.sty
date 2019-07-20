@@ -10,14 +10,21 @@
 \RequirePackage[pdftex,bookmarks,colorlinks]{hyperref} % Manejo de vinculos o links
 \RequirePackage{graphicx}                              % Manejo de imágenes.
 \RequirePackage{multicol}                              % Manejo de multiples columnas.
+\RequirePackage{caption}
 
 \RequirePackage[usenames,dvipsnames]{xcolor} % Para usar y definir colores.
 \RequirePackage{fancyhdr}                    % Manejo de encabezados.
 \RequirePackage[Sonny]{fncychap}             % Manejo de capítulos: Sonny, Lenny, Glenn, Conny, Rejne and Bjarne.
 
-\RequirePackage{cmbright}        % Fuente de letras, otras opciones: arev, cmbright, pxfonts, tgadventor 
-\RequirePackage{txfonts}         % Altera Fuente de letra usado para eliminar warnings 
+\RequirePackage[scaled]{berasans}
+%\RequirePackage{cmbright}        % Fuente de letras, otras opciones: arev, cmbright, pxfonts, tgadventor 
+%\RequirePackage{txfonts}         % Altera Fuente de letra usado para eliminar warnings 
 \RequirePackage{marvosym}        % Algunos símbolos.
+
+%=====================================================
+% Package Bera Sans: Poner el tipo de fuente sans-serif como default
+%=====================================================
+\renewcommand*\familydefault{\sfdefault}
 
 %=====================================================
 % Definición de colores.
@@ -93,11 +100,15 @@
 }
 
 \newcommand{\addlongtable}[4]{
-    \begin{longtable}{#1}
-        #3 \hline
-%        \caption{#4}
-%        \label{#2} \hline
-    \end{longtable}
+    %\begin{table}[hbtp!]
+        %\centering
+        \captionsetup{skip=10pt}
+        \begin{longtable}{#1} \hline
+            #3 %
+        \caption{#4}
+        \label{#2}
+        \end{longtable}
+    %\end{table}
 }
 
 \newcommand{\hyperrefx}[1]{%
