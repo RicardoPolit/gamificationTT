@@ -17,7 +17,7 @@
 \RequirePackage[Sonny]{fncychap}             % Manejo de capítulos: Sonny, Lenny, Glenn, Conny, Rejne and Bjarne.
 
 \RequirePackage[scaled]{berasans}
-%\RequirePackage{cmbright}        % Fuente de letras, otras opciones: arev, cmbright, pxfonts, tgadventor 
+\RequirePackage{cmbright}        % Fuente de letras, otras opciones: arev, cmbright, pxfonts, tgadventor 
 %\RequirePackage{txfonts}         % Altera Fuente de letra usado para eliminar warnings 
 \RequirePackage{marvosym}        % Algunos símbolos.
 
@@ -99,16 +99,14 @@
 	\end{table}
 }
 
-\newcommand{\addlongtable}[4]{
-    %\begin{table}[hbtp!]
-        %\centering
-        \captionsetup{skip=10pt}
-        \begin{longtable}{#1} \hline
-            #3 %
-        \caption{#4}
-        \label{#2}
-        \end{longtable}
-    %\end{table}
+\newcommand{\addlongtable}[5][]{
+    \captionsetup{skip=10pt}
+    \begin{longtable}{#2} \hline
+            #4 %
+        \caption{#5}
+        \label{#3}
+        \small{#1}\par
+    \end{longtable}
 }
 
 \newcommand{\hyperrefx}[1]{%
