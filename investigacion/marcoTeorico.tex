@@ -3,6 +3,264 @@
 
 Este capítulo tiene como propósito establecer el soporte conceptual y documental del proyecto, especifica el glosario de términos, los marcos de referencia usados, una presentación de los sistemas gestores de aprendizaje contemplados y la elección del sistema gestor de aprendizaje sobre el cual se desarrollaran las distintas funcionalidades.
 
+\begin{comment}
+
+\section{Acerca de la investigación}
+
+La primer etapa de la investigación se centro en investigar acerca de qué es la \gls{gamificacion}, sus implicaciones y como debería ser implementada la busqueda permitió encontrar diversas definiciones de la gamificación, las bases sobre la cual está desarrollada y distintas recomendaciones su implementación.\\
+
+\noindent En segunda instancia, se buscaron diversos casos de estudio y documentos de investigación que documentaran el proceso de implementación y los resultados de la investigación realizada, cada uno de los documentos encontrados nos sirve para conocer las fortalezas y áreas de oportunidad de otras implementación de gamificación.\\
+
+\noindent Como tercer etapa, se investigaron distintos marcos de trabajo para el diseño e implementación de la gamificación, dicha busqueda obtuvo como resultado la elección de dos marcos de trabajo {\em ``Octalysis''} \cite{Octalysis} y {\em ``For The Win''} \cite{FrameWorkForTheWin} (descritos en el capítulo \nameref{ch:marcoTeorico}).\\
+
+\noindent Posteriormente se analizaron los principales sistemas de aprendizaje en linea
+buscando qué elementos de gamificación de forma nativa tenían, las restricciones de uso y
+características principales. Esta etapa de investicación permitió filtrar los sistemas
+que brindaban soporte a la gamificación, de forma nativa o mediante componentes externos
+(plugins), de los demás sistemas de aprendizaje en línea.
+
+\clearpage
+
+
+   % El estado del arte se compone de 2 partes. Una que compara las soluciones con gamificación en sistemas dedicados al aprendizaje y la otra que compara las soluciones con gamificación en plugins de Moodle.
+A continuación se describen cada uno de los sistemas:
+
+
+Con nuestra investigación encontramos varios sistemas dedicados al aprendizaje que cuentan con gamificación. A continuación se presenta una tabla que indica cómo es que dichos sistemas cuentan con gamificación.
+   
+    \def\aux{90}
+    \addtable{|c|c|c|c|c|c|c|c|c|}{table:LMS_GMFC}{& %
+        
+        \rotatebox[origin=c]{\aux}{Duolingo   \cite{PagDuolingo}}  &
+        \rotatebox[origin=c]{\aux}{Moodle     \cite{PagMoodle}}    &
+        \rotatebox[origin=c]{\aux}{Docebo     \cite{PagDocebo}}    &
+        \rotatebox[origin=c]{\aux}{SAP Litmos \cite{PagSAPLitmos}} &
+        \rotatebox[origin=c]{\aux}{ATutor     \cite{PagATutor}}    & 
+        \rotatebox[origin=c]{\aux}{ALEKS      \cite{PagALEKS}}     &
+        \rotatebox[origin=c]{\aux}{Udemy      \cite{PagUdemy}}     &
+        \rotatebox[origin=c]{\aux}{TalentLMS  \cite{PagTalentLMS}} \\\hline 
+        
+        Propia    & X & X &   & X &   & X & X & X \\\hline
+        Extendida &   & X & X & X & X &   &   &   \\\hline
+        
+    }{Implementación de gamificación}
+       
+\noindent Al decir \textbf{Propia} en el cuadro \ref{table:LMS_GMFC} nos referimos a que el sistema gestor de aprendizaje ya tiene integrado en su funcionalidad la implementación  de gamificación. Y al decir \textbf{Extendida} nos referimos a que existen componentes externos (plugins) que implementan gamificación.\\
+    
+\noindent A continuación se describen los sistemas en el cuadro \ref{table:LMS_GMFC} y los elementos de gamificación con los que cuentan, de acuerdo con los marcos de referencia \nameref{sec:ForTheWin} y \nameref{sec:octalysis}.
+\clearpage
+
+    
+\begin{multicols*}{2}    
+\subsection*{Duolingo}
+    
+Duolingo es un sistema de aprendizaje dedicado a los idiomas, es un servicio web que
+te brinda la posibilidad de crearte una cuenta y seleccionar entre 9 idiomas para aprender,
+los cuales son: Inglés, guaraní, francés, alemán, catalán, espartano, italiano, portugués y ruso.\\
+
+\noindent Duolingo divide un idioma en secciones y cada sección contiene sub-secciones,
+que a su vez contienen unidades que se dividen en 5 niveles cada una. Al inicio Duolingo
+solo te permite empezar una unidad.
+    
+\noindent Al completar el primer nivel de todas las unidades de una sub-sección,
+Duolingo te permite avanzar a la siguiente sub-sección. Y para poder acceder a la siguiente
+sección Duolingo te pide que completes una cierta cantidad de niveles de unidades.\\
+    
+    \noindent Duolingo cuenta con varios módulos que están orientados a la gamificación, se utilizaron
+    los elementos de juego definidos por el marco de trabajo ``For the Win'' para formar la siguiente lista:
+    
+    \begin{itemize}
+        \item {\bf Logros:} Cuenta con un sistema de logros o en este caso ``insignias''
+            que están divididas en 3 niveles, y cada vez que alcanzas un nivel se 
+            desbloquea una estrella que se muestra en el icono del logro.
+            
+        \item {\bf Desbloqueo de contenido:} Al dividir el contenido de la forma
+            anteriormente explicada, Duolingo permite visualizar tu progreso viendo
+            la cantidad de unidades completadas y desbloqueadas.
+            
+        \item {\bf Puntos y niveles de experiencia:} Cada que completas un nivel de una
+        unidad se te otorgan puntos de experiencia y esto te permite subir de nivel.
+        Cabe aclarar que la experiencia y el nivel están relacionados con el idioma,
+        esto quiere decir que puedo ser nivel 10 en inglés pero también ser nivel 1 en francés.
+        
+        \item {\bf Tablas de líderes:} Si agregas a alguien como tu amigo en Duolingo ambos 
+        podrán ver su progreso semanal, mensual y total. El resultado de que el sistema
+         los compara genera la tabla de líderes. 
+         
+        \item {\bf Misiones:} Duolingo permite que te pongas una meta diaria y una meta semanal.
+        
+    \end{itemize}
+
+
+
+\subsection*{Docebo}
+    
+Docebo es un servicio web que se enfoca en la creación de dominios donde se brinda
+un sistema gestor de aprendizaje, es decir, que uno pueda tener su página en línea
+donde pueda crear y gestionar sus cursos y los alumnos puedan entrar a tomarlos.\\
+    
+\noindent Docebo no cuenta con gamificación de raíz, sino que se necesita instalar
+plugins que se desarrollan con la API de Docebo, dichos plugins hasta el momento 
+solo cuentan con:\\
+
+    \begin{itemize}
+        \item {\bf Logros:} Se cuenta con un sistema de logros,
+        que se desbloquean si la persona cumple con sus condiciones.
+    \end{itemize}
+    
+    
+    
+\subsection*{SAP Litmos}
+    
+SAP Litmos es un sistema que te permite crear cursos para tu equipo de trabajo,
+así como delegar tareas y ver el progreso de las mismas. Esta orientado a
+fortalecer el capital humano de una empresa.\\
+    
+    \noindent SAP Litmos cuenta con 3 módulos de gamificación, los cuales son:
+    
+    \begin{itemize}
+        \item {\bf Insignias:} A diferencia que con los logros, estos
+        no son otorgados cuando se cumple una cierta condición, sino 
+        que el administrador crea una insignia y se le otorga a un usuario.
+        
+        \item {\bf Equipos: } Debido a que está orientado al capital humano
+         de una empresa, uno puede crear equipos que sean por área de la
+          empresa y así ver si las áreas están cumpliendo con sus tareas.
+          
+        \item {\bf Tablas de líderes y puntos: } SAP Litmos te muestra una
+         gráfica de que tanto han avanzado los usuarios en un cierto curso
+         o en sus tareas. Esto mediante una gráfica y asignación de puntos.
+         
+    \end{itemize}
+
+
+\clearpage
+\subsection*{ATutor}
+
+ATutor es un un sitema gestor de aprendizaje de software libre. Para poder
+utilizarlo se necesita tener un servidor web y montar dicho código en el servidor.\\
+    
+    \noindent ATutor no cuenta con gamificación de raíz,
+    pero cuenta con un plugin llamado \textbf{GameMe} que agrega:
+    
+    \begin{itemize}
+        \item {\bf Logros:} Dichos logros son estáticos y se
+        desbloquean cuando se un usuario cumple las condiciones.
+        
+        \item {\bf Puntos y niveles de experiencia:} Hay definidos 10
+        niveles de experiencia y cada que ocurre un evento que tenga
+        que ver con un usuario, se le otorga experiencia.
+        
+    \end{itemize}
+
+
+
+\subsection*{ALEKS}
+
+ALEKS es un servicio web que ofrece un sistema gestor de aprendizaje
+que adapta el contenido al usuario utilizando inteligencia artificial.
+Esto lo mantienen controlado utilizando únicamente ciertos tipos de cursos.\\
+    
+    \noindent ALEKS cuenta con gamificación de raíz, los elementos con los que cuenta son:
+    
+    \begin{itemize}
+        \item {\bf Progresión:} El fuerte de ALEKS es utilizar la inteligencia
+        artificial y algoritmos de predicción así que tiene un montón de datos del
+        usuario que aprovecha desplegándolos en gráficos que muestran el progreso
+        en diversos temas de un curso, así como el porcentaje del curso que se ha
+        tomado, dominado o que falta por revisar. Cabe destacar que un profesor puede
+        ver los gráficos de cada alumno, pero los alumnos no pueden ver el de los demás.
+        
+    \end{itemize}
+    
+\vfill\null
+\columnbreak
+\subsection*{Udemy}
+
+Udemy es un servicio web que te permite tomar cursos y/o subir tus cursos.
+El formato de los cursos es siempre un video. Cuanta con muchos temas
+gracias a que cualquiera puede crear su curso.\\
+
+    \noindent Usando como referencia al marco de trabajo octalysis,
+    Udemy cuenta con los siguientes principios de gamificación:
+    
+    \begin{itemize}
+        \item {\bf \principioIII} Debido a que cualquiera puede subir
+        sus cursos y recibir retroalimentación de los que lo tomaron,
+        se cumple este principio, pero dico principio está orientado
+        hacia los creadores de cursos.
+        
+    \end{itemize}
+    
+    
+    
+\subsection*{TalentLMS}
+
+TalentLMS es un servicio web que se enfoca en la creación de dominios donde se
+brinda un sistema gestor de aprendizaje, es decir, que uno pueda tener su página
+en línea donde pueda crear y gestionar sus cursos y los alumnos puedan entrar a tomarlos.\\
+    
+    \noindent TalentLMS cuenta con gamificación de raíz,
+    y los elementos de juego con los que cuenta, son:
+    
+    \begin{itemize} 
+    
+        \item {\bf Logros:} Se cuenta con un sistema de logros o en este caso
+        ``insignias'' que están divididas en 8 niveles, y cada vez que alcanzas
+        un nivel se desbloquea la insignia en su color correspondiente.
+        
+        \item {\bf Puntos y niveles de experiencia:} Cada que ocurre un
+        determinado evento que tenga que ver con un usuario, se le otorga experiencia.
+        
+        \item {\bf Tablas de líderes y puntos:} TalentLMS muestra la
+        tabla de líderes por categoría de curso, esto a nivel ''plataforma''.
+        
+    \end{itemize}
+    
+\end{multicols*}
+
+
+
+\clearpage
+\subsection{Moodle}
+   
+En la sección del \nameref{ch:marcoTeorico} se especifica Moodle más a fondo y el cómo se desarrollan plugins para el mismo. Es por eso que nos limitamos a hacer comparativas de los elementos de gamificación con los que cuentan los diferentes plugins en la tabla \ref{tbl:pluginscreated}
+
+%\noindent En la tabla \ref{table:pluginComp} se comparan los diferentes plugins que existen en el sistema Moodle.
+   
+%Antes de poder presentar que otras soluciones existen, se necesita establecer un contexto. Es por ello que se tiene que definir en que sistema gestor de aprendizaje se trabajará en este trabajo terminal.  Existen varios sistemas gestores de aprendizaje disponibles para su uso actualmente, sin embargo, para determinar cuál se usará a lo largo de este trabajo terminal se realizó la siguiente tabla comparativa.
+
+%Ya sabiendo que se utilizará Moodle, podemos fijarnos en las soluciones existentes, que en este caso serían los componentes (traducción de plugins del inglés) que cuentan con gamificación. La tabla \ref{table:1} compara de acuerdo a sus elementos los diferentes  componentes que implementan gamficación en la plataforma Moodle \cite{arte1}.
+ 
+
+    \addtable{|l|c|c|c|c|c|c|c|c|c|c|}{tbl:pluginscreated}{%
+        Elementos/Plugins &
+        \rotatebox[origin=c]{\aux}{LevelUp!         \cite{arte2}}  &
+        \rotatebox[origin=c]{\aux}{Ranking block    \cite{arte3}}  &
+        \rotatebox[origin=c]{\aux}{Game             \cite{arte4}}  &
+        \rotatebox[origin=c]{\aux}{Quizventure      \cite{arte5}}  &
+        \rotatebox[origin=c]{\aux}{Stash            \cite{arte6}}  &
+        \rotatebox[origin=c]{\aux}{Mootivated       \cite{arte7}}  &
+        \rotatebox[origin=c]{\aux}{UNEDrivial       \cite{arte8}}  &
+        \rotatebox[origin=c]{\aux}{Stamp collection \cite{arte9}}  &
+        \rotatebox[origin=c]{\aux}{Exabis games     \cite{arte10}} &
+        \rotatebox[origin=c]{\aux}{Badge leader     \cite{arte11}} \\\hline
+        
+        Competencias            &   &   & X & X &   &   & X &   & X &   \\\hline
+        Niveles                 & X &   &   &   &   &   &   &   &   &   \\\hline
+        Desbloqueo de contenido & X &   &   &   & X &   &   &   &   &   \\\hline
+        Logros                  & X &   &   &   &   &   & X &   &   & X \\\hline
+        Esquema financiero      &   &   &   &   &   &   &   &   &   &   \\\hline
+        Cajas de botín          &   &   &   &   &   &   &   &   &   &   \\\hline
+        Puntos                  & X & X &   &   &   &   &   &   & X &   \\\hline
+        Tienda                  &   &   &   &   &   &   &   &   &   &   \\\hline
+        Tabla lideres           & X &   &   &   &   &   & X & X &   & X \\\hline
+        Barra de progreso       & X &   &   &   &   &   &   &   &   &   \\\hline
+        
+    }{Tabla de comparación de componentes externos (plugins) en Moodle}
+
+\end{comment}
+
 \section{Marcos de trabajo para la Gamificación}
 \subsection{Octalysis}
 \label{sec:octalysis}
