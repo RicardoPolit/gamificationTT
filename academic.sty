@@ -98,6 +98,8 @@
     \end{longtable}
 }
 
+\ifdefined\addtable
+\else
 \newcommand{\addtable}[4]{
     \begin{table}[hbtp!]
     \centering
@@ -108,6 +110,7 @@
         \label{#2} 
     \end{table}
 }
+\fi
 
 \newcommand{\hyperrefx}[1]{%
     \hyperref[#1]{\ref*{#1} \nameref*{#1}}%
