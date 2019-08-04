@@ -17,7 +17,7 @@ function Usage {
 }
 
 # Command to compile LaTex
-latexCmd="pdflatex --interaction=nonstopmode --output-directory=output"
+latexCmd="pdflatex --interaction=nonstopmode --output-directory=output --halt-on-error"
 glossariesCmd="makeglossaries -d output/ -q"
 
 # Commands for colorized Output
