@@ -112,20 +112,20 @@
 
 % GAMIFICATION
 
-\def\principioIx{Epic Meaning \& Calling\ }
-\def\principioIIx{Development \& Accomplishment\ }
-\def\principioIIIx{Empowerment of Creativity \& FeedBack\ }
-\def\principioIVx{OwnerShip \& Posession\ }
-\def\principioVx{Social Influence \& Relateness\ }
-\def\principioVIx{Scarcity \& Impatience\ }
-\def\principioVIIx{Unpredictability \& Curiosity\ }
-\def\principioVIIIx{Loss \& Avoidance\ }
+\def\principioIx{Epic Meaning \& Calling}
+\def\principioIIx{Development \& Accomplishment}
+\def\principioIIIx{Empowerment of Creativity \& FeedBack}
+\def\principioIVx{OwnerShip \& Posession}
+\def\principioVx{Social Influence \& Relateness}
+\def\principioVIx{Scarcity \& Impatience}
+\def\principioVIIx{Unpredictability \& Curiosity}
+\def\principioVIIIx{Loss \& Avoidance}
 
-\def\principioI{\principioIx (Diferenciación y Pertenencia)\ }
-\def\principioII{\principioIIx (Desarrollo y Recompensa)\ }
-\def\principioIII{\principioIIIx (Descubrimiento y Retroalimentación)\ }
-\def\principioIV{\principioIVx (Personalización)\ }
-\def\principioV{\principioVx (Motivo e Impulso Social)\ }
-\def\principioVI{\principioVIx (Codicia)\ }
-\def\principioVII{\principioVIIx (Impredecibilidad y Curiosidad)\ }
-\def\principioVIII{\principioVIIIx (Miedo a la Pérdida)\ }
+\def\principioI{Diferenciación y Pertenencia (\principioIx)\ }
+\def\principioII{Desarrollo y Recompensa (\principioIIx)\ }
+\def\principioIII{Descubrimiento y Retroalimentación (\principioIIIx)\ }
+\def\principioIV{Personalización (\principioIVx)\ }
+\def\principioV{Motivo e Impulso Social (\principioVx)\ }
+\def\principioVI{Codicia (\principioVIx)\ }
+\def\principioVII{Impredecibilidad y Curiosidad (\principioVIIx)\ }
+\def\principioVIII{Miedo a la Pérdida (\principioVIIIx)\ }
