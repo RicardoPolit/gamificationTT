@@ -1,6 +1,6 @@
 
 
-% \begin{comment}
+%\begin{comment}
 
 \section{Acerca de la investigación}
 
@@ -255,5 +255,82 @@ En la sección del \nameref{ch:marcoTeorico} se especifica Moodle más a fondo y
         
     }{Tabla de comparación de componentes externos (plugins) en Moodle}
 
-\end{comment}
+%\end{comment}
 
+\section{Sistemas de gestión de aprendizaje}
+    Sistema de gestión de aprendizaje es la traducción de Learning Managment System (LMS) del Inglés.
+    A continuación se enlistan las definiciones de distintos autores acerca de los sistemas gestores de aprendizaje:
+    
+    \begin{itemize}
+        \item Un sistema de gestión de aprendizaje es un software que incluye  una lista de servicios que le permiten y ayudan al profesor con la gestión de sus cursos. \cite{LMS_1}
+        \item  Un sistema de gestión de aprendizaje es una aplicación de software basada en web diseñada para manejar material didáctico, interacción con el estudiante, herramientas de evaluación y reportes del progreso de aprendizaje de los estudiantes. \cite{LMS_2}
+        \item  Un sistema de gestión de aprendizaje es un software para el manejo y presentación de materiales didácticos en la internet, además de ofrecer funcionalidades para la colaboración en línea. \cite{LMS_3}
+    \end{itemize}
+
+    \noindent Se puede observar que las definiciones tienen como idea central la gestión del material didáctico y los cursos. La definición que usaremos a lo largo de este Trabajo Terminal es: Un sistema de gestión de aprendizaje, es un software que incluye una lista de servicios que permiten gestionar material didáctico y la gestión de cursos.\\
+    
+    %\noindent Existen varios sistemas gestores de aprendizaje disponibles para su uso actualmente, sin embargo, necesitamos uno que se adapte a las necesidades de este trabajo terminal, es por eso que se realizó la siguiente tabla comparativa para poder determinar que sistema gestor de aprendizaje se utilizará.
+
+
+    \noindent Existen varios sistema de gestión de aprendizaje disponibles para su uso actualmente. Se realizó la siguiente tabla comparativa para poder determinar que sistema gestor de aprendizaje se utilizará.
+    
+\begin{comment}
+    Todos los LMS investigados:
+        Moodle*
+        Claroline
+        Docebo*
+        SAP Litmos*
+        Gnosis Conect*
+        TalentLMS*
+        eFront
+        Sakai
+        Edmodo
+        ATutor*
+\end{comment}
+\clearpage
+    \addtable{| m{13em} |m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.8cm}|}{tbl:LMSs}{
+        {\bf Carácterísticas} & 
+        \begin{center}{\bf Moodle} \cite{PagMoodle} \end{center} &
+        \begin{center}{\bf ATutor} \cite{PagATutor} \end{center}&
+        \begin{center}{\bf Docebo} \cite{PagDocebo} \end{center}& 
+        \begin{center}{\bf SAP\newline Litmos} \cite{PagSAPLitmos} \end{center}&
+        \begin{center}{\bf Gnosis Connect} \cite{PagGnosisConnect} \end{center}&
+        \begin{center}{\bf TalentLMS} \cite{PagTalentLMS}\end{center}\\\hline
+        Comparte su documentación de código & Sí & Sí & Sí & Sí & No & No \\\hline
+        Soporta idioma Español o Inglés& Sí & Sí & Sí & Sí & Sí & Sí\\\hline
+        Licencia &       GPLv3 &   GPL &    Propia &    Propia &    Propia &    Propia \\\hline
+        Redistribuye su código fuente & Sí & Sí & No & No & No & No \\\hline
+        Permite la incorporación de componentes desarrollados por gente externa&   Sí & Sí & Sí & Sí & No & No  \\\hline
+    }{Tabla comparativa de los sistemas de gestión de aprendizaje}
+    
+    \noindent A continuación se presenta el por qué de cada característica:
+    \begin{itemize}
+        \item Comparte su documentación de código: Debido a que queremos adaptarnos a sistemas existentes, necesitamos entender cómo funciona su estructura, cómo tienen separados sus archivos y cómo se usarían sus funciones. Sin la necesidad de leer todo el código desde el inicio. 
+        \item Soporta idioma Español o Inglés: No solo se requiere que la documentación exista, sino que sea entendible para los desarrolladores de este trabajo terminal, y los idiomas que los desarrolladores manejan son inglés y español.
+        \item Licencia: Saber qué sistema gestor de aprendizaje pudiera llegar a permitirnos el conocer su código y trabajar con él.
+        \item Redistribuye su código fuente: Las licencias GPL tienen como palabra clave la distribución del código binario, es por eso que productos que son servicios de software pueden tener dicha licencia y no distribuir su código fuente.
+        \item Permite la incorporación de componentes desarrollados por gente externa: No se quiere modificar directamente el código fuente del sistema, se quiere poder extender sus funcionalidades.
+    \end{itemize}
+    
+    
+\begin{comment}
+    \noindent Las fuentes para cada columna de la tabla se obtuvieron de las respectivas páginas de los sistemas gestores de aprendizaje. Dichas páginas se pueden encontrar en:
+    \begin{itemize}
+        \item Moodle: {https://moodle.com/}
+        \item ATutor: {https://atutor.github.io/}
+        \item Docebo: {https://www.docebo.com/es/}
+        \item Litmos: {https://www.litmos.com/es-LA/}
+        \item Gnosis Conect: {https://www.gnosisconnect.com/}
+        \item TalentLMS: {https://www.talentlms.com/}
+    \end{itemize}
+\end{comment}   
+    
+    %Con lo anterior se entiende que Moodle y ATutor cumplen con nuestras necesidades, sin embargo, por preferencia de nuestros directores se decidió que Moodle será el que se usará para este trabajo terminal.
+    \noindent Con el cuadro  \ref{tbl:LMSs} se entiende que Moodle y ATutor son las mejores opciones , sin embargo, se decidió utilizar Moodle al final debido a los siguientes motivos:
+    
+    \begin{itemize}
+        \item Moodle está siendo actualmente utilizado por Celex ESCOM, lo cual abre la oportunidad de solicitar soporte a un administrador de Moodle con experiencia valiosa.
+        \item ATutor especifica que utiliza la licencia GPL, sin embargo, no especifica ninguna versión. Lo cual provoca no saber a ciencia cierta a que versión se acata.
+        \item ATutor cuenta con enlaces rotos asociados a su licencia, lo cual refleja poca importancia en su documentación.
+    \end{itemize}
+\clearpage    
