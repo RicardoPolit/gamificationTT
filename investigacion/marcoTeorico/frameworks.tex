@@ -10,138 +10,320 @@
 \subsection{Octalysis}
 \label{sec:octalysis}
 
- Gracias a la investigación que realizó Yu-Kai Chou durante 10 años,
- se dio cuenta que existen 8 ejes que motivan a la gente a realizar cualquier actividad (Figura \ref{fig:octalysis}). De estos ejes basó su marco de trabajo $"$Octalysis$"$ para poder implementar de una manera sistemática la Gamificación, y al mismo tiempo obteniendo flexibilidad en la misma.
+ {\it Octalysis} es un marco de trabajo realizado por Yu-Kai Chou a lo largo de
+ una decada, el marco de trabajo se centra en las diferentes formas en que una
+ persona puede ser motivada para realizar una actividad en específico, dichas
+ formas son presentadas en un octágono (ver figura \ref{fig:octalysis}) como principios
+ de gamificación,
+
+ % Gracias a la investigación que realizó Yu-Kai Chou durante 10 años, se dio cuenta que existen
+ % 8 ejes que motivan a la gente a realizar cualquier actividad (Figura \ref{fig:octalysis})
+ % De estos ejes basó su marco de trabajo $"$Octalysis$"$ para poder implementar de una manera
+ % sistemática la Gamificación, y al mismo tiempo obteniendo flexibilidad en la misma.
     
     \addfigure[(adaptado de {\it Octalysis} \cite{Octalysis})]%
         {.95}{investigacion/images/octalysis}{fig:octalysis}{Principios de gamificación según Octalysis}
     
-\noindent A continuación se describe cada uno de los principios, incluyendo su nombre en inglés y la interpretación que realizamos al lenguaje español, además se detallan algunas herramientas que permiten implementar o dan soporte a los principios.
+ \noindent A continuación se describe cada uno de los principios, incluyendo su nombre en
+ inglés y la interpretación que realizamos al lenguaje español, además se detallan algunas
+ herramientas que permiten implementar o dan soporte a los principios.
     
-    \subsubsection{\principioI}
-    \label{subsec:principioI}
+\subsubsection{\principioI} \label{subsec:principioI}
   
-    Este principio trata de motivar al jugador al convencerlo de que son parte de algo más grande que ellos.\cite[p. 66]{libro2} Algunos ejemplos de como se puede lograr esto son:
+ Este principio trata de motivar al jugador haciendolo sentir de que es parte de algo más grande
+ que el mismo \cite[p. 66]{Octalysis}. Algunas técnicas para implementar este principio son:
     
     \begin{enumerate}
-    
-        \item {\bf Narrativa.} Esta herramienta da el contexto del porqué el jugador debe de realizar la actividad. Generalmente se utiliza una historia para que el jugador conozca a qué motivo más grande pertenece, y la razón por la cual está realizando las actividades. La narrativa puede ser un pequeño vídeo al principio del sistema que explique su historia, o tan profundo como tematizar todo el sistema de acuerdo a esa narrativa.\cite[p. 81]{libro2}
+    \item
+    {\bf Narrativa.}
+        Esta herramienta da el contexto de porqué el jugador debe realizar la actividad.
+        Generalmente se utiliza una historia para que el jugador conozca qué motivo más
+        grande pertenece, y la razón por la cual está realizando las actividades. La
+        narrativa puede ser un pequeño vídeo al principio del sistema que explique la
+        historia, o tan profundo como tematizar todo el sistema de acuerdo a esa narrativa
+        \cite[p. 81]{Octalysis}.
         
-        \item {\bf Héroe de la humanidad.} Este método de aplicar el principio 1 \principioI, se realiza al hacer que el jugador pertenezca a un cambio más grande que él, que las actividades que realiza en el sistema conllevan a consecuencias humanitarias buenas y reales en el mundo. Esto lo motiva a seguir realizando actividades para seguir ayudando.\cite[p. 82]{libro2}
+    \item
+    {\bf Héroe de la humanidad.}
+        Este método de aplicar el principio 1 \principioI, se realiza al hacer que el
+        jugador pertenezca a un cambio más grande que él, que las actividades que realiza
+        en el sistema conllevan a consecuencias humanitarias buenas y reales en el mundo.
+        Esto lo motiva a seguir realizando actividades para seguir ayudando \cite[p. 82]{Octalysis}.
         
-        \item {\bf Elitismo.} Esta estrategia lleva a un siguiente nivel la creencia de pertenecer a algo más grande que ellos. Se deben de tener equipos para que los jugadores que pertenecen a éstos realicen las actividades no solamente por su beneficio si no para el beneficio del equipo y para derrotar a sus equipos rivales. Se debe de tener especial cuidado con esta estrategia puesto que puede tener resultados negativos si no se tiene una competencia sana.\cite[p. 83]{libro2}
+    \item
+    {\bf Elitismo.}
+        Esta estrategia lleva a un siguiente nivel la creencia de pertenecer a algo más grande
+        que ellos. Se deben de tener equipos para que los jugadores que pertenecen a éstos
+        realicen las actividades no solamente por su beneficio si no para el beneficio del
+        equipo y para derrotar a los equipos rivales. Se debe de tener especial cuidado con
+        esta estrategia puesto que puede tener resultados negativos si no se tiene una
+        competencia sana.\cite[p. 83]{Octalysis}
     
     \end{enumerate}
     
-    \subsubsection{\principioII}
-    \label{subsec:principioII}
+\subsubsection{\principioII} \label{subsec:principioII}
     
-    Este es el principio donde las personas son impulsadas por un sentido de crecimiento y la necesidad de lograr un objetivo específico.\cite[p. 91]{libro2} Los siguientes ejemplos tratan impulsar este sentido de crecimiento al recompensar al jugador:
+ Este es el principio donde las personas son impulsadas por un sentido de crecimiento y la
+ necesidad de lograr un objetivo específico \cite[p. 91]{Octalysis}. Los siguientes ejemplos
+ tratan impulsar este sentido de crecimiento al recompensar al jugador:
     
     \begin{enumerate}
         
-        \item \textbf{Barra de progreso.} Esta herramienta se beneficia de que la gente le molesta que les digan que tienen cosas incompletas, por lo cual se sienten impulsadas a completarlo. Hay que tener cuidado al implementar una barra de progreso puesto que debe de llenarse al realizar actividades que requieran un esfuerzo significativo para lograr el impulso necesario y el sentimiento de crecimiento.\cite[p. 113]{libro2}
+    \item
+    {\bf Barra de progreso.} % DONT LIKE IT
+        Esta herramienta se beneficia de que la gente le molesta que les digan que tienen
+        cosas incompletas, por lo cual se sienten impulsadas a completarlo. Hay que tener
+        cuidado al implementar una barra de progreso puesto que debe de llenarse al realizar
+        actividades que requieran un esfuerzo significativo para lograr el impulso necesario
+        y el sentimiento de crecimiento \cite[p. 113]{Octalysis}.
         
-        \item \textbf{Símbolos de logro.} La función de los símbolos de logro es que un jugador pueda mostrar a los otros que realizó una actividad importante y complicada, esto les da sentido de realización. Estos símbolos pueden ser casi cualquier cosa: insignias, estrellas, sombreros, uniformes, etc. Lo importante es el significado y el esfuerzo detrás de cada uno de ellos.\cite[p. 117]{libro2}
+    \item
+    {\bf Símbolos de logro.}
+        La función de los símbolos de logro es que un jugador pueda mostrar a los otros
+        que realizó una actividad importante y complicada, esto les da sentido de realización.
+        Estos símbolos pueden ser casi cualquier cosa: insignias, estrellas, sombreros, uniformes,
+        etc. Lo importante es el significado y el esfuerzo detrás de cada uno de ellos
+        \cite[p. 117]{Octalysis}.
         
-        \item \textbf{Puntos de estatus.} Estos puntos tienen finalidades internas y externas. Internamente ayuda al sistema a saber cuanto falta para que el jugador termine una actividad. Externamente le da al jugador retroalimentación de su progreso en la actividad u objetivo. Así como en el punto anterior (símbolos de logro) es necesario que solo se obtengan los puntos de estatus al realizar alguna acción que sea importante para el sistema.\cite[p. 118]{libro2}
+    \item
+    {\bf Puntos de estatus.}
+        Estos puntos tienen finalidades internas y externas. Internamente ayuda al sistema
+        a saber cuanto falta para que el jugador termine una actividad. Externamente le da al
+        jugador retroalimentación de su progreso en la actividad u objetivo. Así como en el
+        punto anterior (símbolos de logro) es necesario que solo se obtengan los puntos de
+        estatus al realizar alguna acción que sea importante para el sistema \cite[p. 118]{Octalysis}.
         
-        \item \textbf{Tabla de líderes.} Es un elemento de juego en el que se posiciona a los jugadores basado en algún criterio que está influenciado por el comportamiento hacía las acciones deseadas por el sistema. Estas acciones pueden ser: completar una actividad, realizar una encuesta, etc. Uno de los problemas que puede llegar a tener esta tabla es el de desmotivar a los jugadores al mostrarles que existe una diferencia enorme entre su posición en la tabla y el de los jugadores en los primeros lugares, la manera de atacar el problema es mostrando al jugador los lugares directamente encima de él en la tabla puesto que estos lugares si son alcanzables en un corto periodo de tiempo.\cite[p. 121]{libro2}
+    \item
+    {\bf Tabla de líderes.}
+        Es un elemento de juego en el que se posiciona a los jugadores basado en algún criterio
+        que está influenciado por el comportamiento hacía las acciones deseadas por el sistema.
+        Estas acciones pueden ser: completar una actividad, realizar una encuesta, etc. Uno de
+        los problemas que puede llegar a tener esta tabla es el de desmotivar a los jugadores
+        al mostrarles que existe una diferencia enorme entre su posición en la tabla y el de los
+        jugadores en los primeros lugares, la manera de atacar el problema es mostrando al jugador
+        los lugares directamente encima de él en la tabla puesto que estos lugares si son
+        alcanzables en un corto periodo de tiempo \cite[p. 121]{Octalysis}.
         
     \end{enumerate}
     
-    \subsubsection{\principioIII}
-    \label{subsec:prinpcioIII}
+\subsubsection{\principioIII} \label{subsec:prinpcioIII}
     
-    El principio trata acerca de impulsar la creatividad en las personas, esta creatividad se puede ofrecer por medio de toma de decisiones, y ayudan al usuario a motivarse por medio del pensamiento creativo \cite[p. 126]{libro2}. Los siguientes ejemplos tratan de impulsar este sentido de creatividad:
+ El principio trata acerca de impulsar la creatividad en las personas, esta creatividad
+ se puede ofrecer por medio de toma de decisiones, y ayudan al usuario a motivarse por medio
+ del pensamiento creativo \cite[p. 126]{Octalysis}. Los siguientes ejemplos tratan de impulsar
+ este sentido de creatividad:
     
     \begin{enumerate}
-        \item \textbf{Amplificadores.} \cite[p. 146]{libro2} Los amplificadores son momentos en el sistema en los cuales se les da una ventaja a los usuarios por un corto tiempo, esto los motiva a usar el sistema lo más que puedan durante esa ventaja para no desperdiciarla, un ejemplo son las ofertas de relámpago de la plataforma de compras en linea $"$Amazon$"$.
+    \item
+    {\bf Amplificadores.} \cite[p. 146]{Octalysis}
+        Los amplificadores son momentos en el sistema en los cuales se les da una ventaja a los
+        usuarios por un corto tiempo, esto los motiva a usar el sistema lo más que puedan durante
+        esa ventaja para no desperdiciarla, un ejemplo son las ofertas de relámpago de la
+        plataforma de compras en linea ``Amazon''.
         
-        \item \textbf{Percepción de elección.} \cite[p. 150]{libro2} La percepción de elección se le ofrece al usuario cuando se le presentan varias opciones a elegir, esto lo hace sentir que es tomado en cuenta, y la opción que decida seguir la realizará de manera motivada. Se le llama percepción de elección porque se le pueden mostrar varias opciones al usuario pero se le guía a elegir la opción que se quiere por medio de incentivos.
+    \item
+    {\bf Percepción de elección.} \cite[p. 150]{Octalysis}
+        La percepción de elección se le ofrece al usuario cuando se le presentan varias opciones
+        a elegir, esto lo hace sentir que es tomado en cuenta, y la opción que decida seguir la
+        realizará de manera motivada. Se le llama percepción de elección porque se le pueden
+        mostrar varias opciones al usuario pero se le guía a elegir la opción que se quiere por
+        medio de incentivos.
     \end{enumerate}
     
-    \subsubsection{\principioIV}
-    \label{subsec:principioIV}
+\subsubsection{\principioIV} \label{subsec:principioIV}
     
-    Representa la motivación que está incitada por nuestros sentimientos obtener algo y consecuentemente el deseo de mejorarlo, protegerlo y obtener más de eso. Este principio involucra muchos elementos como productos virtuales  y dinero virtual, pero también es el principal principio que nos motiva a coleccionar estampas y acumular recursos. Por lo mismo a un nivel más abstracto es el principio que nos motiva a invertir nuestro tiempo y recursos en personalizar algo a nuestro gusto \cite[p. 161]{libro2}. A continuación se muestran varios ejemplos de componentes que pueden aplicar este principio:
+ Representa la motivación que está incitada por nuestros sentimientos obtener algo y consecuentemente el
+ deseo de mejorarlo, protegerlo y obtener más de eso. Este principio involucra muchos elementos como
+ productos virtuales y dinero virtual, pero también es el principio que nos motiva a coleccionar estampas
+ y acumular recursos, en otras palabras es el principio que nos motiva a invertir nuestro tiempo
+ y recursos en personalizar algo a nuestro gusto \cite[p. 161]{Octalysis}. A continuación se muestran
+ varios ejemplos de componentes que pueden aplicar este principio:
     
     \begin{enumerate}
-        \item \textbf{Construcción desde cero.} \cite[p. 182]{libro2} Este ejemplo trata acerca de como el usuario siente pertenencia cuando crea un objeto desde cero puesto que lo realizó a su gusto. Es importante que el proceso de creación no sea tedioso para evitar el efecto contrario.
+    \item
+    {\bf Construcción desde cero.} \cite[p. 182]{Octalysis}
+        Este ejemplo trata acerca de como el usuario siente pertenencia cuando crea
+        un objeto desde cero puesto que lo realizó a su gusto. Es importante que el
+        proceso de creación no sea tedioso para evitar el efecto contrario.
         
-        \item \textbf{Conjunto de colección.} \cite[p. 183]{libro2} Al darle elementos de personalización a los usuarios como imágenes de perfil, o darles logros al volverlos parte de un conjunto de colección los motiva a conseguir todos los elementos para obtener todo el conjunto.
+    \item
+    {\bf Conjunto de colección.} \cite[p. 183]{Octalysis}
+        Al darle elementos de personalización a los usuarios como imágenes de perfil,
+        o darles logros al volverlos parte de un conjunto de colección los motiva a
+        conseguir todos los elementos para obtener todo el conjunto.
         
-        \item \textbf{Puntos intercambiables} \cite[p. 187]{libro2} Estos puntos a diferencia de los puntos de estatus, sirven para obtener bienes en el sistema, por lo cual al obtener algún bien, nos motiva a protegerlo y mejorarlo. La manera en que se obtienen estos puntos es esencial para elegir en que se actividades se quieren enfatizar que el usuario realice.
+    \item
+    {\bf Puntos intercambiables} \cite[p. 187]{Octalysis}
+        Estos puntos a diferencia de los puntos de estatus, sirven para obtener bienes
+        en el sistema, por lo cual al obtener algún bien, nos motiva a protegerlo y
+        mejorarlo. La manera en que se obtienen estos puntos es esencial para elegir
+        en que se actividades se quieren enfatizar que el usuario realice.
         
-        \item \textbf{Apego menor.} \cite[p. 189]{libro2} Al estar monitoreando datos o valores constantemente a lo largo de cierto tiempo, estos datos empiezan a importarnos y se llega a la motivación de mejorarlos, por lo cual se deben de enseñar constantemente los puntos de progreso de los usuarios para que se sientan motivados al aumentarlos.
+    \item
+    {\bf Apego menor.} \cite[p. 189]{Octalysis}
+        Al estar monitoreando datos o valores constantemente a lo largo de cierto tiempo,
+        estos datos empiezan a importarnos y se llega a la motivación de mejorarlos,
+        por lo cual se deben de enseñar constantemente los puntos de progreso de los
+        usuarios para que se sientan motivados al aumentarlos.
 
     \end{enumerate}
     
-    \subsubsection{\principioV}
-    \label{subsec:principioV}
+\subsubsection{\principioV} \label{subsec:principioV}
     
-    Involucra actividades inspiradas por lo que otras personas piensan, hacen o dicen. Este principio es el motor detrás de varios temas como tutorías, competiciones, envidia, actividades grupales, tesoro social y compañerismo. Se basa en el deseo de conectar y compararse con otros individuos.\cite[p. 197]{libro2} Algunos ejemplos son:
+ Involucra actividades inspiradas por lo que otras personas piensan, hacen o dicen. Este
+ principio es el motor detrás de varios temas como tutorías, competiciones, envidia,
+ actividades grupales, tesoro social y compañerismo. Se basa en el deseo de conectar y
+ compararse con otros individuos.\cite[p. 197]{Octalysis} Algunos ejemplos son:
     
     \begin{enumerate}
         
-        \item \textbf{Tutorías.} \cite[p. 215]{libro2} Las tutorías son una herramienta poderosa para mantener motivado a los usuarios puesto que les da una experiencia personalizada con el sistema por medio de su tutor, y les ayuda a sobrepasar obstáculos que son comunes en ese entorno.
+    \item
+    {\bf Tutorías.} \cite[p. 215]{Pctalysis}
+        Las tutorías son una herramienta poderosa para mantener motivado a los usuarios
+        puesto que les da una experiencia personalizada con el sistema por medio de su
+        tutor, y les ayuda a sobrepasar obstáculos que son comunes en ese entorno.
         
-        \item \textbf{Estante de trofeos.} \cite[p. 218]{libro2} El estante de trofeos permite al usuario mostrar que cosas ha logrado, lo cual se exhibe por si mismo, los estantes de trofeos son vistos cuando se entra en la oficina de alguien y en las paredes se ven los premios, certificados y credenciales que ha conseguido. En los juegos se puede ver como coronas, logros, o avatares. En muchos juegos los elementos y equipo de los avatares solo pueden ser conseguidos después de llegar a una dificultad muy grande. Esto permite que todos puedan ver que ese usuario ha logrado muchas cosas. 
+    \item
+    {\bf Estante de trofeos.} \cite[p. 218]{Octalysis}
+        El estante de trofeos permite al usuario mostrar que cosas ha logrado, lo cual
+        se exhibe por si mismo, los estantes de trofeos son vistos cuando se entra en
+        la oficina de alguien y en las paredes se ven los premios, certificados y
+        credenciales que ha conseguido. En los juegos se puede ver como coronas, logros,
+        o avatares. En muchos juegos los elementos y equipo de los avatares solo pueden
+        ser conseguidos después de llegar a una dificultad muy grande. Esto permite que
+        todos puedan ver que ese usuario ha logrado muchas cosas. 
         
-        \item \textbf{Actividad en grupo.} \cite[p. 221]{libro2} Las actividades en grupo son muy efectivas en la colaboración así como en propaganda viral, porque requiere la participación grupal antes que algún individuo consiga el estado ganador. Un ejemplo claro es el de ofrecer descuento en algún producto de una tienda, pero ese descuento solo es aplicable si la tienda vende una cierta cantidad de el producto en concreto, esto hace que las personas inviten a sus conocidos a comprar el producto para poder conseguir el descuento, lo cual logra publicidad gratis.
+    \item
+    {\bf Actividad en grupo.} \cite[p. 221]{Octalysis}
+        Las actividades en grupo son muy efectivas en la colaboración así como en propaganda
+        viral, porque requiere la participación grupal antes que algún individuo consiga
+        el estado ganador. Un ejemplo claro es el de ofrecer descuento en algún producto
+        de una tienda, pero ese descuento solo es aplicable si la tienda vende una cierta
+        cantidad de el producto en concreto, esto hace que las personas inviten a sus
+        conocidos a comprar el producto para poder conseguir el descuento, lo cual logra
+        publicidad gratis.
         
-        \item \textbf{Ancla de conformidad.} \cite[p. 226]{libro2} La ancla de conformidad, habla de motivar a los usuarios al mostrarles las diferencias entre sus puntajes, comportamiento o progreso, respecto a los demás que se encuentran en el sistema. Esto los hace querer ser parte de la norma, o hasta sobresalir del grupo al realizar constantemente actividades mejores y más difíciles.
+    \item
+    {\bf Ancla de conformidad.} \cite[p. 226]{Octalysis}
+        La ancla de conformidad, habla de motivar a los usuarios al mostrarles las diferencias
+        entre sus puntajes, comportamiento o progreso, respecto a los demás que se encuentran
+        en el sistema. Esto los hace querer ser parte de la norma, o hasta sobresalir del
+        grupo al realizar constantemente actividades mejores y más difíciles.
         
-        \item \textbf{Competencias.} \cite[p. 210]{libro2} Las competencias son una manera de motivar a los usuarios a ser mejores que sus iguales, al estar constantemente comparando sus habilidades con la de los otros. También ayuda a mantener un historial sobre el progreso de los usuarios a lo largo de las actividades. Es importante recalcar que según el autor Mario Herger \cite{libro25} las competencias se deben implementar en casos especiales, de lo contrario obtendrían un resultado negativo al esperado, uno de los puntos que propone en el que se debe de aplicar la competencia es cuando el sistema es de aprendizaje, puesto que la competencia motiva a los usuarios a querer aprender más y ser mejores que sus compañeros.
+    \item
+    {\bf Competencias.} \cite[p. 210]{Octalysis}
+        Las competencias son una manera de motivar a los usuarios a ser mejores que sus iguales,
+        al estar constantemente comparando sus habilidades con la de los otros. También ayuda a
+        mantener un historial sobre el progreso de los usuarios a lo largo de las actividades.
+        Es importante recalcar que según el autor Mario Herger \cite{libro25} las competencias
+        se deben implementar en casos especiales, de lo contrario obtendrían un resultado negativo
+        al esperado, uno de los puntos que propone en el que se debe de aplicar la competencia es
+        cuando el sistema es de aprendizaje, puesto que la competencia motiva a los usuarios a
+        querer aprender más y ser mejores que sus compañeros.
         
     \end{enumerate}
     
-    \subsubsection{\principioVI}
-    \label{subsec:principioVI}
-        Es el principio que motiva debido a que no podemos tener inmediatamente algún objeto o porque existe una gran dificultad para obtenerlo\cite[p. 233]{libro2}. Algunos ejemplos de como aplicar el principio son:
+\subsubsection{\principioVI} \label{subsec:principioVI}
+
+ Es el principio que motiva debido a que no podemos tener inmediatamente algún objeto o porque
+ existe una gran dificultad para obtenerlo\cite[p. 233]{Octalysis}. Algunos ejemplos de como
+ aplicar el principio son:
         
-        \begin{enumerate}
-            \item \textbf{Colgado o mostrar los objetos.}\cite[p. 252]{libro2} Al mostrarle a los usuarios los objetos que no pueden obtener o que son muy difíciles de obtener, los hace que los deseen con más fuerza. Por ejemplo cuando se muestran en una tienda o como objetos bloqueados, esto motiva a los usuarios a querer conseguirlos.
+    \begin{enumerate}
+    \item \textbf{Colgado o mostrar los objetos.}\cite[p. 252]{Octalysis}
+        Al mostrarle a los usuarios los objetos que no pueden obtener o que son muy difíciles
+        de obtener, los hace que los deseen con más fuerza. Por ejemplo cuando se muestran en
+        una tienda o como objetos bloqueados, esto motiva a los usuarios a querer conseguirlos.
             
-            \item \textbf{Tapas magnéticas.}\cite[p. 256]{libro2} Son limitaciones que se le ponen al número de veces que un usuario puede realizar alguna acción, que a su vez lo motiva a querer realizar las acciones más veces. Se habla de que nunca se debe de dar al usuario un sentido de abundancia infinita, porque eso hace que no se le den importancia a las acciones a realizar.
+    \item \textbf{Tapas magnéticas.}\cite[p. 256]{Octalysis}
+        Son limitaciones que se le ponen al número de veces que un usuario puede realizar alguna
+        acción, que a su vez lo motiva a querer realizar las acciones más veces. Se habla de que
+        nunca se debe de dar al usuario un sentido de abundancia infinita, porque eso hace que
+        no se le den importancia a las acciones a realizar.
             
-            \item \textbf{Dinámica de citas.}\cite[p. 258]{libro2} Este ejemplo trata de implementar escasez en el tiempo, al sólo poder realizar ciertas acciones en una determinada hora del día, esto motiva al usuario y hace que se esté más atento para no perderse el momento del día y poder realizar la acción deseada.
+    \item \textbf{Dinámica de citas.}\cite[p. 258]{Octalysis}
+        Este ejemplo trata de implementar escasez en el tiempo, al sólo poder realizar ciertas
+        acciones en una determinada hora del día, esto motiva al usuario y hace que se esté más
+        atento para no perderse el momento del día y poder realizar la acción deseada.
             
-            \item \textbf{Descansos de tortura.}\cite[p. 261]{libro2} Se trata de limitar al usuario a utilizar el sistema solo por cierto tiempo y que tenga que esperar para poder volver a utilizarlo. Esto hace que el usuario busque cualquier método necesario para terminar el tiempo de espera, esos métodos pueden ser el pagar dinero o realizar alguna acción deseada por los dueños del sistema.
-        \end{enumerate}
-    \subsubsection{\principioVII}
-    \label{subsec:principioVII}
-       Se motiva y se mantienen enganchados a los usuarios al no permitirles adivinar cual va a ser el siguiente suceso que ocurrirá, esto los hace curiosos y los mantiene atentos a los resultados de sus acciones deseadas en el sistema \cite[p. 273]{libro2}. Ejemplos de su implementación:
+    \item \textbf{Descansos de tortura.}\cite[p. 261]{Octalysis}
+        Se trata de limitar al usuario a utilizar el sistema solo por cierto tiempo y que tenga
+        que esperar para poder volver a utilizarlo. Esto hace que el usuario busque cualquier
+        método necesario para terminar el tiempo de espera, esos métodos pueden ser el pagar
+        dinero o realizar alguna acción deseada por los dueños del sistema.
+    \end{enumerate}
+
+\subsubsection{\principioVII}
+\label{subsec:principioVII}
+
+ Se motiva y se mantienen enganchados a los usuarios al no permitirles adivinar cual va a ser
+ el siguiente suceso que ocurrirá, esto los hace curiosos y los mantiene atentos a los resultados
+ de sus acciones deseadas en el sistema \cite[p. 273]{Octalysis}. Ejemplos de su implementación:
        
-       \begin{enumerate}
-           \item \textbf{Elección que brilla.}\cite[p. 297]{libro2} Este tipo de implementación aborda la curiosidad del usuario al mostrarle una opción que se encuentra resaltada en el sistema, lo cual hace que el usuario quiera descubrir por qué es que se encuentra brillando y así se puede llegar a guiar al usuario hacia ciertas acciones deseadas.
+    \begin{enumerate}
+    \item \textbf{Elección que brilla.}\cite[p. 297]{Octalysis}
+        Este tipo de implementación aborda la curiosidad del usuario al mostrarle una opción
+        que se encuentra resaltada en el sistema, lo cual hace que el usuario quiera descubrir
+        por qué es que se encuentra brillando y así se puede llegar a guiar al usuario hacia
+        ciertas acciones deseadas.
            
-           \item \textbf{Cajas misteriosas o Cajas de botín.}\cite[p. 299]{libro2} Una de las maneras en que se puede implementar este principio es por medio de recompensas al realizar ciertas acciones deseadas, pero estas recompensas deben de ser aleatorias para mantener interesado al usuario en la posibilidad de recibir cierta recompensa que ellos desean.
+    \item \textbf{Cajas misteriosas o Cajas de botín.}\cite[p. 299]{IOctalysis}
+        Una de las maneras en que se puede implementar este principio es por medio de recompensas
+        al realizar ciertas acciones deseadas, pero estas recompensas deben de ser aleatorias
+        para mantener interesado al usuario en la posibilidad de recibir cierta recompensa
+        que ellos desean.
            
-           \item \textbf{Huevos de pascua.}\cite[p. 301]{libro2} A diferencia de las cajas de botín o cajas misteriosas, las recompensas de tipo huevos de pascua no son obtenidas por realizar una acción deseada que el usuario conozca, si no que se dan inesperadamente a los usuarios. Esto las hace tener cierto grado de sorpresa al ser recibidas.
+    \item \textbf{Huevos de pascua.}\cite[p. 301]{Octalysis}
+        A diferencia de las cajas de botín o cajas misteriosas, las recompensas de tipo huevos
+        de pascua no son obtenidas por realizar una acción deseada que el usuario conozca,
+        si no que se dan inesperadamente a los usuarios. Esto las hace tener cierto grado
+        de sorpresa al ser recibidas.
            
-           \item \textbf{Lotería.}\cite[p. 305]{libro2} Este tipo de implementación también está enfocada en las recompensas, pero en especifico se recompensa solo a ciertos usuarios ganadores. Pero esta probabilidad de ganar la recompensa aumenta al mantenerse más tiempo en el sistema, lo cual motiva a los usuarios a estar en el y seguir obteniendo las recompensas.
-       \end{enumerate}
-    \subsubsection{\principioVIII}
-    \label{subsec:principioVIII}
-        Este principio motiva a través del miedo de perder algún objeto o que ocurran eventos indeseables. Existen muchas situaciones en las cuales se actúan basados en el miedo de perder algo que representa nuestra inversión de tiempo, esfuerzo, dinero o otros recursos\cite{libro3}. Ejemplos de su implementación:
-        
-        \begin{enumerate}
-            \item \textbf{Herencia legítima.}\cite{libro3} Esto es cuando un sistema primero hace creer al usuario que algo pertenece a ellos de manera legítima, y luego los hace sentir que se los van a quitar si no realizan una acción deseada.
-            
-            \item \textbf{Oportunidades evanescentes.}\cite{libro3} Una oportunidad evanescente es una oportunidad que va a desaparecer si el usuario no realiza una acción deseada. Un ejemplo real es las ofertas limitadas que te fuerzan a decidir si comprar un articulo en ese momento o perder la oferta.
-            
-            \item \textbf{Estancamiento del status quo.}\cite{libro3} Este tipo de implementación se realiza al tener que hacer acciones deseadas para mantener el status quo que ellos tienen. Esto vuelve en habito el realizar estas acciones y se motivan para no perder su status.
-            
-            \item \textbf{La prisión de costo hundido.}\cite{libro3} Esto ocurre cuando se invierte tanto tiempo en algo, que aún cuando ya no es disfrutable, se continua realizado las acciones deseables e invirtiendo más tiempo porque no se quiere sentir la perdida de todo el tiempo invertido.
-            
-        \end{enumerate}
-    
+    \item \textbf{Lotería.}\cite[p. 305]{Octalysis}
+        Este tipo de implementación también está enfocada en las recompensas, pero en especifico
+        se recompensa solo a ciertos usuarios ganadores. Pero esta probabilidad de ganar la
+        recompensa aumenta al mantenerse más tiempo en el sistema, lo cual motiva a los usuarios
+        a estar en el y seguir obteniendo las recompensas.
+    \end{enumerate}
 
+\subsubsection{\principioVIII} \label{subsec:principioVIII}
+
+ Este principio motiva a través del miedo de perder algún objeto o que ocurran eventos indeseables.
+ Existen muchas situaciones en las cuales se actúan basados en el miedo de perder algo que representa
+ nuestra inversión de tiempo, esfuerzo, dinero o otros recursos \cite{Octalysis}. Ejemplos de su
+ implementación:
+        
+    \begin{enumerate}
+    \item \textbf{Herencia legítima.}\cite{Octalysis}
+        Esto es cuando un sistema primero hace creer al usuario que algo pertenece a ellos de manera
+        legítima, y luego los hace sentir que se los van a quitar si no realizan una acción deseada.
+            
+    \item \textbf{Oportunidades evanescentes.}\cite{Octalysis}
+        Una oportunidad evanescente es una oportunidad que va a desaparecer si el usuario no
+        realiza una acción deseada. Un ejemplo real es las ofertas limitadas que te fuerzan
+        a decidir si comprar un articulo en ese momento o perder la oferta.
+            
+    \item \textbf{Estancamiento del status quo.}\cite{Octalysis}
+        Este tipo de implementación se realiza al tener que hacer acciones deseadas para
+        mantener el status quo que ellos tienen. Esto vuelve en habito el realizar estas
+        acciones y se motivan para no perder su status.
+            
+    \item \textbf{La prisión de costo hundido.}\cite{Octalysis}
+        Esto ocurre cuando se invierte tanto tiempo en algo, que aún cuando ya no es disfrutable,
+        se continua realizado las acciones deseables e invirtiendo más tiempo porque no se quiere
+        sentir la perdida de todo el tiempo invertido.
+            
+    \end{enumerate}
+    
 \clearpage
-\subsection{For The Win}
-\label{sec:ForTheWin}
-    Dan Hunter y Kevin Werbach crearon un marco de trabajo que se centra en aplicar la gamificación en los negocios y/o en las empresas. Esto siguiendo 6 pasos y conociendo los elementos de juego. El marco de trabajo no tiene un nombre por si mismo, sino que el nombre se lo asignamos utilizando el título de su libro ''\textit{For The Win:  How game thinking can revolutionize your business}''.
+
+
+\subsection{For The Win} \label{sec:ForTheWin}
+
+ Dan Hunter y Kevin Werbach crearon un marco de trabajo que se centra en aplicar la gamificación en
+ los negocios y empresas. Esto siguiendo 6 pasos y conociendo los elementos de juego. El marco de
+ trabajo no tiene un nombre por si mismo, sino que el nombre se lo asignamos utilizando el título
+ de su libro ``{\it For The Win:  How game thinking can revolutionize your business}''.
     
 \subsubsection{Elementos de juego}
     
