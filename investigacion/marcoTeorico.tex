@@ -6,44 +6,78 @@
  además se especifican los marcos de trabajo de gamificación, los sistemas de aprendizaje contemplados
  y finalmente la elección de la plataforma sobre la cual se desarrollaran las distintas funcionalidades.
 
- \input{investigacion/marcoTeorico/scrum}
- \input{investigacion/marcoTeorico/frameworks}
- \input{investigacion/marcoTeorico/plataformas}
+    \input{investigacion/marcoTeorico/scrum}
+
+\section{Marcos de trabajo para la Gamificación}
+
+ Como se comentó en el capítulo \hyperrefx{ch:introduccion}, el crear una experiencia
+ gamificada exitosa no solo consiste en aplicar mecánicas de juegos a una actividad
+ específica, tambien requiere del seguimiento de un marco de instrucción apropiado \cite[p. 1110]{GamInE-Learning}.
+ Se ha decidido utilizar dos marcos de trabajo como guía en el diseño e implementación
+ de los componentes que se desarrollarán. Los marcos de trabajo elegidos son {\it Octalysis}
+ \cite{Octalysis} y {\it For The Win} \cite{FrameWorkForTheWin}.
+
+    \input{investigacion/marcoTeorico/Octalysis}
+    \input{investigacion/marcoTeorico/ForTheWin}
+    \input{investigacion/marcoTeorico/plataformas}
 
 \section{Moodle}
 
-Moodle es una plataforma de aprendizaje diseñada para brindar a los educadores, administradores y alumnos un único sistema sólido, seguro e integrado para crear entornos de aprendizaje personalizados \cite{aboutMoodle}. Moodle inicialmente hace referencia al acrónimo en inglés {\it Modular Object Oriented Dynamic Learning Environment} o en español Entorno de Aprendizaje Dinamico y Modular Orientado a Objetos \cite{aboutMoodle19}.\\
-% https://docs.moodle.org/all/es/Acerca_de_Moodle
-% https://docs.moodle.org/all/es/19/Acerca_de_Moodle
+ Moodle es una plataforma de aprendizaje diseñada para brindar a los educadores, administradores
+ y alumnos un único sistema sólido, seguro e integrado para crear entornos de aprendizaje personalizados \cite{aboutMoodle}.
+ Moodle inicialmente hace referencia al acrónimo en inglés {\it Modular Object Oriented Dynamic
+ Learning Environment} o en español Entorno de Aprendizaje Dinamico y Modular Orientado a Objetos \cite{aboutMoodle19}.\\
 
-\noindent Moodle es proporcionado gratuitamente como programa de código Abierto, bajo la GNU-GPL (GNU General Public License), esta licencia permite que Moodle sea adecuado y personalizado libremente ya que su configuración modular y diseño inter-operable permite a los desarrolladores crear plugins e integrar aplicaciones externas para lograr funcionalidades específicas \cite{aboutMoodle}.
+    % https://docs.moodle.org/all/es/Acerca_de_Moodle
+    % https://docs.moodle.org/all/es/19/Acerca_de_Moodle
 
-% La Licencia GPL indica que que cualquier persona puede adaptar, extender o modificar, tanto para proyectos comerciales como no-comerciales, sin pago de cuotas por licenciamiento, bajo la condición de que, al darse una copia de la aplicación se brinde tambien él código fuente de la misma. \cite{GPL}\\
-% http://mchapman.com/amb/soft/gpl.pdf
+ \noindent Moodle es proporcionado gratuitamente como programa de código Abierto, bajo la GNU-GPL
+ (GNU General Public License), esta licencia permite que Moodle sea adecuado y personalizado libremente
+ ya que su configuración modular y diseño inter-operable permite a los desarrolladores crear plugins
+ e integrar aplicaciones externas para lograr funcionalidades específicas \cite{aboutMoodle}.
 
-\begin{quote}
-    Durante el desarrollo del trabajo terminal se utiliza la versión 3.5 de moodle, debido a que es la versión más reciente con soporte a largo plazo (Moodle 3.5 LTS) al mes de febrero de 2019. \cite{moodleHistorial}
+ % La Licencia GPL indica que que cualquier persona puede adaptar, extender o modificar, tanto para
+ % proyectos comerciales como no-comerciales, sin pago de cuotas por licenciamiento, bajo la condición
+ % de que, al darse una copia de la aplicación se brinde tambien él código fuente de la misma. \cite{GPL}
+ % http://mchapman.com/amb/soft/gpl.pdf
+
+    \begin{quote}
+    Durante el desarrollo del trabajo terminal se utiliza la versión 3.5 de moodle,
+    debido a que es la versión más reciente con soporte a largo plazo (Moodle 3.5 LTS)
+    al mes de febrero de 2019. \cite{moodleHistorial}
+    \end{quote}
+
     % https://docs.moodle.org/all/es/dev/Historia_de_las_versiones#Moodle_3.6
-\end{quote}
+
 \subsection{Arquitectura de Moodle}
 
-    Moodle trabaja sobre una arquitectura cliente-servidor, específicamente requiere de un servidor web con soporte para PHP y acceso a una base de datos (MySQL, PostgreSQL, Microsoft SQL Server, MariaDB u Oracle).\\
+ Moodle trabaja sobre una arquitectura cliente-servidor, específicamente requiere de un servidor web
+ con soporte para PHP y acceso a una base de datos (MySQL, PostgreSQL, Microsoft SQL Server, MariaDB
+ u Oracle).\\
     
-    \noindent Como se puede ver en la figura \ref{moodle:arch}, la estructura interna que tiene Moodle está divida en los {\it componentes requeridos}, que incluyen el núcleo y los subsistemas; y los {\it elementos opcionales} que incluyen propiamente los plugins con sus respectivos subplugins. Moodle está diseñado para ser altamente extensible y personalizable a través del desarrollo de plugins sin la necesidad de modificar el núcleo o los subsistemas. \cite{moodleArch}.
+ \noindent Como se puede ver en la figura \ref{moodle:arch}, la estructura interna que tiene Moodle está
+ divida en los {\it componentes requeridos}, que incluyen el núcleo y los subsistemas; y los {\it elementos
+ opcionales} que incluyen propiamente los plugins con sus respectivos subplugins. Moodle está diseñado para
+ ser altamente extensible y personalizable a través del desarrollo de plugins sin la necesidad de modificar
+ el núcleo o los subsistemas. \cite{moodleArch}.
+
     % https://docs.moodle.org/dev/Moodle_architecture
     
     \addfigure[(adaptado de {\it Moodle Architecture}  \cite{moodleArch})]%
         {0.4}{investigacion/images/MoodleArch}{moodle:arch}{Componentes que conforman la estructura interna de Moodle}
     
-    \noindent Debido a que Moodle está conformado tanto de elementos requeridos (núcleo/core y subsistemas) como opcionales (plugins), los tipos de comunicación permitidos estan regidos por un conjunto de reglas descritas a continuación \cite{moodleComponets}.
+ \noindent Debido a que Moodle está conformado tanto de elementos requeridos (núcleo/core y subsistemas)
+ como opcionales (plugins), los tipos de comunicación permitidos estan regidos por un conjunto de reglas
+ descritas a continuación \cite{moodleComponets}.
+
     % https://docs.moodle.org/dev/Communication_Between_Components
     
     \begin{itemize}
         \item{ Es permitido que cualquier componente se puede comunicar con los componentes requeridos de moodle (núcleo y los subsistemas). }
         \item{ Cualquier componente puede comunicarse con sí mismo. }
-        \item { Es permitido comunicarse con otros componentes de los cuales se especifique explicitamente la dependencia. }
-        \item {Los subplugins pueden comunicarse con el plugin que los contiene, y con cualquier otro plugin del cual dependan explícitamente.}
-        \item {Todas las demás comunicaciones entre componentes están prohibidas.}
+        \item{ Es permitido comunicarse con otros componentes de los cuales se especifique explicitamente la dependencia. }
+        \item{ Los subplugins pueden comunicarse con el plugin que los contiene, y con cualquier otro plugin del cual dependan explícitamente.}
+        \item{ Todas las demás comunicaciones entre componentes están prohibidas.}
     \end{itemize}
     
 \subsection{Núcleo de Moodle}
