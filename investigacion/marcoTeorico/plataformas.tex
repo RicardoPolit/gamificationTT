@@ -256,42 +256,107 @@
 \subsection{Elección de la plataforma}
  
  Para poder determinar cual es la plataforma de aprendizaje sobre la cual se trabaja durante
- el desarrollo de este trabajo terminal se realizó una tabla comparativa de las plataformas
- anteriormente mencionadas, los criterios considerados para la elección son los siguientes:
+ el desarrollo de este trabajo terminal se realizó una investigación para saber cómo las
+ plataformas de aprendizaje anteriormente mencionadas brindaban soporte a la gamificación.\\
+
+ \noindent En la tabla \ref{table:lmsGam} se presenta la forma en que se encuentran o se
+ pueden añadir elementos de gamificación a las plataformas, se consideran principalmente 
+ que las pataformas pueden brindar soporte a la gamificación de forma nativa o mediante
+ la adición de componentes externos.
+
+    \addtable{|c|c|c|c|c|c|c|c|c|}{table:lmsGam}{& %
+        
+        \rotatebox[origin=c]{\aux}{Duolingo   \cite{PagDuolingo}}  &
+        \rotatebox[origin=c]{\aux}{Moodle     \cite{PagMoodle}}    &
+        \rotatebox[origin=c]{\aux}{Docebo     \cite{PagDocebo}}    &
+        \rotatebox[origin=c]{\aux}{SAP Litmos \cite{PagSAPLitmos}} &
+        \rotatebox[origin=c]{\aux}{ATutor     \cite{PagATutor}}    & 
+        \rotatebox[origin=c]{\aux}{ALEKS      \cite{PagALEKS}}     &
+        \rotatebox[origin=c]{\aux}{Udemy      \cite{PagUdemy}}     &
+        \rotatebox[origin=c]{\aux}{TalentLMS  \cite{PagTalentLMS}} \\\hline 
+        
+        Nativa    & X & X &   & X &   & X & X & X \\\hline
+        Externa   &   & X & X & X & X &   &   &   \\\hline
+        
+    }{Implementación de gamificación}
  
- \begin{quote}
+ \noindent Como se puede ver, tan solo cuatro de las ocho plataformas de aprendizaje
+ en línea permiten brindar soporte a la gamificación mediante componentes externos.
+ Sin embargo solo dos de esas cuatro ({\it Moodle} y {\it SAP Litmos}) brindan soporte
+ tanto de forma nativa como externa con componentes externos.\\
+ 
+ \noindent A partir del resultado encontrado se prosiguió a ampliar los criterios para
+ la elección de la plataforma haciendo una nueva comparativa entre las seis plataformas
+ más relevantes. A continuación se describen los criterios considerados:
+ 
+    \begin{quote}
     \begin{description}
-    \item[] 
+    \item[Documentación de codigo.] El tener acceso a la documentación de código de
+            la plataforma permite saber el la forma en que interactuan los distintos
+            módulos de la plataforma y la forma en que se puede extender las distintas
+            funcionalidades.
+
+    \item[Idioma español o Inglés] Un aspecto importate es que la plataforma a utilizar
+            tenga soporte para el idioma español o al menos en inglés, puesto que un
+            idioma distinto a esos dos implicaría una barrera en el entendimiento requerido
+            para su uso.
+
+    \item[Licencia] Establece las restricciones que se tienen acerca del uso, modificación
+            y distribución de la plataforma sobre la cual se trabajará.
+
+    \item[Extensible] Hace referencia a si la plataforma permite extender su funcionalidad
+            mediante el desarrollo de componentes externos.
     \end{description}
- \end{quote}
+    \end{quote}
+    
+ \noindent La comparación entre las distintas plataformas con base en los criterios
+ anteriormente definidos, puede ser vista en la tabla \ref{tbl:LMSs}, como se puede
+ ver Tanto {\it Moodle} como {\it ATutor} cumplen de forma positiva con los criterios
+ establecidos.
 
+ \clearpage
+ 
+    \addtable{|l|c|c|c|c|c|c|}{tbl:LMSs}{
+        {\bf Carácterísticas} &
+        {\bf Moodle} &
+        {\bf ATutor} &
+        {\bf Docebo} &
+        {\bf SAP Litmos} & 
+        {\bf Gnosis Connect} &
+        {\bf TalentLMS} \\
 
-    \addtable{| m{13em} |m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.5cm}|m{1.8cm}|}{tbl:LMSs}{
-        {\bf Carácterísticas} & 
-        \begin{center}{\bf Moodle}             \cite{PagMoodle}    \end{center} &
-        \begin{center}{\bf ATutor}             \cite{PagATutor}    \end{center} &
-        \begin{center}{\bf Docebo}             \cite{PagDocebo}    \end{center} & 
-        \begin{center}{\bf SAP\newline Litmos} \cite{PagSAPLitmos} \end{center}&
-        \begin{center}{\bf Gnosis Connect}     \cite{PagGnosisConnect} \end{center}&
-        \begin{center}{\bf TalentLMS}          \cite{PagTalentLMS}\end{center}\\\hline
+        & \cite{PagMoodle} & \cite{PagATutor} & \cite{PagDocebo} & \cite{PagSAPLitmos}
+        & \cite{PagGnosisConnect} & \cite{PagTalentLMS} \\\hline
 
         % Características       % Moodle  ATutor  Docebo   SAPLit   Gnosis   Talent
         Documentación de código & Sí      & Sí    & Sí     & Sí     & No     & No     \\\hline
         Idioma Español o Inglés & Sí      & Sí    & Sí     & Sí     & Sí     & Sí     \\\hline
         Tipo de Licencia        & GPLv3   & GPL   & Propia & Propia & Propia & Propia \\\hline
         Extensible              & Sí      & Sí    & Sí     & Sí     & No     & No     \\\hline
-       %Redistribuye su código fuente       & Sí & Sí & No & No & No & No \\\hline
-    }{Comparación de las plataformas de aprendizaje}
-    
-    \noindent A continuación se presenta el por qué de cada característica:
+    }{Comparativa de las plataformas de aprendizaje}
+
+
+ \noindent Un punto importante es que Moodle y ATutor se encuentran bajo la licencia GPL,
+ la cual nos permite hacer uso y realizar modificaciones, además de que la aplicación es
+ distribuida junto con el código fuente, sin embargo se optó por utilizar moodle considerando
+ los siguientes puntos:
+
     \begin{itemize}
-        \item Comparte su documentación de código: Debido a que queremos adaptarnos a sistemas existentes, necesitamos entender cómo funciona su estructura, cómo tienen separados sus archivos y cómo se usarían sus funciones. Sin la necesidad de leer todo el código desde el inicio. 
-        \item Soporta idioma Español o Inglés: No solo se requiere que la documentación exista, sino que sea entendible para los desarrolladores de este trabajo terminal, y los idiomas que los desarrolladores manejan son inglés y español.
-        \item Licencia: Saber qué sistema gestor de aprendizaje pudiera llegar a permitirnos el conocer su código y trabajar con él.
-        \item Redistribuye su código fuente: Las licencias GPL tienen como palabra clave la distribución del código binario, es por eso que productos que son servicios de software pueden tener dicha licencia y no distribuir su código fuente.
-        \item Permite la incorporación de componentes desarrollados por gente externa: No se quiere modificar directamente el código fuente del sistema, se quiere poder extender sus funcionalidades.
+        \item Moodle ha sido y sigue siendo utilizado dentro de la comunidad de ESCOM,
+              abriendo la posibilidad de resolver dudas específicas con profesores con
+              mayor expertíz en el uso de moodle.
+
+        \item Vinculado con el punto anterior, el utilizar Moodle amplia la oportunidad
+              de que el producto final de este trabajo terminal sea utilizado minimizando
+              los costos de interacción.
+
+        \item A diferencia de ATutor, Moodle especifica la versión de la licencia GPL
+              bajo la cual se encuenta.
+              
+        \item ATutor aparenta no estar siendo actualizado constantemente ya que se
+              encontraron varios enlaces rotos en su página oficial.
     \end{itemize}
-       
+ 
  %   Sistema de gestión de aprendizaje es la traducción de Learning Managment System (LMS)
  %   del Inglés. A continuación se enlistan las definiciones de distintos autores acerca
  %   de los sistemas gestores de aprendizaje:
@@ -327,53 +392,4 @@
  %      Edmodo
  %      ATutor*
 
-\begin{comment}
-    \noindent Las fuentes para cada columna de la tabla se obtuvieron de las respectivas páginas de los sistemas gestores de aprendizaje. Dichas páginas se pueden encontrar en:
-    \begin{itemize}
-        \item Moodle: {https://moodle.com/}
-        \item ATutor: {https://atutor.github.io/}
-        \item Docebo: {https://www.docebo.com/es/}
-        \item Litmos: {https://www.litmos.com/es-LA/}
-        \item Gnosis Conect: {https://www.gnosisconnect.com/}
-        \item TalentLMS: {https://www.talentlms.com/}
-    \end{itemize}
-\end{comment}   
-    
-    %Con lo anterior se entiende que Moodle y ATutor cumplen con nuestras necesidades, sin embargo, por preferencia de nuestros directores se decidió que Moodle será el que se usará para este trabajo terminal.
-    \noindent Con el cuadro  \ref{tbl:LMSs} se entiende que Moodle y ATutor son las mejores opciones , sin embargo, se decidió utilizar Moodle al final debido a los siguientes motivos:
-    
-    \begin{itemize}
-        \item Moodle está siendo actualmente utilizado por Celex ESCOM, lo cual abre la oportunidad de solicitar soporte a un administrador de Moodle con experiencia valiosa.
-        \item ATutor especifica que utiliza la licencia GPL, sin embargo, no especifica ninguna versión. Lo cual provoca no saber a ciencia cierta a que versión se acata.
-        \item ATutor cuenta con enlaces rotos asociados a su licencia, lo cual refleja poca importancia en su documentación.
-    \end{itemize}
-\clearpage    
-
-
-
-   % El estado del arte se compone de 2 partes. Una que compara las soluciones con gamificación en sistemas dedicados al aprendizaje y la otra que compara las soluciones con gamificación en plugins de Moodle.
-A continuación se describen cada uno de los sistemas:
-
-
-Con nuestra investigación encontramos varios sistemas dedicados al aprendizaje que cuentan con gamificación. A continuación se presenta una tabla que indica cómo es que dichos sistemas cuentan con gamificación.
-   
-    \addtable{|c|c|c|c|c|c|c|c|c|}{table:LMS_GMFC}{& %
-        
-        \rotatebox[origin=c]{\aux}{Duolingo   \cite{PagDuolingo}}  &
-        \rotatebox[origin=c]{\aux}{Moodle     \cite{PagMoodle}}    &
-        \rotatebox[origin=c]{\aux}{Docebo     \cite{PagDocebo}}    &
-        \rotatebox[origin=c]{\aux}{SAP Litmos \cite{PagSAPLitmos}} &
-        \rotatebox[origin=c]{\aux}{ATutor     \cite{PagATutor}}    & 
-        \rotatebox[origin=c]{\aux}{ALEKS      \cite{PagALEKS}}     &
-        \rotatebox[origin=c]{\aux}{Udemy      \cite{PagUdemy}}     &
-        \rotatebox[origin=c]{\aux}{TalentLMS  \cite{PagTalentLMS}} \\\hline 
-        
-        Propia    & X & X &   & X &   & X & X & X \\\hline
-        Extendida &   & X & X & X & X &   &   &   \\\hline
-        
-    }{Implementación de gamificación}
-       
-\noindent Al decir \textbf{Propia} en el cuadro \ref{table:LMS_GMFC} nos referimos a que el sistema gestor de aprendizaje ya tiene integrado en su funcionalidad la implementación  de gamificación. Y al decir \textbf{Extendida} nos referimos a que existen componentes externos (plugins) que implementan gamificación.\\
-    
-\noindent A continuación se describen los sistemas en el cuadro \ref{table:LMS_GMFC} y los elementos de gamificación con los que cuentan, de acuerdo con los marcos de referencia \nameref{sec:ForTheWin} y \nameref{sec:octalysis}.
-\clearpage
+ % Con lo anterior se entiende que Moodle y ATutor cumplen con nuestras necesidades, sin embargo, por preferencia de nuestros directores se decidió que Moodle será el que se usará para este trabajo terminal.
