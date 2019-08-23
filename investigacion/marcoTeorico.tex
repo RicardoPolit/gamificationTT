@@ -84,57 +84,94 @@
     % https://docs.moodle.org/dev/Communication_Between_Components
     
     \begin{itemize}
-        \item{ Es permitido que cualquier componente se puede comunicar con los componentes requeridos de moodle (núcleo y los subsistemas). }
-        \item{ Cualquier componente puede comunicarse con sí mismo. }
-        \item{ Es permitido comunicarse con otros componentes de los cuales se especifique explicitamente la dependencia. }
-        \item{ Los subplugins pueden comunicarse con el plugin que los contiene, y con cualquier otro plugin del cual dependan explícitamente.}
-        \item{ Todas las demás comunicaciones entre componentes están prohibidas.}
+    \item Es permitido que cualquier componente se puede comunicar con los componentes
+          requeridos de moodle (núcleo y los subsistemas).
+
+    \item Cualquier componente puede comunicarse con sí mismo.
+
+    \item Es permitido comunicarse con otros componentes de los cuales se especifique
+          explicitamente la dependencia.
+
+    \item Los subplugins pueden comunicarse con el plugin que los contiene, y con cualquier
+          otro plugin del cual dependan explícitamente.
+
+    \item Todas las demás comunicaciones entre componentes están prohibidas.
     \end{itemize}
-    
+
+
 \subsection{Núcleo de Moodle}
-El núcleo de Moodle contiene las bibliotecas que proporcionan funcionalidades que requieren todas las demás partes de Moodle. El código del núcleo no puede ser eliminado sin comprometer la funcionalidad básica de Moodle, El núcleo de Moodle siempre está disponible y se puede llamar de forma segura desde cualquier otro componente \cite{moodleComponets}. \\
 
-\noindent El núcleo proporciona un conjunto de 51 APIs que forman parte del núcleo \cite{moodleCoreAPIs}, las 51 API son listadas a continuación.
-% https://docs.moodle.org/dev/Core_APIs
+ El núcleo de Moodle contiene las bibliotecas que proporcionan funcionalidades que requieren todas
+ las demás partes de Moodle. El código del núcleo no puede ser eliminado sin comprometer la funcionalidad
+ básica de Moodle, El núcleo de Moodle siempre está disponible y se puede llamar de forma segura desde
+ cualquier otro componente \cite{moodleComponets}.\\
 
- \begin{multicols}{3}
-    \input{investigacion/moodle/coreAPIs}
- \end{multicols}
+ \noindent El núcleo proporciona un conjunto de 51 APIs que forman parte del núcleo \cite{moodleCoreAPIs},
+ las 51 API son listadas a continuación. % https://docs.moodle.org/dev/Core_APIs
+
+    \begin{multicols}{3}
+        \input{investigacion/moodle/coreAPIs}
+    \end{multicols}
+
+
 \subsection{Subsistemas}
-Los subsistemas son grupos de funciones y clases que forman parte del núcleo, pero se agrupan lógicamente al mismo. Están vinculados a una función particular y bajo condiciones especificas pueden desactivarse/habilitarse \cite{moodleComponets}.
-    
+
+ Los subsistemas son grupos de funciones y clases que forman parte del núcleo, pero se agrupan
+ lógicamente al mismo. Están vinculados a una función particular y bajo condiciones especificas
+ pueden desactivarse/habilitarse \cite{moodleComponets}.
+
+
 \subsection{Plugins y subplugins}\label{subsec:plugins}
-Los plugins son componentes opcionales que permiten extender las funcionalidades de Moodle. Hay muchos tipos diferentes de plugins, y cada plugin permite brindar distintas funcionalidades correspondientes al tipo de plugin que se esté desarrollando. El desarrollo de plugins es la manera recomendada para extender la funcionalidad de Moodle.\\
 
-\noindent Actualmente Moodle menciona en su documentación 54 tipos de plugins los cuales son listados a continuación.
+ Los plugins son componentes opcionales que permiten extender las funcionalidades de Moodle.
+ Hay muchos tipos diferentes de plugins, y cada plugin permite brindar distintas funcionalidades
+ correspondientes al tipo de plugin. El desarrollo de plugins es la manera recomendada para extender
+ la funcionalidad de Moodle.\\
 
-\begin{multicols}{3}
-    \input{investigacion/moodle/pluginTypes}
-\end{multicols}
+ \noindent Actualmente Moodle menciona en su documentación 54 tipos de plugins los cuales son
+ listados a continuación.
 
-\clearpage
-\noindent Para la mayoría de los tipos plugins, Moodle tiene una estructura estandarizada para los archivos que debe contener un plugin. En la figura \ref{fig:pluginFiles} se representa dicha estructura. Los archivos y directorios son descritos a continuación \cite{moodlePluginfiles}:
+    \begin{multicols}{3}
+        \input{investigacion/moodle/pluginTypes}
+    \end{multicols}
 
-\addfigure{0.8}{investigacion/images/PluginFiles}{fig:pluginFiles}{Organización de los archivos presentes en la mayoría de los plugins}
+ \clearpage
 
-\begin{quote}
-\input{investigacion/moodle/pluginFiles}
-\end{quote}
+ \noindent Para la mayoría de los tipos plugins, Moodle tiene una estructura estandarizada para
+ los archivos que debe contener un plugin. En la figura \ref{fig:pluginFiles} se representa dicha
+ estructura. Los archivos y directorios son descritos a continuación \cite{moodlePluginfiles}:
+
+     \addfigure{0.8}{investigacion/images/PluginFiles}{fig:pluginFiles}%
+        {Organización de los archivos presentes en la mayoría de los plugins}
+
+    \begin{quote}
+        \input{investigacion/moodle/pluginFiles}
+    \end{quote}
 
 \subsection{Requerimientos}
 
-Moodle es desarrollado principalmente utilizando Linux como sistema operativo usando Apache como servidor web; PostgreSQL / MySQL / MariaDB como gestores de bases de datos; y PHP como lenguaje principal del lado del servidor. Se recomienda que Moodle sea instalado utilizando un entorno con las mismas tecnologías. \cite{moodleInstall} \\
+ Moodle es desarrollado principalmente utilizando Linux como sistema operativo usando Apache
+ como servidor web; PostgreSQL, MySQL o MariaDB como gestores de bases de datos; y PHP como
+ lenguaje principal del lado del servidor. Se recomienda que Moodle sea instalado utilizando
+ un entorno con las mismas tecnologías \cite{moodleInstall}. \\
 
-\noindent Los requisitos básicos de hardware son los siguientes:
+ \noindent Los requisitos básicos de hardware son los siguientes:
 
     \begin{itemize}
-        \item 200MB de Disco duro para el código de moodle más el espacio requerido para almacenar el contenido, moodle como mínimo recomienda 5GB.
-        \item Procesador 1GHz como mínimo. Recomendado 2GHz dual-core o mayor.
-        \item 512 MB de memoria RAM, 1GB o más recomendado, y para servidores en entorno de producción se recomiendan 8GB.
+    \item 200MB de Disco duro para el código de moodle más el espacio requerido
+          para almacenar el contenido, moodle como mínimo recomienda 5GB.
+
+    \item Procesador 1GHz como mínimo. Recomendado 2GHz dual-core o mayor.
+
+    \item 512 MB de memoria RAM, 1GB o más recomendado, y para servidores en entorno
+          de producción se recomiendan 8GB.
     \end{itemize}
-\clearpage    
-\noindent Los requisitos de software varían dependiendo de la versión de moodle, para la versión 3.5 LTS son los siguientes \cite{moodleReleaseNotes}:
-% https://docs.moodle.org/dev/Moodle_3.5_release_notes
+
+ \clearpage
+
+ \noindent Los requisitos de software varían dependiendo de la versión de moodle, para la
+ versión 3.5 LTS son los siguientes \cite{moodleReleaseNotes}:
+ % https://docs.moodle.org/dev/Moodle_3.5_release_notes
     
     \begin{itemize}
         \item PHP Versión 7.0 como mínimo, PHP 7.1.x and 7.2.x también son soportados.
@@ -142,11 +179,11 @@ Moodle es desarrollado principalmente utilizando Linux como sistema operativo us
         \item Extensión {\it Intl} de PHP
         \item Bases de datos
             \begin{itemize}
-                \item PostgreSQL v9.3 o mayor
-                \item MySQL v5.5.31 o mayor
-                \item MariaDB v5.5.31 o mayor
-                \item Microsoft SQL Server 2008 o mayor
-                \item Oracle Database v10.2 o mayor
+            \item PostgreSQL v9.3 o mayor
+            \item MySQL v5.5.31 o mayor
+            \item MariaDB v5.5.31 o mayor
+            \item Microsoft SQL Server 2008 o mayor
+            \item Oracle Database v10.2 o mayor
             \end{itemize}
         \item[] (Recomendación), Si se usa MySQL o MariaDB, deberán estar configurados para soportar en conjunto de caracteres {\it utf8mb4}.
     \end{itemize}
