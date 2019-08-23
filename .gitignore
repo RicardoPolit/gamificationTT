@@ -1,4 +1,5 @@
 output/
 *.csv
 *.gz
+main.pdf
 **/*.swp

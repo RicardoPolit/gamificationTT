@@ -16,15 +16,15 @@
 
     \director{ M en C. BAUTISTA ROSALES SANDRA IVETTE \\
                M en C. CATALÁN SALGADO EDGAR ARMANDO }
-           
+
 \date{\today}
 
 \input{investigacion/glosario}
 \begin{document}
-    
+
     \frontmatter
         \maketitle
-        
+
         \newgeometry{hmargin=2cm,vmargin=3.5cm,head=3cm}
         %\include{cesionDerechos}
         %\include{actaRevision}
@@ -32,37 +32,37 @@
         \tableofcontents
         \listoftables
     	\listoffigures
-    	
+
 	\mainmatter
 
 	    \include{investigacion/introduccion}
 
 	    \part{Investigación}\label{part:investigacion}
             \include{investigacion/marcoTeorico}
-            \include{investigacion/curvaAprendizaje}
+            %\include{investigacion/curvaAprendizaje}
 
         \part{Gamedle} % Motor de Gamificación
+            \include{modulos/modAnalisis}
     	    \include{modulos/modAlcance}
             \include{modulos/modDominio}
-	    
+
 	    \part{Módulo de Experiencia}\label{mod:exp}
 	        %\include{modulos/experiencia}
-	    
+
 	    \part{Módulo de Recompensa}\label{mod:recomp}
 	    \part{Módulo Financiero}\label{mod:financ}
 	    \part{Módulo de Personalización}\label{mod:pers}
 	    \part{Módulo de Competencia}\label{mod:comp}
 	    \part{Módulo de Seguimiento}\label{mod:seguim}
-    	    
+
     \backmatter
         \include{investigacion/references}
         \printglossary
         %\printglossaries
-        
+
 \end{document}
 
 % LINKS PARA ESPECIFICAR EL SERVIDOR BAJO EL CUAL SE TRABAJARÁ (PRODUCCIÓN)
 % https://docs.moodle.org/36/en/Installing_Moodle
 % https://docs.moodle.org/35/en/Performance_recommendations
 % https://docs.moodle.org/35/en/PHP
-
