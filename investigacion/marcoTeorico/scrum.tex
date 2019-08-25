@@ -55,7 +55,7 @@
  los puntos anteriormente mencionados. Además, el {\it Product Owner} debe ser una persona, no un comité,
  en caso de existir un comité el {\it Product Owner} sera el representante de dicho comité.
     
-\subsubsection{Equipo de desarrollo}
+\subsubsection{Equipo de Desarrollo}
 
  El equipo de desarrollo consiste en un grupo de profesionales que realizan el trabajo requerido para
  entregar los incrementos del producto al final de cada iteración o {\it Sprint}. El equipo de desarrollo
@@ -84,53 +84,6 @@
  \noindent Un Team con menos de tres miembros disminuiría la interacción, lo cual se traduce como una
  menor productividad, mientras que tener más de nueve miembros requiere demasiada coordinación. Los
  equipos de desarrollo grandes generan demasiada complejidad para que un proceso empírico sea útil.
-
- % la forma en que han sido configurado el marco de trabajo scrum para este proyecto.\\
-
- % \noindent Para que las funciones del Product Owner sean exitosas, la organización debe respetar sus
- % decisiones. Nadie puede forzar al Development Team para trabajar en un conjunto distinto de requerimientos
- % establecidos en el Product Backlog.
-
- % \noindent En este proyecto el rol del Product Owner lo llevarán a cabo los directores del trabajo terminal:
-     
-    % \begin{quote}
-    % \begin{itemize}
-    %    \item M. en C. Sandra Ivette Bautista, y el
-    %    \item M. en C. Edgar Armando Catalán
-    % \end{itemize}
-    % \end{quote}
-                                         
- % \noindent A pesar de que en la guía oficial de Scrum \cite{TheScrumGuide} se especifica que el {\it Product
- % Owner} debe ser una persona, se decidió que este rol fuera llevado a cabo mediante los directores del trabajo
- % terminal con la premisa de que para la toma de decisiones ambos directores deben de estar de acuerdo.
-
- % durante el desarrollo de este proyecto el equipo de desarrollo estará conformado por:
-
- % \noindent El tamaño del equipo debe ser lo suficientemente pequeño para permanecer ágil y lo
- % suficientemente grande para realizar entregas significativas al final de cada {\em Sprint}.\\
- % Un equipo con menos de tres miembros disminuiría la interacción y por lo tanto la productividad,
- % por otro lado, con más de nueve miembros se requiere mayor coordinación con más complejidad.
-
- % \noindent El equipo de desarrollo estará conformado por los estudiantes que cursan el trabajo terminal:
-        
-    % \begin{quote}
-    % \begin{itemize}
-    %    \item David Flores Casanova
-    %    \item Ricardo Naranjo Polit
-    %    \item Daniel Isaí Ortega Zúñiga
-    % \end{itemize}
-    % \end{quote}
-
- % \noindent El rol del {\it Scrum Master} durante este proyecto se llevará a cabo mediante
- % dos personas con la finalidad de dividir las responsabilidades y no sobrecargar de trabajo
- % a una persona. El {\it Scrum Master} estará conformado por:
-
-    % \begin{quote}
-    % \begin{itemize}
-    %    \item M. en C. Edgar Armando Catalán {\it (Responsabilidades hacia el Product Owner)}
-    %    \item Daniel Isaí Ortega {\it(Responsabilidades hacia el equipo de desarrollo)}
-    % \end{itemize}                        
-    % \end{quote}
 
 \clearpage
 
@@ -182,10 +135,211 @@
         %\end{itemize}
     \end{quote}
 
-\subsubsection{Stakeholders}
+\subsection{Eventos}
 
- Los Stakeholders son personas externas al equipo Scrum con un interés y/o conocimientos
- específicos del producto \cite{ScrumGlosary}. 
+ Los eventos prescritos en {\it Scrum} son usados para crear regularidad en el proceso, además
+ minimizan la necesidad de juntas no definidas. Todos los eventos tienen un tiempo establecido, 
+ para las iteraciones o {\it sprints} la duración es fija y no puede ser acotada o alargada, los
+ demás eventos pueden concluir una vez que su propósito es cumplido.
+
+\subsubsection{Sprint}
+
+ Un {\it Sprint} es el lapso de tiempo en el cual un incremento del producto es creado, los sprints
+ son secuenciales, es decir, inician inmediatamente después del término de otro. Internamente 
+ cada Sprint consiste en las etapas de planeación, reuniones diarias ({\it Daily Scrum}),
+ desarrollo, revisión y retroalimentación.\\
+
+ \noindent A continuación se mencionan las características principales que debe tener este evento:
+
+    \begin{itemize}
+    \item Los sprints deben tener una duración máxima de un mes.
+    \item No se pueden hacer cambios a la definición del objetivo del {\it sprint} ({\it Sprint Goal})
+    \item Los objetivos de calidad no disminuyen.
+    \item El alcance debe ser clarificado por el {\it Product Owner} y negociado entre él y el equipo
+           de desarrollo.
+    \end{itemize}
+    
+ % \noindent Solo el Product Owner tiene la autoridad de cancelar un Sprint. Otra situación que puede
+ % cancelar el Sprint es que el Sprint Goal se vuelva obsoleto.
+
+    
+\subsubsection{Planeación}
+
+ La planeación del {\it Sprint} se realiza con todos los miembros que forman parte del equipo scrum,
+ en dicha reunión se establece cuál será el incremento entregado al final del sprint, y la forma
+ en que se logrará el objetivo del mismo.\\
+
+ \noindent La duración de Sprint Planning está relacionada con la duración del {\it Sprint} y la
+ cantidad de miembros en el equipo scrum; para {\it Sprints} de un mes la reunión de planeación debe
+ durar cómo máximo 8 horas. Durante la reunión se debe acordar el alcance del sprint, el objetivo
+ ({\it Sprint Goal}) y las funcionalidades específicas que se desarrollarán.\\
+
+ \noindent El conjunto de funcionalidades a desarrollar deben ser tomadas del artefacto {\it Product
+ Backlog} y formarán el artefacto {\it Sprint Backlog} el cual define del alcance del sprint. Como
+ requerimiento es necesario contar con el incremento realizado en el {\it sprint} anterior más la base
+ de conocimiento acerca cómo ha trabajo el equipo scrum.\\
+    
+ % El Team se auto-organiza para llevar acabo el trabajo del Sprint Backlog. Las estimaciones
+ % de tiempo y esfuerzo se miden en unidades de un día o menos.
+    
+ % Al finalizar el Sprint Planning, el Team debe ser capaz de explicar al Product Owner y al Scrum
+ % Master como se organizarán y la forma de trabajo que ocuparan para alcanzar el Sprint Goal y crear
+ % el incremento.
+   
+ \noindent El objetivo del {\it sprint} o {\it Sprint Goal} debe ser claro y entendible para todos los
+ miembros del equipo scrum, además el objetivo debe proporciona orientación al equipo de desarrollo sobre
+ el propósito por el cual se está creando el incremento.
+  
+\subsubsection{Reunión diaria}
+
+ La reunión diaria o {\it Daily Scrum} se realiza día a día durante la ejecución de los {\it Sprint} y debe
+ durar como máximo 15 minutos, este reunión tiene la finalidad de optimizar la colaboración y el aprovechamiento
+ haciendo una inspección del trabajo realizado desde el anterior {\it daily scrum} y estableciendo qué es lo
+ que se trabajará durante el día.\\
+
+ En la reunión cada miembro debe responder las siguientes preguntas:
+    
+    \begin{quote}
+    \begin{itemize}
+    \item ¿Qué hice ayer para ayudar al equipo de desarrollo a alcanzar el objetivo del sprint?
+    \item ¿Qué hare hoy para ayudar al equipo a lograr el objetivo del sprint?
+    \item ¿Veo algún obstaculo que me impida (o al equipo de desarrollo) lograr el objetivo del sprint?
+    \end{itemize}
+    \end{quote} 
+
+ \noindent El Daily Scrum es una reunión interna del equipo de desarrollo. En caso de que otros estén presentes
+ el maestro scrum debe asegurar que la fluidez de la reunión. A menudo los miembros del equipo suelen reunirse
+ al termino de la reunión para discutir, adaptar o replantear aspectos mencionados en la reunión.
+    
+\subsubsection{Revisión}
+
+ Esta reunión se realiza al final de cada {\it Sprint} para de revisar el incremento, discutir los inconvenientes
+ encontrados y en dado caso adaptar la planeación del proyecto. El equipo scrum y los stakeholders deben
+ revisar el incremento y establecer cuáles serán los cambios a implementar con la finalidad de optimizar el valor
+ de los siguientes incrementos.\\
+
+ \noindent La reunión consiste en presentar el incremento realizado para obtener retroalimentación de todos
+ los involucrados en el proyecto, para {\it sprints} de 1 mes la reunión debe durar cómo máximo cuatro horas.
+ A continuación se detallan los puntos que debe cumplir esta reunión.
+
+    \begin{quote}
+    \begin{itemize}
+    \item El equipo de desarrollo presenta el incremento, los problemas encontrados y las soluciones
+            tomadas.
+
+    \item El {\it Product Owner} confirma cuales elementos del {\it Product Backlog} han sido realizados.
+    \item El equipo scrum comenta las cosas a realizar en el siguiente incremento.
+    \item Se revisan los tiempos de entrega y presupuestos para las siguientes entregas.
+    \end{itemize}
+    \end{quote}
+
+
+\subsubsection{Retroalimentación}
+
+ La etapa de retroalimentación consiste en una reunión del equipo scrum con el objetivo de crear un plan para
+ las mejoras en la forma de trabajo, esta reunión ocurre después de la revisión y antes de la planeación del
+ siguiente {\it Sprint}. En esta reunión los miembros del equipo scrum ven cómo atender las debilidades y áreas
+ de oportunidad.\\
+
+ \noindent Reunión correspondiente a este etapa debe ocurrir después la retroalimentación y antes del inicio del
+ nuevo sprint, aproximadamente debe durar tres horas para {\it Sprints} de un mes. Los objetivos principales de
+ esta reunión son:
+
+    \begin{quote}
+    \begin{itemize}
+    \item Inspeccionar el último {\it Sprint} en relación a las personas, relaciones, procesos y herramientas.
+    \item Identificar y ordenar las cosas que ocurrieron bien durante el Sprint y las cosas que hay que mejorar.
+    \item Crear un plan para la aplicación de las mejoras para tener una mejor implementación de Scrum.
+    \end{itemize}
+    \end{quote}
+
+\subsection{Artefactos}
+
+ Los artefactos en Scrum proporcionan transparencia en toda la aplicación de Scrum
+ y además funcionan como herramientas para la inspección de la implementación del
+ marco de trabajo y adaptación del mismo. A continuación se presentan los artefactos
+ definidos por el macro de trabajo.
+
+ %Tener los artefactos organizados brinda
+ % una mayor visibilidad acerca del avance del proyecto y del producto final. 
+ 
+%\clearpage
+
+\subsubsection{Product Backlog}
+
+ La cartera de producto o {\it product Backlog} lista todas las características, funcionalidades, requerimientos,
+ y mejoras necesarias para la creación del producto. El responsable del contenido, disponibilidad y organización
+ del {\it Product Backlog} es el {\it Product Owner}.\\
+
+\subsubsection{Sprint Backlog}
+    
+ El {\it Sprint Backlog} está formado por los {\it items} del {\it Product Backlog} seleccionados
+ para el {\it Sprint} más el plan para entregarlos, y así cumplir con el Sprint Goal. El {\it Sprint
+ Backlog} es una estimación de las funcionalidades que serán entregadas en el siguiente incremento
+ del producto.
+
+\clearpage
+
+% INTRODUCCIÓN
+
+ % la forma en que han sido configurado el marco de trabajo scrum para este proyecto.\\
+
+% ROLES 
+% ROLES - PRODUCT OWNER
+
+ % \noindent Para que las funciones del Product Owner sean exitosas, la organización debe respetar sus
+ % decisiones. Nadie puede forzar al Development Team para trabajar en un conjunto distinto de requerimientos
+ % establecidos en el Product Backlog.
+
+ % \noindent En este proyecto el rol del Product Owner lo llevarán a cabo los directores del trabajo terminal:
+     
+    % \begin{quote}
+    % \begin{itemize}
+    %    \item M. en C. Sandra Ivette Bautista, y el
+    %    \item M. en C. Edgar Armando Catalán
+    % \end{itemize}
+    % \end{quote}
+                                         
+ % \noindent A pesar de que en la guía oficial de Scrum \cite{TheScrumGuide} se especifica que el {\it Product
+ % Owner} debe ser una persona, se decidió que este rol fuera llevado a cabo mediante los directores del trabajo
+ % terminal con la premisa de que para la toma de decisiones ambos directores deben de estar de acuerdo.
+
+% ROLES - EQUIPO DE DESARROLLO
+
+ % durante el desarrollo de este proyecto el equipo de desarrollo estará conformado por:
+
+ % \noindent El tamaño del equipo debe ser lo suficientemente pequeño para permanecer ágil y lo
+ % suficientemente grande para realizar entregas significativas al final de cada {\em Sprint}.\\
+ % Un equipo con menos de tres miembros disminuiría la interacción y por lo tanto la productividad,
+ % por otro lado, con más de nueve miembros se requiere mayor coordinación con más complejidad.
+
+ % \noindent El equipo de desarrollo estará conformado por los estudiantes que cursan el trabajo terminal:
+        
+    % \begin{quote}
+    % \begin{itemize}
+    %    \item David Flores Casanova
+    %    \item Ricardo Naranjo Polit
+    %    \item Daniel Isaí Ortega Zúñiga
+    % \end{itemize}
+    % \end{quote}
+
+% ROLES - SCRUM MASTER
+
+ % \noindent El rol del {\it Scrum Master} durante este proyecto se llevará a cabo mediante
+ % dos personas con la finalidad de dividir las responsabilidades y no sobrecargar de trabajo
+ % a una persona. El {\it Scrum Master} estará conformado por:
+
+    % \begin{quote}
+    % \begin{itemize}
+    %    \item M. en C. Edgar Armando Catalán {\it (Responsabilidades hacia el Product Owner)}
+    %    \item Daniel Isaí Ortega {\it(Responsabilidades hacia el equipo de desarrollo)}
+    % \end{itemize}                        
+    % \end{quote}
+
+% ROLES - STAKEHOLDERS
+
+ % Los Stakeholders son personas externas al equipo Scrum con un interés y/o conocimientos
+ % específicos del producto \cite{ScrumGlosary}. 
 
  % Durante el desarrollo del trabajo terminal
  % se consideran a los sinodales cómo los Stakeholders oficiales, los cuales son listados a
@@ -199,28 +353,8 @@
     % \end{itemize}
     % \end{quote}
 
-\subsection{Eventos}
-
- Los eventos prescritos en Scrum son usados para crear regularidad en el proceso, además
- minimizan la necesidad de juntas no definidas. Todos los eventos tienen un tiempo establecido, 
- para los {\it sprints} la duración es fija y no puede ser acotada o alargada, los demás eventos
- pueden concluir una vez que su propósito es cumplido.
-
-\subsubsection{Sprint}
-
- Un {\it Sprint} es el lapso de tiempo en el cual un incremento del producto es creado, los sprints
- son secuenciales, es decir, inician inmediatamente después del término de otro. Internamente 
- cada Sprint consiste en las etapas de planeación, reuniones diarias ({\it Daily Scrum}),
- desarrollo, revisión y retroalimentación.
-    
-    % \begin{itemize}
-    %    \item No se pueden hacer cambios a la definición del Sprint Goal. (objetivo del Sprint)
-    %    \item Los objetivos de calidad no disminuyen.
-    %    \item El alcance debe ser clarificado por el Product Owner y negociado entre él y el Team.
-    % \end{itemize}
-    
- % \noindent Solo el Product Owner tiene la autoridad de cancelar un Sprint. Otra situación que puede
- % cancelar el Sprint es que el Sprint Goal se vuelva obsoleto.
+% EVENTOS
+% EVENTOS - SPRINTS
 
  % \begin{quote}
  %   \noindent Para este proyecto los Sprints están configurados a una duración de 14 días con una
@@ -234,12 +368,8 @@
     %          equipo de desarrollo está conformado por tres integrantes.
     % \end{itemize} 
  % \end{quote}
-    
-\subsubsection{Planeación}
 
- La planeación del {\it Sprint} se realiza con todos los miembros que forman parte del equipo scrum,
- en dicha reunión se establece cuál será el incremento entregado al final del sprint, y la forma
- en que se logrará el objetivo del mismo.\\
+% EVENTOS - PLANEACiÓN (SPRINT PLANNING)
 
  % \noindent El día acordado para llevar a cabo esta reunión son los {\bf martes} cada dos semanas
  % {\bf a la 1:30pm} en las instalaciones de la ESCOM. El horario fue acordado tomando en cuenta
@@ -250,21 +380,11 @@
     %            llevar a cabo el Sprint Planning este reunión se reagendará para
     %            que ocurra lo más pronto posible.
     % \end{quote}
-  
-\subsubsection{Daily Scrum}
 
- Las reuniones diarias o Daily Scrum se realiza día a día durante la ejecución de los {\it Sprint}, deben
- durar como máximo 15 minutos, en esta reunión el equipo de desarrollo planea como trabajá durante el día.
- En la tabla \ref{tbl:daily} muestra los días acordados, lugar y hora pre-establecidos para la reunión.
+% EVENTOS - DAILY SCRUM
 
- % En la reunión cada miembro debe responder las siguientes preguntas:
-     
-    % \begin{itemize}
-    %    \item ¿Qué hice ayer para ayudar al Team a alcanzar el Sprint Goal?
-    %    \item ¿Qué hare hoy para ayudar al Team a lograr el Sprint Goal?
-    %    \item ¿Veo algun obstaculo que me impida o impida al Team lograr el Sprint Goal?
-    % \end{itemize} 
-   
+ % En la tabla \ref{tbl:daily} muestra los días acordados, lugar y hora pre-establecidos para la reunión.
+
     % \addtable{|c|c|c|}{tbl:daily}{
     %    {\bf Día de Trabajo} & {\bf Lugar} & {\bf Hora Inicio} \\\hline
     %    Lunes     & ESCOM Sala 21 N & 10:00am \\\hline
@@ -278,12 +398,8 @@
  % \noindent Debido a la dificultad de hacer coincidir los horarios del equipo de desarrollo  con los
  % del {\it Product Owner}, cuando se requiera de sus decisiones, opinión o retroalimentación se le contactará
  % a través de mensajería instantánea.
-    
-\subsubsection{Revisión}
 
- Esta reunión se realiza al final de cada {\it Sprint} para de revisar el incremento, discutir los inconvenientes
- encontrados y en dado caso adaptar la planeación del proyecto. El equipo scrum y los stakeholder deben
- revisar el incremento y establecer cuáles serán los cambios a ejecutar.\\
+% SPRINT REVIEW
 
  % \noindent Debido a que en este proyecto, los stakeholders y el equipo de scrum tienen distintos horarios
  % de disponibilidad, la revisión del {\it sprint} se divide en cuatro fases, aplicando la primer fase a los sprints
@@ -313,28 +429,10 @@
  %               el proceso de la revisión del {\it Sprint} terminará.
  %   \end{quote}
 
-\subsubsection{Retroalimentación}
+% ARTEFACTOS 
 
- La etapa de retroalimentación consiste en una reunión del equipo scrum con el objetivo de crear un plan para
- las mejoras en la forma de trabajo, esta reunión ocurre después de la revisión y antes de la planeación del
- siguiente {\it Sprint}. En esta reunión los miembros del equipo scrum ven cómo atender las debilidades y áreas
- de oportunidad.
+% PRODUCT BACKLOG
 
-\subsection{Artefactos}
-
- Los artefactos en Scrum proporcionan transparencia en toda la aplicación de Scrum
- y además funcionan como herramientas para la inspección de la implementación del
- marco de trabajo y adaptación del mismo. Tener los artefactos organizados brinda
- una mayor visibilidad acerca del avance del proyecto y del producto final.
- 
-%\clearpage
-
-\subsubsection{Product Backlog}
-
- La cartera de producto o {\it product Backlog} lista todas las características, funcionalidades, requerimientos,
- y mejoras necesarias para la creación del producto. El responsable del contenido, disponibilidad y organización
- del {\it Product Backlog} es el {\it Product Owner}.\\
-       
  % \noindent Debido a que el proyecto requería una etapa de investigación, se optó por tener dos tipos
  % de {\it items} en el product backlog, los items de documentación/preparación del proyecto  y los {\it items}
  % para desarrollo del mismo.\\
@@ -379,13 +477,9 @@
   %              al sprint corriente y a los sprints anteriores a este. El atributo {\it Sprint}
   %              puede no estar presente en los items que no han sido vinculados a un Sprint. 
   %  \end{quote}
-    
-\subsubsection{Sprint Backlog}
-    
- El {\it Sprint Backlog} está formado por los {\it items} del {\it Product Backlog} seleccionados
- para el {\it Sprint} más el plan para entregarlos, y así cumplir con el Sprint Goal. El {\it Sprint
- Backlog} es una estimación de las funcionalidades que serán entregadas en el siguiente incremento
- del producto.
+ 
+
+% SPRINT BACKLOG
 
  % \noindent Conforme los {\it items} del {\it product backlog} vayan siendo seleccionados para
  % tratarse en un sprint, se les añadirá una etiqueta que indique a qué sprint pertenecen.
@@ -397,4 +491,3 @@
     %
     % }{Atributos del Sprint Backlog }
 
-\clearpage
