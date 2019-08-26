@@ -9,11 +9,13 @@
     % que cada una de las secciones siguientes está vinculada a
     % los pasos de For The Win.
 
+    \clearpage
     \input{analisis/modulos}
     % Describir cuales son los módulos que fueron identificados
     % cual es el propósito de cada uno, y de que sub módulos
     % estan constituidos, solo poner la imagen principal.
 
+    \clearpage
     \input{analisis/usuarios}
     % Detallar el perfil de nuestros usuarios y los beneficios
     % que se brindarán a cada uno de ellos.
@@ -22,6 +24,7 @@
     % tipos de jugadores a través de los principios de gamificación.
     % Presentar imagen de principios con módulos.
 
+    \clearpage
     \input{analisis/procesos}
     % Detallar cual es el proceso que se tiene planificado para
     % el uso de nuestra herramienta, describir el procesos desde
@@ -31,15 +34,18 @@
 
     % Enaltecer la interoperabilidad.
 
+    \clearpage
     \input{analisis/principios}
     % Brindar un aspecto más amplio acerca de como se le brinda
     % soporte a distintas cosas a través de los principios del marco
     % de trabajo de octalysis.
 
+    \clearpage
     \input{analisis/factibilidad}
     % Detalla el estudio de fatibilidad que se realizó inicialmente
     % para saber si era viable usar moodle o no.
 
+    \clearpage
     \input{analisis/modeloDatos}
     % Una vez que se decidio moodle y que se realizó el estudio de
     % factibilidad se procedio a documentar el modelo de datos que
@@ -52,53 +58,9 @@
 %   Pasar las siguientes lineas en los archivos presentes en la
 %   carpeta de analisis
 % =================================================================
-\section{Implementación de los marcos de trabajo}
 
-En nuestro caso nos enfocaremos en solo 5 pasos puesto que el paso de la diversión es abstracto y no se puede definir de manera concreta.
-
-\begin{enumerate}
-    \item Definir los objetivos del sistema: en este caso sería aumentar el tiempo que pasan los estudiantes en Moodle siendo productivos.
-    
-    \item Definir los comportamientos que queremos que tengan los usuarios: En nuestro caso sería que queremos que realicen las actividades propuestas por los profesores, realizar las competencias programadas. Podemos medir esto al dar puntos por cada actividad realizada y por participar en las acciones interactivas.
-    
-    \item Describir nuestros usuarios:
-    Nos apegamos a la división propuesta de Richard Bartle \cite{TiposDeUsuario}, los divide en 4 grupos, triunfadores, exploradores, socializadores y asesinos. En nuestro caso no nos enfocaremos en los exploradores puesto que los cursos de moodle son lineales.
-    
-    \begin{itemize}
-        \item Los triunfadores son aquellos que les gusta recibir premios, en nuestro caso los logros que tenemos contemplados.
-        \item Socializadores, les gusta trabajar en equipo, por lo tanto nuestra propuesta de tener grupos que estén compitiendo unos con otros va enfocada con este tipo de usuario.
-        \item  Los asesinos son los usuarios competidores que sienten motivación al ganarle a otras personas, las competencias 1 vs 1 y los otros tipos que tenemos contemplados motivarían a este tipo de usuario.
-    \end{itemize}
-    
-    Es importante recalcar que en este momento las divisiones de los usuarios son mapeados en los principios del marco de trabajo Octalysis de la siguiente manera en el cuadro \ref{table:usuariosvprincipios} según el autor de Octalysis\cite[p. 414]{libro2}.
-    
-    \begin{table}[h!]
-\centering
-\begin{tabular}{|c|c|} 
- \hline
- Triunfadores & Principio II, Principio VI \\
- \hline
-  Socializadores &  Principio V, Principio III, Principio VII\\
- \hline
- Asesinos & Principio II, Principio V, Principio VIII, Principio IV \\
- \hline
-\end{tabular}
-\caption{Tabla de mapeo de tipos de usuario y principios de Octalysis}
-\label{table:usuariosvprincipios}
-\end{table}
-    
-    \item Desarrollar los ciclos de las actividades:
-    Este punto trata acerca de ver los pasos que se necesitan para que los usuarios se mantengan motivados, principalmente por medio de la retroalimentación. Esta retroalimentación se puede mostrar por medio de puntos, o logros, y el ciclo general es:\par\hfill motivación -> acción -> retroalimentación -> motivación. \hfill
-    
-    Es importante tomar en cuenta que estos ciclos pueden ser repetitivos y aburridos por lo cual es necesario agregar escaleras de progreso, es decir que cada que se complete un ciclo, el siguiente sea más difícil de completar, por ejemplo, al subir de nivel que el siguiente necesite más puntos para obtenerse.
-    
-    \item Elije los componentes apropiados para el sistema:
-    Hasta este punto es en el que decidimos que queremos utilizar puntos, tablas de lideres, niveles, experiencia, competencias, narrativas. 
-    
-       
-\end{enumerate}
-
-\section{Definición del alcánce}
+% Y SI SE DOCUMENTA COMO FUE??:
+%   TOP-DOWN => PRIMERO SE PLANEARON LOS MÓDULOS Y DESPUES SE BAJO A REQUERIMIENTOS
 
 El alcance de este proyecto es representado mediante el Product Backlog (artefacto de Scrum). El product backlog incluye dos tipos de items: los items de documentación, denotados por ls clave {\it {\bf A}x}; y los items de desarrollo del proyecto, denotados por las claves {\it {\bf RF}x} y {\it{\bf RNF}x}.\\
 
@@ -119,22 +81,6 @@ se realizarán los que tienen mayor prioridad. Esta lista puede ser ampliada o r
     %\noindent {\bf Nota:} El número de {\it Sprint} debe estar presente en todos los items correspondientes al sprint corriente y a los sprints anteriores a este. El atributo {\it Sprint} puede no estar presente en los items que no han sido vinculados a un Sprint. 
     \noindent {\bf Nota:} El número de {\it Sprint} debe estar presente en todos los ítems que ya hayan sido agregados a un Sprint Backlog.
     %\end{quote}
-    
-    
-\clearpage    
-\section{Módulos del proyecto}
-    
-    Los requerimientos presentes en el Product Backlog fueron agrupados en 6 módulos (ver figura \ref{fig:modulos}): el módulo de competencia, módulo financiero, módulo de personalización, módulo de seguimiento, módulo de experiencia y módulo de recompensa. Fueron identificados 19 submódulos distribuidos en los módulos anteriormente mencionados.\\
-    
-    \noindent Como se comentó en la sección \hyperrefx{subsec:plugins}, la manera más recomendable para extender las funcionalidades de moodle es desarrollando o incluyendo plugins, debido a esta razón, el análisis y diseño es realizado tomando en consideración de que se trabajará desarrollando plugins.
-    
-    \addfigure{1}{analisis/diagrams/modulosTT}{fig:modulos}{Módulos del proyecto}
-
-\clearpage
-\section{Relación módulos-principios}
-    La figura \ref{fig:modulosP} muestra la relación que cada submódulo tiene con los principios de gamificación.
-    
-    \addfigure{0.89}{analisis/diagrams/modulosTTyP}{fig:modulosP}{Relación entre los principios de Gamificación y los submódulos identificados}
     
 \section{Relación módulos-requerimientos}
 
@@ -162,88 +108,5 @@ En la tabla \ref{tab:modreq} se relacionan lo módulos definidos contra los requ
     \label{tab:modreq}
 \end{table}
 
-\section{Curva de aprendizaje}
-
-\subsection{Instalación}
-\subsection{Block Simple HTML}
-\subsection{XMLCreator}
-\subsection{Events API}
-\subsection{DML API y DDL API}
-\subsection{Javascript AMD}
-\subsection{External Pages}
-\subsection{Forms Validation}
-\subsection{Tables}
-\subsection{AJAX AlongSide Moodle}
-
-\subsection{Estableciendo el entorno de desarrollo}
-
- Al final de este documento se incluye como anexo el documento que detalla el desarrollo de las pruebas de concepto. A continuación se muestran los resultados de dicho documento.
-
-Para llevar a cabo desarrollo sobre la plataforma moodle recomienda considerar el uso de un entorno de desarrollo integrado o IDE (Integrated Development Environment), para facilitar las tareas de programación. Las opciones que brinda moodle en su documentación son los IDEs: Eclipse, Netbeans y PHPStorm.\\
-
-\noindent La primer prueba fue realizada con Eclipse, se incluyeron los archivos del directorio de moodle como parte del proyecto, lamentablemente, los enlaces a los demás archivos, y la depuración de código arrojaban errores debido a que había archivos que no podía vincular correctamente. Por lo que Eclipse fue descartado posterior a la prueba.
-
-\subsubsection{NetBeans}
-
-Netbeans proporciona un buen soporte a PHP, este IDE tiene integración de un sistema de control de versiones, atajos de teclas, lista de funciones, completación de código, soporte para HTML, CSS y Javascript, renombre de archivos/clases instantáneo, búsqueda rápida, entre otros. \cite{NetBeans}, \cite{moodleNetbeans}
-% https://netbeans.org/features/
-% https://docs.moodle.org/dev/Setting_up_Netbeans
-
-% En la figura \ref{fig:netbeans} se muestra el entorno instalado con el proyecto de ''moodle'' abierto
-
-\subsubsection{PHPStorm}
-
-PHPStorm es un IDE comercial desarrollado por JetBrains, es considerado uno de los mejores IDE para desarrolladores que trabajan con PHP, tiene características como completación e inspección de código, soporte para PHPUnit, soporte para BeHat, editor de base de datos, depurador, entre otras funcionalidades \cite{PHPStorm},\cite{  moodlePHPStorm}.
-% https://www.jetbrains.com/phpstorm/features/
-% https://docs.moodle.org/dev/Setting_up_PhpStorm
-
-%En la figura \ref{fig:PHPStorm} se puede ver una captura del IDE con el proyecto con los archivos de Moodle, abierto.\\
-
-\begin{quote}
-Finalmente, después de haber realizado la prueba con los  tres IDEs, se eligió a PHPStorm como entorno de desarrollo considerando los siguientes puntos:
-    \begin{itemize}
-    \item Moodle considera que PHPStorm es uno de los mejores entornos de desarrollo para PHP.
-    \item PHPStorm está diseñado desde un inicio para trabajar con PHP, a diferencia de NetBeans que dan soporte a PHP y a otros lenguajes de programación.
-    \item PHPStorm tiene soporte para las versiónes más recientes para PHP, mientras que NetBeans soporta actualmente hasta la versión 5.6 de PHP.
-    %\item Por recomendación de un profesor de la ESCOM, debido a su experiencia como usuario.
-    % \item Consultando a algunos docentes nos recomendaron utilizar PHPStorm.
-    %\item Se cuenta con una licencia gratis por pertenecer al IPN/ESCOM.
-    \item El equipo de desarrollo en proyectos anterior ha utilizado anteriormente herramientas de JetBrains y se ha tenido una experiencia agradable. % Android Studio
-    \end{itemize}
-\end{quote}
-
-\subsection{Desarrollo de las pruebas}
-
-    De los 54 plugins listados en la sección \hyperrefx{subsec:plugins} se decidió priorizar el desarrollo de aquellos tipos de plugins que nos permitieran extender el esquema de base de datos de moodle, y de aquellos que nos permitieran desplegar la información en la interfaz de usuario, razón por la cual se realizaron las pruebas de concepto de los tipos de plugins Database Fields, Database Presets, User Profile Fields, y Blocks.\\
-
-    \noindent A continuación el cuadro \ref{tbl:pruebasC} resume el propósito de cada prueba y los resultados obtenidos.
-
-    \addtable{|c|p{0.30\textwidth}|p{0.45\textwidth}|}{tbl:pruebasC}{
-        {\bf Tipo de\par Plugin} & {\bf Objetivo} & {\bf Resultados} \\\hline
-
-        Database Fields &
-            Saber si este plugin nos ayudaría a guardar valores en la base de datos, y si fuera capaz, saber la forma en que lo hace. &
-
-            Database Fields nos permite, en caso de que requiriéramos crear un nuevo tipo de dato, que puede ser usado mediante el plugin ''Database Presets''. \\\hline
-
-        Database Presets &
-            Saber si este plugin nos permite modificar el esquema de la base de datos, y si fuera capaz, saber la forma en que lo hace. &
-
-            Database Presets nos permite crear y guardar datos en la base de datos, las restricciones es que únicamente nos permite definir formularios. El plugin puede ser usado a  nivel plataforma o a nivel curso. \\\hline
-
-        User Profile Fields &
-            Saber si este plugin nos permite guardar valores relacionados al usuario, en la base de datos. &
-
-            User Profile Fields permite crear nuestro propio tipo de dato y agregarlo como un campo más a los datos que el usuario debe introducir. Al incluirse un plugin de este tipo todos los usuarios de la plataforma podrán editar el dato especificado por este plugin. \\\hline
-
-        Blocks &
-            Ver cómo desplegar información mediante el uso de este tipo de plugin y asegurar que un mismo block se pueda ver en las vistas principales de la plataforma. &
-
-            Los block/blocks pueden ser instanciados más de una vez y están ligados al usuario.\newline
-            Cada plugin puede definir su propio esquema de tablas, atributos e índices.\newline
-            Los plugins pueden habilitar/deshabilitar configuraciones generales para el administrador o locales para el usuario. \newline
-            Un plugin puede suscribir una clase para capturar los eventos que arroja moodle. \\\hline
-
-    }{Objetivos y resultados de las pruebas de concepto realizadas}
 
 \end{comment}
