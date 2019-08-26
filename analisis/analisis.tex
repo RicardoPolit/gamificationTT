@@ -1,9 +1,15 @@
 \chapter{Análisis general}
 \label{ch:analisis}
 
-\section{Implementación de la metodología}
+    \input{analisis/metodologia}
+    \input{analisis/modulos}
+    \input{analisis/usuarios}
+    \input{analisis/procesos}
+    \input{analisis/principios}
+    \input{analisis/factibilidad}
+    \input{analisis/modeloDatos}
 
-
+\begin{comment}
 \section{Implementación de los marcos de trabajo}
 
 En nuestro caso nos enfocaremos en solo 5 pasos puesto que el paso de la diversión es abstracto y no se puede definir de manera concreta.
@@ -63,8 +69,8 @@ se realizarán los que tienen mayor prioridad. Esta lista puede ser ampliada o r
 \section{Product Backlog}
 
     \begin{multicols}{2}
-    \input{modulos/artifacts/backlogA}
-    \input{modulos/artifacts/backlogR}
+    \input{analisis/artifacts/backlogA}
+    \input{analisis/artifacts/backlogR}
     \end{multicols}
 
     %\begin{quote}
@@ -80,13 +86,13 @@ se realizarán los que tienen mayor prioridad. Esta lista puede ser ampliada o r
     
     \noindent Como se comentó en la sección \hyperrefx{subsec:plugins}, la manera más recomendable para extender las funcionalidades de moodle es desarrollando o incluyendo plugins, debido a esta razón, el análisis y diseño es realizado tomando en consideración de que se trabajará desarrollando plugins.
     
-    \addfigure{1}{modulos/diagrams/modulosTT}{fig:modulos}{Módulos del proyecto}
+    \addfigure{1}{analisis/diagrams/modulosTT}{fig:modulos}{Módulos del proyecto}
 
 \clearpage
 \section{Relación módulos-principios}
     La figura \ref{fig:modulosP} muestra la relación que cada submódulo tiene con los principios de gamificación.
     
-    \addfigure{0.89}{modulos/diagrams/modulosTTyP}{fig:modulosP}{Relación entre los principios de Gamificación y los submódulos identificados}
+    \addfigure{0.89}{analisis/diagrams/modulosTTyP}{fig:modulosP}{Relación entre los principios de Gamificación y los submódulos identificados}
     
 \section{Relación módulos-requerimientos}
 
@@ -197,3 +203,5 @@ Finalmente, después de haber realizado la prueba con los  tres IDEs, se eligió
             Un plugin puede suscribir una clase para capturar los eventos que arroja moodle. \\\hline
 
     }{Objetivos y resultados de las pruebas de concepto realizadas}
+
+\end{comment}
