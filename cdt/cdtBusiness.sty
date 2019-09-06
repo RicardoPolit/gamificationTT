@@ -38,7 +38,7 @@
 %    @required   Termino, Nombre del termino a definir
 %    @required   Descripción, Definición del termino
 %
-\newenvironment{bGlosario}{\begin{Cdescription}}{\end{Cdescription}}
+\newenvironment{bGlosario}{\begin{description}}{\end{description}}
 \newcommand{\bTerm}[3][]{%
     \item[{\cdtLabel{#2}{#3}}]%
     \CrearVariablesInternas{#1}%
@@ -79,42 +79,40 @@
 %
 \def\varBusinessEntityId{}
 \def\varDataTypeId{}
-\newcommand{\datRequerido}{Si}
-\newcommand{\datOpcional}{No}
+%\newcommand{\datRequerido}{Si}
+%\newcommand{\datOpcional}{No}
 \newcommand{\brRel}[3]{{\em{#1}} & {\bf\refElem{#2}} & \multicolumn{2}{p{0.54\textwidth}|}{#3}\\\hline}
 \newcommand{\brRelComposition}{{\color{colorPrincipal}$\filleddiamond$\hspace{-1pt}---Composición}}
 \newcommand{\brRelAgregation}{{\color{colorPrincipal}$\Diamond$\hspace{-1pt}---Agregación}}
 \newcommand{\brRelGeneralization}{{\color{colorPrincipal}$\lhd$\hspace{-1pt}---Generalización}}
-\newcommand{\brAttr}[5]{%
+\newcommand{\brAttr}[4]{%
     \cdtLabel{\varBusinessEntityId.#1}{{\bf #2}}\par#1\cdtAddElement{\varBusinessEntityId.#1}{#2}{\Autor}{\Version}{\Estado} &%
-    \refElem{#3} & {#4} & {#5}\\\hline%
+    \refElem{#3} & {#4}\\\hline%
 }
 \newcommand{\cdtEntityRelSection}{%
     %\multicolumn{4}{|c|}{{\cellcolor{colorSecundario}\color{white}Relaciones}}\\\hline%
     \rowcolor{colorSecundario}%
-    \multicolumn{4}{|c|}{\color{white}Atributos}\\\hline%
+    \multicolumn{3}{|c|}{\color{white}Atributos}\\\hline%
     \rowcolor{colorAgua}%
-    Tipo de relación & Entidad & \multicolumn{2}{|c|}{Rol}
-    \setCurrentElementId{\varBusinessEntityId}\\\hline%
+    Tipo de relación & Entidad & Rol \setCurrentElementId{\varBusinessEntityId}\\\hline%
 }
 \newenvironment{cdtEntidad}[4][]{%
     \gdef\varBusinessEntityId{#2}%
     \CrearVariablesInternas{#1}%
     \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
-%
-    \cdtLabel{#2}{\hspace{1pt}}%
-    \newline\noindent{\includegraphics[width=\textwidth]{cdt/uc/rules/classRule}}\vspace{-25pt}%
-    \section{Entidad: #3}%
+    \cdtLabel{#2}{}%\hspace{1pt}}%
+%    \newline\noindent{\includegraphics[width=\textwidth]{cdt/uc/rules/classRule}}\vspace{-25pt}%
+    \subsection{Entidad: #3}%\section{Entidad: #3}%
     \IfStrEq{\detokenize{#4}}{}{%
         \hspace{0pt}%
     }{%
-        \subsubsection{Resumen}{#4}%
+        #4%\subsubsection{Resumen}{#4}%
     }%
-        \noindent\begin{longtable}{|p{.2\textwidth} | p{.15\textwidth} | p{.5\textwidth} | p{.04\textwidth} |}\hline%
+        \noindent\begin{longtable}{|p{.2\textwidth} | p{.10\textwidth} | p{.62\textwidth} |}\hline%
             \rowcolor{colorSecundario}%
-            \multicolumn{4}{|c|}{\color{white}{Atributos}}\\\hline
-            \rowcolor{colorAgua}%
-            Nombre & Tipo & Descripción & Req.\\\hline\endhead%
+            \multicolumn{3}{|c|}{\color{white}{Atributos}}\\\hline%
+            \rowcolor{colorAgua} Nombre & Tipo & Descripción \\\hline%
+            \endhead%
 }{%
         \end{longtable}%
     \gdef\varBusinessEntityId{}%
@@ -279,13 +277,14 @@
 %    @required     Descripción del atributo del tipo de dato
 %
 \newenvironment{tdAtributos}{%
-    \begin{longtable}{|p{.2\textwidth}| p{.15\textwidth} | p{.5\textwidth}|}\hline%
-        \multicolumn{3}{|c|}{{\cellcolor{colorSecundario}\color{white}Atributos}}\\\hline%
-        {\cellcolor{colorAgua}Atributo} & {\cellcolor{colorAgua}Tipo} & {\cellcolor{colorAgua}Descripción}\\\hline%
-        \endhead%
-}{%
-    \end{longtable}%
-}%
+    \begin{longtable}{|p{.2\textwidth}| p{.15\textwidth} | p{.5\textwidth} |}\hline
+        \multicolumn{3}{|c|}{{\cellcolor{colorSecundario}\color{white}Atributos}}\\\hline
+        \rowcolor
+        Atributo & {\cellcolor{colorAgua}Tipo} & {\cellcolor{colorAgua}Descripción}\\\hline
+        \endhead
+}{
+    \end{longtable}
+}
 \newcommand{\tdAttr}[4]{%
     \def \idAttr{\varDataTypeId.#1}%
     \cdtAddElement{\idAttr}{Atributo}{#2}%
