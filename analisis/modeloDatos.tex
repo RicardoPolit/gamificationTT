@@ -1,673 +1,455 @@
 \chapter{Modelo de Dominio de Datos}
 \label{ch:dominioDatos}
-%\label{ch:BaseDeDatos}
 
-Este capítulo describe las decisiones tomadas en relación a la base de datos propuesta para ser utilizada durante el proyecto, el esquema relacional, la especificación de los atributos y finalmente un análisis de las formas normales sobre la base de datos propuesta.\\
+ Este capítulo describe las decisiones más relevantes tomadas en relación al esquema de
+ base de datos de moodle, el modelo de información que le brinda soporte a la persistencia
+ de los datos usados y requeridos por los módulos y submódulos previamente establecidos, 
+ finalmente se presenta el diccionario de datos que contiene la especificación de los
+ atributos de las distintas relaciones requeridas.\\
 
-    \noindent Moodle cuenta con su propio lenguaje de definición de datos (DDL, Data Definition Language), y lenguaje de manipulación de datos (DML, Data Management Language), que añaden una capa de abstracción independiente del sistema gestor de base de datos que se este utilizando. Moodle tiene soporte para funcionar sobre bases de datos MySQL, PostgresSQL, MariaDB, MSSQL y Oracle \cite{moodleInstall}.\\
+ \noindent Debido a que el esquema de base de datos de moodle contiene alrededor de 400
+ relaciones, solo se hace mención de aquellas relevantes para el desarrollo de este proyecto,
+ cabe recalcar que la información recopilada de la base de datos de moodle fue obtenida
+ directamente del esquema de base de datos, ya que no existe documentación oficial acerca
+ del esquema.
 
-    \noindent Debido a la capa de abstracción que moodle tiene con respecto al acceso a datos y a que las nuevas funcionalidades se desarrollaran mediante desarrollo de plugins. se decidió utilizar las herramientas que proporciona moodle para la creación de las tablas requeridas para implementar Gamificación.
-    
-\section{Pautas de Moodle para la base de datos}
-    
-    %[] https://www.oreilly.com/library/view/high-performance-mysql/9781449332471/
-Moodle permite extender su esquema de base de datos mediante la instalación de plugins. Esto no solo nos lleva a conocer y entender su esquema de datos hasta un cierto punto, sino también, nos lleva a apegarnos a las restricciones que impone Moodle para la creación de la base de datos de los componentes.\\
-
-    \noindent Tampoco hay que olvidar lo que significa el desarrollo de componentes, ya que, deben permitirle al usuario instalarlos y desinstalarlos cuando ella quiera y no tener ningún tipo de problema en su plataforma de Moodle, es decir, los componentes deben tener un bajo acoplamiento \cite[pp. 244-245]{defAcoplamiento} con Moodle.\\
-    
-    \noindent Moodle presenta varias pautas a seguir \cite{moodlePautasBD1},\cite{ moodlePautasBD2}, donde el público objetivo de las mismas es muy amplio. Por ello a continuación se presentan las pautas consideradas más relevantes e importantes.
-    
-\subsection{Pautas en tablas y atributos}
-    \begin{enumerate}
-        \item Cada tabla debe tener como llave primaria un atributo llamado ''id'' de tipo entero con una longitud de 10 dígitos que sea auto-incremental. 
-        \item Si se está desarrollando un componente que es una actividad para un curso, el esquema del componente deberá tener una tabla principal que lleve el mismo nombre que el componente y dicha tabla deberá contener como mínimo los siguientes campos: el principal anteriormente explicado ''id', una referencia al curso ''course'' y un nombre ''name''. 
-        %\item Además del punto anterior, toda tabla que contenga información extra o relacionada con la actividad, por ejemplo preguntas de un examen, deberá llamarse (nombre de la actividad)\_(información extra), dicha información extra deberá estar en plural. Siguiendo con el ejemplo seria; examen\_preguntas.
-        %\item Las tablas deberán tener un nombre en singular, exceptuando el ejemplo anterior o uno que defina la misma estructura.
-        \item Los nombres de atributos y tablas deberán estar en minúsculas y el único caracter especial que se puede usar en ellos es el guión bajo.
-        \item El nombre de las llaves deberá tener los nombres de los campos que se utiliza para crearlas (Excluyendo los atributos de otras tablas). Dichos nombres deberán ser separados por el signo menos ''-''.
-        \item Se recomienda que el nombre de las tablas no pase de 28 caracteres
-        \item Se recomienda que el nombre de los atributos no exceda los 30 caracteres.
-        \item Los atributos que referencien a otra tabla deberán tener el nombre de la tabla a la que hace referencia y la palabra ''id'' en su nombre. Por ejemplo, la\_otra\_tabla\_id.
-        \item Solo se definirá un atributo como llave única (UNIQUE KEY), si este es apuntado por otro atributo, ya sea en la misma o en otra tabla con una llave foránea (FOREIGN KEY).
-        \item No se deben de usar vistas, debido a que no existe soporte para ellas.
-        \item Si se quiere tener un valor único no se deben usar llaves únicas (UNIQUE KEY), se recomienda utilizar en su lugar un índice único (UNIQUE INDEX)
-    \end{enumerate}
-     
-\subsection{Pautas en tipos de datos}
-        
-         Moodle establece la relación entre sus tipos de datos -los cuales se ingresan en el XMLDB Editor- y los tipos de dato que se guardan en los distintos gestores de base de datos \cite{moodleTiposBD}.  Gracias a esto, existen nuevas restricciones:
-        \begin{enumerate}
-            \item El tipo de dato de fecha, es guardado como un número entero de 10 dígitos ( int(10) ).
-            \item El tamaño indicado para un entero establece el tipo de entero que se usará, esto usando los rangos que tiene cada gestor de base de datos. Por ejemplo: INT(10) = BIGINT en MySQL.
-            \item No existe la posibilidad de indicar un número sin signo.
-        \end{enumerate}
-        
-\clearpage        
 \section{Esquema de la base de datos}
-    
-    %Con lo anteriormente especificado y de acuerdo a las 2 primeras formas normales especificadas por Edgar Frank Codd \cite[ paǵ. 161-182]{libroBaseDeDatosEspaniol} se diseñó el esquema de la base de datos. A continuación se presentan de manera muy resumida dichas formas normales.
-    %[V] Libro que me pasó CAT (David)
-    
-    %\includepdf[page={1}]{diagrams/DB/BaseDeDatos}
-    %\addfigureScaleAndAangle{0.45}{270}{diagrams/DB/EsquemaGlobal}{fig:EGBD}{Esquema de la base de datos}
-    \addfigure{1}{analisis/diagrams/BaseDeDatos_en}{fig:EGBD}{Esquema de la base de datos}
+
+ % DONDE SE DOCUMENTA QUE SE VA A USAR MYSQL ???
+
+ En la figura \ref{fig:EGBD} se muestran aquellas relaciones relevantes para el desarrollo
+ de este proyecto, tanto del esquema de la base de datos de moodle cómo de las relaciones
+ que fueron requeridas crear, el diagrama presentado contiene las relaciones agrupadas
+ de la siguiente forma:\\
+  
+    \begin{quote}
+    \begin{description}
+        \item[Relaciones de Moodle] Contiene un subconjunto de las relaciones del esquema de
+            base de datos de moodle que son relevantes para el desarrollo de este proyecto.\\
+
+        \item[General] Contiene a todas las relaciones que no pertenecen propiamente a un
+            módulo pero que son esenciales para el funcionamiento de los distintos módulos
+            propuestos.\\
+
+    \end{description}
+    \end{quote}
+
+ \noindent Las demás relaciones se encuentran organizadas en seís grupos correspondientes
+ a los módulos de este proyecto (\nameref{mod:exp}, \nameref{mod:recomp}, \nameref{mod:financ},
+ \nameref{mod:pers}, \nameref{mod:comp} y \nameref{mod:seguim}).
+
+ \clearpage
+
+ \noindent Todas las relaciones creadas para este proyecto fueron diseñadas tomando en
+ consideración que se debía extender el esquema de base de datos sin afectar las distintas
+ funcionalidades que brinda de forma nativa. En los casos en los que se requería añadir
+ atributos de moodle a una relación en particular, se agregaría una relación con los atributos
+ requeridos, más la referencia a la relación del esquema de moodle.
+
+    \addfigure{1}{analisis/diagrams/db}{fig:EGBD}{Esquema de la base de datos}
 
 \clearpage
+\section{Diccionario de datos}
+
+ En esta sección se detalla el diccionario de datos del proyecto, en él se describe cada una
+ de las entidades pertenecientes al modelo de información, así como el nombre, tipo de dato,
+ descripción y restricciones sobre los atributos de las entidades.\\
+
+ A continuación se listan y describen los tipos de
+ datos usados en el diccionario.
+
+    \begin{quote}
+    \begin{bGlosario}
+        \bTerm{tVarchar}{varchar} Cadena de caracteres de longitud variable
+        \bTerm{tInt}{int}         Numero enteros incluyendo, positivos y negativos.
+    \end{bGlosario}
+    \end{quote}
+
+ Además de los tipos de dato, se definen las
+ siguientes restriccioness:
+    
+    \begin{quote}
+    \begin{bGlosario}
+    
+        \bTerm{tRequerido}{Requerido}
+            Indica que el dato es obligatorio y no puede existir un registro sin que tenga
+            un valor.
+            
+        \bTerm{tUnico}{Único}
+            Indica que que los valores para un atributo o combinacion de estos no se deben
+            repetir en los diferentes registros.
+            
+        \bTerm{tPrimaryKey}{Llave primaria}
+            Indica el atributo o combinacion de estos que seran la llave primaria. La llave
+            primaria es el identificador unico de cada registro dentro de la tabla, por lo
+            que de no puede haber duplicados y es obligatorio que tenga un valor.
+            
+        \bTerm{tForeignKey}{Llave foranea}
+            Indica el atributo o conjunto de estos que son llaver foranea y apuntan a otra
+            tabla, esto es, sus valores posibles Sólo pueden ser aquellos que existan en la
+            llave primaria a la que apuntan. FK(Tabla.atributo).
+            
+        \bTerm{tRango}{Rango}(a, b)
+            Indica que el numero de valores esta restringido del valor $a$ al $b$.
+
+        \bTerm{tAutoIncrement}{Auto-incremental}
+            Indica que el número se incrementa en uno al insertarse un nuevo registro.
+
+        \bTerm{tDefault}{Default} $:\ valor$
+            Indica el valor por defecto que tendrá el atributo
+            
+    \end{bGlosario}
+    \end{quote}
+    
+\clearpage
+
+\section{Relaciones de moodle}
+
+ A continuacíón se presenta la especificación de las relaciones del esquema de base
+ de datos de moodle que son relevantes para el desarrollo de los módulos y submódulos
+ de proyecto.
+
+    \begin{cdtEntidad}{Mdl-configuration}{Configuración de Plugin}{%
+    Es una tabla del nucleo de moodle que almacena todas las configuraciones globales
+    relacionadas a los plugins instalados, al iniciar moodle las configuraciones de los
+    plugins instalados y habilitados se cargan en memoria.}
+
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa el identificador único para una configuración
+            específica de un plugin.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+
+        \brAttr{plugin}{Plugin}{tVarchar}{%
+            Cadena de caracteres del nombre identificador del plugin al cual pertenece
+            la configuración.\par
+
+            \it Restricciones:
+            \refElem{tRequerido},
+            \refElem{tRango} (0,100),
+            \refElem{tUnico}
+        }
+		
+        \brAttr{name}{Nombre}{tVarchar}{%
+            Cadena de caracteres que representa el nombre de la configuración de un
+            plugin en específico.\par
+
+            \it Restricciones:
+            \refElem{tUnico},
+            \refElem{tRango} (0,100),
+            \refElem{tRequerido}
+        }
+
+        \brAttr{value}{Valor}{tVarchar}{%
+            Cadena que almacena el valor de una configuración perteneciente a alguno
+            de los plugins instalados.\par
+            
+            \it Restricciones:
+            \refElem{tRango} (0,4294967295),
+            \refElem{tRequerido}
+        }
+	%\cdtEntityRelSection
+	%\brRel{\brRelComposition}{Ejemplo}{Escribe el enunciado que denota la composición.}
+	%\brRel{\brRelAgregation}{Ejemplo}{Tambien puede ser con agregaciones.}
+	%\brRel{\brRelGeneralization}{Ejemplo}{De la misma forma con Generalizaciones.}
+    \end{cdtEntidad}
+    \vspace{-1em}\hfill Nombre en el esquema: {\it mdl\_configuration}\ \ \par%
+
+
+    \begin{cdtEntidad}{mdl-usuario}{Usuario de moodle}{%
+    Es una tabla del núcleo de moodle que contiene toda la información que se
+    almacena de los usuarios en la plataforma, independientemente del rol que
+    estos contenga, esta relación contiene más de 53 atributos, sin embargo solo
+    se detallan aquellos relevantes.}
+
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa el identificador único para cada uno 
+            de los usuarios en moodle.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+
+    \end{cdtEntidad}
+    \vspace{-1em}\hfill Nombre en el esquema: {\it mdl\_configuration}\ \ \par%
 
 \begin{comment}
 
-\section{Diccionario de datos}
-    
-    Como se especificó en la sección \textbf{Pautas de Moodle para la base de datos} existe un atributo que estará presente en todas las tablas, es por ello, que se optó por especificar dicho atributo de manera genérica, en lugar de repetir dicha definición por cada una de las tablas.
-    
-    \begin{center}
-    \begin{tabular}{| p{0.12\textwidth} | p{0.12\textwidth} | p{0.22\textwidth} | p{0.3\textwidth} | p{0.1\textwidth} |}\hline
-        {\bf Atributo} & {\bf Tipo} & {\bf Descripción} & {\bf Restricciones} & {\bf Módulo} \\\hline
-        \attr{id}{Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}{Identificador que permite diferenciar cada registro de una tabla y existe en todas las tablas}{%
-            \Titem{ Llave Primaria}
-            \Titem{ Auto-incremento}
-        }{General}
-    \end{tabular}%
-    \end{center}%
-    
-    \subsection*{Tabla mdl\_config\_plugins}
-    
-    En esta tabla Moodle guarda todas las configuraciones globales relacionadas a los plugins instalados, las cuales terminan cargándose en memoria en una variable global de php para su fácil acceso. \\
-    
-    \begin{center}
-    \begin{tabular}{| m{0.12\textwidth} | m{0.12\textwidth} | m{0.22\textwidth} | m{0.3\textwidth} | m{0.1\textwidth} |}\hline
-        {\bf Atributo} & {\bf Tipo} & {\bf Descripción} & {\bf Restricciones} & {\bf Módulo} \\\hline
-        
-        \attr{plugin}
-            {Cadena de \newline caracteres. \newline \textbf{Tamaño:}\newline 100 caracteres}
-            {Nombre del componente (plugin).}
-                {
-                    \Titem{ Valor por defecto: 'core'}
-                    \Titem{ No nulo.}
-                }
-            { Moodle }
-        
-        \attr{name}
-            {Cadena de \newline  caracteres. \newline \textbf{Tamaño:}\newline 100 caracteres}
-            {Nombre de la configuración.}
-                {
-                    \Titem{ No nulo.}
-                }
-            { Moodle }
-            
-        \attr{value}
-            {Cadena de \newline caracteres. \newline \textbf{Tamaño:}\newline 4,294,967,295 caracteres}
-            {Valor de la configuración guardado en una cadena de caracteres.}
-                {
-                    \Titem{ No nulo.}
-                }
-            { Moodle }
-        
-    \end{tabular}%
-    \end{center}%
-    \noindent La combinación de los atributos \textbf{(plugin, nombre)} es un índice único.\\
-\clearpage    
-    \noindent Por el momento se están guardando las siguientes configuraciones:
-    
-    \begin{center}
-    \begin{tabular}{| m{0.25\textwidth} | m{0.30\textwidth} | m{0.15\textwidth} | m{0.18\textwidth}|}\hline
-        {\bf Nombre} & {\bf Descripción} & {\bf Módulo} & {\bf Sub-módulo}  \\\hline
-        
-        Modulo de exp. activo &
-            Bandera que nos indica si el módulo está activado o no &
-            Experiencia & Esquema de \newline experiencia\\\hline 
-         
-        Tipo de incremento &
-            Si el incremento de experiencia necesaria por nivel es lineal o porcentual &
-            Experiencia & Esquema de \newline experiencia \\\hline 
-         
-        Cantidad de incremento &
-            Número decimal que indica cuánto se incrementa la experiencia necesaria por cada nivel &
-            Experiencia & Esquema de \newline experiencia \\\hline
-        
-        Experiencia por actividad &
-            Cantidad de experiencia que da cualquier actividad al ser completada &
-            Experiencia & Esquema de \newline experiencia \\\hline 
-        
-        Experiencia del nivel 1 &
-            Cantidad de experiencia asociada al nivel 1 &
-            Experiencia & Esquema de \newline experiencia \\\hline 
-        
-        Nombre del nivel &
-            Nombre que reciben los niveles por defecto. &
-            Experiencia & Niveles \\\hline 
-        
-        Mensaje de felicitaciones &
-            Mensaje que aparece cuando un usuario sube de nivel. &
-            Experiencia & Niveles \\\hline 
-        
-        Descripción del rango &
-            Mensaje que aparece por defecto, si el nivel no pertenece a ningún rango. &
-            Experiencia & Niveles \\\hline 
-            
-        Imagen del nivel &
-            Imagen del nivel por defecto (Se almacena la ruta de la imagen, después de haber sido copiada). &
-            Experiencia & Niveles \\\hline 
-        
-        Color del número del nivel &
-            Color que tendrá el número del nivel por defecto. &
-            Experiencia & Niveles \\\hline 
-        
-        Color de la barra de progreso &
-            Color que tendrá la barra de progreso de los niveles por defecto. &
-            Experiencia & Niveles \\\hline
-            
-    \end{tabular}%
-    \end{center}%
-    
-\clearpage    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%        Usuario         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
     \begin{Entidad}{usuario}{%
-    Esta tabla es una especialización de la tabla {\bf mdl\_user} de Moodle. Se decidió especializar la entidad usuario de moodle creando esta entidad, debido a que se requerían añadir nuevos atributos a dicha entidad sin modificar las tablas que requiere moodle.}
-            
             \attrM{id\_usuario}
-            {Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona un usuario de Moodle con uno nuestro}
-                {%
-                    \Titem{ Llave foránea \textbf{única} a {\bf mdl\_user (id)}}
-                    \Titem{ No nulo}
-                }
+                \Titem{ Llave foránea 
+                \Titem{ No nulo}
             {General}
             
             \attr{nivel\_actual}
-            {Número \newline natural.\newline \textbf{Tamaño:}\newline 10 dígitos}
             {Nivel actual del usuario.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
             
             \attr{experiencia\_ actual}
-            {Número \newline entero.\newline \textbf{Tamaño:}\newline 10 dígitos }
             {Experiencia actual del nivel del usuario.}
-                {
-                    \Titem{ Su valor es $ \geq 0$}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Su valor es $ \geq 0$}
+                \Titem{ No nulo.}
             {Experiencia}
-            
     \end{Entidad}
-    
-    %\noindent Se les otorga una longitud de 10 dígitos a los atributos \textbf{nivel\_actual} y \textbf{experiencia\_actual} por que se desea que sean un infinito simbólico.\\
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Alumno   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     \begin{Entidad}
         {alumno}
-            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_usuario} y \textbf{mdl\_course}. Se le nombra alumno, porque el único usuario que se le otorgará experiencia mientras participa en un curso es al alumno, por ende, los únicos usuarios de un curso que se almacenarán en esta tabla son los que tenga un papel de alumno.\\}
-            
             \attrG{id\_ usuario}
-            {Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona un usuario con un papel de alumno. }
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_usuario (mdl\_id\_ usuario)}}
-                    \Titem{ No nulo}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_usuario (mdl\_id\_ usuario)}}
+                \Titem{ No nulo}
             {General}
             
             \attrM{id\_ curso}
-            {Número \newline natural. \newline \textbf{Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona un curso con un papel de alumno.}
-                {
-                    \Titem{ Llave foránea  a \textbf{mdl\_course (id)}.}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Llave foránea  a \textbf{mdl\_course (id)}.}
+                \Titem{ No nulo.}
             {General}
             
             \attr{experiencia\_ total\_ recibida}
-            {Número \newline entero. \newline \textbf{Tamaño:}\newline 10 dígitos}
             {Toda la experiencia que ha recibido un usuario haciendo las actividades de un determinado curso.}
-                {
-                    \Titem{ Su valor es $ \geq 0$}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Su valor es $ \geq 0$}
+                \Titem{ No nulo.}
             {Experiencia}
-            
-            
     \end{Entidad}
 
-        
-    \noindent La combinación de los atributos ( \textbf{gmdl\_id\_usuario } y \textbf{mdl\_id\_curso} ) es un índice único. 
-            
-
-    
-\clearpage
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Nivel categoría curso   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \noindent La combinación de los atributos ( \textbf{gmdl\_id\_usuario } y \textbf{mdl\_id\_curso} ) es un índice único. 
     
     \begin{Entidad}
         {nivel\_categoria\_curso}
-            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_usuario} y \textbf{mdl\_categoria\_curso} .\\}
-            
             \attrG{id\_ usuario}
-            {Número \newline natural. \newline {\bf Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona un usuario con un nivel. }
-                {%
-                    \Titem{ Llave foránea  a \textbf{gmdl\_usuario (mdl\_id\_usuario)}}
-                    \Titem{ No nulo}
-                }
+                \Titem{ Llave foránea  a \textbf{gmdl\_usuario (mdl\_id\_usuario)}}
+                \Titem{ No nulo}
             {General}
             
             \attrM{id\_ categoria\_ curso}
-            {Número \newline natural. \newline \textbf{Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona un nivel con una categoría de curso de Moodle.}
-                {
-                    \Titem{ Llave foránea  a \textbf{mdl\_course\_categories (id)}.}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Llave foránea  a \textbf{mdl\_course\_categories (id)}.}
+                \Titem{ No nulo.}
             {General}
             
             \attr{nivel\_actual}
-            {Número \newline natural.\newline \textbf{Tamaño:}\newline 10 dígitos}
             {Nivel actual del usuario en una categoría de cursos.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
             
             \attr{experiencia\_ actual}
             {Número entero  \newline \textbf{Tamaño:}\newline 10 dígitos }
             {Experiencia actual del usuario de su nivel actual en una categoría de cursos.}
-                {
-                    \Titem{ Su valor es $ \geq 0$}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Su valor es $ \geq 0$}
+                \Titem{ No nulo.}
             {Experiencia}
-            
     \end{Entidad}
 
-    \noindent La combinación de los atributos ( \textbf{gmdl\_id\_usuario } y \textbf{mdl\_categoria\_curso} ) es un índice único. 
-\clearpage    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Rango Nivel   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \noindent La combinación de los atributos ( \textbf{gmdl\_id\_usuario } y \textbf{mdl\_categoria\_curso} ) es un índice único. 
     
     \begin{Entidad}
         {rango\_nivel}
-            {Esta tabla permite la especificación de rangos de niveles, para una mejor personalización de estos últimos.\\}
-            
             
             \attr{nombre}
-            {Cadena de \newline caracteres \newline \textbf{Tamaño:}\newline 60 caracteres}
             {Nivel actual del usuario en una categoría de cursos.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
             
             \attr{nivel\_inferior}
-            {Número \newline natural. \newline \textbf{Tamaño:}\newline 10 dígitos }
             {Nivel mínimo requerido que puede tener un usuario para estar dentro del rango.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
             
             \attr{nivel\_superior}
-            {Número \newline natural. \newline \textbf{Tamaño:}\newline 10 dígitos }
             {Nivel máximo que puede tener un usuario para estar dentro del rango.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
             
             \attr{imagen}
-            {Cadena de \newline caracteres \newline \textbf{Tamaño:}\newline 150 caracteres}
             {Ruta donde se guarda la imagen asociada al rango.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
             
-            
             \attr{mensaje}
-            {Cadena de \newline caracteres \newline \textbf{Tamaño:}\newline 50 caracteres}
             {Mensaje de felicitaciones que se le muestra al usuario al subir de nivel.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
             
             \attr{descripcion}
-            {Cadena de \newline caracteres \newline \textbf{Tamaño:}\newline 200 caracteres}
             {Descripción del rango, que se le muestra al usuario al subir de nivel.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
-            
             
     \end{Entidad}
 
-\end{comment}
-
-\begin{comment}
-    
-    
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Logro   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
     \begin{Entidad}
         {logro}
-            {Esta tabla guarda toda la información que se le presenta al usuario cuando ve un logro.\\}
-            
-            
             \attr{icono}
-            {Cadena de caracteres \newline \textbf{Tamaño:}\newline 100 caracteres}
             {Ruta donde se guardará el icono del logro..}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
             
             \attr{nombre}
-            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 50 caracteres}
             { Nombre  \textbf{único} del logro.}
-                {
-                    \Titem{ Índice único.}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Índice único.}
+                \Titem{ No nulo.}
             {Recompensa}
             
-            
-            
             \attr{descripción}
-            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 140 caracteres}
             {Descripción que le indica al usuario, cómo se desbloquea el logro.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
             
             \attr{modulo}
-            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 15 caracteres}
             {Nombre del módulo al que pertenece el logro.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
             
-            
             \attr{experiencia\_ de\_logro}
-            {Número entero positivo \newline \textbf{Tamaño:}\newline 10 dígitos }
             {Experiencia que otorga el logro al ser desbloqueado.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Experiencia}
             
-            
-            
             \attr{tipo}
-            {Caracter \newline {\bf Tamaño:} \newline 1 caracter }
-                {
-                    Caracter que nos indica que tipo de logro es.
+                Caracter que nos indica que tipo de logro es.
                     \newline ''A'': El logro es a nivel curso.
                     \newline ''B'': El logro es a nivel curso y es una advertencia.
                     \newline ''C'': El logro es a nivel plataforma.
                     \newline ''D'': El logro es a nivel plataforma y es una advertencia.
-                }
-                {
-                    \Titem{ Sus únicos valores posibles son: \{'A','B','C','D'\}.}
-                    \Titem{ No nulo.}
-                    
-                }
+                \Titem{ Sus únicos valores posibles son: \{'A','B','C','D'\}.}
+                \Titem{ No nulo.}
             {Recompensa}
             
     \end{Entidad}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Evento   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     \begin{Entidad}
         {evento}
-            {Esta tabla guarda todos los eventos que pueden llegar a desbloquear logros.\\}
             
             \attr{nombre\_ evento}
-            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 100 caracteres}
             { Nombre  \textbf{único} del evento.}
-                {
-                    \Titem{ Índice único.}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Índice único.}
+                \Titem{ No nulo.}
             {Recompensa}
             
-            
     \end{Entidad}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Evento logro  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     \begin{Entidad}
         {evento\_logro}
-            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_logro} y \textbf{gmdl\_evento}.\\}
             
             \attrG{id\_ logro}
-            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
             { Atributo que relaciona un logro con una lista de eventos. }
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}}
-                    \Titem{ No nulo}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}}
+                \Titem{ No nulo}
             {General}
-            
             
             \attrG{id\_ evento}
-            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
             { Atributo que relaciona un evento con una lista de logros.}
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_evento(id)}}
-                    \Titem{ No nulo}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_evento(id)}}
+                \Titem{ No nulo}
             {General}
+            
     \end{Entidad}
     
-    
     \noindent La combinación de los atributos ( \textbf{gmdl\_id\_logro } y \textbf{gmdl\_id\_evento } ) es un índice único. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Condicion  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     \begin{Entidad}
         {condicion}
-            {Esta tabla guarda todos las condiciones que pueden llegar a tener los logros.\\}
             
             \attr{tabla}
-            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 50 caracteres}
             { Nombre de la tabla, la cual contiene la información para saber si la condición se cumple o no.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
             
             \attr{atributo}
-            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 30 caracteres}
             { Nombre del atributo que se usará para ver si la condición se cumple o no.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
             
             \attr{expresión}
-            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 50 caracteres}
             { Expresión a usar con el atributo y el valor.}
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
             
             \attr{valor}
-            {Cadena de caracteres \newline \textbf{Tamaño:} \newline 45 caracteres}
             {Valor que establece la referencia para saber si la condición de cumple o no. }
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
+            
     \end{Entidad}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Condicion Logro  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     \begin{Entidad}
         {condicion\_logro}
-            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_logro} y \textbf{gmdl\_condicion}.\\}
             
             \attrG{id\_ logro}
-            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona a un logro con una lista de condiciones. }
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}}
-                    \Titem{ No nulo}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}}
+                \Titem{ No nulo}
             {General}
-            
             
             \attrG{id\_ condicion}
-            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona a una condición con una lista de logros. }
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_condicion(id)}}
-                    \Titem{ No nulo}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_condicion(id)}}
+                \Titem{ No nulo}
             {General}
+            
     \end{Entidad}
 
     \noindent La combinación de los atributos ( \textbf{gmdl\_id\_logro } y \textbf{gmdl\_id\_condicion } ) es un índice único. 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Usuario Logro Curso  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     \begin{Entidad}
         {usuario\_logro\_curso}
-            {Esta tabla es la relación ternaria entre las tablas \textbf{gmdl\_curso }, \textbf{gmdl\_usuario} y \textbf{gmdl\_logro}.\\
-            \noindent Si un logro de un curso es desbloqueado por un usuario, se ingresará dicho registro en esta tabla.\\}
             
             \attrG{id\_ logro}
-            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona un logro con usuarios y cursos. }
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}.}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}.}
+                \Titem{ No nulo.}
             {General}
             
             \attrG{id\_ usuario}
-            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
             {Atributo que relaciona a un usuario con logros y cursos. }
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_usuario(mdl\_ id\_usuario)} .}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_usuario(mdl\_ id\_usuario)} .}
+                \Titem{ No nulo.}
             {General}
             
             \attrM{id\_ curso}
-            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
             {Atributo que relaciona a un curso con usuarios y logros. }
-                {%
-                    \Titem{ Llave foránea a \textbf{mdl\_curso(id)}.}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Llave foránea a \textbf{mdl\_curso(id)}.}
+                \Titem{ No nulo.}
             {General}
             
             \attr{cuando}
-            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
             {  Fecha que nos indica cuándo el logro fue desbloqueado.        }
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
-            
-            
             
     \end{Entidad}
     
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%    Usuario Logro Global  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    
-    
     \begin{Entidad}
         {usuario\_logro\_global}
-            {Esta tabla es la relación muchos a muchos entre las tablas \textbf{gmdl\_usuario} y \textbf{gmdl\_logro}.\\
-            \noindent Si un logro es desbloqueado por un usuario, se ingresará dicho registro en esta tabla.\\}
             
             \attrG{id\_ logro}
             {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
             {Atributo que relaciona un logro con usuarios y cursos. }
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}.}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}.}
+                \Titem{ No nulo.}
             {General}
             
             \attrG{id\_ usuario}
-            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
             {Atributo que relaciona a un usuario con logros y cursos. }
-                {%
-                    \Titem{ Llave foránea a \textbf{gmdl\_usuario(mdl\_ id\_usuario)} .}
-                    \Titem{ No nulo.}
-                }
+                \Titem{ Llave foránea a \textbf{gmdl\_usuario(mdl\_ id\_usuario)} .}
+                \Titem{ No nulo.}
             {General}
             
             \attr{cuando}
-            {Número entero positivo. \newline {\bf Tamaño:} \newline 10 dígitos}
             {  Fecha que nos indica cuándo el logro fue desbloqueado.        }
-                {
-                    \Titem{ No nulo.}
-                }
+                \Titem{ No nulo.}
             {Recompensa}
             
-            
-            
     \end{Entidad}
-    
-    
-    
-\end{comment} 
 
-\begin{comment} 
-\clearpage
 \section{Formas normales}
 
     %En esta sección se analiza el cumplimiento de las seis formas normales propuestas por Frank Codd y de la forma normal Boyce-Codd, con el propósito a que se quiere reducir en lo mayor posible la redundancia de datos. Si existe alguna forma normal que no sea cumplida, %se analizarán los cambios requeridos para su cumplimiento. En caso de que no se pueda, se especificará el por qué.  
@@ -869,15 +651,88 @@ Moodle permite extender su esquema de base de datos mediante la instalación de 
     
     \noindent El atributo experiencia\_actual tiene un límite superior dependiendo del valor del atributo nivel\_actual. La forma para reparar este problema es creando una tabla ''nivel'', sin embargo, se desea que los niveles sean un infinito simbólico.
     
-    
-    
-\end{comment}
-    
-\begin{comment}
-    
     \noindent \textbf{No se cumple} con esta forma normal en la tabla \textbf{gmdl\_condicion} debido a que  los valores del atributo ''atributo'' dependen del valor del atributo ''tabla''.
     
     \noindent Se considera que el incumplimiento anterior no será atendido, esto por que para resolverlo se necesitaría crear 2 tablas extras que contengan todas las tablas relacionadas con Moodle y todos los atributos asociados con esas tablas. Estas tablas actuarían como un catálogo para la tabla \textbf{gmdl\_condicion} y se tendrían que estar actualizando si se quiere que los plugins a desarrollar tengan compatibilidad con versiones posteriores de Moodle.
     
     \noindent Otro motivo por el cual no se atiende es que los datos de la tabla \textbf{gmdl\_condicion} nunca cambiarán una vez que se haya creado la base de datos y llenado los valores por defecto.
-\end{comment}    
+\end{comment}
+
+
+
+% ==================================================================
+%   La lista de configuraciones guardadas no pertenece a analisis
+%   sino a diseño.
+%                   To Do: Mover a diseño en el módulo de experiencia
+% ===================================================================
+    
+    %\noindent Por el momento se están guardando las siguientes configuraciones:
+    %\begin{center}
+    %\begin{tabular}{| m{0.25\textwidth} | m{0.30\textwidth} | m{0.15\textwidth} | m{0.18\textwidth}|}\hline
+        %{\bf Nombre} & {\bf Descripción} & {\bf Módulo} & {\bf Sub-módulo}  \\\hline
+        
+        %Modulo de exp. activo &
+        %    Bandera que nos indica si el módulo está activado o no &
+        %    Experiencia & Esquema de \newline experiencia\\\hline 
+     
+        %Tipo de incremento &
+        %    Si el incremento de experiencia necesaria por nivel es lineal o porcentual &
+        %    Experiencia & Esquema de \newline experiencia \\\hline 
+         
+        %Cantidad de incremento &
+        %    Número decimal que indica cuánto se incrementa la experiencia necesaria por cada nivel &
+        %    Experiencia & Esquema de \newline experiencia \\\hline
+        
+        %Experiencia por actividad &
+        %    Cantidad de experiencia que da cualquier actividad al ser completada &
+        %    Experiencia & Esquema de \newline experiencia \\\hline 
+        
+        %Experiencia del nivel 1 &
+        %    Cantidad de experiencia asociada al nivel 1 &
+        %    Experiencia & Esquema de \newline experiencia \\\hline 
+        
+        %Nombre del nivel &
+        %    Nombre que reciben los niveles por defecto. &
+        %    Experiencia & Niveles \\\hline 
+        
+        %Mensaje de felicitaciones &
+        %    Mensaje que aparece cuando un usuario sube de nivel. &
+        %    Experiencia & Niveles \\\hline 
+        
+        %Descripción del rango &
+        %    Mensaje que aparece por defecto, si el nivel no pertenece a ningún rango. &
+        %    Experiencia & Niveles \\\hline 
+            
+        %Imagen del nivel &
+        %    Imagen del nivel por defecto (Se almacena la ruta de la imagen, después de haber sido copiada). &
+        %    Experiencia & Niveles \\\hline 
+        
+        %Color del número del nivel &
+        %    Color que tendrá el número del nivel por defecto. &
+        %    Experiencia & Niveles \\\hline 
+        
+        %Color de la barra de progreso &
+        %    Color que tendrá la barra de progreso de los niveles por defecto. &
+        %    Experiencia & Niveles \\\hline 
+    %\end{tabular}%
+    %\end{center}%
+
+
+ % PASAR EL ANALISIS COMO ANEXO LAS FORMAS NORMALES
+
+ % y finalmente un análisis de las formas normales sobre la base de datos propuesta.\\
+     
+ % Con lo anteriormente especificado y de acuerdo a las 2 primeras formas normales
+ % especificadas por Edgar Frank Codd \cite[ paǵ. 161-182]{libroBaseDeDatosEspaniol}
+ % se diseñó el esquema de la base de datos. A continuación se presentan de manera
+ % muy resumida dichas formas normales.
+
+
+ % CONCLUSIÓN: PASAR AL CAPITULO DE CURVA DE APRENDIZAJE, CÓMO CONCLUSION.
+
+ % \noindent Debido a la capa de abstracción que moodle tiene con respecto al acceso a datos
+ % y a que las nuevas funcionalidades se desarrollaran mediante desarrollo de plugins. se
+ % decidió utilizar las herramientas que proporciona moodle para la creación de las tablas
+ % requeridas para implementar Gamificación.
+
+    %[V] Libro que me pasó CAT (David)   
