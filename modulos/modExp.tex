@@ -1,15 +1,168 @@
 
-\chapter{Módulo de Experiencia}
-\label{mod:experiencia}
+\chapter{Análisis}
 
-\section{Análisis}
+ Este apartado contiene el análisis requerido para la elaboración de módulo de experiencia,
+ contiene la especificación del alcance de este módulo, la descripción de las funcionalidades
+ a desarrollar, la reglas de negocio que rigen el comportamiento del módulo, y por último la
+ especificación de los casos de uso a los que brinda soporte.
 
-Este módulo contiene la especificación de %experiencia que indica;
-cómo se obtienen los puntos de experiencia, la cantidad a otorgar, el número requerido para alcanzar cada nivel en la plataforma, la forma en que el usuario puede visualizar su nivel y la barra de progreso del nivel actual del alumno.
+\section{Esquema de experiencia}
 
+ El esquema de experiencia le proporciona al \refElem{aAdministrador} y a los \refElem[Profesores]%
+ {aProfesor} un mecanismo mediante el cual pueden configurar la forma en que se obtienen los puntos
+ de experiencia, la cantidad a otorgar, el número de puntos de cada nivel y finalmente la
+ visualización del nivel y de los puntos de cada usuario.\\
+
+ \noindent 
+ Las configuraciones fuerón organizadas en dos grupos: las {\it configuraciones a
+ nivel plataforma} las cuales definen valores de forma global, y las {\it configuraciones a nivel curso}
+ las cuales definen valores para un curso en específico. A continuación se describen cada uno de los
+ grupos.\\
+
+    \begin{cdtEntidad}{ConfigXP}{Configuración de Experiencia}{}%
+    %Esta entidad es únicamente una representación de las configuraciones correspondientes al módulo de
+    %experiencia y no forma parte del modelo de datos ya que las configuraciones de todos los plugins son
+    %almacenados en la entidad \refElem{Mdl-configuration}.}
+        
+        \brAttr{activated}{activado}{tboolean}{%
+            Valor que indica si el módulo de experiencia está activado o no.\par
+
+            \it Restricciones:
+            \refElem{tRequerido}.
+            \refElem{tDefault}$:verdadero$
+        }
+
+        \brAttr{increment}{tipo de incremento}{tInt}{%
+            Valor que indica que tipo de incremento es usado para los niveles de experiencia,
+            El valor 0 indica un incremento lineal y el valor 1 indica un incremento porcentual.\par
+
+            \it Restricciones:
+            \refElem{tRequerido},
+            \refElem{tRango} [0,1],
+            \refElem{tDefault}$:1$
+        }
+
+        \brAttr{incrementValue}{valor de incremento}{tNumeric}{%
+            Valor que indica el factor o valor del incremento para realizar el calculo de la
+            experiencia requerida para subir de nivel.\par
+
+            \it Restricciones:
+            \refElem{tRequerido},\par
+            Si el \refElem{ConfigXP.increment} es 0, \refElem{tNatural}.
+            En caso contrario \refElem{tRango} (1,2],
+            \refElem{tDefault}$:1.3$
+        }
+
+        \brAttr{xpLvl}{experiencia del nivel 1}{tInt}{%
+            Valor que indica la cantidad de experiencia que tendrá el primer nivel para ser
+            completado.\par
+
+            \it Restricciones:
+            \refElem{tRequerido},
+            \refElem{tNatural},
+            \refElem{tDefault}$:1000$
+        }
+
+        \brAttr{xpCourse}{experiencia por curso}{tInt}{%
+            Valor que indica la cantidad de experiencia que otorgan los cursos al ser
+            completados.\par
+
+            \it Restricciones:
+            \refElem{tRequerido},
+            \refElem{tDefault}$:1500$
+        }
+
+    \end{cdtEntidad}
+    \begin{cdtEntidad}{ConfigXPVisual}{Configuración de los Niveles}{}
+
+        \brAttr{title}{Título de niveles}{tText}{%
+            Cadena que contiene el título que tienen por defecto todos los niveles.\par
+
+            \it Restricciones:
+            \refElem{tLength}$0-10$,
+            \refElem{tRequerido}
+        }
+
+        \brAttr{description}{Descripción}{tText}{%
+            Cadena que contiene la descripción qe tiene por defecto todos los niveles.\par
+
+            \it Restricciones:
+            \refElem{tRequerido},
+            \refElem{tDefault} ``Casual Levels''
+        }
+
+        \brAttr{message}{Mensaje}{tText}{%
+            Cadena que contiene el mensaje de felicitaciones que tienen por defector todos
+            los niveles.\par
+
+            \it Restricciones:
+            \refElem{tRequerido}
+            \refElem{tDefault} ``CONGRATULATIONS''
+        }
+
+        \brAttr{colorLvl}{Color de número de nivel}{tColor}{%
+            Valor que contiene el código de color con el cual se printará el número de nivel.\par
+            
+            \it Restricciones:
+            \refElem{tRequerido},
+            \refElem{tDefault} \#0B619F
+        }
+
+        \brAttr{colorBar}{Color de la barra de progreso}{tColor}{%
+            Valor que contiene el código de color con el cual se pintará el avance en la barra
+            de progreso del nivel.\par
+            
+            \it Restricciones:
+            \refElem{tRequerido},
+            \refElem{tDefault} \#0B619F
+        }
+
+        \brAttr{image}{Imagen}{tImage}{%
+            Imagen que se desplegará en los niveles cómo el escudo por defecto.\par
+
+            \it Restricciones:
+            \refElem{tRequerido}
+        }
+
+    \end{cdtEntidad}
+
+
+
+\section{Submódulo de niveles}
+
+\section{Funcionalidades}
+
+\section{Reglas de negocio}
+\subsection{BR-201} % INPUT: Cursos Igualitarios
+\subsection{...}    % INPUT: Incremento lineal en niveles
+                    % INPUT: Incremento porcentual en niveles
+                    % INPUT: Otorgar experiencia
+                    % INPUT: Administración de experiencia en el curso
+
+\section{Casos de uso}
+\subsection{Diagrama de casos de uso}
+\subsection{CU-E1} % CHANGE FOR INCLUDES
+
+\chapter{Diseño}
+\section{Diseño de plugins}
+\section{Diagrama de componentes}
+\section{Diagrama de clases}
+
+\chapter{Pruebas}
+\section{CP-141} % CHANGE FOR INCLUDES
+\section{CP-15}
+
+\begin{comment}
+\section{Submódulos}
+
+
+%\begin{comment} % TERMINOS Y EJEMPLOS DE EXPERIENCIAi
 \subsection{Esquema de Experiencia}
     
-Es la especificación de los conceptos relacionados con los puntos de experiencia, cuales son los tipos de incremento y cómo se usan y cuales restricciones se aplican para la implementación de los puntos de experiencia, niveles y la acción subir de nivel. % y cuántos niveles hay.\\
+ Es la especificación de los conceptos relacionados con los puntos de experiencia, cuales
+ son los tipos de incremento y cómo se usan y cuales restricciones se aplican para la
+ implementación de los puntos de experiencia, niveles y la acción subir de nivel.
+ % y cuántos niveles hay.\\
 
 \subsubsection{Conceptos de puntos de experiencia}
 \noindent Como se especificó en el marco teórico, los puntos de experiencia son una unidad que representa la cantidad de actividades completadas por un usuario, sin embargo, se puede referir en diversos contextos a estos puntos. Es por ello que se utilizarán conceptos definidos por los cuadros  \hyperref[table:METerminosExperiencia1]{6.1} y  \hyperref[table:METerminosExperiencia2]{6.2} .\\
@@ -108,13 +261,16 @@ Es la especificación de los conceptos relacionados con los puntos de experienci
 \end{table}
 
 \noindent A lo largo de este capítulo se utilizaran los conceptos anteriores.\\
+%\end{comment}
 
 \subsubsection{Tipos de incremento}
 
-    Un tipo de incremento define cómo se calcula la diferencia entre los valores de ''\hyperref[table:METerminosExperiencia1]{experiencia del nivel}'' de un nivel \textit{$n_i$} y el siguiente a él \textit{$n_(i+1)$}.\\
+ Un tipo de incremento define cómo se calcula la diferencia entre los valores de
+ ''\hyperref[table:METerminosExperiencia1]{experiencia del nivel}'' de un nivel
+ \textit{$n_i$} y el siguiente a él \textit{$n_(i+1)$}.\\
     
-    \noindent Se da soporte a los siguientes tipos de incremento entre los niveles:
-    
+ \noindent
+ Se da soporte a los siguientes tipos de incremento entre los niveles:
     
     \begin{quote}
     \begin{description}
@@ -129,7 +285,7 @@ Es la especificación de los conceptos relacionados con los puntos de experienci
     \end{quote}
     
     
-\begin{comment}
+%\begin{comment}
     \begin{quote}
     \begin{description}
         \item[Lineal] Establece que la diferencia es una cantidad fija.\\
@@ -141,30 +297,29 @@ Es la especificación de los conceptos relacionados con los puntos de experienci
             $$\forall n_i \in Nivel\ |\ (c)f(n_i) = f(n_{i+1}).$$
     \end{description}
     \end{quote}
-
-\end{comment}    
-
-%\noindent El esquema de experiencia también contiene una lista de todas las restricciones que deben de existir para que una acción en particular entregue experiencia.
+%\end{comment}    
 
 \subsubsection{Esquema configurable}
 
-    Se quiere que el administrador de la página pueda configurar:
-    \begin{quote}
-    \begin{itemize}
-        \item{La ''\hyperref[table:METerminosExperiencia1]{experiencia del nivel}'' del nivel 1.}
-        \item {El tipo de incremento.}
-        \item {La cantidad de los puntos de experiencia en el incremento.}
-        \item {La ''\hyperref[table:METerminosExperiencia1]{experiencia otorgada}'' que da resolver cualquier actividad.}
-    \end{itemize}
-    \end{quote}
+ Se quiere que el administrador de la página pueda configurar:
+ \begin{quote}
+ \begin{itemize}
+    \item{La ''\hyperref[table:METerminosExperiencia1]{experiencia del nivel}'' del nivel 1.}
+    \item {El tipo de incremento.}
+    \item {La cantidad de los puntos de experiencia en el incremento.}
+    \item {La ''\hyperref[table:METerminosExperiencia1]{experiencia otorgada}'' que da resolver cualquier actividad.}
+ \end{itemize}
+ \end{quote}
 
 \subsection{Submódulo de Niveles}
 
-Presenta a los alumnos su progreso utilizando un sistema de niveles que se van alcanzado obteniendo puntos de experiencia. Al alcanzar un nuevo nivel la barra que muestra la cantidad de experiencia del nivel se actualizará.
-% y cada vez que se alcanza un nivel, los puntos de experiencia se regresan a cero.
+ Presenta a los alumnos su progreso utilizando un sistema de niveles que se van alcanzado
+ obteniendo puntos de experiencia. Al alcanzar un nuevo nivel la barra que muestra la
+ cantidad de experiencia del nivel se actualizará.
+ % y cada vez que se alcanza un nivel, los puntos de experiencia se regresan a cero.
 
-\begin{quote}
-\begin{description}
+    \begin{quote}
+    \begin{description}
     \item[Objetivo] \hfill\\
         Mostrar a los alumnos el nivel actual de experiencia que tienen y el avance que tienen de ese mismo nivel.
         %Mostrar el nivel actual que tienen los alumnos, así como el avance que tienen en ese mismo nivel.
@@ -172,14 +327,14 @@ Presenta a los alumnos su progreso utilizando un sistema de niveles que se van a
         %Proveer información al alumno que indique la cantidad de tiempo y esfuerzo que le ha dedicado a la plataforma.
         
     \item[Principios a los que brinda soporte:] \hfill
-    \begin{itemize}
-        \item 2 \principioII
-        \item 6 \principioVI
-    \end{itemize}
-\end{description}
-\end{quote}
+        \begin{itemize}
+            \item 2 \principioII
+            \item 6 \principioVI
+        \end{itemize}
+    \end{description}
+    \end{quote}
 
-\begin{comment}
+%\begin{comment}
 
 \subsection{Submódulo de Barra de Progreso}
 
@@ -196,40 +351,40 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
         \end{itemize}
     \end{description}
     \end{quote}
-\end{comment}
+%\end{comment}
     
-\subsection{Comportamiento en Moodle}
+%\subsection{Comportamiento en Moodle} ESTO ES DISEÑO
 
 %\subsubsection{Plugin}
 %\subsubsection{Opciones para el administrador}
 
 \clearpage
 %\subsection{Reglas de Uso} % Reglas de Negocio | But there's no business
-\subsection{Casos de Uso}
+\section{Casos de Uso}
     
-    %\addfigure{0.8}{CU/CU_E}{fig:CUEDiagram}{Diagrama de casos de uso del Módulo de Experiencia} \clearpage
+    \addfigure{1}{modulos/CU/UseCases}{fig:CUEDiagram}{Diagrama de casos de uso del Módulo de Experiencia} \clearpage
     
     En la figura \ref{fig:expUsecase} se detalla el diagrama de casos de uso correspondientes al módulo de experiencia. Los casos de uso de moodle (en color blanco) son modelados como casos de uso abstractos, mientras que los casos de uso relevantes para el módulo de experiencia son diferenciados por el color azul.\\
     
-    \addfigure{1}{diagrams/UseCases}{fig:expUsecase}{Diagrama de casos de uso}
+%    \addfigure{1}{diagrams/UseCases}{fig:expUsecase}{Diagrama de casos de uso}
     
     \noindent Debido a que los plugins a desarrollar son elementos opcionales para moodle, solo se puede acceder a los casos de uso del módulo de experiencia (en color azul) a través de puntos de extensión de los casos de uso de moodle (en color blanco).\\
     
     \noindent Solo son documentados los casos de uso del módulo de experiencia porque son propiamente las funcionalidades o características que se desarrollaran. Los pasos de los casos de uso de moodle, guías e instructivos pueden ser consultados en la página oficial de moodle.
     \clearpage
     
-    \input{CU/cu-e1}\clearpage % Configurar esquema de experiencia
-    \input{CU/cu-e2}\clearpage % Crear curso con experiencia
-    \input{CU/cu-e9}\clearpage % Recibir experiencia
+    %\input{CU/cu-e1}\clearpage % Configurar esquema de experiencia
+    %\input{CU/cu-e2}\clearpage % Crear curso con experiencia
+    %\input{CU/cu-e9}\clearpage % Recibir experiencia
     
-\subsection{Interfaces}
+\section{Interfaces}
     
 \subsection*{IU-E01 Bloque de experiencia}
 \label{IUE01}
 
     Visualización en Moodle del bloque de experiencia.
 
-    \addfigure{1}{IU/IU_E01_Bloque_Experiencia}{fig:IUE01}{IU-E01: Bloque de experiencia.}
+%    \addfigure{1}{IU/IU_E01_Bloque_Experiencia}{fig:IUE01}{IU-E01: Bloque de experiencia.}
     
     \noindent {\bf Elementos:}
     \begin{quote}
@@ -250,7 +405,7 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
 
     Esta interfaz es una ventana emergente que sale siempre que el usuario tenga ''\hyperref[table:METerminosExperiencia1]{experiencia sobrante}'' al ejecutar el \hyperref[CU-E01]{CU-E01 Recibir experiencia}.    
 
-    \addfigure{1}{IU/IU_E02_PopUp_SubirNivel}{fig:IUE02}{IU-E02: Ventana emergente que aparece al subir de nivel.}
+%    \addfigure{1}{IU/IU_E02_PopUp_SubirNivel}{fig:IUE02}{IU-E02: Ventana emergente que aparece al subir de nivel.}
     
     \noindent {\bf Elementos:}
     \begin{quote}
@@ -270,7 +425,7 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
     En esta interfaz el administrador puede modificar los aspectos visuales que tienen las interfaces \hyperref[IUE01]{IU-E01 Bloque de experiencia} y \hyperref[IUE02]{IU-E02 Subir de nivel} , y configurar el tipo de incremento, cuanto incremento hay por nivel, la ''\hyperref[table:METerminosExperiencia1]{experiencia del nivel}'' del nivel 1 y la ''\hyperref[table:METerminosExperiencia1]{experiencia otorgada}'' que darán todas las actividades.\\
     Esta interfaz también activa y desactiva el funcionamiento del módulo de experiencia.\\
     
-    \addfigure{1}{IU/IU_E03_config_parte1}{fig:IUE03_1}{Interfaz donde se  configura el esquema de experiencia parte 1.}
+    %\addfigure{1}{IU/IU_E03_config_parte1}{fig:IUE03_1}{Interfaz donde se  configura el esquema de experiencia parte 1.}
     
     
     \noindent {\bf Elementos importantes:}
@@ -285,7 +440,7 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
     \end{quote}
     
 \clearpage
-    \addfigure{1}{IU/IU_E03_config_parte2}{fig:IUE03_2}{Interfaz donde se  configura el esquema de experiencia parte 2.}
+    %\addfigure{1}{IU/IU_E03_config_parte2}{fig:IUE03_2}{Interfaz donde se  configura el esquema de experiencia parte 2.}
     
     
     \noindent {\bf Elementos importantes:}
@@ -301,7 +456,7 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
     
 \clearpage
     
-    \addfigure{1}{IU/IU_E03_config_parte3}{fig:IUE03_3}{Interfaz donde se  configura el esquema de experiencia parte 3.}
+    %\addfigure{1}{IU/IU_E03_config_parte3}{fig:IUE03_3}{Interfaz donde se  configura el esquema de experiencia parte 3.}
     
     \noindent {\bf Elementos importantes:}
     \begin{quote}
@@ -321,7 +476,7 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
     
     \noindent En esta interfaz los alumnos pueden ver un resumen de su intento para resolver el examen, así como poder reanudar el intento para terminar o corregir, o para enviar las respuestas para su revisión.   
 
-    \addfigure{1}{IU/IU_M01_VerIntento}{fig:IUM01}{IU-M01: Ver intento.}
+    %\addfigure{1}{IU/IU_M01_VerIntento}{fig:IUM01}{IU-M01: Ver intento.}
     
     \noindent {\bf Elementos importantes:}
     \begin{quote}
@@ -339,7 +494,7 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
     
     \noindent Esta interfaz es una ventana emergente que permite al usuario pensárselo una segunda vez antes de subir sus respuestas para ser calificadas. Esto inclusive por si le da por error.\\   
 
-    \addfigure{1}{IU/IU_M02_PopUp_Confirmacion}{fig:IUM02}{IU-M02: Confirmación de envío de intento.}
+    %\addfigure{1}{IU/IU_M02_PopUp_Confirmacion}{fig:IUM02}{IU-M02: Confirmación de envío de intento.}
     
     \noindent {\bf Elementos importantes:}
     \begin{quote}
@@ -360,7 +515,7 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
     %y dicho intento puede ser calificado por el sistema,
     se muestra esta interfaz con la calificación de su intento. Algo importante es que la interfaz  \textbf{IU-E01 Bloque de experiencia} está visible, haciendo posible mostrar la actualización de los datos del usuario.\\
 
-    \addfigure{1}{IU/IU_M03_FinalizarIntento}{fig:IUM03}{IU-M03: Intento calificado.}
+    %\addfigure{1}{IU/IU_M03_FinalizarIntento}{fig:IUM03}{IU-M03: Intento calificado.}
     
     
 	\clearpage
@@ -372,43 +527,44 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
     
     \noindent Esta interfaz contiene la lista de todos los plugins que tienen configuraciones globales, donde cada uno de sus elementos es un enlace a la página de configuración respectiva a cada plugin. Además en su primera sección tiene las opciones para ver, manejar e instalar plugins.\\
 
-    \addfigure{1}{IU/IU_M04_SeccionPlugins}{fig:IUM04}{IU-M04: Sección donde están todos los plugins con configuraciones globales.}
+%    \addfigure{1}{IU/IU_M04_SeccionPlugins}{fig:IUM04}{IU-M04: Sección donde están todos los plugins con configuraciones globales.}
 	\clearpage
 	
 
 \subsection*{Moodle: IU-M05 Crear Curso}
 
-    El objetivo de esta pantalla (Figura \ref{moodle:nuevoCurso}) es permitirle al profesor crear un nuevo curso, especificando los datos generales del curso, la descripción, apariencia, tamaño de los archivos, el seguimiento de finalización, los grupos, renombre de roles y las marcas vinculadas al curso.
+ El objetivo de esta pantalla (Figura \ref{moodle:nuevoCurso}) es permitirle al profesor crear un nuevo curso, especificando los datos generales del curso, la descripción, apariencia, tamaño de los archivos, el seguimiento de finalización, los grupos, renombre de roles y las marcas vinculadas al curso.
     
-    \addfigureB{1}{IU/mCrearCurso}{moodle:nuevoCurso}{Moodle IU-M05 Crear curso}
+%    \addfigureB{1}{IU/mCrearCurso}{moodle:nuevoCurso}{Moodle IU-M05 Crear curso}
     
     {\bf Elementos}
     \begin{itemize}
-        \item \bb{Datos Generales} es un formulario que contiene el nombre completo y corto del curso (obligatorios), su identificador, categoría, visibilidad, así como las fechas de inicio y término del curso.
-        \item \bb{Descripción} 
-        \item \bb{Formato de curso} 
-        \item \bb{Apariencia}
-        \item \bb{Archivos y subidas}
-        \item \bb{Seguimiento de finalización}
-        \item \bb{Grupos}
-        \item \bb{Renombrar rol}
-        \item \bb{Marcas}
+        \item \bf{Datos Generales} es un formulario que contiene el nombre completo y corto del curso (obligatorios), su identificador, categoría, visibilidad, así como las fechas de inicio y término del curso.
+        \item \bf{Descripción} 
+        \item \bf{Formato de curso} 
+        \item \bf{Apariencia}
+        \item \bf{Archivos y subidas}
+        \item \bf{Seguimiento de finalización}
+        \item \bf{Grupos}
+        \item \bf{Renombrar rol}
+        \item \bf{Marcas}
     \end{itemize}
 
-\section{Diseño}
+        
+\chapter{Diseño}
 
 \subsection{Diagrama de Clases}
     
     En la figura \ref{fig:classesXP} se muestra el diagrama de clases, los archivos {\it lib, events, settings, version} y los {\it módulos AMD} son representados mediante el uso de clases. Para facilitar la lectura del diagrama se representa a móodle como un paquete completo, el cual lee los distintos archivos y clases que requiere el plugin para funcionar.
 
-    \addfigure{1}{diagrams/classesExp}{fig:classesXP}{Diagrama de clases del Módulo de Experiencia}
+%    \addfigure{1}{diagrams/classesExp}{fig:classesXP}{Diagrama de clases del Módulo de Experiencia}
 \clearpage
 
 \subsection{Diagrama de componentes}
 
     En la figura \ref{fig:bloques1} se muestra el diagrama de componentes del Módulo de experiencia que contiene como interactúa el Módulo con la plataforma Moodle.
 
-    \addfigure{1}{diagrams/bloques1}{fig:bloques1}{Diagrama de componentes del Módulo de Experiencia}
+%    \addfigure{1}{diagrams/bloques1}{fig:bloques1}{Diagrama de componentes del Módulo de Experiencia}
 
 \clearpage
 \subsection{Diagramas de Secuencia}
@@ -417,5 +573,6 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
     Para diseñar la forma en que se ejecuta el caso de uso CU-E2, se tomó en consideración el flujo normal de eventos emitidos cuando se crea un curso en moodle. Los eventos emitidos en orden cronológico son {\it course\_created}, {\it course\_section\_created} y {\it enrol\_instance\_created}.\\
     
     \noindent En la figura \ref{ds:e2} se detalla la interacción entre el core de moodle, los eventos emitidos, y las clases del plugin {\bf Format Gamedle}.
-    
-    
+
+\chapter{Pruebas}
+\end{comment}
