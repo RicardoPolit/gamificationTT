@@ -299,17 +299,57 @@
 \subsubsection{Sprint Backlog}
 
  \noindent Conforme los {\it items} del {\it product backlog} vayan siendo seleccionados para
- tratarse en un sprint, se les añadirá una etiqueta que indique a qué sprint pertenecen.
+ tratarse en un sprint, se les añadirá los atributos presentes en la tabla \ref{SBItems}, los
+ cuales son una etiqueta que indique a qué sprint pertenecen y opcionalmente una etiqueta que
+ indique cómo se evaluará la completitud de dicho item.
     
     \addtable{|l|l|}{SBItems}{
         {\bf Atributo} & {\bf Descripción}\\\hline
         sprint   &  Indica el número de Sprint al cual ha sido asignado el item.             \\\hline
         pruebas  &  (Opcional) Sentencia de cómo se evaluara que dicho ítem esté completado. \\\hline
-    
-    }{Atributos del Sprint Backlog}
 
+    }{Atributos del Sprint Backlog}
 
 % ======================================================
 %   F O R   T H E   W I N
 % ======================================================
+
+\section{Marco de Trabajo For The Win}
+\label{analisis:forthewin}
+
+ Una de las herramientas más importantes que brinda el marco de trabajo {\it For The Win} es
+ una guía pragmática para la implementación de la gamificación, dicha guía consiste de seís
+ pasos, el detalle de cómo se siguieron estos pasos se encuentra en las siguientes secciones
+ de este capítulo de análisis.
+
+    \begin{quote}
+    \begin{itemize}
+    \item El primer paso del marco de trabajo consiste en definir los objetivos del
+          sistema, mientras que el segundo consiste en delimitar las acciones de los
+          usuarios, especificando el comportamiento que tendrán dentro del sistema.
+          Ambos puntos son tratados en la siguiente sección \hyperrefx{analisis:modulos}.\\
+
+    \item El siguiente paso consiste en definir que usuarios interactuarán con el sistema
+          y construir las funcionalidades con base en los tipos de usuarios que lo
+          usarán, para ello se destina la sección \hyperrefx{analisis:usuarios}.\\
+
+    \item El cuarto paso del marco de trabajo consiste en definir los ciclos de actividades
+          o las etapas por las que pasa un usuario para avanzar en el sistema gamificado.
+          Para este punto se presenta en la sección \hyperrefx{analisis:visionyuso}.\\
+
+    \item El quinto paso tiene el titulo {\it``Piensa en la diversión''}, de acuerdo con el
+          marco de trabajo para poder solventar este punto el diseño de los elementos de
+          juego debe contemplar tanto elementos que apoyen a la motivación extrínseca cómo
+          a la motivación intrínseca. El mapeo entre los módulos planteados y el tipo de
+          motivación a la que brindan soporte se puede ver en la sección
+          \hyperrefx{analisis:octalysis}.\\
+
+    \item El último paso consiste en escoger especificamente que elementos de juego se
+          deciden utilizar en el diseño del sistema, probarlos, ajustarlos y ejecutar
+          los cambios requeridos para mejorar la implementación. Esta punto es tratado en
+          parte del documento destinada a los módulos.
+    \end{itemize}
+    \end{quote}
+
+
 
