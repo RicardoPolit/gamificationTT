@@ -121,11 +121,11 @@
 \def\principioVIIx{Unpredictability \& Curiosity}
 \def\principioVIIIx{Loss \& Avoidance}
 
-\def\principioI{Diferenciación y Pertenencia (\principioIx)\ }
-\def\principioII{Desarrollo y Recompensa (\principioIIx)\ }
-\def\principioIII{Descubrimiento y Retroalimentación (\principioIIIx)\ }
-\def\principioIV{Personalización (\principioIVx)\ }
-\def\principioV{Motivo e Impulso Social (\principioVx)\ }
-\def\principioVI{Codicia (\principioVIx)\ }
-\def\principioVII{Impredecibilidad y Curiosidad (\principioVIIx)\ }
-\def\principioVIII{Miedo a la Pérdida (\principioVIIIx)\ }
+\def\principioI{Diferenciación y Pertenencia (\principioIx)}
+\def\principioII{Desarrollo y Recompensa (\principioIIx)}
+\def\principioIII{Descubrimiento y Retroalimentación (\principioIIIx)}
+\def\principioIV{Personalización (\principioIVx)}
+\def\principioV{Motivo e Impulso Social (\principioVx)}
+\def\principioVI{Codicia (\principioVIx)}
+\def\principioVII{Impredecibilidad y Curiosidad (\principioVIIx)}
+\def\principioVIII{Miedo a la Pérdida (\principioVIIIx)}

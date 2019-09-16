@@ -2,52 +2,155 @@
 \section{Módulos identificados}
 \label{analisis:modulos}
 
- Como se comentó en el capítulo de introducción, nuestra propuesta de solución consiste en
- desarrollar componentes que permitan implementar gamificación dentro de una plataforma de
- aprendizaje web. Las características más importantes que debe brindar nuestra propuesta
- de solución son las siguientes:
+ Como se comentó en el capítulo de \nameref{ch:introduccion}, nuestro
+ objetivo es crear una herramienta que permita implementar los principios de
+ gamificación dentro de una plataforma web de aprendizaje. Con base en el objetivo
+ se identificarón seís módulos principales a desarrollar, cada uno con sus
+ respectivos submódulos (ver figura \ref{fig:modulos}).\\
 
-    \begin{itemize}
-    \item {\bf\color{primary} Altamente configurable}
+ \noindent
+ Los módulos identificados permitiran extender la funcionalidad de la plataforma web
+ de aprendizaje Moodle, la cual fue elegida con base en la investiación realizada en
+ la seccion \hyperrefx{sec:sistemasaprendizaje}. A continuación se describe cada uno de los módulos y
+ submódulos identificados.\\
 
-    \item {\bf\color{primary} Solo instala/usa lo que se desea.}
+    \addfigure{1}{analisis/diagrams/modulosTT}{fig:modulos}{Diseño modular del sistema}
 
-        Una de las principales caracteristicar que deben proporcionar estos
-        componentes hacia los profesores es que les permitan escoger que elementos
-        de gamificación desean incluir en sus cursos y cuales no.\\
+\subsection{Módulo de Experiencia}
+ \newcommand{\itemx}[1]{\item{\bf\color{primary}#1}}
 
-    \item {\bf\color{primary} Los módulos pueden trabajar independientemente uno de otro}
+ Este módulo brindará un mecanismo que permite a los usuarios medir su progreso
+ como puntos de experiencia a nivel plataforma, además define la forma en que se
+ obtendrán los puntos de experiencia, la forma en que se visualizará la información,
+ el número requerido para superar cada nivel y la barra de progreso del nivel
+ actual.
 
-        Respecto el poder elegir que características se desean incluir y cuales no,
-        implica que los componentes que brindan dichas caracterñisticas hayan sido
-        diseñados para que puedan trabajar tanto independientemente como
-        colaborativamente
+\subsubsection{Esquema de experiencia.}
 
-    \item {\bf\color{primary} Conección lógica de eventos}
+ El esquema de experiencia es la configuración sobre cómo funciona el sistema
+ de puntos de experiencia, incluyendo la cantidad de experiencia que tiene
+ cada nivel, el tipo de incremento en los puntos de experiencia nivel a nivel,
+ las restricciones sobre la experiencia y la forma en que se otorgarán los puntos.
 
-        Que las cosas que pasen en módulo puedan permitir realizar acciones con
-        otros módulos para que cuando se deseém ocupar ambos, estos puedan trabajar
-        en conjunto.
+\subsubsection{Niveles.}
 
-    \end{itemize}
- 
+ Es el mecanismo que permite mostrarle a los alumnos el progreso que han tenido
+ a nivel plataforma mediante el nivel y los puntos de experiencia obtenidos en 
+ los cursos, además contiene la configuración para establecer el cómo se vera el
+ nivel y la experiencia obtenida de dicho nivel.
+
+ % Los principios de gamificación a los cuales permite brindarles soporte son:
+ % \principioII
+ % \principioVI
+
+\subsection{Módulo de Recompensa}
+
+\subsubsection{Marcadores}
+\subsubsection{Logros}
+\subsubsection{Advertencias}
+
+\subsection{Módulo de Personalización}
+
+\subsubsection{Items de personalización}
+\subsubsection{Personalización}
+\subsubsection{Narrativa}
+
+\subsection{Módulo Financiero}
+
+\subsubsection{Esquema Financiero}
+\subsubsection{Tienda}
+\subsubsection{Loot Boxes}
+
+\subsection{Módulo de Competencias}
+
+\subsubsection{Retos}
+\subsubsection{Retos al sistema (1 vs CPU)}
+\subsubsection{Torneo}
+\subsubsection{Apuestas}
+\subsubsection{Torneo con ganancias}
+\subsubsection{Competencias Poker}
+
+\subsection{Módulo de Seguimiento}
+
+\subsubsection{Preguntas diarias}
+\subsubsection{Barras de progreso}
+
+\noindent 
+
+\section{Relacion entre los módulos y principios}
+
+ Los módulos descritos anteriormente contemplan todas las funcionalidades que se desarrollarán
+ durante el desarrollo de este trabajo terminal, en conjunto todos los módulos planteados contienen
+ 19 submódulos. Los módulos y submódulos se presentan organizados en la figura \ref{fig:modulos}.\\
+
+ \clearpage
+
  \noindent 
- Además de las características presentes anteriormente se ha acordado que el conjunto
- de características debe set lo suficientemente grande para poder brindarle soporte a
- la implementación de los principios de gamificación dentro de la plataforma web de
- aprendizaje (ver objetivo).
-
  % TAMBIEN SE DESEA QUE SEAN VARIAS OPCIONES PARA QUE LOS PROFES TENGAN UN ABANICO
  % AMPLIO DE OPCIONES
 
+\section{Características principales}
 
- % DESCRIBIR POR QUE HAY UNO DE EXPERIENCIA, RECOMPENSA, SEGUIMIENTO, ETC.
+ Como se comentó en el capítulo de \hyperref[ch:introduccion]{introducción}, nuestra
+ propuesta de solución consiste en desarrollar componentes que permitan implementar
+ gamificación dentro de una plataforma de aprendizaje web con el propósito de
+ al objetivo planteado el cual es
 
- En esta sección se describen los distintos módulos identificados, el propósito de cada uno
- y los submódulos de los cuales estan constituidos
+ Las características más
+ importantes que debe brindar nuestra propuesta de solución son las siguientes:
 
-    Los requerimientos presentes en el Product Backlog fueron agrupados en 6 módulos (ver figura \ref{fig:modulos}): el módulo de competencia, módulo financiero, módulo de personalización, módulo de seguimiento, módulo de experiencia y módulo de recompensa. Fueron identificados 19 submódulos distribuidos en los módulos anteriormente mencionados.\\
+    \begin{multicols}{2}
+    \begin{itemize}
+    \itemx{ Altamente configurable }
 
-    %    \noindent Como se comentó en la sección \hyperrefx{subsec:plugins}, la manera más recomendable para extender las funcionalidades de moodle es desarrollando o incluyendo plugins, debido a esta razón, el análisis y diseño es realizado tomando en consideración de que se trabajará desarrollando plugins.
+    \item[] Hace referencia a que se debe proporcionar al administrador, profesores
+            y alumnos la flexbilidad para que puedan configurar los valores por defecto
+            y visualización de la herramienta que se desarrollará.
+
+    \itemx{ Escoge que quieres incluir }
+
+    \item[] Una de las principales caracteristicar que deben proporcionar estos
+            componentes hacia los profesores es que les permitan escoger que elementos
+            de gamificación desean incluir en sus cursos y cuales no.\\
+
+    %\vfill\null
+    %\columnbreak
+    %\vfill\null
+
+    \itemx{ Bajo acoplamiento }
+
+    \item[] Respecto el poder elegir que características se desean incluir y cuales no,
+            implica que los componentes que brindan dichas caracterñisticas hayan sido
+            diseñados para que puedan trabajar tanto independientemente como
+            colaborativamente.
+
+    \itemx{ Comunicación entre módulos }
+
+    \item[] Que las cosas que pasen en módulo puedan permitir realizar acciones con
+            otros módulos para que cuando se deseém ocupar ambos, estos puedan trabajar
+            en conjunto.
+
+    \end{itemize}
+    %\vfill\null
+    \end{multicols}
  
-    \addfigure{1}{analisis/diagrams/modulosTT}{fig:modulos}{Módulos del proyecto}
+
+% =========================================
+%  N O T E S
+% =========================================
+
+% DAN:
+%   I THINK, IT'S A GOOD TO REMOVE THE SYSTEM REQUIREMENTS AND
+%   USE THE 19 ''SUBMODULES'' AS THE PRODUCT BACKLOG ITEMS.
+%
+
+ % Los requerimientos presentes en el Product Backlog fueron agrupados en 6 módulos (ver
+ % figura \ref{fig:modulos}): el módulo de competencia, módulo financiero, módulo de personalización,
+ % módulo de seguimiento, módulo de experiencia y módulo de recompensa. Fueron identificados
+ % 19 submódulos distribuidos en los módulos anteriormente mencionados.\\
+
+ % \noindent Como se comentó en la sección \hyperrefx{subsec:plugins}, la manera más recomendable
+ % para extender las funcionalidades de moodle es desarrollando o incluyendo plugins, debido a
+ % esta razón, el análisis y diseño es realizado tomando en consideración de que se trabajará
+ % desarrollando plugins.
+ 
