@@ -134,13 +134,16 @@
 \newenvironment{actor}[4][]{%
     \CrearVariablesInternas{#1}%
     \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
-    \subsection{Actor #3}%
+    \subsection{Actor: #3}%
         \hypertarget{#2}{}%
-        \noindent{\includegraphics[width=\textwidth]{cdt/uc/rules/ActorRule}}
+        %\noindent{\includegraphics[width=\textwidth]{cdt/uc/rules/ActorRule}}
+        #4
+        \begin{quote}
         \begin{description}%
-            \item[Descripción:] {#4}%
+            %\item[Descripción:] {#4}%
 }{%
         \end{description}%
+        \end{quote}%
 }
 
 %=================================================================

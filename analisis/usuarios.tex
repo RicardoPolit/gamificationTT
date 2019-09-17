@@ -1,6 +1,113 @@
 \section{Usuarios}
 \label{analisis:usuarios}
 
+ En esta sección se presentan los actores a los que va destinada la propuesta de
+ solución, así como sus responsabilidades y perfil recomendado. Posteriormente se
+ presentan por cada módulo el conjunto de funcionalidades que se le brindarán a
+ cada actor especificando a que módulo pertenecen las funcionalidades.
+
+ % =====================================
+ %    A D M I N I S T R A D O R
+ % =====================================
+
+    \begin{actor}{aAdmininstrador}{Administrador del sitio}{%
+        El adminsitrador del sitio es la persona con mayor jerarquía respecto
+        a los permisos y funcionalidades que brinda moodle, desde configurar la
+        visualización de la página principal del sitio hasta editar las políticas
+        de seguridad. A continuación se describen las responsabilidades y cualidades
+        que debe tener un administrador.}
+
+    \item[Responsabilidades:] \hfill
+        \begin{itemize}
+        \item Instalar/desinstalar plugins
+        \item configuración general de los plugins
+        \end{itemize}
+
+    \item[Perfil:] \hfill
+        \begin{itemize}
+        \item Contar con experiencia administrando moodle.
+        \item Conocimientos de permisos en LAMP (Linux, apache, MySQL and PHP).
+        \item Conocimientos básicos de gamificación.\\
+        \end{itemize}
+    \end{actor}
+
+ \noindent
+ Las funcionalidades extras que se le brindarán al adminitrador son las siguientes:
+
+    \begin{quote}
+
+    {\bf Del módulo de experiencia:}
+        \begin{itemize}
+        \item Establecer la cantidad de experiencia que brindarán los cursos.
+        \item Especificar la experiencia correspondiente al primer nivel.
+        \item Elegir el tipo de incremento de la cantidad de experiencia en los niveles.
+        \item Especificar el factor o valor de incremento asociado al tipo de incremento.
+        \end{itemize}
+
+    % TODO expecificar las funcionalidades de los otros módulos
+    \end{quote}
+
+ % =====================================
+ %    P R O F E S O R
+ % =====================================
+
+    \begin{actor}{aProfesor}{Profesor}{%
+        ...}
+
+    \item[Responsabilidades:] \hfill
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+
+    \item[Perfil:] \hfill
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+    \end{actor}
+
+ \noindent
+ Las funcionalidades extras que se le brindarán al profesor son las siguientes:
+
+    \begin{quote}
+
+    {\bf Del módulo de experiencia:}
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+
+    % TODO expecificar las funcionalidades de los otros módulos
+    \end{quote}
+
+ % =====================================
+ %    A L U M N O
+ % =====================================
+
+    \begin{actor}{aAlumno}{Alumno}{%
+        ...}
+
+    \item[Responsabilidades:] \hfill
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+
+    \item[Perfil:] \hfill
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+    \end{actor}
+
+ \noindent
+ Las funcionalidades extras que se le brindarán al profesor son las siguientes:
+
+    \begin{quote}
+
+    {\bf Del módulo de experiencia:}
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+
+    % TODO expecificar las funcionalidades de los otros módulos
+    \end{quote}
 
  La división propuesta de Richard Bartle \cite{TiposDeUsuario}, los divide en 4 grupos, triunfadores,
  exploradores, socializadores y asesinos. En nuestro caso no nos enfocaremos en los exploradores
@@ -21,7 +128,7 @@
     
  Es importante recalcar que en este momento las divisiones de los usuarios son mapeados en los principios
  del marco de trabajo Octalysis de la siguiente manera en el cuadro \ref{table:usuariosvprincipios} según
- el autor de Octalysis\cite[p. 414]{libro2}.
+ el autor de Octalysis\cite[p. 414]{Octalysis}.
     
     \begin{table}[h!]
     \centering
@@ -33,3 +140,47 @@
     \caption{Tabla de mapeo de tipos de usuario y principios de Octalysis}
     \label{table:usuariosvprincipios}
     \end{table}
+
+
+\section{Características principales}
+
+ % TAMBIEN SE DESEA QUE SEAN VARIAS OPCIONES PARA QUE LOS PROFES TENGAN UN ABANICO
+ % AMPLIO DE OPCIONES
+
+ Las características más
+ importantes que debe brindar nuestra propuesta de solución son las siguientes:
+
+    \begin{multicols}{2}
+    \begin{itemize}
+    \itemx{ Altamente configurable }
+
+    \item[] Hace referencia a que se debe proporcionar al administrador, profesores
+            y alumnos la flexbilidad para que puedan configurar los valores por defecto
+            y visualización de la herramienta que se desarrollará.
+
+    \itemx{ Escoge que quieres incluir }
+
+    \item[] Una de las principales caracteristicar que deben proporcionar estos
+            componentes hacia los profesores es que les permitan escoger que elementos
+            de gamificación desean incluir en sus cursos y cuales no.\\
+
+    %\vfill\null
+    %\columnbreak
+    %\vfill\null
+
+    \itemx{ Bajo acoplamiento }
+
+    \item[] Respecto el poder elegir que características se desean incluir y cuales no,
+            implica que los componentes que brindan dichas caracterñisticas hayan sido
+            diseñados para que puedan trabajar tanto independientemente como
+            colaborativamente.
+
+    \itemx{ Comunicación entre módulos }
+
+    \item[] Que las cosas que pasen en módulo puedan permitir realizar acciones con
+            otros módulos para que cuando se deseém ocupar ambos, estos puedan trabajar
+            en conjunto.
+
+    \end{itemize}
+    %\vfill\null
+    \end{multicols}
