@@ -126,51 +126,54 @@
 
     \item[Responsabilidades:] \hfill
         \begin{itemize}
-        \item ...
+        \item Cumplir con las actividades de los cursos
+        \item Inscribirse a los cursos correspondientes
+        \item Hacer uso correcto de la plataforma
         \end{itemize}
 
     \item[Perfil:] \hfill
         \begin{itemize}
-        \item ...
+        \item Haber utilizado como alumno anteriormente
         \end{itemize}
     \end{actor}
 
     \noindent
-    Las funcionalidades extras que se le brindarán al profesor son las siguientes:
+    Las funcionalidades extras que se le brindarán al alumno son las siguientes:
 
     \begin{quote}
-
     {\bf Del módulo de experiencia:}
         \begin{itemize}
-        \item ...
+        \item Reconocimiento/notificación al haber superado un nivel.
+        \item Visualización del nivel actual en el que se encuentra.
+        \item Visualización de los puntos que tiene del nivel actual.
         \end{itemize}
-
     % TODO expecificar las funcionalidades de los otros módulos
     \end{quote}
 
     \subsubsection{Tipos de usuarios de gamificación segun Richard Bartle}
 
     La clasificación de usuarios propuesta por Richard Bartle \cite{TiposDeUsuario}, define
-    4 tipos de usuarios, descritos a continuación:
+    4 tipos de usuarios: triunfadores, exploradores, socializadores y asesinos, los cuales son
+    descritos a continuación:
     
         % TODO Actualizar definición de tipos de usuarios
         \begin{quote}
         \begin{description}
         \item[Triunfadores]
-                son aquellos que les gusta recibir premios, en nuestro caso los logros
-                que tenemos contemplados.
+                % son aquellos que les gusta recibir premios, en nuestro caso los logros
+                % que tenemos contemplados.
 
         \item[Exploradores] 
 
         \item[Socializadores]
-                les gusta trabajar en equipo, por lo tanto nuestra propuesta de tener
-                grupos que estén compitiendo unos con otros va enfocada con este tipo
-                de usuario.
+                % les gusta trabajar en equipo, por lo tanto nuestra propuesta de tener
+                % grupos que estén compitiendo unos con otros va enfocada con este tipo
+                % de usuario.
 
         \item[Asesinos]
-                son los usuarios competidores que sienten motivación al ganarle a otras
-                personas, las competencias 1 vs 1 y los otros tipos que tenemos
-                contemplados motivarían a este tipo de usuario.
+                % son los usuarios competidores que sienten motivación al ganarle a otras
+                % personas, las competencias 1 vs 1 y los otros tipos que tenemos
+                % contemplados motivarían a este tipo de usuario.
         \end{description}
         \end{quote}
 
@@ -180,27 +183,31 @@
     gamificación y los distintos tipos de usuarios en la clasificación propuesta por
     {\it Richart Bartle}.
 
+
 \section{Características principales}
 
- % TAMBIEN SE DESEA QUE SEAN VARIAS OPCIONES PARA QUE LOS PROFES TENGAN UN ABANICO
- % AMPLIO DE OPCIONES
+ Con base en las funcionalidades generales que se desean proporcionar a los distintos
+ actores, se determinaron cuatro características se deben tener en consideración durante
+ todo el desarrollo del trabajo terminal, dichas características son descritas a continuación:
 
- Las características más
- importantes que debe brindar nuestra propuesta de solución son las siguientes:
+% % TAMBIEN SE DESEA QUE SEAN VARIAS OPCIONES PARA QUE LOS PROFES TENGAN UN ABANICO
+ % AMPLIO DE OPCIONES
 
     \begin{multicols}{2}
     \begin{itemize}
     \itemx{ Altamente configurable }
 
     \item[] Hace referencia a que se debe proporcionar al administrador, profesores
-            y alumnos la flexbilidad para que puedan configurar los valores por defecto
-            y visualización de la herramienta que se desarrollará.
+            y alumnos la flexbilidad para que puedan configurar, habilitar o deshabilitar
+            los distintos componentes que se desarrollarán dependiendo de las funcionalidades
+            correspondientes a cada rol.
 
     \itemx{ Escoge que quieres incluir }
-
-    \item[] Una de las principales caracteristicar que deben proporcionar estos
-            componentes hacia los profesores es que les permitan escoger que elementos
-            de gamificación desean incluir en sus cursos y cuales no.\\
+        
+    \item[] Se le debe brindar al administrador la opción de poder escojer únicamente los
+            elementos requeridos dentro del conjunto de todos los componentes, de forma similar
+            dentro de todos las elementos de gamificación que brindan los componentes instalados
+            el profesor podrá escoger cuales desea incluir en sus cursos.
 
     %\vfill\null
     %\columnbreak
@@ -208,17 +215,15 @@
 
     \itemx{ Bajo acoplamiento }
 
-    \item[] Respecto el poder elegir que características se desean incluir y cuales no,
-            implica que los componentes que brindan dichas caracterñisticas hayan sido
-            diseñados para que puedan trabajar tanto independientemente como
-            colaborativamente.
+    \item[] El hecho de permitirle al administrador de la plataforma poder elegir los
+            componentes que desea instalar, implica que los mismos deben estar diseñados
+            para poder trabajar sin depender de las funciones de los demás componentes.
 
     \itemx{ Comunicación entre módulos }
 
-    \item[] Que las cosas que pasen en módulo puedan permitir realizar acciones con
-            otros módulos para que cuando se deseém ocupar ambos, estos puedan trabajar
-            en conjunto.
-
+    \item[] Que las cosas que pasen en módulo puedan impulsar acciones con otros módulos
+            para que cuando se deseen multiples funcionalidades de distintos componentes
+            estos puedan trabajar en conjunto como una única herramienta.
     \end{itemize}
     %\vfill\null
     \end{multicols}
