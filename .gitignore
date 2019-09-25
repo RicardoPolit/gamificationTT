@@ -1,4 +1,4 @@
-# Files: Excluding all moodle files
+# Excluding all moodle files and dirs
 .eslintignore
 .eslintrc
 .gherkin-lintrc
@@ -83,6 +83,9 @@ user/
 userpix/
 version.php
 webservice/
+
+# Temporary files of vim
+*.swp
 
 # Folders: Including plugins tested
 !blocks/gmxp/

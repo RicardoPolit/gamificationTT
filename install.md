@@ -23,8 +23,6 @@
     DEBIAN 10
     git clone -b MOODLE_35_STABLE https://github.com/moodle/moodle.git gamedle
 
-    optional rm -rf gamedle/.git
-
 #PROCESO DE INSTALACION
 
 Directorio de datos
@@ -34,10 +32,15 @@ Directorio de datos
     cd gamedle
     php -S 0.0.0.0:8000
 
-Una vez terminada la instalación, copiaremos el repositorio de gamedle dentro de nuestro directorio de moodle
+
+FOR DEVELOPERS
 
     cd ../
+    rm -rf gamedle/.git
     git clone git@gitlab.com:DanielOrtegaZ/gamedle.git temp
-    mv temp/* gamedle/
+
+copiamos todo el contenido de temp (con archivos ocultos) dentro de gamedle-
+
     rm -rf temp
     cd gamedle
+    git status # confirmar que todo está bien
