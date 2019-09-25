@@ -3,8 +3,9 @@
     DEBIAN 10
     wget https://packages.sury.org/php/apt.gpg
     apt-key add apt.gpg
-
-    apt-get install php7.0 php7.0-zip php7.0-curl php7.0-mysql php7.0-xml (7.3)
+    apt-get update
+    apt-get install php7.0 php7.0-zip php7.0-curl php7.0-mysql php7.0-xml php7.0-gd php7.0-intl 
+                    php7.0-mbstring php7.0-xmlrpc
 
 #Instalar MariaDB
 
@@ -22,10 +23,21 @@
     DEBIAN 10
     git clone -b MOODLE_35_STABLE https://github.com/moodle/moodle.git gamedle
 
+    optional rm -rf gamedle/.git
+
 #PROCESO DE INSTALACION
 
 Directorio de datos
 
     mkdir moodledata
 
+    cd gamedle
     php -S 0.0.0.0:8000
+
+Una vez terminada la instalación, copiaremos el repositorio de gamedle dentro de nuestro directorio de moodle
+
+    cd ../
+    git clone git@gitlab.com:DanielOrtegaZ/gamedle.git temp
+    mv temp/* gamedle/
+    rm -rf temp
+    cd gamedle
