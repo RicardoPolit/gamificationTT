@@ -19,8 +19,8 @@ $string['gmxp:addinstance']   = 'Agrega un nuevo bloque Gamedle level';
 $string['gmxp:myaddinstance'] = 'Agrega un nuevo bloque Gamedle level a tu página de Moodle';
 
 $string['nameGeneralSettings'] = 'Ajustes Generales';
-$string['nameVisualSettings'] = 'Ajustes de vistas de niveles';
-
+$string['nameVisualSettings'] = 'Ajustes de vistas de secciones de niveles';
+$string['nameVisualSettingsGeneral'] = 'Ajustes de vistas de niveles generales';
 
 /* ADMIN FORM STRINGS */
 $string['headerconfigLevels'] = 'Configuración del esquema de experiencia';

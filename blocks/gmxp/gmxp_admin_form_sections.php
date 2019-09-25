@@ -8,7 +8,7 @@ admin_externalpage_setup('block_gmxp_ext');
 
 // functionality like processing form submissions goes here
 
-class gmxadminformsections extends moodleform {
+class gmxpadminformsections extends moodleform {
 
     protected $config;
 
@@ -116,7 +116,7 @@ class gmxadminformsections extends moodleform {
 
 }
 
-$pageAux = new gmxadminformsections();
+$pageAux = new gmxpadminformsections();
 
 $pageAux->setSections();
 
