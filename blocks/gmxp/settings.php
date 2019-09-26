@@ -111,14 +111,14 @@ $settingsAux[] = (new admin_setting_configcolourpicker(
     true
 ));
 */
-$settingsAux[] = (new admin_setting_configstoredfile(
+/*$settingsAux[] = (new admin_setting_configstoredfile(
     'block_gmxp/imageDefecto',
     new lang_string('defaultLevelsImage', 'block_gmxp'),
     new lang_string('defaultLevelsImageDesc', 'block_gmxp'),
     'level_images_simplehtml',
     0,
     ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => '.png']
-));
+));*/
 
 $settings = new admin_category('block_gmxp_category', 'Gamedle Level');
 

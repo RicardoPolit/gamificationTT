@@ -226,6 +226,38 @@ class gmxpadminfromgeneral extends moodleform {
 
     public function setSettings(){
 
+        $entry = new stdClass;
+
+        $draftitemid = file_get_submitted_draft_itemid('imageDefecto');
+
+        file_prepare_draft_area($draftitemid, \context_system::instance()->id, 'block_gmxp', 'level_images_simplehtml', 0,
+            array('subdirs' => 0, 'maxbytes' => 1000000, 'areamaxbytes' => 10485760, 'maxfiles' => 1,
+                'accepted_types' => array('.jpg','.png'), 'return_types'=> FILE_INTERNAL | FILE_EXTERNAL));
+
+        $entry->imageDefecto = $draftitemid;
+
+        $entry->isActive = get_config('block_gmxp','isActive');
+
+        $entry->typeOfIncrement = get_config('block_gmxp','typeOfIncrement');
+
+        $entry->numValorIncrement = get_config('block_gmxp','numValorIncrement');
+
+        $entry->firstExpRequiried = get_config('block_gmxp','firstExpRequiried');
+
+        $entry->firstExpGiven = get_config('block_gmxp','firstExpGiven');
+
+        $entry->defaultLevelsName = get_config('block_gmxp','defaultLevelsName');
+
+        $entry->defaultLevelsMessage = get_config('block_gmxp','defaultLevelsMessage');
+
+        $entry->defaultLevelsDescription = get_config('block_gmxp','defaultLevelsDescription');
+
+        $entry->defaultColorPickerLevels = get_config('block_gmxp','defaultColorPickerLevels');
+
+        $entry->defaultColorPickerProgressBar = get_config('block_gmxp','defaultColorPickerProgressBar');
+
+        $this->set_data($entry);
+
         /*$rawdata = get_config('block_gmxp','sections');
 
         if($rawdata != null){
@@ -250,7 +282,7 @@ class gmxpadminfromgeneral extends moodleform {
 
 $pageAux = new gmxpadminfromgeneral();
 
-$pageAux->setSettings();
+$entry = $pageAux->setSettings();
 
 $flag = 0;
 if ($pageAux->is_cancelled()) {
@@ -274,7 +306,18 @@ if ($pageAux->is_cancelled()) {
 
     file_save_draft_area_files($data->imageDefecto, $context->id, 'block_gmxp', 'level_images_simplehtml',0);
 
-    set_config('imageDefecto',$data->imageDefecto,'block_gmxp');
+    $fs = get_file_storage();
+
+    $files = $fs->get_area_files(
+        $context->id,
+        'block_gmxp', 'level_images_simplehtml',
+        0,
+        'itemid, filepath, filename',
+        false);
+
+    $file = array_values($files)[0];
+
+    set_config('imageDefecto','/'.$file->get_filename(),'block_gmxp');
 
 
 } else if($pageAux->is_submitted()&&!$pageAux->is_validated()) {
