@@ -1,0 +1,20 @@
+LAS CONCLUSIONES DEBEN REFLEJAR UN APORTE
+BASADOS EN EL TRABAJO REALIZADO
+
+
+es rentable es el modelado de procesos?
+
+
+capitulo de factivilidad*
+
+pruebas de negocio (despliegue)
+funciona en un entorno simulado real?
+forma parte del caso de prueba
+
+El conjunto mínimo de datos para los casos
+de prueba debe ser lo suficientemente grande
+para probar el comportamiento correcto de las
+trayectorias (principal y alternativas).
+
+Elementos mínimos para los casos de usoc:w
+

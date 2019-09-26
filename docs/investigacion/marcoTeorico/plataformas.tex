@@ -1,0 +1,395 @@
+
+
+\begin{comment}
+
+\section{Acerca de la investigación}
+
+ La primer etapa de la investigación se centro en investigar acerca de qué es la \gls{gamificacion},
+ sus implicaciones y como debería ser implementada la busqueda permitió encontrar diversas
+ definiciones de la gamificación, las bases sobre la cual está desarrollada y distintas
+ recomendaciones su implementación.\\
+
+ \noindent En segunda instancia, se buscaron diversos casos de estudio y documentos de investigación
+ que documentaran el proceso de implementación y los resultados de la investigación realizada, cada
+ uno de los documentos encontrados nos sirve para conocer las fortalezas y áreas de oportunidad de
+ otras implementación de gamificación.\\
+
+ \noindent Como tercer etapa, se investigaron distintos marcos de trabajo para el diseño e implementación
+ de la gamificación, dicha busqueda obtuvo como resultado la elección de dos marcos de trabajo
+ {\em ``Octalysis''} \cite{Octalysis} y {\em ``For The Win''} \cite{ForTheWin} (descritos en el
+ capítulo \nameref{ch:marcoTeorico}).\\
+
+ \noindent Posteriormente se analizaron los principales sistemas de aprendizaje en linea
+ buscando qué elementos de gamificación, las restricciones de uso y características principales.
+ Esta etapa de investicación permitió filtrar los sistemas que brindaban soporte a la gamificación,
+ de forma nativa o mediante componentes externos (plugins), de los demás sistemas de aprendizaje
+ en línea.
+
+\clearpage
+\end{comment}
+
+
+\def\aux{90}
+
+\begin{multicols*}{2}    
+\subsection*{Duolingo}
+    
+ Duolingo es un sistema de aprendizaje dedicado a los idiomas, es un servicio web que
+ te brinda la posibilidad de crearte una cuenta y seleccionar entre 9 idiomas para aprender,
+ los cuales son: Inglés, guaraní, francés, alemán, catalán, espartano, italiano, portugués y ruso.\\
+
+ \noindent Duolingo divide un idioma en secciones y cada sección contiene sub-secciones,
+ que a su vez contienen unidades que se dividen en 5 niveles cada una. Al inicio Duolingo
+ solo te permite empezar una unidad.\\
+
+ \noindent Al completar el primer nivel de todas las unidades de una subsección duolingo
+ te permite avanzar a la siguiente subsección, para poder acceder a la siguiente es requerido
+ completar la cantidad de niveles de unidades especificada.\\
+
+ \noindent Duolingo cuenta con varios módulos orientados a la gamificación, los elementos
+ de juego, de acuerdo con {\em For The Win}, que tiene son:
+
+    \begin{itemize}
+    \item {\bf Logros:} Cuenta con un sistema de logros o en este caso ``insignias''
+        que están divididas en 3 niveles, y cada vez que alcanzas un nivel se 
+        desbloquea una estrella que se muestra en el icono del logro.
+            
+    \item {\bf Desbloqueo de contenido:} Al dividir el contenido de la forma
+        anteriormente explicada, Duolingo permite visualizar tu progreso viendo
+        la cantidad de unidades completadas y desbloqueadas.
+            
+    \item {\bf Puntos y niveles de experiencia:} Al completar un nivel de una unidad
+        se otorgan puntos de experiencia usados para subir de nivel en un idioma.
+        
+    \item {\bf Tablas de líderes:} Si agregas a alguien como tu amigo en Duolingo ambos 
+        podrán ver su progreso semanal, mensual y total. El resultado de que el sistema
+         los compara genera la tabla de líderes. 
+         
+    \item {\bf Misiones:} Duolingo permite que te pongas una meta diaria y una meta semanal.
+
+    \end{itemize}
+
+
+\subsection*{Docebo}
+    
+ Docebo es un servicio web que se enfoca en la creación de dominios donde se brinda
+ un sistema gestor de aprendizaje, es decir, que uno pueda tener su página en línea
+ donde pueda crear y gestionar sus cursos y los alumnos puedan entrar a tomarlos.\\
+    
+ \noindent Docebo no cuenta con gamificación de raíz, sino que se necesita instalar
+ plugins que se desarrollan con la API de Docebo, dichos plugins hasta el momento 
+ solo cuentan con:
+
+    \begin{itemize}
+        \item {\bf Logros:} Se cuenta con un sistema de logros,
+        que se desbloquean si la persona cumple con sus condiciones.
+    \end{itemize}
+    
+    
+    
+\subsection*{SAP Litmos}
+    
+ SAP Litmos es un sistema que te permite crear cursos para tu equipo de trabajo,
+ así como delegar tareas y ver el progreso de las mismas. Esta orientado a
+ fortalecer el capital humano de una empresa.\\
+    
+    \noindent SAP Litmos cuenta con 3 módulos de gamificación, los cuales son:
+    
+    \begin{itemize}
+        \item {\bf Insignias:} A diferencia que con los logros, estos
+        no son otorgados cuando se cumple una cierta condición, sino 
+        que el administrador crea una insignia y se le otorga a un usuario.
+        
+        \item {\bf Equipos: } Debido a que está orientado al capital humano
+         de una empresa, uno puede crear equipos que sean por área de la
+          empresa y así ver si las áreas están cumpliendo con sus tareas.
+          
+        \item {\bf Tablas de líderes y puntos: } SAP Litmos te muestra una
+         gráfica de que tanto han avanzado los usuarios en un cierto curso
+         o en sus tareas. Esto mediante una gráfica y asignación de puntos.
+         
+    \end{itemize}
+
+
+\subsection*{ATutor}
+
+ ATutor es un un sitema gestor de aprendizaje de software libre. Para poder
+ utilizarlo se necesita tener un servidor web y montar dicho código en el servidor.\\
+    
+    \noindent ATutor no cuenta con gamificación de raíz,
+    pero cuenta con un plugin llamado \textbf{GameMe} que agrega:
+    
+    \begin{itemize}
+        \item {\bf Logros:} Dichos logros son estáticos y se
+        desbloquean cuando se un usuario cumple las condiciones.
+        
+        \item {\bf Puntos y niveles de experiencia:} Hay definidos 10
+        niveles de experiencia y cada que ocurre un evento que tenga
+        que ver con un usuario, se le otorga experiencia.
+        
+    \end{itemize}
+
+
+
+\subsection*{ALEKS}
+
+ ALEKS es un servicio web que ofrece un sistema gestor de aprendizaje
+ que adapta el contenido al usuario utilizando inteligencia artificial.
+ Esto lo mantienen controlado utilizando únicamente ciertos tipos de cursos.\\
+    
+    \noindent ALEKS cuenta con gamificación de raíz, los elementos con los que cuenta son:
+    
+    \begin{itemize}
+        \item {\bf Progresión:} El fuerte de ALEKS es utilizar la inteligencia
+        artificial y algoritmos de predicción así que tiene un montón de datos del
+        usuario que aprovecha desplegándolos en gráficos que muestran el progreso
+        en diversos temas de un curso, así como el porcentaje del curso que se ha
+        tomado, dominado o que falta por revisar. Cabe destacar que un profesor puede
+        ver los gráficos de cada alumno, pero los alumnos no pueden ver el de los demás.
+        
+    \end{itemize}
+    
+\vfill\null
+\columnbreak
+\subsection*{Udemy}
+
+ Udemy es un servicio web que te permite tomar cursos y/o subir tus cursos.
+ El formato de los cursos es siempre un video. Cuanta con muchos temas
+ gracias a que cualquiera puede crear su curso.\\
+
+    \noindent Usando como referencia al marco de trabajo octalysis,
+    Udemy cuenta con los siguientes principios de gamificación:
+    
+    \begin{itemize}
+        \item {\bf Creatividad} Debido a que cualquiera puede subir
+        sus cursos y recibir retroalimentación de los que lo tomaron,
+        se cumple este principio, pero dico principio está orientado
+        hacia los creadores de cursos.
+        
+    \end{itemize}
+    
+    
+    
+\subsection*{TalentLMS}
+
+ TalentLMS es un servicio web que se enfoca en la creación de dominios donde se
+ brinda un sistema gestor de aprendizaje, es decir, que uno pueda tener su página
+ en línea donde pueda crear y gestionar sus cursos y los alumnos puedan entrar a tomarlos.\\
+    
+    \noindent TalentLMS cuenta con gamificación de raíz,
+    y los elementos de juego con los que cuenta, son:
+    
+    \begin{itemize} 
+    
+        \item {\bf Logros:} Se cuenta con un sistema de logros o en este caso
+        ``insignias'' que están divididas en 8 niveles, y cada vez que alcanzas
+        un nivel se desbloquea la insignia en su color correspondiente.
+        
+        \item {\bf Puntos y niveles de experiencia:} Cada que ocurre un
+        determinado evento que tenga que ver con un usuario, se le otorga experiencia.
+        
+        \item {\bf Tablas de líderes y puntos:} TalentLMS muestra la
+        tabla de líderes por categoría de curso, esto a nivel ''plataforma''.
+        
+    \end{itemize}
+    
+\end{multicols*}
+
+
+
+\clearpage
+\subsection*{Moodle}
+
+ Moodle es una plataforma de aprendizaje diseñada para proporcionarle a educadores,
+ administradores y estudiantes un sistema integrado único, robusto y seguro para crear
+ ambientes de aprendizaje personalizados. Los elementos con los que cuenta moodle sin
+ la adición de plugins son los siguientes:
+
+ \begin{quote}
+ \begin{itemize}
+    \item {\bf Insignias}, pueden ser otorgadas dependiendo de multiples variados
+                criterios, existen insignias a nivel plataforma y a nivel curso.
+
+    \item {\bf Desbloqueo de contenido}, los profesores o administradores pueden
+                definir que las secciones de un curso se vayan desbloqueando
+                conforme se vayan cumpliendo ciertas condiciones.
+
+    \item {\bf Creatividad}, permite a los profesores crear distintos cursos
+                experimentando con la inclusión de distintos tipos de ejercicios.
+ \end{itemize}
+ \end{quote}
+
+ \noindent Una de las fortalezas más grandes de moodle es que fue diseñado para ser altamente
+ extensible en cuanto a funcionalidades, dentro del inmenso catálogo de componentes {\it plugins}
+ para moodle, se encontraron diez plugins que agregan funcionalidades de gamificación. En la tabla
+ \ref{tbl:pluginscreated} se presenta a qué elementos de juego están vinculados estos {\it plugins}.
+
+
+    \addtable{|l|c|c|c|c|c|c|c|c|c|c|}{tbl:pluginscreated}{%
+        Elementos/Plugins &
+        \rotatebox[origin=c]{\aux}{LevelUp!         \cite{LevelUp}}  &
+        \rotatebox[origin=c]{\aux}{Ranking block    \cite{RankingBlock}}  &
+        \rotatebox[origin=c]{\aux}{Game             \cite{Game}}  &
+        \rotatebox[origin=c]{\aux}{Quizventure      \cite{QuizVenture}}  &
+        \rotatebox[origin=c]{\aux}{Stash            \cite{Stash}}  &
+        \rotatebox[origin=c]{\aux}{Mootivated       \cite{Mootivated}}  &
+        \rotatebox[origin=c]{\aux}{UNEDrivial       \cite{UNEDTrivial}}  &
+        \rotatebox[origin=c]{\aux}{\ Stamp collection \cite{StampCollection}\ } &
+        \rotatebox[origin=c]{\aux}{Exabis games     \cite{ExabisGames}} &
+        \rotatebox[origin=c]{\aux}{Badge leader     \cite{BagdeLadder}} \\\hline
+        
+        Competencias            &   &   & X & X &   &   & X &   & X &   \\\hline
+        Niveles                 & X &   &   &   &   &   &   &   &   &   \\\hline
+        Desbloqueo de contenido & X &   &   &   & X &   &   &   &   &   \\\hline
+        Logros                  & X &   &   &   &   &   & X &   &   & X \\\hline
+        Esquema financiero      &   &   &   &   &   &   &   &   &   &   \\\hline
+        Cajas de botín          &   &   &   &   &   &   &   &   &   &   \\\hline
+        Puntos                  & X & X &   &   &   &   &   &   & X &   \\\hline
+        Tienda                  &   &   &   &   &   &   &   &   &   &   \\\hline
+        Tabla lideres           & X &   &   &   &   &   & X & X &   & X \\\hline
+        Barra de progreso       & X &   &   &   &   &   &   &   &   &   \\\hline
+        
+    }{Tabla de comparación de componentes (plugins) en Moodle}
+
+
+\clearpage
+\subsection{Elección de la plataforma}
+ 
+ Para poder determinar cual es la plataforma de aprendizaje sobre la cual se trabaja durante
+ el desarrollo de este trabajo terminal se realizó una investigación para saber cómo las
+ plataformas de aprendizaje anteriormente mencionadas brindaban soporte a la gamificación.\\
+
+ \noindent En la tabla \ref{table:lmsGam} se presenta la forma en que se encuentran o se
+ pueden añadir elementos de gamificación a las plataformas, se consideran principalmente 
+ que las pataformas pueden brindar soporte a la gamificación de forma nativa o mediante
+ la adición de componentes externos.
+
+    \addtable{|c|c|c|c|c|c|c|c|c|}{table:lmsGam}{& %
+        
+        \rotatebox[origin=c]{\aux}{Duolingo   \cite{PagDuolingo}}  &
+        \rotatebox[origin=c]{\aux}{Moodle     \cite{PagMoodle}}    &
+        \rotatebox[origin=c]{\aux}{Docebo     \cite{PagDocebo}}    &
+        \rotatebox[origin=c]{\aux}{SAP Litmos \cite{PagSAPLitmos}} &
+        \rotatebox[origin=c]{\aux}{ATutor     \cite{PagATutor}}    & 
+        \rotatebox[origin=c]{\aux}{ALEKS      \cite{PagALEKS}}     &
+        \rotatebox[origin=c]{\aux}{Udemy      \cite{PagUdemy}}     &
+        \rotatebox[origin=c]{\aux}{TalentLMS  \cite{PagTalentLMS}} \\\hline 
+        
+        Nativa    & X & X &   & X &   & X & X & X \\\hline
+        Externa   &   & X & X & X & X &   &   &   \\\hline
+        
+    }{Implementación de gamificación}
+ 
+ \noindent Como se puede ver, tan solo cuatro de las ocho plataformas de aprendizaje
+ en línea permiten brindar soporte a la gamificación mediante componentes externos.
+ Sin embargo solo dos de esas cuatro ({\it Moodle} y {\it SAP Litmos}) brindan soporte
+ tanto de forma nativa como externa con componentes externos.\\
+ 
+ \noindent A partir del resultado encontrado se prosiguió a ampliar los criterios para
+ la elección de la plataforma haciendo una nueva comparativa entre las seis plataformas
+ más relevantes. A continuación se describen los criterios considerados:
+ 
+    \begin{quote}
+    \begin{description}
+    \item[Documentación de codigo.] El tener acceso a la documentación de código de
+            la plataforma permite saber el la forma en que interactuan los distintos
+            módulos de la plataforma y la forma en que se puede extender las distintas
+            funcionalidades.
+
+    \item[Idioma español o Inglés] Un aspecto importate es que la plataforma a utilizar
+            tenga soporte para el idioma español o al menos en inglés, puesto que un
+            idioma distinto a esos dos implicaría una barrera en el entendimiento requerido
+            para su uso.
+
+    \item[Licencia] Establece las restricciones que se tienen acerca del uso, modificación
+            y distribución de la plataforma sobre la cual se trabajará.
+
+    \item[Extensible] Hace referencia a si la plataforma permite extender su funcionalidad
+            mediante el desarrollo de componentes externos.
+    \end{description}
+    \end{quote}
+    
+ \noindent La comparación entre las distintas plataformas con base en los criterios
+ anteriormente definidos, puede ser vista en la tabla \ref{tbl:LMSs}, como se puede
+ ver Tanto {\it Moodle} como {\it ATutor} cumplen de forma positiva con los criterios
+ establecidos.
+
+ \clearpage
+ 
+    \addtable{|l|c|c|c|c|c|c|}{tbl:LMSs}{
+        {\bf Carácterísticas} &
+        {\bf Moodle} &
+        {\bf ATutor} &
+        {\bf Docebo} &
+        {\bf SAP Litmos} & 
+        {\bf Gnosis Connect} &
+        {\bf TalentLMS} \\
+
+        & \cite{PagMoodle} & \cite{PagATutor} & \cite{PagDocebo} & \cite{PagSAPLitmos}
+        & \cite{PagGnosisConnect} & \cite{PagTalentLMS} \\\hline
+
+        % Características       % Moodle  ATutor  Docebo   SAPLit   Gnosis   Talent
+        Documentación de código & Sí      & Sí    & Sí     & Sí     & No     & No     \\\hline
+        Idioma Español o Inglés & Sí      & Sí    & Sí     & Sí     & Sí     & Sí     \\\hline
+        Tipo de Licencia        & GPLv3   & GPL   & Propia & Propia & Propia & Propia \\\hline
+        Extensible              & Sí      & Sí    & Sí     & Sí     & No     & No     \\\hline
+    }{Comparativa de las plataformas de aprendizaje}
+
+
+ \noindent Un punto importante es que Moodle y ATutor se encuentran bajo la licencia GPL,
+ la cual nos permite hacer uso y realizar modificaciones, además de que la aplicación es
+ distribuida junto con el código fuente, sin embargo se optó por utilizar moodle considerando
+ los siguientes puntos:
+
+    \begin{itemize}
+        \item Moodle ha sido y sigue siendo utilizado dentro de la comunidad de ESCOM,
+              abriendo la posibilidad de resolver dudas específicas con profesores con
+              mayor expertíz en el uso de moodle.
+
+        \item Vinculado con el punto anterior, el utilizar Moodle amplia la oportunidad
+              de que el producto final de este trabajo terminal sea utilizado minimizando
+              los costos de interacción.
+
+        \item A diferencia de ATutor, Moodle especifica la versión de la licencia GPL
+              bajo la cual se encuenta.
+              
+        \item ATutor aparenta no estar siendo actualizado constantemente ya que se
+              encontraron varios enlaces rotos en su página oficial.
+    \end{itemize}
+ 
+ %   Sistema de gestión de aprendizaje es la traducción de Learning Managment System (LMS)
+ %   del Inglés. A continuación se enlistan las definiciones de distintos autores acerca
+ %   de los sistemas gestores de aprendizaje:
+ 
+ %   Un sistema de gestión de aprendizaje es:
+ %
+ %      - Un software que incluye  una lista de servicios que le permiten y
+ %        ayudan al profesor con la gestión de sus cursos. \cite{LMS_1}
+ %
+ %      - Una aplicación de software basada en web diseñada para manejar
+ %        material didáctico, interacción con el estudiante, herramientas
+ %        de evaluación y reportes del progreso de aprendizaje de los estudiantes.
+ %        \cite{LMS_2}
+ %
+ %      - Un software para el manejo y presentación de materiales didácticos en
+ %        la internet, además de ofrecer funcionalidades para la colaboración
+ %        en línea. \cite{LMS_3}
+
+  
+ % \noindent Existen varios sistemas gestores de aprendizaje disponibles para su uso
+ % actualmente. Se realizó la siguiente tabla comparativa para poder determinar que
+ % sistema gestor de aprendizaje se utilizará.
+    
+ % Todos los LMS investigados:
+ %      Moodle*
+ %      Claroline
+ %      Docebo*
+ %      SAP Litmos*
+ %      Gnosis Conect*
+ %      TalentLMS*
+ %      eFront
+ %      Sakai
+ %      Edmodo
+ %      ATutor*
+
+ % Con lo anterior se entiende que Moodle y ATutor cumplen con nuestras necesidades, sin embargo, por preferencia de nuestros directores se decidió que Moodle será el que se usará para este trabajo terminal.

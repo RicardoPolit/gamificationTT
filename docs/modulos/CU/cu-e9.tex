@@ -1,0 +1,103 @@
+\begin{UseCase}{CU-E9}{Recibir experiencia}{
+Cuando un alumno conteste un ejercicio y suba un intento para revisión, el sistema le otorgará la experiencia correspondiente. Si recibe experiencia suficiente, el usuario subirá de nivel.
+}
+	\UCrow{Versión}{\color{gray} 0.2 (Revisado)}
+    \UCrow{Autor}{\color{gray}	David Flores Casanova}
+    \UCrow{Supervisa}{\color{gray}	Daniel Isaí Ortega Zúñiga}
+    \UCrow{Actor}{Alumno} % Gerente, Instructor
+    \UCrow{Propósito}{Otorgarle experiencia al actor por completar una actividad.}
+    \UCrow{Entradas}{
+        Selección en el botón \#2 ''Enviar todo y terminar'' de la interfaz \hyperref[IUM01]{IU-M01 Ver intento de examen} .\newline
+        Selección en el botón \#1 ''Enviar todo y terminar'' de la interfaz \hyperref[IUM02]{IU-M02 Confirmación de envío de intento} .\newline
+        Presión de la tecla ''Enter'' o la tecla ''espacio''.
+   	}
+    \UCrow{Origen}{Ratón y teclado de la computadora }
+	\UCrow{Salidas}{
+	    \begin{Titemize}
+        \Titem{''\hyperref[table:METerminosExperiencia1]{Experiencia otorgada}''.}
+        \Titem{''\hyperref[table:METerminosExperiencia1]{Experiencia actual}'' del actor.}
+        \Titem{''\hyperref[table:METerminosExperiencia1]{Experiencia del nivel}'' del nivel actual del actor.}
+        \Titem{Barra de progreso, mostrada según el \hyperref[table:METerminosExperiencia1]{porcentaje actual}.}
+        \Titem{Nombre del nivel (Cadena de caracteres, longitud $\leq$ 60)}
+        \Titem{Mensaje de felicitaciones del nivel (Cadena de caracteres, longitud $\leq$ 50)}
+        \Titem{Imagen del nivel (Imagen, formato '.png')}
+        \Titem{Descripción del nivel (Cadena de caracteres, longitud $\leq$ 200)}
+	    \end{Titemize}
+    }
+    \UCrow{Destino}{Pantalla}
+    \UCrow{Precondiciones}{
+		\begin{CUTitemize}
+	        \CUTitem{El actor está registrado como alumno del curso.}
+            \CUTitem{El actor no tiene registrados intentos anteriores.}
+			\CUTitem{La actividad del curso está creada.} 
+            \CUTitem{El módulo de experiencia está habilitado.}
+		\end{CUTitemize}
+    }
+    \UCrow{Postcondiciones}{
+		\begin{CUTitemize}
+	        \CUTitem{Al actor se le registra su nueva cantidad de experiencia.}
+			\CUTitem{Se actualiza la cantidad de experiencia que ha recibido el actor en ese curso.}
+		\end{CUTitemize}
+    }
+	\UCrow{Errores}{E1: El actor no está registrado como alumno del curso}
+    \UCrow{Observaciones}{}
+\end{UseCase}
+
+%\textbullet{Trayectorias}
+
+\begin{UCtrayectoria}{Principal}
+    \actor se encuentra en la interfaz \hyperref[IUM01]{IU-M01 Ver intento de examen}.
+    \actor selecciona el botón \#2 ''Enviar todo y terminar'' .
+    \sistema muestra la ventana emergente \hyperref[IUM02]{IU-M02 Confirmación de envío de intento}.
+    \actor selecciona el botón \#1 ''Enviar todo y terminar'' ({\it Trayectoria alternativa A})
+    \sistema comprueba que el módulo de experiencia esté habilitado ({\it Trayectoria alternativa B}).
+    \sistema comprueba que el actor que subió el intento es un alumno del curso ({\it Trayectoria alternativa C}).
+    \sistema comprueba que el actor no tenga registrados intentos anteriores ({\it Trayectoria alternativa D}).
+    \sistema calcula si la experiencia que se le dará al actor provoca que este ''suba de nivel'' ({\it Trayectoria alternativa E}).
+    \sistema carga la interfaz \hyperref[IUM03]{IU-M03 Intento calificado}.
+    \item[- -] - - {\em El caso de uso termina.}
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}{alternativa A}
+    \item[- -] - - {\em El usuario presionó el botón \#2 \fbox{Cancelar} o  el botón \#3 \fbox{X}.}
+    \sistema cierra la interfaz \hyperref[IUM02]{IU-M02 Confirmación de envío de intento}.
+    \item[- -] - - {\em El caso de uso termina.}
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}{alternativa B}
+    \item[- -] - - {\em El módulo de experiencia no está habilitado.}
+    \item[- -] - - {\em El caso de uso termina.}
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}{alternativa C}
+    \item[- -] - - {\em El actor no está registrado como alumno del curso.}
+    \item[- -] - - {\em El caso de uso termina.}
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}{alternativa D}
+    \item[- -] - - {\em El actor ya había hecho intentos anteriores.}
+    \item[- -] - - {\em El caso de uso termina.}
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}{alternativa E}
+    \item[- -] - - {\em La ''\hyperref[table:METerminosExperiencia1]{experiencia otorgada}'' que recibe el actor es suficiente para ''subir de nivel''.}
+    %\item[- -] - - {\em Se extiende al CU-E02.}
+    \sistema calcula la ''\hyperref[table:METerminosExperiencia2]{experiencia sobrante}''.
+    \sistema incrementa el nivel actual del actor en una unidad.
+    \sistema cambia el valor de la ''\hyperref[table:METerminosExperiencia1]{experiencia actual}'' por la de la ''\hyperref[table:METerminosExperiencia1]{experiencia sobrante}''
+    \sistema guarda el nivel actual del actor y la ''\hyperref[table:METerminosExperiencia1]{experiencia actual}''.
+    \sistema comprueba si el nivel actual del actor existe dentro de un rango de niveles ({\it Trayectoria alternativa F}). 
+    \sistema carga la interfaz \hyperref[IUE02]{IU-E02 Subir de nivel} con la información por defecto de niveles.
+    \actor presiona la tecla ''enter'' o ''espacio''.
+    \sistema cierra la interfaz \hyperref[IUE02]{IU-E02 Subir de nivel}.
+    \item[- -] - - {\em Se continua en el paso \#9 de la trayectoria principal.}
+\end{UCtrayectoria}
+
+
+\begin{UCtrayectoria}{alternativa F}
+    \item[- -] - - {\em El nivel actual del actor está dentro de un rango de niveles.}
+    \sistema carga la interfaz \hyperref[IUE02]{IU-E02 Subir de nivel}  con la información especificada en el rango de niveles.
+    \item[- -] - - {\em Se continua en el paso \#7 de la trayectoria alternativa E.}
+\end{UCtrayectoria}
+
+\vfill\clearpage

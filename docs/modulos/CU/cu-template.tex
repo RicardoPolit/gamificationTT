@@ -1,0 +1,290 @@
+% Actualizar para indicar cual es el archivo raíz a compilar.
+%!TEX root = ../../main2.tex
+
+
+\begin{UseCase}[
+    Autor/Daniel Ortega,    % TODO: Reemplazar con el nombre del autor.
+    Version/0.1,            % Actualizar en cada revision (ver manual).
+    Estado/\ucstEnEdicion   % Las opciones son:
+% \ucstEnEdicion, Al terminar una revisión/aprobación con observaciones 
+%                 y al inicio del CU.
+% \ucstEnRevision, Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion, Al pasar la revision sin observaciones.
+% \ucstAprobado.Al ser aprobado por el usuario (version += 1.0)
+% Ver máquina de estados en el manual para mas información.
+]{% ID: Use el formato MM-CUX, donde MM son las siglas del módulo y X un consecutivo. 
+% De cualquier modo, verifique que el Id del Caso de Uso respete lo siguiente:
+    % 1.- No debe repetirse
+    % 2.- No debe iniciar con: t, a, MSG o BR.
+    % 3.- no debe contener el caracter ``.''.
+    % 4.- Debe contener la subcadena ``CU''.
+    % EJEMPLO: PL-CU6-1
+    % TODO: Cambiar por el Id correcto
+    PLA-CAT-CU1-1
+}{% Nombre: Verbo en infinitivo + Algo
+    % EJEMPLO: Iniciar planeación de presupuesto.
+    Gestionar ejes del PGD
+}{% Descripción: Relato de la trayectoria de dos o tres renglones máximo.
+    % EJEMPLO: El cliente podrá realizar un pedido por medio de la plataforma móvil donde podrá seleccionar el producto de su preferencia como; los ingredientes de su pizza, tipo de cocinado e ingredientes extras ó algún otro producto que maneje la pizzería al final el sistema lo registra para que pueda ser atendido.
+    \TODO Especificar Descripción. 
+}
+    %----------------------------------------------------------------
+    % Datos generales del CU:
+    \UCitem{Actor(es)}{% Liste los actores debidamente referenciados (Dar de alta al actor).
+        % EJEMPLO: \refElem{JefeDeFinanzas}
+        \refElem{aResponsablePOA}
+    }
+    \UCitems{Propósito}{% Especifique el(los) propósito del CU (motivación, valor agregado, razón de existir, situación que resuelve, el ?`para que? del CU)
+        % EJEMPLO: Definir los datos generales de una planeación. Estimar y presupuestar los bienes a adquirir en el siguiente ejercicio fiscal.
+        \Titem \TODO Especificar en viñetas.
+    }
+    \UCitem[control]{Operación}{% Las opciones son: Alta, Baja, Cambio, Consulta, Reporte, Negocio. 
+        Negocio.
+    }
+    \UCitem[control]{Revisor}{% Colocar nombre + apellidos del responsable de revisar. 
+                              % Si son mas de uno o se cambia separar los nombres con comas.
+        \TODO Especificar
+    }
+    \UCitem[control]{Último cambio}{% Actualizar al modifica el estado. 
+        % EJEMPLO: 21 de Septiembre de 2019.
+        28 de Agosto de 2019.
+    }
+    
+%% BEGIN-BLOQUE PARA AGREGAR UNA REVISION ------------------------------------->
+%% Copiar y descomentar este bloque por cada revision que se realice
+%   \UCsection[control]{% Indicar la versión objeto de la revisión.
+%       Revisión de la Versión \TODO X.X
+%   }
+%   \UCitem[control]{Revisó}{% Coloque el nombre de quien realizó la revisión
+%       \TODO Especificar
+%   }
+%   \UCitem[control]{Fecha}{% Coloque la fecha de la revisión
+%       % EJEMPLO: 21 de Septiembre de 2019.
+%       \TODO Especificar
+%   }
+%   \UCitem[control]{Resultado}{% Las opciones son: 
+%                               % Pendiente: se pasa a EnEdicion y se agregan las observaciones
+%                               % Aprobado: Se pasa a EnAprobacion.
+%       \TODO Especificar
+%   }
+%   \UCitems[control]{Observaciones}{
+%       % Agregar las observaciones resultado de la revision o la palabra ``Ninguna''
+%       \Titem \TODO Agregar observaciones en cada viñeta, usar el comando \TODO %\TOCHK \DONE.
+%   }
+%% <------------------------------------------ END-BLOQUE PARA AGREGAR UNA REVISION
+    
+    %----------------------------------------------
+    \UCsection{Atributos}
+    \UCitem{Entradas}{% NO MODIFICAR ESTE ATRIBUTO:
+        % Use el comando \entrada{\refElem{elemento}} en las trayectorias para que se 
+        % generen automáticamente.
+        \imprimeUC{entrada}
+    }
+    \UCitems{Origen}{% Indique de donde provienen los datos de entrada: 
+                     %  teclado, mouse, sistema externo, sensor, escaner o lector, 
+                     %  de un archivo, etc.
+        Ninguna
+    }
+    \UCitem{Salida}{% NO MODIFICAR ESTE ATRIBUTO:
+        % Use el comando \salida{\refElem{elemento}} en las trayectorias para que se 
+        % generen automáticamente.
+        \imprimeUC{salida}
+    }   
+    \UCitems{Destino}{% Indique por donde se darán las salidas de sistema: 
+                      %  pantalla, impresora, repositorio, hacia un servidor, un archivo, etc.
+        \Titem Pantalla
+    }
+    
+    \UCitems{Precondiciones}{% Indicar las precondiciones que son:
+                            % ?`Que cosas debieron haber ocurrido para que funcione el CU?
+                            % ?`Que se requiere previamente para poder ejecutar el CU?
+                            % Marque cada precondición como:
+                            %  - Restrictiva: El sistema debe controlar su cumplimiento.
+                            %  - Contemplada: El sistema debe ofrecer información para que 
+                            %                 el usuario la haga baler en el proceso.
+                            % Agregue la referencia a la Regla de negocio o requerimiento
+                            %   que sustenta la precondición en caso de que aplique.
+        % EJEMPLOS: 
+        %  - Restrictiva: Debe haber una solicitud en el sistema con estado pendiente.
+        %  - Restrictiva: No pueden haber mas de doce productos en una sola venta (ver RN-34).
+        %  - Contemplada: El alumno debe mostrar su credencial vigente al momento 
+        %                 de realizar la inscripción.
+        \Titem\textbf{Restrictiva}: \TODO Especificar.
+    }
+    \UCitems{Postcondiciones}{% Indicar las postcondiciones:
+                              % - ?`Que cambia en el sistema al terminar el CU?
+                              % - ?`Que efectos colaterales sucederán?
+                              % - ?`Que funciones se habilitan o deshabilitan?
+                              % - ?`Como se puede verificar que el CU terminó correctamente?
+                              % Indicar en las postcondiciones si es: 
+                              % - Efecto directo: implicación directa de la operación.
+                              % - Efecto colateral: implicación que se refleja en otros CU o entidades.
+                              % - Condición de término: Se puede verificar directamente al 
+                              %                         termino del CU.
+        % EJEMPLOS:
+        %  - Efecto directo: El conductor podrá conducir el vehículo asignado.
+        %  - Efecto colateral: El auto asignado al conductor cambiará a estado ``asignado''.
+        %  - Efecto colateral: El auto asignado al conductor ya no podrá asignarse a otro conductor 
+        %                      a menos que se elimine la asignación.
+        %  - Condición de término: En la pantalla de consulta del conductores aparecerá la 
+        %                      placa del vehículo asignado.
+        \Titem \textbf{Efecto directo}: \TODO Especificar
+    }
+    \UCitem{Reglas de Negocio}{% Listar las reglas de negocio que aparecen referenciadas
+                                % en la trayectoria de este Caso de Uso.
+        \imprimeUC{salida}
+    }
+    \UCitems{Errores}{% Liste los errores que pueden ocurrir en el CU, los errores
+                     % deberán estar marcados en la trayectoria. De cada error se debe especificar:
+                     % - Número de error
+                     % - Descripción de la causa del error
+                     % - La reacción del sistema, incluyendo:
+                     %    - mensaje al usuario
+                     %    - paso de la trayectoria en el que debe continuar.
+        % EJEMPLO: Uno: El actor no proporcionó un dato obligatorio el sistema indica la omisión con el mensaje ``favor de proporcionar los datos faltantes'' y marcando los campos faltantes. Después continúa en el paso 3 de la trayectoria principal.
+        \Titem \UCerr{NUMERO}{CAUSA DEL ERROR,}{REACCION DEL SISTEMA}
+    }
+    \UCitem[admin]{Auditable}{% Indique si la ejecución de la operación deberá ser registrada 
+                              % en una bitácora y los datos que se deben guardar:
+                              % - Quien realizó la operación
+                              % - A que hora.
+                              % - En que consistió la operación.
+                              % de no ser auditable poner la palabra ``no''.
+        % EJEMPLO: Sí, se debe llevar el registro en la bitácora del usuario, hora, fecha y operación realizada indicando el nombre del cliente afectado y la cantidad.
+        \Titem \TODO Especificar.
+    }                 
+    \UCitems{Datos sensibles}{% Indicar si alguno de los datos que aparecen en el CU deben 
+                              % tener un tratamiento especial de Aviso de privacidad o Ley 
+                              % de transparencia. Indicar cual y el tratamiento que se le debe dar.
+                              % En caso de no haber colocar la palabra ``Ninguno''.
+        % EJEMPLO: - Mostrar aviso de privacidad para: nombre, domicilio y fecha de nacimiento.
+        %          - Mostrar como dato reservado: Monto de la cotización y nombre del proveedor.
+        \Titem \TODO Especificar.
+    }
+    \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+                      % extienden de Login.
+        % EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+        \TODO Especificar.
+    }   
+    %----------------------------------------------
+    \UCsection[design]{Datos de Diseño}
+    \UCitems[design]{Disparador}{% Especificar que evento dispara el caso de uso suelen ser de tipo:
+                                % - Evento: No programado, solicitado por el cliente.
+                                % - Periódico: Cada fin de mes, semana, diario, etc.
+                                % - Compensación: Se usa para corregir un error en algún proceso.
+                                % - Mensaje: se recibe una solicitud, oficio, correo, etc.
+                                % - Señal: El usuario detecta que se requiere ejecutar el CU.
+                                % Especificar:
+                                % - Evento: descripción del evento que motiva al usuario.
+                                % - Frecuencia: cada cuanto se ejecuta el CU, usar:
+                                %    - ``Dato duro'' cuando se conoce exactamente cuantas veces ocurre.
+                                %    - ``En promedio X con mas menos Y'' cuando se tienen datos 
+                                %      estadísticos que respaldan el dato.
+                                %    - ``Aproximadamente XX'' cuando es la opinion del usuario.
+                                %    - Indeterminado, cuando es un proceso nuevo o no hay un 
+                                %      usuario con experiencia al cual preguntar.
+        % EJEMPLOS: 
+        % - Evento: Se debe realizar una vez antes de que termine el mes. Frecuencia: mensual. Usuarios: uno por departamento, 23 en total.
+        % - Evento: Se recibe un oficio de solicitud de Trámite de licencia. Frecuencia: En promedio 25 y no mas de 50 diarios . Usuarios: Dos, a contraturno.
+        % - Evento: Cada que el jefe lo solicita. Frecuencia: Aproximadamente 5 por semana. Usuarios: uno.
+        % - Evento: Cada que hay una solicitud sin atender. Frecuencia: no hay datos para estimar. Usuarios: Aproximadamente 5.
+        \Titem \textbf{Evento}: \TODO Especificar
+        \Titem \textbf{Frecuencia}: \TODO Especificar
+        \Titem \textbf{Usuarios}: \TODO Especificar
+    }
+    \UCitems[design]{Casos de Prueba}{% Especificar todos los casos de prueba que pueda identificar.
+                                      % Considere:
+                                      % - Casos correctos.
+                                      % - Validación de datos.
+                                      % - Valores a la frontera.
+                                      % - Validar precondiciones.
+                                      % - Validar postcondiciones.
+                                      % - Validar Reglas de negocio.
+                                      % - Verificar efectos colaterales.
+        % EJEMPLOS:
+        % - CPS-1: Proporcionando todos los datos correctos para un cliente Persona moral
+        % - CPS-2: Proporcionando todos los datos correctos para un cliente Persona física
+        % - CPS-3: Dejando vacío uno por uno cada uno de los datos obligatorios.
+        % - CPS-4: Especificar una fecha de nacimiento posterior a la del día de hoy.
+        % - CPS-5: Registrar la venta especificando un precio con valor negativo.
+        % - CPS-6: Registrar de una venta sin productos.
+        % - CPS-7: Realizar una venta de un producto sin existencias.
+        \Titem \TODO Especificar
+    }
+    %----------------------------------------------    
+    \UCsection[admin]{Datos de Administración de Requerimiento}
+    \UCitem[admin]{Prioridad}{% Indicar la prioridad del CU como está especificada en el 
+                              % Product Backlog, los valores son: Muy Alta, Alta, Media, Baja, Muy Baja
+        \TODO Especificar
+    }
+    \UCitems[admin]{Referencia Documental}{% Indicar los documentos que sirvieron de base para escribir el CU.
+        % EJEMPLO: - Reglamento interno Artículo 45 y 25 del capítulo 5.
+        %          - Minuta TR-PL-45.
+        %          - Manual de procedimientos proceso PR-098.
+        \Titem \TODO Especificar.
+    }
+    \UCitems[admin]{Impedimentos}{% UN BUEN CASO DE USO DEBE DECIR EN ESTE APARTADO ``Ninguno''.
+                                  % Use este apartado cuando se vea obligado a entregar a 
+                                  % revisión o aprobación un CU al que aun le faltan cosas.
+                                  % Los impedimentos son:
+                                  % - Datos faltantes solicitados y que no han sido entregados 
+                                  % - Reglamentos no proporcionados.
+                                  % - Incapacidad de llegar a un acuerdo
+                                  % - Requerimientos constantemente cambiantes.
+                                  % - Dependencia a factores que no se pueden controlar ni definir.
+                                  % - Inaccesibilidad al usuario o a alguien que valide.
+                                  % - Contraindicaciones entre requerimientos.
+        % EJEMPLO: 
+        % - Este Caso de Uso no contempla la nueva legislación de seguridad.
+        % - Este caso de uso está basado en el proceso anterior por desconocimiento del nuevo proceso.
+        % - Este caso de uso solo funcionará lara pólizas personales por que las empresariales 
+        %   nunca fueron proporcionadas.
+        % - No se ha podido acordar la forma de pago por parte del comité, falta definir esa parte.
+        % - Finanzas y Contabilidad no han podido ponerse de acuerdo en relación al catálogo a utilizar.
+        \Titem \TODO Especificar
+    }
+    \UCitems[admin]{Suposiciones}{% UN BUEN CASO DE USO DEBE DECIR EN ESTE APARTADO ``Ninguno''.
+                                 % Todas las desiciones que no han podido ser verificadas se 
+                                 % deben especificar aquí.
+        % EJEMPLO: Se considera que el usuario debió haber sido capacitado por la empresa.
+        \Titem \TODO Especificar
+    }
+    \UCitems[admin]{Observaciones}{% Use este apartado para agregar cualquier información que 
+                                   % sea relevante y que no corresponda a ningún otro apartado.
+                                   % Si no hay se debe poner ``Ninguna''.
+        % EJEMPLO: En este caso de uso el usuario revisa la información minuciosamente por mas de 30 minutos, por lo que se debe considerar no cerrar la sesión e implementar el autoguardado.
+        \Titem \TODO Especificar.
+    }
+\end{UseCase}
+
+%Trayectoria Principal
+\begin{UCtrayectoria}
+    \UCpaso [\UCactor] Solicita gestionar el catálogo del \refElem{tPGD} dando clic en la opción ``Catálogo PGD '' \hspace{0.1 cm} de la pantalla \refElem{}. \TODO Definir pantalla principal de gestión de catálogos.
+    \UCpaso [\UCsist] Verifica que se hayan ingresado. \refErr{Uno}
+    \UCpaso [\UCsist] \label{AL-CU1-catalogo} Obtiene el catálogo ``Tipo de producto''.
+    \UCpaso [\UCsist] \label{AL-CU1-entradas} Obtiene el \salida[]{Producto.tipo}, cantidad de productos registrados en el sistema, \salida[foto]{Producto.foto}, \salida[nombre]{Producto.nombre},  \salida[descripción]{Producto.descripcion}, rango de \salida[estado]{Producto.estado} y el \salida[id]{Producto.id} de los productos de tipo ``Especialidad'' registados en el sistema. \refTray{A}
+    \UCpaso [\UCsist] Ordena los productos obtenidos de menor a mayor con base en el id de los productos obtenidos.
+    \UCpaso [\UCsist] Muestra la pantalla \refIdElem{AL-IU1} con los datos obtenidos en los pasos \ref{AL-CU1-catalogo} y \ref{AL-CU1-entradas}. 
+%    \UCpaso [\UCactor] \label{PLA-CAT-CU1-1-Gestion} Gestiona los productos obtenidos en el sistema  mediante los iconos \IUEliminar \thinspace ``Eliminar", \IUNivel \thinspace ``Siguiente nivel", \IUEditar \thinspace ``Modificar" \thinspace y \IUEliminar \thinspace ``Registrar". \refTray{B}
+
+\end{UCtrayectoria}
+
+%Trayectorias Alternativas
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{A}{No existen registros en el sistema.}
+    \UCpaso [\UCsist] Muestra el mensaje \salida{MSG4} en la pantalla \refIdElem{AL-IU1}.
+    \UCpaso [\UCsist] Regresa al paso \ref{AL-CU1-Gestion} de la trayectoria principal.
+\end{UCtrayectoriaA} 
+
+
+\subsection{Puntos de extensión}
+
+\UCExtensionPoint{Gestionar áreas de oportunidad}{El \refElem{aResponsablePOA} requiere gestionar el siguiente nivel del catálogo que son las áreas de oportunidad que pertenecen al eje seleccionado}{En el paso \ref{PLA-CAT-CU1-Gestion} de la trayectoria principal}{\refIdElem{PLA-CAT-CU1-2}}
+
+\UCExtensionPoint{Registrar eje}{El \refElem{aResponsablePOA} requiere registrar un nuevo eje en el catálogo del POA}{En el paso \ref{PLA-CAT-CU1-Gestion} de la trayectoria principal}{\refIdElem{PLA-CAT-CU1-1-1}}
+
+\UCExtensionPoint{Modificar eje}{El \refElem{aResponsablePOA} requiere modificar algún dato de un eje registrado en el sistema}{En el paso \ref{PLA-CAT-CU1-Gestion} de la trayectoria principal}{\refIdElem{PLA-CAT-CU1-1-2}}
+
+\UCExtensionPoint{Eliminar eje}{El \refElem{aResponsablePOA} requiere eliminar algún eje registrado en el sistema}{En el paso \ref{PLA-CAT-CU1-Gestion} de la trayectoria principal}{\refIdElem{PLA-CAT-CU1-1-3}}
+
+

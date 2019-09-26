@@ -1,0 +1,301 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{academic}[2017/08/19, v3.0 Author: Daniel Ortega Do not distribute source file]
+
+% USED PACKAGES & HYPERSETUP ...
+\RequirePackage[T1]{fontenc} 
+\RequirePackage[utf8]{inputenc}  % Codificación de caracteres en UTF-8.
+\RequirePackage[spanish]{babel}  % Cambia las variables del documento a español.
+
+%\usepackage[hmargin=2cm,vmargin=3.5cm, head=2cm]{geometry} % Text Margin Management
+\RequirePackage[pdftex,bookmarks,colorlinks]{hyperref} % Manejo de vinculos o links
+\RequirePackage{graphicx}                              % Manejo de imágenes.
+\RequirePackage{multicol}                              % Manejo de multiples columnas.
+\RequirePackage{caption}
+
+\RequirePackage[usenames,dvipsnames]{xcolor} % Para usar y definir colores.
+\RequirePackage{fancyhdr}                    % Manejo de encabezados.
+\RequirePackage[Sonny]{fncychap}             % Manejo de capítulos: Sonny, Lenny, Glenn, Conny, Rejne and Bjarne.
+
+\RequirePackage[scaled]{berasans}
+\RequirePackage{cmbright}        % Fuente de letras, otras opciones: arev, cmbright, pxfonts, tgadventor 
+%\RequirePackage{txfonts}         % Altera Fuente de letra usado para eliminar warnings 
+\RequirePackage{marvosym}        % Algunos símbolos.
+
+%=====================================================
+% Package Bera Sans: Poner el tipo de fuente sans-serif como default
+%=====================================================
+\renewcommand*\familydefault{\sfdefault}
+
+%=====================================================
+% Definición de colores.
+%=====================================================
+\definecolor{colorPrincipal}{rgb}{0.0, 0.3, 0.55}
+\definecolor{primary}{rgb}{0.0, 0.3, 0.55}
+\definecolor{secondary}{rgb}{0.0, 0.5, 0.8}
+\definecolor{tertiary}{rgb}{0.4, 0.4, 0.4}
+% ===================================================
+\definecolor{colorPrincipal}{rgb}{0.0, 0.3, 0.55}
+\definecolor{colorSecundario}{rgb}{0.0, 0.5, 0.8}
+\definecolor{colorAgua}{rgb}{0.80, 0.90, .95}
+
+%=====================================================
+% Colores para las referencias del documento.
+%=====================================================
+\hypersetup{linkcolor=primary}
+\hypersetup{urlcolor=secondary}
+\hypersetup{filecolor=secondary}
+\hypersetup{citecolor=tertiary}
+
+%=====================================================
+%% Estilo para los Capítulos y secciones
+%=====================================================
+\ChTitleVar{\Large\sf\color{primary}}
+\ChNameVar{\Large\sf\color{primary}}
+
+\let\LaTeX@startsection\@startsection
+\renewcommand{\@startsection}[6]{\LaTeX@startsection%
+{#1}{#2}{#3}{#4}{#5}{\color{primary}\raggedright #6}}
+
+%%=====================================================
+%% Estilo para Parte
+%======================================================
+\makeatletter
+\let\oldpart\part
+\def\part#1{\def\@currentlabelname{#1}{\color{primary}\oldpart{#1}}}
+\makeatother
+
+%=====================================================
+% Texto para el índice y los pies de las tablas.
+%=====================================================
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\listtablename}{Índice de tablas}
+
+\renewcommand\textbullet{\ensuremath{\bullet}} % Usado para evitar warnings de fuentes
+\renewcommand{\labelitemi}{\color{primary}\textbullet}
+\renewcommand{\labelitemii}{\color{secondary}$\circ$}
+\renewcommand{\labelitemiii}{\color{secondary}\textbullet}
+\renewcommand{\labelitemiv}{\color{secondary}\textbullet}
+
+\pagestyle{fancy}
+\fancyhead[LE]{\includegraphics[height=35pt]{res/headerPar}}
+\fancyhead[RO]{\includegraphics[height=35pt]{res/HeaderImp}}
+
+\newcommand{\pf}{\bf\color{primary}}
+
+\renewcommand{\addfigure}[5][]{
+    \begin{figure}[htbp!]
+        \begin{center}
+            \includegraphics[width=#2\textwidth]{#3}
+            \caption{#5}
+            \label{#4}
+            \small{#1}
+        \end{center}
+    \end{figure}
+}
+
+\renewcommand{\addlongtable}[5][]{
+    \captionsetup{skip=10pt}
+    \begin{longtable}{#2} \hline
+            #4 %
+        \caption{#5}
+        \label{#3}
+        \small{#1}\par
+    \end{longtable}
+}
+
+\ifdefined\addtable
+\else
+\newcommand{\addtable}[4]{
+    \begin{table}[hbtp!]
+    \centering
+    \begin{tabular}{#1} \hline
+        #3 %\hline
+        \end{tabular}
+        \caption{#4}
+        \label{#2} 
+    \end{table}
+}
+\fi
+
+\newcommand{\hyperrefx}[1]{%
+    \hyperref[#1]{\ref*{#1} \nameref*{#1}}%
+} 
+      
+\newenvironment{Entidad}[2]{%
+    \subsection*{Tabla gmdl\_#1}
+    {#2}
+    \begin{center}
+    \begin{tabular}{| m{0.12\textwidth} | m{0.14\textwidth} | m{0.2\textwidth} | m{0.3\textwidth} | m{0.1\textwidth} |}\hline
+    {\bf Atributo} & {\bf Tipo} & {\bf Descripción} & {\bf Restricciones} & {\bf Módulo} \\\hline
+}{%
+    \end{tabular}% 
+    \end{center}%
+}
+
+\newcommand{\attr}[5]{%
+    \begin{center}#1\end{center}& {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& \begin{center}#5\end{center}\\\hline
+}
+
+\newcommand{\attrG}[5]{ \begin{center}gmdl\_\par#1\end{center}& {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& {\begin{center}#5\end{center}}\\\hline}
+
+\newcommand{\attrM}[5]{ \begin{center}mdl\_\par#1\end{center}&  {#2}& {#3}& {\begin{Titemize}#4\end{Titemize}}& {\begin{center}#5\end{center}}\\\hline}
+
+\begin{comment}
+      
+% TABLES ITEMIZA DEFINITION
+
+  \renewcommand{\labelitemi}{\color{color:section}\textbullet}
+
+  \newenvironment{CUTitemize}{
+  \vspace{0em}\setlength{\leftskip}{0.5em}
+  }
+  {\vspace{-1em}
+  \paragraph{}}
+  
+  \newcommand{\CUTitem}[1][\textbullet\hspace{2pt}]{
+      \par{\color{color:first}{#1}}}
+    
+    
+% CREATED COMMANDS
+
+	\newcommand{\email}[1]{\color{color:link}\textit{#1}}
+	\newcommand{\bb}[1]{\textbf{\color{color:link}#1}}
+	\newcommand{\bu}[1]{{\color{color:section}#1}}
+	\newcommand{\deprecated}{{\color{color:alert}\bf Deprecated!}}
+
+	\newcommand{\addfigure}[5][]{
+        \begin{figure}[htbp!]
+            \begin{center}
+                %\fbox{
+                \includegraphics[width=#2\textwidth]{#3}
+                %}
+                \caption{#5}
+                \label{#4}
+                \small{#1}
+            \end{center}
+        \end{figure}
+   	}
+   	
+   	\newcommand{\addfigureScaleAndAangle}[5]{
+        \begin{figure}[htbp!]
+            \begin{center}
+                \fbox{
+                \includegraphics[scale=#1,angle=#2]{#3}
+                }
+                \caption{#5}
+                \label{#4}
+            \end{center}
+        \end{figure}
+   	}
+    
+    \newcommand{\addfigureB}[4]{
+        \begin{figure}[htbp!]
+            \begin{center}
+           \fbox{\includegraphics[width=#1\textwidth]{#2}}
+                \caption{#4}
+                \label{#3}
+            \end{center}
+        \end{figure}
+   	}
+    
+    \newcommand{\addlongtable}[4]{
+        \begin{longtable}{#1}
+	     	\caption{#4}
+			\label{#2} \hline
+            #3 \hline
+		\end{longtable}
+	}
+
+% CODING COMMANDS
+    
+    \newcommand{\setSyntaxCodeC}{
+    	\lstset{language=C++,
+                  keywordstyle=\color{blue},
+                  stringstyle=\color{orange},
+                  commentstyle=\color{gray},
+                  morecomment=[l][\color{code:green}]{\#}
+      }
+    }
+    
+    \newcommand{\setSyntaxCodeSQL}{
+    	\lstset{language=SQL,
+                  keywordstyle=\color{blue},
+                  stringstyle=\color{orange},
+                  commentstyle=\color{gray},
+                  morecomment=[l][\color{code:green}]{\#}
+      }
+    }
+    
+    \newcommand{\setSyntaxCodeJAVA}{
+    	\lstset{language=JAVA,
+                  keywordstyle=\color{blue},
+                  stringstyle=\color{orange},
+                  commentstyle=\color{gray},
+                  morecomment=[l][\color{code:green}]{\#}
+      }
+    }
+    
+% \lstset documentation	http://texdoc.net/texmf-dist/doc/latex/listings/listings.pdf
+% 						https://en.wikibooks.org/wiki/LaTeX/Source_Code_Listings
+    
+    \newcommand{\bussinessRule}[2]{
+    	\subsection{#1 #2}
+    	\label{#1}
+    	\noindent{\large \textbf{Regla de negocio:} #1 #2}
+    }
+
+    \newenvironment{UseCase}[3]{
+    	\subsection*{#1 #2}\label{#1}%
+    	#3
+        \begin{longtable}{|p{.17\textwidth}|p{.75\textwidth}|}
+            \rowcolor{black}
+            \multicolumn{2}{|c|}{\bf\color{white}#1 #2}\\\hline
+    	}{
+	    \end{longtable}%\vspace{-0.7cm}
+    }
+
+    \newcommand{\UCrow}[2]{ {\bf #1} & #2 \\\hline }
+    \newcommand{\tblrow}[3]{{\bf #1}& #2& #3 \\\hline}
+
+    \newenvironment{UCtrayectoria}[2][]{%
+    	\noindent\bb{ Trayectoria #2:} #1
+    	\renewcommand{\labelenumi}{\textcolor{black}{\bf \theenumi}}
+    	\begin{enumerate}\addtolength{\itemsep}{-0.2\baselineskip}
+    }{      \item[] 
+    	\end{enumerate}
+    	\renewcommand{\labelenumi}{\theenumi}
+    }
+
+    \newcommand{\actor}{\item\includegraphics[height=10pt]{images/actor}\ }
+    \newcommand{\sistema}{\item\includegraphics[height=10pt]{images/sistema}\ }
+    \newcommand{\moodle}{\item\includegraphics[height=8pt]{images/m-icon}\ }
+    \newcommand{\IUref}[2][]{\nameref{#2}#1}
+    
+    \newcommand{\UCnote}[1]{{\color{gray}\em ({#1})}}
+
+% Shortcuty \backlash macro
+\newcommand{\bs}{$\backslash$}
+
+%\newcounter{theUserStory}
+%\setcounter{theUserStory}{1}
+%\newenvironment{UserStory}[3]{%
+%    \phantomsection
+%    \noindent\bb{\large\fbox{\bf US-#1} #2}\\\\#3\\\\
+%    \addtocounter{subsection}{1}
+%    \addcontentsline{toc}{subsection}{\arabic{chapter}.\arabic{section}.\arabic{subsection}. ~~ US-#1 #2}
+    %\noindent\bb{\large\fbox{\bf US-\arabic{theUserStory}} #1}\\\\%
+%    \noindent\bb{Criterio de Aceptación}%
+%    \begin{center}
+%    \begin{tabular}{c|p{0.8\textwidth}}
+%        {\bf Estado} & {\bf Descripción}\\\hline
+%}{
+%    \end{tabular}
+%    \end{center}%\stepcounter{theUserStory}
+%    \hfill\par\bigskip\bigskip
+%}
+
+%\gdef\done{\CheckedBox}
+%\gdef\todo{\Square}
+%\newcommand{\criteria}[2][\todo]{\Large#1 & #2 \\ }
+
+\end{comment}

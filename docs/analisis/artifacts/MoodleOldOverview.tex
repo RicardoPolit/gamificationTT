@@ -1,0 +1,32 @@
+
+    %\subsubsection{Base de datos}
+    
+     %Moodle cuenta con soporte para 4 distintos sistemas gestores de base de datos, que son; MySQL, MySQL Server, Oracle y PostgreSQL.  En principio esto es una ventaja enorme, sin embargo, si uno quisiera extender la funcionalidad de Moodle tendría que hacer sus versiones para cada uno de los gestores de la base de datos.\\
+    
+    %\noindent Con lo anterior, se entiende que no solo se tiene que ver las diferencias entre las operaciones soportadas en cada uno de los sistemas gestores, sino, que también se necesita saber cómo guardar cada uno de los datos que se necesiten debido a los distintos tipos de dato que hay entre los sistemas gestores.\\
+    
+    %\noindent Para solucionar el problema de las operaciones, Moodle creo una API que se encarga de recibir las instrucciones y las convierte a instrucciones del sistema gestor que se tenga instalado en el servidor en ese momento. En cuanto a la asignación de los tipos de dato, Moodle desarrolló otra API llamada XMLDB Editor, con ella uno puede modificar esquemas de bases de datos con las opciones  que proporciona Moodle.\\
+    
+    %\textbf{XMLDB Editor}\\
+    
+    %Lo que hace esta API es realizar los cambios que el usuario quiere en un archivo llamado \textbf{db/install.xml}. En dicho archivo hay una estructura xml que define las tablas, atributos, llaves e índices que conforma el esquema del componente.\\
+    
+   %\noindent  Los tipos de dato disponibles para agregar son:
+   %\begin{quote}
+    %\begin{itemize}
+        %\item int
+        %\item number
+        %\item float
+        %\item char
+        %\item text
+        %\item binary
+    %\end{itemize}
+    %\end{quote}
+    
+    %\noindent Si un componente ya tiene una versión disponible en la página de Moodle y sale una siguiente versión, en lugar de obligar al  usuario a desinstalar la versión antigua e instalar la nueva versión, Moodle les brinda la opción de actualizar. Para ello Moodle revisa 2 archivos \textbf{version.php} y \textbf{db/upgrade.php}.\\
+    
+    %\noindent \textbf{version.php}, se encarga de decir cuál versión del componente reflejan los archivos. Dicha versión Moodle la compara con la registrada en la tabla \textbf{mdl\_config\_plugins} y si la versión registrada en la tabla es menor, Moodle procede a ejecutar el archivo \textbf{db/upgrade.php}.
+    
+    %\noindent \textbf{db/upgrade.php}, se encarga de realizar todas las modificaciones necesarias al esquema de datos para actualizar de la versión anterior a la actual. Esto incluye  la creación, modificación y eliminación de tablas, atributos, llaves e índices.\\
+    
+    %\noindent XMLDB Editor también ayuda con el código php para el archivo \textbf{db/upgrade.php}. Lo hace generando el código para hacer las modificaciones indicadas, sin embargo, dependiendo que modificación quieras hacer, se necesita cierto orden en la ejecución de los pasos, ya que, no es lo mismo eliminar que agregar.\\ 
