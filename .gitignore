@@ -1,4 +1,5 @@
 # Excluding all moodle files and dirs
+.idea
 .eslintignore
 .eslintrc
 .gherkin-lintrc
@@ -34,19 +35,22 @@ comment/
 competency/
 completion/
 composer.json
-composer.lock
+composer.lock 
 config-dist.php
 config.php
 course/
+customfield/
 dataformat/
 draftfile.php
 enrol/
 error/
+favourites/
 file.php
 files/
 filter/
 grade/
 group/
+githash.php
 help.php
 help_ajax.php
 index.php
@@ -63,6 +67,7 @@ mnet/
 mod/
 my/
 notes/
+node_modules/
 npm-shrinkwrap.json
 package.json
 phpunit.xml.dist
@@ -78,6 +83,7 @@ repository/
 rss/
 search/
 tag/
+tokenpluginfile.php
 theme/
 user/
 userpix/
