@@ -258,24 +258,6 @@ class gmxpadminfromgeneral extends moodleform {
 
         $this->set_data($entry);
 
-        /*$rawdata = get_config('block_gmxp','sections');
-
-        if($rawdata != null){
-
-            $jsondata = json_decode($rawdata);
-
-            $newdata = [
-                'sections' => $jsondata->sections
-            ];
-            for ($i = 1; $i <= $jsondata->sections; $i++) {
-                $newdata['sectlvlS_' . $i] = $jsondata->sectlvlS->{$i};
-                $newdata['sectlvlE_' . $i] = $jsondata->sectlvlE->{$i};
-            }
-
-            $this->set_data($newdata);
-
-        }*/
-
     }
 
 }
