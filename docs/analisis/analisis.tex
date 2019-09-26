@@ -1,0 +1,118 @@
+\chapter{Análisis general}
+\label{ch:analisis}
+
+ Este capítulo tiene como principal objetivo establecer las características o cualidades más
+ importantes a considerar durante el diseño de los elementos de software y el desarrollo de los
+ mismos durante este proyecto. Además presenta la forma en que se ha seguido a los márcos de 
+ trabajo para establecer los incrementos y entregables de cada iteración.
+
+    \input{analisis/metodologia}
+    % Explicar cómo es que está configurado scrum en este proyecto
+    % detallar los entregables y las forma de trabajar.
+
+    % Mencionar que se siguierón los pasos de ''For The Win'' y
+    % que cada una de las secciones siguientes está vinculada a
+    % los pasos de For The Win.
+
+    \clearpage
+    \input{analisis/modulos}
+    % Describir cuales son los módulos que fueron identificados
+    % cual es el propósito de cada uno, y de que sub módulos
+    % estan constituidos, solo poner la imagen principal.
+
+    \clearpage
+    \input{analisis/usuarios}
+    % Detallar el perfil de nuestros usuarios y los beneficios
+    % que se brindarán a cada uno de ellos.
+
+    % Además mencionar que se puede brindar soporte a distintos
+    % tipos de jugadores a través de los principios de gamificación.
+    % Presentar imagen de principios con módulos.
+
+    \clearpage
+
+    % FOLLOWING PART WAS REMOVED DUE TO DAVID-PACHECO WARNING
+    % OF USIGN PROCESS
+    % ---------------------------------------------
+    \input{analisis/visionyuso}
+    % Detallar cual es el proceso que se tiene planificado para
+    % el uso de nuestra herramienta, describir el procesos desde
+    % la instalación y configuración de plugins, hasta la aparición
+    % de elementos de gamificación cuando los alumnos realizan una
+    % acción.
+
+    \input{analisis/principios}
+    % Brindar un aspecto más amplio acerca de como se le brinda
+    % soporte a distintas cosas a través de los principios del marco
+    % de trabajo de octalysis.
+
+    \clearpage
+    \input{analisis/factibilidad}
+    % Detalla el estudio de fatibilidad que se realizó inicialmente
+    % para saber si era viable usar moodle o no.
+
+    \clearpage
+    \input{analisis/modeloDatos}
+    % Una vez que se decidio moodle y que se realizó el estudio de
+    % factibilidad se procedio a documentar el modelo de datos que
+    % se usará contemplando los módulos analisados diseñados hasta
+    % el momento.
+
+
+\begin{comment}
+% =================================================================
+%   Pasar las siguientes lineas en los archivos presentes en la
+%   carpeta de analisis
+% =================================================================
+
+% Y SI SE DOCUMENTA COMO FUE??:
+%   TOP-DOWN => PRIMERO SE PLANEARON LOS MÓDULOS Y DESPUES SE BAJO A REQUERIMIENTOS
+
+El alcance de este proyecto es representado mediante el Product Backlog (artefacto de Scrum). El product backlog incluye dos tipos de items: los items de documentación, denotados por ls clave {\it {\bf A}x}; y los items de desarrollo del proyecto, denotados por las claves {\it {\bf RF}x} y {\it{\bf RNF}x}.\\
+
+\noindent A continuación se menciona la lista completa de actividades y requerimientos recopilados, debido 
+%debido a la larga lista de requerimientos no es posible cumplir para el término del trabajo terminal, 
+se realizarán los que tienen mayor prioridad. Esta lista puede ser ampliada o reducida bajo indicaciones estrictas de los directores del trabajo terminal.\\
+
+\noindent Al final de este documento se incluye el documento de Metodología como anexo, el cual detalla las características que deben tener los artefactos de Scrum, así como la configuración de Scrum para este proyecto.\\
+
+\section{Product Backlog}
+
+    \begin{multicols}{2}
+    \input{analisis/artifacts/backlogA}
+    \input{analisis/artifacts/backlogR}
+    \end{multicols}
+
+    %\begin{quote}
+    %\noindent {\bf Nota:} El número de {\it Sprint} debe estar presente en todos los items correspondientes al sprint corriente y a los sprints anteriores a este. El atributo {\it Sprint} puede no estar presente en los items que no han sido vinculados a un Sprint. 
+    \noindent {\bf Nota:} El número de {\it Sprint} debe estar presente en todos los ítems que ya hayan sido agregados a un Sprint Backlog.
+    %\end{quote}
+    
+\section{Relación módulos-requerimientos}
+
+En la tabla \ref{tab:modreq} se relacionan lo módulos definidos contra los requerimientos encontrados en el Backlog, se muestran sólo los identificadores de los requerimientos para una mayor legibilidad.
+
+\newcommand{\Refr}[1]{{\hyperlink{#1}{#1}}}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+        Competencia & \Refr{RF36}, \Refr{RF37}, \Refr{RF38}, \Refr{RF40}, \Refr{RF41}, \Refr{RF39}, \Refr{RF42}\\
+    \hline
+        Seguimiento & \Refr{RF13}, \Refr{RF14}, \Refr{RF44}\\
+    \hline
+        Financiero & \Refr{RF19}, \Refr{RF20}, \Refr{RF21}, \Refr{RF22}, \Refr{RF23}, \Refr{RF24}, \Refr{RF25}, \Refr{RF26}, \Refr{RF32}, \Refr{RF33}\\
+    \hline
+        Experiencia & \Refr{RF9}, \Refr{RF7}, \Refr{RF8}, \Refr{RF10}, \Refr{RF11}, \Refr{RF12}\\
+    \hline
+        Recompensa & \Refr{RF1}, \Refr{RF2}, \Refr{RF4}, \Refr{RF3}, \Refr{RF5}, \Refr{RF6}\\
+    \hline
+        Personalización & \Refr{RF15}, \Refr{RF16}, \Refr{RF17}, \Refr{RF18}, \Refr{RF27}, \Refr{RF28}, \Refr{RF29}, \Refr{RF30}, \Refr{RF31}, \Refr{RF34}, \Refr{RF35}\\
+    \hline
+    \end{tabular}
+    \caption{Relación entre los módulos y requerimientos}
+    \label{tab:modreq}
+\end{table}
+
+
+\end{comment}

@@ -1,0 +1,120 @@
+% Actualizar para indicar cual es el archivo raíz a compilar.
+%!TEX root = ../../main2.tex
+
+
+\begin{UseCase}[
+    Autor/Daniel Ortega,%
+    Version/0.1,%
+    Estado/\ucstEnEdicion]% \ucstEnEdicion, \ucstEnRevision, \ucstEnAprobacion, \ucstAprobado
+%
+    {EXP-CU1}{Configurar esquema de experiencia}{
+        \TODO Especificar Descripción.
+    }
+    %----------------------------------------------------------------
+    % Datos generales del CU:
+    \UCitem{Actor(es)}{ \refElem{aAdministrador} }
+    \UCitems{Propósito}{ % motivación, valor agregado, razón de existir, situación que resuelve, el para qué?
+        \Titem \TODO Especificar en viñetas.
+    }
+    \UCitem[control]{Revisor}{% Colocar nombre + apellidos del responsable de revisar. 
+                              % Si son mas de uno o se cambia separar los nombres con comas.
+        \TODO Especificar
+    }
+    \UCitem[control]{Último cambio}{% Actualizar al modifica el estado. 
+        % EJEMPLO: 21 de Septiembre de 2019.
+        28 de Agosto de 2019.
+    }
+    
+%% BEGIN-BLOQUE PARA AGREGAR UNA REVISION ------------------------------------->
+%% Copiar y descomentar este bloque por cada revision que se realice
+%   \UCsection[control]{% Indicar la versión objeto de la revisión.
+%       Revisión de la Versión \TODO X.X
+%   }
+%   \UCitem[control]{Revisó}{% Coloque el nombre de quien realizó la revisión
+%       \TODO Especificar
+%   }
+%   \UCitem[control]{Fecha}{% Coloque la fecha de la revisión
+%       % EJEMPLO: 21 de Septiembre de 2019.
+%       \TODO Especificar
+%   }
+%   \UCitem[control]{Resultado}{% Las opciones son: 
+%                               % Pendiente: se pasa a EnEdicion y se agregan las observaciones
+%                               % Aprobado: Se pasa a EnAprobacion.
+%       \TODO Especificar
+%   }
+%   \UCitems[control]{Observaciones}{
+%       % Agregar las observaciones resultado de la revision o la palabra ``Ninguna''
+%       \Titem \TODO Agregar observaciones en cada viñeta, usar el comando \TODO %\TOCHK \DONE.
+%   }
+%% <------------------------------------------ END-BLOQUE PARA AGREGAR UNA REVISION
+    
+    \UCsection{Atributos}
+    \UCitem{Entradas}{ \imprimeUC{entrada} }
+    \UCitems{Origen}{
+        \Titem Ninguna
+    }
+
+    \UCitem{Salida}{ \imprimeUC{salida} } 
+    \UCitems{Destino}{
+        \Titem Pantalla
+    }
+    
+    \UCitems{Precondiciones}{
+        \Titem \TODO Especificar.
+    }
+
+    \UCitems{Postcondiciones}{
+        \Titem \TODO Especificar
+    }
+
+    \UCitem{Reglas de Negocio}{ \imprimeUC{salida} }
+
+    \UCitems{Errores}{
+        \Titem \UCerr{NUMERO}{CAUSA DEL ERROR,}{REACCION DEL SISTEMA}
+    }
+
+    \UCsection[design]{Datos de Diseño}
+    \UCitems[design]{Disparador}{
+        \Titem Especificar
+    }
+
+    \UCitems[design]{Casos de Prueba}{
+        \Titem \TODO Especificar
+    }
+    %----------------------------------------------    
+    \UCitem[admin]{Observaciones}{}
+\end{UseCase}
+
+\gdef\actor{\UCpaso[\UCactor]}
+\gdef\sistema{\UCpaso[\UCsist]}
+
+%Trayectoria Principal
+\begin{UCtrayectoria}
+    \actor Solicita gestionar el catálogo del \refElem{tPGD} dando clic en la opción ``Catálogo PGD '' \hspace{0.1 cm} de la pantalla \refElem{}. \TODO Definir pantalla principal de gestión de catálogos.
+    \sistema Verifica que se hayan ingresado. \refErr{Uno}
+    \UCpaso [\UCsist] \label{AL-CU1-catalogo} Obtiene el catálogo ``Tipo de producto''.
+    \UCpaso [\UCsist] \label{AL-CU1-entradas} Obtiene el \salida[]{Producto.tipo}, cantidad de productos registrados en el sistema, \salida[foto]{Producto.foto}, \salida[nombre]{Producto.nombre},  \salida[descripción]{Producto.descripcion}, rango de \salida[estado]{Producto.estado} y el \salida[id]{Producto.id} de los productos de tipo ``Especialidad'' registados en el sistema. \refTray{A}
+    \UCpaso [\UCsist] Ordena los productos obtenidos de menor a mayor con base en el id de los productos obtenidos.
+    \UCpaso [\UCsist] Muestra la pantalla \refIdElem{AL-IU1} con los datos obtenidos en los pasos \ref{AL-CU1-catalogo} y \ref{AL-CU1-entradas}. 
+%    \UCpaso [\UCactor] \label{PLA-CAT-CU1-1-Gestion} Gestiona los productos obtenidos en el sistema  mediante los iconos \IUEliminar \thinspace ``Eliminar", \IUNivel \thinspace ``Siguiente nivel", \IUEditar \thinspace ``Modificar" \thinspace y \IUEliminar \thinspace ``Registrar". \refTray{B}
+
+\end{UCtrayectoria}
+
+%Trayectorias Alternativas
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{A}{No existen registros en el sistema.}
+    \UCpaso [\UCsist] Muestra el mensaje \salida{MSG4} en la pantalla \refIdElem{AL-IU1}.
+    \UCpaso [\UCsist] Regresa al paso \ref{AL-CU1-Gestion} de la trayectoria principal.
+\end{UCtrayectoriaA} 
+
+
+\subsection{Puntos de extensión}
+
+\UCExtensionPoint{Gestionar áreas de oportunidad}{El \refElem{aResponsablePOA} requiere gestionar el siguiente nivel del catálogo que son las áreas de oportunidad que pertenecen al eje seleccionado}{En el paso \ref{PLA-CAT-CU1-Gestion} de la trayectoria principal}{\refIdElem{PLA-CAT-CU1-2}}
+
+\UCExtensionPoint{Registrar eje}{El \refElem{aResponsablePOA} requiere registrar un nuevo eje en el catálogo del POA}{En el paso \ref{PLA-CAT-CU1-Gestion} de la trayectoria principal}{\refIdElem{PLA-CAT-CU1-1-1}}
+
+\UCExtensionPoint{Modificar eje}{El \refElem{aResponsablePOA} requiere modificar algún dato de un eje registrado en el sistema}{En el paso \ref{PLA-CAT-CU1-Gestion} de la trayectoria principal}{\refIdElem{PLA-CAT-CU1-1-2}}
+
+\UCExtensionPoint{Eliminar eje}{El \refElem{aResponsablePOA} requiere eliminar algún eje registrado en el sistema}{En el paso \ref{PLA-CAT-CU1-Gestion} de la trayectoria principal}{\refIdElem{PLA-CAT-CU1-1-3}}
+

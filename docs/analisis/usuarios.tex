@@ -1,0 +1,229 @@
+\section{Usuarios}
+\label{analisis:usuarios}
+
+ En esta sección se presentan los actores a los que va destinada la propuesta de
+ solución, así como sus responsabilidades y perfil recomendado. Posteriormente se
+ presentan por cada módulo el conjunto de funcionalidades que se le brindarán a
+ cada actor especificando a que módulo pertenecen las funcionalidades.
+
+ % =====================================
+ %    A D M I N I S T R A D O R
+ % =====================================
+
+    \begin{actor}{aAdmininstrador}{Administrador del sitio}{%
+    El adminsitrador del sitio es la persona con mayor jerarquía respecto a los
+    permisos y funcionalidades que brinda moodle, desde configurar la visualización
+    de la página principal del sitio hasta editar las políticas de seguridad. A
+    continuación se describen las responsabilidades y cualidades que debe tener
+    un administrador.\\}
+
+    \item[Responsabilidades:] \hfill
+        \begin{itemize}
+        \item Instalar/desinstalar plugins
+        \item configuración general de los plugins
+        \end{itemize}
+
+    \item[Perfil:] \hfill
+        \begin{itemize}
+        \item Contar con experiencia administrando moodle.
+        \item Conocimientos de permisos en LAMP (Linux, apache, MySQL and PHP).
+        \item Conocimientos básicos de gamificación.\\
+        \end{itemize}
+    \end{actor}
+
+    \noindent
+    Las funcionalidades extras que se le brindarán al adminitrador son las siguientes:
+
+    \begin{quote}
+    {\bf Funcionalidades Generales:}
+        \begin{itemize}
+        \item Elegir que conjunto de funcionalidades que desea instalar
+              en la plataforma moodle que administra.
+        \item Realizar las configuraciones generales (a nivel plataforma) de las
+              funcionalidades de gamificación instaladas.
+        \item Creación de usuarios gamificados de forma automática.
+        \item Eliminar de moodle las funcionalidades de gamificación que desee.
+        \end{itemize}
+
+    {\bf Del módulo de experiencia:}
+        \begin{itemize}
+        \item Establecer la cantidad de experiencia que brindarán los cursos.
+        \item Especificar la experiencia correspondiente al primer nivel.
+        \item Elegir el tipo de incremento de la cantidad de experiencia en los niveles.
+        \item Especificar el factor o valor de incremento asociado al tipo de incremento.
+        \end{itemize}
+
+    % TODO expecificar las funcionalidades de los otros módulos
+    \end{quote}
+
+ % =====================================
+ %    P R O F E S O R
+ % =====================================
+
+    \begin{actor}{aProfesor}{Profesor}{%
+    Un profesor, visto desde el punto de vista de este desarrollo, es la persona
+    encargada de la creación y administración de los cursos desea impartir a través
+    de moodle, por lo tanto además de tener rol de {\it profesor} el cual le permite
+    gestionar y añadir contenido a los cursos así como el rol de {\it creador de
+    curso} \cite{MoodleRoles} \\}
+    % https://docs.moodle.org/all/es/Roles_est%C3%A1ndar
+
+    \item[Responsabilidades:] \hfill
+        \begin{itemize}
+        \item Creación de los cursos que imparte
+        \item Creación del contenido de los cursos que imparte
+        \item Gestión del curso
+        \item Establecer las formas de incripción en el curso
+        \item Configuración de las funcionalidades escogidas para la gamifcación
+        \end{itemize}
+
+    \item[Perfil:] \hfill
+        \begin{itemize}
+        \item Contar con experiencia en moodle en creación y administración de cursos.
+        \item Contar con conocimiento básicos de ludificación y/o gamificación.
+        \end{itemize}
+    \end{actor}
+
+    \noindent
+    Las funcionalidades extras que se le brindarán al profesor son las siguientes:
+
+    \begin{quote}
+    {\bf Funcionalidades generales:}
+        \begin{itemize}
+        \item Crear un curso con soporte da gamificación.
+        \item Establecer las funcionalidades que desea incluir en cada curso.
+        \item Convertir un curso no gamificado a un curso gamificado y viceversa.
+        \item Soporte para todas las funcionalidades de administración de un curso
+              normal.
+        \end{itemize}
+
+    {\bf Del módulo de experiencia:}
+        \begin{itemize}
+        \item Habilitar/Deshabilitar el soporte para entregar puntos de experiencia
+              en su curso.
+        \item Establecer la cantidad de experiencia que se le brindará a cada
+              sección de su curso.
+        \item Repartir la experiencia de forma igualitaria entre las secciones del
+              curso.
+        \item Establecer si se mostrará por defecto el nivel actual de experiencia
+              correspondiente al usuario que está viendo la pantalla.
+        \end{itemize}
+
+    % TODO expecificar las funcionalidades de los otros módulos
+    \end{quote}
+
+ % =====================================
+ %    A L U M N O
+ % =====================================
+
+    \begin{actor}{aAlumno}{Alumno}{%
+    Un alumno, para este proyecto, es cualquier usuario de moodle que tenga el rol de
+    estudiante. Este rol le permite ver los distintos cursos y al inscribirse participar
+    en ellos \cite{MoodleRol}. Los distintos módulos de este proyecto fueron pensados para
+    brindar soporte a los distintos tipos de usuarios en el ámbito de la gamificación
+    propuestos por {\it Richard Bartle} \cite{TiposDeUsuario}\\}
+    % https://docs.moodle.org/all/es/Rol_de_estudiante
+
+    \item[Responsabilidades:] \hfill
+        \begin{itemize}
+        \item Cumplir con las actividades de los cursos
+        \item Inscribirse a los cursos correspondientes
+        \item Hacer uso correcto de la plataforma
+        \end{itemize}
+
+    \item[Perfil:] \hfill
+        \begin{itemize}
+        \item Haber utilizado como alumno anteriormente
+        \end{itemize}
+    \end{actor}
+
+    \noindent
+    Las funcionalidades extras que se le brindarán al alumno son las siguientes:
+
+    \begin{quote}
+    {\bf Del módulo de experiencia:}
+        \begin{itemize}
+        \item Reconocimiento/notificación al haber superado un nivel.
+        \item Visualización del nivel actual en el que se encuentra.
+        \item Visualización de los puntos que tiene del nivel actual.
+        \end{itemize}
+    % TODO expecificar las funcionalidades de los otros módulos
+    \end{quote}
+
+    \subsubsection{Tipos de usuarios de gamificación segun Richard Bartle}
+
+    La clasificación de usuarios propuesta por Richard Bartle \cite{TiposDeUsuario}, define
+    4 tipos de usuarios: triunfadores, exploradores, socializadores y asesinos, los cuales son
+    descritos a continuación:
+    
+        % TODO Actualizar definición de tipos de usuarios
+        \begin{quote}
+        \begin{description}
+        \item[Triunfadores]
+                % son aquellos que les gusta recibir premios, en nuestro caso los logros
+                % que tenemos contemplados.
+
+        \item[Exploradores] 
+
+        \item[Socializadores]
+                % les gusta trabajar en equipo, por lo tanto nuestra propuesta de tener
+                % grupos que estén compitiendo unos con otros va enfocada con este tipo
+                % de usuario.
+
+        \item[Asesinos]
+                % son los usuarios competidores que sienten motivación al ganarle a otras
+                % personas, las competencias 1 vs 1 y los otros tipos que tenemos
+                % contemplados motivarían a este tipo de usuario.
+        \end{description}
+        \end{quote}
+
+    \noindent 
+    Al final de este capitulo, en la seccion \hyperrefx{analisis:principios} se detalla
+    la relación que existe entre los distintos tipos de usuario, los principios de
+    gamificación y los distintos tipos de usuarios en la clasificación propuesta por
+    {\it Richart Bartle}.
+
+
+\section{Características principales}
+
+ Con base en las funcionalidades generales que se desean proporcionar a los distintos
+ actores, se determinaron cuatro características se deben tener en consideración durante
+ todo el desarrollo del trabajo terminal, dichas características son descritas a continuación:
+
+% % TAMBIEN SE DESEA QUE SEAN VARIAS OPCIONES PARA QUE LOS PROFES TENGAN UN ABANICO
+ % AMPLIO DE OPCIONES
+
+    \begin{multicols}{2}
+    \begin{itemize}
+    \itemx{ Altamente configurable }
+
+    \item[] Hace referencia a que se debe proporcionar al administrador, profesores
+            y alumnos la flexbilidad para que puedan configurar, habilitar o deshabilitar
+            los distintos componentes que se desarrollarán dependiendo de las funcionalidades
+            correspondientes a cada rol.
+
+    \itemx{ Escoge que quieres incluir }
+        
+    \item[] Se le debe brindar al administrador la opción de poder escojer únicamente los
+            elementos requeridos dentro del conjunto de todos los componentes, de forma similar
+            dentro de todos las elementos de gamificación que brindan los componentes instalados
+            el profesor podrá escoger cuales desea incluir en sus cursos.
+
+    %\vfill\null
+    %\columnbreak
+    %\vfill\null
+
+    \itemx{ Bajo acoplamiento }
+
+    \item[] El hecho de permitirle al administrador de la plataforma poder elegir los
+            componentes que desea instalar, implica que los mismos deben estar diseñados
+            para poder trabajar sin depender de las funciones de los demás componentes.
+
+    \itemx{ Comunicación entre módulos }
+
+    \item[] Que las cosas que pasen en módulo puedan impulsar acciones con otros módulos
+            para que cuando se deseen multiples funcionalidades de distintos componentes
+            estos puedan trabajar en conjunto como una única herramienta.
+    \end{itemize}
+    %\vfill\null
+    \end{multicols}

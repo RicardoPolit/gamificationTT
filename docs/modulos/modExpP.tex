@@ -1,0 +1,138 @@
+\part{Módulo de Experiencia}\label{mod:exp}
+
+\chapter{Análisis}
+
+Este módulo contiene la especificación de cómo se obtienen los puntos de experiencia, la cantidad a otorgar, el número requerido para alcanzar cada nivel en la plataforma, la forma en que el usuario puede visualizar su nivel y la barra de progreso del nivel actual del alumno. Los dos submódulos involucrados son el esquema de experiencia y el submódulo de niveles.
+
+\section{Esquema de experiencia}
+
+Es la especificación de los conceptos relacionados con los puntos de experiencia, cuales son los tipos de incremento y cómo se usan y cuales restricciones se aplican para la implementación de los puntos de experiencia, niveles y la acción subir de nivel. A continuación se detallan las funcionalidades para cada rol
+% y cuántos niveles hay.\\
+
+\subsection*{Administrador}
+ \noindent Mediante este submódulo el administrador podrá establecer:
+
+    \begin{quote}
+    \begin{itemize}
+        \item La cantidad de experiencia que brindarán los cursos.
+        \item La cantidad de experiencia correspondiente al primer nivel.
+        \item El tipo de incremento en la experiencia requerida para alcanzar los niveles.
+        \item El factor o valor de incremento en la experiencia asociado al tipo de incremento.
+    \end{itemize}
+    \end{quote}
+
+\subsection*{Profesor}
+\noindent Mediante este submódulo el profesor podrá:
+
+    \begin{quote}
+    \begin{itemize}
+        \item Crear un curso que otorge experiencia conforme los alumnos completen las secciones.
+        \item Asignar igualitariamente la experiencia de un curso entre las secciones del mismo.
+        \item Repartir la experiencia a su gusto entre las distintas secciones de un curso.
+    \end{itemize}
+    \end{quote}
+
+
+\section{Submódulo de niveles}
+
+Es el mecanismo que permite medir mostrar a los alumnos el progreso que han tenido a nivel plataforma mediante el nivel y los puntos de experiencia obtenidos en los cursos, además contiene la configuración para establecer el cómo se vera el nivel y la experiencia obtenida de dicho nivel. A continuación se detallan las funcionalidades para cada rol. %y en otras actividades.
+
+\subsection*{Administrador}
+\noindent Mediante este submódulo el administrador podrá establecer:
+
+    \begin{quote}
+    \begin{itemize}
+        \item La imagen que representará en los niveles del curso.
+        \item El color de la fuente que denota el número del nivel actual.
+        \item El color de la barra de progreso.
+        \item El título y mensaje de los niveles.
+        % \item Rangos para agrupar las configuraciones de niveles yuxtapuestos.
+    \end{itemize}
+    \end{quote}
+
+\subsection*{Estudiante}
+\noindent Mediante este submódulo el estudiante podrá:
+
+    \begin{quote}
+    \begin{itemize}
+        \item Acumular puntos de experiencia para subir de nivel.
+        \item Ver el nivel de experiencia en el que se encuentra actualmente.
+        \item Ver la cantidad de experiencia obtenida del nivel actual.
+        \item Ver la cantidad de experiencia requerida para superar el nivel.
+        \item Recibir experiencia al completar las secciones de un curso.
+        \item Recibir una notificación cuando el usuario incremente de nivel.
+    \end{itemize}
+    \end{quote}
+
+\section{Reglas de negocio}
+Las reglas de negocio que forman parte del módulo de experiencia son listadas a continuación, dichas reglas se deben de considerar
+
+\subsection{BR1: Tipos de Incremento}
+\subsection{BR2: Entrega de experiencia}
+\subsection{BR3: Experiencia de los cursos}
+
+\section{Modelado de procesos}
+
+{\it\color{gray} Indicar cual es el flujo acera de como se deberían establecer las interacciones entre los distintos usuarios y el sistema}
+
+\subsection{PROC1: Entrega de experiencia}
+\subsection{PROC2: Experiencia de los cursos}
+\subsection{PROC3: Tipos de Incremento}
+
+\clearpage
+
+\begin{comment}
+\section{Historias de usuario}
+
+    En la figura \ref{fig:expUS} se muestran las historias de usuario correspondientes al módulo de experiencia. Las historias de usuario suman un total de nueve historias, las cuales fueron agrupadas en los tres distintos roles (administrador, profesor y alumno) para facilitar la lectura del diagrama.\\
+    
+    \addfigure{0.7}{diagrams/UserStories}{fig:expUS}{Historias de usuario del módulo de experiencia}
+    
+    \noindent A continuación se detalla cada una de las historias de usuario que forman parte del módulo de experiencia. además se especifica el criterio de aceptación de cada historia. \clearpage
+    
+    \begin{UserStory}{E2}{Crear curso con experiencia}{%
+        Como {\bf profesor} me gustaría crear un nuevo curso en moodle con soporte para brindar puntos 
+        de experiencia para que los alumnos reciban retroalimentación conforme van completando las secciones 
+        de un curso.
+    }
+        \criteria[\done]{Elección de la cantidad de secciones que tendrá el curso}
+        \criteria[\done]{Asignación de cantidades de experiencia por defecto al crearse el curso con experiencia}
+        \criteria[\done]{Asignación proporcional a las secciones del total de experiencia disponible para el curso}
+        \criteria[\done]{Habilitar la experiencia}
+        \criteria[\done]{Los valores de experiencia por defecto persisten después de acceder al curso}
+        
+    \end{UserStory}
+    
+    \begin{UserStory}{E3}{Administrar experiencia de un curso}{%
+        Como {\bf profesor} me gustaría poder reasignar la cantidad de experiencia que se les brinda a las distintas secciones de un curso con la finalidad de tener la flexibilidad de organizar la experiencia de acuerdo a los contenidos de las secciones que tienen los cursos
+    }
+        \criteria[\done]{Permite reasignar experiencia}
+        \criteria[\done]{Detecta si los valores no son números mayores o iguales a cero}
+        \criteria[\done]{Verifica que la suma de experiencias de secciones se igual a la experiencia que debe brindar el curso}
+        \criteria[\done]{Permite asignar automáticamente los valores automáticos de experiencia}
+        \criteria[\done]{Muestra la lista de actividades y secciones previamente a la reasignación de experiencia}
+    \end{UserStory}
+    
+\clearpage
+    
+    \begin{UserStory}{E4}{Agregar sección con experiencia}{%
+        Como {\bf profesor} me gustaría que en el modo de edición del curso pudiera añadir una nueva sección con experiencia para poder incluir nuevos tópicos y actividades, y que estos puedan brindar también retroalimentación a los alumnos cuando completen dicha sección.
+    }
+    \end{UserStory}
+    
+    \begin{UserStory}{E5}{Eliminar sección con experiencia}{%
+        Como {\bf profesor} me gustaría que en el modo de edición del curso pudiera eliminar una sección con experiencia sin afectar la experiencia total que debe brindar el curso, con le propósito de para poder administrar los contenidos curso.
+    }
+    \end{UserStory}
+\end{comment}
+
+\chapter{Diseño}
+
+\section{Modelo de interacción}
+\subsection{IU-E1: Subiste de Nivel}
+\subsection{IU-E2: Administrar experiencia en un curso}
+
+\section{Diagrama de componentes}
+\subsection{Diagramas de secuencia*}
+
+\chapter{Pruebas}

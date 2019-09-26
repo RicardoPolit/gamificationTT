@@ -1,0 +1,96 @@
+\begin{UseCase}{CU-E1}{Configurar esquema de experiencia}{
+El administrador desea configurar el esquema de experiencia, entra a la interfaz  \hyperref[IUE03]{IU-E03 Configuración del esquema de experiencia}, modifica lo que desea, el sistema valida las entradas y las guarda.
+}
+	\UCrow{Versión}{\color{gray} 0.2 (Revisado)}
+    \UCrow{Autor}{\color{gray}	David Flores Casanova}
+    \UCrow{Supervisa}{\color{gray}	Ricardo Naranjo Polit}
+    \UCrow{Actor}{Administrador} % Gerente, Instructor
+    \UCrow{Propósito}{Modificar esquema de experiencia.}
+    \UCrow{Entradas}{
+        Selección en el componente ''Gamedle Level'' de la interfaz \hyperref[IUM04]{IU-M04 Sección de plugins}.\newline
+        El actor puede modificar cualquiera y cuantas quiera de las opciones de la interfaz \hyperref[IUE03]{IU-E03 Configuración del esquema de experiencia}, dichas opciones se enlistan a continuación:\par\vspace{1.5em}
+		\begin{Titemize}
+		    \Titem{Selección en el parámetro ''Componente activado''.}
+	        \Titem{Selección en el tipo de incremento.}
+	        \Titem{Selección en el color del nivel.}
+	        \Titem{Selección en el color de la barra de progreso.}
+            \Titem{La cantidad del incremento (Número real $ \geq $ 0).}
+            \Titem{La '' \hyperref[table:METerminosExperiencia1]{experiencia del nivel} '' del nivel 1 (Número entero $ > $ 0).}
+            \Titem{La '' \hyperref[table:METerminosExperiencia1]{experiencia otorgada} '' de todas las actividades (Número entero $ > $ 0).}
+	        \Titem{Nombre del nivel (Cadena de caracteres, longitud $\leq$ 60)}
+	        \Titem{Mensaje de felicitaciones del nivel (Cadena de caracteres, longitud $\leq$ 50)}
+	        \Titem{Imagen del nivel (Imagen, formato '.png')}
+	        \Titem{Descripción del nivel (Cadena de caracteres, longitud $\leq$ 200)}
+		\end{Titemize}
+        
+   	}
+    \UCrow{Origen}{Ratón y teclado de la computadora}
+	\UCrow{Salidas}{ 
+	    El sistema carga las configuraciones actuales o las asignadas por defecto de las siguientes opciones:
+		\begin{CUTitemize}
+		    \CUTitem{Selección en el parámetro ''Componente activado''.}
+	        \CUTitem{Selección en el tipo de incremento.}
+	        \CUTitem{Selección en el color del nivel.}
+	        \CUTitem{Selección en el color de la barra de progreso.}
+            \CUTitem{La cantidad del incremento (Número real  $ > $ 0).}
+            \CUTitem{La ''\hyperref[table:METerminosExperiencia1]{experiencia del nivel}'' del nivel 1 (Número entero  $ > $ 0).}
+            \CUTitem{La '' \hyperref[table:METerminosExperiencia1]{experiencia otorgada} '' de todas las actividades (Número entero $ > $ 0).}
+	        \CUTitem{Nombre del nivel (Cadena de caracteres, longitud $\leq$ 60)}
+	        \CUTitem{Mensaje de felicitaciones del nivel (Cadena de caracteres, longitud $\leq$ 50)}
+	        \CUTitem{Imagen del nivel (Imagen, formato '.png')}
+	        \CUTitem{Descripción del nivel (Cadena de caracteres, longitud $\leq$ 200)}
+		\end{CUTitemize}
+		Mensajes de error:
+		\begin{CUTitemize}
+		    \CUTitem{MS1: Algunos ajustes no se han cambiado debido a un error.}
+		    \CUTitem{MS2: Este valor no es válido.}
+		\end{CUTitemize}
+		
+    }
+    \UCrow{Destino}{Pantalla}
+    \UCrow{Precondiciones}{
+		\begin{CUTitemize}
+	        \CUTitem{Tener instalado el componente ''Gamedle level''.}
+            \CUTitem{Que el actor esté ingresado en una cuenta de administrador.}
+		\end{CUTitemize}
+    }
+    \UCrow{Postcondiciones}{
+		\begin{CUTitemize}
+			\CUTitem{Se actualiza la configuración global del componente ''Gamedle Level''.}
+		\end{CUTitemize}
+    }
+	\UCrow{Errores}{E1: Formato de entradas no válido.}
+    \UCrow{Observaciones}{Las opciones al  tienen un valor por defecto, es por eso que no es necesario que el actor modifique ninguna de las entradas respecto a este punto, debido a que las configuraciones por defecto se cargan en la pantalla. }
+\end{UseCase}
+
+%\textbullet{Trayectorias}
+
+\begin{UCtrayectoria}{Principal}
+    \actor se encuentra en la interfaz \hyperref[IUM04]{IU-M04 Sección de plugins}.
+    \actor Busca la sección de ''Bloques'' .
+    \actor selecciona el componente ''Gamedle level''.
+    \sistema carga la interfaz \hyperref[IUE03]{IU-E03 Configuración del esquema de experiencia}.
+    \actor modifica las opciones que desea ({\it Trayectoria alternativa A}).
+    \actor le da al botón \#1 ''Guardar cambios''  ({\it Trayectoria alternativa B}).
+    \item[- -] - - {\em El caso de uso termina.}
+    
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}{alternativa A}
+    \item[- -] - - {\em El actor no quiere cambiar ninguna configuración.}
+    \actor selecciona alguna opción en el menú de Moodle o en el directorio de la página
+    \sistema carga la interfaz correspondiente a la selección del actor.
+    \item[- -] - - {\em El caso de uso termina.}
+\end{UCtrayectoria}
+
+
+\begin{UCtrayectoria}{alternativa B}
+    \item[- -] - - {\em Alguna de las entradas no es válida.}
+    \sistema despliega el mensaje MS1.
+    \sistema despliega el mensaje MS2 en cada una de las entradas que ha encontrado como inválidas.
+    
+    \item[- -] - - {\em se continúa en el paso \#5 de la trayectoria principal.}
+\end{UCtrayectoria}
+
+
+\vfill\clearpage

@@ -1,0 +1,191 @@
+\chapter{Marco Teórico}
+\label{ch:marcoTeorico}
+
+ Este capítulo tiene como propósito establecer el soporte conceptual y documental del proyecto,
+ especifica la metodología incluyendo roles, eventos y artefactos, además se especifican los
+ marcos de trabajo de gamificación, los sistemas de aprendizaje contemplados y finalmente
+ la elección de la plataforma sobre la cual se desarrollaran las distintas funcionalidades.
+
+    \input{investigacion/marcoTeorico/scrum}
+
+\section{Marcos de trabajo para la Gamificación}
+
+ Como se comentó en el capítulo \hyperrefx{ch:introduccion}, el crear una experiencia
+ gamificada exitosa no solo consiste en aplicar mecánicas de juegos a una actividad
+ específica, tambien requiere del seguimiento de un marco de instrucción apropiado \cite[p. 1110]{GamInE-Learning}.
+ Se ha decidido utilizar dos marcos de trabajo como guía en el diseño e implementación
+ de los componentes que se desarrollarán. Los marcos de trabajo elegidos son {\it Octalysis}
+ \cite{Octalysis} y {\it For The Win} \cite{ForTheWin}.
+
+    \input{investigacion/marcoTeorico/Octalysis}
+    \input{investigacion/marcoTeorico/ForTheWin}
+
+\clearpage
+\section{Sistemas de aprendizaje en línea}
+\label{sec:sistemasaprendizaje}
+
+ En esta sección presenta los distintos sistemas de aprendizaje en linea, sus características
+ principales, restricciones de uso y acceso a la documentación, posteriormente se constrastan
+ distintos aspectos entre las plataformas y finalmente se detalla y argumenta la elección de 
+ la plataforma sobre la cual se desarrollarán los distintos componentes de gamificación.
+ A continuación se detallan las plataformas investigadas.
+
+    \input{investigacion/marcoTeorico/plataformas}
+
+\clearpage
+\section{Moodle}
+
+ Moodle es una plataforma de aprendizaje diseñada para brindar a los educadores, administradores
+ y alumnos un único sistema sólido, seguro e integrado para crear entornos de aprendizaje personalizados \cite{aboutMoodle}.
+ Moodle inicialmente hace referencia al acrónimo en inglés {\it Modular Object Oriented Dynamic
+ Learning Environment} o en español Entorno de Aprendizaje Dinamico y Modular Orientado a Objetos \cite{aboutMoodle19}.\\
+
+    % https://docs.moodle.org/all/es/Acerca_de_Moodle
+    % https://docs.moodle.org/all/es/19/Acerca_de_Moodle
+
+ \noindent Moodle es proporcionado gratuitamente como programa de código Abierto, bajo la GNU-GPL
+ (GNU General Public License), esta licencia permite que Moodle sea adecuado y personalizado libremente
+ ya que su configuración modular y diseño inter-operable permite a los desarrolladores crear plugins
+ e integrar aplicaciones externas para lograr funcionalidades específicas \cite{aboutMoodle}.
+
+ % La Licencia GPL indica que que cualquier persona puede adaptar, extender o modificar, tanto para
+ % proyectos comerciales como no-comerciales, sin pago de cuotas por licenciamiento, bajo la condición
+ % de que, al darse una copia de la aplicación se brinde tambien él código fuente de la misma. \cite{GPL}
+ % http://mchapman.com/amb/soft/gpl.pdf
+
+    \begin{quote}
+    Durante el desarrollo del trabajo terminal se utiliza la versión 3.5 de moodle,
+    debido a que es la versión más reciente con soporte a largo plazo (Moodle 3.5 LTS)
+    al mes de febrero de 2019. \cite{moodleHistorial}
+    \end{quote}
+
+    % https://docs.moodle.org/all/es/dev/Historia_de_las_versiones#Moodle_3.6
+
+\subsection{Arquitectura de Moodle}
+
+ Moodle trabaja sobre una arquitectura cliente-servidor, específicamente requiere de un servidor web
+ con soporte para PHP y acceso a una base de datos (MySQL, PostgreSQL, Microsoft SQL Server, MariaDB
+ u Oracle).\\
+    
+ \noindent Como se puede ver en la figura \ref{moodle:arch}, la estructura interna que tiene Moodle está
+ divida en los {\it componentes requeridos}, que incluyen el núcleo y los subsistemas; y los {\it elementos
+ opcionales} que incluyen propiamente los plugins con sus respectivos subplugins. Moodle está diseñado para
+ ser altamente extensible y personalizable a través del desarrollo de plugins sin la necesidad de modificar
+ el núcleo o los subsistemas. \cite{moodleArch}.
+
+    % https://docs.moodle.org/dev/Moodle_architecture
+    
+    \addfigure[(adaptado de {\it Moodle Architecture}  \cite{moodleArch})]%
+        {0.4}{investigacion/images/MoodleArch}{moodle:arch}{Componentes que conforman la estructura interna de Moodle}
+    
+ \noindent Debido a que Moodle está conformado tanto de elementos requeridos (núcleo/core y subsistemas)
+ como opcionales (plugins), los tipos de comunicación permitidos estan regidos por un conjunto de reglas
+ descritas a continuación \cite{moodleComponets}.
+
+    % https://docs.moodle.org/dev/Communication_Between_Components
+    
+    \begin{itemize}
+    \item Es permitido que cualquier componente se puede comunicar con los componentes
+          requeridos de moodle (núcleo y los subsistemas).
+
+    \item Cualquier componente puede comunicarse con sí mismo.
+
+    \item Es permitido comunicarse con otros componentes de los cuales se especifique
+          explicitamente la dependencia.
+
+    \item Los subplugins pueden comunicarse con el plugin que los contiene, y con cualquier
+          otro plugin del cual dependan explícitamente.
+
+    \item Todas las demás comunicaciones entre componentes están prohibidas.
+    \end{itemize}
+
+
+\subsection{Núcleo de Moodle}
+
+ El núcleo de Moodle contiene las bibliotecas que proporcionan funcionalidades que requieren todas
+ las demás partes de Moodle. El código del núcleo no puede ser eliminado sin comprometer la funcionalidad
+ básica de Moodle, El núcleo de Moodle siempre está disponible y se puede llamar de forma segura desde
+ cualquier otro componente \cite{moodleComponets}.\\
+
+ \noindent El núcleo proporciona un conjunto de 51 APIs que forman parte del núcleo \cite{moodleCoreAPIs},
+ las 51 API son listadas a continuación. % https://docs.moodle.org/dev/Core_APIs
+
+    \begin{multicols}{3}
+        \input{investigacion/moodle/coreAPIs}
+    \end{multicols}
+
+
+\subsection{Subsistemas}
+
+ Los subsistemas son grupos de funciones y clases que forman parte del núcleo, pero se agrupan
+ lógicamente al mismo. Están vinculados a una función particular y bajo condiciones especificas
+ pueden desactivarse/habilitarse \cite{moodleComponets}.
+
+
+\subsection{Plugins y subplugins}\label{subsec:plugins}
+
+ Los plugins son componentes opcionales que permiten extender las funcionalidades de Moodle.
+ Hay muchos tipos diferentes de plugins, y cada plugin permite brindar distintas funcionalidades
+ correspondientes al tipo de plugin. El desarrollo de plugins es la manera recomendada para extender
+ la funcionalidad de Moodle.\\
+
+ \noindent Actualmente Moodle menciona en su documentación 54 tipos de plugins los cuales son
+ listados a continuación.
+
+    \begin{multicols}{3}
+        \input{investigacion/moodle/pluginTypes}
+    \end{multicols}
+
+ \clearpage
+
+ \noindent Para la mayoría de los tipos plugins, Moodle tiene una estructura estandarizada para
+ los archivos que debe contener un plugin. En la figura \ref{fig:pluginFiles} se representa dicha
+ estructura. Los archivos y directorios son descritos a continuación \cite{moodlePluginfiles}:
+
+     \addfigure{0.8}{investigacion/images/PluginFiles}{fig:pluginFiles}%
+        {Organización de los archivos presentes en la mayoría de los plugins}
+
+    \begin{quote}
+        \input{investigacion/moodle/pluginFiles}
+    \end{quote}
+
+\subsection{Requerimientos}
+
+ Moodle es desarrollado principalmente utilizando Linux como sistema operativo usando Apache
+ como servidor web; PostgreSQL, MySQL o MariaDB como gestores de bases de datos; y PHP como
+ lenguaje principal del lado del servidor. Se recomienda que Moodle sea instalado utilizando
+ un entorno con las mismas tecnologías \cite{moodleInstall}. \\
+
+ \noindent Los requisitos básicos de hardware son los siguientes:
+
+    \begin{itemize}
+    \item 200MB de Disco duro para el código de moodle más el espacio requerido
+          para almacenar el contenido, moodle como mínimo recomienda 5GB.
+
+    \item Procesador 1GHz como mínimo. Recomendado 2GHz dual-core o mayor.
+
+    \item 512 MB de memoria RAM, 1GB o más recomendado, y para servidores en entorno
+          de producción se recomiendan 8GB.
+    \end{itemize}
+
+ \clearpage
+
+ \noindent Los requisitos de software varían dependiendo de la versión de moodle, para la
+ versión 3.5 LTS son los siguientes \cite{moodleReleaseNotes}:
+ % https://docs.moodle.org/dev/Moodle_3.5_release_notes
+    
+    \begin{itemize}
+        \item PHP Versión 7.0 como mínimo, PHP 7.1.x and 7.2.x también son soportados.
+        %PHP 7.x could have some engine limitations
+        \item Extensión {\it Intl} de PHP
+        \item Bases de datos
+            \begin{itemize}
+            \item PostgreSQL v9.3 o mayor
+            \item MySQL v5.5.31 o mayor
+            \item MariaDB v5.5.31 o mayor
+            \item Microsoft SQL Server 2008 o mayor
+            \item Oracle Database v10.2 o mayor
+            \end{itemize}
+        \item[] (Recomendación), Si se usa MySQL o MariaDB, deberán estar configurados para soportar en conjunto de caracteres {\it utf8mb4}.
+    \end{itemize}
+    

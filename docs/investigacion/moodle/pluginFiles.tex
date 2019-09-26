@@ -1,0 +1,48 @@
+\begin{description}
+    \item[version.php] Contiene los metadatos acerca del plugin como el número de versión o las dependencias de las versiones de moodle o de otros plugins.
+    
+    \item[lang/] Contiene las cadenas utilizadas por el plugin por defecto y las traducciones a utilizar (si son especificadas).
+    
+    \item[lib.php] Define la interfaz entre el núcleo de moodle y el plugin. El contenido de este archivo depende del tipo de plugin que se vaya a desarrollar.
+    
+    \item[db/install.xml] Contiene el esquema de las tablas, campos, índices y llaves que se deben crear al instalarse el plugin. Este archivo debería crearse mediante la herramienta XMLDB integrada en moodle.
+    
+    \item[db/upgrade.php] Contiene los pasos para actualizar una instalación de un plugin, como los cambios en la base de datos, de la misma forma puede contener otras acciones requeridas al momento de una actualización de un plugin.
+    
+    \item[db/access.php] Define las acciones que un usuario tiene permitido hacer acerca del plugin que se desarrolla.
+    
+    \item[db/install.php] Permite ejecutar código PHP inmediatamente después de que el esquema presente en install.xml ha sido creado.
+    
+    \item[db/uninstall.php] Permite ejecutar código PHP después de que las tablas y datos correspondientes al plugin hayan sido eliminados durante la desinstalación.
+    
+    \item[db/events.php] Contiene las suscripciones a los eventos que el plugin a desarrollar procesará.
+    
+    \item[db/messages.php] Permite declarar o publicar el plugin como un proveedor de mensajes.
+    
+    \item[db/services.php] Contiene las funciones externas o servicios web que proporciona el plugin.
+    
+    \item[db/renamedclasses.php] Detalla las clases que han sido renombradas para su carga automática.
+    
+    \item[classes/] Contiene las distintas clases que son necesarias para el funcionamiento del plugin. Estos son cargadas de forma automática siguiendo las reglas de nomenclatura.
+    
+    \item[cli/] Contiene los scripts que permiten configurar el plugin desde la linea de comandos.
+
+    \item[settings.php] Describe la configuración que el administrador puede realizar sobre el plugin.
+    
+    \item[amd/] Contiene código de JavaScript de los módulos asíncronos AMD (Asynchronous Module Definition)
+    
+    \item[yui/] Contiene los módulos YUI (Yahoo User Interface), usados en versión anteriores para incluir CSS y Javascript
+
+    \item[jquery/] Contiene los módulos de JQuery para Javascript
+    \item[styles.css] Contiene las hojas de estilos del plugin
+    \item[pix/icon.svg] Contiene el icono del plugin, en la dimensión correspondiente al tipo de plugin.
+    
+    \item[thirdpartylibs.xml] Contiene la lista de todas las bibliotecas de terceros incluidas en el plugin.
+    \item[readme\_moodle.txt] Este archivo debe contener instrucciones detalladas acerca de como importar las librearias presentes en ''thirdpartylibs.xml''.
+    
+    \item[environment.xml] Define sus requerimientos adicionales del entorno en donde se ejecuta moodle, como estensiones específicas de PHP.
+    
+    \item[README] (README.md o README.txt) debe contener información relevante acerca del plugin.
+    \item[CHANGES] (CHANGES.md, CHANGES.txt, CHANGES.html o CHANGES) es el archivo encontrado cuando se sube una nueva versión del plugin al repositorio de plugins.
+\end{description}
+

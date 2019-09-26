@@ -1,0 +1,108 @@
+
+\section{Módulos identificados}
+\label{analisis:modulos}
+
+ Como se comentó en el capítulo de \nameref{ch:introduccion}, nuestro
+ objetivo es crear una herramienta que permita implementar los principios de
+ gamificación dentro de una plataforma web de aprendizaje. Con base en el objetivo
+ se identificarón seís módulos principales a desarrollar, cada uno con sus
+ respectivos submódulos (ver figura \ref{fig:modulos}).\\
+
+ \noindent
+ Los módulos identificados permitiran extender la funcionalidad de la plataforma web
+ de aprendizaje Moodle, la cual fue elegida con base en la investiación realizada en
+ la seccion \hyperrefx{sec:sistemasaprendizaje}. A continuación se describe cada uno de los módulos y
+ submódulos identificados.\\
+
+    \addfigure{1}{analisis/diagrams/modulosTT}{fig:modulos}{Diseño modular del sistema}
+
+
+ % SOLO EXPLICAR QUE LOS MÓDULOS FUERON PLANEADOS PARA
+ % BRINDAR SOPORTE A LOS PRINCIPIOS A,B,C,  Y TENER
+ % CUIDADO CON EL
+ %
+ %   PRINCIPIO 3: Descubrimimento y Retroalimentación
+
+
+ % FIND-QUOTE: Education must by itself enough engaging
+
+
+\subsection{Módulo de Experiencia}
+ \newcommand{\itemx}[1]{\item{\bf\color{primary}#1}}
+
+ Este módulo brindará un mecanismo que permite a los usuarios medir su progreso
+ como puntos de experiencia a nivel plataforma, además define la forma en que se
+ obtendrán los puntos de experiencia, la forma en que se visualizará la información,
+ el número requerido para superar cada nivel y la barra de progreso del nivel
+ actual.
+
+\subsubsection{Esquema de experiencia.}
+
+ El esquema de experiencia es la configuración sobre cómo funciona el sistema
+ de puntos de experiencia, incluyendo la cantidad de experiencia que tiene
+ cada nivel, el tipo de incremento en los puntos de experiencia nivel a nivel,
+ las restricciones sobre la experiencia y la forma en que se otorgarán los puntos.
+
+\subsubsection{Niveles.}
+
+ Es el mecanismo que permite mostrarle a los alumnos el progreso que han tenido
+ a nivel plataforma mediante el nivel y los puntos de experiencia obtenidos en 
+ los cursos, además contiene la configuración para establecer el cómo se vera el
+ nivel y la experiencia obtenida de dicho nivel.
+
+ % Los principios de gamificación a los cuales permite brindarles soporte son:
+ % \principioII
+ % \principioVI
+
+\subsection{Módulo de Recompensa}
+
+\subsubsection{Marcadores}
+\subsubsection{Logros}
+\subsubsection{Advertencias}
+
+\subsection{Módulo de Personalización}
+
+\subsubsection{Items de personalización}
+\subsubsection{Personalización}
+\subsubsection{Narrativa}
+
+\subsection{Módulo Financiero}
+
+\subsubsection{Esquema Financiero}
+\subsubsection{Tienda}
+\subsubsection{Loot Boxes}
+
+\subsection{Módulo de Competencias}
+
+\subsubsection{Retos}
+\subsubsection{Retos al sistema (1 vs CPU)}
+\subsubsection{Torneo}
+\subsubsection{Apuestas}
+\subsubsection{Torneo con ganancias}
+\subsubsection{Competencias Poker}
+
+\subsection{Módulo de Seguimiento}
+
+\subsubsection{Preguntas diarias}
+\subsubsection{Barras de progreso}
+ 
+
+% =========================================
+%  N O T E S
+% =========================================
+
+% DAN:
+%   I THINK, IT'S A GOOD TO REMOVE THE SYSTEM REQUIREMENTS AND
+%   USE THE 19 ''SUBMODULES'' AS THE PRODUCT BACKLOG ITEMS.
+%
+
+ % Los requerimientos presentes en el Product Backlog fueron agrupados en 6 módulos (ver
+ % figura \ref{fig:modulos}): el módulo de competencia, módulo financiero, módulo de personalización,
+ % módulo de seguimiento, módulo de experiencia y módulo de recompensa. Fueron identificados
+ % 19 submódulos distribuidos en los módulos anteriormente mencionados.\\
+
+ % \noindent Como se comentó en la sección \hyperrefx{subsec:plugins}, la manera más recomendable
+ % para extender las funcionalidades de moodle es desarrollando o incluyendo plugins, debido a
+ % esta razón, el análisis y diseño es realizado tomando en consideración de que se trabajará
+ % desarrollando plugins.
+ 
