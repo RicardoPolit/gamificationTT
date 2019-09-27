@@ -29,22 +29,23 @@ class local_gamedlemaster_log {
     const ANSI_CYAN_BACKGROUND = ";46";
     const ANSI_LIGHT_GREY__BACKGROUND = ";47";
 
-    public static function error(...$args): void {
-        local_gamedlemaster_log::log(ANSI_RED, $args);
+    public static function error(...$args) {
+        local_gamedlemaster_log::log(local_gamedlemaster_log::ANSI_RED, $args);
     }
 
-    private static function log( string $color, ...$args): void {
+    private static function log( string $color, ...$args) {
 
         if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
         
         foreach($args as $arg) {
 
             if(is_object($arg) || is_array($arg))
-                fwrite(STDOUT, $color.'m'.print_r($arg, true));
+                fwrite(STDOUT, $color.'m'.print_r($arg, true).local_gamedlemaster_log::ANSI_RESET."\n");
 
             else
-                fwrite(STDOUT, $color.'m'.$arg.ANSI_RESET."\n");
+                fwrite(STDOUT, $color.'m'.$arg.local_gamedlemaster_log::ANSI_RESET."\n");
         }
+
     }
 }
 
