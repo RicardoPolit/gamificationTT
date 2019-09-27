@@ -8,10 +8,10 @@
 
 function xmldb_local_gamedlemaster_install()
 {
-    copiarUsuarios();
+    copiarUsuariosInstall();
 }
 
-function copiarUsuarios()
+function copiarUsuariosInstall()
 {
     global $DB;
     $result = $DB->get_records("user", array()); // get all records in mdl_user table

@@ -1,8 +1,6 @@
 <?php
 
-namespace local\gamedlemaster;
-
-class Log {
+class local_gamedlemaster_log {
 
     const ANSI_RESET = "\e[0m";
     const ANSI_BLACK = "\e[0;30";
@@ -31,11 +29,22 @@ class Log {
     const ANSI_CYAN_BACKGROUND = ";46";
     const ANSI_LIGHT_GREY__BACKGROUND = ";47";
 
-    function error(){
-        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
+    public static function error(...$args): void {
+        local_gamedlemaster_log::log(ANSI_RED, $args);
+    }
 
-        fwrite(STDOUT, ANSI_RED."m"."DSADSA".ANSI_RESET."\n");
-        fwrite(STDOUT, ANSI_BLACK."m"."DSADSA".ANSI_RESET."\n");
+    private static function log( string $color, ...$args): void {
+
+        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
+        
+        foreach($args as $arg) {
+
+            if(is_object($arg) || is_array($arg))
+                fwrite(STDOUT, $color.'m'.print_r($arg, true));
+
+            else
+                fwrite(STDOUT, $color.'m'.$arg.ANSI_RESET."\n");
+        }
     }
 }
 
