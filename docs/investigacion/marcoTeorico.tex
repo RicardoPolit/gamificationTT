@@ -12,7 +12,7 @@
 
  Como se comentó en el capítulo \hyperrefx{ch:introduccion}, el crear una experiencia
  gamificada exitosa no solo consiste en aplicar mecánicas de juegos a una actividad
- específica, tambien requiere del seguimiento de un marco de instrucción apropiado \cite[p. 1110]{GamInE-Learning}.
+ específica, también requiere del seguimiento de un marco de instrucción apropiado \cite[p. 1110]{GamInE-Learning}.
  Se ha decidido utilizar dos marcos de trabajo como guía en el diseño e implementación
  de los componentes que se desarrollarán. Los marcos de trabajo elegidos son {\it Octalysis}
  \cite{Octalysis} y {\it For The Win} \cite{ForTheWin}.
@@ -25,8 +25,8 @@
 \label{sec:sistemasaprendizaje}
 
  En esta sección presenta los distintos sistemas de aprendizaje en linea, sus características
- principales, restricciones de uso y acceso a la documentación, posteriormente se constrastan
- distintos aspectos entre las plataformas y finalmente se detalla y argumenta la elección de 
+ principales, restricciones de uso y acceso a la documentación, posteriormente se contrastan
+ distintos aspectos entre las plataformas y finalmente se detalla y argumenta la elección de
  la plataforma sobre la cual se desarrollarán los distintos componentes de gamificación.
  A continuación se detallan las plataformas investigadas.
 
@@ -38,7 +38,7 @@
  Moodle es una plataforma de aprendizaje diseñada para brindar a los educadores, administradores
  y alumnos un único sistema sólido, seguro e integrado para crear entornos de aprendizaje personalizados \cite{aboutMoodle}.
  Moodle inicialmente hace referencia al acrónimo en inglés {\it Modular Object Oriented Dynamic
- Learning Environment} o en español Entorno de Aprendizaje Dinamico y Modular Orientado a Objetos \cite{aboutMoodle19}.\\
+ Learning Environment} o en español Entorno de Aprendizaje Dinámico y Modular Orientado a Objetos \cite{aboutMoodle19}.\\
 
     % https://docs.moodle.org/all/es/Acerca_de_Moodle
     % https://docs.moodle.org/all/es/19/Acerca_de_Moodle
@@ -66,7 +66,7 @@
  Moodle trabaja sobre una arquitectura cliente-servidor, específicamente requiere de un servidor web
  con soporte para PHP y acceso a una base de datos (MySQL, PostgreSQL, Microsoft SQL Server, MariaDB
  u Oracle).\\
-    
+
  \noindent Como se puede ver en la figura \ref{moodle:arch}, la estructura interna que tiene Moodle está
  divida en los {\it componentes requeridos}, que incluyen el núcleo y los subsistemas; y los {\it elementos
  opcionales} que incluyen propiamente los plugins con sus respectivos subplugins. Moodle está diseñado para
@@ -74,16 +74,16 @@
  el núcleo o los subsistemas. \cite{moodleArch}.
 
     % https://docs.moodle.org/dev/Moodle_architecture
-    
+
     \addfigure[(adaptado de {\it Moodle Architecture}  \cite{moodleArch})]%
         {0.4}{investigacion/images/MoodleArch}{moodle:arch}{Componentes que conforman la estructura interna de Moodle}
-    
+
  \noindent Debido a que Moodle está conformado tanto de elementos requeridos (núcleo/core y subsistemas)
- como opcionales (plugins), los tipos de comunicación permitidos estan regidos por un conjunto de reglas
+ como opcionales (plugins), los tipos de comunicación permitidos están regidos por un conjunto de reglas
  descritas a continuación \cite{moodleComponets}.
 
     % https://docs.moodle.org/dev/Communication_Between_Components
-    
+
     \begin{itemize}
     \item Es permitido que cualquier componente se puede comunicar con los componentes
           requeridos de moodle (núcleo y los subsistemas).
@@ -91,7 +91,7 @@
     \item Cualquier componente puede comunicarse con sí mismo.
 
     \item Es permitido comunicarse con otros componentes de los cuales se especifique
-          explicitamente la dependencia.
+          explícitamente la dependencia.
 
     \item Los subplugins pueden comunicarse con el plugin que los contiene, y con cualquier
           otro plugin del cual dependan explícitamente.
@@ -173,7 +173,7 @@
  \noindent Los requisitos de software varían dependiendo de la versión de moodle, para la
  versión 3.5 LTS son los siguientes \cite{moodleReleaseNotes}:
  % https://docs.moodle.org/dev/Moodle_3.5_release_notes
-    
+
     \begin{itemize}
         \item PHP Versión 7.0 como mínimo, PHP 7.1.x and 7.2.x también son soportados.
         %PHP 7.x could have some engine limitations
@@ -188,4 +188,3 @@
             \end{itemize}
         \item[] (Recomendación), Si se usa MySQL o MariaDB, deberán estar configurados para soportar en conjunto de caracteres {\it utf8mb4}.
     \end{itemize}
-    

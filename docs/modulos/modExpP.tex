@@ -26,7 +26,7 @@ Es la especificación de los conceptos relacionados con los puntos de experienci
 
     \begin{quote}
     \begin{itemize}
-        \item Crear un curso que otorge experiencia conforme los alumnos completen las secciones.
+        \item Crear un curso que otorgue experiencia conforme los alumnos completen las secciones.
         \item Asignar igualitariamente la experiencia de un curso entre las secciones del mismo.
         \item Repartir la experiencia a su gusto entre las distintas secciones de un curso.
     \end{itemize}
@@ -85,14 +85,14 @@ Las reglas de negocio que forman parte del módulo de experiencia son listadas a
 \section{Historias de usuario}
 
     En la figura \ref{fig:expUS} se muestran las historias de usuario correspondientes al módulo de experiencia. Las historias de usuario suman un total de nueve historias, las cuales fueron agrupadas en los tres distintos roles (administrador, profesor y alumno) para facilitar la lectura del diagrama.\\
-    
+
     \addfigure{0.7}{diagrams/UserStories}{fig:expUS}{Historias de usuario del módulo de experiencia}
-    
+
     \noindent A continuación se detalla cada una de las historias de usuario que forman parte del módulo de experiencia. además se especifica el criterio de aceptación de cada historia. \clearpage
-    
+
     \begin{UserStory}{E2}{Crear curso con experiencia}{%
-        Como {\bf profesor} me gustaría crear un nuevo curso en moodle con soporte para brindar puntos 
-        de experiencia para que los alumnos reciban retroalimentación conforme van completando las secciones 
+        Como {\bf profesor} me gustaría crear un nuevo curso en moodle con soporte para brindar puntos
+        de experiencia para que los alumnos reciban retroalimentación conforme van completando las secciones
         de un curso.
     }
         \criteria[\done]{Elección de la cantidad de secciones que tendrá el curso}
@@ -100,9 +100,9 @@ Las reglas de negocio que forman parte del módulo de experiencia son listadas a
         \criteria[\done]{Asignación proporcional a las secciones del total de experiencia disponible para el curso}
         \criteria[\done]{Habilitar la experiencia}
         \criteria[\done]{Los valores de experiencia por defecto persisten después de acceder al curso}
-        
+
     \end{UserStory}
-    
+
     \begin{UserStory}{E3}{Administrar experiencia de un curso}{%
         Como {\bf profesor} me gustaría poder reasignar la cantidad de experiencia que se les brinda a las distintas secciones de un curso con la finalidad de tener la flexibilidad de organizar la experiencia de acuerdo a los contenidos de las secciones que tienen los cursos
     }
@@ -112,14 +112,14 @@ Las reglas de negocio que forman parte del módulo de experiencia son listadas a
         \criteria[\done]{Permite asignar automáticamente los valores automáticos de experiencia}
         \criteria[\done]{Muestra la lista de actividades y secciones previamente a la reasignación de experiencia}
     \end{UserStory}
-    
+
 \clearpage
-    
+
     \begin{UserStory}{E4}{Agregar sección con experiencia}{%
         Como {\bf profesor} me gustaría que en el modo de edición del curso pudiera añadir una nueva sección con experiencia para poder incluir nuevos tópicos y actividades, y que estos puedan brindar también retroalimentación a los alumnos cuando completen dicha sección.
     }
     \end{UserStory}
-    
+
     \begin{UserStory}{E5}{Eliminar sección con experiencia}{%
         Como {\bf profesor} me gustaría que en el modo de edición del curso pudiera eliminar una sección con experiencia sin afectar la experiencia total que debe brindar el curso, con le propósito de para poder administrar los contenidos curso.
     }

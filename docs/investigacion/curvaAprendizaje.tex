@@ -41,7 +41,7 @@ Finalmente, después de haber realizado la prueba con los  tres IDEs, se eligió
     \begin{itemize}
     \item Moodle considera que PHPStorm es uno de los mejores entornos de desarrollo para PHP.
     \item PHPStorm está diseñado desde un inicio para trabajar con PHP, a diferencia de NetBeans que dan soporte a PHP y a otros lenguajes de programación.
-    \item PHPStorm tiene soporte para las versiónes más recientes para PHP, mientras que NetBeans soporta actualmente hasta la versión 5.6 de PHP.
+    \item PHPStorm tiene soporte para las versiones más recientes para PHP, mientras que NetBeans soporta actualmente hasta la versión 5.6 de PHP.
     %\item Por recomendación de un profesor de la ESCOM, debido a su experiencia como usuario.
     % \item Consultando a algunos docentes nos recomendaron utilizar PHPStorm.
     %\item Se cuenta con una licencia gratis por pertenecer al IPN/ESCOM.
@@ -52,31 +52,31 @@ Finalmente, después de haber realizado la prueba con los  tres IDEs, se eligió
 \section{Desarrollo de las pruebas}
 
     De los 54 plugins listados en la sección \hyperrefx{subsec:plugins} se decidió priorizar el desarrollo de aquellos tipos de plugins que nos permitieran extender el esquema de base de datos de moodle, y de aquellos que nos permitieran desplegar la información en la interfaz de usuario, razón por la cual se realizaron las pruebas de concepto de los tipos de plugins Database Fields, Database Presets, User Profile Fields, y Blocks.\\
-    
+
     \noindent A continuación el cuadro \ref{tbl:pruebasC} resume el propósito de cada prueba y los resultados obtenidos.
-    
+
     \addtable{|c|p{0.30\textwidth}|p{0.45\textwidth}|}{tbl:pruebasC}{
         {\bf Tipo de\par Plugin} & {\bf Objetivo} & {\bf Resultados} \\\hline
-        
+
         Database Fields &
             Saber si este plugin nos ayudaría a guardar valores en la base de datos, y si fuera capaz, saber la forma en que lo hace. &
-            
+
             Database Fields nos permite, en caso de que requiriéramos crear un nuevo tipo de dato, que puede ser usado mediante el plugin ''Database Presets''. \\\hline
-        
-        Database Presets & 
+
+        Database Presets &
             Saber si este plugin nos permite modificar el esquema de la base de datos, y si fuera capaz, saber la forma en que lo hace. &
 
             Database Presets nos permite crear y guardar datos en la base de datos, las restricciones es que únicamente nos permite definir formularios. El plugin puede ser usado a  nivel plataforma o a nivel curso. \\\hline
-            
+
         User Profile Fields &
-            Saber si este plugin nos permite guardar valores relacionados al usuario, en la base de datos. & 
-            
+            Saber si este plugin nos permite guardar valores relacionados al usuario, en la base de datos. &
+
             User Profile Fields permite crear nuestro propio tipo de dato y agregarlo como un campo más a los datos que el usuario debe introducir. Al incluirse un plugin de este tipo todos los usuarios de la plataforma podrán editar el dato especificado por este plugin. \\\hline
-            
+
         Blocks &
             Ver cómo desplegar información mediante el uso de este tipo de plugin y asegurar que un mismo block se pueda ver en las vistas principales de la plataforma. &
-            
-            Los block/blocks pueden ser instanciados más de una vez y están ligados al usuario.\newline  
+
+            Los block/blocks pueden ser instanciados más de una vez y están ligados al usuario.\newline
             Cada plugin puede definir su propio esquema de tablas, atributos e índices.\newline
             Los plugins pueden habilitar/deshabilitar configuraciones generales para el administrador o locales para el usuario. \newline
             Un plugin puede suscribir una clase para capturar los eventos que arroja moodle. \\\hline

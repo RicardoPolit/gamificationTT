@@ -5,36 +5,36 @@
     cómo se obtienen las monedas en la plataforma, la cantidad a otorgar, el precio que tiene cada ítem y en que moneda; la forma bajo la cual funciona la tienda y, especifica el funcionamiento de las loot boxes (o cajas de botín).
 
 \section{Esquema Financiero}
-    
+
     El esquema financiero define dos monedas en la plataforma: la moneda de plata y la de oro. las acciones o eventos que entregan monedas son especificados mediante este esquema financiero. La moneda de oro sera utilizada para comprar ''items''  en la tienda, para poder adquirir monedas de oro es necesario intercambiar monedas de plata.\\
-    
+
     \noindent El esquema financiero también contempla: la lista de items que pueden ser comprados en la tienda y precio que tendrá cada uno, además contiene la definición de el o los paquetes de intercambio para obtener monedas de oro. En el cuadro \ref{tbl:exchange} se muestran los paquetes de intercambio propuestos.
-    
+
     \addtable{|l|c|}{tbl:exchange}{
         {\bf Precio monedas de plata} &  {\bf Cantidad de Oro} \\\hline
         100 monedas    & 10      \\\hline
         1000 monedas   & 120     \\\hline
         10000 monedas  & 1500    \\\hline
     }{Paquetes de intercambio para obtener monedas de Oro}
-    
+
     %\begin{itemize}
         %\item 10 monedas de plata -> 1 moneda de oro
         %\item 100 monedas de plata -> 10 moneda de oro
         %\item 1000 monedas de plata -> 100 moneda de oro
     %\end{itemize}
-    
+
     % DEFINIR QUE ITEMS Y DESCRIPBIRLOS
 
 \section{Submódulo de Tienda}
 
     La tienda tendrá un alcance a nivel plataforma, a través de esta el alumno puede conseguir los ''items'' definidos en el esquema financiero. Uno de los items importantes o especiales que se pueden comprar en la tienda son los loot boxes especificadas en el punto \ref{herr:lootBoxes}.
     %de personalización indicados en la ''Herramienta de Personalización'' así como las Loot Boxes utilizando las monedas de oro en la plataforma.
-    
+
     \begin{quote}
     \begin{description}
     \item[Objetivo] \hfill\\
         Permitirle al usuario adquirir el objeto que él desee de los disponibles en la tienda.
-    
+
     \item[Principios a los que da soporte:] \hfill
         \begin{itemize}
             \item 6 \principioVI
@@ -57,15 +57,15 @@
     \end{itemize}
 \end{comment}
 
-    Las lootboxes o caja de botin son items que al ser adquiridos, puede abrirse para obtener algún otro item de forma aleatoria. Se tiene planeado que las Loot Boxes esten clasificadas por rareza y dependiendo el nivel de rareza otorgar items de distintos tipos (definidos en el esquema financiero).
-    
-    %Su primera aparición data de entre 2007 a 2010. Concretamente se cree que apareció en el juego gratuito Chino ZT Online (también conocido como Zhengtu) publicado en 2007 por Zhengtu Network; desde ese momento se fue extendiendo en gran variedad de juegos tanto gratuitos como de pago. Uno de los primeros juegos de pago donde además tenías la opción de abrir un "sobre" con diferentes ítems del juego fue el popular modo Ultimate Team de la saga Fifa. El primero de esta en incorporar el modo y los sobres. 
-    
+    Las lootboxes o caja de botín son items que al ser adquiridos, puede abrirse para obtener algún otro item de forma aleatoria. Se tiene planeado que las Loot Boxes estén clasificadas por rareza y dependiendo el nivel de rareza otorgar items de distintos tipos (definidos en el esquema financiero).
+
+    %Su primera aparición data de entre 2007 a 2010. Concretamente se cree que apareció en el juego gratuito Chino ZT Online (también conocido como Zhengtu) publicado en 2007 por Zhengtu Network; desde ese momento se fue extendiendo en gran variedad de juegos tanto gratuitos como de pago. Uno de los primeros juegos de pago donde además tenías la opción de abrir un "sobre" con diferentes ítems del juego fue el popular modo Ultimate Team de la saga Fifa. El primero de esta en incorporar el modo y los sobres.
+
     \begin{quote}
     \begin{description}
     \item[Objetivo] \hfill\\
         Permitirle al usuario el intentar conseguir objetos raros y caros rápidamente y más baratos.
-    
+
     \item[Principios a los que da soporte:] \hfill
         \begin{itemize}
             \item 6 \principioVI
