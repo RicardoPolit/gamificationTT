@@ -1,4 +1,13 @@
 <?php
+/*
+ * UNIVERSITY:  INSTITUTO POLITECNICO NACIONAL (IPN)
+ *              ESCUELA SUPERIOR DE COMPUTO (ESCOM)
+ *
+ *   PROJECT:     Gamedle
+ *   PROFESSOR:   Sandra Bautista, Andres Catalan.
+ *
+ * DESARROLLADORES: Daniel Ortega (GitLab/Github @DanielOrtegaZ)
+*/
 
 class local_gamedlemaster_log {
 
@@ -27,25 +36,34 @@ class local_gamedlemaster_log {
     const ANSI_BLUE_BACKGROUND = ";44";
     const ANSI_MAGENTA_BACKGROUND = ";45";
     const ANSI_CYAN_BACKGROUND = ";46";
-    const ANSI_LIGHT_GREY__BACKGROUND = ";47";
+    const ANSI_LIGHT_GREY_BACKGROUND = ";47";
 
-    public static function error(...$args) {
-        local_gamedlemaster_log::log(local_gamedlemaster_log::ANSI_RED, $args);
+    public static function info($arg, string $key = '') {
+        local_gamedlemaster_log::log(local_gamedlemaster_log::ANSI_BLUE, $arg, $key);
     }
 
-    private static function log( string $color, ...$args) {
+    public static function success($arg, string $key = '') {
+        local_gamedlemaster_log::log(local_gamedlemaster_log::ANSI_GREEN, $arg, $key);
+    }
 
-        if(!defined('STDOUT')) define('STDOUT', fopen('php://stdout', 'wb'));
-        
-        foreach($args as $arg) {
+    public static function warning($arg, string $key = '') {
+        local_gamedlemaster_log::log(local_gamedlemaster_log::ANSI_YELLOW, $arg, $key);
+    }
 
-            if(is_object($arg) || is_array($arg))
-                fwrite(STDOUT, $color.'m'.print_r($arg, true).local_gamedlemaster_log::ANSI_RESET."\n");
+    public static function error($arg, string $key = '') {
+        local_gamedlemaster_log::log(local_gamedlemaster_log::ANSI_RED, $arg, $key);
+    }
 
-            else
-                fwrite(STDOUT, $color.'m'.$arg.local_gamedlemaster_log::ANSI_RESET."\n");
-        }
+    private static function log( string $color, $arg, string $key) {
 
+        if(!defined('STDOUT'))
+            define('STDOUT', fopen('php://stdout', 'wb'));
+
+        fwrite(STDOUT, local_gamedlemaster_log::ANSI_BLACK.
+                       local_gamedlemaster_log::ANSI_YELLOW_BACKGROUND.'m'.$key.' >'.
+                       local_gamedlemaster_log::ANSI_RESET."\n");
+
+        fwrite(STDOUT, $color.'m'.print_r($arg, true).local_gamedlemaster_log::ANSI_RESET."\n");
     }
 }
 
