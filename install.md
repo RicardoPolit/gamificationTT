@@ -1,13 +1,12 @@
-#Instalar PHP 7.x < 7.3
+# Instalar PHP 7.x < 7.3
 
     DEBIAN 10
     wget https://packages.sury.org/php/apt.gpg
     apt-key add apt.gpg
     apt-get update
-    apt-get install php7.0 php7.0-zip php7.0-curl php7.0-mysql php7.0-xml php7.0-gd php7.0-intl 
-                    php7.0-mbstring php7.0-xmlrpc
+    apt-get install php7.0 php7.0-zip php7.0-curl php7.0-mysql php7.0-xml php7.0-gd php7.0-intl php7.0-mbstring php7.0-xmlrpc php-opcache php-soap
 
-#Instalar MariaDB
+# Instalar MariaDB
 
     DEBIAN 10
     apt-get install mariadb-server
@@ -32,6 +31,10 @@ Directorio de datos
     cd gamedle
     php -S 0.0.0.0:8000
 
+FULL UNICODE SUPPORT IF REQUIERED
+
+    vim /etc/my.cnf
+    https://docs.moodle.org/all/es/MySQL_soporte_unicode_completo
 
 FOR DEVELOPERS
 
