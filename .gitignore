@@ -35,7 +35,7 @@ comment/
 competency/
 completion/
 composer.json
-composer.lock 
+composer.lock
 config-dist.php
 config.php
 course/
