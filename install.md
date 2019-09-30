@@ -47,3 +47,5 @@ copiamos todo el contenido de temp (con archivos ocultos) dentro de gamedle-
     rm -rf temp
     cd gamedle
     git status # confirmar que todo está bien
+
+
