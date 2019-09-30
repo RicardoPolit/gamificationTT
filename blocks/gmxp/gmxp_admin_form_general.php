@@ -14,46 +14,17 @@ $context = context_system::instance();
 
 class gmxpadminfromgeneral extends moodleform {
 
-    protected $config;
+    //protected $config;
 
     protected function definition() {
 
         $mform = $this->_form;
-
-        $config = isset($this->_customdata['config']) ? $this->_customdata['config'] : null;
-
+        //$config = isset($this->_customdata['config']) ? $this->_customdata['config'] : null;
         $mform->setDisableShortforms(true);
 
-        $mform->addElement('header', 'headerconfigLevels', get_string('headerconfigLevels', 'block_gmxp'));
-
-        $mform->addElement('static','description',get_string('descGeneral','block_gmxp'),
-            get_string('descconfigLevels','block_gmxp'));
-
-        $mform->addElement('advcheckbox', 'isActive', get_string('checkboxisActive', 'block_gmxp'),
-            get_string('checkboxisActivedesc', 'block_gmxp'), array('group' => 1), array(0, 1));
-
-        $options = array(
-            '0' => get_string('typeOfIncrementB','block_gmxp'),
-            '1' => get_string('typeOfIncrementA','block_gmxp')
-        );
-        $select = $mform->addElement('select', 'typeOfIncrement' , get_string('typeOfIncrement','block_gmxp'), $options);
-
-        $select->setSelected('1');
-
-        $mform->addElement('text', 'numValorIncrement', get_string('titleIncre', 'block_gmxp'));
-        $mform->addRule('numValorIncrement', get_string('required'), 'required');
-        $mform->addHelpButton('numValorIncrement', 'descIncre' , 'block_gmxp');
-        $mform->setDefault('numValorIncrement',get_string('valueNumIncrementDefault','block_gmxp'));
-
-        $mform->addElement('text', 'firstExpRequiried', get_string('titleFirstExpRequired', 'block_gmxp'));
-        $mform->addRule('firstExpRequiried', get_string('required'), 'required');
-        $mform->addHelpButton('firstExpRequiried', 'descFirstExpRequired' , 'block_gmxp');
-        $mform->setDefault('firstExpRequiried','10');
-
-        $mform->addElement('text', 'firstExpGiven', get_string('titleExpGiven', 'block_gmxp'));
-        $mform->addRule('firstExpGiven', get_string('required'), 'required');
-        $mform->addHelpButton('firstExpGiven', 'descExpGiven' , 'block_gmxp');
-        $mform->setDefault('firstExpGiven','100');
+        $this->experience_scheme_definition();
+        $this->experience_scheme_help();
+        $this->experience_scheme_rules();
 
         $mform->addElement('header', 'headerconfigLevelsFormat', get_string('headerconfigLevelsFormat', 'block_gmxp'));
 
@@ -94,8 +65,87 @@ class gmxpadminfromgeneral extends moodleform {
         $mform->addHelpButton('imageDefecto', 'defaultLevelsImageDesc', 'block_gmxp');
 
         $this->add_action_buttons();
-
     }
+
+    private function experience_scheme_definition() {
+
+        $mform = $this->_form;
+
+        $mform->addElement(
+            'header', 'headerconfigLevels',
+            get_string('headerconfigLevels', 'block_gmxp'));
+
+        $mform->addElement(
+            'static', 'description',
+            get_string('descGeneral','block_gmxp'),
+            get_string('descconfigLevels','block_gmxp'));
+
+        $mform->addElement(
+            'advcheckbox', 'isActive',
+            get_string('checkboxisActive', 'block_gmxp'),
+            get_string('checkboxisActivedesc', 'block_gmxp'),
+            array('group' => 1),
+            array(0, 1));
+
+        $select = $mform->addElement(
+            'select', 'typeOfIncrement',
+            get_string('typeOfIncrement','block_gmxp'), array(
+                '0' => get_string('typeOfIncrementB','block_gmxp'),
+                '1' => get_string('typeOfIncrementA','block_gmxp')
+            ));
+
+        $mform->addElement(
+            'text', 'numValorIncrement',
+            get_string('titleIncre', 'block_gmxp'));
+
+        $mform->addElement(
+            'text', 'firstExpRequiried',
+            get_string('titleFirstExpRequired', 'block_gmxp'));
+
+        $mform->addElement(
+            'text', 'firstExpGiven', get_string('titleExpGiven', 'block_gmxp'));
+    }
+
+    private function experience_scheme_help(){
+
+        $this->_form->addHelpButton('numValorIncrement', 'descIncre', 'block_gmxp');
+        $this->_form->addHelpButton('firstExpRequiried', 'descFirstExpRequired' , 'block_gmxp');
+        $this->_form->addHelpButton('firstExpGiven', 'descExpGiven' , 'block_gmxp');
+    }
+
+    private function experience_scheme_rules(){
+
+        // TODO: Read the docs
+        /**
+            required
+            maxlength
+            minlength
+            rangelength
+            email
+            regex
+            lettersonly
+            alphanumeric
+            numeric
+            nopunctuation
+            nonzero
+            callback
+            compare
+         */
+        //  Ref: https://docs.moodle.org/dev/lib/formslib.php_Form_Definition
+
+        $mform = $this->_form;
+        $mform->hideIf( 'numValorIncrement', 'typeOfIncrement',  'eq', '0');
+        $mform->addRule( 'numValorIncrement', get_string('required'), 'required', null, 'client');
+        $mform->addRule( 'numValorIncrement', get_string('maxlength','block_gmxp'), 'maxlength', '5', 'client');
+        $mform->addRule( 'numValorIncrement', get_string('number','block_gmxp'), 'number', null, 'client');
+
+        $mform->setDefault('numValorIncrement', get_string('valueNumIncrementDefault','block_gmxp'));
+        $mform->setDefault('firstExpRequiried','10');
+        $mform->addRule('firstExpRequiried', get_string('required'), 'required');
+        $mform->addRule('firstExpGiven', get_string('required'), 'required');
+        $mform->setDefault('firstExpGiven','100');
+    }
+
 
     function validateTwoDecimals($number)
     {
