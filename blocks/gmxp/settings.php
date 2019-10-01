@@ -120,15 +120,25 @@ $settingsAux[] = (new admin_setting_configcolourpicker(
     ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => '.png']
 ));*/
 
-$settings = new admin_category('block_gmxp_category', 'Gamedle Level');
+    $settings = new admin_category('block_gmxp_category', 'Gamedle Level');
 
-$settingsurl = new moodle_url('/blocks/gmxp/gmxp_admin_form_sections.php');
-$external = new admin_externalpage('block_gmxp_ext', get_string('nameVisualSettingsSections','block_gmxp'), $settingsurl);
+    $settingsurl = new moodle_url('/blocks/gmxp/gmxp_admin_form_sections.php');
+    $external = new admin_externalpage(
+        'block_gmxp_ext',
+        get_string('nameVisualSettingsSections', 'block_gmxp'),
+        $settingsurl
+    );
+
+    $settingsurl2 = new moodle_url('/blocks/gmxp/gmxp_admin_form_general.php');
+    $external2 = new admin_externalpage(
+        'block_gmxp_ext_general',
+        get_string('nameVisualSettingsGeneral','block_gmxp'),
+        $settingsurl2
+    );
 
 
-$settingsurl2 = new moodle_url('/blocks/gmxp/gmxp_admin_form_general.php');
-$external2 = new admin_externalpage('block_gmxp_ext_general', get_string('nameVisualSettingsGeneral','block_gmxp'), $settingsurl2);
-
+    $settings->add('block_gmxp_category',$external2);
+    $settings->add('block_gmxp_category',$external);
 /*$settingspage = new admin_settingpage('block_gmxp_default_settings', get_string('nameGeneralSettings','block_gmxp'));*/
 
 /*array_map(function($setting) use ($settingspage) {
@@ -136,10 +146,4 @@ $external2 = new admin_externalpage('block_gmxp_ext_general', get_string('nameVi
 }, $settingsAux);*/
 
 /*$settings->add('block_gmxp_category', $settingspage);*/
-
-$settings->add('block_gmxp_category',$external2);
-
-$settings->add('block_gmxp_category',$external);
-
-
 

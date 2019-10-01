@@ -65,27 +65,3 @@ Si se va a desarrollar se recomienda editar la siguiente linea en el archivo con
 
     $CFG->wwwroot   = 'http://'.gethostbyname(gethostname())."/moodle";
 
-## Pruebas de Concepto
-
-| Plugin                                           | Plugin                                              | Plugin                                      |
-| ------------------------------------------------ | --------------------------------------------------- | ------------------------------------------- |
-|                    Activity Modules **Dan**      |                    Questions Types **Richard**      |                    Course Reports           |
-|                  ~~Antivirus plugins~~           |                    Question Behaviours              |                    Gradebook export         |
-|                    Assignment submission plugins |                    Questions Import/Export Formats  |                    Gradebook import         |
-|                    Assignment feedback plugins   |                    Text Filters                     |                    Gradebook reports        |
-| :x:              ~~Book tools~~                  |                    Editors                          |                    Advanced Grading Methods |
-|           :heavy_check_mark:  Database Fields    |                    Atto Editor Plugins              |                    MNET Services            |
-|           :heavy_check_mark:  Database Presets   | :x:              ~~TinyMCE editor Plugins~~         |                    Web Service Protocols    |
-|                    LTI sources                   |                    Enrolment Plugins                |                    Repository Plugins       |
-|                    File Converters               |                    Authentication Plugins           |                    Portfolio plugins        |
-| :x:              ~~LTI services~~                |                    Admin Tools                      |                    Search Engines           |
-|                    Machine Learning Backends     | :x:              ~~Log Stores~~                     |                    Media Players            |
-|                    Quiz Reports                  |                    Availability Conditions          |                    Plagiarism Plugins       |
-|                    Quiz Access Rules             |                    Calendar Types                   | :x:              ~~Cache Store~~            |
-|                    SCORM Reports                 |                    Messaging Consumers              | :x:              ~~Cache Locks~~            |
-|                    Workshop Grading Strategies   |                    Course Formats                   |                    Themes **David**         |
-|                    Workshop Allocations Methods  |                    Data Formats                     |                    Local Plugins            |
-|                    Workshop Evaluaction Methods  | :heavy_check_mark: User Profile Fields              | :x:             ~~Legacy Assignment Types~~ |
-| :heavy_check_mark: Blocks                        |                    Reports                          |                    Ledacy Admin Reports     |
-
-
