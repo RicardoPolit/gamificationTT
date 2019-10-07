@@ -1,0 +1,100 @@
+
+\begin{UseCase}{CU-E6}{Crear curso con experiencia}{%
+El profesor desea crear un nuevo curso en moodle con soporte para brindar puntos de experiencia a los alumnos, partiendo de la interfaz \IUref{moodle:nuevoCurso} llena los campos del curso, escoge el formato {\it Gamedle} y habilita la opción de experiencia, finalmente presiona el botón para crear el curso.}
+
+	\UCrow{Versión}{\color{gray} 0.1 (Edición)}
+    \UCrow{Autor}{\color{gray}	Daniel Ortega}
+    \UCrow{Supervisa}{\color{gray}}
+    \UCrow{Actor}{Profesor}
+    \UCrow{Propósito}{Que el profesor pueda crear un curso que tenga soporte para brindar puntos de experiencia en las distintas secciones del curso.}
+    \UCrow{Entradas}{
+		\begin{Titemize}
+		    \Titem{ Nombre completo y nombre corto del curso }
+		    \Titem{ Datos generales y de descripción del curso }
+		    \Titem{ Elección del formato del curso }
+		    \Titem{ Numero de secciones }
+		    \Titem{ Visibilidad de secciones ocultas }
+		    \Titem{ Aspecto del curso }
+		    \Titem{ Casilla de experiencia }
+		    \Titem{ Conjunto de datos restantes }
+		    \Titem{ Botón de confirmación \textit{Guardar y regresar} o \textit{Guardar cambios y mostrar} }
+		\end{Titemize}
+   	}
+    \UCrow{Origen}{ Ratón para las acciones y elecciones, teclado para los campos de texto}
+	\UCrow{Salidas}{ \IUref{moodle:} o \IUref{moodle:} } %\begin{Titemize}\Titem{Ninguna}\end{Titemize}
+    \UCrow{Destino}{ Pantalla }
+    \UCrow{Precondiciones}{
+		\begin{Titemize}
+	        \Titem{ Contar con los permisos necesarios para crear cursos }
+	        \Titem{ Tener instalado el plugin ''Gamedle Level'' }
+	        \Titem{ Tener instalado el plugin ''Gamedle Format'' }
+	        \Titem{ Que el actor haya elegido el formato de curso {\it Gamedle} en el caso de uso {\it Crear curso} }
+		\end{Titemize}
+    }
+    \UCrow{Postcondiciones}{%
+        \begin{Titemize}
+            \Titem{ Se crea un curso con soporte para brindar experiencia. }
+            \Titem{ Las secciones del curso tienen experiencia predeterminada }
+            \Titem{ El curso y las secciones se muestran de acuerdo a las configuraciones realizadas }
+        \end{Titemize}
+    }
+	\UCrow{Errores}{ No se encuentra la opción ''Gamedle Format'' en los formatos del curso, debido a que los plugins no han sido instalados }
+    \UCrow{Observaciones}{  }
+\end{UseCase}
+\clearpage
+
+%\textbullet{Trayectorias}
+
+\begin{UCtrayectoria}{Principal}
+    \moodle Muestra la interfaz \IUref{moodle:nuevoCurso}. \UCnote{CU: Crear curso}
+    \actor Especifica el ''nombre completo'' y ''nombre corto'' además de la ''descripción'' y los ''datos generales'' del curso.\\
+    
+    \setcounter{enumi}{0}
+    \actor Selecciona el {\it formato del curso} {\bf Curso Gamedle}. \IUref{exp:format} \UCnote{CU: Crear curso con experiencia}
+    \sistema Carga los nuevos datos para el formulario del formato: Curso Gamedle.
+    \actor Selecciona el ''número de secciones'' que tendrá por defecto el curso.
+    \actor Selecciona la ''visibilidad'' de forma colapsada u no visible de las secciones ocultas.
+    \actor Especifica si el ''aspecto del curso'' es mostrar una sección por página o mostrar todas.
+    \actor Habilita la ''casilla de experiencia''. \UCnote{\bf Trayectoria A}
+    \actor Especifica el conjunto de datos restantes para la configuración del curso.
+    \actor Presiona botón \fbox{Guardar y regresar} \UCnote{\bf Trayectoria B} \UCnote{\bf Trayectoria C} %\fbox{Guardar cambios}.
+    \sistema Crea el curso y las secciones del mismo.
+    \sistema Obtiene del esquema de experiencia la cantidad de experiencia para los cursos.
+    \sistema Divide la cantidad de experiencia del curso entre las secciones creadas.
+    \sistema Guarda los valores de experiencia que le corresponden a cada sección.
+    \sistema Muestra la pantalla \IUref{moodle:}
+        % en caso de que la división no sea entera, la última sección tendrá la cantidad para completar
+    \item[- -] - - {\em Fin del caso de uso.}
+\end{UCtrayectoria}
+
+%\begin{UCtrayectoria}[Formato distinto a Gamedle.]{Alternativa A}
+    %\actor Selecciona un formato de curso distinto a ''Gamedle Format''
+    %\actor Especifica el conjunto de datos restantes para la configuración del curso.
+    %\actor Presiona botón \fbox{Guardar y regresar} o \fbox{Guardar cambios y mostrar}.
+    %\item[- -] - - {\em Fin del caso de uso}
+%\end{UCtrayectoria}
+
+\begin{UCtrayectoria}[Formato Gamedle sin experiencia]{Alternativa A}
+    \actor Deshabilita la ''casilla de experiencia''
+    \actor Especifica el conjunto de datos restantes para la configuración del curso.
+    \item[- -] - - {\em Fin del caso de uso}
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}[Guardar cambios y mostrar]{Alternativa B}
+    \actor Presiona botón \fbox{Guardar cambios y mostrar}.
+    \sistema Crea el curso y las secciones del mismo.
+    \sistema Obtiene del esquema de experiencia la cantidad de experiencia para los cursos.
+    \sistema Divide la cantidad de experiencia del curso entre las secciones creadas.
+    \sistema Guarda los valores de experiencia que le corresponden a cada sección.
+    \sistema Muestra la pantalla \IUref{moodle:}
+    \item[- -] - - {\em Fin del caso de uso}
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}[Cancelar]{Alternativa C}
+    \actor Presiona botón \fbox{Cancelar}.
+    \item[- -] - - {\em Fin del caso de uso}
+\end{UCtrayectoria}
+
+%\UserStory{Crear curso con experiencia}{Como {\bf administrador} me gustaría que la instalación de un ... por lo que ...}
+
+\clearpage
