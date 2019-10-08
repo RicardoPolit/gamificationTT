@@ -8,7 +8,7 @@
  \noindent {\em For The Win} describe el pensamiento de diseñador de juegos, establece una
  jerarquía entre los distintos elementos de juego en la gamificación (ver figura \ref{fig:ForTheWin}),
  y presenta una serie de pasos para su implementación, siendo estas características las razones
- principales por las cuales se ha elegido este marco de trabajo.
+ principales por las cuales fue elegido este marco de trabajo.
 
     \addfigure[(adaptado de {\it For The Win} \cite{ForTheWin})]%
         {.4}{investigacion/images/forthewin}{fig:ForTheWin}%
@@ -38,7 +38,7 @@
     {\bf Motivación.}
         Existen principalmente tres tipos de actividades en las cuales la motivación
         es particularmente importante: el {\em trabajo creativo}, en el cual cuando la gente
-        está comprometida producen un mejor resultado; {\em Tareas no atractivas}, donde las
+        está comprometida producen un mejor resultado; {\em tareas no atractivas}, donde las
         personas deben cumplir tareas que son repetitivas o aburridas; y la creación de
         {\em hábitos}, en los cuales las personas saber que deben realizar tareas de formas
         constante durante un tiempo significativo \cite[p. 31]{ForTheWin}.
@@ -63,7 +63,7 @@
         El diseñador de juegos debe analizar las distintas mecánicas de juego que utilizará
         ya que estas pueden desmotivar a los jugadores o ser incongruentes con la percepción
         que se tiene del negocio. Es importante identificar las formas en que se quiere motivar
-        a la población objetivo, y pensar cómo funcionarían junto con la gamificación
+        a la población objetivo y pensar cómo funcionarían junto con la gamificación
         \cite[p. 33]{ForTheWin}.
 
     \end{itemize}
@@ -80,12 +80,13 @@
 
  \noindent Como se mencionó anteriormente, {\em For The Win} establece una jerarquía entre los
  elementos de juego. De acuerdo con el marco de trabajo, para implementar gamificación se
- necesitan contemplar los tres tipos de elementos de juego: dinámicas, mecánicas y componente
- \cite[pp. 55-57]{ForTheWin}, presentes en la figura \ref{fig:ForTheWin}.\\
+ necesitan contemplar distintos elementos de juego, estos elementos han sido clasificados por
+ el marco de trabajo en trés grupos: dinámicas, mecánicas y componentes \cite[pp. 55-57]{ForTheWin}.\\
 
- \noindent Los tipos de elementos están organizados de forma decreciente de acuerdo con su nivel
- de abstracción, de tal forma que cada mecánica está ligada a una o más dinámicas y cada componente
- esta ligado a uno o más mecánicas y dinámicas.\\
+ \noindent Los tipos de elementos  están organizados de forma decreciente de acuerdo con su nivel
+ de abstracción como se muestra en la figura \ref{fig:ForTheWin}, de tal forma que cada mecánica
+ está ligada a una o más dinámicas y cada componente esta ligado a uno o más mecánicas y
+ dinámicas.\\
 
 
  \noindent {\bf Dinámicas}
@@ -93,7 +94,8 @@
     Las dinámicas son el elemento de juego más abstracto, estas deben de ser consideradas y
     manejadas, sin embargo estas no pueden ser introducidas directamente en los juegos debido
     a su nivel de abstracción, por ejemplo, el desarrollo de los empleados, la creación de una
-    cultura de innovación, las cinco dinámicas más importantes son:
+    cultura de innovación, entre otras. Las cinco dinámicas más importantes de acuerdo con el
+    marco de trabajo son:
 
     \begin{enumerate}
         \item Restricciones, limitaciones y reglas
@@ -109,7 +111,7 @@
 
  \noindent {\bf Mecánicas}
  \begin{quote}
-    Las mecánicas son el motivo para que se realice alguna acción, son las que mantienen
+    Las mecánicas son el motivo para que se realice alguna acción, estas mantienen
     motivado y comprometido al jugador. Cada mecánica puede ayudar a que se logren una o
     más dinámicas. Las diez mecánicas consideradas más relevantes en el marco de trabajo
     son:
@@ -118,7 +120,7 @@
     \begin{enumerate}
         \item Desafíos (retos o actividades que requieren esfuerzo para resolverse)
         \item Suerte (recompensas y elementos aleatorios)
-        \item Competencia (los jugadores se esfuerzan por ser los ganadores)
+        \item Competencias (los jugadores se esfuerzan por ser los ganadores)
         \item Cooperación (los jugadores deben trabajar en conjunto para cumplir el objetivo)
         \item Retroalimentación (información acerca de las acciones del jugador)
         \item Obtención de recursos (adquisición de utilerías o coleccionables)
@@ -134,7 +136,8 @@
  \noindent {\bf Componentes}
  \begin{quote}
     Los componentes son la base para la implementación de distintas mecánicas y las dinámicas,
-    los componentes son los elementos de juego más tangibles, los quince más importantes son:
+    los componentes son los elementos de juego más tangibles. Los quince componentes más importantes
+    de acuerdo con el marco de trabajo son:
 
     %\begin{multicols}{3}
     \begin{enumerate}
@@ -160,19 +163,19 @@
 
 \subsubsection{Proceso de implementación}
 
- For the Win propone un marco de trabajo el cual contiene un conjunto de pasos para diseñar sistemas
- gamificados, combinando conceptos la diversión, experiencias de usuario y jugabilidad, junto la
- ingeniería de sistemas para cumplir objetivos específicos del negocio \cite[p. 70]{ForTheWin}.
- A continuación se describe cada uno de los pasos del marco de trabajo.\\
+ {\it For the Win} propone un marco de trabajo el cual contiene un conjunto de pasos para diseñar
+ sistemas gamificados, combinando conceptos como la diversión, experiencias de usuario y jugabilidad,
+ junto la ingeniería de sistemas para cumplir objetivos específicos del negocio
+ \cite[p. 70]{ForTheWin}. A continuación se describe cada uno de los pasos del marco de trabajo.\\
 
     \noindent {\bf 1.- Define los objetivos del negocio}
 
     \begin{quote}
         Para una implementación efectiva de la gamificación es crítico entender de los
-        objetivos por los cuales se implementará la gamificación como incrementar la
-        permanencia de los clientes, generar lealtad a la empresa, etc. Los objetivos
-        deben estar ordenados por prioridad y para cada uno se debe especificar cómo
-        beneficiarían a la organización \cite[p. 62]{ForTheWin}.
+        objetivos por los cuales se implementará la gamificación cómo ``incrementar la
+        permanencia de los clientes'', ``generar lealtad a la empresa'', etcétera. Los
+        objetivos deben estar ordenados por prioridad y para cada uno se debe especificar
+        cómo beneficiarían a la organización \cite[p. 62]{ForTheWin}.
     \end{quote}
 
 
@@ -181,8 +184,8 @@
     \begin{quote}
         Este paso consiste en definir el comportamiento que tendrán los jugadores y las
         métricas a utilizar. Los comportamientos deben ser concretos y específicos,
-        posteriormente se desarrollan métricas para traducir los comportamientos en
-        resultados cuantificables. Además es requerido definir cuando y cómo se obtiene
+        debido a que eventualmente se desarrollarán métricas para traducir los comportamientos
+        en resultados cuantificables, dichas métricas deben definir cuando y cómo se obtiene
         los estados de victoria accesibles a todos los usuarios \cite[pp. 63-64]{ForTheWin}.
     \end{quote}
 
@@ -191,9 +194,9 @@
 
     \begin{quote}
         Es importante identificar los distintos tipos de usuarios que usarán el sistema
-        gamificado, y respecto al tipo de usuario listar las distintas acciones que los
-        motiva y desmotiva. Finalmente se debe brindar soport a cada una de las etapas durante
-        el ciclo de vida del jugador, desde ser novato a convertirse en experto
+        gamificado y respecto al tipo de usuario listar las distintas acciones que los
+        motiva y desmotiva. Finalmente se debe brindar soporte a cada una de las etapas
+        durante el ciclo de vida del jugador, desde ser novato a convertirse en experto
         \cite[pp. 64-65]{ForTheWin}.
         % una clasificación util es dividirlos en triunfadores, exploradores
         % socializadores y asesinos \cite{BartleUsers},
@@ -214,9 +217,10 @@
 
     \begin{quote}
         Uno de los principales requerimientos de los sistemas con gamificación es que brinden
-        algún tipo de diversión a los usuarios. Para resolver este punto de forma concreta se
-        deben revisar que el diseño de sistema contemple elementos que apoyen tanto a la
-        motivación extrínseca de los jugadores como a la motivación intrínseca \cite[p. 68]{ForTheWin}.
+        algún tipo de diversión a los usuarios. A pesar de que la diversión es subjetiva, el
+        marco de trabajo plantea que para llevar a cabo este punto de forma concreta se
+        debe revisar que el diseño del sistema contemple elementos que apoyen tanto a la
+        motivación extrínseca de los jugadores como a la intrínseca \cite[p. 68]{ForTheWin}.
     \end{quote}
 
 
@@ -225,6 +229,6 @@
         Este paso se centra en la etapa de implementación, es requerido escoger las herramientas
         apropiadas para implementar las dinámicas y mecánicas diseñadas, para esto se tendrán
         que seleccionar qué incluir o excluir, ver que es lo que no funciona y cambiarlo,
-        finalmente esta etapa consiste en hacer pruebas, iterar, aprender y ejecutar los
-        cambios necesarios para mejorar la implementación \cite[p. 69]{ForTheWin}.
+        finalmente esta etapa consiste en hacer pruebas, iterar, aprender y ejecutar los cambios
+        necesarios para mejorar la implementación de la gamificación \cite[p. 69]{ForTheWin}.
     \end{quote}
