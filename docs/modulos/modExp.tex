@@ -127,7 +127,6 @@
     \end{cdtEntidad}
 
 
-
 \section{Submódulo de niveles}
 
 \section{Funcionalidades}
@@ -140,7 +139,33 @@
                     % INPUT: Administración de experiencia en el curso
 
 \section{Casos de uso}
+
+ En este apartado se especifican todos los casos de usos contemplados para el módulo de
+ experiencia, para cada caso de uso se especifica su tabla de atributos la cual indica que casos
+ de prueba deberán ejecutarse correctamente para corrobarar la completitud del caso de uso.
+
 \subsection{Diagrama de casos de uso}
+
+ En la figura \ref{exp:usecases} se detalla el diagrama de casos de uso correspondiente al módulo
+ de experiencia. Los casos de uso de moodle (en color blanco) son modelados como casos de uso
+ abstractos, mientras que los casos de uso del módulo de experiencia son diferenciados por el
+ color azul, en total el desarrollo de este módulo consiste en 13 casos de uso principales.
+
+    \addfigure{0.9}{modulos/CU/UseCases}{exp:usecases}{%
+        Diagrama de casos de uso del módulo de experiencia}
+    \clearpage
+
+ \noindent
+ Debido a que los plugins a desarrollar son elementos opcionales para Moodle, solo se puede
+ acceder a los casos de uso del módulo de experiencia a través de puntos de extensión de los
+ casos de uso de moodle. Por otra parte los casos de uso que serán documentados en esta sección
+ serán los del módulo de experiencia debido a que Moodle proporciona en su página oficial, guías
+ e instructivos como documentación de las funcionalidades que brinda.
+
+    \input{modulos/CU/cu-e1}\clearpage % Configurar esquema de experiencia
+    %\input{CU/cu-e2}\clearpage % Crear curso con experiencia
+    %\input{CU/cu-e9}\clearpage % Recibir experiencia
+
 \subsection{CU-E1} % CHANGE FOR INCLUDES
 
 \chapter{Diseño}
@@ -360,22 +385,6 @@ Muestra al alumno el progreso que lleva en un curso usando un valor de 0\% a 100
 
 \clearpage
 %\subsection{Reglas de Uso} % Reglas de Negocio | But there's no business
-\section{Casos de Uso}
-
-    \addfigure{1}{modulos/CU/UseCases}{fig:CUEDiagram}{Diagrama de casos de uso del Módulo de Experiencia} \clearpage
-
-    En la figura \ref{fig:expUsecase} se detalla el diagrama de casos de uso correspondientes al módulo de experiencia. Los casos de uso de moodle (en color blanco) son modelados como casos de uso abstractos, mientras que los casos de uso relevantes para el módulo de experiencia son diferenciados por el color azul.\\
-
-%    \addfigure{1}{diagrams/UseCases}{fig:expUsecase}{Diagrama de casos de uso}
-
-    \noindent Debido a que los plugins a desarrollar son elementos opcionales para moodle, solo se puede acceder a los casos de uso del módulo de experiencia (en color azul) a través de puntos de extensión de los casos de uso de moodle (en color blanco).\\
-
-    \noindent Solo son documentados los casos de uso del módulo de experiencia porque son propiamente las funcionalidades o características que se desarrollaran. Los pasos de los casos de uso de moodle, guías e instructivos pueden ser consultados en la página oficial de moodle.
-    \clearpage
-
-    %\input{CU/cu-e1}\clearpage % Configurar esquema de experiencia
-    %\input{CU/cu-e2}\clearpage % Crear curso con experiencia
-    %\input{CU/cu-e9}\clearpage % Recibir experiencia
 
 \section{Interfaces}
 
