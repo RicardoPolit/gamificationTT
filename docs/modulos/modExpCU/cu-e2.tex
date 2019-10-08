@@ -1,0 +1,167 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.0,%
+Estado/\ucstEnEdicion]%
+%
+{CU-E2}{Configurar esquema de experiencia}{%
+%
+ Permite al \refElem{aAdministrador} configurar el esquema de experiencia, especificando
+ la forma en que se obtienen los puntos de experiencia, la cantidad de puntos a otorgar, 
+ el número de puntos de cada nivel y finalmente la visualización del nivel y de los puntos
+ de cada usuario.}
+
+	\UCitem[control]{Revisor}{ \TODO Especificar }
+	\UCitem[control]{Último cambio}{ \today }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Acceder a las menús de configuración del esquema de experiencia.
+		% \Titem Establecer la cantidad de experiencia que brindarán los cursos.
+        % \Titem Establecer la forma en que incrementa la cantidad de experiencia de cada nivel con respecto al anterior.
+        % \Titem Configurar la visualización de la pantalla emergente al subir de nivel
+        % \Titem Configurar la visualización del bloque que muestra el nivel actual del usuario.
+        % \Titem Establecer visualización agrupando niveles
+	}
+	
+%% BEGIN-BLOQUE PARA AGREGAR UNA REVISION ------------------------------------->
+%% Copiar y descomentar este bloque por cada revision que se realice
+%	\UCsection[control]{% Indicar la versión objeto de la revisión.
+%		Revisión de la Versión \TODO X.X
+%	}
+%	\UCitem[control]{Revisó}{% Coloque el nombre de quien realizó la revisión
+%		\TODO Especificar
+%	}
+%	\UCitem[control]{Fecha}{% Coloque la fecha de la revisión
+%		% EJEMPLO: 21 de Septiembre de 2019.
+%		\TODO Especificar
+%	}
+%	\UCitem[control]{Resultado}{% Las opciones son: 
+%								% Pendiente: se pasa a EnEdicion y se agregan las observaciones
+%								% Aprobado: Se pasa a EnAprobacion.
+%		\TODO Especificar
+%	}
+%	\UCitems[control]{Observaciones}{
+%		% Agregar las observaciones resultado de la revision o la palabra ``Ninguna''
+%		\Titem \TODO Agregar observaciones en cada viñeta, usar el comando \TODO %\TOCHK \DONE.
+%	}
+%% <------------------------------------------ END-BLOQUE PARA AGREGAR UNA REVISION
+	
+	%----------------------------------------------
+	\UCitems{Entradas}{%
+		\imprimeUC{entrada}
+	}
+
+	\UCitems{Origen}{%
+		\Titem Teclado
+        \Titem Mouse
+	}
+
+	\UCitems{Salida}{%
+		\imprimeUC{salida}
+	}
+
+	\UCitems{Destino}{%
+		\Titem \refElem{IU-M01}
+	}
+	
+	\UCitems{Precondiciones}{%
+        % TODO: ¿Se deben especificar aunque eso sea diseño?
+        \Titem Que los plugins del módulo de experiencia se encuentren instalados
+	}
+
+	\UCitem{Postcondiciones}{%
+        Ninguna
+	}
+
+	\UCitem{Reglas de Negocio}{%
+		Ninguna
+	}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{1}{%
+        % CAUSA
+            Los plugins del módulo de experiencia no se encuentran instalados,}{%
+        % EFECTO
+            No se presenta en el menu de opciones las opciones para modificar %
+            el esquema de experiencia.}
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }	
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        % CASOS CORRECTOS
+        \Titem CP-E2-1: Con los plugins requeridos instalados
+        % CASOS INCORRECTOS
+        \Titem CP-E2-2: Con los plugins requeridos no instalados
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{%
+        Ninguna
+	}
+
+\end{UseCase}
+
+\newcommand{\Sistema}{\UCpaso[\UCsist]}
+\newcommand{\Actor}{\UCpaso[\UCactor]}
+
+\begin{UCtrayectoria}
+    \Sistema ... \label{CU-E2-Menu}
+    \Actor ...  \refTray{B} \ref{CU-E2-Menu}
+\end{UCtrayectoria}
+
+\begin{comment}
+% \end{comment}
+
+%\textbullet{Trayectorias}
+
+\begin{UCtrayectoria}{Principal}
+    \actor se encuentra en la interfaz \hyperref[IUM04]{IU-M04 Sección de plugins}.
+    \actor Busca la sección de ''Bloques'' .
+    \actor selecciona el componente ''Gamedle level''.
+    \sistema carga la interfaz \hyperref[IUE03]{IU-E03 Configuración del esquema de experiencia}.
+    \actor modifica las opciones que desea ({\it Trayectoria alternativa A}).
+    \actor le da al botón \#1 ''Guardar cambios''  ({\it Trayectoria alternativa B}).
+    \item[- -] - - {\em El caso de uso termina.}
+    
+\end{UCtrayectoria}
+
+\begin{UCtrayectoria}{alternativa A}
+    \item[- -] - - {\em El actor no quiere cambiar ninguna configuración.}
+    \actor selecciona alguna opción en el menú de Moodle o en el directorio de la página
+    \sistema carga la interfaz correspondiente a la selección del actor.
+    \item[- -] - - {\em El caso de uso termina.}
+\end{UCtrayectoria}
+
+
+\begin{UCtrayectoria}{alternativa B}
+    \item[- -] - - {\em Alguna de las entradas no es válida.}
+    \sistema despliega el mensaje MS1.
+    \sistema despliega el mensaje MS2 en cada una de las entradas que ha encontrado como inválidas.
+    
+    \item[- -] - - {\em se continúa en el paso \#5 de la trayectoria principal.}
+\end{UCtrayectoria}
+\end{comment}
+
+
+\vfill\clearpage
