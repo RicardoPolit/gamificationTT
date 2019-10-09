@@ -65,7 +65,6 @@ Estado/\ucstEnEdicion]%
 	}
 
 	\UCitems{Origen}{%
-		\Titem Teclado
         \Titem Mouse
 	}
 
@@ -74,7 +73,7 @@ Estado/\ucstEnEdicion]%
 	}
 
 	\UCitems{Destino}{%
-		\Titem \refElem{IU-M01}
+		\Titem \refElem{IU-MAdminSitio-Plugins}
 	}
 	
 	\UCitems{Precondiciones}{%
@@ -91,7 +90,7 @@ Estado/\ucstEnEdicion]%
 	}
 
 	\UCitems{Errores}{%
-        \Titem \UCerr{1}{%
+        \Titem \UCerr{Uno}{%
         % CAUSA
             Los plugins del módulo de experiencia no se encuentran instalados,}{%
         % EFECTO
@@ -109,9 +108,9 @@ Estado/\ucstEnEdicion]%
 
 	\UCitems[design]{Casos de Prueba}{%
         % CASOS CORRECTOS
-        \Titem CP-E2-1: Con los plugins requeridos instalados
+        \Titem \refElem{CP-E2-A}: Con los plugins requeridos instalados
         % CASOS INCORRECTOS
-        \Titem CP-E2-2: Con los plugins requeridos no instalados
+        \Titem \refElem{CP-E2-B}: Con los plugins requeridos no instalados
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -122,46 +121,38 @@ Estado/\ucstEnEdicion]%
 
 \end{UseCase}
 
-\newcommand{\Sistema}{\UCpaso[\UCsist]}
-\newcommand{\Actor}{\UCpaso[\UCactor]}
-
 \begin{UCtrayectoria}
-    \Sistema ... \label{CU-E2-Menu}
-    \Actor ...  \refTray{B} \ref{CU-E2-Menu}
-\end{UCtrayectoria}
 
-\begin{comment}
-% \end{comment}
+    \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla para abrir el
+           menu desplegable
 
-%\textbullet{Trayectorias}
+    \Actor Selecciona la opción: \IUAdminSitio Administración del sitio
 
-\begin{UCtrayectoria}{Principal}
-    \actor se encuentra en la interfaz \hyperref[IUM04]{IU-M04 Sección de plugins}.
-    \actor Busca la sección de ''Bloques'' .
-    \actor selecciona el componente ''Gamedle level''.
-    \sistema carga la interfaz \hyperref[IUE03]{IU-E03 Configuración del esquema de experiencia}.
-    \actor modifica las opciones que desea ({\it Trayectoria alternativa A}).
-    \actor le da al botón \#1 ''Guardar cambios''  ({\it Trayectoria alternativa B}).
-    \item[- -] - - {\em El caso de uso termina.}
-    
-\end{UCtrayectoria}
+    \Sistema Carga la pantalla \refElem{IU-MAdminSitio}
 
-\begin{UCtrayectoria}{alternativa A}
-    \item[- -] - - {\em El actor no quiere cambiar ninguna configuración.}
-    \actor selecciona alguna opción en el menú de Moodle o en el directorio de la página
-    \sistema carga la interfaz correspondiente a la selección del actor.
-    \item[- -] - - {\em El caso de uso termina.}
+    \Actor Selecciona ver las opciones para administrar plugins presionando la pestaña
+           {\it Plugins}
+
+    \Sistema Obtiene las categorias de las opciones que se muestran en la pantalla.
+
+    \Sistema En la categoría {\it Bloques} agrega la subcategoría \salida{GamedleLevel} con los
+             enlaces a las configuraciones \salida{ConfExpGral}, \salida{ConfExpComp} y
+             \salida{ConfExpVisual}. \refErr{Uno}
+
+    \Sistema Carga la pantalla \refElem{IU-MAdminSitio-Plugins}
+
+    % \Sistema ... \label{CU-E2-Menu}
+    % \Actor ...  \refTray{B} \ref{CU-E2-Menu}
 \end{UCtrayectoria}
 
 
-\begin{UCtrayectoria}{alternativa B}
-    \item[- -] - - {\em Alguna de las entradas no es válida.}
-    \sistema despliega el mensaje MS1.
-    \sistema despliega el mensaje MS2 en cada una de las entradas que ha encontrado como inválidas.
-    
-    \item[- -] - - {\em se continúa en el paso \#5 de la trayectoria principal.}
-\end{UCtrayectoria}
-\end{comment}
+\subsubsection{Puntos de extensión}
 
+\UCExtensionPoint{Configuraciones Generales}{%
 
-\vfill\clearpage
+    El \refElem{aResponsablePOA} requiere gestionar el siguiente nivel del catálogo que son
+    las áreas de oportunidad que pertenecen al eje seleccionado%
+%
+    }{En el paso \ref{CU-E2-1-X} de la trayectoria principal%
+%
+    }{\refElem{PLA-CAT-CU1-2}}

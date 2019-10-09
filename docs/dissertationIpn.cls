@@ -110,6 +110,10 @@
 % Author Daniel Ortega (https://gilab.com/DanielOrtegaZ)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\Sistema}{\UCpaso[\UCsist]}
+\newcommand{\Actor}{\UCpaso[\UCactor]}
+\newcommand{\Moodle}{\UCpaso[\raisebox{-1mm}{\includegraphics[height=9pt]{res/m-icon}}]}
+
 % GAMIFICATION
 
 \def\principioIx{Epic Meaning \& Calling}
