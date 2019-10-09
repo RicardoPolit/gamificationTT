@@ -83,7 +83,7 @@ echo $OUTPUT->heading_with_help(get_string('modulename', 'mod_testquiz'), 'howto
 
 // Game here.
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
-echo $renderer->render_game($testquiz, $context);
+echo $renderer->render_game($testquiz, $cm->instance,$USER->id);
 echo "<div class=fontloader>Loading game</div>";
 
 // Display link to view student scores.

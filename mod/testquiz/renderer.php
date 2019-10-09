@@ -24,6 +24,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/mod/quiz/attemptlib.php');
+require_once($CFG->dirroot . '/mod/quiz/accessmanager.php');
+
 /**
  * The main renderer for mod_testquiz
  *
@@ -39,10 +42,51 @@ class mod_testquiz_renderer extends plugin_renderer_base {
      * @param context $context The context
      * @return string The HTML code of the game
      */
-    public function render_game($testquiz, $context) {
+    public function render_game($testquiz, $context,$userid) {
         global $DB;
 
         $categoryid = explode(',', $testquiz->questioncategory)[0];
+
+        $questionids = array_keys($DB->get_records('question', array('category' => intval($categoryid)), '', 'id'));
+
+        $quizobj = quiz::create($context, $userid);
+
+        $quba = question_engine::make_questions_usage_by_activity('mod_quiz', $quizobj->get_context());
+        $quba->set_preferred_behaviour($quizobj->get_quiz()->preferredbehaviour);
+
+        foreach ($questionids as $i => $questionid) {
+            $questiondata = question_bank::load_question_data($questionid);
+            $question = question_bank::make_question($questiondata);
+            $idstoslots[$i] = $quba->add_question($question, $questiondata->maxmark);
+        }
+
+        $quba->start_all_questions();
+
+        question_engine::save_questions_usage_by_activity($quba);
+
+        /*$display = '<form id="responseform" method="post" action="' . $processurl .
+            '" enctype="multipart/form-data" accept-charset="utf-8">', "\n<div>\n";
+
+        $this->page->requires->js_init_call('M.core_question_engine.init_form',
+            array('#responseform'), false, 'core_question_engine');
+
+        $display .= '<input type="hidden" name="slots" value="' . implode(',', $idstoslots) . "\" />\n";
+        $display .= '<input type="hidden" name="scrollpos" value="" />';*/
+
+        $options = new question_display_options();
+        $options->marks = question_display_options::MAX_ONLY;
+        $options->markdp = 2; // Display marks to 2 decimal places.
+        $options->feedback = question_display_options::VISIBLE;
+        $options->generalfeedback = question_display_options::HIDDEN;
+
+        $display = '';
+
+        foreach ($idstoslots as $displaynumber => $slot) {
+            $display .= $quba->render_question($slot, $options, $displaynumber);
+        }
+
+        return $display;
+        /*$categoryid = explode(',', $testquiz->questioncategory)[0];
         $questionids = array_keys($DB->get_records('question', array('category' => intval($categoryid)), '', 'id'));
         $questions = question_load_questions($questionids);
 
@@ -86,7 +130,7 @@ class mod_testquiz_renderer extends plugin_renderer_base {
 
         $this->page->requires->js_call_amd('mod_testquiz/testquiz', 'init', array($qjson, $testquiz->id));
 
-        $display = '<div> Hola </div>';
+        $display = '<div> Hola </div>';*/
 
         /*$display = '<canvas id="mod_testquiz_game"></canvas>';
         $display .= '<audio id="mod_testquiz_sound_laser" preload="auto">'.
