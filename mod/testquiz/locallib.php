@@ -107,3 +107,5 @@ function testquiz_log_game_start($testquiz) {
 
     return true;
 }
+
+
