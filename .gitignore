@@ -103,3 +103,5 @@ webservice/
 !course/format/
 !course/format/gamedle
 !course/format/gamedle/**/*
+!mod/testquiz/
+!mod/testquiz/**/*
