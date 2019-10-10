@@ -25,7 +25,7 @@ availability/
 backup/
 badges/
 behat.yml.dist
-blocks/
+blocks/*
 blog/
 brokenfile.php
 cache/
@@ -95,7 +95,7 @@ webservice/
 
 # Folders: Including plugins tested
 !blocks/gmxp/
-!blocks/gmxp/**/*
+#!blocks/gmxp/**/*
 !blocks/gmlb/
 !blocks/gmlb/**/*
 !local/gamedlemaster
