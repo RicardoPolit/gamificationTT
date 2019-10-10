@@ -24,9 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/quiz/attemptlib.php');
-require_once($CFG->dirroot . '/mod/quiz/accessmanager.php');
-
 /**
  * The main renderer for mod_testquiz
  *
@@ -42,17 +39,22 @@ class mod_testquiz_renderer extends plugin_renderer_base {
      * @param context $context The context
      * @return string The HTML code of the game
      */
-    public function render_game($testquiz, $context,$userid) {
+    public function render_game($testquiz, $cm,$userid) {
         global $DB;
 
         $categoryid = explode(',', $testquiz->questioncategory)[0];
 
         $questionids = array_keys($DB->get_records('question', array('category' => intval($categoryid)), '', 'id'));
 
-        $quizobj = quiz::create($context, $userid);
+        $context = context_module::instance($cm->id);
 
-        $quba = question_engine::make_questions_usage_by_activity('mod_quiz', $quizobj->get_context());
-        $quba->set_preferred_behaviour($quizobj->get_quiz()->preferredbehaviour);
+        /*$quizobj = quiz::create($cm->instance, $userid);*/
+
+        $quba = question_engine::make_questions_usage_by_activity('mod_testquiz', $context);
+
+        /*return $quizobj->get_quiz()->preferredbehaviour;*/
+
+        $quba->set_preferred_behaviour('deferredfeedback');
 
         foreach ($questionids as $i => $questionid) {
             $questiondata = question_bank::load_question_data($questionid);
@@ -64,14 +66,18 @@ class mod_testquiz_renderer extends plugin_renderer_base {
 
         question_engine::save_questions_usage_by_activity($quba);
 
-        /*$display = '<form id="responseform" method="post" action="' . $processurl .
-            '" enctype="multipart/form-data" accept-charset="utf-8">', "\n<div>\n";
 
-        $this->page->requires->js_init_call('M.core_question_engine.init_form',
-            array('#responseform'), false, 'core_question_engine');
+        $display = html_writer::start_tag('form',
+            array('action' => new moodle_url('/mod/testquiz/processattempt.php',
+                array('id' => $quba->get_id())), 'method' => 'post',
+                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                'id' => 'responseform'));
+
+        /*$this->page->requires->js_init_call('M.core_question_engine.init_form',
+            array('#responseform'), false, 'core_question_engine');*/
 
         $display .= '<input type="hidden" name="slots" value="' . implode(',', $idstoslots) . "\" />\n";
-        $display .= '<input type="hidden" name="scrollpos" value="" />';*/
+        $display .= '<input type="hidden" name="scrollpos" value="" />';
 
         $options = new question_display_options();
         $options->marks = question_display_options::MAX_ONLY;
@@ -79,11 +85,21 @@ class mod_testquiz_renderer extends plugin_renderer_base {
         $options->feedback = question_display_options::VISIBLE;
         $options->generalfeedback = question_display_options::HIDDEN;
 
-        $display = '';
+        $display .= html_writer::start_tag('div');
 
         foreach ($idstoslots as $displaynumber => $slot) {
             $display .= $quba->render_question($slot, $options, $displaynumber);
         }
+
+
+        $display .= html_writer::start_tag('div');
+
+        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+            'value' => 'Submit', 'class' => 'mod_quiz-next-nav btn btn-primary'));
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::end_tag('div');
+        $display .= html_writer::end_tag('form');
 
         return $display;
         /*$categoryid = explode(',', $testquiz->questioncategory)[0];
