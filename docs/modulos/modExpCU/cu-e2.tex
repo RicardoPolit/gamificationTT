@@ -27,8 +27,8 @@ Estado/\ucstEnEdicion]%
         \refElem{aAdministrador}
     }
 
-	\UCitems{Propósito}{%
-        \Titem Acceder a las menús de configuración del esquema de experiencia.
+	\UCitem{Propósito}{%
+        Acceder a las menús de configuración del esquema de experiencia.
 		% \Titem Establecer la cantidad de experiencia que brindarán los cursos.
         % \Titem Establecer la forma en que incrementa la cantidad de experiencia de cada nivel con respecto al anterior.
         % \Titem Configurar la visualización de la pantalla emergente al subir de nivel
@@ -59,21 +59,21 @@ Estado/\ucstEnEdicion]%
 %	}
 %% <------------------------------------------ END-BLOQUE PARA AGREGAR UNA REVISION
 	
-	%----------------------------------------------
-	\UCitems{Entradas}{%
-		\imprimeUC{entrada}
+	\UCitem{Entradas}{%
+		%\imprimeUC{entrada}
+        Ninguna
 	}
 
 	\UCitems{Origen}{%
         \Titem Mouse
 	}
 
-	\UCitems{Salida}{%
+	\UCitems{Salidas}{%
 		\imprimeUC{salida}
 	}
 
 	\UCitems{Destino}{%
-		\Titem \refElem{IU-MAdminSitio-Plugins}
+		\Titem \refElem{IU-M02a}
 	}
 	
 	\UCitems{Precondiciones}{%
@@ -85,12 +85,12 @@ Estado/\ucstEnEdicion]%
         Ninguna
 	}
 
-	\UCitem{Reglas de Negocio}{%
+	\UCitem{Reglas de negocio}{%
 		Ninguna
 	}
 
 	\UCitems{Errores}{%
-        \Titem \UCerr{Uno}{%
+        \Titem \UCerr{Err1}{%
         % CAUSA
             Los plugins del módulo de experiencia no se encuentran instalados,}{%
         % EFECTO
@@ -121,25 +121,28 @@ Estado/\ucstEnEdicion]%
 
 \end{UseCase}
 
-\begin{UCtrayectoria}
+\clearpage
+\subsubsection{Trayectorias del caso de uso}
 
-    \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla para abrir el
-           menu desplegable
+\begin{UCtrayectoria}%
+%
+ \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
+        para abrir el menu de navegación.
 
-    \Actor Selecciona la opción: \IUAdminSitio Administración del sitio
+ \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
 
-    \Sistema Carga la pantalla \refElem{IU-MAdminSitio}
+ \Sistema Carga la pantalla \refElem{IU-M02}
 
-    \Actor Selecciona ver las opciones para administrar plugins presionando la pestaña
-           {\it Plugins}
+ \Actor Selecciona ver las opciones para administrar plugins presionando la pestaña
+        {\it Plugins}
 
-    \Sistema Obtiene las categorias de las opciones que se muestran en la pantalla.
+ \Sistema Obtiene las categorias de las opciones que se muestran en la pantalla.
 
-    \Sistema En la categoría {\it Bloques} agrega la subcategoría \salida{GamedleLevel} con los
-             enlaces a las configuraciones \salida{ConfExpGral}, \salida{ConfExpComp} y
-             \salida{ConfExpVisual}. \refErr{Uno}
+ \Sistema En la categoría {\it Bloques} agrega la subcategoría \salida{tExpSettingsGeneral} con
+          los enlaces a las configuraciones \salida{tExpSettingsVisual} y 
+          \salida{tExpSettingsComportamiento} del módulo de experiencia. \refErr{Err1}
 
-    \Sistema Carga la pantalla \refElem{IU-MAdminSitio-Plugins}
+ \Sistema Carga la pantalla \refElem{IU-M02a}.
 
     % \Sistema ... \label{CU-E2-Menu}
     % \Actor ...  \refTray{B} \ref{CU-E2-Menu}
@@ -148,11 +151,33 @@ Estado/\ucstEnEdicion]%
 
 \subsubsection{Puntos de extensión}
 
-\UCExtensionPoint{Configuraciones Generales}{%
+\UCExtensionPoint{Configuraciones generales}{%
 
-    El \refElem{aResponsablePOA} requiere gestionar el siguiente nivel del catálogo que son
-    las áreas de oportunidad que pertenecen al eje seleccionado%
+    El \refElem{aAdministrador} desea cambiar las configuraciones generales del módulo de 
+    experiencia, las cuales incluyen habilitar/deshabilitar el módulo de experiencia o
+    la entrega de recompensa a otros eventos de Gamedle.%
 %
-    }{En el paso \ref{CU-E2-1-X} de la trayectoria principal%
+    }{En el paso \ref{CU-E2-1x} de la trayectoria principal%
 %
-    }{\refElem{PLA-CAT-CU1-2}}
+    }{\refElem{CU-E2-1}}
+
+\UCExtensionPoint{Configuraciones Visuales}{%
+
+    El \refElem{aAdministrador} desea cambiar las configuraciones generales del módulo de 
+    experiencia, las cuales incluyen habilitar/deshabilitar el módulo de experiencia o
+    la entrega de recompensa a otros eventos de Gamedle.%
+%
+    }{En el paso \ref{CU-E2-1x} de la trayectoria principal%
+%
+    }{\refElem{CU-E2-1}}
+
+\UCExtensionPoint{Configuraciones de Comportamiento}{%
+
+    El \refElem{aAdministrador} desea cambiar las configuraciones generales del módulo de 
+    experiencia, las cuales incluyen habilitar/deshabilitar el módulo de experiencia o
+    la entrega de recompensa a otros eventos de Gamedle.%
+%
+    }{En el paso \ref{CU-E2-1x} de la trayectoria principal%
+%
+    }{\refElem{CU-E2-1}}
+
