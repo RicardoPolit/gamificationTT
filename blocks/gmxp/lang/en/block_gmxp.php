@@ -2,18 +2,47 @@
 /*
  * UNIVERSITY:  INSTITUTO POLITECNICO NACIONAL (IPN)
  *              ESCUELA SUPERIOR DE COMPUTO (ESCOM)
- *   SUBJECT:     _
- *   PROFESSOR:   _
+ *   
+ * TRABAJO TERMINAL: 2018-B029
+ *   "GAMIFICACIÓN EN UNA PLATAFORMA WEB DE APRENDIZAJE"
  *
- * DESARROLLADORES: Daniel Ortega
  *
- * PRACTICE _:  TITULO DE LA PRACTICA
- *               - DESCRIPCION
+ * ASESORES: Sandra I, Bautista, Edgar A. Catatán
+ *
+ * DESARROLLADORES:
+ *   - Daniel Ortega  (gitlab: DanielOrtegaZ)
+ *   - Ricardo, David
  *
 */
 
-/*Frontier values
-    This values should be changed with caution and in order to take effect the changes the version of the plugin has to go up*/
+/**
+ * Global variables in the system, should not be translated
+ */
+$string['SYS_SETTINGS_VISUAL'] = "block_gmxp/visual_settings";
+$string['SYS_SETTINGS_SCHEME'] = "block_gmxp/scheme_settings";
+$string['SYS_SETTINGS_EVENTS'] = "block_gmxp/events_settings";
+
+/**
+ * Settings Values
+ */
+$string['SETTINGS_CATEGORY'] = "Gamedle: Experience Module";
+$string['SETTINGS_GENERAL'] = "General Set Up";
+$string['SETTINGS_VISUAL'] = "Visual Set Up";
+$string['SETTINGS_SCHEME']  = "Experience Set up";
+
+$string['SETTINGS_GENERAL_HEADER'] = "Choose the main features";
+$string['SETTINGS_GENERAL_HEADER_DESC'] = 
+    "You can prevent the events to give experience points and/or disable the experience system";
+
+$string['SETTINGS_GENERAL_ENABLED'] = "Enable the experience system";
+$string['SETTINGS_GENERAL_ENABLED_DESC'] = 
+    "You can prevent the events to give experience points and/or disable the experience system";
+
+$string['SETTINGS_GENERAL_EVENTS_ENABLED'] = "Enable the experience points in supported events";
+$string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] = 
+    "Gives experience the default or established xp points for the list of events supported";
+
+
 $string['valueDownIntLevels'] = '1';
 $string['valueUpIntLevels'] = '10000';
 $string['valueExpGivenDown'] = '1';
