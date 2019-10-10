@@ -8,17 +8,17 @@
 
 \begin{UseCase}[%
 Autor/Daniel Ortega,%
-Version/0.0,%
+Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-E2}{Configurar esquema de experiencia}{%
+{CU-E02}{Configurar esquema de experiencia}{%
 %
  Permite al \refElem{aAdministrador} configurar el esquema de experiencia, especificando
  la forma en que se obtienen los puntos de experiencia, la cantidad de puntos a otorgar, 
  el número de puntos de cada nivel y finalmente la visualización del nivel y de los puntos
  de cada usuario.}
 
-	\UCitem[control]{Revisor}{ \TODO Especificar }
+	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
 
  \UCsection{Atributos}
@@ -59,9 +59,10 @@ Estado/\ucstEnEdicion]%
 %	}
 %% <------------------------------------------ END-BLOQUE PARA AGREGAR UNA REVISION
 	
-	\UCitem{Entradas}{%
-		%\imprimeUC{entrada}
-        Ninguna
+	\UCitems{Entradas}{%
+		\Titem Selección de la opción \IUMenu menu.
+        \Titem Selección de la opción \IUAdminSitio Administración del Sitio.
+        \Titem Selección de la pestaña {\it Plugins}.
 	}
 
 	\UCitems{Origen}{%
@@ -107,10 +108,8 @@ Estado/\ucstEnEdicion]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        % CASOS CORRECTOS
-        \Titem \refElem{CP-E2-A}: Con los plugins requeridos instalados
-        % CASOS INCORRECTOS
-        \Titem \refElem{CP-E2-B}: Con los plugins requeridos no instalados
+        \Titem \refElem{CPC-E02}
+        \Titem \refElem{CPI-E02}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
