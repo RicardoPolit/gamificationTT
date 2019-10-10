@@ -61,7 +61,15 @@
     \begin{quote}
     \begin{bGlosario}
         \bTerm{tVarchar}{varchar} Cadena de caracteres de longitud variable
-        \bTerm{tInt}{int}         Numero enteros incluyendo, positivos y negativos.
+        \bTerm{tInt}{int}         Numeros enteros incluyendo, positivos y negativos.
+        \bTerm{tBoolean}{boolean} Tipo de dato que solo tiene dos valores posibles,
+                                  verdadero y falso.
+        \bTerm{tNatural}{natural} Número entero mayores a cero.
+        \bTerm{tDouble}{double}   Números reales con soporte para doble punto flotante.
+        \bTerm{tColor}{color}     Cadena de texto que almacena el código de un color en hexadecimal,
+                                  de la forma {\it ``\#RRGGBB''}.
+        \bTerm{tImage}{imagen}    Tipo de dato que almacena la referencia a una imagen almacenada por
+                                  moodle.
     \end{bGlosario}
     \end{quote}
 
@@ -98,6 +106,8 @@
         \bTerm{tDefault}{Default} $:\ valor$
             Indica el valor por defecto que tendrá el atributo.
 
+        \bTerm{tLength}{Length} $a-b$
+            Indica la longitud que tendrá una \refElem{tVarchar}.
     \end{bGlosario}
     \end{quote}
 

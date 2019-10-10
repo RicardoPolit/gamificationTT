@@ -24,7 +24,7 @@
     %experiencia y no forma parte del modelo de datos ya que las configuraciones de todos los plugins son
     %almacenados en la entidad \refElem{Mdl-configuration}.}
 
-        \brAttr{activated}{activado}{tboolean}{%
+        \brAttr{activated}{activado}{tBoolean}{%
             Valor que indica si el módulo de experiencia está activado o no.\par
 
             \it Restricciones:
@@ -42,7 +42,7 @@
             \refElem{tDefault}$:1$
         }
 
-        \brAttr{incrementValue}{valor de incremento}{tNumeric}{%
+        \brAttr{incrementValue}{valor de incremento}{tDouble}{%
             Valor que indica el factor o valor del incremento para realizar el calculo de la
             experiencia requerida para subir de nivel.\par
 
@@ -75,7 +75,7 @@
     \end{cdtEntidad}
     \begin{cdtEntidad}{ConfigXPVisual}{Configuración de los Niveles}{}
 
-        \brAttr{title}{Título de niveles}{tText}{%
+        \brAttr{title}{Título de niveles}{tVarchar}{%
             Cadena que contiene el título que tienen por defecto todos los niveles.\par
 
             \it Restricciones:
@@ -83,7 +83,7 @@
             \refElem{tRequerido}
         }
 
-        \brAttr{description}{Descripción}{tText}{%
+        \brAttr{description}{Descripción}{tVarchar}{%
             Cadena que contiene la descripción qe tiene por defecto todos los niveles.\par
 
             \it Restricciones:
@@ -91,7 +91,7 @@
             \refElem{tDefault} ``Casual Levels''
         }
 
-        \brAttr{message}{Mensaje}{tText}{%
+        \brAttr{message}{Mensaje}{tVarchar}{%
             Cadena que contiene el mensaje de felicitaciones que tienen por defecto todos
             los niveles.\par
 
@@ -161,7 +161,7 @@
  serán los del módulo de experiencia debido a que Moodle proporciona en su página oficial, guías
  e instructivos como documentación de las funcionalidades que brinda.
 
-    \input{modulos/modExpCU/cu-e2} % Configurar esquema de experiencia
+    \input{modulos/modExpCU/CU-E02} % Configurar esquema de experiencia
     %\input{CU/cu-e2}\clearpage % Crear curso con experiencia
     %\input{CU/cu-e9}\clearpage % Recibir experiencia
 
@@ -178,8 +178,9 @@
 \section{Diagrama de clases}
 
 \chapter{Pruebas}
-\section{CP-141} % CHANGE FOR INCLUDES
-\section{CP-15}
+
+\TestCase{CPC-E02}{Configurar esquema de experiencia caso correcto}
+\TestCase{CPI-E02}{Configurar esquema de experiencia sin plugins}
 
 \begin{comment}
 \section{Submódulos}
