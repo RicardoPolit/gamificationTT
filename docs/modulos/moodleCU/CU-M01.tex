@@ -1,0 +1,109 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.1,%
+Estado/\ucstEnEdicion]%
+%
+{CU-X0Y}{Titulo}{%
+%
+ Permite al \refElem{aActor} .}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ \today }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aActor}
+    }
+
+	\UCitem{Propósito}{%
+        ...
+	}
+	
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+        \Titem Teclado
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitems{Destino}{%
+		\Titem \refElem{IU-M02a}
+	}
+	
+	\UCitems{Precondiciones}{%
+        \Titem ...
+	}
+
+	\UCitem{Postcondiciones}{%
+        Ninguna
+	}
+
+	\UCitem{Reglas de negocio}{%
+		Ninguna
+	}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+        % CAUSA
+            ...,}{%
+        % EFECTO
+            ...}
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }	
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-E0Y}
+        \Titem \refElem{CPI-E0Y}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{%
+        Ninguna
+	}
+
+\end{UseCase}
+
+\clearpage
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+ \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
+        para abrir el menu de navegación.
+
+ \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
+
+ \Sistema Carga la pantalla \refElem{IU-M02}
+
+\end{UCtrayectoria}
+
+
+\subsubsection{Puntos de extensión}
+
+\UCExtensionPoint{Nombre del punto de extensión}{%
+
+    El \refElem{aAdministrador} desea/requiere/necesita ....%
+%
+    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
+%
+    }{\refElem{CU-E2-T}}
+

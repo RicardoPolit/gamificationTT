@@ -15,8 +15,8 @@ Estado/\ucstEnEdicion]%
 %
  Permite al \refElem{aAdministrador} extender las funcionalidades que brinda moodle añadiendo el
  sistema de experiencia el cual brinda al \refElem[administrador]{aAdministrador} y los
- \refElem[profesores]{aProfesor} la opción para configurar la forma en que se otogará la
- experiencia a los \refElem[alumnos]{aAlumno}, incluyendo la cantidad a otogar.}
+ \refElem[profesores]{aProfesor} la opción para configurar la cantidad y la forma en que se otogará
+ la experiencia a los \refElem[alumnos]{aAlumno}.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -28,7 +28,7 @@ Estado/\ucstEnEdicion]%
     }
 
 	\UCitem{Propósito}{%
-        Permitir al administrador agregan las distintas funcionalidades que brinda el
+        Permitir al administrador agregar las distintas funcionalidades que brinda el
         módulo de experiencia.
 	}
 	
@@ -54,7 +54,7 @@ Estado/\ucstEnEdicion]%
 
 	\UCitem{Postcondiciones}{%
         La actualización de las \refElem{tExpSettingsGeneral} del módulo de experiencia
-        debe persistirse en el sistema.
+        deben persistirse en el sistema.
 	}
 
 	\UCitem{Reglas de negocio}{%
@@ -66,7 +66,7 @@ Estado/\ucstEnEdicion]%
         % CAUSA
             La versión del plugin no cumple con la regla \refElem{BR-M1},}{%
         % EFECTO
-            Impide que se puedan correr las acciones de instalación y/o actualización}
+            Se cancela la instalación y/o actualización}
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -87,7 +87,10 @@ Estado/\ucstEnEdicion]%
  \UCsection[admin]{Datos de Administración de Requerimiento}
 
 	\UCitem[admin]{Observaciones}{%
-        El mecanismo recomendado para que el administrador instale plugns
+        El mecanismo que nosotros recomendamos para que el administrador instale plugins
+        es incluyendo los plugins en la carpeta correspondiente al plugin en el directorio
+        de moodle, por ejemplo para instalar un {\bf bloque} es requerido poner la carpeta
+        del plugin dentro de la carpeta {\bf blocks}.
 	}
 
 \end{UseCase}
@@ -97,13 +100,12 @@ Estado/\ucstEnEdicion]%
 
 \begin{UCtrayectoria}%
 %
- \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
-        para abrir el menu de navegación.
+ \Actor Realiza la preinstalación del plugin incluyendo la carpeta del archivo en la ubicación
+        correspondiente.
 
- \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
+ \Moodle Detecta que existe almenos un nuevo plugin listo para ser instalado.
 
- \Sistema Carga la pantalla \refElem{IU-M02}
-
+ \Sistema Redirige a la pantalla \refElem{IU-M01}
 \end{UCtrayectoria}
 
 
