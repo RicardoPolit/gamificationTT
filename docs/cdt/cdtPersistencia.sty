@@ -193,10 +193,13 @@
     }{\IfSubStr{#1}{IU}{%
         \gdef\referencedElementFamily{IU}%
         \gdef\refElemText{#1:}%
+    }{\IfSubStr{#1}{CP}{%
+        \gdef\referencedElementFamily{Element}%
+        \gdef\refElemText{#1:}%
     }{%
         \gdef\referencedElementFamily{Element}%
         \gdef\refElemText{}%
-    }}}}}}}%
+    }}}}}}}}%
 }
 
 %=====================================================
