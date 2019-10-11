@@ -38,7 +38,8 @@ composer.json
 composer.lock
 config-dist.php
 config.php
-course/
+course/*
+course/format/*
 customfield/
 dataformat/
 draftfile.php
@@ -59,12 +60,12 @@ install/
 iplookup/
 lang/
 lib/
-local/
+local/*
 login/
 media/
 message/
 mnet/
-mod/
+mod/*
 my/
 notes/
 node_modules/
@@ -94,14 +95,14 @@ webservice/
 *.swp
 
 # Folders: Including plugins tested
-!blocks/gmxp/
-#!blocks/gmxp/**/*
-!blocks/gmlb/
-!blocks/gmlb/**/*
+!blocks/gmxp
+!blocks/gmxp/**/*
+!blocks/gmlb
+!blocks/gmlb/**
 !local/gamedlemaster
 !local/gamedlemaster/**/*
-!course/format/
+!course
+!course/format
 !course/format/gamedle
 !course/format/gamedle/**/*
 !mod/testquiz/
-!mod/testquiz/**/*
