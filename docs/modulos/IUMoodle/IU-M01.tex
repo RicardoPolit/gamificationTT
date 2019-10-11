@@ -1,54 +1,33 @@
 
-\subsection{IU-M01 Pantalla principal}
+\subsection{IU-M01: Instalación de Plugins}
 
- La página de portada, o página principal mostrada en la figura \ref{IU-M01}, es la
- página inicial que ve alguien que llega a un sitio Moodle antes o después de entrar al sitio.
- Típicamente un estudiante verá los cursos, algunos bloques de información, mostrados en un tema.
- En la Barra de navegación y en el menú de navegación (esquina superior izquierda).\\
+ Esta página muestra los plugins que pueden requerir su atención durante un actualización al sitio
+ de moodle, como una la instalación o actualización de plugins. La documentación de esta pantalla
+ contempla únicamente el caso de instalación/actualización de un plugin a la vez.
 
- \noindent 
- La combinación de las políticas del sitio, autenticación del usuario y configuraciones de la
- portada determinan quién puede llegar a la portada, los elementos que pueden ver y acciones
- que pueden realizar \cite{MoodlePortada}.
-    % https://docs.moodle.org/all/es/Portada
+    \IUfig{1}{modulos/IUMoodle/Install.png}{IU-M01}{Comprobación de plugins}
 
-    \IUfig{1}{modulos/IUMoodle/IU-M01-moodle.png}{IU-M01}{Pantalla Principal de Moodle}
-
-\subsubsection{Elementos Relevantes}
+\subsubsection{Elementos relevantes}
 
     \begin{itemize}
-    \item
-    {\bf Menú Superior}
-        Como su nombre lo indica se encuentra en la parte superior, este elemento se
-        encuentra en la mayoría de las pantallas de moodle.
-
-    \item
-    {\bf Menú de Navegación}
-        Cuando esta visible se encuentra en la parte izquierda de la parte izquierda
-        de la mayoría de las pantallas de moodle. Se puede ocultar o mostrar con la
-        acción \IUMenu[].
-
-    \item
-    {\bf Contenido}
-        Tiene todos los demás elementos que conforman el contenido de la pantalla.
-
+    \item {\bf Lista de plugins a instalar}
+        La lista de \refElem[Plugins]{Plugin} que se van a instalar, incluyendo
+        sus atributos.
     \end{itemize}
 
 \subsubsection{Acciones relevantes}
 
     \begin{itemize}
-    
-    \item
-    {\bf \IUMenu (Desplegar el menú)}
-        Si el menú está oculto, cuando el usuario presione el botón \IUMenu el menú de
-        navegación se desplegará.
+    \item {\bf Actualizar base de datos de Moodle ahora}
+        Esta acción permite instalar el plugin en Moodle y correr la secuencia de
+        instrucciones establecida por el plugin a instalar. Redirige a la pantalla
+        \refElem{IU-M01a}.
 
-    \item {\bf \IUMenu (Ocultar Menu)}
-        Si el menú está visible, cuando el usuario presione el botón \IUMenu el menú de
-        navegación se ocultará.
+    \item {\bf Cancelar las nuevas instalaciones}
+        Esta acción permite cancelar las instalaciones o actualizaciones de los plugins.
 
-    \item {\bf \IUAdminSitio Administración del sitio }
-        Cuando el menú está visible, el botón de administración del sitio nos permitirá
-        navegar a la pantalla \refElem{IU-M02}
-
+    \item {\bf Cancelar esta instalación}
+        A diferencia de la acción anterior, esta acción permite cancelar la instalación
+        o actualización de un plugin en particular anterior. Redirige a la pantalla
+        \refElem{IU-M01b}
     \end{itemize}

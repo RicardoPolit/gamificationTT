@@ -1,0 +1,119 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.1,%
+Estado/\ucstEnEdicion]%
+%
+{CU-E01}{Instalar/actualizar plugin del módulo de experiencia}{%
+%
+ Permite al \refElem{aAdministrador} extender las funcionalidades que brinda moodle añadiendo el
+ sistema de experiencia el cual brinda al \refElem[administrador]{aAdministrador} y los
+ \refElem[profesores]{aProfesor} la opción para configurar la forma en que se otogará la
+ experiencia a los \refElem[alumnos]{aAlumno}, incluyendo la cantidad a otogar.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ \today }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}
+    }
+
+	\UCitem{Propósito}{%
+        Permitir al administrador agregan las distintas funcionalidades que brinda el
+        módulo de experiencia.
+	}
+	
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitems{Destino}{%
+		\Titem \refElem{IU-M02a} Pantalla de configuración
+	}
+	
+	\UCitems{Precondiciones}{%
+        \Titem Para que moodle detecte que se desea instalar o actualizar un plugin,
+               es requerido que los archivos del plugin se encuentren en la carpeta
+               correcta.
+        \Titem Si se trata de una actualización de un plugin la versión del plugin
+               debe ser mayor a la indicada por la regla \refElem{BR-M1}.
+	}
+
+	\UCitem{Postcondiciones}{%
+        La actualización de las \refElem{tExpSettingsGeneral} del módulo de experiencia
+        debe persistirse en el sistema.
+	}
+
+	\UCitem{Reglas de negocio}{%
+		\imprimeUC{regla}
+	}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+        % CAUSA
+            La versión del plugin no cumple con la regla \refElem{BR-M1},}{%
+        % EFECTO
+            Impide que se puedan correr las acciones de instalación y/o actualización}
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }	
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-E01} Instalando plugin
+        \Titem \refElem{CPC-E01a} Actualizando plugin
+        \Titem \refElem{CPI-E01b} Instalando plugin con versión inválida
+        \Titem \refElem{CPI-E01b} Actualizando plugin con versión inválida
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{%
+        El mecanismo recomendado para que el administrador instale plugns
+	}
+
+\end{UseCase}
+
+\clearpage
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+ \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
+        para abrir el menu de navegación.
+
+ \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
+
+ \Sistema Carga la pantalla \refElem{IU-M02}
+
+\end{UCtrayectoria}
+
+
+\subsubsection{Puntos de extensión}
+
+\UCExtensionPoint{Nombre del punto de extensión}{%
+
+    El \refElem{aAdministrador} desea/requiere/necesita ....%
+%
+    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
+%
+    }{\refElem{CU-E2-T}}
+

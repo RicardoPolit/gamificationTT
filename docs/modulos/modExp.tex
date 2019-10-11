@@ -15,14 +15,14 @@
 
  \noindent
  Las configuraciones fueron organizadas en dos grupos: las {\it configuraciones a
- nivel plataforma} las cuales definen valores de forma global, y las {\it configuraciones a nivel curso}
- las cuales definen valores para un curso en específico. A continuación se describen cada uno de los
- grupos.\\
+ nivel plataforma} las cuales definen valores de forma global, y las {\it configuraciones a nivel
+ curso} las cuales definen valores para un curso en específico. A continuación se describen cada
+ uno de los grupos.\\
 
     \begin{cdtEntidad}{ConfigXP}{Configuración de Experiencia}{}%
-    %Esta entidad es únicamente una representación de las configuraciones correspondientes al módulo de
-    %experiencia y no forma parte del modelo de datos ya que las configuraciones de todos los plugins son
-    %almacenados en la entidad \refElem{Mdl-configuration}.}
+    %Esta entidad es únicamente una representación de las configuraciones correspondientes al módulo
+    %de experiencia y no forma parte del modelo de datos ya que las configuraciones de todos los
+    %plugins son almacenados en la entidad \refElem{Mdl-configuration}.}
 
         \brAttr{activated}{activado}{tBoolean}{%
             Valor que indica si el módulo de experiencia está activado o no.\par
@@ -33,7 +33,8 @@
         }
 
         \brAttr{xpEvents}{eventosExp}{tBoolean}{%
-            Valor que indica si se brinda experiencia a la lista de eventos \refElem{EventsXP}.\par
+            Valor que indica si se brinda experiencia a la lista de eventos
+            \refElem{Configuracion.eventos}.\par
 
             \it Restricciones:
             \refElem{tRequerido}.
@@ -146,6 +147,7 @@
                     % INPUT: Otorgar experiencia
                     % INPUT: Administración de experiencia en el curso
 
+\clearpage
 \section{Casos de uso}
 
  En este apartado se especifican todos los casos de usos contemplados para el módulo de
@@ -169,6 +171,7 @@
  serán los del módulo de experiencia debido a que Moodle proporciona en su página oficial, guías
  e instructivos como documentación de las funcionalidades que brinda.
 
+    \input{modulos/modExpCU/CU-E01} % Instalar configuración del esquema de experiencia
     \input{modulos/modExpCU/CU-E02} % Configurar esquema de experiencia
     \input{modulos/modExpCU/CU-E02-1} % Configuraciones generales
     \input{modulos/modExpCU/CU-E02-2} % Visualización de niveles
@@ -180,7 +183,13 @@
 \clearpage
 \section{Interfaces del módulo de Experiencia}
 
-    \input{modulos/IUMoodle/IU-M01} % Pantalla principal
+    \input{modulos/IUMoodle/IU-M01} % Instalación
+    \input{modulos/IUMoodle/IU-M01a} % Resutlado de Instalación
+    \clearpage
+    \input{modulos/IUMoodle/IU-M01b} % Resutlado de Instalación
+    \clearpage
+    %\input{modulos/IUMoodle/IU-M01}  % Cancelación de Instalación
+
     \input{modulos/IUMoodle/IU-M02} % Administración del Sitio
     %\input{modulos/IUMoodle/IU-M02-1} % Configuraciones generales
     %\input{modulos/IUMoodle/IU-M02-2} % Visualización de niveles

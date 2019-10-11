@@ -1,58 +1,54 @@
 
-\subsection{IU-M02 Administración del sitio}
+\subsection{IU-M02 Pantalla principal}
 
- La página de administración del sitio permite al administrator acceder a todas las opciones para
- administrar la apariencia, seguridad, usuarios, permisos, cursos, plugins y demás funcionalidades
- que brinda moodle. La amplia cantidad de configuraciones están agrupadas en nueve categorías
- principales: {\it administración del sitio, usuarios, grupos, calificaciones, plugins, apariencia,
- servidor, reportes y desarrollo}.
+ La página de portada, o página principal mostrada en la figura \ref{IU-M02}, es la
+ página inicial que ve alguien que llega a un sitio Moodle antes o después de entrar al sitio.
+ Típicamente un estudiante verá los cursos, algunos bloques de información, mostrados en un tema.
+ En la Barra de navegación y en el menú de navegación (esquina superior izquierda).\\
 
-    \IUfig{1}{modulos/IUMoodle/IU-M02-AdminSitio.png}{IU-M02}{Administración del sitio}
+ \noindent 
+ La combinación de las políticas del sitio, autenticación del usuario y configuraciones de la
+ portada determinan quién puede llegar a la portada, los elementos que pueden ver y acciones
+ que pueden realizar \cite{MoodlePortada}.
+    % https://docs.moodle.org/all/es/Portada
 
-\subsubsection{Elementos Relevantes}
+    \IUfig{1}{modulos/IUMoodle/Dashboard.png}{IU-M02}{Pantalla Principal de Moodle}
+
+\subsubsection{Elementos relevantes}
 
     \begin{itemize}
-    \item {\bf Pestañas}
-        Permiten acceder al conjunto de herramientas y configuraciones que brindan
-        cada una de las categorías principales para la administración del sitio.
+    \item
+    {\bf Menú Superior}
+        Como su nombre lo indica se encuentra en la parte superior, este elemento se
+        encuentra en la mayoría de las pantallas de moodle.
+
+    \item
+    {\bf Menú de Navegación}
+        Cuando esta visible se encuentra en la parte izquierda de la parte izquierda
+        de la mayoría de las pantallas de moodle. Se puede ocultar o mostrar con la
+        acción \IUMenu[].
+
+    \item
+    {\bf Contenido}
+        Tiene todos los demás elementos que conforman el contenido de la pantalla.
+
     \end{itemize}
 
 \subsubsection{Acciones relevantes}
 
     \begin{itemize}
-    \item {\bf Categoría plugins (selección) }
-        Permite administrar los plugins así como acceder a las configuraciones particulares de
-        cada plugin. Las configuraciones de los distintos plugins se encuentran organizadas por
-        tipos de plugins.
+    
+    \item
+    {\bf \IUMenu (Desplegar el menú)}
+        Si el menú está oculto, cuando el usuario presione el botón \IUMenu el menú de
+        navegación se desplegará.
+
+    \item {\bf \IUMenu (Ocultar Menu)}
+        Si el menú está visible, cuando el usuario presione el botón \IUMenu el menú de
+        navegación se ocultará.
+
+    \item {\bf \IUAdminSitio Administración del sitio }
+        Cuando el menú está visible, el botón de administración del sitio nos permitirá
+        navegar a la pantalla \refElem{IU-M03}
+
     \end{itemize}
-
- \noindent 
- Adicionalmente las siguientes acciones adicionales se mostrarán en la pantalla \refElem{IU-M02a}
- agrupadas en seis subcategorías correspondientes a los módulos identificados.
-
-    \IUfig{1}{modulos/IUMoodle/IU-M02-Plugins.png}{IU-M02a}{Administración del sitio (plugins)}
-
-    \begin{description}[font=\color{primary}]
-
-    \bTerm{tExpCategoria}{Gamedle: Módulo de Experiencia}
-            Representa una categoría de configuraciones del módulo de experiencia. \hfill
-
-        \begin{description}[font={\labelitemi\ \color{black}}]
-
-        \bTerm{tExpSettingsGeneral}{Configuraciones Generales}
-            Es el enlace a las configuraciones para habilitar o deshabilitar complementamente
-            el sistema de experiencia, redirige a la pantalla \refElem{IU-E02}.
-
-        \bTerm{tExpSettingsVisual}{Configuraciones Visuales}
-            Es el enlace a las configuraciones visuales acerca de cómo se visualizan las
-            pantallas emergentes al subir de nivel y el nivel actual en el que se encuentra
-            un usuario, redirige a la pantalla \refElem{IU-E03}.
-
-        \bTerm{tExpSettingsComportamiento}{Configuraciones de Comportamiento}
-            Es el enlace a las específica de que cantidad de experiencia de los cursos, y
-            la cantidad de experiencia que requiere cada nivel, redirige a la pantalla
-            \refElem{IU-E04}.
-        \end{description}
-
-    \end{description}
-
