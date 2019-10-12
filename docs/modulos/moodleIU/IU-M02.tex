@@ -1,54 +1,35 @@
 
-\subsection{IU-M02 Pantalla principal}
+\subsection{IU-M02: Instalador de plugin}
 
- La página de portada, o página principal mostrada en la figura \ref{IU-M02}, es la
- página inicial que ve alguien que llega a un sitio Moodle antes o después de entrar al sitio.
- Típicamente un estudiante verá los cursos, algunos bloques de información, mostrados en un tema.
- En la Barra de navegación y en el menú de navegación (esquina superior izquierda).\\
+ La página del instalador de plugins permite al \refElem{aAdministrador} instalar nuevos plugins al 
+ moodle que administra de una forma sencilla y sin tener que manipular los archivos en el servidor
+ donde se tenga moodle instalado, para ello cada \refElem[plugin]{Plugin} a instalar debe estar
+ compresos en un archivo {\it ZIP} cumpliendo con la regla \refElem{BR-M1}.
 
- \noindent 
- La combinación de las políticas del sitio, autenticación del usuario y configuraciones de la
- portada determinan quién puede llegar a la portada, los elementos que pueden ver y acciones
- que pueden realizar \cite{MoodlePortada}.
-    % https://docs.moodle.org/all/es/Portada
+ % TODO: BR-M1: Restricciones el archivo de instalación.
+ % El archivo de instalación debe ser un archivo ZIP, el cual debe contener exactamente un
+ % directorio que coincida con el nombre del plugin.
 
-    \IUfig{1}{modulos/IUMoodle/Dashboard.png}{IU-M02}{Pantalla Principal de Moodle}
+    \IUfig{1}{modulos/moodleIU/InstallPlugin.png}{IU-M02}{Instalador de plugin}
 
 \subsubsection{Elementos relevantes}
 
     \begin{itemize}
-    \item
-    {\bf Menú Superior}
-        Como su nombre lo indica se encuentra en la parte superior, este elemento se
-        encuentra en la mayoría de las pantallas de moodle.
-
-    \item
-    {\bf Menú de Navegación}
-        Cuando esta visible se encuentra en la parte izquierda de la parte izquierda
-        de la mayoría de las pantallas de moodle. Se puede ocultar o mostrar con la
-        acción \IUMenu[].
-
-    \item
-    {\bf Contenido}
-        Tiene todos los demás elementos que conforman el contenido de la pantalla.
-
+    \item {\bf Selector de archivos.}
+        Permite elegir un archivo y prepararlo para subirlo a moodle
+        y realizar las acciones correspondientes.
     \end{itemize}
 
 \subsubsection{Acciones relevantes}
 
     \begin{itemize}
-    
-    \item
-    {\bf \IUMenu (Desplegar el menú)}
-        Si el menú está oculto, cuando el usuario presione el botón \IUMenu el menú de
-        navegación se desplegará.
+    \item {\bf Selección de un archivo}
+        Permite seleccionar un \refElem{Plugin} compreso en un archivo {\it ZIP} para
+        ser instalado en moodle.
 
-    \item {\bf \IUMenu (Ocultar Menu)}
-        Si el menú está visible, cuando el usuario presione el botón \IUMenu el menú de
-        navegación se ocultará.
-
-    \item {\bf \IUAdminSitio Administración del sitio }
-        Cuando el menú está visible, el botón de administración del sitio nos permitirá
-        navegar a la pantalla \refElem{IU-M03}
-
+    \item {\bf Instalar plugin desde un archivo ZIP}
+        Confirma el envió del formulario que contiene principalmente al archivo compreso con 
+        el plugin que será instalado. Redirige a la pantalla \refElem{IU-M02a}.
     \end{itemize}
+
+\clearpage

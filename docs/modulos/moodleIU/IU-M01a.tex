@@ -1,25 +1,45 @@
+\subsection{IU-M01a: Administración del sitio (Plugins)}
 
-\subsection{IU-M01a: Resultado de instalación del plugin}
+ La página de administración del sitio con la pestaña de plugins seleccionada (ver figura
+ \ref{IU-M01a}) permite al \refElem{aAdministrador} instalar, desinstalar y realizar las
+ configuraciones que tienen los distintos plugins instalados en moodle. Las configuraciones se
+ encuentran organizadas por tipos de plugins.
 
- Esta pantalla muestra el resultado de la instalación del plugin. Si los plugins
- que son instalados vienen de una fuente confiable, esta pantalla siempre debería
- de aparecer mostrando un resultado existoso, en caso contrario dira que la instalación
- no pudo llevarse a cabo de forma exitosa.
+    \IUfig{1}{modulos/moodleIU/AdministracionSitioPlugins.png}{IU-M01a}{%
+        Administración del sitio (plugins)}
 
-    \IUfig{1}{modulos/IUMoodle/InstallResult.png}{IU-M01a}{Resultado de instalación del plugin}
+ \noindent 
+ Los distintos plugins que se instalarán correspondientes a cada módulo añadirán distintas
+ configuraciones las cuales se podrán acceder mediante esta página. A continuación se presenta
+ una lista de las opciones que se añadirán.
 
-\subsubsection{Elementos relevantes}
+    \begin{description}[font=\color{primary}]
 
-    \begin{itemize}
-    \item {\bf Mensaje de estado de instalación}
-        El mensaje se pinta de color verde o color rojo dependiendo si el 
-    \end{itemize}
+    \bTerm{tExpCategoria}{Gamedle: Módulo de Experiencia}
+            Representa una categoría de configuraciones del módulo de experiencia. Si se oprime
+            este enlace entonces redirigirá a la pantalla \refElem{IU-E01}\hfill
 
-\subsubsection{Acciones relevantes}
+        \begin{description}[font={\labelitemi\ \color{black}}]
 
-    \begin{itemize}
-    \item {\bf Aceptar}
-        Si el plugin possé configuraciones para el administrador entonces esta acción
-        redirigirá a la pantalla de configuración correspondiente al plugin, en caso
-        contrario redirigirá a la anterior página del sitio de moodle mostrada.
-    \end{itemize}
+        \bTerm{tExpSettingsGeneral}{Configuraciones Generales}
+            Es el enlace a las configuraciones para habilitar o deshabilitar complementamente
+            el sistema de experiencia, redirige a la pantalla \refElem{IU-E02}.
+
+        \bTerm{tExpSettingsVisual}{Configuraciones Visuales}
+            Es el enlace a las configuraciones visuales acerca de cómo se visualizan las
+            pantallas emergentes al subir de nivel y el nivel actual en el que se encuentra
+            un usuario, redirige a la pantalla \refElem{IU-E03}.
+
+        \bTerm{tExpSettingsComportamiento}{Configuraciones de Comportamiento}
+            Es el enlace a las configuraciones que específican la cantidad de experiencia que
+            los cursos brindarán y la cantidad de experiencia que requiere cada nivel, redirige
+            a la pantalla \refElem{IU-E04}.
+
+        \bTerm{tExpSettingsEventos}{Configuraciones de Eventos}
+            Es el enlace a las configuración que especifican a que eventos otorgarán experiencia
+            y la cantidad de experiencia que entregarán \refElem{IU-E05}.
+        \end{description}
+
+    \end{description}
+
+\clearpage
