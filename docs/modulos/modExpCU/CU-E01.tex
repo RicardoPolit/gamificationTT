@@ -11,12 +11,12 @@ Autor/Daniel Ortega,%
 Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-E01}{Instalar/actualizar plugin del módulo de experiencia}{%
+{CU-E01}{Instalar plugin del módulo de experiencia}{% TODO; Deberia se Instalar/Actualizar ???
 %
- Permite al \refElem{aAdministrador} extender las funcionalidades que brinda moodle añadiendo el
- sistema de experiencia el cual brinda al \refElem[administrador]{aAdministrador} y los
- \refElem[profesores]{aProfesor} la opción para configurar la cantidad y la forma en que se otogará
- la experiencia a los \refElem[alumnos]{aAlumno}.}
+ Permite al \refElem{aAdministrador} incluir todas las funcionalidades que brinda el módulo de
+ experiencia al moodle que administra mediante la instalación de los plugins correspondientes.
+ La conclusión de la trayectoria principal de esta caso de uso es una precondición para que los
+ demás casos de uso puedan ejecutarse.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -27,9 +27,12 @@ Estado/\ucstEnEdicion]%
         \refElem{aAdministrador}
     }
 
-	\UCitem{Propósito}{%
-        Permitir al administrador agregar las distintas funcionalidades que brinda el
-        módulo de experiencia.
+	\UCitems{Propósito}{%
+        \Titem Permitir al administrador incluir todas las funcionalidades que brinda el módulo de
+        experiencia al moodle que administra.
+
+        \Titem Permitir a los usuarios de moodle ver su progreso en la plataforma mediante puntos
+        de experiencia.
 	}
 	
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -41,32 +44,33 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
 	\UCitems{Destino}{%
-		\Titem \refElem{IU-M02a} Pantalla de configuración
+		\Titem \refElem{IU-M01}
 	}
 	
 	\UCitems{Precondiciones}{%
-        \Titem Para que moodle detecte que se desea instalar o actualizar un plugin,
-               es requerido que los archivos del plugin se encuentren en la carpeta
-               correcta.
-        \Titem Si se trata de una actualización de un plugin la versión del plugin
-               debe ser mayor a la indicada por la regla \refElem{BR-M1}.
+        \Titem La caperta comprimida que contiene los archivos del plugin
+        \Titem El plugin debe cumplir con la regla \refElem{BR-M01} para poder ser
+               instalado.
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
 	}
 
-	\UCitem{Postcondiciones}{%
-        La actualización de las \refElem{tExpSettingsGeneral} del módulo de experiencia
-        deben persistirse en el sistema.
+	\UCitems{Postcondiciones}{%
+        \Titem El plugin debe permanecer instalado en moodle.%
+        \Titem La actualización de las \refElem{xp-general-settings} del módulo de experiencia
+               deben persistirse en el sistema.
+        \Titem Los \refElem[usuarios]{mdl-user} registrados en moodle deberán tener la
+               asociada la información de un \refElem{xp-user}.
 	}
 
-	\UCitem{Reglas de negocio}{%
-		\imprimeUC{regla}
-	}
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
         % CAUSA
-            La versión del plugin no cumple con la regla \refElem{BR-M1},}{%
+            ...}{%
         % EFECTO
-            Se cancela la instalación y/o actualización}
+            ...}
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -78,19 +82,13 @@ Estado/\ucstEnEdicion]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E01} Instalando plugin
-        \Titem \refElem{CPC-E01a} Actualizando plugin
-        \Titem \refElem{CPI-E01b} Instalando plugin con versión inválida
-        \Titem \refElem{CPI-E01b} Actualizando plugin con versión inválida
+        \Titem \refElem{CPC-E01} (importante)
+        \Titem \refElem{CPI-E01b} 
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
 
 	\UCitem[admin]{Observaciones}{%
-        El mecanismo que nosotros recomendamos para que el administrador instale plugins
-        es incluyendo los plugins en la carpeta correspondiente al plugin en el directorio
-        de moodle, por ejemplo para instalar un {\bf bloque} es requerido poner la carpeta
-        del plugin dentro de la carpeta {\bf blocks}.
 	}
 
 \end{UseCase}
