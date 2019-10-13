@@ -1,0 +1,43 @@
+\begin{BusinessRule}[%
+Autor/El Despistado,%
+Version/0.1,%
+Estado/edicion]%
+%
+{BR-M01}{Restricciones del archivo de instalación}
+ % El archivo de instalación debe ser un archivo ZIP, el cual debe contener exactamente un
+ % directorio que coincida con el nombre del plugin.
+     \BRitem[control]{Revisor}{Sin asignar.}
+
+ \BRsection[control]{Atributos}
+    % Clases: \bcCondition, \bcIntegridad, \bcAutorization o \bcDerivation
+    % Tipos: \btEnabler, \btTimer o \btExecutive
+    % Niveles: \blControlling o \blInfluencing.
+    
+    \BRitem[admin]{Clase}{\bcCondition}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    
+    \BRitem{Descripción}{%
+        El archivo de instalación debe ser un archivo {\it ZIP}, el cual debe contener
+        exactamente un directorio que coincida con prefijo del nombre del plugin.
+    }
+
+%   \BRitem{Sentencia}{%
+%       Si $fecha$ 
+%   }%
+
+    \BRitem{Ejemplo positivo}{%
+        El plugin es un plugin de tipo bloque, cuyo nombre es {\it ``block\_html''}.
+        los archivos de dicho plugin se encuentran en una carpeta {\it ``html''} la
+        cual ha sido comprimida en un archivo {\it ZIP}.
+    }
+
+    \BRitem{Ejemplo negativo}{%
+        El plugin es un plugin de tipo bloque, cuyo nombre es {\it ``block\_clock''}.
+        los archivos de dicho plugin se encuentran en una carpeta {\it ``block-clock''}
+        la cual ha sido comprimida en un archivo {\it ZIP}.
+    }% 
+    
+ \end{BusinessRule}
