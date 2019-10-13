@@ -1,0 +1,78 @@
+
+\section{Relaciones de moodle}
+
+ A continuación se presenta la especificación de las relaciones del esquema de base
+ de datos de moodle que son relevantes para el desarrollo de los módulos y submódulos
+ de proyecto.
+
+    \begin{cdtEntidad}{mdl-config-plugins}{Configuración de Plugin}{%
+    Es una tabla del núcleo de moodle que almacena todas las configuraciones globales
+    relacionadas a los plugins instalados, al iniciar moodle las configuraciones de los
+    plugins instalados y habilitados se cargan en memoria.}
+
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa el identificador único para una configuración
+            específica de un plugin.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+
+        \brAttr{plugin}{Plugin}{tVarchar}{%
+            Cadena de caracteres del nombre identificador del plugin al cual pertenece
+            la configuración.\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tRange} (0,100),
+            \refElem{tUniqueKey}
+        }
+
+        \brAttr{name}{Nombre}{tVarchar}{%
+            Cadena de caracteres que representa el nombre de la configuración de un
+            plugin en específico.\par
+
+            \it Restricciones:
+            \refElem{tUniqueKey},
+            \refElem{tRange} (0,100),
+            \refElem{tRequired}
+        }
+
+        \brAttr{value}{Valor}{tVarchar}{%
+            Cadena que almacena el valor de una configuración perteneciente a alguno
+            de los plugins instalados.\par
+
+            \it Restricciones:
+            \refElem{tRange} (0,4294967295),
+            \refElem{tRequired}
+        }
+	%\cdtEntityRelSection
+	%\brRel{\brRelComposition}{Ejemplo}{Escribe el enunciado que denota la composición.}
+	%\brRel{\brRelAgregation}{Ejemplo}{Tambien puede ser con agregaciones.}
+	%\brRel{\brRelGeneralization}{Ejemplo}{De la misma forma con Generalizaciones.}
+    \end{cdtEntidad}\schemeName{config\_plugins}
+
+    \begin{cdtEntidad}{mdl-user}{Usuario de moodle}{%
+    Es una tabla del núcleo de moodle que contiene toda la información que se
+    almacena de los usuarios en la plataforma, independientemente del rol que
+    estos contenga, esta relación contiene más de 53 atributos, sin embargo solo
+    se detallan aquellos relevantes.}
+
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa el identificador único para cada uno
+            de los usuarios en moodle.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+
+    \end{cdtEntidad}\schemeName{user}
+
+    \begin{cdtEntidad}{Plugin}{Plugin}{%
+    La forma en que moodle obtiene información acerca de los plugins es analizando
+    los archivos internos de cada uno, a pesar de que los plugins no forman parte
+    del esquema de base de datos, si forman parte del modelo de información que
+    utiliza Moodle.}
+    \end{cdtEntidad}
