@@ -75,4 +75,60 @@
     los archivos internos de cada uno, a pesar de que los plugins no forman parte
     del esquema de base de datos, si forman parte del modelo de información que
     utiliza Moodle.}
+
+	    \brAttr{componente}{Componente}{tVarchar}{%
+	        Cadena compuesta por el tipo de plugin y el nombre del mismo, que
+            representa a la clase principal del plugin que contiene los métodos
+            principales del plugin.\par
+
+            \it Restricciones: Ninguna
+        }
+
+	    \brAttr{pluginname}{Nombre}{tVarchar}{%
+	        Es el nombre del plugin obtenido de los archivos de
+            internacionalización presentes en el plugin, el valor de esta cadena
+            depende del lenguaje seleccionado en moodle.\par
+
+            \it Restricciones: Ninguna
+        }
+
+	    \brAttr{fullpath}{Ruta absoluta}{tPath}{%
+	        La ruta absoluta de un plugin denota la ubicación del plugin en el
+            sistema de archivos, esta ruta está compuesta por la ruta absoluta
+            de la instalación de moodle, la carpeta correspondiente al tipo del
+            plugin y el nombre del plugin.\par
+
+            \it Restricciones: Formato ``/path/to/moodle/plugintype/pluginname''
+        }
+
+	    \brAttr{path}{Ruta relativa}{tPath}{%
+	        La ruta relativa denota la ubicación del plugin dentro de la carpeta 
+            donde se encuentran los archivos de moodle, esta ruta está compuesta
+            por la carpeta correspondiente al tipo del plugin y el nombre del
+            plugin.\par
+
+            \it Restricciones: Formato ``plugintype/pluginname''
+        }
+
+	    \brAttr{version}{Versión}{tVersion}{%
+	        Numero entero de longitud de 10 dígitos que representa la versión del plugin.\par
+
+            \it Restricciones: Ninguna adicional al tipo de dato
+        }
+
+	    \brAttr{moodle}{Versión de Moodle}{tVersion}{%
+	        Número entero de longitud de 10 dígitos que representa la versión de moodle en la que
+            se puede instalar el plugin.\par
+
+            \it Restricciones: Ninguna adicional al tipo de dato
+        }
+
+        \brAttr{dependencies}{Dependencias}{tObject}{%
+            Objeto que almacena un conjunto de claves con sus respectivos valores, donde cada
+            clave representa el nombre del componente del plugin y el valor es la \refElem{Plugin.version}
+            requerida del mismo.
+
+            \it Restricciones: Ninguna
+        }
+
     \end{cdtEntidad}
