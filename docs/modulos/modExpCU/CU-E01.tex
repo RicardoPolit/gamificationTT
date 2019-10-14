@@ -67,10 +67,21 @@ Estado/\ucstEnEdicion]%
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
+            El archivo zip del plugin seleccionado está corroto,}{% CAUSA
+            no se puede continuar con la instalación del plugin}% EFECTO
+
+        \Titem \UCerr{Err2}{%
+            Alguna de las dependencias del plugin no se satisface con
+            los plugins instalados}{% CAUSE
+            no se puede continuar con las instalación del plugin}% EFECTO
+
+        \Titem \UCerr{Err3}{%
         % CAUSA
-            ...}{%
+            Durante la ejecución de las tareas de instalación del nuevo plugin ocurre
+            un error,}{%
         % EFECTO
-            ...}
+            las tareas de instalación del propio plugin no pudieron concluir apropiadamente,
+            el plugin sigue }
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -82,8 +93,7 @@ Estado/\ucstEnEdicion]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E01} (importante)
-        \Titem \refElem{CPI-E01b} 
+        \Titem \refElem{CPC-E01}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -93,27 +103,96 @@ Estado/\ucstEnEdicion]%
 
 \end{UseCase}
 
-\clearpage
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
 %
- \Actor Realiza la preinstalación del plugin incluyendo la carpeta del archivo en la ubicación
-        correspondiente.
+    \includeUC{CU-M01}
 
- \Moodle Detecta que existe almenos un nuevo plugin listo para ser instalado.
+    \Actor Selecciona la opción {\bf Instalar plugins}
+    \Sistema Carga la pantalla \refElem{IU-M02} con el formulario para seleccionar el
+             plugin a instalar. \label{CU-E01-formulario-instalacion}
 
- \Sistema Redirige a la pantalla \refElem{IU-M01}
+    \Actor Presiona la opción {\bf Seleccione un archivo} 
+    \Sistema Despliega la pantalla \refElem{IU-M00a} como pantalla emergente 
+             \label{CU-E01-seleccion-archivo}
+
+    \Actor Selecciona la opción {\it Subir un archivo} en el menu izquierdo de la pantalla
+           emergente y posteriormente presiona el botón {\it Browse}.
+    \Actor Selecciona el archivo que contiene al \entrada{Plugin} del módulo de experiencia.
+    \Actor Presiona el botón {\bf Subir este archivo}.
+    \Sistema Valida que el archivo del plugin sea de tipo {\it ZIP}. \refTray{A}
+    \Sistema Cierra la pantalla emergente y muestra el nombre del archivo seleccionado en la
+             pantalla \refElem{IU-M02}
+
+    \Actor Presiona el botón {\bf Instalar plugin desde archivo ZIP}
+    \Sistema Valida que el archivo {\it ZIP} cumpla con las restricciones dictadas por la
+             \regla{BR-M01}. \refErr{Err1}
+    \Sistema Obtiene el \salida{Plugin.componente}, la \salida{Plugin.fullpath} y el
+             \salida{Plugin.pluginname} del plugin a ser instalado.
+    \Sistema Carga la pantalla \refElem{IU-M02a}, mostrando los datos anteriormente obtenidos.
+
+    \Actor Continua con la instalación de plugin presionando la opción {\bf continuar}. \refTray{B}
+
+    \Sistema Obtiene tambien la \salida{Plugin.moodle}, la lista de \salida{Plugin.dependencies}
+             y la \salida{Plugin.version} del plugin a instalar. \refErr{Err2}
+             \label{CU-E01-comprobacion}
+    \Sistema Despliega los datos obtenidos en la pantalla \refElem{IU-M02b}
+
+    \Actor Presiona el botón {\bf Actualizar base de datos Moodle ahora}. \refTray{C}
+    \Sistema Procesa las tareas de instalación de moodle.
+
+    \Sistema Obtiene la lista de los \refElem[identificadores]{mdl-user.id} de los
+             usuarios de moodle.
+    \Sistema Asocia mediante los identificadores datos de un \refElem{xp-user}
+             estableciendo el \refElem{xp-user.level} actual igual a $1$,
+             la \refElem{xp-user.xp} igual a $0$.
+    \Sistema Carga la interfaz \refElem{IU-M02d} informando que la instalación
+             ha sido llevaba a cabo de forma correcta. \refErr{Err3}
+
+    \Actor Presiona el botón {\bf continuar}.
+
+    \includeUC{CU-E01} a partir del paso \ref{CU-E03-formulario}
 \end{UCtrayectoria}
 
+\begin{UCtrayectoriaA}{A}{Cuando el archivo seleccionado es distinto de un ZIP}
 
-\subsubsection{Puntos de extensión}
+  \Sistema Emite en una ventana emergente el mensaje {\it Error: ``El tipo de
+           archivo \$EXT no se acepta.''} siendo {\it\$EXT} la extensión del
+           archivo seleccionado.
+  \Sistema Regresa al paso \ref{CU-E01-seleccion-archivo}.
 
-\UCExtensionPoint{Nombre del punto de extensión}{%
+\end{UCtrayectoriaA}
 
-    El \refElem{aAdministrador} desea/requiere/necesita ....%
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+{B}{El \refElem{aAdministrador} despues de la validación del archivo desea cancelar la instalación.}
+
+    \Actor Presiona el botón {\bf cancelar} de la pantalla \refElem{IU-M02a}.
+    \Sistema Cancela la instalación del plugin y redirige a la pantalla \refElem{IU-M02}
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+{C}{El \refElem{aAdministrador} despues de ver la comprobación de plugins a instalar desea cancelar
+la instalación}
+
+    \Actor Presiona el botón {\bf cancelar esta instalación} o {\bf cancelar las nuevas instalaciones}
+    \Sistema Redirige a la pantalla \refElem{IU-M02c}
+
+    \Actor Si el actor presiona el botón {\bf Continuar} entonces 
+    \UCpaso[--] el caso de uso terminará, (en caso contrario)
+
+    \Actor Si el actor presiona el botón {\bf Cancelar}
+    \Sistema Regresa al paso \ref{CU-E01-comprobacion}
+\end{UCtrayectoriaA}
+
+%\subsubsection{Puntos de extensión}
+
+%\UCExtensionPoint{Nombre del punto de extensión}{%
+
+%    El \refElem{aAdministrador} desea/requiere/necesita ....%
 %
-    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
+%    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
 %
-    }{\refElem{CU-E2-T}}
+%    }{\refElem{CU-E2-T}}
 

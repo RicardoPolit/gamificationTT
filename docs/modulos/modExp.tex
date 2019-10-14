@@ -57,7 +57,9 @@
  e instructivos como documentación de las funcionalidades que brinda.
 
     % CASOS DE USO DE MOODLE
+    \input{modulos/moodleCU/CU-M01} % Acceder a la administración del sitio
 
+    % MODULO DE EXPERIENCIA
     \input{modulos/modExpCU/CU-E01} % Instalar plugin del esquema de experiencia
     % configuración del esquema de experiencia
     %\input{modulos/modExpCU/CU-E02} % Configurar esquema de experiencia
@@ -73,6 +75,8 @@
 
     % INTERFACES DE MOODLE 
     \input{modulos/moodleIU/IU-M00}  % Tablero (Dashboard)
+    \input{modulos/moodleIU/IU-M00a}  % Form: Selector de archivos
+
     \input{modulos/moodleIU/IU-M01}  % Administración del sitio
     \input{modulos/moodleIU/IU-M01a} % Administración del sitio plugins
 
@@ -97,8 +101,7 @@
 
 \chapter{Pruebas}
 
-\TestCase{CPC-E02}{Configurar esquema de experiencia caso correcto}
-\TestCase{CPI-E02}{Configurar esquema de experiencia sin plugins}
+    \input{modulos/modExpCP/CPC-E01}
 
 \begin{comment}
 \section{Submódulos}
