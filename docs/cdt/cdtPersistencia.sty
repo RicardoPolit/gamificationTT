@@ -305,7 +305,8 @@
         \foreach \id in \aux{%
             \ifthenelse{\equal{}{\id}}{}{%
                 \IfSubStr{\id}{.}{%
-                    \Titem \refElem{\id} de \StrBefore{\id}{.}%
+                    \StrBefore{\id}{.}[\entity]%
+                    \Titem \refElem{\id} de \pgfkeysvalueof{/Element/\entity}%
                 }{%
                     \Titem \refElem{\id}%
                 }%
