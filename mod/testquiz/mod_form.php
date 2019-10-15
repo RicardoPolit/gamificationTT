@@ -72,6 +72,15 @@ class mod_testquiz_mod_form extends moodleform_mod {
         $mform->addElement('selectgroups', 'questioncategory', get_string('questioncategory', 'testquiz'), $categories);
         $mform->addHelpButton('questioncategory', 'questioncategory', 'testquiz');
 
+        $mform->addElement(
+            'select', 'cpudifficulty',
+            'Select the difficulty of the cpu', array(
+            '0' => 'easy',
+            '1' => 'normal',
+            '2' => 'hard',
+            '3' => 'impossible'
+        ));
+
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
         // Add standard buttons, common to all modules.

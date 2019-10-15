@@ -69,7 +69,7 @@ class mod_testquiz_renderer extends plugin_renderer_base {
 
         $display = html_writer::start_tag('form',
             array('action' => new moodle_url('/mod/testquiz/processattempt.php',
-                array('id' => $quba->get_id())), 'method' => 'post',
+                array('id' => $quba->get_id(),'cm' => $cm->instance)), 'method' => 'post',
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
 
