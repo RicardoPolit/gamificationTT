@@ -43,8 +43,8 @@ Estado/\ucstEnEdicion]%
 
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
-	\UCitems{Destino}{%
-		\Titem \refElem{IU-M01}
+	\UCitem{Destino}{%
+		\refElem{IU-M01}
 	}
 	
 	\UCitems{Precondiciones}{%
@@ -152,7 +152,7 @@ Estado/\ucstEnEdicion]%
 
     \Actor Presiona el botón {\bf continuar}.
 
-    \includeUC{CU-E01} a partir del paso \ref{CU-E03-formulario}
+    \includeUC{CU-E02} a partir del paso \ref{CU-E03-formulario}
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}{A}{Cuando el archivo seleccionado es distinto de un ZIP}
@@ -165,7 +165,7 @@ Estado/\ucstEnEdicion]%
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
-{B}{El \refElem{aAdministrador} despues de la validación del archivo desea cancelar la instalación.}
+{B}{El \refElem{aAdministrador} desea cancelar la instalación despues de la validación del archivo ZIP}
 
     \Actor Presiona el botón {\bf cancelar} de la pantalla \refElem{IU-M02a}.
     \Sistema Cancela la instalación del plugin y redirige a la pantalla \refElem{IU-M02}
@@ -173,8 +173,7 @@ Estado/\ucstEnEdicion]%
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
-{C}{El \refElem{aAdministrador} despues de ver la comprobación de plugins a instalar desea cancelar
-la instalación}
+{C}{El \refElem{aAdministrador} desea cancelar la instalación despues de ver la comprobación de plugins a instalar}
 
     \Actor Presiona el botón {\bf cancelar esta instalación} o {\bf cancelar las nuevas instalaciones}
     \Sistema Redirige a la pantalla \refElem{IU-M02c}

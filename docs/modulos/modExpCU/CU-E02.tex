@@ -11,12 +11,12 @@ Autor/Daniel Ortega,%
 Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-E02}{Configurar esquema de experiencia}{%
+{CU-E02}{Realizar configuraciones del módulo de experiencia}{%
 %
- Permite al \refElem{aAdministrador} configurar el esquema de experiencia, especificando
- la forma en que se obtienen los puntos de experiencia, la cantidad de puntos a otorgar, 
- el número de puntos de cada nivel y finalmente la visualización del nivel y de los puntos
- de cada usuario.}
+ Permite al \refElem{aAdministrador} acceder a las configuraciones del esquema de experiencia
+ para consultar y cambiar los aspectos generales del módulo de experiencia, los cuales
+ consisten en habilitar/deshabilitar el esquema de experiencia además de habilitar/deshabilitar
+ que los eventos proporcionen experiencia.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -27,13 +27,9 @@ Estado/\ucstEnEdicion]%
         \refElem{aAdministrador}
     }
 
-	\UCitem{Propósito}{%
-        Acceder a las menús de configuración del esquema de experiencia.
-		% \Titem Establecer la cantidad de experiencia que brindarán los cursos.
-        % \Titem Establecer la forma en que incrementa la cantidad de experiencia de cada nivel con respecto al anterior.
-        % \Titem Configurar la visualización de la pantalla emergente al subir de nivel
-        % \Titem Configurar la visualización del bloque que muestra el nivel actual del usuario.
-        % \Titem Establecer visualización agrupando niveles
+	\UCitems{Propósito}{%
+        \Titem Habilitar/deshabilitar el módulo de experiencia.
+        \Titem Habilitar/deshabilitar que los eventos proporcionen experiencia.
 	}
 	
 %% BEGIN-BLOQUE PARA AGREGAR UNA REVISION ------------------------------------->
@@ -59,31 +55,25 @@ Estado/\ucstEnEdicion]%
 %	}
 %% <------------------------------------------ END-BLOQUE PARA AGREGAR UNA REVISION
 	
-	\UCitems{Entradas}{%
-		\Titem Selección de la opción \IUMenu menu.
-        \Titem Selección de la opción \IUAdminSitio Administración del Sitio.
-        \Titem Selección de la pestaña {\it Plugins}.
+	\UCitems{Entradas}{\imprimeUC{entrada}}
+
+	\UCitem{Origen}{%
+        Mouse
 	}
 
-	\UCitems{Origen}{%
-        \Titem Mouse
-	}
+	\UCitems{Salidas}{\imprimeUC{salida}}
 
-	\UCitems{Salidas}{%
-		\imprimeUC{salida}
-	}
-
-	\UCitems{Destino}{%
-		\Titem \refElem{IU-M02a}
+	\UCitem{Destino}{%
+		\refElem{IU-M01}
 	}
 	
-	\UCitems{Precondiciones}{%
-        % TODO: ¿Se deben especificar aunque eso sea diseño?
-        \Titem Que los plugins del módulo de experiencia se encuentren instalados
+	\UCitem{Precondiciones}{%
+        Que los plugins del módulo de experiencia se encuentren instalados
 	}
 
 	\UCitem{Postcondiciones}{%
-        Ninguna
+        Los nuevos valores de las \refElem{xp-general-settings} deben de ser
+        almacenados en el sistema.
 	}
 
 	\UCitem{Reglas de negocio}{%
@@ -109,7 +99,6 @@ Estado/\ucstEnEdicion]%
 
 	\UCitems[design]{Casos de Prueba}{%
         \Titem \refElem{CPC-E02}
-        \Titem \refElem{CPI-E02}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -125,58 +114,32 @@ Estado/\ucstEnEdicion]%
 
 \begin{UCtrayectoria}%
 %
- \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
-        para abrir el menu de navegación.
+    \includeUC{CU-M01} \refErr{Err1}
 
- \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
+    \Actor Presiona la opción {\bf \refElem{tExpSettingsGeneral}} en la categoría \refElem{%
+           tExpCategoria}. \refTray{A} \label{CU-E02-ir-a-formulario}
+    \Sistema Obtiene el valor establecido de los \salida[eventos activados]{xp-general-settings.%
+             events} que determina si los eventos brindan experiencia o no.
+    \Sistema Obiene el valor \salida{xp-general-settings.activated} que define si el módulo de
+             experiencia está activado.
+    \Sistema Carga la pantalla \refElem{IU-E02} estableciendo los valores por defecto del
+             formulario con los valores obtenidos.
 
- \Sistema Carga la pantalla \refElem{IU-M02}
+    \Actor Establece el valor \entrada{xp-general-settings.activated} para definir si el sistema de
+           experiencia estará habilitado o deshabilitado. \refTray{B}
+    \Actor Establece el valor \entrada[eventos activados]{xp-general-settings.events} para definir
+           si se les brindará soporte a los eventos dependiendo si estos estñan activados o no.
+    \Actor Presiona el botón {\bf Guardar cambios}.
+    \Sistema Obtiene el valor \refElem{xp-general-settings.activated} y de \refElem[eventos %
+             activados]{xp-general-settings.events} y los valores anteiormente establecidos.
+    \Sistema Carga la pantalla \refElem{IU-M01}.
 
- \Actor Selecciona ver las opciones para administrar plugins presionando la pestaña
-        {\it Plugins}
-
- \Sistema Obtiene las categorias de las opciones que se muestran en la pantalla.
-
- \Sistema En la categoría {\it Bloques} agrega la subcategoría \salida{tExpSettingsGeneral} con
-          los enlaces a las configuraciones \salida{tExpSettingsVisual} y 
-          \salida{tExpSettingsComportamiento} del módulo de experiencia. \refErr{Err1}
-
- \Sistema Carga la pantalla \refElem{IU-M02a}.
-
-    % \Sistema ... \label{CU-E2-Menu}
-    % \Actor ...  \refTray{B} \ref{CU-E2-Menu}
 \end{UCtrayectoria}
 
+\begin{UCtrayectoriaA}{A}{%
+El \refElem{aAdministrador} selecciona la categoría \refElem{tExpCategoria}}
 
-\subsubsection{Puntos de extensión}
-
-\UCExtensionPoint{Configuraciones generales}{%
-
-    El \refElem{aAdministrador} desea cambiar las configuraciones generales del módulo de 
-    experiencia, las cuales incluyen habilitar/deshabilitar el módulo de experiencia o
-    la entrega de recompensa a otros eventos de Gamedle.%
-%
-    }{En el paso \ref{CU-E2-1x} de la trayectoria principal%
-%
-    }{\refElem{CU-E02-1}}
-
-\UCExtensionPoint{Configuraciones Visuales}{%
-
-    El \refElem{aAdministrador} desea cambiar las configuraciones generales del módulo de 
-    experiencia, las cuales incluyen habilitar/deshabilitar el módulo de experiencia o
-    la entrega de recompensa a otros eventos de Gamedle.%
-%
-    }{En el paso \ref{CU-E2-1x} de la trayectoria principal%
-%
-    }{\refElem{CU-E02-2}}
-
-\UCExtensionPoint{Configuraciones de Comportamiento}{%
-
-    El \refElem{aAdministrador} desea cambiar las configuraciones generales del módulo de 
-    experiencia, las cuales incluyen habilitar/deshabilitar el módulo de experiencia o
-    la entrega de recompensa a otros eventos de Gamedle.%
-%
-    }{En el paso \ref{CU-E2-1x} de la trayectoria principal%
-%
-    }{\refElem{CU-E02-3}}
+    \Sistema Carga la pantalla \refElem{IU-E01}.
+    \Sistema Regresa al paso \ref{CU-E02-ir-a-formulario}.
+\end{UCtrayectoriaA}
 
