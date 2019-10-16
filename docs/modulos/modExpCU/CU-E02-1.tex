@@ -13,8 +13,11 @@ Estado/\ucstEnEdicion]%
 %
 {CU-E02-1}{Configurar visualización de niveles}{%
 %
- Permite al \refElem{aAdministrador} establecer la forma en que luce la representación visual de
- los niveles, las cuales incluyen ...}
+ Permite al \refElem{aAdministrador} establecer y modificar los colores, textos e
+ imagenes que se muestran en la visualización del nivel actual y en las ventanas
+ emergentes de un nuevo nivel alcanzado. Cuando un administrador actualize los valores
+ de la configuración los usuarios serán capaces de ver los cambios al renderizarse la
+ siguiente página.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -26,12 +29,13 @@ Estado/\ucstEnEdicion]%
     }
 
 	\UCitem{Propósito}{%
-        \Titem Cambiar las \refElem{xp-visual-settings} del módulo de experiencia.
-        \Titem Cambiar el color de la barra de progreso del nivel actual que ve cada usuario.
-        \Titem Establecer la imagen que se presenta en cada nivel de la plataforma.
-        \Titem Establecer el color que tendrá el número
-        \Titem Cambiar los mensajes y titulos que se muestran en el popup cada vez que se avanza
-               de nivel.
+      \Titem Cambiar las \refElem{xp-visual-settings} del módulo de experiencia.
+      \Titem Cambiar el color de la barra de progreso del nivel actual que ve cada
+             usuario.
+      \Titem Establecer la imagen que se presenta en cada nivel de la plataforma.
+      \Titem Establecer el color que tendrá el número
+      \Titem Cambiar los mensajes y titulos que se muestran en el popup cada vez que
+             se avanza de nivel.
 	}
 	
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -56,9 +60,7 @@ Estado/\ucstEnEdicion]%
         para todos los usuarios y además deben persistirse en el sistema.
 	}
 
-	\UCitem{Reglas de negocio}{%
-		Ninguna
-	}
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
@@ -68,17 +70,12 @@ Estado/\ucstEnEdicion]%
             ...}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
-					  % extienden de Login.
-		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
-	% 	\TODO Especificar.
-	% }	
-
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E0Y}
-        \Titem \refElem{CPI-E0Y}
+        \Titem \refElem{CPC-E02-1}
+        \Titem \refElem{CPI-E02-1a}
+        \Titem \refElem{CPI-E02-1b}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -92,16 +89,25 @@ Estado/\ucstEnEdicion]%
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
-%
- \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
-        para abrir el menu de navegación.
-
- \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
-
- \Sistema Carga la pantalla \refElem{IU-M02}
+  \includeUC{CU-M01} \refErr{Err1}
+  \Actor Presiona la opción {\bf \refElem{tExpSettingsVisual}} en la categoría
+         \refElem{tExpCategoria}.
+  \Sistema Obtiene el valor de si el módulo de experiencia está \refElem[activado]%
+           {xp-general-settings.activated} o no. \refTray{A}
+  \Sistema Obtiene los valores actuales de la configuración:
+           \salida{xp-visual-settings.title},
+           \salida{xp-visual-settings.description},
+           \salida{xp-visual-settings.message},
+           \salida{xp-visual-settings.colorLvl},
+           \salida{xp-visual-settings.colorBar} e
+           \salida{xp-visual-settings.image}.
+  \Sistema Carga la pantalla \refElem{IU-E03} estableciendo cómo valor por defecto
+           de los elementos del formulario las \refElem{tExpSettingsVisual}
 
 \end{UCtrayectoria}
 
+\begin{UCtrayectoriaA}{A}{El módulo de experiencia no se encuentra activado}
+\end{UCtrayectoriaA}
 
 \subsubsection{Puntos de extensión}
 
