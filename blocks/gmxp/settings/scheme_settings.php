@@ -1,13 +1,14 @@
 <?php
 
-require(__DIR__.'/../../config.php');
+require(__DIR__.'/../../../config.php');
 require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->dirroot . '/blocks/gmxp/includes/colourpicker.php');
 
 \MoodleQuickForm::registerElementType('customcert_colourpicker',
     $CFG->dirroot . '/blocks/gmxp/includes/colourpicker.php', 'MoodleQuickForm_customcert_colourpicker');
 
-admin_externalpage_setup('block_gmxp_ext_general');
+define('PLUGIN', 'block_gmxp');
+admin_externalpage_setup(get_string('SYS_SETTINGS_SCHEME', PLUGIN));
 
 $context = context_system::instance();
 // functionality like processing form submissions goes here
