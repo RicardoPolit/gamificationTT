@@ -13,6 +13,7 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
 				upgrades2019042101();
 				upgrades2019050800();
 				upgrades2019100900();
+            	upgrades2019101500();
 			}
 		else if ($oldversion < 2019040300)
 			{
@@ -21,6 +22,7 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
 				upgrades2019042101();
 				upgrades2019050800();
 				upgrades2019100900();
+            	upgrades2019101500();
 			}
 		else if($oldversion < 2019042100)
 			{
@@ -28,6 +30,7 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
 				upgrades2019042101();
 				upgrades2019050800();
 				upgrades2019100900();
+            	upgrades2019101500();
 			}
 
 		else if($oldversion < 2019042101)
@@ -35,21 +38,70 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
 				upgrades2019042101();
 				upgrades2019050800();
 				upgrades2019100900();
+            	upgrades2019101500();
 			}
 		else if($oldversion < 2019050800)
 			{
 				upgrades2019050800();
 				upgrades2019100900();
+            	upgrades2019101500();
 			}
 		else if ($oldversion < 2019100900)
 			{
             	upgrades2019100900();
+            	upgrades2019101500();
+			}
+		else if($oldversion < 2019101500)
+			{
+				upgrades2019101500();
 			}
 
         // Gamedlemaster savepoint reached.
-        upgrade_plugin_savepoint(true, 2019100900, 'local', 'gamedlemaster');
+        upgrade_plugin_savepoint(true, 2019101500, 'local', 'gamedlemaster');
 
 		return true;
+	}
+
+
+function upgrades2019101500()
+	{
+
+		global $DB;
+        $dbman = $DB->get_manager();
+
+		// Define key gmdlcomcpu_id (foreign) to be dropped form gmdl_intento.
+        $table = new xmldb_table('gmdl_intento');
+        $key = new xmldb_key('gmdl_com_cpu_id', XMLDB_KEY_FOREIGN, array('gmdl_com_cpu_id'), 'gmdl_com_cpu', array('id'));
+
+        // Launch drop key gmdlcomcpu_id.
+        $dbman->drop_key($table, $key);
+
+
+
+        // Define table gmdl_com_cpu to be renamed to gmdlcompcpu.
+        $table = new xmldb_table('gmdl_com_cpu');
+
+        // Launch rename table for gmdlcompcpu.
+        $dbman->rename_table($table, 'gmdlcompcpu');
+
+
+        // Rename field gmdlcomcpu_id on table gmdl_intento to gmdlcompcpu_id.
+        $table = new xmldb_table('gmdl_intento');
+        $field = new xmldb_field('gmdl_com_cpu_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'gmdl_dificultad_cpu_id');
+
+        // Launch rename field gmdlcomcpu_id.
+        $dbman->rename_field($table, $field, 'gmdlcompcpu_id');
+        
+
+        // Define key gmdlcomcpu_id (foreign) to be added to gmdl_intento.
+        $table = new xmldb_table('gmdl_intento');
+        $key = new xmldb_key('gmdlcompcpu_id', XMLDB_KEY_FOREIGN, array('gmdlcompcpu_id'), 'gmdlcomcpu', array('id'));
+
+
+        // Launch add key gmdlcomcpu_id.
+        $dbman->add_key($table, $key);
+
+
 	}
 
 function upgrades2019100900()
