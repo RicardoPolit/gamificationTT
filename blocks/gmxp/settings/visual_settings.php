@@ -73,6 +73,8 @@ class gmxpadminfromgeneral extends moodleform {
 
     private function experience_scheme_definition() {
 
+        // https://docs.moodle.org/dev/Form_API#Basic_form_elements
+        // lib/formslib.php -> MoodleQuickForm::setDefault
         $mform = $this->_form;
 
         $mform->addElement(
@@ -91,12 +93,14 @@ class gmxpadminfromgeneral extends moodleform {
             array('group' => 1),
             array(0, 1));
 
+
         $select = $mform->addElement(
             'select', 'typeOfIncrement',
             get_string('typeOfIncrement','block_gmxp'), array(
                 '0' => get_string('typeOfIncrementB','block_gmxp'),
                 '1' => get_string('typeOfIncrementA','block_gmxp')
             ));
+
 
         $mform->addElement(
             'text', 'numValorIncrement',
@@ -143,13 +147,13 @@ class gmxpadminfromgeneral extends moodleform {
         $mform->addRule( 'numValorIncrement', get_string('maxlength','block_gmxp'), 'maxlength', '5', 'client');
         $mform->addRule( 'numValorIncrement', get_string('number','block_gmxp'), 'number', null, 'client');
 
-        $mform->setDefault('numValorIncrement', get_string('valueNumIncrementDefault','block_gmxp'));
-        $mform->setDefault('firstExpRequiried','10');
+        // $mform->setDefault('numValorIncrement', get_string('valueNumIncrementDefault','block_gmxp'));
+        $mform->setDefault('numValorIncrement', '15500');
+        $mform->setDefault('firstExpRequiried','1000');
         $mform->addRule('firstExpRequiried', get_string('required'), 'required');
         $mform->addRule('firstExpGiven', get_string('required'), 'required');
         $mform->setDefault('firstExpGiven','100');
     }
-
 
     function validateTwoDecimals($number)
     {
@@ -295,6 +299,7 @@ class gmxpadminfromgeneral extends moodleform {
         $entry->typeOfIncrement = get_config('block_gmxp','typeOfIncrement');
 
         $entry->numValorIncrement = get_config('block_gmxp','numValorIncrement');
+        $entry->numValorIncrement = 1000;
 
         $entry->firstExpRequiried = get_config('block_gmxp','firstExpRequiried');
 
