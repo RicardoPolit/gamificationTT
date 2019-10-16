@@ -11,9 +11,10 @@ Autor/Daniel Ortega,%
 Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-E02-1}{Habilitar/Deshabilitar el módulo de experiencia}{%
+{CU-E02-1}{Configurar visualización de niveles}{%
 %
- Permite al \refElem{aActor} .}
+ Permite al \refElem{aAdministrador} establecer la forma en que luce la representación visual de
+ los niveles, las cuales incluyen ...}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -21,11 +22,16 @@ Estado/\ucstEnEdicion]%
  \UCsection{Atributos}
 
     \UCitem{Actor(es)}{%
-        \refElem{aActor}
+        \refElem{aAdministrador}
     }
 
 	\UCitem{Propósito}{%
-        ...
+        \Titem Cambiar las \refElem{xp-visual-settings} del módulo de experiencia.
+        \Titem Cambiar el color de la barra de progreso del nivel actual que ve cada usuario.
+        \Titem Establecer la imagen que se presenta en cada nivel de la plataforma.
+        \Titem Establecer el color que tendrá el número
+        \Titem Cambiar los mensajes y titulos que se muestran en el popup cada vez que se avanza
+               de nivel.
 	}
 	
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -38,15 +44,16 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
 	\UCitems{Destino}{%
-		\Titem \refElem{IU-M02a}
+		\Titem \refElem{IU-M01}
 	}
 	
 	\UCitems{Precondiciones}{%
-        \Titem ...
+        Que los plugins del módulo de experiencia se encuentren instalados,
 	}
 
 	\UCitem{Postcondiciones}{%
-        Ninguna
+        Los nuevos valores de las \refElem{xp-visual-settings} deben ser actualizados
+        para todos los usuarios y además deben persistirse en el sistema.
 	}
 
 	\UCitem{Reglas de negocio}{%
@@ -82,7 +89,6 @@ Estado/\ucstEnEdicion]%
 
 \end{UseCase}
 
-\clearpage
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
