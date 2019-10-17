@@ -18,5 +18,5 @@ define('PLUGIN', 'block_gmxp');
      * Constants that defines the default values
      */
 
-    local_gamedle_master_log::info("Set default value of ...", "gmxp"); 
+    local_gamedlemaster_log::info("Set default value of ...", "gmxp"); 
 ?>
