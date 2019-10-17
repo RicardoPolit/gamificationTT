@@ -17,14 +17,29 @@
 
 /**
  * Global variables in the system, should not be translated
+ * unless they have asterisks (*) commented
  */
+$string['SYS_SETTINGS_GENERAL_ACTIVATED'] = "activated";
+$string['SYS_SETTINGS_GENERAL_EVENTS'] = "events";
+
 $string['SYS_SETTINGS_VISUAL'] = "block_gmxp/visual_settings";
+$string['SYS_SETTINGS_VISUAL_TITLE'] = "title";
+$string['SYS_SETTINGS_VISUAL_DESCRIPTION'] = "description";
+$string['SYS_SETTINGS_VISUAL_MESSAGE'] = "message";
+$string['SYS_SETTINGS_VISUAL_COLORLVL'] = "colorLvl";
+$string['SYS_SETTINGS_VISUAL_COLORBAR'] = "colorBar";
+$string['SYS_SETTINGS_VISUAL_IMAGE'] = "image";
+
 $string['SYS_SETTINGS_SCHEME'] = "block_gmxp/scheme_settings";
 $string['SYS_SETTINGS_EVENTS'] = "block_gmxp/events_settings";
 
 /**
  * Settings Values
  */
+$string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
+$string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
+$string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
+
 $string['SETTINGS_CATEGORY'] = "Gamedle: Experience Module";
 $string['SETTINGS_GENERAL'] = "General Set Up";
 $string['SETTINGS_VISUAL'] = "Visual Set Up";
