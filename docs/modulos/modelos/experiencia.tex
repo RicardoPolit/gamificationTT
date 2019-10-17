@@ -36,6 +36,7 @@
 
             \it Restricciones:
             \refElem{tLength}$0-10$,
+            \refElem{tDefault} ``Gamedle Levels'',
             \refElem{tRequired}
         }
 
@@ -44,7 +45,7 @@
 
             \it Restricciones:
             \refElem{tRequired},
-            \refElem{tDefault} ``Casual Levels''
+            \refElem{tDefault} ``New reached level''
         }
 
         \brAttr{message}{Mensaje}{tVarchar}{%
@@ -77,7 +78,8 @@
             Imagen que se desplegará en los niveles cómo el escudo por defecto.\par
 
             \it Restricciones:
-            \refElem{tRequired}
+            \refElem{tRequired},\par
+            \refElem{tDefault} ``http://www.escom.ipn.mx/images/escudoESCOM.jpg''
         }
     \end{cdtEntidad}
 
