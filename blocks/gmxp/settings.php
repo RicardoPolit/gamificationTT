@@ -30,12 +30,14 @@ defined('MOODLE_INTERNAL') || die();
         get_string('SETTINGS_GENERAL_HEADER', PLUGIN),
         get_string('SETTINGS_GENERAL_HEADER_DESC', PLUGIN));
 
-    $enabledCheckbox = new admin_setting_configcheckbox( PLUGIN.'/enabled',
+    $enabledCheckbox = new admin_setting_configcheckbox( PLUGIN.'/'.
+        get_string('SYS_SETTINGS_GENERAL_ACTIVATED', PLUGIN),
         get_string('SETTINGS_GENERAL_ENABLED', PLUGIN),
         get_string('SETTINGS_GENERAL_ENABLED_DESC', PLUGIN),
         true, true, false);
 
-    $eventsCheckbox = new admin_setting_configcheckbox( PLUGIN.'/events_enabled',
+    $eventsCheckbox = new admin_setting_configcheckbox( PLUGIN.'/'.
+        get_string('SYS_SETTINGS_GENERAL_EVENTS', PLUGIN),
         get_string('SETTINGS_GENERAL_EVENTS_ENABLED', PLUGIN),
         get_string('SETTINGS_GENERAL_EVENTS_ENABLED_DESC', PLUGIN),
         true, true, false);
