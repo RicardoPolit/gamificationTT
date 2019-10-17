@@ -34,13 +34,13 @@ defined('MOODLE_INTERNAL') || die();
         get_string('SYS_SETTINGS_GENERAL_ACTIVATED', PLUGIN),
         get_string('SETTINGS_GENERAL_ENABLED', PLUGIN),
         get_string('SETTINGS_GENERAL_ENABLED_DESC', PLUGIN),
-        true, true, false);
+        true, 1, 0);
 
     $eventsCheckbox = new admin_setting_configcheckbox( PLUGIN.'/'.
         get_string('SYS_SETTINGS_GENERAL_EVENTS', PLUGIN),
         get_string('SETTINGS_GENERAL_EVENTS_ENABLED', PLUGIN),
         get_string('SETTINGS_GENERAL_EVENTS_ENABLED_DESC', PLUGIN),
-        true, true, false);
+        true, 1, 0);
 
     $general_settings = new admin_settingpage('block_gmxp/general_settings',
         get_string('SETTINGS_GENERAL', PLUGIN));
