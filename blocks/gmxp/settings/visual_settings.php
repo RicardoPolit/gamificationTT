@@ -321,10 +321,14 @@ class gmxpadminfromgeneral extends moodleform {
 
 }
 
-$pageAux = new gmxpadminfromgeneral();
+// $pageAux = new gmxpadminfromgeneral();
+local_gamedlemaster_log::info("OMG");
+$pageAux = new block_gmxp_visualsettingsform();
 
-$entry = $pageAux->setSettings();
 
+//$entry = $pageAux->setSettings();
+
+/*
 $flag = 0;
 if ($pageAux->is_cancelled()) {
     $flag = -3;
@@ -368,11 +372,11 @@ if ($pageAux->is_cancelled()) {
     //se procesa si la información no es validada
 
 }
+*/
+// $output = $pageAux->render();
 
-$output = $pageAux->render();
 
-
-
+/*
 echo $OUTPUT->header();
 
 if($flag == -1){
@@ -383,8 +387,8 @@ if($flag == -1){
 
     echo $OUTPUT->notification(get_string('successTopMessage','block_gmxp'), 'notifysuccess');
 
-}
+}*/
 
-echo $output;
+// echo $output;
 echo $OUTPUT->footer();
 

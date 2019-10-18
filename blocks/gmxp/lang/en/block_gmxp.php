@@ -36,6 +36,7 @@ $string['SYS_SETTINGS_EVENTS'] = "block_gmxp/events_settings";
 /**
  * Settings Values
  */
+$string['VISUAL_SETTING_TEXT_TITLE'] = "Specify the title of popup levels";
 $string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
 $string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
 $string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
