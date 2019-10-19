@@ -63,8 +63,7 @@ $string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] =
 /**
  * Messages of forms
  */
-$string['required'] = 'Requerido';
-$string['maxlength'] = 'Max length allowed ${a}';
+$string['maxlength'] = 'Max length allowed {$a}';
 
 $string['valueDownIntLevels'] = '1';
 $string['valueUpIntLevels'] = '10000';
