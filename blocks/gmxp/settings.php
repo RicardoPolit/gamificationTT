@@ -42,7 +42,7 @@ defined('MOODLE_INTERNAL') || die();
         true, 1, 0);
 
     $general_settings = new admin_settingpage(
-        get_string('SYS_SETTINGS_GENERAL'),
+        get_string('SYS_SETTINGS_GENERAL', $PLUGIN),
         get_string('SETTINGS_GENERAL', $PLUGIN)
     );
 
