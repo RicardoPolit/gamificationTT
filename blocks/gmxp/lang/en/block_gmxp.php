@@ -19,6 +19,7 @@
  * Global variables in the system, should not be translated
  * unless they have asterisks (*) commented
  */
+$string['SYS_SETTINGS_GENERAL'] = "block_gmxp_general_settings";
 $string['SYS_SETTINGS_GENERAL_ACTIVATED'] = "activated";
 $string['SYS_SETTINGS_GENERAL_EVENTS'] = "events";
 
@@ -42,9 +43,10 @@ $string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
 $string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
 
 $string['SETTINGS_CATEGORY'] = "Gamedle: Experience Module";
-$string['SETTINGS_GENERAL'] = "General Set Up";
-$string['SETTINGS_VISUAL'] = "Visual Set Up";
-$string['SETTINGS_SCHEME']  = "Experience Set up";
+$string['SETTINGS_GENERAL'] = "General Setting Up";
+$string['SETTINGS_VISUAL'] = "Visual Setting Up";
+$string['SETTINGS_SCHEME']  = "Experience Setting Up";
+$string['SETTINGS_EVENTS']  = "Events Setting Up";
 
 $string['SETTINGS_GENERAL_HEADER'] = "Choose the main features";
 $string['SETTINGS_GENERAL_HEADER_DESC'] = 
