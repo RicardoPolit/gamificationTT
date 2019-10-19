@@ -58,6 +58,11 @@ $string['SETTINGS_GENERAL_EVENTS_ENABLED'] = "Enable the experience points in su
 $string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] = 
     "Gives experience the default or established xp points for the list of events supported";
 
+/**
+ * Messages of forms
+ */
+$string['required'] = 'Requerido';
+$string['maxlength'] = 'Max length allowed ${a}';
 
 $string['valueDownIntLevels'] = '1';
 $string['valueUpIntLevels'] = '10000';
