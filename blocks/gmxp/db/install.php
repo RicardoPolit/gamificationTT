@@ -12,7 +12,7 @@
  *		
 */
 
-define('PLUGIN', 'block_gmxp');
+    $PLUGIN = 'block_gmxp';
 
     /**
      * Set the default visual settings
@@ -22,19 +22,19 @@ define('PLUGIN', 'block_gmxp');
         local_gamedlemaster_log::info(
             "Setting the default values for visual settings", "GMXP");
 
-        set_config(get_string('SYS_SETTINGS_VISUAL_TITLE', PLUGIN),
-                   get_string('VISUAL_SETTING_DEFAULT_TITLE', PLUGIN), PLUGIN);
+        set_config(get_string('SYS_SETTINGS_VISUAL_TITLE', $PLUGIN),
+                   get_string('VISUAL_SETTING_DEFAULT_TITLE', $PLUGIN), $PLUGIN);
 
-        set_config(get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', PLUGIN),
-                   get_string('VISUAL_SETTING_DEFAULT_DESCRIPTION', PLUGIN), PLUGIN);
+        set_config(get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', $PLUGIN),
+                   get_string('VISUAL_SETTING_DEFAULT_DESCRIPTION', $PLUGIN), $PLUGIN);
 
-        set_config(get_string('SYS_SETTINGS_VISUAL_MESSAGE', PLUGIN),
-                   get_string('VISUAL_SETTING_DEFAULT_MESSAGE', PLUGIN), PLUGIN);
+        set_config(get_string('SYS_SETTINGS_VISUAL_MESSAGE', $PLUGIN),
+                   get_string('VISUAL_SETTING_DEFAULT_MESSAGE', $PLUGIN), $PLUGIN);
 
-        $color = '#0B619F';
-        set_config(get_string('SYS_SETTINGS_VISUAL_COLORLVL', PLUGIN),$color, PLUGIN);
-        set_config(get_string('SYS_SETTINGS_VISUAL_COLORBAR', PLUGIN),$color, PLUGIN);
-        set_config(get_string('SYS_SETTINGS_VISUAL_IMAGE', PLUGIN), null, PLUGIN);
+        $blue = '#0B619F';
+        set_config(get_string('SYS_SETTINGS_VISUAL_COLORLVL', $PLUGIN), $blue, $PLUGIN);
+        set_config(get_string('SYS_SETTINGS_VISUAL_COLORBAR', $PLUGIN), $blue, $PLUGIN);
+        set_config(get_string('SYS_SETTINGS_VISUAL_IMAGE', $PLUGIN), null, $PLUGIN);
     }
 
     function set_default_scheme_settings() {
