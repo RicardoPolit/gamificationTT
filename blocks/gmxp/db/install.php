@@ -31,9 +31,12 @@
         set_config(get_string('SYS_SETTINGS_VISUAL_MESSAGE', $PLUGIN),
                    get_string('VISUAL_SETTING_DEFAULT_MESSAGE', $PLUGIN), $PLUGIN);
 
-        $blue = '#0B619F';
-        set_config(get_string('SYS_SETTINGS_VISUAL_COLORLVL', $PLUGIN), $blue, $PLUGIN);
-        set_config(get_string('SYS_SETTINGS_VISUAL_COLORBAR', $PLUGIN), $blue, $PLUGIN);
+        set_config(get_string('SYS_SETTINGS_VISUAL_COLORLVL', $PLUGIN),
+                   get_string('VISUAL_SETTING_DEFAULT_COLORLVL', $PLUGIN), $PLUGIN);
+
+        set_config(get_string('SYS_SETTINGS_VISUAL_COLORBAR', $PLUGIN),
+                   get_String('VISUAL_SETTING_DEFAUT_COLORBAR', $PLUGIN), $PLUGIN);
+
         set_config(get_string('SYS_SETTINGS_VISUAL_IMAGE', $PLUGIN), null, $PLUGIN);
     }
 
