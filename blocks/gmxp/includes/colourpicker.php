@@ -24,6 +24,7 @@
 
 defined('MOODLE_INTERNAL') || die('Direct access to this script is forbidden.');
 
+global $CFG;
 require_once($CFG->dirroot . '/lib/form/editor.php');
 
 /**

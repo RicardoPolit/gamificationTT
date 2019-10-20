@@ -38,9 +38,19 @@ $string['SYS_SETTINGS_EVENTS'] = "block_gmxp/events_settings";
  * Settings Values
  */
 $string['VISUAL_SETTING_TEXT_TITLE'] = "Specify the title of popup levels";
+$string['VISUAL_SETTING_TEXT_MESSAGE'] =
+    "Specify the main message when user reaches new level";
+
+$string['VISUAL_SETTING_TEXT_DESCRIPTION'] = "Specify the description of the levels";
+$string['VISUAL_SETTING_TEXT_COLORLVL'] = "Choose the color for the level number";
+$string['VISUAL_SETTING_TEXT_COLORBAR'] = "Choose the color for the level bar";
+$string['VISUAL_SETTING_TEXT_IMAGE'] = "Select the image of the levels";
+
 $string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
 $string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
 $string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
+$string['VISUAL_SETTING_DEFAULT_COLORLVL'] = "#0B619F";
+$string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "New reached level";
 
 $string['SETTINGS_CATEGORY'] = "Gamedle: Experience Module";
 $string['SETTINGS_GENERAL'] = "General Setting Up";
@@ -63,7 +73,7 @@ $string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] =
 /**
  * Messages of forms
  */
-$string['maxlength'] = 'Max length allowed {$a}';
+$string['maxlength'] = 'Max length allowed is {$a}';
 
 $string['valueDownIntLevels'] = '1';
 $string['valueUpIntLevels'] = '10000';
