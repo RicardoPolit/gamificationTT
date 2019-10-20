@@ -21,6 +21,8 @@ MoodleQuickForm::registerElementType('customcert_colourpicker',
 class block_gmxp_visualsettingsform extends moodleform {
 
     const PLUGIN = 'block_gmxp';
+    const COLOR_REGEX = '/^#[A-Fa-f0-9]{6,6}$/';
+
     protected function definition() {
 
         $mform = $this->_form; // Inherited from moodle form
@@ -72,6 +74,30 @@ class block_gmxp_visualsettingsform extends moodleform {
     private function create_help_messages() {
 
         $mform = $this->_form;
+
+        $mform->addHelpButton(
+            get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN),
+            'VISUAL_SETTING_HELP_TITLE', self::PLUGIN);
+        
+        $mform->addHelpButton(
+            get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN),
+            'VISUAL_SETTING_HELP_MESSAGE', self::PLUGIN);
+
+        $mform->addHelpButton(
+            get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN),
+            'VISUAL_SETTING_HELP_DESCRIPTION', self::PLUGIN);
+
+        $mform->addHelpButton(
+            get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN),
+            'VISUAL_SETTING_HELP_COLORLVL', self::PLUGIN);
+
+        $mform->addHelpButton(
+            get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN),
+            'VISUAL_SETTING_HELP_COLORBAR', self::PLUGIN);
+
+        $mform->addHelpButton(
+            get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN),
+            'VISUAL_SETTING_HELP_IMAGE', self::PLUGIN);
     }
 
     private function create_form_restrictions() {
@@ -86,15 +112,24 @@ class block_gmxp_visualsettingsform extends moodleform {
 
         $key = get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN);
         $mform->setType($key, PARAM_TEXT);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
 
         $key = get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN);
         $mform->setType($key, PARAM_TEXT);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
+
+        // Message of error in color field
+        $colorErr = get_string('color', self::PLUGIN);
 
         $key = get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN);
         $mform->setType($key, PARAM_TEXT);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, $colorErr, 'regex', self::COLOR_REGEX, 'client');
 
         $key = get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN);
         $mform->setType($key, PARAM_TEXT);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, $colorErr, 'regex', self::COLOR_REGEX, 'client');
 
         $key = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
         // $mform->setType($key, PARAM_TEXT);

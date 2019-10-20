@@ -16,6 +16,15 @@
 */
 
 /**
+ * Global strings variables displayed in different moodle pages
+ * those pages are commonly access menus
+ */
+$string['pluginname'] = 'Gamedle Level';
+$string['gmxp'] = 'Gamedle Level';
+$string['gmxp:addinstance']   = 'Add a new Gamedle level block';
+$string['gmxp:myaddinstance'] = 'Add a new Gamedle level block to the My Moodle page';
+
+/**
  * Global variables in the system, should not be translated.
  */
 $string['SYS_SETTINGS_GENERAL'] = "block_gmxp_general_settings";
@@ -65,14 +74,40 @@ $string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] =
     supported";
 
 // ==== VISUAL SETTINGS =====================================
-$string['VISUAL_SETTING_TEXT_TITLE'] = "Specify the title of popup levels";
-$string['VISUAL_SETTING_TEXT_MESSAGE'] =
-    "Specify the main message when user reaches new level";
+$string['VISUAL_SETTING_TEXT_TITLE'] = "Levels Title";
+$string['VISUAL_SETTING_HELP_TITLE'] = "the {$string['VISUAL_SETTING_TEXT_TITLE']}";
+$string['VISUAL_SETTING_HELP_TITLE_help'] =
+    "Specify the title of the levels displayed in the notification of new reached 
+    level";
 
-$string['VISUAL_SETTING_TEXT_DESCRIPTION'] = "Specify the description of the levels";
-$string['VISUAL_SETTING_TEXT_COLORLVL'] = "Choose the color for the level number";
-$string['VISUAL_SETTING_TEXT_COLORBAR'] = "Choose the color for the level bar";
-$string['VISUAL_SETTING_TEXT_IMAGE'] = "Select the image of the levels";
+$string['VISUAL_SETTING_TEXT_MESSAGE'] = "Congratulations message";
+$string['VISUAL_SETTING_HELP_MESSAGE'] = "the {$string['VISUAL_SETTING_TEXT_MESSAGE']}";
+$string['VISUAL_SETTING_HELP_MESSAGE_help'] =
+    "Specify the congratulations message displayed in the notification of new reached 
+    level";
+
+$string['VISUAL_SETTING_TEXT_DESCRIPTION'] = "Levels Description";
+$string['VISUAL_SETTING_HELP_DESCRIPTION'] = "the {$string['VISUAL_SETTING_TEXT_DESCRIPTION']}";
+$string['VISUAL_SETTING_HELP_DESCRIPTION_help'] =
+    "Specify the levels description displayed in the notification of new reached 
+    level";
+
+$string['VISUAL_SETTING_TEXT_COLORLVL'] = "Levels color";
+$string['VISUAL_SETTING_HELP_COLORLVL'] = "the {$string['VISUAL_SETTING_TEXT_COLORLVL']}";
+$string['VISUAL_SETTING_HELP_COLORLVL_help'] =
+    "Specify the levels color displayed in the block {$string['pluginname']}";
+
+$string['VISUAL_SETTING_TEXT_COLORBAR'] = "Progress Bar Color";
+$string['VISUAL_SETTING_HELP_COLORBAR'] = "the {$string['VISUAL_SETTING_TEXT_COLORBAR']}";
+$string['VISUAL_SETTING_HELP_COLORBAR_help'] =
+    "Specify the color of the progress bar displayed in the block 
+    {$string['pluginname']}";
+
+$string['VISUAL_SETTING_TEXT_IMAGE'] = "Levels Image";
+$string['VISUAL_SETTING_HELP_IMAGE'] = "the {$string['VISUAL_SETTING_TEXT_IMAGE']}";
+$string['VISUAL_SETTING_HELP_IMAGE_help'] =
+    "Select the image shown in the block {$string['pluginname']}. If the image is not 
+    provided, the image pix/image.jpg in the plugin's directory will be shown";
 
 $string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
 $string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
@@ -108,14 +143,8 @@ $string['valueUpStringMessageLevels'] = '50';
 $string['valueDownStringDescLevels'] = '1';
 $string['valueUpStringDescLevels'] = '150';
 
-/* GENERAL STRINGS */
-$string['pluginname'] = 'Gamedle Level';
-$string['gmxp'] = 'Gamedle Level';
-$string['gmxp:addinstance']   = 'Add a new Gamedle level block';
-$string['gmxp:myaddinstance'] = 'Add a new Gamedle level block to the My Moodle page';
 
 $string['nameGeneralSettings'] = 'General Settings';
-
 $string['nameVisualSettingsSections'] = 'Level view sections settings';
 $string['nameVisualSettingsGeneral'] = 'Level view general settings';
 
