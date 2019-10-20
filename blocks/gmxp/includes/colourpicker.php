@@ -1,4 +1,30 @@
 <?php
+/*
+ * UNIVERSITY:  INSTITUTO POLITECNICO NACIONAL (IPN)
+ *              ESCUELA SUPERIOR DE COMPUTO (ESCOM)
+ *   
+ * TRABAJO TERMINAL: 2018-B029
+ *   "GAMIFICACIÓN EN UNA PLATAFORMA WEB DE APRENDIZAJE"
+ *
+ *
+ * ASESORES: Sandra I, Bautista, Edgar A. Catatán
+ *
+ * DESARROLLADORES:
+ *   - Daniel Ortega  (gitlab: DanielOrtegaZ)
+ *   - Ricardo, David
+ *
+ *
+ * NOTES:
+ *  In order to provide this form element the support for
+ *  client side validation, the following line of code was
+ *  added at start of the method toHTML().
+ *  
+ *  <code>
+ *      $this->_type = 'text'"
+ *  </code>
+*/
+
+
 // This file is part of the customcert module for Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -59,6 +85,7 @@ class moodlequickform_customcert_colourpicker extends moodlequickform_editor {
      */
     public function tohtml() {
 
+        $this->_type = 'text'; // THIS LINE MODIFIED FOR CLIENT SIDE VALIDATION
         global $PAGE, $OUTPUT;
 
         $PAGE->requires->js_init_call('M.util.init_colour_picker',
