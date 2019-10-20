@@ -23,10 +23,15 @@ class block_gmxp_visualsettingsform extends moodleform {
     const PLUGIN = 'block_gmxp';
     const COLOR_REGEX = '/^#[A-Fa-f0-9]{6,6}$/';
 
+    const TITLE_MAX_LENGTH = 40;
+    const MSG_MAX_LENGTH   = 30;
+    const DESC_MAX_LENGTH  = 200;
+    const DESC_COLS        = 40;
+
     protected function definition() {
 
         $mform = $this->_form; // Inherited from moodle form
-        $mform->setDisableShortforms(true); // TODO CHECK WHY?
+        // $mform->setDisableShortforms(true); // TODO CHECK WHY?
 
         $this->create_definition();
         $this->create_help_messages();
@@ -42,33 +47,42 @@ class block_gmxp_visualsettingsform extends moodleform {
 
         $mform->addElement('text',
             get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_TITLE', self::PLUGIN));
+            get_string('VISUAL_SETTING_TEXT_TITLE', self::PLUGIN),
+            array(
+                'size' => self::TITLE_MAX_LENGTH,
+                'maxlength' => self::TITLE_MAX_LENGTH
+            )
+        );
 
         $mform->addElement('textarea',
             get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_DESCRIPTION', self::PLUGIN)
+            get_string('VISUAL_SETTING_TEXT_DESCRIPTION', self::PLUGIN),
+            array(
+                'maxlength' => self::DESC_MAX_LENGTH,
+                'cols' => self::DESC_COLS,
+            )
         );
 
         $mform->addElement('text',
             get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_MESSAGE', self::PLUGIN)
+            get_string('VISUAL_SETTING_TEXT_MESSAGE', self::PLUGIN),
+            array(
+                'size' => self::MSG_MAX_LENGTH,
+                'maxlength' => self::MSG_MAX_LENGTH
+            )
         );
 
         $mform->addElement('customcert_colourpicker',
             get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_COLORLVL', self::PLUGIN)
-        );
+            get_string('VISUAL_SETTING_TEXT_COLORLVL', self::PLUGIN));
 
         $mform->addElement('customcert_colourpicker',
             get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_COLORBAR', self::PLUGIN)
-        );
+            get_string('VISUAL_SETTING_TEXT_COLORBAR', self::PLUGIN));
 
         $mform->addElement('filepicker',
             get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_IMAGE', self::PLUGIN)
-        );
-
+            get_string('VISUAL_SETTING_TEXT_IMAGE', self::PLUGIN));
     }
 
     private function create_help_messages() {
@@ -107,16 +121,20 @@ class block_gmxp_visualsettingsform extends moodleform {
         $key = get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN);
         $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, get_string('maxlength', self::PLUGIN, 30),
-            'maxlength', 30, 'client');
+        $mform->addRule($key, get_string('maxlength', self::PLUGIN,
+            self::TITLE_MAX_LENGTH), 'maxlength', self::TITLE_MAX_LENGTH, 'client');
 
         $key = get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN);
         $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, get_string('maxlength', self::PLUGIN,
+            self::DESC_MAX_LENGTH), 'maxlength', self::DESC_MAX_LENGTH, 'client');
 
         $key = get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN);
         $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, get_string('maxlength', self::PLUGIN,
+            self::MSG_MAX_LENGTH), 'maxlength', self::MSG_MAX_LENGTH, 'client');
 
         // Message of error in color field
         $colorErr = get_string('color', self::PLUGIN);
@@ -155,7 +173,13 @@ class block_gmxp_visualsettingsform extends moodleform {
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
     }
 
+    /**
+     * Este método realiza del lado del servidor las mismas validaciones que
+     * del lado del cliente, hasta el momento no se requiere una validacion
+     * extra del lado del servidor
+     */
     public function validation($data, $files) {
+        $errors = array();
         return array();
     }
 
@@ -178,9 +202,10 @@ class block_gmxp_visualsettingsform extends moodleform {
         foreach ($keys as $key => $value) {
             local_gamedlemaster_log::info(
               "set_config('{$key}', {$value}, PLUGIN",'GMXP Visual Settings');
-
             //set_config($key, $value, self::PLUGIN);
         }
+
+
     }
 }
 
