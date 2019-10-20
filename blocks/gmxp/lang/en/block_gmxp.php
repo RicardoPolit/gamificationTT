@@ -16,8 +16,7 @@
 */
 
 /**
- * Global variables in the system, should not be translated
- * unless they have asterisks (*) commented
+ * Global variables in the system, should not be translated.
  */
 $string['SYS_SETTINGS_GENERAL'] = "block_gmxp_general_settings";
 $string['SYS_SETTINGS_GENERAL_ACTIVATED'] = "activated";
@@ -35,8 +34,37 @@ $string['SYS_SETTINGS_SCHEME'] = "block_gmxp/scheme_settings";
 $string['SYS_SETTINGS_EVENTS'] = "block_gmxp/events_settings";
 
 /**
- * Settings Values
+ * Global strings variables for the text and help displayed in
+ * the different settings, those strings are grouped according
+ * to the settings pages.
  */
+
+// ==== SETTINGS MENU =======================================
+$string['SETTINGS_CATEGORY'] = "Gamedle: Experience Module";
+$string['SETTINGS_GENERAL'] = "General Setting Up";
+$string['SETTINGS_VISUAL'] = "Visual Setting Up";
+$string['SETTINGS_SCHEME']  = "Experience Setting Up";
+$string['SETTINGS_EVENTS']  = "Events Setting Up";
+
+// ==== GENERAL SETTINGS ====================================
+$string['SETTINGS_GENERAL_HEADER'] = "Choose the main features";
+$string['SETTINGS_GENERAL_HEADER_DESC'] = 
+    "You can prevent the events to give experience points and/or disable the 
+    experience system";
+
+$string['SETTINGS_GENERAL_ENABLED'] = "Enable the experience system";
+$string['SETTINGS_GENERAL_ENABLED_DESC'] =
+    "You can prevent the events to give experience points and/or disable the 
+    experience system";
+
+$string['SETTINGS_GENERAL_EVENTS_ENABLED'] =
+    "Enable the experience points in supported events";
+
+$string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] = 
+    "Gives experience the default or established xp points for the list of events 
+    supported";
+
+// ==== VISUAL SETTINGS =====================================
 $string['VISUAL_SETTING_TEXT_TITLE'] = "Specify the title of popup levels";
 $string['VISUAL_SETTING_TEXT_MESSAGE'] =
     "Specify the main message when user reaches new level";
@@ -52,28 +80,17 @@ $string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
 $string['VISUAL_SETTING_DEFAULT_COLORLVL'] = "#0B619F";
 $string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "New reached level";
 
-$string['SETTINGS_CATEGORY'] = "Gamedle: Experience Module";
-$string['SETTINGS_GENERAL'] = "General Setting Up";
-$string['SETTINGS_VISUAL'] = "Visual Setting Up";
-$string['SETTINGS_SCHEME']  = "Experience Setting Up";
-$string['SETTINGS_EVENTS']  = "Events Setting Up";
-
-$string['SETTINGS_GENERAL_HEADER'] = "Choose the main features";
-$string['SETTINGS_GENERAL_HEADER_DESC'] = 
-    "You can prevent the events to give experience points and/or disable the experience system";
-
-$string['SETTINGS_GENERAL_ENABLED'] = "Enable the experience system";
-$string['SETTINGS_GENERAL_ENABLED_DESC'] = 
-    "You can prevent the events to give experience points and/or disable the experience system";
-
-$string['SETTINGS_GENERAL_EVENTS_ENABLED'] = "Enable the experience points in supported events";
-$string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] = 
-    "Gives experience the default or established xp points for the list of events supported";
-
-/**
- * Messages of forms
- */
+// ==== ERROR MESSAGES =====================================
 $string['maxlength'] = 'Max length allowed is {$a}';
+$string['color'] = 'Invalid color value';
+
+
+
+
+
+
+
+
 
 $string['valueDownIntLevels'] = '1';
 $string['valueUpIntLevels'] = '10000';
