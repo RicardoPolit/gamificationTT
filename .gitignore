@@ -105,7 +105,6 @@ webservice/
 !course/format
 !course/format/gamedle
 !course/format/gamedle/**/
+!mod/testquiz/
 
 */**/.swp
-*
-!mod/testquiz/
