@@ -75,6 +75,13 @@ $string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] =
     supported";
 
 // ==== VISUAL SETTINGS =====================================
+$string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
+$string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
+$string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
+$string['VISUAL_SETTING_DEFAULT_COLORLVL'] = "#0B619F";
+$string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "New reached level";
+$string['VISUAL_SETTING_DEFAULT_IMAGE'] = "image.jpg";
+
 $string['VISUAL_SETTING_TEXT_TITLE'] = "Levels Title";
 $string['VISUAL_SETTING_HELP_TITLE'] = "the {$string['VISUAL_SETTING_TEXT_TITLE']}";
 $string['VISUAL_SETTING_HELP_TITLE_help'] =
@@ -118,12 +125,6 @@ $string['VISUAL_SETTING_ERROR_IMAGE_SAVE'] =
 
 $string['VISUAL_SETTING_ERROR_IMAGE_DELETE'] =
     "Error ocurred. The previous image file cannot be deleted";
-
-$string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
-$string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
-$string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
-$string['VISUAL_SETTING_DEFAULT_COLORLVL'] = "#0B619F";
-$string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "New reached level";
 
 // ==== ERROR MESSAGES =====================================
 $string['maxlength'] = 'Max length allowed is {$a}';
