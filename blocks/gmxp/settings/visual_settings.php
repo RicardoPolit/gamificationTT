@@ -3,24 +3,32 @@
 require(__DIR__.'/../../../config.php');
 require_once($CFG->libdir.'/adminlib.php');
 
-define('PLUGIN', 'block_gmxp');
+$PLUGIN = 'block_gmxp';
+$MESSAGE = '';
+admin_externalpage_setup( get_string('SYS_SETTINGS_VISUAL', $PLUGIN) );
 
-admin_externalpage_setup( get_string('SYS_SETTINGS_VISUAL', PLUGIN) );
+    $form = new block_gmxp_visualsettingsform(); 
 
-$form = new block_gmxp_visualsettingsform(); 
-$output = '';
+    if ($form->is_cancelled()) {
+        local_gamedlemaster_log::info('cancelled');
 
-if ($form->is_cancelled()) {
-    local_gamedlemaster_log::info('cancelled');
-} /*else if ($form->is_submitted() && !$form->is_validated()) {
+    } else if ($changes = $form->get_data()) {
 
-}*/ else if ($changes = $form->get_data()) {
-    $form->submitChanges($changes);
+        $form->submit_changes($changes);
+    
+        if ($form->file_error) {
+            $MESSAGE = $OUTPUT->notification( $form->error );
 
-} else {
-    local_gamedlemaster_log::info('not validated');
-}
+        } else {
+            $MESSAGE = $OUTPUT->notification(get_string('success', $PLUGIN),
+              'notifysuccess');
+        }
+
+    } else {
+        local_gamedlemaster_log::info('not validated');
+    }
 
 echo $OUTPUT->header();
+echo $MESSAGE;
 echo $form->render();
 echo $OUTPUT->footer();
