@@ -12,11 +12,14 @@
  *		
 */
 
-class block_gmxp extends block_base{
+class block_gmxp extends block_base {
+
+    const PLUGIN = 'block_gmxp';
+    private $image = "";
 
     /* @Override */
 	public function init(){
-	    $this->title = get_string("gmxp","block_gmxp");
+	    $this->title = get_string("gmxp", self::PLUGIN);
 	}
 
 	public function get_content() {
@@ -48,13 +51,17 @@ class block_gmxp extends block_base{
 
 
     /* PRIVATE METHODS TO ORGANIZE VIEW */
-    private function getLevelImage(){
-        $image = get_config('block_gmxp', 'imageDefecto');
-        return moodle_url::make_pluginfile_url($this->context->id, 'block_gmxp', "level_images_simplehtml", 110, "/level1", $image);
+    private function loadImage(){
+
+        global $CFG;
+        $filekey  = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
+        $image = get_config(self::PLUGIN, $filekey);
+        $this->image = $CFG->wwwroot . "/blocks/gmxp/pix/" . $image;
     }
 
     private function htmlMedal($level){
-        $urlimage = $this->getLevelImage();
+        $this->loadImage();
+        $urlimage = $this->image;
             
         if($level<1)
             $level = 1;
