@@ -38,6 +38,7 @@ $string['SYS_SETTINGS_VISUAL_MESSAGE'] = "message";
 $string['SYS_SETTINGS_VISUAL_COLORLVL'] = "colorLvl";
 $string['SYS_SETTINGS_VISUAL_COLORBAR'] = "colorBar";
 $string['SYS_SETTINGS_VISUAL_IMAGE'] = "image";
+$string['SYS_SETTINGS_VISUAL_IMAGE_PATH'] = "/blocks/gmxp/pix/";
 
 $string['SYS_SETTINGS_SCHEME'] = "block_gmxp/scheme_settings";
 $string['SYS_SETTINGS_EVENTS'] = "block_gmxp/events_settings";
@@ -109,6 +110,15 @@ $string['VISUAL_SETTING_HELP_IMAGE_help'] =
     "Select the image shown in the block {$string['pluginname']}. If the image is not 
     provided, the image pix/image.jpg in the plugin's directory will be shown";
 
+$string['VISUAL_SETTING_ERROR_IMAGE_NAME'] =
+    "La imagen no puede ser llamada icon.jpg o icon.png";
+
+$string['VISUAL_SETTING_ERROR_IMAGE_SAVE'] =
+    "Error ocurred. The image file couldn't be saved (The operation was interrupted)";
+
+$string['VISUAL_SETTING_ERROR_IMAGE_DELETE'] =
+    "Error ocurred. The previous image file cannot be deleted";
+
 $string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
 $string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
 $string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
@@ -118,6 +128,7 @@ $string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "New reached level";
 // ==== ERROR MESSAGES =====================================
 $string['maxlength'] = 'Max length allowed is {$a}';
 $string['color'] = 'Invalid color value';
+$string['success'] = 'Configurations updated successfully';
 
 
 

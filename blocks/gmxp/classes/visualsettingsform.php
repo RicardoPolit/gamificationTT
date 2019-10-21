@@ -22,11 +22,18 @@ class block_gmxp_visualsettingsform extends moodleform {
 
     const PLUGIN = 'block_gmxp';
     const COLOR_REGEX = '/^#[A-Fa-f0-9]{6,6}$/';
+    const IMAGE_FILE_TYPES = array(".png", ".jpg");
+    const RESERVED_IMAGE_NAME1 = "icon.png";
+    const RESERVED_IMAGE_NAME2 = "icon.svg";
 
     const TITLE_MAX_LENGTH = 40;
     const MSG_MAX_LENGTH   = 30;
     const DESC_MAX_LENGTH  = 200;
     const DESC_COLS        = 40;
+
+    public $file_error = false;
+    public $auth_error = false;
+    public $error = '';
 
     protected function definition() {
 
@@ -82,7 +89,9 @@ class block_gmxp_visualsettingsform extends moodleform {
 
         $mform->addElement('filepicker',
             get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_IMAGE', self::PLUGIN));
+            get_string('VISUAL_SETTING_TEXT_IMAGE', self::PLUGIN),
+            null, // TODO Why null?
+            array( 'accepted_types' => self::IMAGE_FILE_TYPES ));
     }
 
     private function create_help_messages() {
@@ -179,8 +188,66 @@ class block_gmxp_visualsettingsform extends moodleform {
      * extra del lado del servidor
      */
     public function validation($data, $files) {
+
         $errors = array();
-        return array();
+        $this->auth_error = false;
+
+        // TODO: Handle error on external page settings/visual_settings.php
+        if (!isset($data['sesskey'])) {
+            $this->auth_error = true;
+            $errors['sesskey'] = "AUTH ERROR";
+            return $errors;
+        }
+
+        $key = get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN);
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (strlen($data[$key]) >= self::TITLE_MAX_LENGTH) {
+            $errors[$key] =
+              get_string('maxlength', self::PLUGIN, self::TITLE_MAX_LENGTH);
+        }
+
+
+        $key = get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN);
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (strlen($data[$key]) >= self::DESC_MAX_LENGTH) {
+            $errors[$key] =
+              get_string('maxlength', self::PLUGIN, self::DESC_MAX_LENGTH);
+        }
+
+
+        $key = get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN);
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (strlen($data[$key]) >= self::MSG_MAX_LENGTH) {
+            $errors[$key] =
+              get_string('maxlength', self::PLUGIN, self::MSG_MAX_LENGTH);
+        }
+
+
+        $key = get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN);
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (!preg_match( self::COLOR_REGEX, $data[$key])) {
+            $errors[$key] = get_string('color', self::PLUGIN);
+        }
+
+
+        $key = get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN);
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (!preg_match( self::COLOR_REGEX, $data[$key])) {
+            $errors[$key] = get_string('color', self::PLUGIN);
+        }
+
+
+        return $errors;
     }
 
     /**
@@ -192,20 +259,61 @@ class block_gmxp_visualsettingsform extends moodleform {
      * del plugin y el valor de dicha clave es el nuevo valor de
      * la configuracion
      */
-    public function submitChanges(stdClass $changes) {
+    public function submit_changes(stdClass $changes) {
 
-        // Obtenemos el arreglo y removemos las entradas que no
-        // representan una configuración del plugin.
+        // Convertimos el objeto en un arreglo y eliminamos las entradas
+        // que no pertenecen a las configuraciones del plugin
         $keys = get_object_vars($changes);
+        $filekey = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
+        $filename = $this->get_new_filename($filekey);
         unset($keys['submitbutton']);
+        unset($keys[$filekey]);
 
-        foreach ($keys as $key => $value) {
-            local_gamedlemaster_log::info(
-              "set_config('{$key}', {$value}, PLUGIN",'GMXP Visual Settings');
-            //set_config($key, $value, self::PLUGIN);
+        // if ( file->provided )
+        if( is_string($filename) && $this->update_image_file($filename)) {
+            $keys[$filekey] = $filename;
         }
 
+        foreach ($keys as $key => $value) {
+            set_config($key, $value, self::PLUGIN);
+        }
+    }
 
+    private function update_image_file(): bool {
+
+        // Obtenemos el nombre del archivo y la ruta
+        global $CFG;
+        $filekey  = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
+        $filepath = get_String('SYS_SETTINGS_VISUAL_IMAGE_PATH', self::PLUGIN);
+        $filename = $this->get_new_filename($filekey);
+        $this->file_error = false;
+
+        if ( $filename == self::RESERVED_IMAGE_NAME1 ||
+          $filename == self::RESERVED_IMAGE_NAME2) {
+            $this->file_error = true;
+            $this->error = get_string('VISUAL_SETTING_ERROR_IMAGE_NAME', self::PLUGIN);
+            return false;
+        }
+
+        // Guardamos el archivo con override = true
+        $saved = $this->save_file($filekey, $CFG->dirroot.$filepath.$filename, false);
+
+        if (!$saved) { // TODO UNCOMMENT file_error = true AND CHECK ERRORS
+            //$this->file_error = true;
+            $this->error = get_string('VISUAL_SETTING_ERROR_IMAGE_SAVE', self::PLUGIN);
+            return false;
+        }
+
+        // Obtenemos el nombre del anterior archivo y lo eliminamos
+        $oldfilename = get_config( self::PLUGIN, $filekey);
+        $deleted = unlink( $CFG->dirroot. $filepath. $oldfilename);
+
+        if (!$deleted) {
+            //$this->file_error = true;
+            $this->error= get_string('VISUAL_SETTING_ERROR_IMAGE_DELETE',self::PLUGIN);
+        }
+
+        return $saved && $deleted;
     }
 }
 
