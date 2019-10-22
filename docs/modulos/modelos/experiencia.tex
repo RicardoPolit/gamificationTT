@@ -78,8 +78,8 @@
             Imagen que se desplegará en los niveles cómo el escudo por defecto.\par
 
             \it Restricciones:
-            \refElem{tRequired},\par
-            \refElem{tDefault} ``http://www.escom.ipn.mx/images/escudoESCOM.jpg''
+            \refElem{tRequired}, \refElem{tDefault} image.jpg (incluida en los
+            archivos del plugin)
         }
     \end{cdtEntidad}
 
@@ -160,14 +160,16 @@
         \brAttr{level}{nivel}{tNatural}{%
             Representa el nivel actual de experiencia que tiene un usuario gamificado en moodle.\par
 
-            \it Restricciones: Ninguna
+            \it Restricciones:
+            \refElem{tDefault} 1
         }
 
         \brAttr{xp}{experiencia}{tInt}{%
-            Representa los puntos de experiencia que tiene un usuario en moodle
+            Representa los puntos de experiencia que tiene un usuario en moodle \par
 
             \it Restricciones:
-            \refElem{tPositive}
+            \refElem{tPositive},
+            \refElem{tDefaut} 0
         }
 
     \end{cdtEntidad}
