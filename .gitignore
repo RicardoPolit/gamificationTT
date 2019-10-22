@@ -103,5 +103,7 @@ webservice/
 !course/format/
 !course/format/gamedle
 !course/format/gamedle/**/*
-!mod/testquiz/
-!mod/testquiz/**/*
+!mod/gmcompcpu/
+!mod/gmcompcpu/**/*
+!mod/gmcompcpu/
+!mod/gmcompcpu/**/*
