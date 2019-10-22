@@ -14,12 +14,12 @@ Estado/\ucstEnEdicion]%
 {CU-E02}{Realizar configuraciones del módulo de experiencia}{%
 %
  Permite al \refElem{aAdministrador} acceder a las configuraciones del esquema de
- experiencia para consultar y cambiar los aspectos generales del módulo de experiencia, los cuales
- consisten en habilitar/deshabilitar el esquema de experiencia además de
+ experiencia para consultar y cambiar los aspectos generales del módulo de experiencia,
+ los cuales consisten en habilitar/deshabilitar el esquema de experiencia además de
  habilitar/deshabilitar que los eventos proporcionen experiencia.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
-	\UCitem[control]{Último cambio}{ 17/OCT/19 }
+	\UCitem[control]{Último cambio}{ 21/OCT/19 }
 
  \UCsection{Atributos}
 
@@ -85,8 +85,8 @@ Estado/\ucstEnEdicion]%
         % CAUSA
             Los plugins del módulo de experiencia no se encuentran instalados,}{%
         % EFECTO
-            No se presenta en el menu de opciones las opciones para modificar %
-            el esquema de experiencia.}
+            No se presentan en el menu las opciones para modificar el esquema de %
+            experiencia. No se puede llevar a cabo el caso de uso}
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -127,12 +127,15 @@ Estado/\ucstEnEdicion]%
            formulario con los valores obtenidos.
 
   \Actor Establece el valor \entrada{xp-general-settings.activated} para definir si
-         el sistema de experiencia estará habilitado o deshabilitado. \label{CU-E02-settings}
-  \Actor Establece el valor \entrada[eventos activados]{xp-general-settings.events}
-         para definir si se les brindará soporte a los eventos dependiendo si estos
-         están activados o no.
+         el sistema de experiencia estará habilitado o deshabilitado.
+         \label{CU-E02-settings}
+  \Actor Establece el valor para los \entrada[eventos activados]%
+         {xp-general-settings.events}, indicando si se les brindará soporte a que 
+         los eventos soportados brinden experiencia o no.
   \Actor Presiona el botón {\bf Guardar cambios}.
-  \Sistema Obtiene los valores por el usuario y actualliza las \refElem{xp-general-settings}.
+  \Sistema Obtiene los valores indicados por el usuario y actualliza las 
+           \refElem{xp-general-settings}.
+
   \Sistema Carga la pantalla \refElem{IU-M01}.
 
 \end{UCtrayectoria}
@@ -145,7 +148,7 @@ El \refElem{aAdministrador} selecciona la categoría \refElem{tExpCategoria}}
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}{B}{%
-El \refElem{aAdministrador} está instalando el plugin y no hay configuracion previa }
+El \refElem{aAdministrador} está instalando el plugin y no hay configuración previa }
 
   \Sistema Obtiene los valores por defecto \refElem{xp-general-settings.activated} y
            \refElem{xp-general-settings.events} indicados en los archivos de instalación del
