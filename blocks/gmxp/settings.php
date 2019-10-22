@@ -18,7 +18,7 @@
 defined('MOODLE_INTERNAL') || die();
 
     $PLUGIN = 'block_gmxp';
-    $CATEGORY = 'block_gmxp_category';
+    $CATEGORY = get_string('SYS_SETTINGS_CATEGORY',  $PLUGIN);
 
     /**
      * Creación de la pantalla para los settings generales

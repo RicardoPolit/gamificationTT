@@ -27,6 +27,8 @@ $string['gmxp:myaddinstance'] = 'Add a new Gamedle level block to the My Moodle 
 /**
  * Global variables in the system, should not be translated.
  */
+$string['SYS_SETTINGS_CATEGORY'] = 'block_gmxp_category';
+
 $string['SYS_SETTINGS_GENERAL'] = "block_gmxp_general_settings";
 $string['SYS_SETTINGS_GENERAL_ACTIVATED'] = "activated";
 $string['SYS_SETTINGS_GENERAL_EVENTS'] = "events";
@@ -121,12 +123,19 @@ $string['VISUAL_SETTING_ERROR_IMAGE_NAME'] =
     "La imagen no puede ser llamada icon.jpg o icon.png";
 
 $string['VISUAL_SETTING_ERROR_IMAGE_SAVE'] =
-    "Error ocurred. The image file couldn't be saved (The operation was interrupted)";
+    "Error ocurred. The image file couldn't be saved";
 
 $string['VISUAL_SETTING_ERROR_IMAGE_DELETE'] =
     "Error ocurred. The previous image file cannot be deleted";
 
-// ==== ERROR MESSAGES =====================================
+// ==== FORM MESSAGES =====================================
+$string['SETTINGS_EXPERIENCE_DISABLED'] =
+    "The experience module is deactivated in the *{$string['SETTINGS_GENERAL']}* page 
+    if you want to access this configuration you must enable the experiencia module";
+
+$string['SETTINGS_EXPERIENCE_DISABLED_REDIRECT'] = 
+    "Enable module";
+
 $string['maxlength'] = 'Max length allowed is {$a}';
 $string['color'] = 'Invalid color value';
 $string['success'] = 'Configurations updated successfully';
