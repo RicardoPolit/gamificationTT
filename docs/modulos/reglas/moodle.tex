@@ -1,7 +1,7 @@
 \begin{BusinessRule}[%
-Autor/El Despistado,%
+Autor/Daniel Isai Ortega Zúñiga,%
 Version/0.1,%
-Estado/edicion]%
+Estado/revisión]%
 %
 {BR-M01}{Restricciones del archivo de instalación}
  % El archivo de instalación debe ser un archivo ZIP, el cual debe contener exactamente un
@@ -9,15 +9,18 @@ Estado/edicion]%
      \BRitem[control]{Revisor}{Sin asignar.}
 
  \BRsection[control]{Atributos}
-    % Clases: \bcCondition, \bcIntegridad, \bcAutorization o \bcDerivation
-    % Tipos: \btEnabler, \btTimer o \btExecutive
-    % Niveles: \blControlling o \blInfluencing.
     
     \BRitem[admin]{Clase}{\bcCondition}%
+    %\BRitem[admin]{Clase}{\bcIntegridad}%
+    %\BRitem[admin]{Clase}{\bcAutorizacion}%
+    %\BRitem[admin]{Clase}{\bcDerivacion}%
         
     \BRitem[admin]{Tipo}{\btEnabler}%
+    %\BRitem[admin]{Tipo}{\btTimer}%
+    %\BRitem[admin]{Tipo}{\btExecutive}%
         
     \BRitem[admin]{Nivel}{\blControlling}
+    %\BRitem[admin]{Nivel}{\blInfluencing}
     
     \BRitem{Descripción}{%
         El archivo de instalación debe ser un archivo {\it ZIP}, el cual debe contener
