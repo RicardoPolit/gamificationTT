@@ -17,7 +17,7 @@
     /**
      * Set the default visual settings
      */
-    function set_default_visual_Settings() {
+    function set_default_visual_settings() {
 
         local_gamedlemaster_log::info(
             "Setting the default values for visual settings", "GMXP");
