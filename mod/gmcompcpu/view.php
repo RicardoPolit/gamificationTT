@@ -83,13 +83,14 @@ echo $OUTPUT->heading_with_help(get_string('modulename', 'mod_gmcompcpu'), 'howt
 
 // Game here.
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
-echo $renderer->render_questions($gmcompcpu, $cm,$USER->id);
-echo "<div class=fontloader>Loading game</div>";
+#echo $renderer->render_questions($gmcompcpu, $cm,$USER->id);
+echo $renderer->render_main_page($gmcompcpu,$USER->id);
+#echo "<div class=fontloader>Loading game</div>";
 
 // Display link to view student scores.
-if (has_capability('mod/gmcompcpu:viewallscores', $context)) {
-    echo $renderer->render_score_link($gmcompcpu);
-}
+#if (has_capability('mod/gmcompcpu:viewallscores', $context)) {
+#    echo $renderer->render_score_link($gmcompcpu);
+#}
 
 // Finish the page.
 echo $OUTPUT->footer();

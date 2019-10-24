@@ -41,6 +41,14 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
                 // Gamedlemaster savepoint reached.
                 upgrade_plugin_savepoint(true, 2019101501, 'local', 'gamedlemaster');
             }
+        else if($oldversion < 2019102400)
+            {
+                upgrades2019102400();
+            }
+        else if($oldversion < 2019102401)
+            {
+                upgrades2019102401();
+            }
 
 		return true;
 	}
@@ -693,6 +701,40 @@ function upgrades2019101500()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019101500, 'local', 'gamedlemaster');
+        upgrades2019102400();
+
+    }
 
 
+
+function upgrades2019102400()
+    {
+        global $DB;
+        $dbman = $DB->get_manager();
+        // Rename field gmdl_usuario_id on table gmdl_intento to mdl_usuario_id.
+        $table = new xmldb_table('gmdl_intento');
+        $field = new xmldb_field('gmdl_usuario_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'gmdlcomcpu_id');
+
+        // Launch rename field gmdl_usuario_id.
+        $dbman->rename_field($table, $field, 'mdl_usuario_id');
+
+        // Gamedlemaster savepoint reached.
+        upgrade_plugin_savepoint(true, 2019102400, 'local', 'gamedlemaster');
+    }
+
+// El renombramiento es algo que se tiene que hablar con los directores, para saber cómo se usan estas llaves
+
+function upgrades2019102401()
+    {
+        global $DB;
+        $dbman = $DB->get_manager();
+        // Rename field gmdl_usuario_id on table gmdl_intento to mdl_usuario_id.
+        $table = new xmldb_table('gmdl_intento');
+        $field = new xmldb_field('mdl_usuario_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'gmdlcomcpu_id');
+
+        // Launch rename field gmdl_usuario_id.
+        $dbman->rename_field($table, $field, 'gmdl_usuario_id');
+
+        // Gamedlemaster savepoint reached.
+        upgrade_plugin_savepoint(true, 2019102401, 'local', 'gamedlemaster');
     }
