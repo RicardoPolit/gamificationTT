@@ -108,19 +108,4 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
         return $display;
     }
 
-    /**
-     * Render the link to access the high scores.
-     * @param stdClass $gmcompcpu
-     * @return string
-     */
-    public function render_score_link($gmcompcpu) {
-
-        $url = new moodle_url('/mod/gmcompcpu/scores.php', array('id' => $gmcompcpu->id));
-        $scorestring = get_string('scoreslink', 'gmcompcpu');
-        $scorestringhelp = get_string('scoreslinkhelp', 'gmcompcpu');
-        $display = html_writer::start_tag('div', array('class' => 'gmcompcpu-scores'));
-        $display .= html_writer::tag('a', $scorestring, array('title' => $scorestringhelp, 'href' => $url));
-        $display .= html_writer::end_tag('div');
-        return $display;
-    }
 }
