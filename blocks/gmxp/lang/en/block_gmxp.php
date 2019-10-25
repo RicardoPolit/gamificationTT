@@ -81,7 +81,7 @@ $string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
 $string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
 $string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
 $string['VISUAL_SETTING_DEFAULT_COLORLVL'] = "#0B619F";
-$string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "New reached level";
+$string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "#0B619F";
 $string['VISUAL_SETTING_DEFAULT_IMAGE'] = "image.jpg";
 
 $string['VISUAL_SETTING_TEXT_TITLE'] = "Levels Title";
