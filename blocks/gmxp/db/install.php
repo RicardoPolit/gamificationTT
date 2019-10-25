@@ -36,7 +36,7 @@
                    get_String('VISUAL_SETTING_DEFAULT_COLORBAR', $PLUGIN), $PLUGIN);
 
         set_config(get_string('SYS_SETTINGS_VISUAL_IMAGE', $PLUGIN),
-                   get_string('VISUAL_SETTINGS_DEFAULT_IMAGE', $PLUGIN), $PLUGIN);
+                   get_string('VISUAL_SETTING_DEFAULT_IMAGE', $PLUGIN), $PLUGIN);
     }
 
     function set_default_scheme_settings() {
