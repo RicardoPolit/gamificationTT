@@ -12,13 +12,11 @@
  *		
 */
 
-    $PLUGIN = 'block_gmxp';
-
     /**
      * Set the default visual settings
      */
-    function set_default_visual_settings() {
-
+    function set_default_visual_settings($PLUGIN) {
+        
         local_gamedlemaster_log::info(
             "Setting the default values for visual settings", "GMXP");
 
@@ -35,7 +33,7 @@
                    get_string('VISUAL_SETTING_DEFAULT_COLORLVL', $PLUGIN), $PLUGIN);
 
         set_config(get_string('SYS_SETTINGS_VISUAL_COLORBAR', $PLUGIN),
-                   get_String('VISUAL_SETTING_DEFAUT_COLORBAR', $PLUGIN), $PLUGIN);
+                   get_String('VISUAL_SETTING_DEFAULT_COLORBAR', $PLUGIN), $PLUGIN);
 
         set_config(get_string('SYS_SETTINGS_VISUAL_IMAGE', $PLUGIN),
                    get_string('VISUAL_SETTINGS_DEFAULT_IMAGE', $PLUGIN), $PLUGIN);
@@ -52,7 +50,8 @@
      */ 
     function xmldb_block_gmxp_install() {
 
-        set_default_visual_settings();
+        $PLUGIN = 'block_gmxp';
+        set_default_visual_settings($PLUGIN);
         set_default_scheme_settings();
         set_default_events_settings();
     }
