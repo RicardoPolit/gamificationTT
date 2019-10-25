@@ -6,9 +6,11 @@
  * Time: 06:47 PM
  */
 
+require_once('gmdl_catalogue.php');
 function xmldb_local_gamedlemaster_install()
 {
     copiarUsuariosInstall();
+    definirCatalogos();
 }
 
 function copiarUsuariosInstall()
@@ -24,4 +26,10 @@ function copiarUsuariosInstall()
 
         $DB->insert_record("gmdl_usuario", $data);
     }
+}
+
+
+function definirCatalogos()
+{
+    guardarCatalogosDificultadCPU2019101501();
 }

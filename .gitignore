@@ -106,5 +106,9 @@ webservice/
 !course/format/gamedle
 !course/format/gamedle/**/
 !mod/testquiz/
+!mod/gmcompcpu/
+!mod/gmcompcpu/**/*
+!mod/gmcompcpu/
+!mod/gmcompcpu/**/*
 
 */**/.swp

@@ -1,0 +1,176 @@
+.path-mod-gmcompcpu div.fontloader {
+    visibility: hidden;
+    font-family: 'Audiowide', Sans;
+}
+.path-mod-gmcompcpu #mod_gmcompcpu_game {
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+}
+.gmcompcpu-scores {
+    text-align: center;
+}
+.floating-button-container {
+    background: #fff;
+    border: 0.5rem solid #fff;
+}
+.floating-game-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+}
+#page-mod-gmcompcpu-view div[role="main"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.gmcompcpu-container th {
+    background-color: #059ee0;
+    color: white;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid black;
+    border-bottom-width: 5px;
+    border-bottom-color: black;
+    border-bottom-style:  solid;
+}
+
+.gmcompcpu-container  th, td {
+    padding: 15px;
+}
+
+.gmcompcpu-container  td {
+    border: 2px solid black;
+}
+
+.gmcompcpu-container  table {
+    width: 80%;
+    align-content: center;
+    margin: auto;
+    border-collapse: collapse;
+    border: 0px;
+}
+.gmcompcpu-container{
+    margin-top: 2%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+}
+
+.gmcompcpu-container-card{
+    padding: 1%;
+    margin: auto;
+    width: 30%;
+}
+.gmcompcpu-container-card-button{
+    margin: auto;
+}
+.gmcompcpu-card-element{
+    margin: 2%;
+
+}
+
+.gmcompcpu-container-card-title{
+    width: 100%;
+}   
+.gmcompcpu-linea{
+    width: 100%;
+    height: 47px;
+    border-bottom: 1px solid black;
+}
+
+.gmcompcpu-titulo{
+    margin-top: 1%;
+    width: 100%;
+    font-style: oblique;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.gmcompcpu-boton-empezar{
+    width: 20%;
+    padding: 1%;
+
+}
+
+.cgmcompcpu-cpu{
+    background: gray;
+    color: black;
+}
+
+.cgmcompcpu-cpu-vencida{
+    background: green;
+    color: black;
+}
+
+.gmcompcpu-half-container{
+    width: 50%;
+}
+
+
+.gmcompcpu-primer-lugar{
+    background-color: gold;
+    font-size: 20px;
+}
+.gmcompcpu-segundo-lugar{
+    background-color: silver;
+    font-size: 18px;
+}
+.gmcompcpu-tercer-lugar{
+    background-color: coral;
+    font-size: 16px;
+}
+
+.gmcompcpu-no-lugar{
+    background-color: gray;
+    font-size: 15px;
+}
+
+.gmcompcpu-linea-nivel-1{
+    background-color: #0981bd;
+    width: 100%;
+    text-decoration: underline;
+    margin-top: 3%;
+    padding: 1%;
+    border: 2px solid black;
+    color: white;
+    font-size: 30px;
+
+}
+.gmcompcpu-linea-nivel-2{
+    background-color: green;
+    width: 100%;
+    text-decoration: underline;
+    margin-top: 3%;
+    padding: 1%;
+    border: 2px solid black;
+    color: white;
+    font-size: 30px;
+
+}
+.gmcompcpu-linea-nivel-3{
+    background-color: yellow;
+    width: 100%;
+    text-decoration: underline;
+    margin-top: 3%;
+    padding: 1%;
+    border: 2px solid black;
+    color: black;
+    font-size: 30px;
+
+}
+.gmcompcpu-linea-nivel-4{
+    background-color: orange;
+    width: 100%;
+    text-decoration: underline;
+    margin-top: 3%;
+    padding: 1%;
+    border: 2px solid black;
+    color: white;
+    font-size: 30px;
+
+}
