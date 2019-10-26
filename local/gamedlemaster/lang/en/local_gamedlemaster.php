@@ -14,4 +14,7 @@
 
 /* GENERAL STRINGS */
 $string['pluginname'] = 'Gamedle Master';
-$string['gmxp'] = 'Gamedle Master';
+$string['gmxp'] = 'Gamedle Master'; // TODO INCORRECT STRING ENTRY
+
+// FORM STRING MESSAGES
+$string['FORM_SUCCESS'] = 'Configurations updated successfully';
