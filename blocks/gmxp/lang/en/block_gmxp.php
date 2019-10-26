@@ -43,6 +43,10 @@ $string['SYS_SETTINGS_VISUAL_IMAGE'] = "image";
 $string['SYS_SETTINGS_VISUAL_IMAGE_PATH'] = "/blocks/gmxp/pix/";
 
 $string['SYS_SETTINGS_SCHEME'] = "block_gmxp/scheme_settings";
+$string['SYS_SETTINGS_SCHEME_INCREMENT'] = "increment";
+$string['SYS_SETTINGS_SCHEME_VALUE'] = "incrementValue";
+$string['SYS_SETTINGS_SCHEME_LEVELXP'] = "levelXP";
+$string['SYS_SETTINGS_SCHEME_COURSEXP'] = "courseXP";
 $string['SYS_SETTINGS_EVENTS'] = "block_gmxp/events_settings";
 
 /**
@@ -127,6 +131,47 @@ $string['VISUAL_SETTING_ERROR_IMAGE_SAVE'] =
 
 $string['VISUAL_SETTING_ERROR_IMAGE_DELETE'] =
     "Error ocurred. The previous image file cannot be deleted";
+
+// ==== VISUAL SETTINGS =====================================
+$string['SCHEME_SETTING_DEFAULT_INCREMENT'] = "0"; // 0:LINEAL 1:PERCENTUAL
+$string['SCHEME_SETTING_DEFAULT_VALUE'] = "20";
+$string['SCHEME_SETTING_DEFAULT_LEVELXP'] = "100"; 
+$string['SCHEME_SETTING_DEFAULT_COURSEXP'] = "150";
+
+$string['SCHEME_SETTING_TEXT_INCREMENT'] = "Increment Type";
+$string['SCHEME_SETTING_HELP_INCREMENT'] = "the {$string['SCHEME_SETTING_TEXT_INCREMENT']}";
+$string['SCHEME_SETTING_HELP_INCREMENT_help'] =
+    "Specify the type of increment that the experience system should work with. If you specify
+    the Lineal Increment Type the levels will increase that value. Otherwise if the increment
+    type is percentual, the levels will augment of next level xp will increment the portion
+    specified in that value.";
+
+$string['SCHEME_SETTING_TEXT_LINEAL'] = "Lineal Increment";
+$string['SCHEME_SETTING_HELP_LINEAL'] = "the {$string['SCHEME_SETTING_TEXT_LINEAL']}";
+$string['SCHEME_SETTING_HELP_LINEAL_help'] = 
+    "Indicates the lineal value in which the levels will increase. If level 'i' consists of
+    'n' experience points and increment value is 'y', then the following level 'n+1' will consist
+    on 'n+y' experience points";
+
+$string['SCHEME_SETTING_TEXT_PERCENTUAL'] = "Percentual Increment";
+$string['SCHEME_SETTING_HELP_PERCENTUAL'] = "the {$string['SCHEME_SETTING_TEXT_PERCENTUAL']}";
+$string['SCHEME_SETTING_HELP_PERCENTUAL_help'] = 
+    "Indicates the percentual value from 0.1 to 1.0 in which the levels increase. If the level 
+    '1' consists of 'n' experience points and increment value is 'y', then the level 'i' 
+    experience points will be determined by the following formula 'n*(1+y)^i'";
+
+$string['SCHEME_SETTING_TEXT_LEVELXP'] = "First Level Experience Points";
+$string['SCHEME_SETTING_HELP_LEVELXP'] = "the {$string['SCHEME_SETTING_TEXT_LEVELXP']}";
+$string['SCHEME_SETTING_HELP_LEVELXP_help'] = 
+    "Specify the experience points required to get through the first level";
+
+$string['SCHEME_SETTING_TEXT_COURSEXP'] = "Course Experience Points";
+$string['SCHEME_SETTING_HELP_COURSEXP'] = "the {$string['SCHEME_SETTING_TEXT_COURSEXP']}";
+$string['SCHEME_SETTING_HELP_COURSEXP_help'] = 
+    "Specify the experience points given each time a course is successfully concluded";
+
+$string['SCHEME_SETTING_WARNING_MESSAGE'] = "";
+// DEscribe the behavement of plugin when changing this settings.
 
 // ==== FORM MESSAGES =====================================
 $string['SETTINGS_EXPERIENCE_DISABLED'] =

@@ -39,7 +39,21 @@
                    get_string('VISUAL_SETTING_DEFAULT_IMAGE', $PLUGIN), $PLUGIN);
     }
 
-    function set_default_scheme_settings() {
+    function set_default_scheme_settings($PLUGIN) {
+        local_gamedlemaster_log::info(
+            "Setting the default values for scheme settings", "GMXP");
+
+        set_config(get_string('SYS_SETTINGS_SCHEME_INCREMENT', $PLUGIN),
+                   get_string('SCHEME_SETTING_DEFAULT_INCREMENT', $PLUGIN), $PLUGIN);
+
+        set_config(get_string('SYS_SETTINGS_SCHEME_VALUE', $PLUGIN),
+                   get_string('SCHEME_SETTING_DEFAULT_VALUE', $PLUGIN), $PLUGIN);
+
+        set_config(get_string('SYS_SETTINGS_SCHEME_LEVELXP', $PLUGIN),
+                   get_string('SCHEME_SETTING_DEFAULT_LEVELXP', $PLUGIN), $PLUGIN);
+
+        set_config(get_string('SYS_SETTINGS_SCHEME_COURSEXP', $PLUGIN),
+                   get_string('SCHEME_SETTING_DEFAULT_COURSEXP', $PLUGIN), $PLUGIN);
     }
 
     function set_default_events_Settings() {
@@ -52,7 +66,7 @@
 
         $PLUGIN = 'block_gmxp';
         set_default_visual_settings($PLUGIN);
-        set_default_scheme_settings();
+        set_default_scheme_settings($PLUGIN);
         set_default_events_settings();
     }
 ?>
