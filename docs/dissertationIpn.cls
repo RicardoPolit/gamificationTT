@@ -110,7 +110,19 @@
 % Author Daniel Ortega (https://gilab.com/DanielOrtegaZ)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\Sistema}{\UCpaso[\UCsist]}
+\newcommand{\Actor}{\UCpaso[\UCactor]}
+\newcommand{\Moodle}{\UCpaso[\raisebox{-1mm}{\includegraphics[height=9pt]{res/m-icon}}]}
+
 % GAMIFICATION
+
+\AtBeginDocument{%
+\newcommand{\TestCase}[3][]{%
+    \CrearVariablesInternas{#1}%
+    \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
+    \section{#2 #3}%
+}%
+}
 
 \def\principioIx{Epic Meaning \& Calling}
 \def\principioIIx{Development \& Accomplishment}

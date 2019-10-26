@@ -1,0 +1,41 @@
+\begin{BusinessRule}[%
+Autor/El Despistado,%
+Version/0.1,%
+Estado/edicion]%
+%
+{BR-001}{Fecha de inicio para registrar evento}
+
+     \BRitem[control]{Revisada por}{Pendiente.}
+
+ \BRsection[control]{Atributos}
+    % Clases: \bcCondition, \bcIntegridad, \bcAutorization o \bcDerivation
+    % Tipos: \btEnabler, \btTimer o \btExecutive
+    % Niveles: \blControlling o \blInfluencing.
+    
+    \BRitem[admin]{Clase}{\bcCondition}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    
+    \BRitem{Descripción}{%
+        Un evento puede ...
+    }
+
+%   \BRitem{Sentencia}{%
+%       Si $fecha$ 
+%   }%
+
+    \BRitem{Ejemplo positivo}{%
+        Considerando que la fecha de inicio del evento que se quiere registrar
+        en el sistema es el 15/Enero/2020 y la fecha actual es el 10/Enero/2020: \\
+        El actor podrá registrar el evento.%
+    }
+
+    \BRitem{Ejemplo negativo}{%
+        Considerando que la fecha de inicio del evento que se quiere registrar en
+        el sistema es el 10/Enero/2020 y la fecha actual es el 15/Enero/2020: \\
+        El actor no podrá registrar el evento.%
+    }
+    
+ \end{BusinessRule}

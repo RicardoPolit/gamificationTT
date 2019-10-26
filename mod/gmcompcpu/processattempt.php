@@ -7,9 +7,14 @@ require_once(dirname(__FILE__).'/../../config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
 require_once($CFG->dirroot . '/mod/gmcompcpu/classes/cpumind.php');
 
+$fechafin = date('Y-m-d H:i:s');
+
 $id  = optional_param('id', "", PARAM_INT);  // Is the param action.
 $cm  = optional_param('cm', "", PARAM_INT);  // Is the param action.
 $userid = optional_param('userid', "", PARAM_INT);  // Is the param action.
+$intentoid = optional_param('intentoid', "", PARAM_INT);  // Is the param action.
+
+$intento = $DB->get_record('gmdl_intento', array('id' => $intentoid), '*', MUST_EXIST);
 
 $timenow = time();
 
@@ -61,16 +66,46 @@ $userScore = calculateScoreUser($quba,$timenow);
 
 }*/
 
-$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,1);
+$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$intento->gmdl_dificultad_cpu_id);
 
 /*echo json_encode($questionswithAnswers);
 echo '<br>';*/
 
 $cpuScore = calculateScoreCpu( $questionswithAnswers );
 
-echo $userScore;
+$values = (object)[
+    'puntuacion_cpu' => $cpuScore,
+    'puntuacion_usuario' => $userScore,
+    'fecha_fin' => time()
+];
+
+$values->id = $intentoid;
+
+$DB->update_record('gmdl_intento',$values);
+
+insertCpuAnswers($questionswithAnswers,$intentoid);
+
+/*echo $userScore;
 echo '<br>';
-echo $cpuScore;
+echo $cpuScore;*/
+
+function insertCpuAnswers( $questionswithAnswers ,$intentoid){
+
+    global $DB;
+
+    foreach ($questionswithAnswers as $questionwithAnswers){
+
+        foreach ( $questionwithAnswers as $answer ){
+
+            $values = (object)array('mdl_question_id' => $answer->question, 'mdl_question_answers_id' => $answer->id, 'gmdl_intento_id' => $intentoid);
+
+            $DB->insert_record('gmdl_respuesta_cpu',$values);
+
+        }
+
+    }
+
+}
 
 function processAnswer( $dbanswer ){
 

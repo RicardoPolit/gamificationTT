@@ -193,10 +193,13 @@
     }{\IfSubStr{#1}{IU}{%
         \gdef\referencedElementFamily{IU}%
         \gdef\refElemText{#1:}%
+    }{\IfSubStr{#1}{CP}{%
+        \gdef\referencedElementFamily{Element}%
+        \gdef\refElemText{#1:}%
     }{%
         \gdef\referencedElementFamily{Element}%
         \gdef\refElemText{}%
-    }}}}}}}%
+    }}}}}}}}%
 }
 
 %=====================================================
@@ -302,7 +305,8 @@
         \foreach \id in \aux{%
             \ifthenelse{\equal{}{\id}}{}{%
                 \IfSubStr{\id}{.}{%
-                    \Titem \refElem{\id} de \StrBefore{\id}{.}%
+                    \StrBefore{\id}{.}[\entity]%
+                    \Titem \refElem{\id} de \pgfkeysvalueof{/Element/\entity}%
                 }{%
                     \Titem \refElem{\id}%
                 }%

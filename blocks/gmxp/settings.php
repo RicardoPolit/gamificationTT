@@ -1,149 +1,98 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ricardo
- * Date: 21/03/19
- * Time: 02:01 PM
- */
-
-/*$settingsAux = [];
-
-$settingsAux[] = (new admin_setting_heading(
-    'block_gmxp/headerconfigLevels',
-    get_string('headerconfigLevels', 'block_gmxp'),
-    get_string('descconfigLevels', 'block_gmxp')
-));
-
-$settingsAux[] = (new admin_setting_configcheckbox(
-    'block_gmxp/isActive',
-    get_string('checkboxisActive', 'block_gmxp'),
-    get_string('checkboxisActivedesc', 'block_gmxp'),
-    1));
-
-$settingsAux[] = (new admin_setting_configselect(
-    'block_gmxp/typeOfIncrement',
-    get_string('typeOfIncrement', 'block_gmxp'),
-    get_string('typeOfIncrementDesc', 'block_gmxp'),
-    0,
-    array(get_string('typeOfIncrementA', 'block_gmxp'),get_string('typeOfIncrementB', 'block_gmxp'))
-));
-
-$settingsAux[] = (new admin_setting_configtext(
-    'block_gmxp/numValorIncrement',
-    get_string('titleIncre', 'block_gmxp'),
-    get_string('descIncre', 'block_gmxp'),
-    1.3,
-    PARAM_FLOAT,
-    5
-));
-
-
-$settingsAux[] = (new admin_setting_configtext(
-    'block_gmxp/firstExpRequiried',
-    get_string('titleFirstExpRequired', 'block_gmxp'),
-    get_string('descFirstExpRequired', 'block_gmxp'),
-    1000,
-    PARAM_INT,
-    10
-));
-
-
-$settingsAux[] = (new admin_setting_configtext(
-    'block_gmxp/firstExpGiven',
-    get_string('titleExpGiven', 'block_gmxp'),
-    get_string('descExpGiven', 'block_gmxp'),
-    1500,
-    PARAM_INT,
-    10
-));
-
-
-$settingsAux[] = (new admin_setting_heading(
-    'block_gmxp/headerconfigLevelsFormat',
-    get_string('headerconfigLevelsFormat', 'block_gmxp'),
-    get_string('headerconfigLevelsFormatDesc', 'block_gmxp')
-));
-
-$settingsAux[] = (new admin_setting_configtext(
-    'block_gmxp/defaultLevelsName',
-    get_string('titleDefName', 'block_gmxp'),
-    get_string('descDefName', 'block_gmxp'),
-    get_string('defaultDefName','block_gmxp'),
-    PARAM_TEXT,
-    60
-));
-
-$settingsAux[] = (new admin_setting_configtext(
-    'block_gmxp/defaultLevelsMessage',
-    get_string('titleDefMessage', 'block_gmxp'),
-    get_string('descDefMessage', 'block_gmxp'),
-    get_string('defaultDefMessage','block_gmxp'),
-    PARAM_RAW,
-    60
-));
-
-
-$settingsAux[] = (new admin_setting_configtextarea(
-    'block_gmxp/defaultLevelsDescription',
-    get_string('titleDefDescription', 'block_gmxp'),
-    get_string('descDefDescription', 'block_gmxp'),
-    get_string('defaultDefDescription','block_gmxp'),
-    PARAM_RAW,
-    5,
-    5
-));
-
-$settingsAux[] = (new admin_setting_configcolourpicker(
-    'block_gmxp/defaultColorPickerLevels',
-    get_string('defColorPick', 'block_gmxp'),
-    get_string('defColorPickdesc','block_gmxp'),
-    '#0B619F',
-    null,
-    true
-));
-
-$settingsAux[] = (new admin_setting_configcolourpicker(
-    'block_gmxp/defaultColorPickerProgressBar',
-    get_string('defColorPickProgressBar', 'block_gmxp'),
-    get_string('defColorPickdesc','block_gmxp'),
-    '#0B619F',
-    null,
-    true
-));
+/*
+ * UNIVERSITY:  INSTITUTO POLITECNICO NACIONAL (IPN)
+ *              ESCUELA SUPERIOR DE COMPUTO (ESCOM)
+ *   
+ * TRABAJO TERMINAL: 2018-B029
+ *   "GAMIFICACIÓN EN UNA PLATAFORMA WEB DE APRENDIZAJE"
+ *
+ *
+ * ASESORES: Sandra I, Bautista, Edgar A. Catatán
+ *
+ * DESARROLLADORES:
+ *   - Daniel Ortega  (gitlab: DanielOrtegaZ)
+ *   - Ricardo, David
+ *
 */
-/*$settingsAux[] = (new admin_setting_configstoredfile(
-    'block_gmxp/imageDefecto',
-    new lang_string('defaultLevelsImage', 'block_gmxp'),
-    new lang_string('defaultLevelsImageDesc', 'block_gmxp'),
-    'level_images_simplehtml',
-    0,
-    ['subdirs' => 0, 'maxfiles' => 1, 'accepted_types' => '.png']
-));*/
 
-    $settings = new admin_category('block_gmxp_category', 'Gamedle Level');
+defined('MOODLE_INTERNAL') || die();
 
-    $settingsurl = new moodle_url('/blocks/gmxp/gmxp_admin_form_sections.php');
-    $external = new admin_externalpage(
-        'block_gmxp_ext',
-        get_string('nameVisualSettingsSections', 'block_gmxp'),
-        $settingsurl
+    $PLUGIN = 'block_gmxp';
+    $CATEGORY = get_string('SYS_SETTINGS_CATEGORY',  $PLUGIN);
+
+    /**
+     * Creación de la pantalla para los settings generales
+     *  Ref: CU-E02-1: Configuración General del módulo de experiencia
+     *  Docs: lib/adminlib.php
+     */
+    $heading = new admin_setting_heading( $PLUGIN.'/header',
+        get_string('SETTINGS_GENERAL_HEADER', $PLUGIN),
+        get_string('SETTINGS_GENERAL_HEADER_DESC', $PLUGIN));
+
+    $enabledCheckbox = new admin_setting_configcheckbox( $PLUGIN.'/'.
+        get_string('SYS_SETTINGS_GENERAL_ACTIVATED', $PLUGIN),
+        get_string('SETTINGS_GENERAL_ENABLED', $PLUGIN),
+        get_string('SETTINGS_GENERAL_ENABLED_DESC', $PLUGIN),
+        true, 1, 0);
+
+    $eventsCheckbox = new admin_setting_configcheckbox( $PLUGIN.'/'.
+        get_string('SYS_SETTINGS_GENERAL_EVENTS', $PLUGIN),
+        get_string('SETTINGS_GENERAL_EVENTS_ENABLED', $PLUGIN),
+        get_string('SETTINGS_GENERAL_EVENTS_ENABLED_DESC', $PLUGIN),
+        true, 1, 0);
+
+    $general_settings = new admin_settingpage(
+        get_string('SYS_SETTINGS_GENERAL', $PLUGIN),
+        get_string('SETTINGS_GENERAL', $PLUGIN)
     );
 
-    $settingsurl2 = new moodle_url('/blocks/gmxp/gmxp_admin_form_general.php');
-    $external2 = new admin_externalpage(
-        'block_gmxp_ext_general',
-        get_string('nameVisualSettingsGeneral','block_gmxp'),
-        $settingsurl2
+    $general_settings->add($heading);
+    $general_settings->add($enabledCheckbox);
+    $general_settings->add($eventsCheckbox);
+
+
+    /**
+     * Creación de la pantalla para los settings visuales
+     *  Ref: CU-E02-2: Configurar Visualización de niveles
+     *  Docs: lib/adminlib.php
+     */
+    $visual_settings = new admin_externalpage(
+        get_String('SYS_SETTINGS_VISUAL', $PLUGIN),
+        get_string('SETTINGS_VISUAL', $PLUGIN),
+        new moodle_url('/blocks/gmxp/settings/visual_settings.php')
     );
 
+    /**
+     * Creación de la pantalla para los settings del esquema de experiencia
+     *  Ref: CU-E02-2: Configurar Esquema de Experiencia
+     *  Docs: lib/adminlib.php
+     */
+    $scheme_settings = new admin_externalpage(
+        get_string('SYS_SETTINGS_SCHEME', $PLUGIN),
+        get_string('SETTINGS_SCHEME', $PLUGIN),
+        new moodle_url('/blocks/gmxp/settings/scheme_settings.php')
+    );
 
-    $settings->add('block_gmxp_category',$external2);
-    $settings->add('block_gmxp_category',$external);
-/*$settingspage = new admin_settingpage('block_gmxp_default_settings', get_string('nameGeneralSettings','block_gmxp'));*/
+    /**
+     * Creación de la pantalla para los settings del esquema de experiencia
+     *  Ref: CU-E02-2: Configurar Esquema de Experiencia
+     *  Docs: lib/adminlib.php
+     */
+    $events_settings = new admin_externalpage(
+        get_string('SYS_SETTINGS_EVENTS', $PLUGIN),
+        get_string('SETTINGS_EVENTS', $PLUGIN),
+        new moodle_url('/blocks/gmxp/settings/events_settings.php')
+    );
 
-/*array_map(function($setting) use ($settingspage) {
-    $settingspage->add($setting);
-}, $settingsAux);*/
+    /**
+     * Vinculación de los menus de configuración con la categoría del menú
+     *  Ref: CU-E02-2: Configurar Esquema de Experiencia
+     *  Docs: lib/adminlib.php
+     */
+    $settings = new admin_category($CATEGORY, get_string('SETTINGS_CATEGORY', $PLUGIN));
+    $settings->add($CATEGORY, $general_settings);
+    $settings->add($CATEGORY, $visual_settings);
+    $settings->add($CATEGORY, $scheme_settings);
+    $settings->add($CATEGORY, $events_settings);
 
-/*$settings->add('block_gmxp_category', $settingspage);*/
 

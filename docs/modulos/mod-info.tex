@@ -61,7 +61,22 @@
     \begin{quote}
     \begin{bGlosario}
         \bTerm{tVarchar}{varchar} Cadena de caracteres de longitud variable
-        \bTerm{tInt}{int}         Numero enteros incluyendo, positivos y negativos.
+        \bTerm{tInt}{int}         Numeros enteros incluyendo, positivos y negativos.
+        \bTerm{tBoolean}{boolean} Tipo de dato que solo tiene dos valores posibles,
+                                  verdadero y falso.
+        \bTerm{tNatural}{natural} Número entero mayores a cero.
+        \bTerm{tDouble}{double}   Números reales con soporte para doble punto flotante.
+        \bTerm{tColor}{color}     Cadena de texto que almacena el código de un color en hexadecimal,
+                                  de la forma {\it ``\#RRGGBB''}.
+        \bTerm{tImage}{imagen}    Tipo de dato que almacena la referencia a una imagen almacenada por
+                                  moodle.
+        \bTerm{tPath}{ruta}       Cadena que representa la ubicación de un archivo dentro del sistema
+                                  de archivos.
+        \bTerm{tVersion}{version} Conjunto de dígitos que representan la fecha de la ultima
+                                  actualización del plugin.
+        \bTerm{tObject}{objecto}  Es una colección de propiedades, y una propiedad es una
+                                  asociación entre un nombre (o clave) y un valor
+                                  \cite{ObjectMozilla}.
     \end{bGlosario}
     \end{quote}
 
@@ -71,11 +86,11 @@
     \begin{quote}
     \begin{bGlosario}
 
-        \bTerm{tRequerido}{Requerido}
+        \bTerm{tRequired}{Requerido}
             Indica que el dato es obligatorio y no puede existir un registro sin que tenga
             un valor.
 
-        \bTerm{tUnico}{Único}
+        \bTerm{tUniqueKey}{Único}
             Indica que que los valores para un atributo o combinación de estos no se deben
             repetir en los diferentes registros.
 
@@ -89,7 +104,7 @@
             tabla, esto es, sus valores posibles Sólo pueden ser aquellos que existan en la
             llave primaria a la que apuntan. FK(Tabla.atributo).
 
-        \bTerm{tRango}{Rango}(a, b)
+        \bTerm{tRange}{Rango}(a, b)
             Indica que el numero de valores esta restringido del valor $a$ al $b$.
 
         \bTerm{tAutoIncrement}{Auto-incremental}
@@ -98,105 +113,26 @@
         \bTerm{tDefault}{Default} $:\ valor$
             Indica el valor por defecto que tendrá el atributo.
 
+        \bTerm{tLength}{Length} $a-b$
+            Indica la longitud que tendrá una \refElem{tVarchar}.
+
+        \bTerm{tPositive}{Positivo} $a-b$
+            Indica que el valor numérico debe ser positivo.
     \end{bGlosario}
     \end{quote}
 
 \clearpage
 
-\section{Relaciones de moodle}
+\newcommand{\schemeName}[1]{%
+% Esta macro se usa inmediatamente despues de una entidad
+    \vspace{-1em}\hfill Nombre en el esquema: {\it #1}\ \ \par%
+}
 
- A continuación se presenta la especificación de las relaciones del esquema de base
- de datos de moodle que son relevantes para el desarrollo de los módulos y submódulos
- de proyecto.
-
-    \begin{cdtEntidad}{Mdl-configuration}{Configuración de Plugin}{%
-    Es una tabla del núcleo de moodle que almacena todas las configuraciones globales
-    relacionadas a los plugins instalados, al iniciar moodle las configuraciones de los
-    plugins instalados y habilitados se cargan en memoria.}
-
-	    \brAttr{id}{Id}{tInt}{%
-	        Es el dígito que representa el identificador único para una configuración
-            específica de un plugin.\par
-
-            \it Restricciones:
-            \refElem{tPrimaryKey},
-            \refElem{tAutoIncrement}.
-        }
-
-        \brAttr{plugin}{Plugin}{tVarchar}{%
-            Cadena de caracteres del nombre identificador del plugin al cual pertenece
-            la configuración.\par
-
-            \it Restricciones:
-            \refElem{tRequerido},
-            \refElem{tRango} (0,100),
-            \refElem{tUnico}
-        }
-
-        \brAttr{name}{Nombre}{tVarchar}{%
-            Cadena de caracteres que representa el nombre de la configuración de un
-            plugin en específico.\par
-
-            \it Restricciones:
-            \refElem{tUnico},
-            \refElem{tRango} (0,100),
-            \refElem{tRequerido}
-        }
-
-        \brAttr{value}{Valor}{tVarchar}{%
-            Cadena que almacena el valor de una configuración perteneciente a alguno
-            de los plugins instalados.\par
-
-            \it Restricciones:
-            \refElem{tRango} (0,4294967295),
-            \refElem{tRequerido}
-        }
-	%\cdtEntityRelSection
-	%\brRel{\brRelComposition}{Ejemplo}{Escribe el enunciado que denota la composición.}
-	%\brRel{\brRelAgregation}{Ejemplo}{Tambien puede ser con agregaciones.}
-	%\brRel{\brRelGeneralization}{Ejemplo}{De la misma forma con Generalizaciones.}
-    \end{cdtEntidad}
-    \vspace{-1em}\hfill Nombre en el esquema: {\it mdl\_configuration}\ \ \par%
-
-
-    \begin{cdtEntidad}{mdl-usuario}{Usuario de moodle}{%
-    Es una tabla del núcleo de moodle que contiene toda la información que se
-    almacena de los usuarios en la plataforma, independientemente del rol que
-    estos contenga, esta relación contiene más de 53 atributos, sin embargo solo
-    se detallan aquellos relevantes.}
-
-	    \brAttr{id}{Id}{tInt}{%
-	        Es el dígito que representa el identificador único para cada uno
-            de los usuarios en moodle.\par
-
-            \it Restricciones:
-            \refElem{tPrimaryKey},
-            \refElem{tAutoIncrement}.
-        }
-
-    \end{cdtEntidad}
-    \vspace{-1em}\hfill Nombre en el esquema: {\it mdl\_configuration}\ \ \par%
+    \input{modulos/modelos/moodle}
+    \input{modulos/modelos/experiencia}
 
 \begin{comment}
 
-    \begin{Entidad}{usuario}{%
-            \attrM{id\_usuario}
-            {Atributo que relaciona un usuario de Moodle con uno nuestro}
-                \Titem{ Llave foránea
-                \Titem{ No nulo}
-            {General}
-
-            \attr{nivel\_actual}
-            {Nivel actual del usuario.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-            \attr{experiencia\_ actual}
-            {Experiencia actual del nivel del usuario.}
-                \Titem{ Su valor es $ \geq 0$}
-                \Titem{ No nulo.}
-            {Experiencia}
-    \end{Entidad}
 
     \begin{Entidad}
         {alumno}
