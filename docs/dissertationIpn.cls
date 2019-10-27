@@ -120,7 +120,8 @@
 \newcommand{\TestCase}[3][]{%
     \CrearVariablesInternas{#1}%
     \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
-    \section{#2 #3}%
+    \hypertarget{#2}{}%
+    \section{#2 #3}
 }%
 }
 
