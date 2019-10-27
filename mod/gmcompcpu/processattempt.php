@@ -1,8 +1,5 @@
 <?php
 
-//TODO agregar que el defaultmark de cada pregunta tenga que ver con el 100 cuando se calcula el puntaje
-//TODO revisar base de datos y ahorita las consultaas que te mando david para ver como piensa hacer lo de los intentos
-
 require_once(dirname(__FILE__).'/../../config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
 require_once($CFG->dirroot . '/mod/gmcompcpu/classes/cpumind.php');
@@ -22,7 +19,9 @@ $quba = question_engine::load_questions_usage_by_activity($id);
 
 $userScore = calculateScoreUser($quba,$timenow);
 
-/*for ($i = 1; $i <= 4; $i++) {                                     //Pruebas para ver como se comportan las diferentes dificultades (no estan funcionando como se espera)
+/*echo $userScore;*/
+
+/*for ($i = 1; $i <= 4; $i++) {                                     //Pruebas para ver como se comportan las diferentes dificultades (funciona como se espera)
 
     $scoreAv = 0;
 
@@ -81,13 +80,54 @@ $values = (object)[
 
 $values->id = $intentoid;
 
+
+$gmcompcpu  = $DB->get_record('gmcompcpu', array('id' => $cm), '*', MUST_EXIST);
+$course     = $DB->get_record('course', array('id' => $gmcompcpu->course), '*', MUST_EXIST);
+$cm         = get_coursemodule_from_instance('gmcompcpu', $gmcompcpu->id, $course->id, false, MUST_EXIST);
+
+require_login($course, true, $cm);
+
+$context = context_module::instance($cm->id);
+
+
+$PAGE->set_title(format_string($gmcompcpu->name));
+$PAGE->set_heading(format_string($course->fullname));
+$PAGE->set_context($context);
+
+$renderer = $PAGE->get_renderer('mod_gmcompcpu');
+
+echo $OUTPUT->header();
+
+echo $OUTPUT->heading($gmcompcpu->name);
+
+echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
+
+echo $renderer->render_results_attempt($userScore,$cpuScore);
+
+echo $OUTPUT->footer();
+
+$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id),'MAX(puntuacion_usuario)');
+
+if($userScore > $maxScore && $userScore >= $cpuScore){
+
+    $event = \local_gamedlemaster\event\gmcompcpu_compFinishedWon::create(array(
+        'objectid' => $gmcompcpu->id,
+        'context' => $context,
+        'other' => array('userid' => $userid, 'dificultad' => $intento->gmdl_dificultad_cpu_id),
+    ));
+
+    $event->add_record_snapshot('gmcompcpu', $gmcompcpu);
+    $event->trigger();
+
+}
+
 $DB->update_record('gmdl_intento',$values);
 
 insertCpuAnswers($questionswithAnswers,$intentoid);
 
-$urltogo = new moodle_url('/mod/gmcompcpu/view.php', array('id' => $idredirect));
+/*$urltogo = new moodle_url('/mod/gmcompcpu/view.php', array('id' => $idredirect));
 
-redirect($urltogo);
+redirect($urltogo);*/
 
 /*echo $userScore;
 echo '<br>';
@@ -158,6 +198,7 @@ function calculateScoreUser($quba,$timenow){
         /*echo '<br>';*/
         $qa = $quba->get_question_attempt($slot);
         $dbanswers = $DB->get_records('question_answers', array('question' => $qa->get_question()->id));
+        $question = $DB->get_record('question', array('id' => $qa->get_question()->id));
         $answers = processAnswer($dbanswers);
         /*echo $qa->get_question()->id;*/
         /*echo '  '.$qa->get_question()->get_type_name();*/
@@ -167,42 +208,62 @@ function calculateScoreUser($quba,$timenow){
 
         if($qa->get_question()->get_type_name() == 'multichoice'){
 
-            $order = explode(',',$qa->get_step_iterator()[0]->get_all_data()['_order']);
-            $useranswers = explode(',',$qa->get_step_iterator()[1]->get_all_data()['answer']);
 
-            foreach ($useranswers as $useranswer){
+            try{
 
-                foreach ($answers as $answer){
+                $order = explode(',',$qa->get_step_iterator()[0]->get_all_data()['_order']);
+                $useranswers = explode(',',$qa->get_step_iterator()[1]->get_all_data()['answer']);
 
-                    if($order[$useranswer] == $answer->id){
+            }catch (Exception $e){
 
-                        $score += 100 * $answer->fraction;
-
-                    }
-
-                    /*echo 'Esto es getrecords: id: '.$answer->id.' fraction: '.$answer->fraction.' answer: '.$answer->answer;*/
-                    /*echo '<br>';*/
-                }
+                $useranswers = null;
 
             }
 
 
+            if($useranswers != null){
+
+                foreach ($useranswers as $useranswer){
+
+                    foreach ($answers as $answer){
+
+                        if($order[$useranswer] == $answer->id){
+
+                            $score += (100*$question->defaultmark) * $answer->fraction;
+
+                        }
+
+                        /*echo 'Esto es getrecords: id: '.$answer->id.' fraction: '.$answer->fraction.' answer: '.$answer->answer;*/
+                        /*echo '<br>';*/
+                    }
+
+                }
+
+            }
 
             /*echo json_encode($order);*/
             /*echo '<br>';*/
             /*echo json_encode($useranswers);*/
 
-        }else{
+        }else {
 
+            try{
             $useranswer = $qa->get_step_iterator()[1]->get_all_data()['answer'];
+            }catch (Exception $e){
+                $useranswer = null;
+            }
 
-            if($qa->get_question()->get_type_name() == 'truefalse'){
 
-                if($useranswer){
+            if($useranswer != null){
+
+            if ($qa->get_question()->get_type_name() == 'truefalse') {
+
+
+                if ($useranswer) {
 
                     $useranswer = 'true';
 
-                }else{
+                } else {
 
                     $useranswer = 'false';
 
@@ -210,22 +271,28 @@ function calculateScoreUser($quba,$timenow){
 
             }
 
+            /*}*/
 
-            foreach ($answers as $answer){
+
+            foreach ($answers as $answer) {
 
                 /*echo 'useranswer: '.strtolower($useranswer).' answer: '.strtolower($answer->answer).' comparacion: ';
                 echo strtolower($useranswer) == strtolower($answer->answer);
                 echo '<br>';*/
 
-                if(strtolower($useranswer) == strtolower($answer->answer)){
+                if (strtolower($useranswer) == strtolower($answer->answer)) {
 
-                    $score += 100 * $answer->fraction;
+                    $score += (100*$question->defaultmark) * $answer->fraction;
 
                 }
 
                 /*echo 'Esto es getrecords: id: '.$answer->id.' fraction: '.$answer->fraction.' answer: '.$answer->answer;*/
                 /*echo '<br>';*/
             }
+
+        }
+
+
 
             /*echo '<br>';*/
             /*echo json_encode($useranswer);*/

@@ -120,6 +120,75 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
     }
 
 
+    public function render_results_attempt($userScore,$cpuScore){
+
+        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+
+        if($userScore >= $cpuScore){
+
+            $mensaje = 'Felicidades! Computadora derrotada';
+            $class = 'ganador';
+
+        }else{
+
+            $mensaje = 'Oh no!, Debes practicar mas!';
+            $class = 'perdedor';
+
+        }
+
+        $display .= html_writer::start_tag('div');
+
+        $display .= html_writer::start_tag('h2',array('class' => 'gmcompcpu-titulo-'.$class));
+
+        $display .= html_writer::start_tag('b');
+
+        $display .= $mensaje;
+
+        $display .= html_writer::end_tag('b');
+
+        $display .= html_writer::end_tag('h2');
+
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-container'));
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-half-container'));
+
+
+        $display .= html_writer::start_tag('h3');
+
+        $display .= html_writer::start_tag('b');
+
+        $display .= 'Tu puntuacion: '.$userScore;
+
+        $display .= html_writer::end_tag('b');
+
+        $display .= html_writer::end_tag('h3');
+
+
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-half-container'));
+
+        $display .= html_writer::start_tag('h3');
+
+        $display .= html_writer::start_tag('b');
+
+        $display .= 'Puntuacion cpu: '.$cpuScore;
+
+        $display .= html_writer::end_tag('b');
+
+        $display .= html_writer::end_tag('h3');
+
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::end_tag('div');
+
+        return $display;
+
+    }
+
+
     public function render_main_page($gmcompcpu, $userid,$id)
         {
             $moodleUserId = $userid;                        //por si lo ocupo
@@ -156,7 +225,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                             }
                         }
 
-                        if(!$noEncontrado){
+                        if($noEncontrado){
 
                             $compusVencidas.= "<td class='cgmcompcpu-cpu'> No </td>";
 
@@ -335,7 +404,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
             $html.="<div class='gmcompcpu-linea'> </div>";
             try {
-                $intentos = array_values($DB->get_records($table = 'gmdl_intento', $conditions = array("gmdlcompcpu_id" => $gmcompcpu->id, "gmdl_usuario_id" => $userid), $sort = 'gmdl_dificultad_cpu_id, puntuacion_usuario', $fields = '*', $limitfrom = 0, $limitnum = 0));
+                $intentos = array_values($DB->get_records($table = 'gmdl_intento', $conditions = array("gmdlcompcpu_id" => $gmcompcpu->id, "gmdl_usuario_id" => $userid ), 'id desc', $fields = '*', $limitfrom = 0, $limitnum = 0));
                 $html.="<h1 class='gmcompcpu-titulo'> Intentos realizados </h1>";
                 $html.="<div class='gmcompcpu-container'>";
                 $cabezeraTabla = "<thead> <tr> <th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th>  </tr> </thead>";
@@ -349,14 +418,15 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                 {
                     $contenidoTabla.= "<tr>";
                     $contenidoTabla.= "<td class='gmcompcpu-tabla-celda-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id."'> ".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre." </td>";
-                    if($intento->puntuacion_usuario >= $intento->puntuacion_cump)
+                    if($intento->puntuacion_usuario >= $intento->puntuacion_cpu)
                         {
-                            $contenidoTabla.= "<td> ".$intento->puntuacion_usuario. "</td>";
+                            $contenidoTabla.= "<td class='cgmcompcpu-cpu-vencida'> ".$intento->puntuacion_usuario. "</td>";
                             $contenidoTabla.= "<td> ".$intento->puntuacion_cpu . "</td>";
+
                         }
                     else
                         {
-                            $contenidoTabla.= "<td class='gmcompcpu-tabla-celda-ganadora'> ".$intento->puntuacion_usuario. "</td>";
+                            $contenidoTabla.= "<td> ".$intento->puntuacion_usuario. "</td>";
                             $contenidoTabla.= "<td> ".$intento->puntuacion_cpu . "</td>";
                         }
                     $contenidoTabla.= "</tr>";

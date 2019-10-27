@@ -19,7 +19,7 @@ require_login($course, true, $cm);
 
 $context = context_module::instance($cm->id);
 
-$PAGE->set_url('/mod/gmcompcpu/view.php', array('id' => $cm->id));
+
 $PAGE->set_title(format_string($gmcompcpu->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
@@ -28,7 +28,7 @@ $renderer = $PAGE->get_renderer('mod_gmcompcpu');
 
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading_with_help(get_string('modulename', 'mod_gmcompcpu'), 'howtoplay', 'mod_gmcompcpu');
+echo $OUTPUT->heading($gmcompcpu->name);
 
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
