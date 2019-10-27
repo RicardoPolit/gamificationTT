@@ -45,8 +45,6 @@ $string['SYS_SETTINGS_VISUAL_IMAGE_PATH'] = "/blocks/gmxp/pix/";
 $string['SYS_SETTINGS_SCHEME'] = "block_gmxp/scheme_settings";
 $string['SYS_SETTINGS_SCHEME_INCREMENT'] = "increment";
 $string['SYS_SETTINGS_SCHEME_VALUE'] = "incrementValue";
-$string['SYS_SETTINGS_SCHEME_VALUE_L'] = "linealvalue";
-$string['SYS_SETTINGS_SCHEME_VALUE_P'] = "percentage";
 $string['SYS_SETTINGS_SCHEME_LEVELXP'] = "levelXP";
 $string['SYS_SETTINGS_SCHEME_COURSEXP'] = "courseXP";
 $string['SYS_SETTINGS_EVENTS'] = "block_gmxp/events_settings";
@@ -90,6 +88,11 @@ $string['VISUAL_SETTING_DEFAULT_COLORLVL'] = "#0B619F";
 $string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "#0B619F";
 $string['VISUAL_SETTING_DEFAULT_IMAGE'] = "image.jpg";
 
+$string['SETTINGS_VISUAL_HEADER'] = "Customize the levels looking";
+$string['SETTINGS_VISUAL_DESC'] = 
+    "You can specify the title, description and congratulations message of levels. 
+    In addition you can set the image and colors of levels.";
+
 $string['VISUAL_SETTING_TEXT_TITLE'] = "Levels Title";
 $string['VISUAL_SETTING_HELP_TITLE'] = "the {$string['VISUAL_SETTING_TEXT_TITLE']}";
 $string['VISUAL_SETTING_HELP_TITLE_help'] =
@@ -125,8 +128,7 @@ $string['VISUAL_SETTING_HELP_IMAGE_help'] =
     "Select the image shown in the block {$string['pluginname']}. If the image is not 
     provided, the image pix/image.jpg in the plugin's directory will be shown";
 
-$string['VISUAL_SETTING_ERROR_IMAGE_NAME'] =
-    "La imagen no puede ser llamada icon.jpg o icon.png";
+$string['VISUAL_SETTING_ERROR_IMAGE_NAME'] = "La imagen no puede ser llamada icon.png";
 
 $string['VISUAL_SETTING_ERROR_IMAGE_SAVE'] =
     "Error ocurred. The image file couldn't be saved";

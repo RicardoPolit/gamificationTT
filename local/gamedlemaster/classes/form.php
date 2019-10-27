@@ -16,7 +16,7 @@ abstract class local_gamedlemaster_form extends moodleform {
     protected $form_description = 'FORM DESCRIPTION';
 
     protected $has_error = false;
-    protected $form_error = 'ERROR';
+    protected $error = 'ERROR';
     protected $form_success;
 
     function __construct() {
@@ -49,7 +49,7 @@ abstract class local_gamedlemaster_form extends moodleform {
 
         if ($this->is_submitted()) {
             if ($this->has_error) {
-                $output = $OUTPUT->notification($this->form_error);
+                $output = $OUTPUT->notification($this->error);
 
             } else {
                 $output = $OUTPUT->notification($this->form_success, 'notifysuccess');
@@ -62,7 +62,7 @@ abstract class local_gamedlemaster_form extends moodleform {
     function render_header() {
         $output = html_writer::tag('h2', $this->form_title);
         $output.= html_writer::tag('h5', $this->form_subtitle,
-            array('style' => 'line-height: 3;'));
+            array('style' => 'line-height: 3;border-bottom: 1px solid #e5e5e5;'));
 
         $output.= html_writer::tag('p', $this->form_description);
 

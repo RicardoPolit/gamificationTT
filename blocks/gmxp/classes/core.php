@@ -13,20 +13,23 @@ class block_gmxp_core {
 
     const CATEGORY = 'block_gmxp_category';
 
+    // GENERAL SETTINGS
     const SETTINGS_GENERAL = "block_gmxp_general_settings";
     const ACTIVATED = "activated";
     const EVENTS = "events";
 
+    // VISUAL SETTINGS
     const SETTINGS_VISUAL = "block_gmxp/visual_settings";
     const PATH_SETTINGS_VISUAL = "/blocks/gmxp/settings/visual_settings.php";
 
-    const VISUAL_TITLE = "title";
-    const VISUAL_DESCRIPTION = "description";
-    const VISUAL_MESSAGE = "message";
-    const VISUAL_COLORLVL = "colorLvl";
-    const VISUAL_COLORBAR = "colorBar";
+    const TITLE = "title";
+    const DESCRIPTION = "description";
+    const MESSAGE = "message";
+    const COLORLVL = "colorLvl";
+    const COLORBAR = "colorBar";
     const IMAGE = "image";
     const PATH_IMAGE = "/blocks/gmxp/pix/";
+    const RESERVED_IMAGE_NAME = "icon.png";
 
     const SETTINGS_SCHEME = "block_gmxp/scheme_settings";
     const PATH_SETTINGS_SCHEME = '/blocks/gmxp/settings/scheme_settings.php';
