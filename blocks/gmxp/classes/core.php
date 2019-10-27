@@ -25,8 +25,8 @@ class block_gmxp_core {
     const VISUAL_MESSAGE = "message";
     const VISUAL_COLORLVL = "colorLvl";
     const VISUAL_COLORBAR = "colorBar";
-    const VISUAL_IMAGE = "image";
-    const VISUAL_IMAGE_PATH = "/blocks/gmxp/pix/";
+    const IMAGE = "image";
+    const PATH_IMAGE = "/blocks/gmxp/pix/";
 
     const SETTINGS_SCHEME = "block_gmxp/scheme_settings";
     const PATH_SETTINGS_SCHEME = '/blocks/gmxp/settings/scheme_settings.php';

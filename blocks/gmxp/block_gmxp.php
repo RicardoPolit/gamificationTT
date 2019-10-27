@@ -54,9 +54,8 @@ class block_gmxp extends block_base {
     private function loadImage(){
 
         global $CFG;
-        $filekey  = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
-        $image = get_config(self::PLUGIN, $filekey);
-        $this->image = $CFG->wwwroot . "/blocks/gmxp/pix/" . $image;
+        $image = get_config(self::PLUGIN, block_gmxp_core::IMAGE);
+        $this->image = $CFG->wwwroot . block_gmxp_core::PATH_IMAGE . $image;
     }
 
     private function htmlMedal($level){
