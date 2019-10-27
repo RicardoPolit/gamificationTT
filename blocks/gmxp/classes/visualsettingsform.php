@@ -272,8 +272,7 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
         }
 
         foreach ($keys as $key => $value) {
-            // set_config($key, $value, self::PLUGIN);
-            local_gamedlemaster_log::info("      $key => $value", "VISUAL SETTINGS");
+            set_config($key, $value, self::PLUGIN);
         }
     }
 

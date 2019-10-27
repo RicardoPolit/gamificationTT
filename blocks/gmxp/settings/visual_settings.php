@@ -26,7 +26,7 @@ if ($experience_activated) {
         local_gamedlemaster_log::info('not validated');
     }
 
-    $CONTENT .= $form->render();
+    $CONTENT = $form->render();
 
 /**
  * Si el módulo de experiencia no se encuentra activado

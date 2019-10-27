@@ -81,13 +81,6 @@ $string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] =
     supported";
 
 // ==== VISUAL SETTINGS =====================================
-$string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
-$string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
-$string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
-$string['VISUAL_SETTING_DEFAULT_COLORLVL'] = "#0B619F";
-$string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "#0B619F";
-$string['VISUAL_SETTING_DEFAULT_IMAGE'] = "image.jpg";
-
 $string['SETTINGS_VISUAL_HEADER'] = "Customize the levels looking";
 $string['SETTINGS_VISUAL_DESC'] = 
     "You can specify the title, description and congratulations message of levels. 
@@ -136,11 +129,19 @@ $string['VISUAL_SETTING_ERROR_IMAGE_SAVE'] =
 $string['VISUAL_SETTING_ERROR_IMAGE_DELETE'] =
     "Error ocurred. The previous image file cannot be deleted";
 
-// ==== VISUAL SETTINGS =====================================
-$string['SCHEME_SETTING_DEFAULT_INCREMENT'] = "0"; // 0:LINEAL 1:PERCENTUAL
-$string['SCHEME_SETTING_DEFAULT_VALUE'] = "20";
-$string['SCHEME_SETTING_DEFAULT_LEVELXP'] = "100"; 
-$string['SCHEME_SETTING_DEFAULT_COURSEXP'] = "150";
+$string['VISUAL_SETTING_DEFAULT_TITLE'] = "Gamedle Levels";
+$string['VISUAL_SETTING_DEFAULT_MESSAGE'] = "CONGRATULATIONS";
+$string['VISUAL_SETTING_DEFAULT_DESCRIPTION'] = "New reached level";
+$string['VISUAL_SETTING_DEFAULT_COLORLVL'] = "#0B619F";
+$string['VISUAL_SETTING_DEFAULT_COLORBAR'] = "#0B619F";
+$string['VISUAL_SETTING_DEFAULT_IMAGE'] = "image.jpg";
+
+// ==== SCHEME SETTINGS =====================================
+$string['SETTINGS_SCHEME_HEADER'] = "Customize the experience points system";
+$string['SETTINGS_SCHEME_DESC'] = 
+    "Control how does the required amount of experience points increases
+    from level to level, set the experience points that the courses gives
+    and specify the experience points given by the first level.";
 
 $string['SCHEME_SETTING_TEXT_INCREMENT'] = "Increment Type";
 $string['SCHEME_SETTING_HELP_INCREMENT'] = "the {$string['SCHEME_SETTING_TEXT_INCREMENT']}";
@@ -177,17 +178,23 @@ $string['SCHEME_SETTING_HELP_COURSEXP_help'] =
 $string['SCHEME_SETTING_WARNING_MESSAGE'] = "";
 // DEscribe the behavement of plugin when changing this settings.
 
+$string['SCHEME_SETTING_DEFAULT_INCREMENT'] = "1"; // 0:LINEAL 1:PERCENTUAL
+$string['SCHEME_SETTING_DEFAULT_VALUE'] = "1.3";
+$string['SCHEME_SETTING_DEFAULT_LEVELXP'] = "1000"; 
+$string['SCHEME_SETTING_DEFAULT_COURSEXP'] = "1500";
+
 // ==== FORM MESSAGES =====================================
+$string['SETTINGS_EXPERIENCE_DISABLED_REDIRECT'] = "Enable module";
 $string['SETTINGS_EXPERIENCE_DISABLED'] =
     "The experience module is deactivated in the *{$string['SETTINGS_GENERAL']}* page 
     if you want to access this configuration you must enable the experiencia module";
 
-$string['SETTINGS_EXPERIENCE_DISABLED_REDIRECT'] = 
-    "Enable module";
-
 $string['maxlength'] = 'Max length allowed is {$a}';
 $string['color'] = 'Invalid color value';
-$string['success'] = 'Configurations updated successfully';
+$string['integer'] = 'The value must be an integer greater than 0';
+$string['float'] =
+    'The value must be a float between 1.0 and 2.0 of maximun 5 floating precision 
+    points';
 
 
 

@@ -5,7 +5,7 @@ require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->dirroot . '/blocks/gmxp/includes/colourpicker.php');
 
 $PLUGIN = 'block_gmxp';
-admin_externalpage_setup(get_string('SYS_SETTINGS_SCHEME', $PLUGIN));
+admin_externalpage_setup(block_gmxp_core::SETTINGS_SCHEME);
 
 $CONTENT = '';
 $form = new block_gmxp_schemesettingsform();
