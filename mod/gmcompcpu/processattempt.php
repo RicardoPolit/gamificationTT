@@ -13,7 +13,7 @@ $id  = optional_param('id', "", PARAM_INT);  // Is the param action.
 $cm  = optional_param('cm', "", PARAM_INT);  // Is the param action.
 $userid = optional_param('userid', "", PARAM_INT);  // Is the param action.
 $intentoid = optional_param('intentoid', "", PARAM_INT);  // Is the param action.
-
+$idredirect  = optional_param('idredirect', "", PARAM_INT);  // Is the param action.
 $intento = $DB->get_record('gmdl_intento', array('id' => $intentoid), '*', MUST_EXIST);
 
 $timenow = time();
@@ -84,6 +84,10 @@ $values->id = $intentoid;
 $DB->update_record('gmdl_intento',$values);
 
 insertCpuAnswers($questionswithAnswers,$intentoid);
+
+$urltogo = new moodle_url('/mod/gmcompcpu/view.php', array('id' => $idredirect));
+
+redirect($urltogo);
 
 /*echo $userScore;
 echo '<br>';

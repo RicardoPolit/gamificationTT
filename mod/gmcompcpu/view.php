@@ -79,7 +79,7 @@ if ($gmcompcpu->intro) {
 }
 
 // Output header and directions.
-echo $OUTPUT->heading_with_help(get_string('modulename', 'mod_gmcompcpu'), 'howtoplay', 'mod_gmcompcpu');
+echo $OUTPUT->heading($gmcompcpu->name);
 
 // Game here.
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";

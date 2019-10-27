@@ -8,6 +8,7 @@ $userid = optional_param('userid', 0, PARAM_INT);
 $instance  = optional_param('instance', 0, PARAM_INT);
 $dificultad  = optional_param('dificultad', 0, PARAM_INT);
 $gmuserid  = optional_param('gmuserid', 0, PARAM_INT);
+$id = optional_param('id', 0, PARAM_INT);
 
 $gmcompcpu  = $DB->get_record('gmcompcpu', array('id' => $instance), '*', MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $gmcompcpu->course), '*', MUST_EXIST);
@@ -31,7 +32,7 @@ echo $OUTPUT->heading_with_help(get_string('modulename', 'mod_gmcompcpu'), 'howt
 
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
-echo $renderer->render_questions($gmcompcpu,$cm,$USER->id,$dificultad,$gmuserid);
+echo $renderer->render_questions($gmcompcpu,$cm,$USER->id,$dificultad,$gmuserid,$id);
 
 echo $OUTPUT->footer();
 
