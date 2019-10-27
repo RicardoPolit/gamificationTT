@@ -11,9 +11,13 @@ Autor/Daniel Ortega,%
 Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-E02-2}{configurar visualización de niveles}{%
+{CU-E02-2}{Configurar sistema de experiencia}{%
 %
- Permite al \refElem{aActor} .}
+ Permite al \refElem{aAdministrador} establecer y modificar las cantidades de puntos
+ de experiencia que brindan los cursos en la plataforma y la forma en que aumenta
+ la cantidad de experiencia requerida para pasar de un nivel al siguiente. Se 
+ definieron dos formas en la que la experiencia de los niveles se determina, ambas
+ estan definidas por la regla de negocio \refElem{BR-E02}}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -21,11 +25,17 @@ Estado/\ucstEnEdicion]%
  \UCsection{Atributos}
 
     \UCitem{Actor(es)}{%
-        \refElem{aActor}
+        \refElem{aAdministrador}
     }
 
-	\UCitem{Propósito}{%
-        ...
+	\UCitems{Propósito}{%
+        \Titem Permitir al administrador configurar el sistema de experiencia.
+        \Titem Establecer o modificar la cantidad de experiencia que brindan los
+               cursos.
+        \Titem Establecer la cantidad de experiencia requerida para pasar el primer
+               nivel usada como calculo para los demás niveles.
+        \Titem Cambiar la forma en cómo se incrementa la cantidad de experiencia
+               requerida para avanzar de un nivel a otro.
 	}
 	
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -38,27 +48,30 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
 	\UCitems{Destino}{%
-		\Titem \refElem{IU-M02a}
+		\Titem \refElem{IU-E04}
 	}
 	
 	\UCitems{Precondiciones}{%
-        \Titem ...
+        \Titem Que los plugins del módulo de experiencia se encuentren instalados
+        \Titem El módulo de experiencia debe estár habilitado en el caso de uso
+               \refElem{CU-E02}.
 	}
 
 	\UCitem{Postcondiciones}{%
-        Ninguna
+        Los nuevos valores de las \refElem{xp-scheme-settings} deber ser
+        estár actualizados para todos los usuarios, además de persistirse en el
+        sistema.
 	}
 
-	\UCitem{Reglas de negocio}{%
-		Ninguna
-	}
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
         % CAUSA
-            ...,}{%
+            Los plugins del módulo de experiencia no se encuentran instalados,}{%
         % EFECTO
-            ...}
+            no se presentan las opciones en el menú y por lo tanto no se puede
+            acceder a las configuraciones}
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -70,8 +83,10 @@ Estado/\ucstEnEdicion]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E0Y}
-        \Titem \refElem{CPI-E0Y}
+        \Titem \refElem{CPC-E02-2}
+        \Titem \refElem{CPI-E02-2a}
+        \Titem \refElem{CPI-E02-2b}
+        \Titem \refElem{CPI-E02-2c}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -82,28 +97,81 @@ Estado/\ucstEnEdicion]%
 
 \end{UseCase}
 
-\clearpage
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
 %
- \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
-        para abrir el menu de navegación.
+  \includeUC{CU-M01} \refErr{Err1}
 
- \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
+  \Actor Presiona la opción {\bf \refElem{tExpSettingsComportamiento}} en la categoría
+         \refElem{tExpCategoria}. \refTray{A} 
+  \Sistema Obtiene el valor de si el módulo de experiencia está \refElem[activado]%
+           {xp-general-settings.activated} o no. \refTray{B} \label{CU-E02-2-loading}
+  \Sistema Obtiene los valores actuales de la configuración del sistema de experiencia:
+           \salida{xp-scheme-settings.increment},
+           \salida{xp-scheme-settings.incrementValue},
+           \salida{xp-scheme-settings.levelXP} y
+           \salida{xp-scheme-settings.courseXP}.
+  \Sistema Carga la pantalla \refElem{IU-E04} estableciendo como valores por defecto
+           las \refElem{xp-scheme-settings} obtenidas en el anterior paso.
+  \Sistema Muestra la descripción de la regla \regla{BR-E03} para informar al 
+           \refElem{aAdministrador} del comportamiento que tendrá el sistema en 
+           caso de modificarse la cantidad de experiencia correspondiente al primer
+           nivel.
 
- \Sistema Carga la pantalla \refElem{IU-M02}
+  \Sistema Muestra la descripción de la regla \regla{BR-E04} para informar al 
+           \refElem{aAdministrador} del comportamiento que tendrá el sistema si se 
+           modificarse la cantidad de experiencia que otorgan los cursos.
+
+  \Actor Especifica si el \entrada{xp-scheme-settings.increment} en la cantidad de
+         experiencia de los niveles será {\it Lineal} o {\it Percentual}.
+  \Actor Ingresa el valor para el \entrada{xp-scheme-settings.incrementValue} con
+         base en la regla \regla{BR-E02}.
+  \Actor Ingresa los valores para la \entrada{xp-scheme-settings.levelXP} y la
+         \entrada{xp-scheme-settings.courseXP}.
+  \Actor Presiona la opción {\bf Guardar Cambios}. \refTray{C} \label{CU-E02-2-submit}
+
+  \Sistema Valida que los valores ingresados por el usuario cumplan con las
+           restricciones especificadas en el modelo de información.
+  \Sistema Verifica que el \refElem{xp-scheme-settings.incrementValue} cumpla
+           con la regla \refElem{BR-E02}. \refTray{D}
+  \Sistema Actualiza los valores de las \refElem{xp-scheme-settings} con los
+           ingresados por el usuario.
+  \Sistema Despliega la pantalla \refElem{IU-E04} con el mensaje de que los datos
+           han sido actualizados exitosamente.
 
 \end{UCtrayectoria}
 
+\begin{UCtrayectoriaA}{A}{
+El \refElem{aAdministrador} selecciona la categoría \refElem{tExpCategoria}}
+  \Sistema Carga la pantalla \refElem{IU-E01}
+  \Actor Regresa al paso \ref{CU-E02-2-loading}
+\end{UCtrayectoriaA}
 
-\subsubsection{Puntos de extensión}
+\begin{UCtrayectoriaA}{B}{
+El módulo de experiencia no se encuentra activado}
+  \Sistema Carga la pantalla \refElem{IU-E03a}.
+  \Actor Presiona el botón {\bf Activar módulo de experiencia}
+  \includeUC{CU-E02} a partir del paso \ref{CU-E02-ir-a-formulario},
+                     para activar el módulo de experiencia.
 
-\UCExtensionPoint{Nombre del punto de extensión}{%
+  \Sistema Regresa al inicio de la trayectoria principal.
 
-    El \refElem{aAdministrador} desea/requiere/necesita ....%
-%
-    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
-%
-    }{\refElem{CU-E2-T}}
+\end{UCtrayectoriaA}
 
+\begin{UCtrayectoriaA}{C}{
+El \refElem{aAdministrador} desea cancelar la modificación en el sistema de
+experiencia}
+
+  \Actor Presiona el botón {\bf Cancelar}.
+  \Sistema Redirige a la pantalla \refElem{IU-M01}.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{D}{
+Alguno de los valores ingresados por el usuario son incorrectos.}
+  \Sistema Imprime los mensajes de error abajo de los campos con los valores
+           incorrectos.
+  \Actor Ingresa nuevamente los valores en los campos marcados como incorrectos.
+  \Sistema Regresa al paso \ref{CU-E02-2-submit}.
+
+\end{UCtrayectoriaA}

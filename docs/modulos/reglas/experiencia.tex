@@ -1,7 +1,9 @@
 
-% INPUT: Cursos Igualitarios
-% INPUT: Incremento lineal en niveles
-% INPUT: Incremento porcentual en niveles
+% INPUT: Cursos Igualitarios.
+% INPUT: Tipos de Incremento lineal en niveles.
+% INPUT: Modificación de experiencia de los cursos con experiencia.
+% INPUT: Modificacion de la cantidad de experiencia de los alumnos.
+% INPUT: Tipos de Incremento lineal en niveles
 % INPUT: Otorgar experiencia
 % INPUT: Administración de experiencia en el curso
 
@@ -63,3 +65,136 @@ Estado/revision]%
     }% 
     
  \end{BusinessRule}
+
+\begin{BusinessRule}[%
+Autor/Daniel Isai Ortega Zúñiga,%
+Version/0.1,%
+Estado/revision]%
+%
+{BR-E02}{Tipos de incremento en la experiencia de los niveles}
+ % El archivo de instalación debe ser un archivo ZIP, el cual debe contener exactamente un
+ % directorio que coincida con el nombre del plugin.
+     \BRitem[control]{Revisor}{Sin asignar.}
+
+ \BRsection[control]{Atributos}
+    
+    \BRitem[admin]{Clase}{\bcCondition}%
+    %\BRitem[admin]{Clase}{\bcIntegridad}%
+    %\BRitem[admin]{Clase}{\bcAutorizacion}%
+    %\BRitem[admin]{Clase}{\bcDerivacion}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+    %\BRitem[admin]{Tipo}{\btTimer}%
+    %\BRitem[admin]{Tipo}{\btExecutive}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    %\BRitem[admin]{Nivel}{\blInfluencing}
+    
+    \BRitem{Descripción}{%
+    }
+
+%   \BRitem{Sentencia}{%
+%       Si $fecha$ 
+%   }%
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        \begin{itemize}
+        \item El archivo seleccionado para ser la imagen de los niveles tiene
+              como nombre {\it``logotipo''} con la extensión {\it png}.
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        \begin{itemize}
+        \item El archivo seleccionado para ser la imagen de los niveles tiene
+              como nombre {\it``icon''} con la extensión {\it png}.
+        \end{itemize}
+    }% 
+    
+ \end{BusinessRule}
+
+\begin{BusinessRule}[%
+Autor/Daniel Isai Ortega Zúñiga,%
+Version/0.1,%
+Estado/revision]%
+%
+{BR-E03}{Modificacion de la cantidad de experiencia del primer nivel}
+    \BRitem[control]{Revisor}{Sin asignar.}
+
+ \BRsection[control]{Atributos}
+    
+    \BRitem[admin]{Clase}{\bcCondition}%
+    %\BRitem[admin]{Clase}{\bcIntegridad}%
+    %\BRitem[admin]{Clase}{\bcAutorizacion}%
+    %\BRitem[admin]{Clase}{\bcDerivacion}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+    %\BRitem[admin]{Tipo}{\btTimer}%
+    %\BRitem[admin]{Tipo}{\btExecutive}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    %\BRitem[admin]{Nivel}{\blInfluencing}
+    
+    \BRitem{Descripción}{%
+    }
+
+%   \BRitem{Sentencia}{%
+%       Si $fecha$ 
+%   }%
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+    }% 
+    
+ \end{BusinessRule}
+
+\begin{BusinessRule}[%
+Autor/Daniel Isai Ortega Zúñiga,%
+Version/0.1,%
+Estado/revision]%
+%
+{BR-E04}{Modificacion la cantidad que brindan los cursos} % Cuando están iniciados
+    \BRitem[control]{Revisor}{Sin asignar.}
+
+ \BRsection[control]{Atributos}
+    
+    \BRitem[admin]{Clase}{\bcCondition}%
+    %\BRitem[admin]{Clase}{\bcIntegridad}%
+    %\BRitem[admin]{Clase}{\bcAutorizacion}%
+    %\BRitem[admin]{Clase}{\bcDerivacion}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+    %\BRitem[admin]{Tipo}{\btTimer}%
+    %\BRitem[admin]{Tipo}{\btExecutive}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    %\BRitem[admin]{Nivel}{\blInfluencing}
+    
+    \BRitem{Descripción}{%
+    }
+
+%   \BRitem{Sentencia}{%
+%       Si $fecha$ 
+%   }%
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+    }% 
+    
+\end{BusinessRule}
