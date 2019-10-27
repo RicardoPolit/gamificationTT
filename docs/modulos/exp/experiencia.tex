@@ -29,8 +29,15 @@
  experiencia. Las reglas de negocio que establece moodle son diferenciadas por tener la letra {\it M}
  antecediendo al número consecutivo en su identificador.
 
-    \input{modulos/reglas/moodle}
-    \input{modulos/reglas/experiencia}
+    \input{modulos/moodle/BR/moodle} % Archivo de plugin
+    \input{modulos/exp/BR/BR-E01} % Restricciones sobre de imagen del nivel.
+    \input{modulos/exp/BR/BR-E02} % Permanencia del nivel de experiencia.
+    \input{modulos/exp/BR/BR-E03} % Tipos de incremento
+    \input{modulos/exp/BR/BR-E04} % Incremento porcentual
+    \input{modulos/exp/BR/BR-E05} % Incremento lineal
+    % INPUT: Cursos Igualitarios.
+    % INPUT: Otorgar experiencia
+    % INPUT: Administración de experiencia en el curso
 
 \clearpage
 \section{Casos de uso}
@@ -57,13 +64,13 @@
  e instructivos como documentación de las funcionalidades que brinda.
 
     % CASOS DE USO DE MOODLE
-    \input{modulos/moodleCU/CU-M01} % Acceder a la administración del sitio
+    \input{modulos/moodle/CU/CU-M01} % Acceder a la administración del sitio
 
     % MODULO DE EXPERIENCIA
-    \input{modulos/modExpCU/CU-E01}   % Instalar plugin del esquema de experiencia
-    \input{modulos/modExpCU/CU-E02}   % Configuraciones generales
-    \input{modulos/modExpCU/CU-E02-1} % Configurar visualización de niveles
-    \input{modulos/modExpCU/CU-E02-2} % Configurar esquema de experiencia
+    \input{modulos/exp/CU/CU-E01}   % Instalar plugin del esquema de experiencia
+    \input{modulos/exp/CU/CU-E02}   % Configuraciones generales
+    \input{modulos/exp/CU/CU-E02-1} % Configurar visualización de niveles
+    \input{modulos/exp/CU/CU-E02-2} % Configurar esquema de experiencia
 
     %\input{modulos/modExpCU/CU-E02-1} % Configuraciones generales
     %\input{modulos/modExpCU/CU-E02-2} % Visualización de niveles
@@ -76,25 +83,25 @@
 \section{Interfaces de Moodle}
 
     % INTERFACES DE MOODLE 
-    \input{modulos/moodleIU/IU-M00}  % Tablero (Dashboard)
-    \input{modulos/moodleIU/IU-M00a}  % Form: Selector de archivos
+    \input{modulos/moodle/IU/IU-M00}  % Tablero (Dashboard)
+    \input{modulos/moodle/IU/IU-M00a}  % Form: Selector de archivos
 
-    \input{modulos/moodleIU/IU-M01}  % Administración del sitio
-    \input{modulos/moodleIU/IU-M01a} % Administración del sitio plugins
+    \input{modulos/moodle/IU/IU-M01}  % Administración del sitio
+    \input{modulos/moodle/IU/IU-M01a} % Administración del sitio plugins
 
-    \input{modulos/moodleIU/IU-M02}  % Instalación de Plugin
-    \input{modulos/moodleIU/IU-M02a} % Validación de archivo ZIP
-    \input{modulos/moodleIU/IU-M02b} % Comprobación de plugibs
-    \input{modulos/moodleIU/IU-M02c} % Cancelación Instalación Plugin
-    \input{modulos/moodleIU/IU-M02d} % Resultado Instalación Plugin
+    \input{modulos/moodle/IU/IU-M02}  % Instalación de Plugin
+    \input{modulos/moodle/IU/IU-M02a} % Validación de archivo ZIP
+    \input{modulos/moodle/IU/IU-M02b} % Comprobación de plugibs
+    \input{modulos/moodle/IU/IU-M02c} % Cancelación Instalación Plugin
+    \input{modulos/moodle/IU/IU-M02d} % Resultado Instalación Plugin
 
 \section{Interfaces del módulo de experiencia}
 
-    \input{modulos/modExpIU/IU-E01}  % Configuraciones
-    \input{modulos/modExpIU/IU-E02}  % Configuraciones Generales
-    \input{modulos/modExpIU/IU-E03}  % Configuraciones Visuales
-    \input{modulos/modExpIU/IU-E03a} % Configuraciones Mod Exp desactivado
-    \input{modulos/modExpIU/IU-E04}  % Configuraciones Esquema
+    \input{modulos/exp/IU/IU-E01}  % Configuraciones
+    \input{modulos/exp/IU/IU-E02}  % Configuraciones Generales
+    \input{modulos/exp/IU/IU-E03}  % Configuraciones Visuales
+    \input{modulos/exp/IU/IU-E03a} % Configuraciones Mod Exp desactivado
+    \input{modulos/exp/IU/IU-E04}  % Configuraciones Esquema
 
     %\input{modulos/modExpIU/IU-E04} % Configuraciones de Comportamiento
     %\input{modulos/modExpIU/IU-E05} % Configuraciones de eventos
@@ -106,15 +113,15 @@
 
 \chapter{Pruebas}
 
-    \input{modulos/modExpCP/CPC-E01}
-    \input{modulos/modExpCP/CPC-E02}
-    \input{modulos/modExpCP/CPC-E02-1}
-    \input{modulos/modExpCP/CPI-E02-1a}
-    \input{modulos/modExpCP/CPI-E02-1b}
-    \input{modulos/modExpCP/CPC-E02-2}
-    \input{modulos/modExpCP/CPI-E02-2a}
-    \input{modulos/modExpCP/CPI-E02-2b}
-    \input{modulos/modExpCP/CPI-E02-2c}
+    \input{modulos/exp/CP/CPC-E01}
+    \input{modulos/exp/CP/CPC-E02}
+    \input{modulos/exp/CP/CPC-E02-1}
+    \input{modulos/exp/CP/CPI-E02-1a}
+    \input{modulos/exp/CP/CPI-E02-1b}
+    \input{modulos/exp/CP/CPC-E02-2}
+    \input{modulos/exp/CP/CPI-E02-2a}
+    \input{modulos/exp/CP/CPI-E02-2b}
+    \input{modulos/exp/CP/CPI-E02-2c}
 
 \begin{comment}
 \section{Submódulos}

@@ -1,0 +1,49 @@
+
+\begin{BusinessRule}[%
+Autor/Daniel Isai Ortega Zúñiga,%
+Version/0.1,%
+Estado/revision]%
+%
+{BR-E02}{Permanencia de los puntos de experiencia}
+    \BRitem[control]{Revisor}{Sin asignar.}
+
+ \BRsection[control]{Atributos}
+    
+    %\BRitem[admin]{Clase}{\bcCondition}%
+    \BRitem[admin]{Clase}{\bcIntegridad}%
+    %\BRitem[admin]{Clase}{\bcAutorizacion}%
+    %\BRitem[admin]{Clase}{\bcDerivacion}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+    %\BRitem[admin]{Tipo}{\btTimer}%
+    %\BRitem[admin]{Tipo}{\btExecutive}%
+        
+    %\BRitem[admin]{Nivel}{\blControlling}
+    \BRitem[admin]{Nivel}{\blInfluencing}
+    
+    \BRitem{Descripción}{%
+    Los puntos de experiencia una vez que son obtenidos no pueden ser quitados bajo
+    ninguna condicion exceptuando únicamente la acción de eliminación de un usuario y
+    la desinstalación de los plugins que formen parte del esquema de experiencia.}
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        \begin{itemize}
+        \item Un usuario conforme va completando las secciones de los cursos obtiene
+              puntos de experiencia, si el curso es eliminado entonces el usuario 
+              deberá permanecer con los puntos de experiencia obtenidos.
+
+        \item Un usuario con 300 puntos de experiencia es eliminado del sitio, y en
+              consecuencia se eliminan sus puntos de experiencia.
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        \begin{itemize}
+        \item Un curso es eliminado y a todos los estudiantes se les resta de sus
+              puntos de experiencia la cantidad de experiencia obtenida durante el
+              curso.
+        \end{itemize}
+    }% 
+    
+ \end{BusinessRule}
+

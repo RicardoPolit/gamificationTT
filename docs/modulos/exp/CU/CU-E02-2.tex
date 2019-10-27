@@ -114,14 +114,9 @@ Estado/\ucstEnEdicion]%
            \salida{xp-scheme-settings.courseXP}.
   \Sistema Carga la pantalla \refElem{IU-E04} estableciendo como valores por defecto
            las \refElem{xp-scheme-settings} obtenidas en el anterior paso.
-  \Sistema Muestra la descripción de la regla \regla{BR-E03} para informar al 
-           \refElem{aAdministrador} del comportamiento que tendrá el sistema en 
-           caso de modificarse la cantidad de experiencia correspondiente al primer
-           nivel.
-
-  \Sistema Muestra la descripción de la regla \regla{BR-E04} para informar al 
-           \refElem{aAdministrador} del comportamiento que tendrá el sistema si se 
-           modificarse la cantidad de experiencia que otorgan los cursos.
+  \Sistema Muestra un mensaje informando al \refElem{aAdministrador} de que si 
+           modifica la experiencia el nivel 1 o el tipo de incremento se alterarían
+           la cantidad de experiencia requerida para subir de nivel.
 
   \Actor Especifica si el \entrada{xp-scheme-settings.increment} en la cantidad de
          experiencia de los niveles será {\it Lineal} o {\it Percentual}.
