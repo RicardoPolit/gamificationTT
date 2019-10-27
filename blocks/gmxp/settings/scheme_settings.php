@@ -5,21 +5,40 @@ require_once($CFG->libdir.'/adminlib.php');
 require_once($CFG->dirroot . '/blocks/gmxp/includes/colourpicker.php');
 
 $PLUGIN = 'block_gmxp';
-$experience_activated = true;
-
 admin_externalpage_setup(get_string('SYS_SETTINGS_SCHEME', $PLUGIN));
 
+$CONTENT = '';
+$form = new block_gmxp_schemesettingsform();
+$experience_activated = get_config($PLUGIN, block_gmxp_core::ACTIVATED);
+
+/**
+ * Si el módulo de experiencia se encuentra activado
+ * procede de forma natural al formulario de configuraciones
+ */ 
 if($experience_activated){
 
-    $form = new block_gmxp_schemesettingsform();
+    if ($form->is_cancelled()) {
+        local_gamedlemaster_log::info('cancelled');
+
+    } else if ($changes = $form->get_data()) {
+        $form->submit_changes($changes);
+
+    } else {
+        local_gamedlemaster_log::info('not validated');
+    }
+
     $CONTENT = $form->render();
 
 } else {
 
-    local_gamedlemaster_log::warning('Implement the else', 'TODO');
+    $category = block_gmxp_core::CATEGORY;
+    $error =    get_string('SETTINGS_EXPERIENCE_DISABLED', $PLUGIN);
+    $text =     get_string('SETTINGS_EXPERIENCE_DISABLED_REDIRECT', $PLUGIN);
+    $link = "{$CFG->wwwroot}/admin/category.php?category={$category}";
+
+    $CONTENT = $form->render_problem($error, $text, $link);
 }
 
 echo $OUTPUT->header();
-echo $MESSAGE;
 echo $CONTENT;
 echo $OUTPUT->footer();

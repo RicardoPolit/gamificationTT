@@ -9,28 +9,34 @@
  * DESARROLLADORES: Daniel Ortega (GitLab/Github @DanielOrtegaZ)
 */
 
-
-MoodleQuickForm::registerElementType('customcert_colourpicker',
-    $CFG->dirroot . '/blocks/gmxp/includes/colourpicker.php',
-    'MoodleQuickForm_customcert_colourpicker');
-
-/**
- * 
- * Docs: https://docs.moodle.org/dev/lib/formslib.php_Form_Definition
- */
-class block_gmxp_schemesettingsform extends moodleform {
+class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
 
     const PLUGIN = 'block_gmxp';
-    const LINEAL = '0';
-    const PERCENTUAL = '1';
+    const INCREMENT = block_gmxp_core::INCREMENT;
+    const ELEM_LINEAL = 'linealValue';
+    const ELEM_PERCENTUAL = 'percentualValue';
+    const VALUE = block_gmxp_core::VALUE;
+    const LEVELXP = block_gmxp_core::LEVELXP;
+    const COURSEXP = block_gmxp_core::COURSEXP;
+
+    const LINEAL = block_gmxp_core::LINEAL;
+    const PERCENTUAL = block_gmxp_core::PERCENTUAL;
+
+    const XP_REGEX = '/^([0-9]){1,9}$/';
+    const XP_MAX_REGEX_LENGTH = 9;
+    const PERCENTUAL_REGEX = '/^1\.[0-9]{1,5}$/';
+    const PERCENTUAL_MAX_REGEX_LENGTH = 7;
 
     protected function definition() {
 
         $mform = $this->_form; // Inherited from moodle form
-        // $mform->setDisableShortforms(true); // TODO CHECK WHY?
+
+        $this->set_title(get_string('SETTINGS_SCHEME', self::PLUGIN));
+        $this->set_subtitle(get_string('SETTINGS_SCHEME_HEADER', self::PLUGIN));
+        $this->set_description(get_string('SETTINGS_SCHEME_DESC', self::PLUGIN));
 
         $this->create_definition();
-        // $this->create_help_messages();
+        $this->create_help_messages();
         $this->create_form_restrictions();
 
         $this->set_default_values();
@@ -41,125 +47,117 @@ class block_gmxp_schemesettingsform extends moodleform {
 
         $mform = $this->_form;
 
-        $mform->addElement('select',
-            get_string('SYS_SETTINGS_SCHEME_INCREMENT', self::PLUGIN),
-            get_string('SCHEME_SETTING_TEXT_INCREMENT', self::PLUGIN),
-            array(
-                self::LINEAL => get_string('SCHEME_SETTING_TEXT_LINEAL', self::PLUGIN),
-                self::PERCENTUAL => get_string('SCHEME_SETTING_TEXT_PERCENTUAL', self::PLUGIN)
-            ));
+        $mform->addElement('select', self::INCREMENT,
+            get_string('SCHEME_SETTING_TEXT_INCREMENT', self::PLUGIN), array(
+            self::LINEAL => get_string('SCHEME_SETTING_TEXT_LINEAL', self::PLUGIN),
+            self::PERCENTUAL => get_string('SCHEME_SETTING_TEXT_PERCENTUAL', self::PLUGIN)
+        ));
 
-        $mform->addElement('text',
-            get_string('SYS_SETTINGS_SCHEME_VALUE_L', self::PLUGIN),
-            get_string('SCHEME_SETTING_TEXT_LINEAL', self::PLUGIN));
+        $mform->addElement('text', self::ELEM_LINEAL,
+            get_string('SCHEME_SETTING_TEXT_LINEAL', self::PLUGIN), array(
+            'size' => self::XP_MAX_REGEX_LENGTH,
+            'maxlength' => self::XP_MAX_REGEX_LENGTH
+        ));
 
-        $mform->addElement('text',
-            get_string('SYS_SETTINGS_SCHEME_VALUE_P', self::PLUGIN),
-            get_string('SCHEME_SETTING_TEXT_PERCENTUAL', self::PLUGIN));
+        $mform->addElement('text', self::ELEM_PERCENTUAL,
+            get_string('SCHEME_SETTING_TEXT_PERCENTUAL', self::PLUGIN), array(
+            'size' => self::PERCENTUAL_MAX_REGEX_LENGTH,
+            'maxlength' => self::PERCENTUAL_MAX_REGEX_LENGTH
+        ));
         
-        $mform->addElement('text',
-            get_string('SYS_SETTINGS_SCHEME_LEVELXP', self::PLUGIN),
-            get_string('SCHEME_SETTING_TEXT_LEVELXP', self::PLUGIN));
+        $mform->addElement('text', self::LEVELXP,
+            get_string('SCHEME_SETTING_TEXT_LEVELXP', self::PLUGIN), array(
+            'size' => self::XP_MAX_REGEX_LENGTH,
+            'maxlength' => self::XP_MAX_REGEX_LENGTH
+        ));
 
-        $mform->addElement('text',
-            get_string('SYS_SETTINGS_SCHEME_COURSEXP', self::PLUGIN),
-            get_string('SCHEME_SETTING_TEXT_COURSEXP', self::PLUGIN));
+        $mform->addElement('text', self::COURSEXP,
+            get_string('SCHEME_SETTING_TEXT_COURSEXP', self::PLUGIN), array(
+            'size' => self::XP_MAX_REGEX_LENGTH,
+            'maxlength' => self::XP_MAX_REGEX_LENGTH
+        ));
     }
 
     private function create_help_messages() {
 
         $mform = $this->_form;
 
-        $mform->addHelpButton(
-            get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN),
-            'VISUAL_SETTING_HELP_TITLE', self::PLUGIN);
+        $mform->addHelpButton(self::INCREMENT,
+            'SCHEME_SETTING_HELP_INCREMENT', self::PLUGIN);
+
+        $mform->addHelpButton(self::ELEM_LINEAL,
+            'SCHEME_SETTING_HELP_LINEAL', self::PLUGIN);
+
+        $mform->addHelpButton(self::ELEM_PERCENTUAL,
+            'SCHEME_SETTING_HELP_PERCENTUAL', self::PLUGIN);
+        
+        $mform->addHelpButton(self::LEVELXP,
+            'SCHEME_SETTING_HELP_LEVELXP', self::PLUGIN);
+
+        $mform->addHelpButton(self::COURSEXP,
+            'SCHEME_SETTING_HELP_COURSEXP', self::PLUGIN);
     }
 
     private function create_form_restrictions() {
 
         $mform = $this->_form;
 
-        $select = get_string('SYS_SETTINGS_SCHEME_INCREMENT', self::PLUGIN);
+        $key = self::ELEM_PERCENTUAL;
+        $mform->setType($key, PARAM_FLOAT);
+        //$mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, get_string('float',self::PLUGIN), 'regex',
+            self::PERCENTUAL_REGEX, 'client');
 
-        $key = get_string('SYS_SETTINGS_SCHEME_VALUE_L', self::PLUGIN);
+        $mform->hideIf($key, self::INCREMENT, 'eq', self::LINEAL);
+
+
+        $key = self::ELEM_LINEAL;
+        $errormsg = get_string('integer', self::PLUGIN);
         $mform->setType($key, PARAM_INT);
-        $mform->disabledIf($key, $select, 'eq', self::PERCENTUAL);
+        //$mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, $errormsg, 'regex', self::XP_REGEX, 'client');
+        $mform->addRule($key, $errormsg, 'nonzero', null, 'client');
+        $mform->hideIf($key, self::INCREMENT, 'eq', self::PERCENTUAL);
 
-        $key = get_string('SYS_SETTINGS_SCHEME_VALUE_P', self::PLUGIN);
+        $key = self::LEVELXP;
         $mform->setType($key, PARAM_INT);
-        $mform->disabledIf($key, $select, 'eq', self::LINEAL);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, $errormsg, 'nonzero', null, 'client');
+        $mform->addRule($key, $errormsg, 'regex', self::XP_REGEX, 'client');
 
-        $key = get_string('SYS_SETTINGS_SCHEME_LEVELXP', self::PLUGIN);
+        $key = self::COURSEXP;
         $mform->setType($key, PARAM_INT);
-        $key = get_string('SYS_SETTINGS_SCHEME_COURSEXP', self::PLUGIN);
-        $mform->setType($key, PARAM_INT);
-        /*
-        $key = get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN);
-        $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, get_string('maxlength', self::PLUGIN,
-            self::TITLE_MAX_LENGTH), 'maxlength', self::TITLE_MAX_LENGTH, 'client');
-
-        $key = get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN);
-        $mform->setType($key, PARAM_TEXT);
-        $mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, get_string('maxlength', self::PLUGIN,
-            self::DESC_MAX_LENGTH), 'maxlength', self::DESC_MAX_LENGTH, 'client');
-
-        $key = get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN);
-        $mform->setType($key, PARAM_TEXT);
-        $mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, get_string('maxlength', self::PLUGIN,
-            self::MSG_MAX_LENGTH), 'maxlength', self::MSG_MAX_LENGTH, 'client');
-
-        // Message of error in color field
-        $colorErr = get_string('color', self::PLUGIN);
-
-        $key = get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN);
-        $mform->setType($key, PARAM_TEXT);
-        $mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, $colorErr, 'regex', self::COLOR_REGEX, 'client');
-
-        $key = get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN);
-        $mform->setType($key, PARAM_TEXT);
-        $mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, $colorErr, 'regex', self::COLOR_REGEX, 'client');
-
-        $key = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
-        // $mform->setType($key, PARAM_TEXT);
-        */
+        $mform->addRule($key, $errormsg, 'nonzero', null, 'client');
+        $mform->addRule($key, $errormsg, 'regex', self::XP_REGEX, 'client');
     }
 
     private function set_default_values() {
 
         $mform = $this->_form;
 
-        $key = get_string('SYS_SETTINGS_SCHEME_INCREMENT', self::PLUGIN);
+        $key = self::INCREMENT;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
-        $increment = get_config(self::PLUGIN, $key);
 
-        $key = get_string('SYS_SETTINGS_SCHEME_VALUE', self::PLUGIN);
-        $value = get_config(self::PLUGIN, $key);
+        $increment = get_config(self::PLUGIN, $key);
+        $value = get_config(self::PLUGIN, self::VALUE);
 
         if ($increment == self::LINEAL) {
             $lineal = $value;
-            $percentual = 0.0;
+            $percentual = get_string('SCHEME_SETTING_DEFAULT_VALUE', self::PLUGIN);
 
         } else { // self::PERCENTUAL
-            $lineal = 0;
+            $lineal = 1000;
             $percentual = $value;
         }
 
-        $key = get_string('SYS_SETTINGS_SCHEME_VALUE_L', self::PLUGIN);
-        $mform->setDefault($key, $lineal);
+        $mform->setDefault(self::ELEM_LINEAL, $lineal);
+        $mform->setDefault(self::ELEM_PERCENTUAL, $percentual);
 
-        $key = get_string('SYS_SETTINGS_SCHEME_VALUE_P', self::PLUGIN);
-        $mform->setDefault($key, $percentual);
-
-        $key = get_string('SYS_SETTINGS_SCHEME_LEVELXP', self::PLUGIN);
+        $key = self::LEVELXP;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
 
-        $key = get_string('SYS_SETTINGS_SCHEME_COURSEXP', self::PLUGIN);
+        $key = self::COURSEXP;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
     }
 
@@ -169,6 +167,65 @@ class block_gmxp_schemesettingsform extends moodleform {
      * extra del lado del servidor
      */
     public function validation($data, $files) {
+        $errors = array();
+        /*
+        $this->auth_error = false;
+
+        // TODO: Handle error on external page settings/visual_settings.php
+        if (!isset($data['sesskey'])) {
+            $this->auth_error = true;
+            $errors['sesskey'] = "AUTH ERROR";
+            return $errors;
+        }
+
+        $key = self::TITLE;
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (strlen($data[$key]) >= self::TITLE_MAX_LENGTH) {
+            $errors[$key] =
+                get_string('maxlength', self::PLUGIN, self::TITLE_MAX_LENGTH);
+        }
+
+
+        $key = self::DESCRIPTION;
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (strlen($data[$key]) >= self::DESC_MAX_LENGTH) {
+            $errors[$key] =
+              get_string('maxlength', self::PLUGIN, self::DESC_MAX_LENGTH);
+        }
+
+
+        $key = self::MESSAGE;
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (strlen($data[$key]) >= self::MSG_MAX_LENGTH) {
+            $errors[$key] =
+              get_string('maxlength', self::PLUGIN, self::MSG_MAX_LENGTH);
+        }
+
+
+        $key = self::COLORLVL;
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (!preg_match( self::COLOR_REGEX, $data[$key])) {
+            $errors[$key] = get_string('color', self::PLUGIN);
+        }
+
+
+        $key = self::COLORBAR;
+        if ($data[$key] == null) {
+            $errors[$key] = get_string('required');
+
+        } else if (!preg_match( self::COLOR_REGEX, $data[$key])) {
+            $errors[$key] = get_string('color', self::PLUGIN);
+        }
+        */
+        return $errors;
     }
 
     /**
@@ -181,6 +238,22 @@ class block_gmxp_schemesettingsform extends moodleform {
      * la configuracion
      */
     public function submit_changes(stdClass $changes) {
+
+        $keys = get_object_vars($changes);
+
+        if ($keys[self::INCREMENT] == self::LINEAL) {
+            $keys[self::VALUE] = $keys[self::ELEM_LINEAL];
+
+        } else { // self::PERCENTUAL
+            $keys[self::VALUE] = $keys[self::ELEM_PERCENTUAL];
+        }
+
+        unset($keys['submitbutton']);
+        unset($keys[self::ELEM_LINEAL]);
+        unset($keys[self::ELEM_PERCENTUAL]);
+        foreach ($keys as $key => $value) {
+            set_config($key, $value, self::PLUGIN);
+        }
     }
 
 }

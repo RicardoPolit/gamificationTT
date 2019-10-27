@@ -31,12 +31,17 @@ class block_gmxp_core {
     const PATH_IMAGE = "/blocks/gmxp/pix/";
     const RESERVED_IMAGE_NAME = "icon.png";
 
+    // SCHEME SETTINGS
     const SETTINGS_SCHEME = "block_gmxp/scheme_settings";
     const PATH_SETTINGS_SCHEME = '/blocks/gmxp/settings/scheme_settings.php';
-    const SCHEME_INCREMENT = "increment";
-    const SCHEME_VALUE = "incrementValue";
-    const SCHEME_LEVELXP = "levelXP";
-    const SCHEME_COURSEXP = "courseXP";
+    const INCREMENT = "increment";
+    const VALUE = "incrementValue";
+    const LEVELXP = "levelXP";
+    const COURSEXP = "courseXP";
+
+    // Increment types
+    const LINEAL = '0';
+    const PERCENTUAL = '1';
 
     const SETTINGS_EVENTS = "block_gmxp/events_settings";
     const PATH_SETTINGS_EVENTS = "/blocks/gmxp/settings/events_settings";
