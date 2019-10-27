@@ -16,6 +16,16 @@
  */
 
 /**
+ * Global strings variables displayed in different moodle pages
+ * those pages are commonly access menus
+ */
+
+$string['pluginname'] = 'Gamedle Level';
+$string['gmxp'] = $string['pluginname'];
+$string['gmxp:addinstance']   = "Add a new {$string['pluginname']} block";
+$string['gmxp:myaddinstance'] = "Add a new {$string['pluginname']} block to the My Moodle page";
+
+/**
  * Global strings variables for the text and help displayed in
  * the different settings, those strings are grouped according
  * to the settings pages.
