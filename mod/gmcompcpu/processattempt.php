@@ -106,7 +106,9 @@ echo $renderer->render_results_attempt($userScore,$cpuScore);
 
 echo $OUTPUT->footer();
 
-$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id),'MAX(puntuacion_usuario)');
+$maxScore = 0;
+
+$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id),'MAX(puntuacion_usuario)');
 
 if($userScore > $maxScore && $userScore >= $cpuScore){
 
