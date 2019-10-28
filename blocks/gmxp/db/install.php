@@ -57,6 +57,14 @@
     }
 
     function set_default_events_settings($PLUGIN) {
+        local_gamedlemaster_log::info(
+            "Setting the default values for scheme settings", "GMXP");
+
+        set_config(block_gmxp_core::COMPETENCE,
+            get_string('EVENTS_SETTING_DEFAULT_COMP', $PLUGIN), $PLUGIN);
+
+        set_config(block_gmxp_core::COMPETENCEXP,
+            get_string('EVENTS_SETTING_DEFAULT_COMPXP', $PLUGIN), $PLUGIN);
     }
 
     /**

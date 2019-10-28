@@ -159,6 +159,26 @@ $string['SCHEME_SETTING_DEFAULT_VALUE'] = "1.3";
 $string['SCHEME_SETTING_DEFAULT_LEVELXP'] = "1000"; 
 $string['SCHEME_SETTING_DEFAULT_COURSEXP'] = "1500";
 
+// ==== EVENTS SETTINGS =====================================
+$string['SETTINGS_EVENTS_HEADER'] = "Set the experience that the events should give";
+$string['SETTINGS_EVENTS_DESC'] = 
+    "From the following of supported events enable or disabled which events should 
+    give experience points to the user and the quantity of points given";
+
+$string['EVENTS_SETTING_TEXT_COMP'] = "Competence Won Event";
+$string['EVENTS_SETTING_HELP_COMP'] = "the {$string['EVENTS_SETTING_TEXT_COMP']}";
+$string['EVENTS_SETTING_HELP_COMP_help'] =
+    "This events is triggered when a user wins a competence in the competence module 
+    of 'Gamedle Suite Components'";
+
+$string['EVENTS_SETTING_TEXT_XP'] = "Experience given";
+$string['EVENTS_SETTING_HELP_XP'] = "the {$string['EVENTS_SETTING_TEXT_XP']}";
+$string['EVENTS_SETTING_HELP_XP_help'] =
+    "Specify the experience give by the previous event";
+
+$string['EVENTS_SETTING_DEFAULT_COMP'] = "1"; // 0:FALSE 1:TRUE
+$string['EVENTS_SETTING_DEFAULT_COMPXP'] = "1000";
+
 // ==== FORM MESSAGES =====================================
 $string['SETTINGS_EXPERIENCE_DISABLED_REDIRECT'] = "Enable module";
 $string['SETTINGS_EXPERIENCE_DISABLED'] =

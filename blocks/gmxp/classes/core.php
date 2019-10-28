@@ -45,5 +45,7 @@ class block_gmxp_core {
 
     const SETTINGS_EVENTS = "block_gmxp/events_settings";
     const PATH_SETTINGS_EVENTS = "/blocks/gmxp/settings/events_settings";
+    const COMPETENCE = 'competence';
+    const COMPETENCEXP = 'competenceXP';
 }
 ?>
