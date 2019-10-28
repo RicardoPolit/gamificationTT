@@ -69,6 +69,7 @@ $PAGE->set_title(format_string($gmcompcpu->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 $PAGE->set_focuscontrol('mod_gmcompcpu_game');
+$PAGE->requires->js_call_amd('mod_gmcompcpu/js_competencia_cpu', 'init');
 $renderer = $PAGE->get_renderer('mod_gmcompcpu');
 
 // Output starts here.
