@@ -186,7 +186,7 @@ function calculateScoreCpu( $questionswithAnswers ){
 
 }
 
-function calculateScoreUser($quba,$timenow){
+function calculateScoreUser($quba, $timenow){
 
     global $DB;
 
@@ -197,20 +197,15 @@ function calculateScoreUser($quba,$timenow){
     //Itera entre todas las preguntas del intento
 
     foreach ($quba->get_slots() as $slot){
-        /*echo '<br>';*/
         $qa = $quba->get_question_attempt($slot);
         $dbanswers = $DB->get_records('question_answers', array('question' => $qa->get_question()->id));
         $question = $DB->get_record('question', array('id' => $qa->get_question()->id));
         $answers = processAnswer($dbanswers);
-        /*echo $qa->get_question()->id;*/
-        /*echo '  '.$qa->get_question()->get_type_name();*/
-        /*echo '<br>';*/
 
         //Se trata de manera diferente las preguntas tipo multichoice
 
-        if($qa->get_question()->get_type_name() == 'multichoice'){
-
-
+        if($qa->get_question()->get_type_name() == 'multichoice')
+        {
             try{
 
                 $order = explode(',',$qa->get_step_iterator()[0]->get_all_data()['_order']);
@@ -222,30 +217,19 @@ function calculateScoreUser($quba,$timenow){
 
             }
 
-
             if($useranswers != null){
-
                 foreach ($useranswers as $useranswer){
-
                     foreach ($answers as $answer){
-
                         if($order[$useranswer] == $answer->id){
-
                             $score += (100*$question->defaultmark) * $answer->fraction;
-
                         }
-
-                        /*echo 'Esto es getrecords: id: '.$answer->id.' fraction: '.$answer->fraction.' answer: '.$answer->answer;*/
-                        /*echo '<br>';*/
                     }
-
                 }
-
             }
 
-            /*echo json_encode($order);*/
-            /*echo '<br>';*/
-            /*echo json_encode($useranswers);*/
+            echo json_encode($order);
+            echo '<br>';
+            echo json_encode($qa->get_step_iterator());
 
         }else {
 
