@@ -17,7 +17,7 @@
             \refElem{tDefault}$:verdadero$
         }
 
-        \brAttr{events}{eventosActivados}{tBoolean}{%
+        \brAttr{events}{eventos activados}{tBoolean}{%
             Valor que indica si se entregará experiencia a los eventos establecidos
             en la entidad \refElem{xp-events-settings}.\par
 
@@ -132,6 +132,25 @@
     \begin{cdtEntidad}{xp-events-settings}{Configuraciones de Eventos}{%
     De la misma forma que las configuraciones anteriores, los datos correspondientes a las
     configuraciones de eventos son representados mediante esta entidad.}
+
+        \brAttr{competence}{competencia ganada}{tBoolean}{%
+            Valor que indica la se brindarán puntos de experiencia al evento que 
+            es emitido cuando una competencia es ganada.\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tDefault}$:true$
+        }
+
+        \brAttr{competenceXP}{experiencia de competencia}{tInt}{%
+            Valor que indica la cantidad de experiencia que otorgará cuando el
+            evento de \refElem{xp-events-settings.competence} sea emitido.\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tDefault}$:1500$
+        }
+
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-user}{Usuario gamificado}{%

@@ -11,9 +11,11 @@ Autor/Daniel Ortega,%
 Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-E02-3}{Configurar esquema de experiencia}{%
+{CU-E02-3}{Configurar los eventos que entregan experiencia}{%
 %
- Permite al \refElem{aActor} .}
+ Permite al \refElem{aAdministrador} elegir cuales eventos de los soportados
+ brindarán experiencia y cuales no. Además de aquellos eventos que brindan 
+ experiencia puede especificar la cantidad de experiencia que estos entregan.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -21,11 +23,15 @@ Estado/\ucstEnEdicion]%
  \UCsection{Atributos}
 
     \UCitem{Actor(es)}{%
-        \refElem{aActor}
+        \refElem{aAdministrador}
     }
 
-	\UCitem{Propósito}{%
-        ...
+	\UCitems{Propósito}{%
+        \Titem Configurar que eventos proporcionan experiencia.
+        \Titem Establecer la cantidad de experiencia de los eventos
+               otorgarán.
+        \Titem Deshabilitar eventos para que dejen de brindar
+               experiencia.
 	}
 	
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -38,27 +44,32 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
 	\UCitems{Destino}{%
-		\Titem \refElem{IU-M02a}
+		\Titem \refElem{IU-E05}
 	}
 	
 	\UCitems{Precondiciones}{%
-        \Titem ...
+        \Titem Los plugins correspondientes al módulo de experiencia deben
+               de estar previamente instalados.
+        \Titem El módulo de experiencia debe estar habilitado mediante el caso
+               de uso \refElem{CU-E02}.
+        \Titem Los eventos con experiencia deben estar habilitados mediante el caso
+               de uso \refElem{CU-E02}.
 	}
 
 	\UCitem{Postcondiciones}{%
-        Ninguna
+        Los nuevos valores para los eventos habilitados para dar experiencia deben
+        de ser actualizados y persistirse en el sistema.
 	}
 
-	\UCitem{Reglas de negocio}{%
-		Ninguna
-	}
+	\UCitem{Reglas de negocio}{Ninguna}
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
         % CAUSA
-            ...,}{%
+            Los plugins del módulo de experiencia no se encuentran instalados,}{%
         % EFECTO
-            ...}
+            no se presentan las opciones en el menú y por lo tanto no se acceder
+            a las configuraciones}
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -70,8 +81,8 @@ Estado/\ucstEnEdicion]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E0Y}
-        \Titem \refElem{CPI-E0Y}
+        \Titem \refElem{CPC-E02-3}
+        \Titem \refElem{CPI-E02-3}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -87,23 +98,80 @@ Estado/\ucstEnEdicion]%
 
 \begin{UCtrayectoria}%
 %
- \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
-        para abrir el menu de navegación.
+  \includeUC{CU-M01} \refErr{Err1}
 
- \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
+  \Actor Presiona la opción {\bf\refElem{tExpSettingsEventos}} en la categoría
+         \refElem{tExpCategoria}. \refTray{A} 
 
- \Sistema Carga la pantalla \refElem{IU-M02}
+  \Sistema Obtiene el valor de si el módulo de experiencia está \refElem[activado]%
+           {xp-general-settings.activated} o no. \refTray{B} \label{CU-E02-3-activated}
+
+  \Sistema Obtiene el valor de si la funcionalidad de que los \refElem[eventos]%
+           {xp-general-settings.events} otorgen experiencia está activada o no.
+           \refTray{C} \label{CU-E02-3-events}
+
+  \Sistema Obtiene los valores actuales de la configuración de los eventos con experiencia:
+           \salida{xp-events-settings.competence} y \salida{xp-events-settings.competenceXP}
+  \Sistema Carga la pantalla \refElem{IU-E05} estableciendo como valores por defecto
+           las \refElem{xp-events-settings} obtenidas en el anterior paso.
+
+  \Actor Habilita los eventos que desea que otorgen experiencia:
+         \entrada{xp-events-settings.competence}
+  \Actor Especifica la \entrada[experiencia del evento de competencia ganada]%
+         {xp-events-settings.competence}
+  \Actor Presiona el botón {\bf Guardar Cambios} \refTray{D} \label{CU-E02-3-submit}
+
+  \Sistema Valida que los datos ingresados por el usuario cumplan con las restricciones
+           de acuerdo con el modelo de información. \refTray{E}
+  \Sistema Actualiza los datos de la configuración de eventos en el sistema
+  \Sistema Muestra la pantalla \refElem{IU-E05} con el mensaje de que los datos han sido
+           actualizados correctamente.
 
 \end{UCtrayectoria}
 
 
-\subsubsection{Puntos de extensión}
+\begin{UCtrayectoriaA}{A}{%
+El \refElem{aAdministrador} selecciona la categoría \refElem{tExpCategoria}.
+}
+  \Sistema Carga a pantalla \refElem{IU-E01}.
+  \Actor Regresa a paso \ref{CU-E02-3-activated}
+\end{UCtrayectoriaA}
 
-\UCExtensionPoint{Nombre del punto de extensión}{%
+\begin{UCtrayectoriaA}{B}{%
+El módulo de experiencia no se encuentra activado.
+}
+  \Sistema Carga la pantalla \refElem{IU-E03a}.
+  \Actor Presiona el botón {\bf Activar módulo de experiencia}
+  \includeUC{CU-E02} a partir del paso \ref{CU-E02-ir-a-formulario},
+                     para activar el módulo de experiencia.
 
-    El \refElem{aAdministrador} desea/requiere/necesita ....%
-%
-    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
-%
-    }{\refElem{CU-E2-T}}
+  \Sistema Regresa al inicio de la trayectoria principal.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{C}{%
+La opción de que los eventos brinden experiencia no se encuentra activada.
+}
+  \Sistema Carga la pantalla \refElem{IU-E05a}.
+  \Actor Presiona el botón {\bf Habilitar Eventos}
+  \includeUC{CU-E02} a partir del paso \ref{CU-E02-ir-a-formulario},
+                     para activar el módulo de experiencia.
+
+  \Sistema Regresa al inicio de la trayectoria principal.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{D}{%
+El \refElem{aAdministrador} desea cancelar la modificación de la configuración
+de los eventos.
+}
+  \Actor Presiona el botón {\bf Cancelar}
+  \Sistema Redirige a la pantalla \refElem{IU-M01}
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{E}{%
+Alguno de los campos ingresados por el \refElem{aAdministrador} son incorrectos.
+}
+  \Sistema Imprime los mensajes de error debajo de los con los valores incorrectos
+  \Actor Ingresa nuevamente los valores en los campos marcados como incorrectos.
+  \Sistema Regresa al paso \ref{CU-E02-3-submit}
+\end{UCtrayectoriaA}
 
