@@ -15,9 +15,9 @@ Estado/\ucstEnEdicion]%
 %
  Permite al \refElem{aAdministrador} establecer y modificar las cantidades de puntos
  de experiencia que brindan los cursos en la plataforma y la forma en que aumenta
- la cantidad de experiencia requerida para pasar de un nivel al siguiente. Se 
- definieron dos formas en la que la experiencia de los niveles se determina, ambas
- estan definidas por la regla de negocio \refElem{BR-E02}}
+ la cantidad de experiencia requerida para pasar de un nivel al siguiente. Los cambios
+ sobre estas configuraciones pueden afectar el nivel en que se encuentran los usuarios
+ y cambiar la cantidad de experiencia que los cursos brindan.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -43,6 +43,7 @@ Estado/\ucstEnEdicion]%
 	\UCitems{Origen}{%
         \Titem Mouse
         \Titem Teclado
+        \Titem Sistema (para los datos de los \refElem[usuarios gamificados]{xp-user})
 	}
 
 	\UCitem{Salidas}{\imprimeUC{salida}}
@@ -74,26 +75,23 @@ Estado/\ucstEnEdicion]%
             acceder a las configuraciones}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
-					  % extienden de Login.
-		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
-	% 	\TODO Especificar.
-	% }	
-
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E02-2}
-        \Titem \refElem{CPI-E02-2a}
-        \Titem \refElem{CPI-E02-2b}
-        \Titem \refElem{CPI-E02-2c}
+        \Titem \refElem{CPC-E02-2a}
+        \Titem \refElem{CPC-E02-2b}
+        \Titem \refElem{CPC-E02-2c}
+        \Titem \refElem{CPI-E02-2}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
 
 	\UCitem[admin]{Observaciones}{%
-        Ninguna
-	}
+        Los cambios en las configuraciones del sistema de experiencia podrían hacer
+        que los usuarios aumenten de nivel si la cantidad de experiencia acumulada del
+        nivel es mayor a la nueva cantidad de experiencia correspondiente a dicho nivel.
+        Se recomienda que los cambios se realicen cuando la cantidad alumnos que usen el
+        sistema sea mínima.}
 
 \end{UseCase}
 
@@ -114,14 +112,14 @@ Estado/\ucstEnEdicion]%
            \salida{xp-scheme-settings.courseXP}.
   \Sistema Carga la pantalla \refElem{IU-E04} estableciendo como valores por defecto
            las \refElem{xp-scheme-settings} obtenidas en el anterior paso.
-  \Sistema Muestra un mensaje informando al \refElem{aAdministrador} de que si 
-           modifica la experiencia el nivel 1 o el tipo de incremento se alterarían
-           la cantidad de experiencia requerida para subir de nivel.
+  %\sistema muestra un mensaje informando al \refelem{aadministrador} de que si 
+  %         modifica la experiencia el nivel 1 o el tipo de incremento se alterarían
+  %         la cantidad de experiencia requerida para subir de nivel.
 
   \Actor Especifica si el \entrada{xp-scheme-settings.increment} en la cantidad de
-         experiencia de los niveles será {\it Lineal} o {\it Percentual}.
+         experiencia de los niveles será {\it Lineal} o {\it Porcentual}.
   \Actor Ingresa el valor para el \entrada{xp-scheme-settings.incrementValue} con
-         base en la regla \regla{BR-E02}.
+         base en la regla \regla{BR-E03}.
   \Actor Ingresa los valores para la \entrada{xp-scheme-settings.levelXP} y la
          \entrada{xp-scheme-settings.courseXP}.
   \Actor Presiona la opción {\bf Guardar Cambios}. \refTray{C} \label{CU-E02-2-submit}
@@ -129,9 +127,20 @@ Estado/\ucstEnEdicion]%
   \Sistema Valida que los valores ingresados por el usuario cumplan con las
            restricciones especificadas en el modelo de información.
   \Sistema Verifica que el \refElem{xp-scheme-settings.incrementValue} cumpla
-           con la regla \refElem{BR-E02}. \refTray{D}
+           con la regla \refElem{BR-E03}. \refTray{D}
   \Sistema Actualiza los valores de las \refElem{xp-scheme-settings} con los
            ingresados por el usuario.
+
+  % ACTUALIZACION DE NIVEL DE LOS USUARIOS
+  \Sistema Obtiene la lista de los \refElem[usuarios gamificados]{xp-user} y por cada uno
+           realiza las siguientes acciones.
+  \Sistema Obtiene el \entrada{xp-user.level} y la cantidad de \entrada{xp-user.levelxp}.
+  \Sistema Calcula la nueva cantidad de experiencia correspondiente al nivel del usuario con
+           base en la regla \regla{BR-E04} o \regla{BR-E05} si el incremento es lineal o
+           porcentual respectivamente.
+  \Sistema - Si la cantidad de experiencia del usuario es menor a la experiencia correspondiente
+           al nivel, entonces se procede al siguiente usuario. \refTray{E} \label{CU-E02-2-Usuarios}
+
   \Sistema Despliega la pantalla \refElem{IU-E04} con el mensaje de que los datos
            han sido actualizados exitosamente.
 
@@ -168,5 +177,18 @@ Alguno de los valores ingresados por el usuario son incorrectos.}
            incorrectos.
   \Actor Ingresa nuevamente los valores en los campos marcados como incorrectos.
   \Sistema Regresa al paso \ref{CU-E02-2-submit}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{E}{%
+La cantidad de \refElem{xp-user.levelxp} es mayor a la experiencia del nivel en el
+que se encuentra}
+
+  \Sistema Avanza al \refElem{xp-user} al siguiente nivel, usando los
+           puntos de experiencia del mismo y establece el sobrante como
+           la \refElem{xp-user.levelxp} correspondiente al nuevo nivel.
+  \Sistema Repite el paso anterior hasta que la cantidad de experiencia
+           del nivel del usuario sea menor que la del nivel.
+  \Sistema Regresa al paso \ref{CU-E02-2-Usuarios}
 
 \end{UCtrayectoriaA}

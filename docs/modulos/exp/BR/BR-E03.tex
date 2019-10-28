@@ -22,19 +22,30 @@ Estado/revision]%
     %\BRitem[admin]{Nivel}{\blInfluencing}
     
     \BRitem{Descripción}{%
-    Cuando se modifiquen el \refElem{xp-scheme-settings} o la \refElem{levelXP} de las
-    \refElem{xp-scheme-settings}
+    El tipo de incremento en el sistema de experiencia hace referencia a la forma en que
+    aumenta la cantidad de experiencia para pasar de un nivel a otro. Si el incremento es
+    de tipo {\bf lineal} entonces el \refElem{xp-scheme-settings.incrementValue} debe ser
+    un número positivo mayor a cero, por el contrario si el incremento es {\bf porcentual}
+    entonces el valor debe ser un número flotante entre 1.0 y 2.0.
     }
 
-    \BRitem{Ejemplo positivo}{\hfill\par%
+    \BRitem{Ejemplo positivo}{\hfill%
         \begin{itemize}
-        \item ...
+        \item El \refElem{xp-scheme-settings.increment} es {\bf porcentual} y el
+              \refElem{xp-scheme-settings.incrementValue} es 1.3.
+        \item El \refElem{xp-scheme-settings.increment} es {\bf lineal} y el
+              \refElem{xp-scheme-settings.incrementValue} es 1000.
         \end{itemize}
     }
 
-    \BRitem{Ejemplo negativo}{\hfill\par%
+    \BRitem{Ejemplo negativo}{\hfill%
         \begin{itemize}
-        \item ...
+        \item El \refElem{xp-scheme-settings.increment} es {\bf porcentual} y el
+              \refElem{xp-scheme-settings.incrementValue} es 1000.
+        \item El \refElem{xp-scheme-settings.increment} es {\bf lineal} y el
+              \refElem{xp-scheme-settings.incrementValue} es 1.1.
+        \item El \refElem{xp-scheme-settings.increment} es {\bf lineal} y el
+              \refElem{xp-scheme-settings.incrementValue} es -1100.
         \end{itemize}
     }% 
     
