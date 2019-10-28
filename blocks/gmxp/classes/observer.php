@@ -15,6 +15,13 @@
 defined('MOODLE_INTERNAL') || die();
 
 class block_gmxp_observer {
+
+    public static function competence_won(
+      \local_gamedlemaster\event\gmcompcpu_compFinishedWon $event) {
+
+        local_gamedle_log::info(
+          'Event triggered', 'block_gmxp_observer::competence_won');
+    }
     
     public static function module_completion_updated(core\event\course_module_completion_updated $event){
         block_gmxp_observer::createSessionValues();
