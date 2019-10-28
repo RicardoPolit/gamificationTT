@@ -171,10 +171,11 @@ $string['EVENTS_SETTING_HELP_COMP_help'] =
     "This events is triggered when a user wins a competence in the competence module 
     of 'Gamedle Suite Components'";
 
+$string['EVENTS_SETTING_TEXT_XP_SUPPORT'] = "Give experience";
 $string['EVENTS_SETTING_TEXT_XP'] = "Experience given";
 $string['EVENTS_SETTING_HELP_XP'] = "the {$string['EVENTS_SETTING_TEXT_XP']}";
 $string['EVENTS_SETTING_HELP_XP_help'] =
-    "Specify the experience give by the previous event";
+    "Specify the experience give by this event";
 
 $string['EVENTS_SETTING_DEFAULT_COMP'] = "1"; // 0:FALSE 1:TRUE
 $string['EVENTS_SETTING_DEFAULT_COMPXP'] = "1000";
@@ -183,7 +184,13 @@ $string['EVENTS_SETTING_DEFAULT_COMPXP'] = "1000";
 $string['SETTINGS_EXPERIENCE_DISABLED_REDIRECT'] = "Enable module";
 $string['SETTINGS_EXPERIENCE_DISABLED'] =
     "The experience module is deactivated in the *{$string['SETTINGS_GENERAL']}* page 
-    if you want to access this configuration you must enable the experiencia module";
+    if you want to access this configuration you must enable the experience module";
+
+$string['SETTINGS_EVENTS_DISABLED_REDIRECT'] = "Enable events";
+$string['SETTINGS_EVENTS_DISABLED'] =
+    "The experience events feature is deactivated in the 
+    *{$string['SETTINGS_GENERAL']}* page if you want to access this configurations 
+    you must enable the experience events feature";
 
 $string['maxlength'] = 'Max length allowed is {$a}';
 $string['color'] = 'Invalid color value';
