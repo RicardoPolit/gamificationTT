@@ -54,36 +54,36 @@
     border-collapse: collapse;
     border: 0px;
 }
-.gmcompcpu-container{
+.gmcompcpu-container {
     margin-top: 2%;
     width: 100%;
     text-align: center;
     display: flex;
 }
 
-.gmcompcpu-container-card{
+.gmcompcpu-container-card {
     padding: 1%;
     margin: auto;
     width: 30%;
 }
-.gmcompcpu-container-card-button{
+.gmcompcpu-container-card-button {
     margin: auto;
 }
-.gmcompcpu-card-element{
+.gmcompcpu-card-element {
     margin: 2%;
 
 }
 
-.gmcompcpu-container-card-title{
+.gmcompcpu-container-card-title {
     width: 100%;
-}   
-.gmcompcpu-linea{
+}
+.gmcompcpu-linea {
     width: 100%;
     height: 47px;
     border-bottom: 1px solid black;
 }
 
-.gmcompcpu-titulo{
+.gmcompcpu-titulo {
     margin-top: 1%;
     width: 100%;
     font-style: oblique;
@@ -91,46 +91,64 @@
     text-align: center;
 }
 
-.gmcompcpu-boton-empezar{
+.gmcompcpu-titulo-ganador {
+    margin-top: 1%;
+    width: 100%;
+    color: darkgreen;
+    font-style: oblique;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.gmcompcpu-titulo-perdedor {
+    margin-top: 1%;
+    width: 100%;
+    color: darkred;
+    font-style: oblique;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.gmcompcpu-boton-empezar {
     width: 20%;
     padding: 1%;
 
 }
 
-.cgmcompcpu-cpu{
+.cgmcompcpu-cpu {
     background: gray;
     color: black;
 }
 
-.cgmcompcpu-cpu-vencida{
+.cgmcompcpu-cpu-vencida {
     background: green;
     color: black;
 }
 
-.gmcompcpu-half-container{
+.gmcompcpu-half-container {
     width: 50%;
 }
 
 
-.gmcompcpu-primer-lugar{
+.gmcompcpu-primer-lugar {
     background-color: gold;
     font-size: 20px;
 }
-.gmcompcpu-segundo-lugar{
+.gmcompcpu-segundo-lugar {
     background-color: silver;
     font-size: 18px;
 }
-.gmcompcpu-tercer-lugar{
+.gmcompcpu-tercer-lugar {
     background-color: coral;
     font-size: 16px;
 }
 
-.gmcompcpu-no-lugar{
+.gmcompcpu-no-lugar {
     background-color: gray;
     font-size: 15px;
 }
 
-.gmcompcpu-linea-nivel-1{
+.gmcompcpu-linea-nivel-1 {
     background-color: #0981bd;
     width: 100%;
     text-decoration: underline;
@@ -141,7 +159,7 @@
     font-size: 30px;
 
 }
-.gmcompcpu-linea-nivel-2{
+.gmcompcpu-linea-nivel-2 {
     background-color: green;
     width: 100%;
     text-decoration: underline;
@@ -152,7 +170,7 @@
     font-size: 30px;
 
 }
-.gmcompcpu-linea-nivel-3{
+.gmcompcpu-linea-nivel-3 {
     background-color: yellow;
     width: 100%;
     text-decoration: underline;
@@ -163,7 +181,7 @@
     font-size: 30px;
 
 }
-.gmcompcpu-linea-nivel-4{
+.gmcompcpu-linea-nivel-4 {
     background-color: orange;
     width: 100%;
     text-decoration: underline;
@@ -173,4 +191,8 @@
     color: white;
     font-size: 30px;
 
+}
+.gmcompcpu-tabla-celda-ganadora {
+
+    background-color: green;
 }

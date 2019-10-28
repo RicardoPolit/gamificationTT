@@ -39,8 +39,17 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
      * @param context $context The context
      * @return string The HTML code of the game
      */
-    public function render_questions($gmcompcpu, $cm,$userid) {
+    public function render_questions($gmcompcpu, $cm,$userid,$dificultad,$gmuserid,$id) {
         global $DB;
+
+        $intento = (object)[
+            'gmdl_dificultad_cpu_id' => $dificultad,
+            'gmdlcompcpu_id' => $gmcompcpu->id,
+            'gmdl_usuario_id' => $gmuserid,
+            'fecha_inicio' => time()
+        ];
+
+        $intento->id =  $DB->insert_record('gmdl_intento',$intento);
 
         $categoryid = explode(',', $gmcompcpu->questioncategory)[0];
 
@@ -82,6 +91,8 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
         $display .= '<input type="hidden" name="slots" value="' . implode(',', $idstoslots) . "\" />\n";
         $display .= '<input type="hidden" name="scrollpos" value="" />';
+        $display .= '<input type="hidden" name="intentoid" value='.$intento->id.' />';
+        $display .= '<input type="hidden" name="idredirect" value='.$id.' />';
 
         $options = new question_display_options();
         $options->marks = question_display_options::MAX_ONLY;
@@ -109,36 +120,123 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
     }
 
 
-    public function render_main_page($gmcompcpu, $userid)
+    public function render_results_attempt($userScore,$cpuScore){
+
+        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+
+        if($userScore >= $cpuScore){
+
+            $mensaje = 'Felicidades! Computadora derrotada';
+            $class = 'ganador';
+
+        }else{
+
+            $mensaje = 'Oh no!, Debes practicar mas!';
+            $class = 'perdedor';
+
+        }
+
+        $display .= html_writer::start_tag('div');
+
+        $display .= html_writer::start_tag('h2',array('class' => 'gmcompcpu-titulo-'.$class));
+
+        $display .= html_writer::start_tag('b');
+
+        $display .= $mensaje;
+
+        $display .= html_writer::end_tag('b');
+
+        $display .= html_writer::end_tag('h2');
+
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-container'));
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-half-container'));
+
+
+        $display .= html_writer::start_tag('h3');
+
+        $display .= html_writer::start_tag('b');
+
+        $display .= 'Tu puntuacion: '.$userScore;
+
+        $display .= html_writer::end_tag('b');
+
+        $display .= html_writer::end_tag('h3');
+
+
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-half-container'));
+
+        $display .= html_writer::start_tag('h3');
+
+        $display .= html_writer::start_tag('b');
+
+        $display .= 'Puntuacion cpu: '.$cpuScore;
+
+        $display .= html_writer::end_tag('b');
+
+        $display .= html_writer::end_tag('h3');
+
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::end_tag('div');
+
+        return $display;
+
+    }
+
+
+    public function render_main_page($gmcompcpu, $userid,$id)
         {
+            $moodleUserId = $userid;                        //por si lo ocupo
             global $DB;
             $userid = $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $userid), $fields='*', $strictness=IGNORE_MISSING)->id;
             $dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));
             $sql = " SELECT gmdl_dificultad_cpu_id, COUNT(id)  FROM {gmdl_intento}";
-            $sql.= " WHERE puntuacion_usuario > puntuacion_cpu";
+            $sql.= " WHERE puntuacion_usuario >= puntuacion_cpu";
             $sql.= " AND gmdl_usuario_id = $userid";
             $sql.= " AND gmdlcompcpu_id = ".$gmcompcpu->id;
             $sql.= " GROUP BY 1;";
-            $victorias = $DB->get_records_sql($sql, null, $limitfrom=0, $limitnum=0);
+            try {
+                $victorias = $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+                $querysucess = TRUE;
+            } catch (dml_exception $e) {
+                $querysucess = false;
+            }
             $compusVencidas = '';
             $nombresDificultades = '';
             $valoresSelect = '';
-            foreach($dificultades as $dificultad) 
+            foreach($dificultades as $dificultad)
                 {
-                    $nombresDificultades.= "<th>".$dificultad->nombre."</th>";
                     $noEncontrado = TRUE;
-                    foreach($victorias as $victoria)
+                    $nombresDificultades.= "<th>".$dificultad->nombre."</th>";
+
+                    if($querysucess){
+
+                        foreach($victorias as $victoria)
                         {
                             if($victoria->gmdl_dificultad_cpu_id == $dificultad->id && $noEncontrado)
-                                {
-                                    $compusVencidas.= "<td class='cgmcompcpu-cpu-vencida'> Sí </td>";
-                                    $noEncontrado = FALSE;
-                                }
+                            {
+                                $compusVencidas.= "<td class='cgmcompcpu-cpu-vencida'> Sí </td>";
+                                $noEncontrado = FALSE;
+                            }
                         }
-                    if($noEncontrado)
-                        {
+
+                        if($noEncontrado){
+
                             $compusVencidas.= "<td class='cgmcompcpu-cpu'> No </td>";
+
                         }
+
+                    }else{
+
+                        $compusVencidas.= "<td class='cgmcompcpu-cpu'> No </td>";
+
+                    }
+
                     $valoresSelect.="<option value='".$dificultad->id."'> ".$dificultad->nombre."</option>";
                 }
 
@@ -149,20 +247,26 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $html.=" <div class='gmcompcpu-linea'> </div> <h1 class='gmcompcpu-titulo'> Computadoras vencidas </h1>";
             $html.= "<div class='gmcompcpu-container'>  <table> <thead> <tr> $nombresDificultades </tr> </thead>";
             $html.=" <tbody> <tr> $compusVencidas </tr> </tbody> </table> </div>";
+            $html.= html_writer::start_tag('form',
+                array('action' => new moodle_url('/mod/gmcompcpu/attempt.php',
+                    array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompcpu->id, 'id' => $id)), 'method' => 'post',
+                    'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                    'id' => 'responseform'));
             $html.=" <div class='gmcompcpu-container'> <div class='gmcompcpu-container-card'> <h3 class='gmcompcpu-container-card-title'> <b>Desafiar computadora</b> </h3>";
-            $html.="   <div class='gmcompcpu-card-element'> Seleccione dificultad: <select> $valoresSelect </select> </div>";
-            $html.="  <div class='gmcompcpu-card-element'> <button type='button' class='btn btn-primary gmcompcpu-container-card-button'> Empezar</button> </div> </div> </div>";
+            $html.="   <div class='gmcompcpu-card-element'> Seleccione dificultad: <select name='dificultad'> $valoresSelect </select> </div>";
+            $html.="  <div class='gmcompcpu-card-element'> <input type='submit' value='Empezar' class='btn btn-primary gmcompcpu-container-card-button'> </div> </div> </div>";
+            $html.= html_writer::end_tag('form');
             $html.=" <div class='gmcompcpu-linea'> </div>";
             //return json_encode($gmcompcpu);
-            return $html.$this->render_scores_page($gmcompcpu, $userid);
+            return $html.$this->render_scores_page($gmcompcpu, $userid,$dificultades,$moodleUserId);
             //return json_encode(array_values($dificultades));
         }
 
 
-    public function render_scores_page($gmcompcpu, $userid)
+    public function render_scores_page($gmcompcpu, $userid,$dificultades,$moodleUserId)
         {
             global $DB;
-            $dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));
+            /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
             $leaderboards = [];
             $leaderboardsMax = [];
             for($i=0; $i<sizeof($dificultades);$i++)
@@ -183,14 +287,18 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id, puntuacion_usuario AS puntos, fecha_fin, username, firstname, lastname";
             $sql.= " FROM {gmdl_intento}, {user}";
             $sql.= " WHERE gmdlcompcpu_id = ".$gmcompcpu->id." AND";
-            $sql.= " {user}.id = {gmdl_intento}.gmdl_usuario_id";
+            $sql.= " {user}.id = ".$moodleUserId;
             $sql.= " ) AS b";
             $sql.="  ON";
 			$sql.= " a.gmdl_usuario_id = b.gmdl_usuario_id AND";
 			$sql.= " a.gmdl_dificultad_cpu_id = b.gmdl_dificultad_cpu_id AND";
 			$sql.= " a.minima = b.fecha_fin";
             $sql.= " ORDER BY b.puntos DESC";
-            $primerosIntentos = $DB->get_records_sql($sql, null, $limitfrom=0, $limitnum=0);
+            try {
+                $primerosIntentos = $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+            } catch (dml_exception $e) {
+                $primerosIntentos = NULL;
+            }
             foreach($primerosIntentos as $intento)
                 {
                     $leaderboards[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
@@ -201,9 +309,14 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.=" FROM {gmdl_intento}";
             $sql.=" WHERE gmdlcompcpu_id = ".$gmcompcpu->id;
             $sql.=" GROUP BY 1,2 ) as a, {user}";
-            $sql.=" WHERE {user}.id = a.gmdl_usuario_id";
+            $sql.=" WHERE {user}.id = ".$moodleUserId;
             $sql.=" ORDER BY a.puntos DESC";
-            $mejoresIntentos = $primerosIntentos = $DB->get_records_sql($sql, null, $limitfrom=0, $limitnum=0);
+            try {
+                $mejoresIntentos = $primerosIntentos = $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+            } catch (dml_exception $e) {
+                $mejoresIntentos = NULL;
+                $dificultades = NULL;
+            }
             foreach($mejoresIntentos as $intento)
                 {
                     $leaderboardsMax[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
@@ -280,34 +393,40 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $html.="<div class='gmcompcpu-linea'> </div>";
                     $i++;
                 }
-            return $html.$this->render_attempt_page($gmcompcpu, $userid);
+            return $html.$this->render_attempt_page($gmcompcpu, $userid,$dificultades);
         }
-    public function render_attempt_page($gmcompcpu, $userid)
+    public function render_attempt_page($gmcompcpu, $userid,$dificultades)
         {
             $html = ' ';
             #$html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
             global $DB;
-            $dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));
-            
+            /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
+
             $html.="<div class='gmcompcpu-linea'> </div>";
-            $intentos = array_values($DB->get_records($table='gmdl_intento', $conditions=array("gmdlcompcpu_id" =>$gmcompcpu->id, "gmdl_usuario_id"=> $userid ), $sort='gmdl_dificultad_cpu_id, puntuacion_usuario', $fields='*', $limitfrom=0, $limitnum=0));
-            $html.="<h1 class='gmcompcpu-titulo'> Intentos realizados </h1>";
-            $html.="<div class='gmcompcpu-container'>";
-            $cabezeraTabla = "<thead> <tr> <th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th>  </tr> </thead>";
-            $contenidoTabla = "<tbody>";
-            
+            try {
+                $intentos = array_values($DB->get_records($table = 'gmdl_intento', $conditions = array("gmdlcompcpu_id" => $gmcompcpu->id, "gmdl_usuario_id" => $userid ), 'id desc', $fields = '*', $limitfrom = 0, $limitnum = 0));
+                $html.="<h1 class='gmcompcpu-titulo'> Intentos realizados </h1>";
+                $html.="<div class='gmcompcpu-container'>";
+                $cabezeraTabla = "<thead> <tr> <th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th>  </tr> </thead>";
+                $contenidoTabla = "<tbody>";
+            } catch (dml_exception $e) {
+                $intentos = NULL;
+            }
+
+
             foreach($intentos as $intento)
                 {
                     $contenidoTabla.= "<tr>";
-                    $contenidoTabla.= "<td class='gmcompcpu-tabla-celda-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id]->id."'> ".$dificultades[$intento->gmdl_dificultad_cpu_id]->nombre." </td>";
-                    if($intento->puntuacion_usuario >= $intento->puntuacion_cump)
+                    $contenidoTabla.= "<td class='gmcompcpu-tabla-celda-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id."'> ".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre." </td>";
+                    if($intento->puntuacion_usuario >= $intento->puntuacion_cpu)
                         {
-                            $contenidoTabla.= "<td> ".$intento->puntuacion_usuario. "</td>";
+                            $contenidoTabla.= "<td class='cgmcompcpu-cpu-vencida'> ".$intento->puntuacion_usuario. "</td>";
                             $contenidoTabla.= "<td> ".$intento->puntuacion_cpu . "</td>";
+
                         }
                     else
                         {
-                            $contenidoTabla.= "<td class='gmcompcpu-tabla-celda-ganadora'> ".$intento->puntuacion_usuario. "</td>";
+                            $contenidoTabla.= "<td> ".$intento->puntuacion_usuario. "</td>";
                             $contenidoTabla.= "<td> ".$intento->puntuacion_cpu . "</td>";
                         }
                     $contenidoTabla.= "</tr>";
@@ -320,19 +439,5 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $html.= "<table>".$cabezeraTabla.$contenidoTabla."</table></div>";
             return $html;
         }
-    /**
-     * Render the link to access the high scores.
-     * @param stdClass $gmcompcpu
-     * @return string
-     */
-    public function render_score_link($gmcompcpu) {
 
-        $url = new moodle_url('/mod/gmcompcpu/scores.php', array('id' => $gmcompcpu->id));
-        $scorestring = get_string('scoreslink', 'gmcompcpu');
-        $scorestringhelp = get_string('scoreslinkhelp', 'gmcompcpu');
-        $display = html_writer::start_tag('div', array('class' => 'gmcompcpu-scores'));
-        $display .= html_writer::tag('a', $scorestring, array('title' => $scorestringhelp, 'href' => $url));
-        $display .= html_writer::end_tag('div');
-        return $display;
-    }
 }

@@ -45,6 +45,10 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019102400();
             }
+        else if($oldversion < 2019102402)
+            {
+                upgrades2019102402();
+            }
         else if($oldversion < 2019102403)
             {
                 upgrades2019102403();
@@ -720,11 +724,12 @@ function upgrades2019102400()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019102400, 'local', 'gamedlemaster');
+        upgrades2019102402();
     }
 
 // El renombramiento es algo que se tiene que hablar con los directores, para saber cómo se usan estas llaves
 
-function upgrades2019102401()
+function upgrades2019102402()
     {
         global $DB;
         $dbman = $DB->get_manager();
