@@ -258,9 +258,9 @@ function calculateScoreUser($quba, $timenow){
                 }
             }
 
-            echo json_encode($order);
+            /*echo json_encode($order);
             echo '<br>';
-            echo json_encode($qa->get_step_iterator());
+            echo json_encode($qa->get_step_iterator());*/
 
         }else {
 
