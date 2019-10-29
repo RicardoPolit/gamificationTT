@@ -19,7 +19,7 @@ $quba = question_engine::load_questions_usage_by_activity($id);
 
 $userScore = calculateScoreUser($quba,$timenow);
 
-/*echo $userScore;*/
+/*echo json_encode($userScore);*/
 
 /*for ($i = 1; $i <= 4; $i++) {                                     //Pruebas para ver como se comportan las diferentes dificultades (funciona como se espera)
 
@@ -65,7 +65,7 @@ $userScore = calculateScoreUser($quba,$timenow);
 
 }*/
 
-$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$intento->gmdl_dificultad_cpu_id);
+$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$intento->gmdl_dificultad_cpu_id);          //ESTA
 
 /*echo json_encode($questionswithAnswers);
 echo '<br>';*/
@@ -213,8 +213,39 @@ function calculateScoreUser($quba,$timenow){
 
             try{
 
+                $single = $DB->get_record('qtype_multichoice_options',array('questionid' => $qa->get_question()->id ),'single');
                 $order = explode(',',$qa->get_step_iterator()[0]->get_all_data()['_order']);
-                $useranswers = explode(',',$qa->get_step_iterator()[1]->get_all_data()['answer']);
+
+                if($single->single == 1){
+
+                    $useranswers = explode(',',$qa->get_step_iterator()[1]->get_all_data()['answer']);
+
+                }else{
+                    $useranswers = [];
+                    $useranswersAux = $qa->get_step_iterator()[1]->get_all_data();
+
+                    $i = 0;
+                    foreach ($useranswersAux as $useranswer){
+
+                        if($useranswer == 1){
+                            $useranswers[] = $i;
+
+                        }
+
+                        $i++;
+
+                    }
+
+                }
+
+
+                /*foreach ($qa->get_step_iterator() as $itera){
+
+                    $useranswersMULTI[] = $itera->get_all_data();
+
+                }*/
+
+                /*$useranswersMULTI[] = $useranswers;*/
 
             }catch (Exception $e){
 
@@ -224,6 +255,8 @@ function calculateScoreUser($quba,$timenow){
 
 
             if($useranswers != null){
+
+                $allUser[] = $useranswers;
 
                 foreach ($useranswers as $useranswer){
 
