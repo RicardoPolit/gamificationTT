@@ -69,8 +69,7 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
         $context = context_course::instance($COURSE->id);
         $categories = question_category_options(array($context), false, 0);
 
-        $mform->addElement('selectgroups', 'questioncategory', get_string('questioncategory', 'gmcompcpu'), $categories);
-        $mform->addHelpButton('questioncategory', 'questioncategory', 'gmcompcpu');
+        $mform->addElement('selectgroups', 'mdl_question_category_id', get_string('questioncategory', 'gmcompcpu'), $categories);
 
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();

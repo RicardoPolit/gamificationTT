@@ -50,6 +50,20 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019102402();
             }
+        else if($oldversion < 2019102900)
+            {
+                upgrades2019102900();
+                
+            }
+        else if($oldversion < 2019102901)
+            {
+                upgrades2019102901();
+            }
+        else if($oldversion < 2019102902)
+            {
+                upgrades2019102902();
+            }
+    
 
 		return true;
 	}
@@ -739,4 +753,80 @@ function upgrades2019102402()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019102402, 'local', 'gamedlemaster');
+        upgrades2019102900();
+    }
+
+
+function upgrades2019102900()
+    {
+
+        global $DB;
+        $dbman = $DB->get_manager();
+        // Conditionally launch create table for gmdl_com_cpu.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+        // Define table gmcompcpu to be renamed to NEWNAMEGOESHERE.
+        $table = new xmldb_table('gmdlcompcpu');
+        
+        // Launch rename table for gmcompcpu.
+        $dbman->rename_table($table, 'gmcompcpu');
+
+        // Gamedlemaster savepoint reached.
+        upgrade_plugin_savepoint(true, 2019102900, 'local', 'gamedlemaster');
+        upgrades2019102901();
+    }
+
+
+function upgrades2019102901()
+    { 
+        global $DB;
+        $dbman = $DB->get_manager();
+        // Changing the default of field introformat on table gmcompcpu to 0.
+        $table = new xmldb_table('gmcompcpu');
+        $field = new xmldb_field('introformat', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'intro');
+
+        // Launch change of default for field introformat.
+        $dbman->change_field_default($table, $field);
+
+
+        // Changing the default of field timemodified on table gmcompcpu to 0.
+        $table = new xmldb_table('gmcompcpu');
+        $field = new xmldb_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'name');
+
+        // Launch change of default for field timemodified.
+        $dbman->change_field_default($table, $field);
+
+        // Gamedlemaster savepoint reached.
+        upgrade_plugin_savepoint(true, 2019102901, 'local', 'gamedlemaster');
+        upgrades2019102902();
+    }
+
+
+function upgrades2019102902()
+    {
+        global $DB;
+        $dbman = $DB->get_manager();
+        // Define key mdl_question_id (foreign) to be dropped form gmcompcpu.
+        $table = new xmldb_table('gmcompcpu');
+        $key = new xmldb_key('mdl_question_id', XMLDB_KEY_FOREIGN, array('mdl_question_id'), 'question', array('id'));
+
+        // Launch drop key mdl_question_id.
+        $dbman->drop_key($table, $key);
+        // Rename field mdl_question_id on table gmcompcpu to mdl_question_category_id.
+        $table = new xmldb_table('gmcompcpu');
+        $field = new xmldb_field('mdl_question_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null, 'introformat');
+
+        // Launch rename field mdl_question_id.
+        $dbman->rename_field($table, $field, 'mdl_question_category_id');
+        // Changing type of field mdl_question_category_id on table gmcompcpu to text.
+        $table = new xmldb_table('gmcompcpu');
+        $field = new xmldb_field('mdl_question_category_id', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null, 'introformat');
+
+        // Launch change of type for field mdl_question_category_id.
+        $dbman->change_field_type($table, $field);
+
+
+        // Gamedlemaster savepoint reached.
+        upgrade_plugin_savepoint(true, 2019102902, 'local', 'gamedlemaster');
     }

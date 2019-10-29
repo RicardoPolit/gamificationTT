@@ -469,6 +469,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.=" JOIN {user} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
             $sql.=" WHERE {user}.id = ". $moodleUserId;
             $sql.=" AND fecha_fin IS NOT NULL";
+            $sql.=" AND {gmdl_intento}.gmdl_comp_cpu_id = ".$gmcompcpu->id;
             $sql.=" ORDER BY fecha_fin DESC";
 
             $intentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
