@@ -97,8 +97,7 @@ class mod_gmcompcpu__cpumind {
 
         global $DB;
 
-        $answers = self::processAnswer($DB->get_records('question_answers', array('question' => $questionid)));
-
+        $answers = array_values(self::processAnswer($DB->get_records('question_answers', array('question' => $questionid))));
         return $answers;
 
     }
@@ -109,7 +108,7 @@ class mod_gmcompcpu__cpumind {
 
         foreach ($w as $answer){
 
-            if( $answer->fraction > 0 ){
+            if( $answer->fraction > 0.0 ){
 
                 $numResCorrectas++;
 
@@ -122,96 +121,36 @@ class mod_gmcompcpu__cpumind {
     }
 
     protected static function obtenerNumResElegidas($x, $dificultad, $questionid){
-
-        $rows = question_preload_questions(array($questionid));
+        $r = 1;
+        global $DB;
+        $pregunta = array_values(question_preload_questions(array($questionid)));
         /*$rows = $DB->get_records('question', array('id' => $questionid));*/
 
-        if($rows[0]->qtype != 'multichoice'){
+        $opcionesPregunta = array_values($DB->get_records('qtype_multichoice_options', array('questionid' => $questionid)));
+        if($pregunta[0]->qtype == 'multichoice'){
 
-            return 1;
-
-        }else{
-
-            if($rows[0]->options->single == 1 ){
-
-                return 1;
-
-            }else{
-
+            if($opcionesPregunta[0]->single != 1 ){
                 $numrand = rand(0, 100);
 
-                if( $dificultad == 1 ){
-
-                    if( $numrand <= 5 ){
-
-                        return $x;
-
-                    }elseif ( $numrand <= 15 ){
-
-                        return (int)$x/2;
-
-                    }else{
-
-                        return 1;
-
-                    }
-
-                }elseif( $dificultad == 2 ){
-
-                    if( $numrand <= 15 ){
-
-                        return $x;
-
-                    }elseif ( $numrand <= 35 ){
-
-                        return (int)$x/2;
-
-                    }else{
-
-                        return 1;
-
-                    }
-
-                }elseif( $dificultad == 3 ){
-
-                    if( $numrand <= 65 ){
-
-                        return $x;
-
-                    }elseif ( $numrand <= 85 ){
-
-                        return (int)$x/2;
-
-                    }else{
-
-                        return 1;
-
-                    }
-
-                }else{
-
-                    if( $numrand <= 85 ){
-
-                        return $x;
-
-                    }elseif ( $numrand <= 95 ){
-
-                        return (int)$x/2;
-
-                    }else{
-
-                        return 1;
-
-                    }
-
+                if($dificultad == 1){
+                    if( $numrand <= 5 ){ $r = $x;}
+                    elseif ( $numrand <= 15 ){ $r = (int)$x/2;}
                 }
-
-
-
+                elseif($dificultad == 2){
+                    if( $numrand <= 15 ){ $r = $x;}
+                    elseif ( $numrand <= 35 ){ $r = (int)$x/2;}
+                }
+                elseif($dificultad == 3){
+                    if( $numrand <= 65 ){ $r = $x;}
+                    elseif ( $numrand <= 85 ){ $r = (int)$x/2;}
+                }
+                elseif($dificultad == 4){
+                    if( $numrand <= 85 ){ $r = $x;}
+                    elseif ( $numrand <= 95 ){ $r = (int)$x/2;}
+                }
             }
-
         }
-
+        return $r;
     }
 
     protected static function obtenerNumeroIntentos($dificultad){
@@ -303,23 +242,51 @@ class mod_gmcompcpu__cpumind {
 
     }
 
-    protected static function esCorrecta($resp){
-
-        return ($resp->fraction == 1);
+    protected static function esCorrecta($respuesta){
+        $resp = 1;
+        global $DB;
+        $pregunta = array_values(question_preload_questions(array($respuesta->question)));
+        $opcionesPregunta = array_values($DB->get_records('qtype_multichoice_options', array('questionid' => $pregunta[0]->id)));   
+        if($pregunta[0]->qtype == 'multichoice')
+            {
+                if($opcionesPregunta[0]->single != 1)
+                    {
+                        if($respuesta->fraction <= 0)
+                            {
+                                $resp = 0;
+                            }
+                    }
+                else
+                    {
+                        if($respuesta->fraction < 1)
+                            {
+                                $resp = 0;
+                            }
+                        
+                    }
+            }
+        return $resp;
 
     }
 
     //Revisar cuando ya no se puedan quitar las respuestas y todavia falte por elegir respuestas, existirá el caso de que se elija la misma respuesta?
 
     protected static function quitarRespuesta($resp, $w, $espacio){
-
-        if( $espacio >= 100/(sizeof($w)-1) ){
-
-            unset($w[$resp->index]);
-
-        }
-
-        return $w;
+        $r = $w;
+        if(sizeof($w) > 1)
+            {
+                if( $espacio >= 100/(sizeof($w)-1) ){
+                    $r = [];
+                    foreach($w as $c)
+                        {
+                            if($c->id != $resp->id)
+                                {
+                                    $r[] = $c;
+                                }
+                        }
+                }
+            }
+        return $r;
 
     }
 

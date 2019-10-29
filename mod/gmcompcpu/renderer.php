@@ -107,10 +107,10 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
         }
 
 
-        $display .= html_writer::start_tag('div');
+        $display .= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
 
         $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Submit', 'class' => 'mod_quiz-next-nav btn btn-primary'));
+            'value' => 'Terminar', 'class' => "mod_quiz-next-nav btn btn-primary gmcompcpu-button", "style"=>"margin:auto; width: 25%;"));
         $display .= html_writer::end_tag('div');
 
         $display .= html_writer::end_tag('div');
@@ -189,9 +189,11 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
     }
 
 
+    
+
     public function render_main_page($gmcompcpu, $userid,$id)
         {
-            $moodleUserId = $userid;                        //por si lo ocupo
+            $moodleUserId = $userid;
             global $DB;
             $userid = $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $userid), $fields='*', $strictness=IGNORE_MISSING)->id;
             $dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));
@@ -212,58 +214,93 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             foreach($dificultades as $dificultad)
                 {
                     $noEncontrado = TRUE;
-                    $nombresDificultades.= "<th>".$dificultad->nombre."</th>";
-
-                    if($querysucess){
-
-                        foreach($victorias as $victoria)
+                    $nombresDificultades.= html_writer::nonempty_tag('th', $dificultad->nombre);
+                    foreach($victorias as $victoria)
                         {
                             if($victoria->gmdl_dificultad_cpu_id == $dificultad->id && $noEncontrado)
                             {
-                                $compusVencidas.= "<td class='cgmcompcpu-cpu-vencida'> Sí </td>";
+                                $compusVencidas.= html_writer::nonempty_tag('td', 'S&iacute;', array("class"=> 'gmcompcpu-cpu-vencida'));
                                 $noEncontrado = FALSE;
                             }
                         }
-
-                        if($noEncontrado){
-
-                            $compusVencidas.= "<td class='cgmcompcpu-cpu'> No </td>";
-
+                    if($noEncontrado)
+                        {
+                            $compusVencidas.= html_writer::nonempty_tag('td', 'No', array("class"=> 'gmcompcpu-cpu'));
                         }
 
-                    }else{
-
-                        $compusVencidas.= "<td class='cgmcompcpu-cpu'> No </td>";
-
-                    }
-
-                    $valoresSelect.="<option value='".$dificultad->id."'> ".$dificultad->nombre."</option>";
+                    
+                    $valoresSelect.= html_writer::nonempty_tag('option', $dificultad->nombre, array("value"=> $dificultad->id));
                 }
 
 
             $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
 
 
-            $html.=" <div class='gmcompcpu-linea'> </div> <h1 class='gmcompcpu-titulo'> Computadoras vencidas </h1>";
-            $html.= "<div class='gmcompcpu-container'>  <table> <thead> <tr> $nombresDificultades </tr> </thead>";
-            $html.=" <tbody> <tr> $compusVencidas </tr> </tbody> </table> </div>";
+            //Graficando el menú superior
+
+
+
+            //Graficando la tabla que muestra qué computadoras ha vencido el usuario
+
+            $html.= html_writer::tag('div', '',array("class" =>"gmcompcpu-linea"));
+
+
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-container-inicio"));
+            $html.= html_writer::nonempty_tag('h1', "Computadoras vencidas", array("class" =>"gmcompcpu-titulo"));
+            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container"));
+            $html.= html_writer::start_tag('table', array());
+            $html.= html_writer::start_tag('thead', array());
+            $html.= html_writer::nonempty_tag('tr', $nombresDificultades, array());
+            $html.= html_writer::end_tag('thead', array());
+            $html.= html_writer::start_tag('tbody', array());
+            $html.= html_writer::nonempty_tag('tr',$compusVencidas , array());
+            $html.= html_writer::end_tag('tbody', array());
+            $html.= html_writer::end_tag('table', array());
+            $html.= html_writer::end_tag('div', array());
+
+
+
+            //Iniciando el from, para poder mandar la información del choice a la página de preguntas
+
             $html.= html_writer::start_tag('form',
                 array('action' => new moodle_url('/mod/gmcompcpu/attempt.php',
                     array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompcpu->id, 'id' => $id)), 'method' => 'post',
                     'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                     'id' => 'responseform'));
-            $html.=" <div class='gmcompcpu-container'> <div class='gmcompcpu-container-card'> <h3 class='gmcompcpu-container-card-title'> <b>Desafiar computadora</b> </h3>";
-            $html.="   <div class='gmcompcpu-card-element'> Seleccione dificultad: <select name='dificultad'> $valoresSelect </select> </div>";
-            $html.="  <div class='gmcompcpu-card-element'> <input type='submit' value='Empezar' class='btn btn-primary gmcompcpu-container-card-button'> </div> </div> </div>";
+            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container"));
+            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container-card"));
+            $html.= html_writer::nonempty_tag('h3', "<b>Desafiar computadora</b>", array("class" =>"gmcompcpu-container-card-title"));
+            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
+            $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmcompcpu-half-container", "name" => "dificultad"));
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
+            $html.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Empezar", "class" => "gmcompcpu-button btn btn-primary gmcompcpu-container-card-button" ));
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::end_tag('div', array());
             $html.= html_writer::end_tag('form');
-            $html.=" <div class='gmcompcpu-linea'> </div>";
-            //return json_encode($gmcompcpu);
+
+
+
+
+            
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
+            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-half-container"));
+            $html.= html_writer::nonempty_tag('button', " << Ver tabla de puntuaciones",array("class" =>"btn btn-primary gmcompcpu-half-container gmcompcpu-button", "id"=>"gmcompcpu-ver-scores"));
+            $html.= html_writer::end_tag('div', '',array());
+            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-half-container"));
+            $html.= html_writer::nonempty_tag('button', "Ver intentos >>",array("class" =>"btn btn-primary gmcompcpu-half-container gmcompcpu-button", "id"=>"gmcompcpu-ver-intentos"));
+            $html.= html_writer::end_tag('div', '',array());
+            $html.= html_writer::end_tag('div', '',array());
+            $html.= html_writer::end_tag('div', array());
+
+
             return $html.$this->render_scores_page($gmcompcpu, $userid,$dificultades,$moodleUserId);
-            //return json_encode(array_values($dificultades));
         }
 
 
-    public function render_scores_page($gmcompcpu, $userid,$dificultades,$moodleUserId)
+    
+        public function render_scores_page($gmcompcpu, $userid, $dificultades, $moodleUserId)
         {
             global $DB;
             /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
@@ -276,7 +313,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                 }
             $sql = "SELECT b.* FROM";
 		    $sql.= " (";
-			$sql.= " SELECT gmdl_dificultad_cpu_id, gmdl_usuario_id, MIN(fecha_fin) as minima";
+			$sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id,  MIN(fecha_fin) as minima";
 			$sql.= " FROM {gmdl_intento} ";
 			$sql.= " WHERE fecha_fin IS NOT NULL";
 			$sql.= " AND gmdlcompcpu_id = ".$gmcompcpu->id;;
@@ -285,158 +322,197 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.= " JOIN";
             $sql.= " (";
             $sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id, puntuacion_usuario AS puntos, fecha_fin, username, firstname, lastname";
-            $sql.= " FROM {gmdl_intento}, {user}";
+            $sql.= " FROM {gmdl_intento}, {user}, {gmdl_usuario}";
             $sql.= " WHERE gmdlcompcpu_id = ".$gmcompcpu->id." AND";
-            $sql.= " {user}.id = ".$moodleUserId;
+            $sql.= " {user}.id = {gmdl_usuario}.mdl_id_usuario AND";
+            $sql.= " {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id ";
             $sql.= " ) AS b";
             $sql.="  ON";
 			$sql.= " a.gmdl_usuario_id = b.gmdl_usuario_id AND";
 			$sql.= " a.gmdl_dificultad_cpu_id = b.gmdl_dificultad_cpu_id AND";
 			$sql.= " a.minima = b.fecha_fin";
             $sql.= " ORDER BY b.puntos DESC";
-            try {
-                $primerosIntentos = $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-            } catch (dml_exception $e) {
-                $primerosIntentos = NULL;
-            }
+            
+            $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+            
             foreach($primerosIntentos as $intento)
                 {
                     $leaderboards[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
                 }
 
-            $sql =" SELECT a.*, username, firstname, lastname FROM";
+            $sql =" SELECT  a.*, username, firstname, lastname FROM";
             $sql.=" (SELECT gmdl_dificultad_cpu_id, gmdl_usuario_id, MAX(puntuacion_usuario) AS puntos";
             $sql.=" FROM {gmdl_intento}";
             $sql.=" WHERE gmdlcompcpu_id = ".$gmcompcpu->id;
-            $sql.=" GROUP BY 1,2 ) as a, {user}";
-            $sql.=" WHERE {user}.id = ".$moodleUserId;
+            $sql.="  AND fecha_fin IS NOT NULL";
+            $sql.=" GROUP BY 1,2 ) as a, {user}, {gmdl_usuario}";
+            $sql.=" WHERE {user}.id = ".$moodleUserId." AND";
+            $sql.=" {user}.id =  {gmdl_usuario}.mdl_id_usuario AND";
+            $sql.=" {gmdl_usuario}.id = a.gmdl_usuario_id";
             $sql.=" ORDER BY a.puntos DESC";
-            try {
-                $mejoresIntentos = $primerosIntentos = $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-            } catch (dml_exception $e) {
-                $mejoresIntentos = NULL;
-                $dificultades = NULL;
-            }
+            $mejoresIntentos = $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+            
             foreach($mejoresIntentos as $intento)
                 {
                     $leaderboardsMax[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
                 }
+            
+    
 
-            $html = '';
             #$html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-            $html.="<div class='gmcompcpu-linea'> </div>";
+            $html= html_writer::start_tag('div', array("id"=>"gmcompcpu-container-posiciones"));
             $i = 0;
             foreach($dificultades as $dificultad)
                 {
                     $leaderboard = $leaderboards[$i];
+                    $html.= html_writer::nonempty_tag('div', $dificultad->nombre, array("class" => "gmcompcpu-linea-nivel-".$dificultad->id));
+                    $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container"));
                     $leaderboardMax = $leaderboardsMax[$i];
-                    $html.="<div class='gmcompcpu-linea-nivel-".$dificultad->id."'> ".$dificultad->nombre." </div>";
-                    $html.="<div class='gmcompcpu-container'>";
-                    $cabezeraTabla = "<thead> <tr> <th> Posici&oacute;n </th> <th> Nombre </th> <th> Puntuaci&oacute;n </th> </thead>";
+                    $cabezeraTabla= html_writer::start_tag('thead', array());
+                    $cabezeraTabla.= html_writer::nonempty_tag('tr', "<th> Posici&oacute;n </th> <th> Nombre </th> <th> Puntuaci&oacute;n </th>", array());
+                    $cabezeraTabla.= html_writer::end_tag('thead', array());
                     $j=1;
-                    $contenidoTablaPrimerIntento= '<tbody>';
+                    $contenidoTablaPrimerIntento= html_writer::start_tag('tbody', array());
                     foreach($leaderboard as $intento)
                         {
                             if($j==1)
                                 {
-                                    $contenidoTablaPrimerIntento= "<tr class='gmcompcpu-primer-lugar'> <td>".$j."° </td> <td> ".$intento->firstname." ".$intento->lastname."</td> <td>".$intento->puntos."</td> </tr>";
+                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-primer-lugar"));
                                 }
                             else if($j==2)
                                 {
-                                    $contenidoTablaPrimerIntento= "<tr class='gmcompcpu-segundo-lugar'> <td>".$j."° </td> <td> ".$intento->firstname." ".$intento->lastname."</td> <td>".$intento->puntos."</td> </tr>";
+                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-segundo-lugar"));
                                 }
                             else if($j ==3)
                                 {
-                                    $contenidoTablaPrimerIntento= "<tr class='gmcompcpu-tercer-lugar'> <td>".$j."° </td> <td> ".$intento->firstname." ".$intento->lastname."</td> <td>".$intento->puntos."</td> </tr>";
+                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-tercer-lugar"));
                                 }
                             else
                                 {
-                                    $contenidoTablaPrimerIntento= "<tr class='gmcompcpu-n-lugar'> <td>".$j."° </td> <td> ".$intento->firstname." ".$intento->lastname."</td> <td>".$intento->puntos."</td> </tr>";
+                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-n-lugar"));
                                 }
+                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $j."°", array());
+                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
+                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
+                                $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
                             $j++;
                         }
                     if($j == 1)
                         {
-                            $contenidoTablaPrimerIntento.=  "<tr class='gmcompcpu-no-lugar'> <td> 0° </td> <td> Sin participantes </td>  <td> - - - </td> </tr>";
+                            $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-no-lugar"));
+                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', "0°", array());
+                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', "Sin participantes", array());
+                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', " - - - ", array());
+                            $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
                         }
-                    $contenidoTablaPrimerIntento.= '</tbody>';
-                    $html.= "<div class='gmcompcpu-half-container'> <table>".$cabezeraTabla.$contenidoTablaPrimerIntento."</table></div>";
+                    $contenidoTablaPrimerIntento.= html_writer::end_tag('tbody', array());
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-half-container"));
+                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaPrimerIntento,array());
+                    $html.= html_writer::end_tag('div', array());
                     $j=1;
-                    $contenidoTablaMejorIntento= '<tbody>';
+                    $contenidoTablaMejorIntento= html_writer::start_tag('tbody', array());
                     foreach($leaderboardMax as $intento)
                         {
                             if($j==1)
                                 {
-                                    $contenidoTablaMejorIntento= "<tr class='gmcompcpu-primer-lugar'> <td>".$j."° </td> <td> ".$intento->firstname." ".$intento->lastname."</td> <td>".$intento->puntos."</td> </tr>";
+                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-primer-lugar"));
                                 }
                             else if($j==2)
                                 {
-                                    $contenidoTablaMejorIntento= "<tr class='gmcompcpu-segundo-lugar'> <td>".$j."° </td> <td> ".$intento->firstname." ".$intento->lastname."</td> <td>".$intento->puntos."</td> </tr>";
+                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-segundo-lugar"));
                                 }
                             else if($j ==3)
                                 {
-                                    $contenidoTablaMejorIntento= "<tr class='gmcompcpu-tercer-lugar'> <td>".$j."° </td> <td> ".$intento->firstname." ".$intento->lastname."</td> <td>".$intento->puntos."</td> </tr>";
+                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-tercer-lugar"));
                                 }
                             else
                                 {
-                                    $contenidoTablaMejorIntento= "<tr class='gmcompcpu-n-lugar'> <td>".$j."° </td> <td> ".$intento->firstname." ".$intento->lastname."</td> <td>".$intento->puntos."</td> </tr>";
+                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-n-lugar"));
                                 }
+                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $j."°", array());
+                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
+                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
+                                $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
                             $j++;
                         }
                     if($j == 1)
                         {
-                            $contenidoTablaMejorIntento.= "<tr class='gmcompcpu-no-lugar'> <td> 0° </td> <td> Sin participantes </td>  <td> - - - </td> </tr>";
+                            $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-no-lugar"));
+                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', "0°", array());
+                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', "Sin participantes", array());
+                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', " - - - ", array());
+                            $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
                         }
-                    $contenidoTablaMejorIntento.= '</tbody>';
-                    $html.= "<div class='gmcompcpu-half-container'> <table>".$cabezeraTabla.$contenidoTablaMejorIntento."</table></div>";
-                    $html.="</div>";
-                    $html.="<div class='gmcompcpu-linea'> </div>";
+                    $contenidoTablaMejorIntento.= html_writer::end_tag('tbody', array());
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-half-container"));
+                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaMejorIntento,array());
+                    $html.= html_writer::end_tag('div', array());
+                    $html.= html_writer::end_tag('div', array());
                     $i++;
                 }
-            return $html.$this->render_attempt_page($gmcompcpu, $userid,$dificultades);
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
+            $html.= html_writer::nonempty_tag('button', "Volver",array("class" =>"gmcompcpu-quarter-container btn btn-primary gmcompcpu-end-button-volver gmcompcpu-button", "id"=>"gmcompcpu-volver-posiciones"));
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::end_tag('div', array());
+            return $html.$this->render_attempt_page($gmcompcpu, $userid,$dificultades, $moodleUserId);
         }
-    public function render_attempt_page($gmcompcpu, $userid,$dificultades)
+    public function render_attempt_page($gmcompcpu, $userid,$dificultades, $moodleUserId)
         {
             $html = ' ';
             #$html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
             global $DB;
             /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
 
-            $html.="<div class='gmcompcpu-linea'> </div>";
-            try {
-                $intentos = array_values($DB->get_records($table = 'gmdl_intento', $conditions = array("gmdlcompcpu_id" => $gmcompcpu->id, "gmdl_usuario_id" => $userid ), 'id desc', $fields = '*', $limitfrom = 0, $limitnum = 0));
-                $html.="<h1 class='gmcompcpu-titulo'> Intentos realizados </h1>";
-                $html.="<div class='gmcompcpu-container'>";
-                $cabezeraTabla = "<thead> <tr> <th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th>  </tr> </thead>";
-                $contenidoTabla = "<tbody>";
-            } catch (dml_exception $e) {
-                $intentos = NULL;
-            }
+            $sql ="SELECT gmdl_dificultad_cpu_id, puntuacion_usuario, puntuacion_cpu";
+            $sql.=" FROM {gmdl_intento}";
+            $sql.=" JOIN {gmdl_usuario} ON {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id";
+            $sql.=" JOIN {user} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
+            $sql.=" WHERE {user}.id = ". $moodleUserId;
+            $sql.=" AND fecha_fin IS NOT NULL";
+            $sql.=" ORDER BY fecha_fin DESC";
 
+            $intentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-container-intentos"));
+            $html.= html_writer::nonempty_tag('h1', 'Intentos realizados ',array("class" =>"gmcompcpu-titulo"));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
+            $cabezeraTabla= html_writer::start_tag('thead', array());
+            $cabezeraTabla.= html_writer::nonempty_tag('tr', '<th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th> <th> Victoria/Derrota</th>',array());
+            $cabezeraTabla.= html_writer::end_tag('thead', array());
 
+            $contenidoTabla = html_writer::start_tag('tbody', array());
             foreach($intentos as $intento)
                 {
-                    $contenidoTabla.= "<tr>";
-                    $contenidoTabla.= "<td class='gmcompcpu-tabla-celda-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id."'> ".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre." </td>";
+                    $contenidoTabla.= html_writer::start_tag('tr', array());
+                    $contenidoTabla.= html_writer::nonempty_tag('td', $dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre,array("class" => "gmcompcpu-tabla-celda-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id));
+                    $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_usuario, array());
+                    $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_cpu, array());
                     if($intento->puntuacion_usuario >= $intento->puntuacion_cpu)
                         {
-                            $contenidoTabla.= "<td class='cgmcompcpu-cpu-vencida'> ".$intento->puntuacion_usuario. "</td>";
-                            $contenidoTabla.= "<td> ".$intento->puntuacion_cpu . "</td>";
+                            $contenidoTabla.= html_writer::nonempty_tag('td', ' ', array("class" => "gmcompcpu-cpu-vencida"));
 
                         }
                     else
                         {
-                            $contenidoTabla.= "<td> ".$intento->puntuacion_usuario. "</td>";
-                            $contenidoTabla.= "<td> ".$intento->puntuacion_cpu . "</td>";
+                            $contenidoTabla.= html_writer::nonempty_tag('td', ' ', array("class"=>"gmcompcpu-tabla-celda-perdedora"));
                         }
-                    $contenidoTabla.= "</tr>";
+                    $contenidoTabla.= html_writer::end_tag('tr', array());
                 }
             if(sizeof($intentos) == 0)
                 {
-                    $contenidoTabla.= "<tr class='gmcompcpu-no-lugar'> <td> Sin intentos </td> <td> - - - </td> <td> - - - </td> </tr>";
+                    $contenidoTabla.= html_writer::start_tag('tr', array("class" => "gmcompcpu-no-lugar"));
+                    $contenidoTabla.= html_writer::nonempty_tag('td', "Sin intentos", array());
+                    $contenidoTabla.= html_writer::nonempty_tag('td', "- - - -", array());
+                    $contenidoTabla.= html_writer::nonempty_tag('td', "- - - -", array());
+                    $contenidoTabla.= html_writer::end_tag('tr', array());
                 }
-            $contenidoTabla.= "</tbody>";
-            $html.= "<table>".$cabezeraTabla.$contenidoTabla."</table></div>";
+            $contenidoTabla.= html_writer::end_tag('tbody', array());
+            $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTabla, array());
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
+            $html.= html_writer::nonempty_tag('button', "Volver",array("class" =>" gmcompcpu-quarter-container btn btn-primary gmcompcpu-end-button-volver gmcompcpu-button", "id"=>"gmcompcpu-volver-intentos"));
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::tag('div', '',array("class" =>"gmcompcpu-linea"));
             return $html;
         }
 

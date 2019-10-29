@@ -40,6 +40,7 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
                 guardarCatalogosDificultadCPU2019101501();
                 // Gamedlemaster savepoint reached.
                 upgrade_plugin_savepoint(true, 2019101501, 'local', 'gamedlemaster');
+                upgrades2019102400();
             }
         else if($oldversion < 2019102400)
             {
