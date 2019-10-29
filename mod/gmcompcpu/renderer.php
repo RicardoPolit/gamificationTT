@@ -348,8 +348,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.=" WHERE gmdlcompcpu_id = ".$gmcompcpu->id;
             $sql.="  AND fecha_fin IS NOT NULL";
             $sql.=" GROUP BY 1,2 ) as a, {user}, {gmdl_usuario}";
-            $sql.=" WHERE {user}.id = ".$moodleUserId." AND";
-            $sql.=" {user}.id =  {gmdl_usuario}.mdl_id_usuario AND";
+            $sql.=" WHERE {user}.id =  {gmdl_usuario}.mdl_id_usuario AND";
             $sql.=" {gmdl_usuario}.id = a.gmdl_usuario_id";
             $sql.=" ORDER BY a.puntos DESC";
             $mejoresIntentos = $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
@@ -470,6 +469,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.=" JOIN {gmdl_usuario} ON {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id";
             $sql.=" JOIN {user} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
             $sql.=" WHERE {user}.id = ". $moodleUserId;
+            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id =".$gmcompcpu->id;
             $sql.=" AND fecha_fin IS NOT NULL";
             $sql.=" ORDER BY fecha_fin DESC";
 
