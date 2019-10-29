@@ -243,12 +243,13 @@ class mod_gmcompcpu__cpumind {
     }
 
     protected static function esCorrecta($respuesta){
-        $resp = 1;
+        $resp = ($respuesta->fraction == 1);
         global $DB;
         $pregunta = array_values(question_preload_questions(array($respuesta->question)));
-        $opcionesPregunta = array_values($DB->get_records('qtype_multichoice_options', array('questionid' => $pregunta[0]->id)));   
+        $opcionesPregunta = array_values($DB->get_records('qtype_multichoice_options', array('questionid' => $pregunta[0]->id)));
         if($pregunta[0]->qtype == 'multichoice')
             {
+                $resp = 1;
                 if($opcionesPregunta[0]->single != 1)
                     {
                         if($respuesta->fraction <= 0)
@@ -262,11 +263,10 @@ class mod_gmcompcpu__cpumind {
                             {
                                 $resp = 0;
                             }
-                        
+
                     }
             }
         return $resp;
-
     }
 
     //Revisar cuando ya no se puedan quitar las respuestas y todavia falte por elegir respuestas, existirá el caso de que se elija la misma respuesta?
