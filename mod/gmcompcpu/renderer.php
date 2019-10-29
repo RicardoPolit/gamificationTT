@@ -51,7 +51,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
         $intento->id =  $DB->insert_record('gmdl_intento',$intento);
 
-        $categoryid = explode(',', $gmcompcpu->questioncategory)[0];
+        $categoryid = explode(',', $gmcompcpu->mdl_question_category_id)[0];
 
         $questionids = array_keys($DB->get_records('question', array('category' => intval($categoryid)), '', 'id'));
 
@@ -471,7 +471,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.=" WHERE {user}.id = ". $moodleUserId;
             $sql.=" AND {gmdl_intento}.gmdlcompcpu_id =".$gmcompcpu->id;
             $sql.=" AND fecha_fin IS NOT NULL";
-            $sql.=" AND {gmdl_intento}.gmdl_comp_cpu_id = ".$gmcompcpu->id;
+            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id = ".$gmcompcpu->id;
             $sql.=" ORDER BY fecha_fin DESC";
 
             $intentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);

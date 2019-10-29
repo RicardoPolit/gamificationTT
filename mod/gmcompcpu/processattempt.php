@@ -205,123 +205,103 @@ function calculateScoreUser($quba, $timenow){
         //Se trata de manera diferente las preguntas tipo multichoice
 
         if($qa->get_question()->get_type_name() == 'multichoice')
-        {
-            try{
+            {
+                try
+                    {
+                        $single = $DB->get_record('qtype_multichoice_options',array('questionid' => $qa->get_question()->id ),'single');
+                        $order = explode(',',$qa->get_step_iterator()[0]->get_all_data()['_order']);
 
-                $single = $DB->get_record('qtype_multichoice_options',array('questionid' => $qa->get_question()->id ),'single');
-                $order = explode(',',$qa->get_step_iterator()[0]->get_all_data()['_order']);
-
-                if($single->single == 1){
-
-                    $useranswers = explode(',',$qa->get_step_iterator()[1]->get_all_data()['answer']);
-
-                }else{
-                    $useranswers = [];
-                    $useranswersAux = $qa->get_step_iterator()[1]->get_all_data();
-
-                    $i = 0;
-                    foreach ($useranswersAux as $useranswer){
-
-                        if($useranswer == 1){
-                            $useranswers[] = $i;
-
-                        }
-
-                        $i++;
-
+                        if($single->single == 1)
+                            {
+                                $useranswers = explode(',',$qa->get_step_iterator()[1]->get_all_data()['answer']);
+                            }
+                        else
+                            {
+                                $useranswers = [];
+                                $useranswersAux = $qa->get_step_iterator()[1]->get_all_data();
+                                $i = 0;
+                                foreach ($useranswersAux as $useranswer)
+                                    {
+                                        if($useranswer == 1)
+                                            {
+                                                $useranswers[] = $i;
+                                            }
+                                        $i++;
+                                    }
+                            }
+                    }
+                catch (Exception $e)
+                    {
+                        $useranswers = null;
                     }
 
-                }
-
-
-                /*foreach ($qa->get_step_iterator() as $itera){
-
-                    $useranswersMULTI[] = $itera->get_all_data();
-
-                }*/
-
-                /*$useranswersMULTI[] = $useranswers;*/
-
-            }catch (Exception $e){
-
-                $useranswers = null;
-
-            }
-
-            if($useranswers != null){
-                foreach ($useranswers as $useranswer){
-                    foreach ($answers as $answer){
-                        if($order[$useranswer] == $answer->id){
-                            $score += (100*$question->defaultmark) * $answer->fraction;
+                if($useranswers != null){
+                    foreach ($useranswers as $useranswer){
+                        foreach ($answers as $answer){
+                            if($order[$useranswer] == $answer->id){
+                                $score += (100*$question->defaultmark) * $answer->fraction;
+                            }
                         }
                     }
                 }
             }
+        else if($qa->get_question()->get_type_name() == 'truefalse')
+            {
 
-            /*echo json_encode($order);
-            echo '<br>';
-            echo json_encode($qa->get_step_iterator());*/
-
-        }else {
-
-            try{
-            $useranswer = $qa->get_step_iterator()[1]->get_all_data()['answer'];
-            }catch (Exception $e){
-                $useranswer = null;
+                try
+                    {
+                        $useranswer = $qa->get_step_iterator()[1]->get_all_data()['answer'];
+                    }
+                catch (Exception $e)
+                    {
+                        $useranswer = null;
+                    }
+                
+                if(!($useranswer === null))
+                    {
+                        if($useranswer)
+                            {
+                                $useranswer = 0;
+                            }
+                        else
+                            {
+                                $useranswer = 1;
+                            }
+                        $answers = array_values($answers);
+                        $score += (100*$question->defaultmark) * $answers[$useranswer]->fraction;
+                    }
             }
+        else
+            {
+                try
+                    {
+                        $useranswer = $qa->get_step_iterator()[1]->get_all_data()['answer'];
+                    }
+                catch (Exception $e)
+                    {
+                        $useranswer = null;
+                    }
+
+                if(!($useranswer === null))
+                    {
 
 
-            if($useranswer != null){
+                        foreach ($answers as $answer) {
 
-            if ($qa->get_question()->get_type_name() == 'truefalse') {
+                            /*echo 'useranswer: '.strtolower($useranswer).' answer: '.strtolower($answer->answer).' comparacion: ';
+                            echo strtolower($useranswer) == strtolower($answer->answer);
+                            echo '<br>';*/
 
+                            if (strtolower($useranswer) == strtolower($answer->answer)) {
 
-                if ($useranswer) {
+                                $score += (100*$question->defaultmark) * $answer->fraction;
 
-                    $useranswer = 'true';
+                            }
 
-                } else {
-
-                    $useranswer = 'false';
-
-                }
-
+                        }
+                    }
             }
-
-            /*}*/
-
-
-            foreach ($answers as $answer) {
-
-                /*echo 'useranswer: '.strtolower($useranswer).' answer: '.strtolower($answer->answer).' comparacion: ';
-                echo strtolower($useranswer) == strtolower($answer->answer);
-                echo '<br>';*/
-
-                if (strtolower($useranswer) == strtolower($answer->answer)) {
-
-                    $score += (100*$question->defaultmark) * $answer->fraction;
-
-                }
-
-                /*echo 'Esto es getrecords: id: '.$answer->id.' fraction: '.$answer->fraction.' answer: '.$answer->answer;*/
-                /*echo '<br>';*/
-            }
-
-        }
-
-
-
-            /*echo '<br>';*/
-            /*echo json_encode($useranswer);*/
-
-        }
-
-
-        /*echo '<br>';*/
-        /*echo $score;*/
-
     }
-
     return $score;
 
 }
