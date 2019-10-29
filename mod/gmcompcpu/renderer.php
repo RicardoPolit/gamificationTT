@@ -189,7 +189,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
     }
 
 
-    
+
 
     public function render_main_page($gmcompcpu, $userid,$id)
         {
@@ -228,7 +228,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                             $compusVencidas.= html_writer::nonempty_tag('td', 'No', array("class"=> 'gmcompcpu-cpu'));
                         }
 
-                    
+
                     $valoresSelect.= html_writer::nonempty_tag('option', $dificultad->nombre, array("value"=> $dificultad->id));
                 }
 
@@ -241,6 +241,8 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
 
             //Graficando la tabla que muestra qué computadoras ha vencido el usuario
+
+            $this->page->requires->js_call_amd('mod_gmcompcpu/js_competencia_cpu', 'init');
 
             $html.= html_writer::tag('div', '',array("class" =>"gmcompcpu-linea"));
 
@@ -283,7 +285,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
 
 
-            
+
             $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
             $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-half-container"));
             $html.= html_writer::nonempty_tag('button', " << Ver tabla de puntuaciones",array("class" =>"btn btn-primary gmcompcpu-half-container gmcompcpu-button", "id"=>"gmcompcpu-ver-scores"));
@@ -299,7 +301,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
         }
 
 
-    
+
         public function render_scores_page($gmcompcpu, $userid, $dificultades, $moodleUserId)
         {
             global $DB;
@@ -332,9 +334,9 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 			$sql.= " a.gmdl_dificultad_cpu_id = b.gmdl_dificultad_cpu_id AND";
 			$sql.= " a.minima = b.fecha_fin";
             $sql.= " ORDER BY b.puntos DESC";
-            
+
             $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-            
+
             foreach($primerosIntentos as $intento)
                 {
                     $leaderboards[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
@@ -351,13 +353,13 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.=" {gmdl_usuario}.id = a.gmdl_usuario_id";
             $sql.=" ORDER BY a.puntos DESC";
             $mejoresIntentos = $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-            
+
             foreach($mejoresIntentos as $intento)
                 {
                     $leaderboardsMax[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
                 }
-            
-    
+
+
 
             #$html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
             $html= html_writer::start_tag('div', array("id"=>"gmcompcpu-container-posiciones"));
