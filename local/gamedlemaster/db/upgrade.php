@@ -53,7 +53,7 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
         else if($oldversion < 2019102900)
             {
                 upgrades2019102900();
-                
+
             }
         else if($oldversion < 2019102901)
             {
@@ -63,7 +63,7 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019102902();
             }
-    
+
 
 		return true;
 	}
@@ -703,7 +703,7 @@ function upgrades2019101500()
 
         // Launch rename field gmdlcomcpu_id.
         $dbman->rename_field($table, $field, 'gmdlcompcpu_id');
-        
+
 
         // Define key gmdlcomcpu_id (foreign) to be added to gmdl_intento.
         $table = new xmldb_table('gmdl_intento');
@@ -762,13 +762,9 @@ function upgrades2019102900()
 
         global $DB;
         $dbman = $DB->get_manager();
-        // Conditionally launch create table for gmdl_com_cpu.
-        if (!$dbman->table_exists($table)) {
-            $dbman->create_table($table);
-        }
         // Define table gmcompcpu to be renamed to NEWNAMEGOESHERE.
         $table = new xmldb_table('gmdlcompcpu');
-        
+
         // Launch rename table for gmcompcpu.
         $dbman->rename_table($table, 'gmcompcpu');
 
@@ -779,7 +775,7 @@ function upgrades2019102900()
 
 
 function upgrades2019102901()
-    { 
+    {
         global $DB;
         $dbman = $DB->get_manager();
         // Changing the default of field introformat on table gmcompcpu to 0.
