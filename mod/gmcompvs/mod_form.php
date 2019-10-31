@@ -69,7 +69,7 @@ class mod_gmcompvs_mod_form extends moodleform_mod {
         $context = context_course::instance($COURSE->id);
         $categories = question_category_options(array($context), false, 0);
 
-        $mform->addElement('selectgroups', 'mdl_question_category_id', get_string('questioncategory', 'gmcompvs'), $categories);
+        $mform->addElement('selectgroups', 'mdl_question_categories_id', get_string('questioncategory', 'gmcompvs'), $categories);
 
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();

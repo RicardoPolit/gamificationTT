@@ -63,7 +63,7 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019102902();
             }
-        else if ($oldversion < 2019103102)
+        else if ($oldversion < 2019103103)
             {
                 upgrades2019103100($oldversion);
             }
@@ -908,5 +908,19 @@ function upgrades2019103100($oldversion)
             // Gamedlemaster savepoint reached.
             upgrade_plugin_savepoint(true, 2019103102, 'local', 'gamedlemaster');
         }
+
+        if ($oldversion < 2019103103) {
+
+            // Rename field mdl_question_categories_id on table gmcompcpu to mdl_question_categories_id.
+            $table = new xmldb_table('gmcompcpu');
+            $field = new xmldb_field('mdl_question_category_id', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null, 'introformat');
+    
+            // Launch rename field mdl_question_categories_id.
+            $dbman->rename_field($table, $field, 'mdl_question_categories_id');
+    
+            // Gamedlemaster savepoint reached.
+            upgrade_plugin_savepoint(true, 2019103103, 'local', 'gamedlemaster');
+        }
+    
 
     }

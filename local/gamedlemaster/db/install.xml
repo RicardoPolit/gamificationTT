@@ -187,12 +187,11 @@
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Tiempo de la última modificación (requerido por moodle)"/>
         <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Este campo es la descripción de la instancia de la actividad (requerido por moodle)"/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Formato en el que está guardada la descripción de formato (requerido por moodle)"/>
-        <FIELD NAME="mdl_question_category_id" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Llave foránea que apunta  a la tabla mdl_question de moodle"/>
+        <FIELD NAME="mdl_question_categories_id" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Llave foránea que apunta  a la tabla mdl_question de moodle"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
         <KEY NAME="mdl_course_id" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id" COMMENT="Lalve foránea"/>
-        <KEY NAME="mdl_question_category_id" TYPE="foreign" FIELDS="mdl_question_category_id" REFTABLE="question_categories" REFFIELDS="id" COMMENT="Llave foránea a la tabla de categorías, que es el banco de preguntas"/>
       </KEYS>
     </TABLE>
     <TABLE NAME="gmdl_dificultad_cpu" COMMENT="Catálogo que guarda las dificultades de la CPU">
