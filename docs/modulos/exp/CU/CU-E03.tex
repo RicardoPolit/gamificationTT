@@ -73,7 +73,9 @@ Estado/\ucstEnEdicion]%
  \UCsection[admin]{Datos de Administración de Requerimiento}
 
 	\UCitem[admin]{Observaciones}{%
-        Ninguna
+        Como se explica en el modelo de información la eliminación de las entidades
+        \refElem{xp-alumn}, \refElem{xp-user}, \refElem{xp-course-sections} y
+        \refElem{xp-course} no afectan las funcionalidades de moodle.
 	}
 
 \end{UseCase}
@@ -96,23 +98,49 @@ Estado/\ucstEnEdicion]%
   \Sistema Pide la confirmación del usuario para continuar con la desinstalación.
 
   \Actor Presiona el botón de {\bf Aceptar}. \refTray{A}
-  \Sistema ...
-  \Sistema ...
-  \Sistema ...
-  \Sistema ...
+
+  \Sistema Obtiene la lista de los \entrada[cursos gamificados]{xp-course} y por cada curso
+           realiza las siguientes acciones, y continua en el \label{CU-E03-loop-delete-course}
+
+  \Sistema Cambia los \entrada[formatos]{course.format} de los cursos por el formato de 
+           secciones aplicando la regla \regla{BR-E06}.
+
+  \Sistema Obtiene las \entrada[secciones de los curso gamificados]{xp-course-sections} 
+           y las elimina.
+
+  \Sistema Elimina los datos de todos los \entrada[alumnos gamificados]{xp-alumn} y 
+           \entrada[usuarios gamificados]{xp-user} registrados en el sistema.
 
   \Sistema Muestra la pantalla \refElem{IU-M04a} pidiendo al usuario la confirmación
-           para eliminar los archivos del plugin. \refTray{B}
+           para eliminar los archivos del plugin.
+
+  \Actor Presiona el botón {\bf Continuar}. \refTray{B}
+
+
   \Sistema Elimina los archivos correspondientes al plugin.
+
+  \Sistema Redirige a la pantalla \refElem{IU-M03}.
 
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}{A}{%
 El \refElem{aAdministrador} desea cancelar la desinstalación del plugin
 }
+  \Actor Presiona el botón de {\bf Cancelar}.
+
+  \Sistema Cancela las operaciones de desinstalación y redirige al usuario a la 
+           pantalla \refElem{IU-M04}.
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}{B}{%
 El \refElem{aAdministrador} no desea eliminar los archivos del plugin}
+
+  \Actor Presiona el botón {\bf Cancelar}.
+
+  \Sistema Detectando que hay archivos de un plugin que no está instalado.
+
+  \Sistema Carga la pantalla \refElem{IU-M02b} detectando el plugin del módulo de experiencia como 
+           plugin a instalar.
+
 \end{UCtrayectoriaA}
 
