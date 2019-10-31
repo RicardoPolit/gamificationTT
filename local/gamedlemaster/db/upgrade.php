@@ -63,7 +63,10 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019102902();
             }
-
+        else if ($oldversion < 2019103102)
+            {
+                upgrades2019103100($oldversion);
+            }
 
 		return true;
 	}
@@ -762,7 +765,7 @@ function upgrades2019102900()
 
         global $DB;
         $dbman = $DB->get_manager();
-        // Define table gmcompcpu to be renamed to NEWNAMEGOESHERE.
+        // Define table gmcompcpu to be renamed to gmcompcpu.
         $table = new xmldb_table('gmdlcompcpu');
 
         // Launch rename table for gmcompcpu.
@@ -825,4 +828,85 @@ function upgrades2019102902()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019102902, 'local', 'gamedlemaster');
+    }
+
+
+function upgrades2019103100($oldversion)
+    {
+        global $DB;
+        $dbman = $DB->get_manager();
+        if ($oldversion < 2019103100) {
+
+            // Define table gmcompvs to be created.
+            $table = new xmldb_table('gmcompvs');
+    
+            // Adding fields to table gmcompvs.
+            $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+            $table->add_field('course', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('name', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('intro', XMLDB_TYPE_TEXT, null, null, null, null, null);
+            $table->add_field('introformar', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0');
+            $table->add_field('mdl_question_categories_id', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
+    
+            // Adding keys to table gmcompvs.
+            $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+            
+            // Conditionally launch create table for gmcompvs.
+            if (!$dbman->table_exists($table)) {
+                $dbman->create_table($table);
+            }
+    
+            // Gamedlemaster savepoint reached.
+            upgrade_plugin_savepoint(true, 2019103100, 'local', 'gamedlemaster');
+        }
+        if ($oldversion < 2019103101) {
+
+            // Define table gmdl_partida to be created.
+            $table = new xmldb_table('gmdl_partida');
+    
+            // Adding fields to table gmdl_partida.
+            $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+            $table->add_field('gmdl_comp_vs_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+    
+            // Adding keys to table gmdl_partida.
+            $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+            $table->add_key('gmdl_comp_vs_id', XMLDB_KEY_FOREIGN, array('gmdl_comp_vs_id'), 'gmcompvs', array('id'));
+    
+            // Conditionally launch create table for gmdl_partida.
+            if (!$dbman->table_exists($table)) {
+                $dbman->create_table($table);
+            }
+    
+            // Gamedlemaster savepoint reached.
+            upgrade_plugin_savepoint(true, 2019103101, 'local', 'gamedlemaster');
+        }
+    
+        if ($oldversion < 2019103102) {
+
+            // Define table gmdl_participacion to be created.
+            $table = new xmldb_table('gmdl_participacion');
+    
+            // Adding fields to table gmdl_participacion.
+            $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+            $table->add_field('gmdl_usuario_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('gmdl_partida_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('fecha_inicio', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+            $table->add_field('fecha_fin', XMLDB_TYPE_INTEGER, '10', null, null, null, null);
+            $table->add_field('puntuacion', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+    
+            // Adding keys to table gmdl_participacion.
+            $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+            $table->add_key('gmdl_partida_id', XMLDB_KEY_FOREIGN, array('gmdl_partida_id'), 'gmdl_partida', array('id'));
+            $table->add_key('gmdl_usuario_id', XMLDB_KEY_FOREIGN, array('gmdl_usuario_id'), 'gmdl_usuario', array('id'));
+    
+            // Conditionally launch create table for gmdl_participacion.
+            if (!$dbman->table_exists($table)) {
+                $dbman->create_table($table);
+            }
+    
+            // Gamedlemaster savepoint reached.
+            upgrade_plugin_savepoint(true, 2019103102, 'local', 'gamedlemaster');
+        }
+
     }
