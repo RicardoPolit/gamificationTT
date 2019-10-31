@@ -742,6 +742,7 @@ function upgrades2019102402()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019102401, 'local', 'gamedlemaster');
+        upgrades2019102403();
     }
 
 function upgrades2019102403(){ // Dan: Required extra field on user
