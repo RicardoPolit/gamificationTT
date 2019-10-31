@@ -51,7 +51,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
         $intento->id =  $DB->insert_record('gmdl_intento',$intento);
 
-        $categoryid = explode(',', $gmcompvs->mdl_question_category_id)[0];
+        $categoryid = explode(',', $gmcompvs->mdl_question_categories_id)[0];
 
         $questionids = array_keys($DB->get_records('question', array('category' => intval($categoryid)), '', 'id'));
 
