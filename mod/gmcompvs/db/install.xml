@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="mod/gmcompvs/db" VERSION="20191029" COMMENT="Prueba de concepto para la creacion de los XML"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+    <TABLES>
+        <TABLE NAME="gmcompvs2" COMMENT="Esta tabla contiene todas las instancias de la actividad.">
+            <FIELDS>
+                <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+                <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Este campo es una llave foránea a la tabla course (requerido por moodle)"/>
+                <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Este campo es el nombre que lleva la instancia de la actividad dentro de un curso (Requerido por moodle)"/>
+                <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Tiempo de la última modificación (requerido por moodle)"/>
+                <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Este campo es la descripción de la instancia de la actividad (requerido por moodle)"/>
+                <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Formato en el que está guardada la descripción de formato (requerido por moodle)"/>
+                <FIELD NAME="mdl_question_category_id" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Llave foránea que apunta  a la tabla mdl_question de moodle"/>
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+                <KEY NAME="mdl_course_id" TYPE="foreign" FIELDS="course" REFTABLE="course" REFFIELDS="id" COMMENT="Lalve foránea"/>
+            </KEYS>
+        </TABLE>
+    </TABLES>
+</XMLDB>
