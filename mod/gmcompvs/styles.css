@@ -1,0 +1,255 @@
+.path-mod-gmcompvs div.fontloader {
+    visibility: hidden;
+    font-family: 'Audiowide', Sans;
+}
+.path-mod-gmcompvs #mod_gmcompvs_game {
+    background-color: #000;
+    width: 100%;
+    height: 100%;
+}
+.gmcompvs-scores {
+    text-align: center;
+}
+.floating-button-container {
+    background: #fff;
+    border: 0.5rem solid #fff;
+}
+.floating-game-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999999;
+}
+#page-mod-gmcompvs-view div[role="main"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.gmcompvs-container th {
+    background-color: #059ee0;
+    color: white;
+    height: 40px;
+    font-size: 20px;
+    text-align: center;
+    border: 1px solid black;
+    border-bottom-width: 5px;
+    border-bottom-color: black;
+    border-bottom-style:  solid;
+}
+
+.gmcompvs-container  th, td {
+    padding: 15px;
+}
+
+.gmcompvs-container  td {
+    border: 2px solid black;
+}
+
+.gmcompvs-container  table {
+    width: 80%;
+    align-content: center;
+    margin: auto;
+    border-collapse: collapse;
+    border: 0px;
+}
+.gmcompvs-container {
+    margin-top: 2%;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    overflow: hidden;
+}
+
+.gmcompvs-container-card {
+    padding: 1%;
+    margin: auto;
+    width: 30%;
+}
+
+.gmcompvs-container-card-button {
+    margin: auto;
+}
+.gmcompvs-card-element {
+    margin: 2%;
+
+}
+
+.gmcompvs-container-card-title {
+    width: 100%;
+}
+.gmcompvs-linea {
+    width: 100%;
+    height: 47px;
+    border-bottom: 1px solid black;
+}
+
+.gmcompvs-titulo {
+    margin-top: 1%;
+    width: 100%;
+    font-style: oblique;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.gmcompvs-titulo-ganador {
+    margin-top: 1%;
+    width: 100%;
+    color: darkgreen;
+    font-style: oblique;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.gmcompvs-titulo-perdedor {
+    margin-top: 1%;
+    width: 100%;
+    color: darkred;
+    font-style: oblique;
+    text-decoration: underline;
+    text-align: center;
+}
+
+.gmcompvs-boton-empezar {
+    width: 20%;
+    padding: 1%;
+
+}
+
+.gmcompvs-cpu {
+    background: gray;
+    color: black;
+}
+
+.gmcompvs-cpu-vencida {
+    background: green;
+    color: black;
+}
+
+.gmcompvs-half-container {
+    width: 50%;
+}
+
+
+.gmcompvs-primer-lugar {
+    background-color: gold;
+    font-size: 20px;
+}
+.gmcompvs-segundo-lugar {
+    background-color: silver;
+    font-size: 18px;
+}
+.gmcompvs-tercer-lugar {
+    background-color: coral;
+    font-size: 16px;
+}
+
+.gmcompvs-no-lugar {
+    background-color: gray;
+    font-size: 15px;
+}
+
+.gmcompvs-linea-nivel-1 {
+    width: 100%;
+    text-decoration: underline;
+    background-image: linear-gradient(to right,#0981bd, white);
+    border: 1px solid black;
+    margin-top: 3%;
+    padding: 1%;
+    color: white;
+    font-size: 30px;
+
+}
+.gmcompvs-linea-nivel-2 {
+    width: 100%;
+    text-decoration: underline;
+    background-image: linear-gradient(to right,green, white);
+    border: 1px solid black;
+    margin-top: 3%;
+    padding: 1%;
+    color: white;
+    font-size: 30px;
+
+}
+.gmcompvs-linea-nivel-3 {
+    width: 100%;
+    text-decoration: underline;
+    background-image: linear-gradient(to right,yellow, white);
+    border: 1px solid black;
+    margin-top: 3%;
+    padding: 1%;
+    color: black;
+    font-size: 30px;
+
+}
+.gmcompvs-linea-nivel-4 {
+    width: 100%;
+    text-decoration: underline;
+    background-image: linear-gradient(to right,orange, white);
+    border: 1px solid black;
+    margin-top: 3%;
+    padding: 1%;
+    color: white;
+    font-size: 30px;
+
+}
+
+
+
+.gmcompvs-tabla-celda-nivel-1 {
+    background-color: #0981bd;
+    border: 1px solid black;
+    margin-top: 3%;
+    color: white;
+
+}
+.gmcompvs-tabla-celda-nivel-2 {
+    background-color: green;
+    border: 1px solid black;
+    margin-top: 3%;
+    color: white;
+
+}
+.gmcompvs-tabla-celda-nivel-3 {
+    background-color: yellow;
+    border: 1px solid black;
+    margin-top: 3%;
+    color: black;
+
+}
+.gmcompvs-tabla-celda-nivel-4 {
+    background-color: orange;
+    border: 1px solid black;
+    margin-top: 3%;
+    color: white;
+
+}
+
+
+.gmcompvs-tabla-celda-ganadora {
+
+    background-color: green;
+    color: white;
+}
+.gmcompvs-tabla-celda-perdedora {
+
+    background-color: red;
+}
+
+.gmcompvs-button{
+    border: 4px solid black;
+}
+
+.gmcompvs-button:hover{
+    border: 4px solid darkgray;
+}
+
+
+.gmcompvs-end-button-volver{
+    margin: auto;
+}
+
+.gmcompvs-quarter-container{
+    width: 25%;
+}

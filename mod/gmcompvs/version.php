@@ -16,12 +16,12 @@
 
 
 /**
- * Defines the version of gmcompcpu
+ * Defines the version of gmcompvs
  *
  * This code fragment is called by moodle_needs_upgrading() and
  * /admin/index.php
  *
- * @package    mod_gmcompcpu
+ * @package    mod_gmcompvs
  * @copyright  2014 John Okely <john@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -32,6 +32,6 @@ $plugin->version   = 2019103113;     // If version == 0 then module will not be 
 
 $plugin->requires  = 2014051200.00;  // Requires this Moodle version (2.7)
 $plugin->cron      = 0;              // Period for cron to check this module (secs).
-$plugin->component = 'mod_gmcompcpu'; // To check on upgrade, that module sits in correct place.
+$plugin->component = 'mod_gmcompvs'; // To check on upgrade, that module sits in correct place.
 $plugin->maturity = MATURITY_ALPHA;
 $plugin->release = 'v3.7-r1';
