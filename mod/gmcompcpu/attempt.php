@@ -2,7 +2,6 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
-require_once($CFG->dirroot . '/mod/gmcompcpu/locallib.php');
 
 $userid = optional_param('userid', 0, PARAM_INT);
 $instance  = optional_param('instance', 0, PARAM_INT);
