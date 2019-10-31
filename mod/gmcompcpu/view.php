@@ -27,7 +27,7 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
-require_once($CFG->dirroot . '/mod/gmcompcpu/locallib.php');
+
 
 $id = optional_param('id', 0, PARAM_INT); // Either course_module ID, or ...
 $n  = optional_param('q', 0, PARAM_INT);  // ...gmcompcpu instance ID - it should be named as the first character of the module.
@@ -48,7 +48,7 @@ require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
 // Trigger module viewed event.
-$event = \mod_gmcompcpu\event\course_module_viewed::create(array(
+/*$event = \mod_gmcompcpu\event\course_module_viewed::create(array(
     'objectid' => $gmcompcpu->id,
     'context' => $context,
 ));
@@ -56,7 +56,7 @@ $event = \mod_gmcompcpu\event\course_module_viewed::create(array(
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('course_modules', $cm);
 $event->add_record_snapshot('gmcompcpu', $gmcompcpu);
-$event->trigger();
+$event->trigger();*/
 
 // Mark as viewed.
 $completion = new completion_info($course);
