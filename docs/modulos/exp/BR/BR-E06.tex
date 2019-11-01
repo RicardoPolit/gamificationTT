@@ -3,7 +3,7 @@ Autor/Daniel Isai Ortega Zúñiga,%
 Version/0.1,%
 Estado/revision]%
 %
-{BR-E05}{Cálculo de experiencia del nivel con incremento linea} % Cuando están iniciados
+{BR-E06}{Eliminación de cursos gamificados} % Cuando están iniciados
     \BRitem[control]{Revisor}{Sin asignar.}
 
  \BRsection[control]{Atributos}
@@ -20,7 +20,25 @@ Estado/revision]%
     \BRitem[admin]{Nivel}{\blControlling}
     %\BRitem[admin]{Nivel}{\blInfluencing}
     
-    \BRitem{Descripción}{%
+    \BRitem{Descripción}{% 
+        Debido a que el \refElem{mdl-course.format} por defecto para los cursos de
+        moodle es el formato de tópicos/temas El formato de curso gamificado extiende
+        las funcionalidades de este formato para facilitar la migración de un curso
+        gamificado a uno no gamificado y viceversa. % TODO Pasar a analisis.
+        La desinstalación del módulo de exériencia implica que los cursos con el
+        \refElem{course.format} gamificado (gamedle) se migren a cursos no gamificados,
+        por compatibilidad en este migración se deben realizar las siguientes acciones
+        de forma transaccional:
+        \begin{itemize}
+        \item El formato de los \refElem[cursos gamificados]{xp-course} debe cambiarse
+              por el formato por defecto que tienen los cursos en moodle el cual es el
+              de tópicos/temas.
+        \item Se deben eliminar las \refElem[opciones del formato del curso]%
+              {mdl-course-format-options} gamificado (gamedle).
+        \item Se deben establecer las opciones de \refElem[secciones ocultas]%
+              {xp-course.name} y aspecto del curso equivalentes en el formato por defecto
+              (tópicos/temas)
+        \end{itemize}
     }
 
 %   \BRitem{Sentencia}{%
