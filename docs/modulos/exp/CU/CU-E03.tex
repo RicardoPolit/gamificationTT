@@ -74,7 +74,7 @@ Estado/\ucstEnEdicion]%
 
 	\UCitem[admin]{Observaciones}{%
         Como se explica en el modelo de información la eliminación de las entidades
-        \refElem{xp-alumn}, \refElem{xp-user}, \refElem{xp-course-sections} y
+        \refElem{xp-alumn}, \refElem{xp-user}, \refElem{xp-course-section} y
         \refElem{xp-course} no afectan las funcionalidades de moodle.
 	}
 
@@ -102,10 +102,10 @@ Estado/\ucstEnEdicion]%
   \Sistema Obtiene la lista de los \entrada[cursos gamificados]{xp-course} y por cada curso
            realiza las siguientes acciones, y continua en el \label{CU-E03-loop-delete-course}
 
-  \Sistema Cambia los \entrada[formatos]{course.format} de los cursos por el formato de 
+  \Sistema Cambia los \entrada[formatos]{mdl-course.format} de los cursos por el formato de 
            secciones aplicando la regla \regla{BR-E06}.
 
-  \Sistema Obtiene las \entrada[secciones de los curso gamificados]{xp-course-sections} 
+  \Sistema Obtiene las \entrada[secciones de los curso gamificados]{xp-course-section} 
            y las elimina.
 
   \Sistema Elimina los datos de todos los \entrada[alumnos gamificados]{xp-alumn} y 

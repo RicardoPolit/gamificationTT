@@ -70,6 +70,32 @@
 
     \end{cdtEntidad}\schemeName{user}
 
+    \begin{cdtEntidad}{mdl-course}{Curso de moodle}{%
+    Es una tabla del núcleo de moodle que contiene la información principal de cada curso
+    registrado en moodle. Esta entidad contiene 31 atributos, a continuación se detallan
+    los atributos relevantes para la especificación de este proyecto.}
+
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+
+	    \brAttr{format}{formato}{tVarchar}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tRequired}.
+            \refElem{tDefault} topics,
+            \refElem{tLength} 0-21.
+        }
+
+    \end{cdtEntidad}\schemeName{course}
+
     \begin{cdtEntidad}{Plugin}{Plugin}{%
     La forma en que moodle obtiene información acerca de los plugins es analizando
     los archivos internos de cada uno, a pesar de que los plugins no forman parte
