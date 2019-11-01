@@ -217,113 +217,75 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $moodleUserId = $userid;
             global $DB;
             $userid = $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $userid), $fields='*', $strictness=IGNORE_MISSING)->id;
-            $dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));
-            $sql = " SELECT gmdl_dificultad_cpu_id, COUNT(id)  FROM {gmdl_intento}";
-            $sql.= " WHERE puntuacion_usuario >= puntuacion_cpu";
-            $sql.= " AND gmdl_usuario_id = $userid";
-            $sql.= " AND gmdlcompcpu_id = ".$gmcompvs->id;
-            $sql.= " GROUP BY 1;";
-            try {
-                $victorias = $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-                $querysucess = TRUE;
-            } catch (dml_exception $e) {
-                $querysucess = false;
-            }
-            $compusVencidas = '';
-            $nombresDificultades = '';
-            $valoresSelect = '';
-            foreach($dificultades as $dificultad)
-                {
-                    $noEncontrado = TRUE;
-                    $nombresDificultades.= html_writer::nonempty_tag('th', $dificultad->nombre);
-                    foreach($victorias as $victoria)
-                        {
-                            if($victoria->gmdl_dificultad_cpu_id == $dificultad->id && $noEncontrado)
-                            {
-                                $compusVencidas.= html_writer::nonempty_tag('td', 'S&iacute;', array("class"=> 'gmcompvs-cpu-vencida'));
-                                $noEncontrado = FALSE;
-                            }
-                        }
-                    if($noEncontrado)
-                        {
-                            $compusVencidas.= html_writer::nonempty_tag('td', 'No', array("class"=> 'gmcompvs-cpu'));
-                        }
-
-
-                    $valoresSelect.= html_writer::nonempty_tag('option', $dificultad->nombre, array("value"=> $dificultad->id));
-                }
-
+            $numVictorias = $this->obtenerDatoSQLVictorias($gmcompvs->id, $userid);
+            $posiblesRivales = $this->obtenerPosiblesRivales($gmcompvs->id, $userid);
+            $desafiosPorTerminar = $this->obtenerDesafiosPendientes($gmcompvs->id, $userid);
+            $this->page->requires->js_call_amd('mod_gmcompvs/js_competencia_vs', 'init');
 
             $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-
-
-            //Graficando el menú superior
-
-
-
-            //Graficando la tabla que muestra qué computadoras ha vencido el usuario
-
-            $this->page->requires->js_call_amd('mod_gmcompvs/js_competencia_cpu', 'init');
-
             $html.= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
-
-
-            $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-container-inicio"));
-            $html.= html_writer::nonempty_tag('h1', "Computadoras vencidas", array("class" =>"gmcompvs-titulo"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompvs-container"));
-            $html.= html_writer::start_tag('table', array());
-            $html.= html_writer::start_tag('thead', array());
-            $html.= html_writer::nonempty_tag('tr', $nombresDificultades, array());
-            $html.= html_writer::end_tag('thead', array());
-            $html.= html_writer::start_tag('tbody', array());
-            $html.= html_writer::nonempty_tag('tr',$compusVencidas , array());
-            $html.= html_writer::end_tag('tbody', array());
-            $html.= html_writer::end_tag('table', array());
-            $html.= html_writer::end_tag('div', array());
-
-
-
-            //Iniciando el from, para poder mandar la información del choice a la página de preguntas
-
-            $html.= html_writer::start_tag('form',
-                array('action' => new moodle_url('/mod/gmcompvs/attempt.php',
-                    array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
-                    'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                    'id' => 'responseform'));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompvs-container"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompvs-container-card"));
-            $html.= html_writer::nonempty_tag('h3', "<b>Desafiar computadora</b>", array("class" =>"gmcompvs-container-card-title"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompvs-card-element"));
-            $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmcompvs-half-container", "name" => "dificultad"));
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompvs-card-element"));
-            $html.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Empezar", "class" => "gmcompvs-button btn btn-primary gmcompvs-container-card-button" ));
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('form');
-
-
-
-
-
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompvs-half-container"));
-            $html.= html_writer::nonempty_tag('button', " << Ver tabla de puntuaciones",array("class" =>"btn btn-primary gmcompvs-half-container gmcompvs-button", "id"=>"gmcompvs-ver-scores"));
-            $html.= html_writer::end_tag('div', '',array());
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompvs-half-container"));
-            $html.= html_writer::nonempty_tag('button', "Ver intentos >>",array("class" =>"btn btn-primary gmcompvs-half-container gmcompvs-button", "id"=>"gmcompvs-ver-intentos"));
-            $html.= html_writer::end_tag('div', '',array());
-            $html.= html_writer::end_tag('div', '',array());
-            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-victorias"));
+            $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy.png", "class"=>"gmcompvs-trohpy-image"));
+            $html.= html_writer::nonempty_tag('h1', "<b>Número victorias:</b> ",array());
+            $html.= html_writer::nonempty_tag('h1', $numVictorias, array("class" =>"gmcompvs-victories"));
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
+            $html.= html_writer::nonempty_tag('h2', "Compa&ntilde;eros", array("class" =>"gmcompvs-titulo"));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-adversaries"));
+            $html.= html_writer::nonempty_tag('p','Buscar por nombre:', array("class"=>"gmcompvs-buscador-titulo"));
+            $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"text", "placeholder"=>"Nombres", "class"=>"gmcompvs-buscador", "id"=>"gmcompvs-buscador"));
+            foreach($posiblesRivales as $rival)
+                {
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival", "nombre"=>$rival->firstname . ' '. $rival->lastname));
+                    $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"hidden", "value"=>$rival->userid));
+                    $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array());
+                    $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver", 
+                    'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
+                    $html.= html_writer::end_tag('div');
+                }
+            if(sizeof($posiblesRivales) == 0)
+                {
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival"));
+                    $html.= html_writer::nonempty_tag('p', "No hay estudiantes registrados", array());
+                    $html.= html_writer::end_tag('div');
+                }
+
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival-offset", "id"=>"gmdl-container-sin-resultados"));
+            $html.= html_writer::nonempty_tag('p', "No se encontraron estudiantes", array());
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
+            $html.= html_writer::nonempty_tag('h2', "Desafios pendientes", array("class" =>"gmcompvs-titulo"));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-challenges"));
+            foreach($desafiosPorTerminar as $desafio)
+                {
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
+                    $html.= html_writer::empty_tag('input', '', array("name"=>"participacionid", "type"=>"hidden", "value"=>$desafio->participacionid));
+                    $html.= html_writer::nonempty_tag('p', $desafio->firstname . ' '. $desafio->lastname, array());
+                    $html.= html_writer::empty_tag('input', '', array("class" =>"btn btn-primary gmcompvs-end-button-volver", 
+                    'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
+                    $html.= html_writer::end_tag('div');
+                }
+            if(empty($desafiosPorTerminar) == 1)
+                {
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
+                    $html.= html_writer::nonempty_tag('p', "No hay desafios pendientes", array());
+                    $html.= html_writer::end_tag('div');
+                }
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
 
 
-            return $html.$this->render_scores_page($gmcompvs, $userid,$dificultades,$moodleUserId);
+            return $html;
         }
 
 
 
-        public function render_scores_page($gmcompvs, $userid, $dificultades, $moodleUserId)
+    public function render_scores_page($gmcompvs, $userid, $dificultades, $moodleUserId)
         {
             global $DB;
             /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
@@ -540,4 +502,93 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             return $html;
         }
 
+
+    
+    private function obtenerDatoSQLVictorias($instancia, $usuario)
+        {
+            global $DB;
+            $sql = "";
+            $sql.=" SELECT COUNT(*) FROM";
+            $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion as puntuacion";
+            $sql.=" FROM {gmdl_partida} ";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $usuario AND";
+            $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as a";
+            $sql.=" JOIN ";
+            $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion  as puntuacion";
+            $sql.=" FROM {gmdl_partida}";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $usuario AND";
+            $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
+            $sql.=" ON a.partidaid = b.partidaid";
+            $sql.=" WHERE a.puntuacion > b.puntuacion";
+            $res = $DB->count_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+            return $res;
+        }
+
+    private function obtenerPosiblesRivales($instancia, $usuario)
+        {
+            global $DB;
+            $sql ="";
+            $sql.=" SELECT {user}.id as userid, username, firstname, lastname from";
+            $sql.=" {user} JOIN";
+            $sql.=" {role_assignments} ON {user}.id = {role_assignments}.userid ";
+            $sql.=" JOIN {role} ON {role_assignments}.roleid = {role}.id";
+            $sql.=" JOIN {context} ON {role_assignments}.contextid = {context}.id";
+            $sql.=" JOIN {course} ON {context}.instanceid =  {course}.id";
+            $sql.=" JOIN {gmcompvs} ON {gmcompvs}.course = {course}.id";
+            $sql.=" JOIN {gmdl_usuario} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
+            $sql.=" WHERE {context}.contextlevel = 50 AND ";
+            $sql.=" {gmcompvs}.id = $instancia AND ";
+            $sql.=" {role}.id = 5 AND";
+            $sql.=" {gmdl_usuario}.id not in (";
+            $sql.=" SELECT contrincante FROM";
+            $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.gmdl_usuario_id as principal, fecha_inicio";
+            $sql.=" FROM {gmdl_partida} ";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $usuario AND";
+            $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia ) as a";
+            $sql.=" JOIN ";
+            $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.gmdl_usuario_id as contrincante, fecha_inicio";
+            $sql.=" FROM {gmdl_partida} ";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id != $usuario AND";
+            $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia ) as b";
+            $sql.=" ON a.partidaid = b.partidaid";
+            $sql.=" WHERE a.fecha_inicio IS NULL OR";
+            $sql.=" b.fecha_inicio IS NULL)";
+            return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+
+        }
+    private function obtenerDesafiosPendientes($instancia, $usuario)
+        {
+            global $DB;
+            $sql ="";
+            $sql.=" SELECT";
+            $sql.=" a.participacionid,";
+            $sql.=" username,";
+            $sql.=" firstname,";
+            $sql.=" lastname";
+            $sql.=" FROM";
+            $sql.=" {user} JOIN";
+            $sql.=" {gmdl_usuario} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
+            $sql.=" JOIN";
+            $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.gmdl_usuario_id as contrincante";
+            $sql.=" FROM {gmdl_partida} ";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" WHERE gmdl_comp_vs_id = 1 AND";
+            $sql.=" {gmdl_participacion}.gmdl_usuario_id != 2 AND";
+            $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll) as b";
+            $sql.=" ON b.contrincante = {gmdl_usuario}.id";
+            $sql.=" JOIN (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.id as participacionid, {gmdl_participacion}.gmdl_usuario_id as principal";
+            $sql.=" FROM {gmdl_participacion}";
+            $sql.=" JOIN {gmdl_partida} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" WHERE {gmdl_partida}.gmdl_comp_vs_id = 1 AND";
+            $sql.=" {gmdl_participacion}.gmdl_usuario_id = 2 AND";
+            $sql.=" {gmdl_participacion}.fecha_inicio IS NUll) as a";
+            $sql.=" ON a.partidaid = b.partidaid";
+            return $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+        }
 }
