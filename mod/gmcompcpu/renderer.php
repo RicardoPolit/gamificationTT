@@ -131,7 +131,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
         }else{
 
-            $mensaje = 'Oh no!, Debes practicar mas!';
+            $mensaje = 'Oh no!, Debes practicar m&aacute;s!';
             $class = 'perdedor';
 
         }
@@ -159,7 +159,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
         $display .= html_writer::start_tag('b');
 
-        $display .= 'Tu puntuacion: '.$userScore;
+        $display .= 'Tu puntuaci&oacute;n: '.$userScore;
 
         $display .= html_writer::end_tag('b');
 
@@ -174,7 +174,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
         $display .= html_writer::start_tag('b');
 
-        $display .= 'Puntuacion cpu: '.$cpuScore;
+        $display .= 'Puntuaci&oacute;n cpu: '.$cpuScore;
 
         $display .= html_writer::end_tag('b');
 

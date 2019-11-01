@@ -39,17 +39,37 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
      * @param context $context The context
      * @return string The HTML code of the game
      */
-    public function render_questions($gmcompvs, $cm,$userid,$dificultad,$gmuserid,$id) {
+
+    public function render_wait_page(){
+
+        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+
+        $display .= html_writer::start_tag('div');
+
+        $display .= html_writer::start_tag('h2',array('class' => 'gmcompvs-titulo'));
+
+        $display .= html_writer::start_tag('b');
+
+        $display .= 'Felicidades terminaste el desaf&iacute;o, el resultado se mostrar&aacute; cuando el contrincante tambi&eacute;n lo termine';
+
+        $display .= html_writer::end_tag('b');
+
+        $display .= html_writer::end_tag('h2');
+
+        $display .= html_writer::end_tag('div');
+
+        return $display;
+    }
+
+    public function render_questions($gmcompvs, $cm,$userid,$participacionid,$gmuserid,$id) {
         global $DB;
 
-        $intento = (object)[
-            'gmdl_dificultad_cpu_id' => $dificultad,
-            'gmdlcompcpu_id' => $gmcompvs->id,
-            'gmdl_usuario_id' => $gmuserid,
+        $participacion = (object)[
+            'id' => $participacionid,
             'fecha_inicio' => time()
         ];
 
-        $intento->id =  $DB->insert_record('gmdl_intento',$intento);
+        $DB->update_record('gmdl_participacion',$participacion);
 
         $categoryid = explode(',', $gmcompvs->mdl_question_categories_id)[0];
 
@@ -91,8 +111,9 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
         $display .= '<input type="hidden" name="slots" value="' . implode(',', $idstoslots) . "\" />\n";
         $display .= '<input type="hidden" name="scrollpos" value="" />';
-        $display .= '<input type="hidden" name="intentoid" value='.$intento->id.' />';
+        $display .= '<input type="hidden" name="participacionid" value='.$participacionid.' />';
         $display .= '<input type="hidden" name="idredirect" value='.$id.' />';
+        $display .= '<input type="hidden" name="gmuserid" value='.$gmuserid.' />';
 
         $options = new question_display_options();
         $options->marks = question_display_options::MAX_ONLY;
@@ -120,18 +141,18 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
     }
 
 
-    public function render_results_attempt($userScore,$cpuScore){
+    public function render_results_attempt($userScore,$contrincanteScore){
 
         $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
 
-        if($userScore >= $cpuScore){
+        if($userScore > $contrincanteScore){
 
-            $mensaje = 'Felicidades! Computadora derrotada';
+            $mensaje = 'Felicidades! Ganaste el desaf&iacute;o!';
             $class = 'ganador';
 
         }else{
 
-            $mensaje = 'Oh no!, Debes practicar mas!';
+            $mensaje = 'Oh no!, Perdiste el desaf&iacute;o!';
             $class = 'perdedor';
 
         }
@@ -159,7 +180,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
         $display .= html_writer::start_tag('b');
 
-        $display .= 'Tu puntuacion: '.$userScore;
+        $display .= 'Tu puntuaci&oacute;n: '.$userScore;
 
         $display .= html_writer::end_tag('b');
 
@@ -174,7 +195,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
         $display .= html_writer::start_tag('b');
 
-        $display .= 'Puntuacion cpu: '.$cpuScore;
+        $display .= 'Puntuaci&oacute;n contrincante: '.$contrincanteScore;
 
         $display .= html_writer::end_tag('b');
 
