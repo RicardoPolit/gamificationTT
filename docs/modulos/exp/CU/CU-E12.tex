@@ -23,7 +23,7 @@ Estado/\ucstEnEdicion]%
  \UCsection{Atributos}
 
     \UCitem{Actor(es)}{%
-        \refElem{aAdministrador}.
+        \refElem{aAdministrador} o \refElem{aAlumno}.
     }
 
 	\UCitem{Propósito}{%
@@ -31,21 +31,23 @@ Estado/\ucstEnEdicion]%
         cuando es creado por el administrador.
 	}
 	
-	\UCitems{Entradas}{
-        \Titem Evento emitido por moodle de que un usuario a sido creado.
-        \Titem \refElem{mdl-user.id} de \refElem{mdl-user}.
-    }
+	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
-        \Titem API de eventos de Moodle.
-	}
+        \Titem Teclado
+        \Titem Mouse
+    }
 
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
-	\UCitem{Destino}{Ninguno}
+	\UCitem{Destino}{\refElem{IU-M05a}}
 	
 	\UCitems{Precondiciones}{%
         \Titem Los plugins del módulo de experiencia deben de estar instalados.
+        \Titem Cuando el actor es un \refElem{aAlumno} \refTray{A}, la opción
+               opción de permitir autoregistros debe estar habilitada y las
+               configuraciones para poder realizar envío de correos mediante SMTP
+               deben ser las correctas.
 	}
 
 	\UCitems{Postcondiciones}{%
@@ -53,18 +55,33 @@ Estado/\ucstEnEdicion]%
                el usuario de moodle que se creó.
 	}
 
-	\UCitem{Reglas de negocio}{Ninguna}
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
         % CAUSA
             Los plugins del módulo de experiencia no se encuentran instalados y}{%
-        % EFECTO (inconsistencia)
+        % EFECTO
             no se puede crear un usuario gamificado, termina el caso de uso}
+        \Titem \UCerr{Err2}{%
+        % CAUSA
+            La opción de creación de cuentas mediante autoregistro se encuentra
+            deshabilitada}{%
+        % EFECTO
+            no se muestra la opción para que el alumno cree su propia contraseña,
+            termina el caso de uso.}
+        \Titem \UCerr{Err3}{%
+        % CAUSA
+            La configuración de envío de correos para autoregistrarse no permite
+            enviar correos}{%
+        % EFECTO
+            no se puede enviar el correo de confirmación, pero la cuenta ha sido 
+            creada, el \refElem{aAlumno} contacta con soporte para que validen su
+            cuenta manualmente}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
-					  % extienden de Login.
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de 
+    % otro. La mayoría se extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
 	% }	
@@ -73,6 +90,7 @@ Estado/\ucstEnEdicion]%
 
 	\UCitems[design]{Casos de Prueba}{%
         \Titem \refElem{CPC-E12}
+        \Titem \refElem{CPC-E12a}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -83,43 +101,63 @@ Estado/\ucstEnEdicion]%
 
 \end{UseCase}
 
-\clearpage
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
 %
-  \includeUC{CU-M01} ejecutando la trayectoria alternativa B
-  \Actor Presiona la opción {\bf Agregar un usuario}.
+  \includeUC{CU-M01} presionando la pestaña {\bf Usuarios}. \refTray{A}
+  \Actor Presiona la opción {\bf Agregar un usuario} de la pantalla \refElem{IU-M01b}.
   \Sistema Carga la pantalla \refElem{IU-M05}.
-  \Actor Ingresa el \entrada{mdl-user.username}, \entrada{mdl-user.auth}, 
-         \entrada{mdl-user.password}, \entrada{mdl-user.firstname} y
-         \entrada{mdl-user.lastname}, que son los atributos requeridos para el nuevo
-         usuario.
+  \Actor Ingresa el \entrada{mdl-user.username}, \entrada{mdl-user.password}, 
+         \entrada{mdl-user.firstname} y \entrada{mdl-user.lastname}, que son los 
+         atributos requeridos para el nuevo usuario. \label{IU-E12-input-data}
 
-  \Actor Opcional: Ingresa los demás valores presentes en la pantalla \refElem{IU-M05}.
-  \Actor Presiona el botón de {\bf Crear Usuario}. \refTray{A}
+  \Actor Opcionalmente ingresa los valores de los demás campos.
+
+  \Actor Presiona el botón de {\bf Crear Usuario}. \refTray{B} \refTray{C}
+         \label{CU-E12-submit}.
 
   \Sistema Obtiene lo valores ingresados para el nuevo usuario y crea la cuenta de un
            \refElem{mdl-user}. 
-  \Sistema Obtiene el \entrada{mdl-user.id} del usuario recientemente creado 
 
-  \Sistema Vincula los datos de un \salida{xp-user} con el id obtenido, estableciendo los
-           valores por defecto para el \refElem{xp-user.level}, \refElem{xp-user.levelxp}
-           y \refElem{xp-user.xp} definidos en el modelo de información. \refErr{Err1}
+  \Sistema Vincula los datos de un \salida{xp-user} con el \refElem{mdl-user} obtenido,
+           estableciendo los valores iniciales para el \refElem{xp-user.level},
+           \refElem{xp-user.levelxp} y \refElem{xp-user.xp} de acuerdo con la regla
+           \regla{BR-E7}. \refErr{Err1} \label{IU-E12}
 
-  \Sistema Obtiene el \salida{xp-user.firstname}, \salida{xp-user.lastname}, 
-           \salida{xp-user.email}, \salida{xp-user.lastaccess}, \salida{xp-user.city},
-           \salida{xp-user.country} de los usuarios presentes en moodle.
+  \Sistema Obtiene el \salida{mdl-user.firstname}, \salida{mdl-user.lastname}, 
+           \salida{mdl-user.email}, \salida{mdl-user.lastaccess},
+           \salida{mdl-user.city} y \salida{mdl-user.country} de los usuarios 
+           presentes en moodle.
 
   \Sistema Despliega la información de los usuarios en la pantalla \refElem{IU-M05a}.
 \end{UCtrayectoria}
 
 
 \begin{UCtrayectoriaA}{A}{%
+El usuario que ejecuta este caso de uso es el \refElem{aAlumno} para registrarse
+así mismo.
+}
+  \Actor Se encuentra en la pantalla \refElem{IU-M00b}. \refErr{Err2}
+  \Actor Presiona el botón {\bf Comience ahora creando una cuenta}.
+  \Sistema Carga la pantalla \refElem{IU-M05c}.
+  \Sistema Ejecuta del paso \ref{IU-E12-input-data} al 
+  \Sistema Envía el correo de confirmación al \refElem{aAlumno}. \refErr{Err3}
+  \Actor Revisa su correo y accede al enlace para confirmar el registro de su cuenta.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{B}{%
+Algunos de los campos ingresados por el \refElem{aAdministrador} son erroneos
+}
+  \Sistema Imprime los mensaje de error debajo de los campos con valores incorrectos.
+  \Actor Ingresa nuevamente los valores en los campos marcados como incorrectos.
+  \Sistema Regresa al paso \ref{CU-E12-submit}.
+\end{UCtrayectoriaA}
+
+
+\begin{UCtrayectoriaA}{C}{%
 El \refElem{aAdministrador} desea cancelar la creación de un nuevo usuario
 }
   \Actor Presiona el botón {\bf Cancelar}.
   \Sistema Redirige a la pantalla \refElem{IU-M01b}
 \end{UCtrayectoriaA}
-
-
