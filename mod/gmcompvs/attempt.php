@@ -2,11 +2,11 @@
 
 require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
-require_once($CFG->dirroot . '/mod/gmcompvs/locallib.php');
 
 $userid = optional_param('userid', 0, PARAM_INT);
 $instance  = optional_param('instance', 0, PARAM_INT);
-$dificultad  = optional_param('dificultad', 0, PARAM_INT);
+$rivalid  = optional_param('rivalid', -1, PARAM_INT);
+$participacionid  = optional_param('participacionid', -1, PARAM_INT);
 $gmuserid  = optional_param('gmuserid', 0, PARAM_INT);
 $id = optional_param('id', 0, PARAM_INT);
 
@@ -16,6 +16,30 @@ $cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course-
 
 
 require_login($course, true, $cm);
+
+if($rivalid != -1 && $participacionid == -1){
+
+    $flag =
+
+    $partidaid = $DB->insert_record('gmdl_partida',(object)array('gmdl_comp_vs_id' => $instance));
+
+    $participacionvalues = (object)array(
+        'gmdl_usuario_id' => $gmuserid,
+        'gmdl_partida_id' => $partidaid,
+        'fecha_inicio' => -1                  //Porque no es nullable
+    );
+
+    $participacionid = $DB->insert_record('gmdl_participacion',$participacionvalues);
+
+    $participacionvalues = (object)array(
+        'gmdl_usuario_id' => $rivalid,
+        'gmdl_partida_id' => $partidaid,
+        'fecha_inicio' => -1                    //Porque no es nullable
+    );
+
+    $DB->insert_record('gmdl_participacion',$participacionvalues);
+
+}
 
 $context = context_module::instance($cm->id);
 
@@ -32,7 +56,7 @@ echo $OUTPUT->heading($gmcompvs->name);
 
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
-echo $renderer->render_questions($gmcompvs,$cm,$USER->id,$dificultad,$gmuserid,$id);
+echo $renderer->render_questions($gmcompvs,$cm,$USER->id,$participacionid,$gmuserid,$id);
 
 echo $OUTPUT->footer();
 
