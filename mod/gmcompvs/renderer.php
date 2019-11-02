@@ -156,53 +156,30 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $class = 'perdedor';
 
         }
-
         $display .= html_writer::start_tag('div');
-
         $display .= html_writer::start_tag('h2',array('class' => 'gmcompvs-titulo-'.$class));
-
         $display .= html_writer::start_tag('b');
-
         $display .= $mensaje;
-
         $display .= html_writer::end_tag('b');
-
         $display .= html_writer::end_tag('h2');
-
         $display .= html_writer::end_tag('div');
-
         $display .= html_writer::start_tag('div',array('class' => 'gmcompvs-container'));
-
         $display .= html_writer::start_tag('div',array('class' => 'gmcompvs-half-container'));
 
-
         $display .= html_writer::start_tag('h3');
-
         $display .= html_writer::start_tag('b');
-
         $display .= 'Tu puntuaci&oacute;n: '.$userScore;
-
         $display .= html_writer::end_tag('b');
-
         $display .= html_writer::end_tag('h3');
 
-
         $display .= html_writer::end_tag('div');
-
         $display .= html_writer::start_tag('div',array('class' => 'gmcompvs-half-container'));
-
         $display .= html_writer::start_tag('h3');
-
         $display .= html_writer::start_tag('b');
-
         $display .= 'Puntuaci&oacute;n contrincante: '.$contrincanteScore;
-
         $display .= html_writer::end_tag('b');
-
         $display .= html_writer::end_tag('h3');
-
         $display .= html_writer::end_tag('div');
-
         $display .= html_writer::end_tag('div');
 
         return $display;
@@ -236,12 +213,18 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"text", "placeholder"=>"Nombres", "class"=>"gmcompvs-buscador", "id"=>"gmcompvs-buscador"));
             foreach($posiblesRivales as $rival)
                 {
+                    $html.= html_writer::start_tag('form',
+                        array('action' => new moodle_url('/mod/gmcompvs/attempt.php',
+                            array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
+                            'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                            'id' => 'responseform'));
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival", "nombre"=>$rival->firstname . ' '. $rival->lastname));
                     $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"hidden", "value"=>$rival->userid));
                     $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array());
-                    $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver", 
+                    $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
                     'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
                     $html.= html_writer::end_tag('div');
+                    $html.= html_writer::end_tag('form');
                 }
             if(sizeof($posiblesRivales) == 0)
                 {
@@ -260,11 +243,17 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-challenges"));
             foreach($desafiosPorTerminar as $desafio)
                 {
+                    $html.= html_writer::start_tag('form',
+                        array('action' => new moodle_url('/mod/gmcompvs/attempt.php',
+                            array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
+                            'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                            'id' => 'responseform'));
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
-                    $html.= html_writer::empty_tag('input', '', array("name"=>"participacionid", "type"=>"hidden", "value"=>$desafio->participacionid));
+                    $html.= html_writer::empty_tag('input', array("name"=>"participacionid", "type"=>"hidden", "value"=>$desafio->participacionid));
                     $html.= html_writer::nonempty_tag('p', $desafio->firstname . ' '. $desafio->lastname, array());
-                    $html.= html_writer::empty_tag('input', '', array("class" =>"btn btn-primary gmcompvs-end-button-volver", 
+                    $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
                     'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
+                    $html.= html_writer::end_tag('form');
                     $html.= html_writer::end_tag('div');
                 }
             if(empty($desafiosPorTerminar) == 1)
