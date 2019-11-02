@@ -67,13 +67,69 @@
             \refElem{tPrimaryKey},
             \refElem{tAutoIncrement}.
         }
+	    \brAttr{username}{nombre de usuario}{tVarchar}{%
+	        .\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tLength} 0-100
+        }
+	    \brAttr{password}{contraseña}{tVarchar}{%
+	        .\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tLength} 0-255.
+        }
+	    \brAttr{firstname}{nombre}{tVarchar}{%
+	        .\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tLength} 0-100
+        }
+	    \brAttr{lastname}{apellido}{tVarchar}{%
+	        .\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tLength} 0-100
+        }
+	    \brAttr{email}{correo}{tVarchar}{%
+	        .\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tLength} 0-100
+        }
+	    \brAttr{lastaccess}{último registro}{tInt}{%
+	        .\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tLength} 10
+        }
+	    \brAttr{city}{ciudad}{tVarchar}{%
+	        .\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tLength} 0-120
+        }
+	    \brAttr{country}{pais}{tVarchar}{%
+	        .\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tLength} 2
+        }
 
     \end{cdtEntidad}\schemeName{user}
 
     \begin{cdtEntidad}{mdl-course}{Curso de moodle}{%
-    Es una tabla del núcleo de moodle que contiene la información principal de cada curso
-    registrado en moodle. Esta entidad contiene 31 atributos, a continuación se detallan
-    los atributos relevantes para la especificación de este proyecto.}
+    Es una tabla del núcleo de moodle que contiene la información principal de cada 
+    curso registrado en moodle. Esta entidad contiene 31 atributos, a continuación se
+    detallan los atributos relevantes para la especificación de este proyecto.}
 
 	    \brAttr{id}{Id}{tInt}{%
 	        Es el dígito que representa al identificador único para cada uno
@@ -137,22 +193,23 @@
         }
 
 	    \brAttr{version}{Versión}{tVersion}{%
-	        Numero entero de longitud de 10 dígitos que representa la versión del plugin.\par
+	        Numero entero de longitud de 10 dígitos que representa la versión del 
+            plugin.\par
 
             \it Restricciones: Ninguna adicional al tipo de dato
         }
 
 	    \brAttr{moodle}{Versión de Moodle}{tVersion}{%
-	        Número entero de longitud de 10 dígitos que representa la versión de moodle en la que
-            se puede instalar el plugin.\par
+	        Número entero de longitud de 10 dígitos que representa la versión de 
+            moodle en la que se puede instalar el plugin.\par
 
             \it Restricciones: Ninguna adicional al tipo de dato
         }
 
         \brAttr{dependencies}{Dependencias}{tObject}{%
-            Objeto que almacena un conjunto de claves con sus respectivos valores, donde cada
-            clave representa el nombre del componente del plugin y el valor es la \refElem{Plugin.version}
-            requerida del mismo.
+            Objeto que almacena un conjunto de claves con sus respectivos valores, 
+            donde cada clave representa el nombre del componente del plugin y el valor 
+            es la \refElem{Plugin.version} requerida del mismo.
 
             \it Restricciones: Ninguna
         }

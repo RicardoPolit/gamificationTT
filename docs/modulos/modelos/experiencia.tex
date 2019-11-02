@@ -202,6 +202,20 @@
 
     \begin{cdtEntidad}{xp-course}{Curso gamificado}{%
     Esta entidad }
+        \brAttr{id}{Id}{tInt}{%
+            . \par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+
+        \brAttr{format}{formato}{tVarchar}{%
+            Para que un curso pueda ser manejado como un curso gamificado este 
+            atributo debe de tener como valor ``Gamedle''. \par
+
+            \it Restricciones:
+        }
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-course-section}{Sección de curso gamificado}{%
