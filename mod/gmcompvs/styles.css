@@ -1,11 +1,15 @@
 .gmcompvs-container{
     width: 100%;
     margin-bottom: 5%;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: flex-start space-between;
+    align-items: flex-start;
 }
 
 .gmcompvs-half-container{
     width: 50%;
-    float: left;
 }
 .gmcompvs-buscador{
     width: 80%;
@@ -40,6 +44,8 @@
     width: 80%;
     border: 10px double #0981bd;
     align-content: center;
+    overflow-y: scroll;
+    overflow-x: hidden; 
 }
 
 .gmcompvs-container-challenges{
@@ -55,7 +61,7 @@
 }
 .gmcompvs-trohpy-image{
     max-height: 100%;
-    max-width: 10%;
+    max-width: 20%;
 }
 .gmcompvs-container-rival{
     
@@ -89,8 +95,46 @@
 .gmcompvs-linea{
 
 }
+.gmcompvs-table {
+    width: 60%;
+    margin: auto;
+
+}
+.gmcompvs-tbody tr{
+    background-color: whitesmoke;
+}
+
+.gmcompvs-table tr{
+    width: 100%;
+    margin: auto;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+    border: 5px double black;
+    text-align: center;
+}
 
 
+.gmcompvs-thead{
+    background-color: #0981bd;
+    color: white;
+    font-size: 20px;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+}
+
+.gmcompvs-tbody{
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+}
 .gmcompvs-container-rival-offset{
     
     border-radius: 10px;
@@ -105,4 +149,55 @@
     align-items: center;
     background-color: darkgray;
     
+}
+
+
+.gmcompvs-trohpy-image-table{
+    max-height: 80px;
+    max-width: 80px;
+    border: 10px double black;
+}
+
+.gmcompvs-table-posicion-column{
+    max-height: 100%;
+    width: 20%;
+
+}
+.gmcompvs-table-name-column{
+    width: 50%;
+
+}
+
+.gmcompvs-table-victorias-column{
+    width: 30%;
+
+}
+
+.gmcompvs-container-resume{
+    padding: 3%;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
+}
+
+.gmcompvs-container-resume div{
+    padding: 0% 3%;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-between;
+    align-items: center;
+}
+
+
+.gmcompvs-table-history-state, .gmcompvs-table-history-points{
+    width: 20%;
+
+}
+
+.gmcompvs-table-history-name{
+    width: 40%;
 }

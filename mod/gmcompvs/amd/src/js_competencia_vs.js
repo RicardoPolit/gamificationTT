@@ -2,7 +2,7 @@
 define(['jquery'], function($) {
     return {
         init: function() {
-            $('.gmcompvs-container-rival').hide();
+            $('#gmdl-container-sin-resultados').hide();
             var elementos = $('.gmcompvs-container-rival');
             var ocultos = elementos.length;
             $('#gmcompvs-buscador').on('input', function() {

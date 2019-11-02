@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/gamedlemaster/db" VERSION="20191031" COMMENT="Prueba de concepto para la creacion de los XML"
+<XMLDB PATH="local/gamedlemaster/db" VERSION="20191102" COMMENT="Prueba de concepto para la creacion de los XML"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -264,7 +264,7 @@
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="gmdl_usuario_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Usuario que participó"/>
         <FIELD NAME="gmdl_partida_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Partida en la que tuvo lugar la participación"/>
-        <FIELD NAME="fecha_inicio" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Fecha en la que la participación comenzó"/>
+        <FIELD NAME="fecha_inicio" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Fecha en la que la participación comenzó"/>
         <FIELD NAME="fecha_fin" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Fecha en la que la participación terminó"/>
         <FIELD NAME="puntuacion" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Puntuacion que obtuvo el jugador en las preguntas (Dependiendo)"/>
       </FIELDS>

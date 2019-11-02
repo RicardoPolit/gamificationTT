@@ -67,6 +67,10 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019103100($oldversion);
             }
+        else if ($oldversion < 2019110200)
+            {
+                upgrades2019110200();
+            }
 
 		return true;
 	}
@@ -923,4 +927,19 @@ function upgrades2019103100($oldversion)
         }
     
 
+    }
+
+function upgrades2019110200()
+    {
+        global $DB;
+        $dbman = $DB->get_manager();
+         // Changing nullability of field fecha_inicio on table gmdl_participacion to null.
+         $table = new xmldb_table('gmdl_participacion');
+         $field = new xmldb_field('fecha_inicio', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'gmdl_partida_id');
+ 
+         // Launch change of nullability for field fecha_inicio.
+         $dbman->change_field_notnull($table, $field);
+ 
+         // Gamedlemaster savepoint reached.
+         upgrade_plugin_savepoint(true, 2019110200, 'local', 'gamedlemaster');
     }

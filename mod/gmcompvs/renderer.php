@@ -209,17 +209,14 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
     }
 
-
-
-
     public function render_main_page($gmcompvs, $userid,$id)
         {
             $moodleUserId = $userid;
             global $DB;
             $userid = $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $userid), $fields='*', $strictness=IGNORE_MISSING)->id;
-            $numVictorias = $this->obtenerDatoSQLVictorias($gmcompvs->id, $userid);
-            $posiblesRivales = $this->obtenerPosiblesRivales($gmcompvs->id, $userid);
-            $desafiosPorTerminar = $this->obtenerDesafiosPendientes($gmcompvs->id, $userid);
+            $numVictorias = $this->obtener_dato_sql_victorias($gmcompvs->id, $userid);
+            $posiblesRivales = $this->obtener_posibles_rivales($gmcompvs->id, $userid);
+            $desafiosPorTerminar = $this->obtener_desafios_pendientes($gmcompvs->id, $userid);
             $this->page->requires->js_call_amd('mod_gmcompvs/js_competencia_vs', 'init');
 
             $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
@@ -231,6 +228,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $html.= html_writer::nonempty_tag('h1', $numVictorias, array("class" =>"gmcompvs-victories"));
             $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
             $html.= html_writer::nonempty_tag('h2', "Compa&ntilde;eros", array("class" =>"gmcompvs-titulo"));
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-adversaries"));
@@ -278,233 +276,193 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
 
 
-            return $html;
+            return $html.$this->render_scores_page($gmcompvs, $userid);
         }
 
 
 
-    public function render_scores_page($gmcompvs, $userid, $dificultades, $moodleUserId)
+    public function render_scores_page($gmcompvs, $userid)
         {
-            global $DB;
-            /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
-            $leaderboards = [];
-            $leaderboardsMax = [];
-            for($i=0; $i<sizeof($dificultades);$i++)
-                {
-                    $leaderboards[] = array();
-                    $leaderboardsMax[] = array();
-                }
-            $sql = "SELECT b.* FROM";
-		    $sql.= " (";
-			$sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id,  MIN(fecha_fin) as minima";
-			$sql.= " FROM {gmdl_intento} ";
-			$sql.= " WHERE fecha_fin IS NOT NULL";
-			$sql.= " AND gmdlcompcpu_id = ".$gmcompvs->id;;
-            $sql.= " GROUP BY 1, 2";
-		    $sql.= " ) AS a";
-            $sql.= " JOIN";
-            $sql.= " (";
-            $sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id, puntuacion_usuario AS puntos, fecha_fin, username, firstname, lastname";
-            $sql.= " FROM {gmdl_intento}, {user}, {gmdl_usuario}";
-            $sql.= " WHERE gmdlcompcpu_id = ".$gmcompvs->id." AND";
-            $sql.= " {user}.id = {gmdl_usuario}.mdl_id_usuario AND";
-            $sql.= " {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id ";
-            $sql.= " ) AS b";
-            $sql.="  ON";
-			$sql.= " a.gmdl_usuario_id = b.gmdl_usuario_id AND";
-			$sql.= " a.gmdl_dificultad_cpu_id = b.gmdl_dificultad_cpu_id AND";
-			$sql.= " a.minima = b.fecha_fin";
-            $sql.= " ORDER BY b.puntos DESC";
-
-            $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-
-            foreach($primerosIntentos as $intento)
-                {
-                    $leaderboards[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
-                }
-
-            $sql =" SELECT  a.*, username, firstname, lastname FROM";
-            $sql.=" (SELECT gmdl_dificultad_cpu_id, gmdl_usuario_id, MAX(puntuacion_usuario) AS puntos";
-            $sql.=" FROM {gmdl_intento}";
-            $sql.=" WHERE gmdlcompcpu_id = ".$gmcompvs->id;
-            $sql.="  AND fecha_fin IS NOT NULL";
-            $sql.=" GROUP BY 1,2 ) as a, {user}, {gmdl_usuario}";
-            $sql.=" WHERE {user}.id =  {gmdl_usuario}.mdl_id_usuario AND";
-            $sql.=" {gmdl_usuario}.id = a.gmdl_usuario_id";
-            $sql.=" ORDER BY a.puntos DESC";
-            $mejoresIntentos = $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-
-            foreach($mejoresIntentos as $intento)
-                {
-                    $leaderboardsMax[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
-                }
-
-
-
-            #$html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-            $html= html_writer::start_tag('div', array("id"=>"gmcompvs-container-posiciones"));
-            $i = 0;
-            foreach($dificultades as $dificultad)
-                {
-                    $leaderboard = $leaderboards[$i];
-                    $html.= html_writer::nonempty_tag('div', $dificultad->nombre, array("class" => "gmcompvs-linea-nivel-".$dificultad->id));
-                    $html.= html_writer::start_tag('div', array("class" =>"gmcompvs-container"));
-                    $leaderboardMax = $leaderboardsMax[$i];
-                    $cabezeraTabla= html_writer::start_tag('thead', array());
-                    $cabezeraTabla.= html_writer::nonempty_tag('tr', "<th> Posici&oacute;n </th> <th> Nombre </th> <th> Puntuaci&oacute;n </th>", array());
-                    $cabezeraTabla.= html_writer::end_tag('thead', array());
-                    $j=1;
-                    $contenidoTablaPrimerIntento= html_writer::start_tag('tbody', array());
-                    foreach($leaderboard as $intento)
-                        {
-                            if($j==1)
-                                {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-primer-lugar"));
-                                }
-                            else if($j==2)
-                                {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-segundo-lugar"));
-                                }
-                            else if($j ==3)
-                                {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-tercer-lugar"));
-                                }
-                            else
-                                {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-n-lugar"));
-                                }
-                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $j."°", array());
-                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
-                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
-                                $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
-                            $j++;
-                        }
-                    if($j == 1)
-                        {
-                            $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-no-lugar"));
-                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', "0°", array());
-                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', "Sin participantes", array());
-                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', " - - - ", array());
-                            $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
-                        }
-                    $contenidoTablaPrimerIntento.= html_writer::end_tag('tbody', array());
-                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
-                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaPrimerIntento,array());
-                    $html.= html_writer::end_tag('div', array());
-                    $j=1;
-                    $contenidoTablaMejorIntento= html_writer::start_tag('tbody', array());
-                    foreach($leaderboardMax as $intento)
-                        {
-                            if($j==1)
-                                {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-primer-lugar"));
-                                }
-                            else if($j==2)
-                                {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-segundo-lugar"));
-                                }
-                            else if($j ==3)
-                                {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-tercer-lugar"));
-                                }
-                            else
-                                {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-n-lugar"));
-                                }
-                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $j."°", array());
-                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
-                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
-                                $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
-                            $j++;
-                        }
-                    if($j == 1)
-                        {
-                            $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompvs-no-lugar"));
-                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', "0°", array());
-                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', "Sin participantes", array());
-                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', " - - - ", array());
-                            $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
-                        }
-                    $contenidoTablaMejorIntento.= html_writer::end_tag('tbody', array());
-                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
-                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaMejorIntento,array());
-                    $html.= html_writer::end_tag('div', array());
-                    $html.= html_writer::end_tag('div', array());
-                    $i++;
-                }
+            $filas = $this->obtener_victorias_usuarios($gmcompvs->id);
+            $html= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::nonempty_tag('button', "Volver",array("class" =>"gmcompvs-quarter-container btn btn-primary gmcompvs-end-button-volver gmcompvs-button", "id"=>"gmcompvs-volver-posiciones"));
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            return $html.$this->render_attempt_page($gmcompvs, $userid,$dificultades, $moodleUserId);
+            $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table"));
+            $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
+            $html.= html_writer::start_tag('tr', array());
+            $html.= html_writer::nonempty_tag('th', "Posici&oacute;n", array("class"=>"gmcompvs-table-posicion-column"));
+            $html.= html_writer::nonempty_tag('th', "Nombre", array("class"=>"gmcompvs-table-name-column"));
+            $html.= html_writer::nonempty_tag('th', "N&uacute;m. vicotrias", array("class"=>"gmcompvs-table-victorias-column"));
+            $html.= html_writer::end_tag('tr', array());
+            $html.= html_writer::end_tag('thead', array());
+            $html.= html_writer::start_tag('tbody', array("class"=>"gmcompvs-tbody"));
+            $ultimosPuntos = 0;
+            $primeraFila = 1;
+            $lugar = 1;
+            foreach($filas as $fila)
+                {
+                    $html.= html_writer::start_tag('tr', array());
+                    if($ultimosPuntos > $fila->victorias && $primeraFila==0)
+                        {
+                            $lugar++;
+                        }
+                    $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-posicion-column"));
+                    if($lugar == 1){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompvs-trohpy-image")); }
+                    else if($lugar == 2){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmcompvs-trohpy-image")); }
+                    else if($lugar == 3){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmcompvs-trohpy-image")); }
+                    $html.= html_writer::end_tag('td', array());
+            
+                    $html.= html_writer::nonempty_tag('td', $fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' , array("class"=>"gmcompvs-table-name-column"));
+                    $html.= html_writer::nonempty_tag('td', $fila->victorias , array("class"=>"gmcompvs-table-victorias-column"));
+
+
+                    if($primeraFila == 1)
+                        {
+                            $primeraFila = 0;
+                        }
+                    $ultimosPuntos = $fila->victorias;
+                    $html.= html_writer::end_tag('tr', array());
+                }
+            
+            if($primeraFila == 1)
+                {
+                    $html.= html_writer::start_tag('tr', array());
+                    $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-posicion-column"));
+                    $html.= html_writer::nonempty_tag('td', 'Aun no hay competencias registradas' , array("class"=>"gmcompvs-table-name-column"));
+                    $html.= html_writer::nonempty_tag('td', '0' , array("class"=>"gmcompvs-table-victorias-column"));
+                    $html.= html_writer::end_tag('tr', array());
+                }
+                
+            $html.= html_writer::end_tag('tbody', array());
+            $html.= html_writer::end_tag('table', array());
+            $html.= html_writer::end_tag('div');
+            return $html.$this->render_attempt_page($gmcompvs, $userid);
         }
-    public function render_attempt_page($gmcompvs, $userid,$dificultades, $moodleUserId)
+    public function render_attempt_page($gmcompvs, $userid)
         {
-            $html = ' ';
-            #$html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-            global $DB;
-            /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
-
-            $sql ="SELECT gmdl_dificultad_cpu_id, puntuacion_usuario, puntuacion_cpu";
-            $sql.=" FROM {gmdl_intento}";
-            $sql.=" JOIN {gmdl_usuario} ON {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id";
-            $sql.=" JOIN {user} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
-            $sql.=" WHERE {user}.id = ". $moodleUserId;
-            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id =".$gmcompvs->id;
-            $sql.=" AND fecha_fin IS NOT NULL";
-            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id = ".$gmcompvs->id;
-            $sql.=" ORDER BY fecha_fin DESC";
-
-            $intentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-            $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-container-intentos"));
-            $html.= html_writer::nonempty_tag('h1', 'Intentos realizados ',array("class" =>"gmcompvs-titulo"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $cabezeraTabla= html_writer::start_tag('thead', array());
-            $cabezeraTabla.= html_writer::nonempty_tag('tr', '<th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th> <th> Victoria/Derrota</th>',array());
-            $cabezeraTabla.= html_writer::end_tag('thead', array());
-
-            $contenidoTabla = html_writer::start_tag('tbody', array());
-            foreach($intentos as $intento)
+            $partidas = $this->obtener_historial_usuario($gmcompvs->id, $userid);
+            $empates = 0;
+            $victorias = 0;
+            $derrotas = 0;
+            $encurso = 0;
+            $retiradas = 0;
+            $contenidoTabla = '';
+            foreach($partidas as $partida)
                 {
-                    $contenidoTabla.= html_writer::start_tag('tr', array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre,array("class" => "gmcompvs-tabla-celda-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id));
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_usuario, array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_cpu, array());
-                    if($intento->puntuacion_usuario >= $intento->puntuacion_cpu)
+                    $tiempoFinal = " - - - ";
+                    $tiempoFinalContrincante = " - - - ";
+                    $imagen = "pix/derrota.png";
+                    if(!is_null($partida->fecha_fin_a))
                         {
-                            $contenidoTabla.= html_writer::nonempty_tag('td', ' ', array("class" => "gmcompvs-cpu-vencida"));
-
+                            $tiempoFinal = date('Y-m-d', $partida->fecha_fin_a);
+                            $imagen = "pix/retirada.png";
+                            $retiradas++;
+                        }
+                    
+                    if(!is_null($partida->fecha_fin_b))
+                        {
+                            $tiempoFinalContrincante = date('Y-m-d', $partida->fecha_fin_b);
+                            $imagen = "pix/incertidumbre.png";
+                            $encurso++;
+                        }
+                    if($partida->puntuacion_a > $partida->puntuacion_b)
+                        {
+                            if($imagen=='pix/derrota.png')
+                                {
+                                    $imagen = "pix/victoria.png";
+                                    $victorias++;
+                                }
+                        }
+                    else if($partida->puntuacion_a == $partida->puntuacion_b)
+                        {
+                            if($imagen=='pix/derrota.png')
+                                {
+                                    $imagen = "pix/tregua.png";
+                                    $empates++;
+                                }
                         }
                     else
                         {
-                            $contenidoTabla.= html_writer::nonempty_tag('td', ' ', array("class"=>"gmcompvs-tabla-celda-perdedora"));
+                            $derrotas++;
                         }
+                    $contenidoTabla.= html_writer::start_tag('tr', array());
+                    $contenidoTabla.= html_writer::nonempty_tag('td', $partida->firstname_b.' '.$partida->lastname_b.' ('.$partida->firstname_b.')', array("class"=>"gmcompvs-table-history-name"));
+                    $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_b, array("class"=>"gmcompvs-table-history-points"));
+                    $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_a, array("class"=>"gmcompvs-table-history-points"));
+                    $contenidoTabla.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
+                    $contenidoTabla.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
+                    $contenidoTabla.= html_writer::end_tag('td', array());
+
                     $contenidoTabla.= html_writer::end_tag('tr', array());
+                    
                 }
-            if(sizeof($intentos) == 0)
-                {
-                    $contenidoTabla.= html_writer::start_tag('tr', array("class" => "gmcompvs-no-lugar"));
-                    $contenidoTabla.= html_writer::nonempty_tag('td', "Sin intentos", array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', "- - - -", array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', "- - - -", array());
-                    $contenidoTabla.= html_writer::end_tag('tr', array());
-                }
-            $contenidoTabla.= html_writer::end_tag('tbody', array());
-            $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTabla, array());
-            $html.= html_writer::end_tag('div', array());
+
+            $html= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
+            $html.= html_writer::start_tag('div', array("class"=>""));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
+                $html.= html_writer::start_tag('div', array());
+                    $html.= html_writer::empty_tag('img', array("src"=>"pix/victoria.png", "class"=>"gmcompvs-trohpy-image-table"));
+                    $html.= html_writer::nonempty_tag('h3', 'Victorias: '.$victorias, array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array());
+                    $html.= html_writer::empty_tag('img', array("src"=>"pix/empate.png", "class"=>"gmcompvs-trohpy-image-table"));
+                    $html.= html_writer::nonempty_tag('h3', 'Empates: '.$empates, array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array());
+                    $html.= html_writer::empty_tag('img', array("src"=>"pix/derrota.png", "class"=>"gmcompvs-trohpy-image-table"));
+                    $html.= html_writer::nonempty_tag('h3', 'Derrotas: '.$derrotas, array());
+                $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
+                $html.= html_writer::start_tag('div', array());
+                    $html.= html_writer::empty_tag('img', array("src"=>"pix/tregua.png", "class"=>"gmcompvs-trohpy-image-table"));
+                    $html.= html_writer::nonempty_tag('h3', 'En curso: '.$derrotas, array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array());
+                    $html.= html_writer::empty_tag('img', array("src"=>"pix/retirada.png", "class"=>"gmcompvs-trohpy-image-table"));
+                    $html.= html_writer::nonempty_tag('h3', 'Retirada: '.$retiradas, array());
+                $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::nonempty_tag('button', "Volver",array("class" =>" gmcompvs-quarter-container btn btn-primary gmcompvs-end-button-volver gmcompvs-button", "id"=>"gmcompvs-volver-intentos"));
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
+            $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table"));
+            $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
+            $html.= html_writer::start_tag('tr', array());
+            $html.= html_writer::nonempty_tag('th', "Nombre contrincante", array("class"=>"gmcompvs-table-history-name"));
+            $html.= html_writer::nonempty_tag('th', "Puntos contrincante", array("class"=>"gmcompvs-table-history-points"));
+            $html.= html_writer::nonempty_tag('th', "Tus puntos", array("class"=>"gmcompvs-table-history-points"));
+            $html.= html_writer::nonempty_tag('th', "Estado de desaf&iacute;o", array("class"=>"gmcompvs-table-history-state"));
+            $html.= html_writer::end_tag('tr', array());
+            $html.= html_writer::end_tag('thead', array());
+            $html.= html_writer::start_tag('tbody', array("class"=>"gmcompvs-tbody"));
+            $html.= $contenidoTabla;
+            $aux = $victorias + $empates + $derrotas + $retiradas + $encurso;
+            if($aux == 0)
+                {
+                    $imagen = "pix/paz.png";
+                    $html.= html_writer::start_tag('tr', array());
+
+                    $html.= html_writer::nonempty_tag('td', 'No has terminado ningun combate (Pacifista)', array("class"=>"gmcompvs-table-history-name"));
+                    $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
+                    $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
+                    $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
+                    $html.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
+                    $html.= html_writer::end_tag('td', array());
+
+                    $html.= html_writer::end_tag('tr', array());
+
+                }
+            $html.= html_writer::end_tag('tbody');
+            $html.= html_writer::end_tag('table');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
             return $html;
         }
 
 
     
-    private function obtenerDatoSQLVictorias($instancia, $usuario)
+    private function obtener_dato_sql_victorias($instancia, $usuario)
         {
             global $DB;
             $sql = "";
@@ -519,7 +477,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion  as puntuacion";
             $sql.=" FROM {gmdl_partida}";
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
-            $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $usuario AND";
+            $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id != $usuario AND";
             $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
             $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
             $sql.=" ON a.partidaid = b.partidaid";
@@ -528,7 +486,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             return $res;
         }
 
-    private function obtenerPosiblesRivales($instancia, $usuario)
+    private function obtener_posibles_rivales($instancia, $usuario)
         {
             global $DB;
             $sql ="";
@@ -543,6 +501,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" WHERE {context}.contextlevel = 50 AND ";
             $sql.=" {gmcompvs}.id = $instancia AND ";
             $sql.=" {role}.id = 5 AND";
+            $sql.=" {gmdl_usuario}.id != $usuario AND" ;
             $sql.=" {gmdl_usuario}.id not in (";
             $sql.=" SELECT contrincante FROM";
             $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.gmdl_usuario_id as principal, fecha_inicio";
@@ -562,7 +521,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
 
         }
-    private function obtenerDesafiosPendientes($instancia, $usuario)
+    private function obtener_desafios_pendientes($instancia, $usuario)
         {
             global $DB;
             $sql ="";
@@ -590,5 +549,76 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" {gmdl_participacion}.fecha_inicio IS NUll) as a";
             $sql.=" ON a.partidaid = b.partidaid";
             return $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+        }
+
+    private function obtener_victorias_usuarios($instancia)
+        {
+
+            global $DB;
+            $sql = "SELECT username, firstname, lastname, c.victorias FROM";
+            $sql.= " {user} JOIN";
+            $sql.= " {gmdl_usuario} ON  {user}.id = {gmdl_usuario}.mdl_id_usuario";
+            $sql.= " JOIN ";
+            $sql.=" (SELECT a.gmdl_usuario_id as gmdluserid, COUNT(*) as victorias FROM";
+            $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion as puntuacion, gmdl_usuario_id";
+            $sql.=" FROM {gmdl_partida} ";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" WHERE ";
+            $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as a";
+            $sql.=" JOIN ";
+            $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion  as puntuacion, gmdl_usuario_id";
+            $sql.=" FROM {gmdl_partida}";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" WHERE ";
+            $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
+            $sql.=" ON a.partidaid = b.partidaid";
+            $sql.=" WHERE a.puntuacion > b.puntuacion";
+            $sql.=" AND a.gmdl_usuario_id != b.gmdl_usuario_id";
+            $sql.=" GROUP BY a.gmdl_usuario_id";
+            $sql.=" ORDER BY 2 DESC) as c";
+            $sql.=" ON c.gmdluserid = {gmdl_usuario}.id";
+            return $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+        }
+
+    private function obtener_historial_usuario($instancia, $usuario)
+        {
+
+            global $DB;
+            $sql=" SELECT a.*, b.* FROM";
+            $sql.=" (SELECT ";
+            $sql.="         username as username_a,";
+            $sql.="         firstname as firstname_a,";
+            $sql.="         lastname as lastname_a,";
+            $sql.="         {gmdl_partida}.id as partidaid_a,";
+            $sql.="         {gmdl_participacion}.fecha_inicio as fecha_inicio_a,";
+            $sql.="         {gmdl_participacion}.fecha_fin as fecha_fin_a,";
+            $sql.="         {gmdl_participacion}.puntuacion as puntuacion_a";
+            $sql.=" FROM {gmdl_partida} ";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" JOIN {gmdl_usuario} ON {gmdl_participacion}.gmdl_usuario_id = {gmdl_usuario}.id";
+            $sql.=" JOIN {user} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
+            $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $usuario AND";
+            $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as a";
+            $sql.=" JOIN ";
+            $sql.=" (SELECT ";
+            $sql.="         username as username_b,";
+            $sql.="         firstname as firstname_b,";
+            $sql.="         lastname as lastname_b,";
+            $sql.="         {gmdl_partida}.id as partidaid_b,";
+            $sql.="         {gmdl_participacion}.fecha_inicio as fecha_inicio_b,";
+            $sql.="         {gmdl_participacion}.fecha_fin as fecha_fin_b,";
+            $sql.="         {gmdl_participacion}.puntuacion as puntuacion_b";
+            $sql.=" FROM {gmdl_partida}";
+            $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+            $sql.=" JOIN {gmdl_usuario} ON {gmdl_participacion}.gmdl_usuario_id = {gmdl_usuario}.id";
+            $sql.=" JOIN {user} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
+            $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id != $usuario AND";
+            $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
+            $sql.=" ON a.partidaid_a = b.partidaid_b";
+            return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
         }
 }
