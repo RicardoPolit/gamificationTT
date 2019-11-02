@@ -74,12 +74,12 @@ $renderer = $PAGE->get_renderer('mod_gmcompcpu');
 // Output starts here.
 echo $OUTPUT->header();
 
-if ($gmcompcpu->intro) {
-    echo $OUTPUT->box(format_module_intro('gmcompcpu', $gmcompcpu, $cm->id), 'generalbox mod_introbox', 'gmcompcpuintro');
-}
+//if ($gmcompcpu->intro) {
+//    echo $OUTPUT->box(format_module_intro('gmcompcpu', $gmcompcpu, $cm->id), 'generalbox mod_introbox', 'gmcompcpuintro');
+//}
 
 // Output header and directions.
-echo $OUTPUT->heading($gmcompcpu->name);
+//echo $OUTPUT->heading($gmcompcpu->name);
 
 // Game here.
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";

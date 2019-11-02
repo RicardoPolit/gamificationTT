@@ -1,6 +1,7 @@
 .gmcompvs-container{
     width: 100%;
-    margin-bottom: 5%;
+    margin-bottom: 1%;
+    padding: 1%;
     flex-direction: row;
     box-sizing: border-box;
     display: flex;
@@ -174,7 +175,7 @@
 }
 
 .gmcompvs-container-resume{
-    padding: 3%;
+    padding: 2% 0% 1% 0%;
     flex-direction: row;
     box-sizing: border-box;
     display: flex;
@@ -200,4 +201,57 @@
 
 .gmcompvs-table-history-name{
     width: 40%;
+}
+
+
+.gmcompvs-contianer-menu-opciones{
+    height: 100px;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: flex-end center;
+    align-items: flex-end;
+}
+.gmcompvs-contianer-menu-opcion-activa, .gmcompvs-contianer-menu-opcion{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;  
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+    border-right: 5px solid black;
+    cursor: pointer;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
+}
+
+
+.gmcompvs-contianer-menu-opcion-activa{
+    height: 100%;
+    background-color: #0981bd;
+    color: white;
+    width: 34%;
+}
+.gmcompvs-contianer-menu-opcion{
+    height: 60%;
+    background-color: white;
+    width: 33%;
+}
+
+
+#gmcompvs-activity-container{
+    border: 10px solid black;
+    height: 800px;
+}
+
+.gmcompvs-container-overflow-half-height{
+    height: 400px;
+    overflow-y: scroll;
+    overflow-x: hidden; 
+}
+
+.gmcompvs-container-overflow-eighty-height{
+    height: 600px;
+    overflow-y: scroll;
+    overflow-x: hidden; 
 }

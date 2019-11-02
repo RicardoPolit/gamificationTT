@@ -198,6 +198,20 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
             $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
             $html.= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
+            
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opciones"));
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-scores"));
+                    $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion-activa gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-inicio"));
+                    $html.= html_writer::nonempty_tag('h3', 'Inicio',array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-historial"));
+                    $html.= html_writer::nonempty_tag('h3', 'Historial',array());
+                $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-activity-container"));
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-inicio-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-victorias"));
             $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy.png", "class"=>"gmcompvs-trohpy-image"));
@@ -208,7 +222,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
             $html.= html_writer::nonempty_tag('h2', "Compa&ntilde;eros", array("class" =>"gmcompvs-titulo"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-adversaries"));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-adversaries gmcompvs-container-overflow-half-height"));
             $html.= html_writer::nonempty_tag('p','Buscar por nombre:', array("class"=>"gmcompvs-buscador-titulo"));
             $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"text", "placeholder"=>"Nombres", "class"=>"gmcompvs-buscador", "id"=>"gmcompvs-buscador"));
             foreach($posiblesRivales as $rival)
@@ -240,7 +254,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $html.= html_writer::end_tag('div');
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
             $html.= html_writer::nonempty_tag('h2', "Desafios pendientes", array("class" =>"gmcompvs-titulo"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-challenges"));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-challenges gmcompvs-container-overflow-half-height"));
             foreach($desafiosPorTerminar as $desafio)
                 {
                     $html.= html_writer::start_tag('form',
@@ -277,8 +291,9 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         {
             $filas = $this->obtener_victorias_usuarios($gmcompvs->id);
             $html= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-scores-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table"));
+            $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table gmcompvs-container-overflow-eighty-height"));
             $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
             $html.= html_writer::start_tag('tr', array());
             $html.= html_writer::nonempty_tag('th', "Posici&oacute;n", array("class"=>"gmcompvs-table-posicion-column"));
@@ -326,6 +341,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 
             $html.= html_writer::end_tag('tbody', array());
             $html.= html_writer::end_tag('table', array());
+            $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             return $html.$this->render_attempt_page($gmcompvs, $userid);
         }
@@ -389,6 +405,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 }
 
             $html= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-historial-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
             $html.= html_writer::start_tag('div', array("class"=>""));
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
                 $html.= html_writer::start_tag('div', array());
@@ -415,7 +432,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table"));
+            $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table gmcompvs-container-overflow-half-height"));
             $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
             $html.= html_writer::start_tag('tr', array());
             $html.= html_writer::nonempty_tag('th', "Nombre contrincante", array("class"=>"gmcompvs-table-history-name"));
@@ -444,6 +461,9 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 }
             $html.= html_writer::end_tag('tbody');
             $html.= html_writer::end_tag('table');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             return $html;
