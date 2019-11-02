@@ -13,7 +13,9 @@ Estado/\ucstEnEdicion]%
 %
 {CU-E12}{Crear cuenta de usuario gamificado}{%
 %
- Permite al \refElem{aActor} .}
+ Permite al módulo de experiencia recibir el evento, emitido por moodle, de cuando
+ un usuario es creado, con base en este evento el módulo de experiencia asignará los
+ datos por defecto de un usuario gamificado al usuario que se acaba de crear.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -21,51 +23,44 @@ Estado/\ucstEnEdicion]%
  \UCsection{Atributos}
 
     \UCitem{Actor(es)}{%
-        \ref{ch:Moodle}
+        \refElem{aAdministrador}.
     }
 
 	\UCitem{Propósito}{%
-        Extender los datos que posee una cuenta de un \refElem{mdl-user} creado 
-        en moodle con los datos de un \refElem{xp-user}, añadiendo los atributos
-        de \refElem{xp-user.level}, \refElem{xp-user.levelxp}, \refElem{xp-user.xp}
-        y \refElem{xp-user.xp}.
+        Asociar una cuenta de un \refElem{xp-user} a un \refElem{mdl-user}
+        cuando es creado por el administrador.
 	}
 	
-	\UCitem{Entradas}{
-        \begin{Titemize}
-        \item Evento emitido por moodle de que un usuario a sido creado.
-        \item \refElem{mdl-user.id} de \refElem{mdl-user}.
-        \end{Titemize}
+	\UCitems{Entradas}{
+        \Titem Evento emitido por moodle de que un usuario a sido creado.
+        \Titem \refElem{mdl-user.id} de \refElem{mdl-user}.
     }
 
 	\UCitems{Origen}{%
-        \Titem Moodle
+        \Titem API de eventos de Moodle.
 	}
 
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
-	\UCitem{Destino}{%
-		\refElem{IU-M02a}
-	}
+	\UCitem{Destino}{Ninguno}
 	
 	\UCitems{Precondiciones}{%
-        \Titem ...
+        \Titem Los plugins del módulo de experiencia deben de estar instalados.
 	}
 
-	\UCitem{Postcondiciones}{%
-        Ninguna
+	\UCitems{Postcondiciones}{%
+        \Titem Los datos de un usuario gamificado deben permanecer vinculados con
+               el usuario de moodle que se creó.
 	}
 
-	\UCitem{Reglas de negocio}{%
-		Ninguna
-	}
+	\UCitem{Reglas de negocio}{Ninguna}
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
         % CAUSA
-            ...,}{%
-        % EFECTO
-            ...}
+            Los plugins del módulo de experiencia no se encuentran instalados y}{%
+        % EFECTO (inconsistencia)
+            no se puede crear un usuario gamificado, termina el caso de uso}
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -77,8 +72,7 @@ Estado/\ucstEnEdicion]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E0Y}
-        \Titem \refElem{CPI-E0Y}
+        \Titem \refElem{CPC-E12}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -94,23 +88,38 @@ Estado/\ucstEnEdicion]%
 
 \begin{UCtrayectoria}%
 %
- \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
-        para abrir el menu de navegación.
+  \includeUC{CU-M01} ejecutando la trayectoria alternativa B
+  \Actor Presiona la opción {\bf Agregar un usuario}.
+  \Sistema Carga la pantalla \refElem{IU-M05}.
+  \Actor Ingresa el \entrada{mdl-user.username}, \entrada{mdl-user.auth}, 
+         \entrada{mdl-user.password}, \entrada{mdl-user.firstname} y
+         \entrada{mdl-user.lastname}, que son los atributos requeridos para el nuevo
+         usuario.
 
- \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
+  \Actor Opcional: Ingresa los demás valores presentes en la pantalla \refElem{IU-M05}.
+  \Actor Presiona el botón de {\bf Crear Usuario}. \refTray{A}
 
- \Sistema Carga la pantalla \refElem{IU-M02}
+  \Sistema Obtiene lo valores ingresados para el nuevo usuario y crea la cuenta de un
+           \refElem{mdl-user}. 
+  \Sistema Obtiene el \entrada{mdl-user.id} del usuario recientemente creado 
 
+  \Sistema Vincula los datos de un \salida{xp-user} con el id obtenido, estableciendo los
+           valores por defecto para el \refElem{xp-user.level}, \refElem{xp-user.levelxp}
+           y \refElem{xp-user.xp} definidos en el modelo de información. \refErr{Err1}
+
+  \Sistema Obtiene el \salida{xp-user.firstname}, \salida{xp-user.lastname}, 
+           \salida{xp-user.email}, \salida{xp-user.lastaccess}, \salida{xp-user.city},
+           \salida{xp-user.country} de los usuarios presentes en moodle.
+
+  \Sistema Despliega la información de los usuarios en la pantalla \refElem{IU-M05a}.
 \end{UCtrayectoria}
 
 
-\subsubsection{Puntos de extensión}
+\begin{UCtrayectoriaA}{A}{%
+El \refElem{aAdministrador} desea cancelar la creación de un nuevo usuario
+}
+  \Actor Presiona el botón {\bf Cancelar}.
+  \Sistema Redirige a la pantalla \refElem{IU-M01b}
+\end{UCtrayectoriaA}
 
-\UCExtensionPoint{Nombre del punto de extensión}{%
-
-    El \refElem{aAdministrador} desea/requiere/necesita ....%
-%
-    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
-%
-    }{\refElem{CU-E2-T}}
 

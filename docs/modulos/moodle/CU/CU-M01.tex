@@ -78,10 +78,17 @@ Estado/\ucstEnEdicion]%
     \Sistema Carga la pantalla \refElem{IU-M01} con la pestaña de administración del
              sitio preseleccionada.
 
-    \Actor Selecciona la pestaña {\bf plugins}
+    \Actor Selecciona la pestaña {\bf plugins}. \refTray{A}
     \Sistema Carga la pantalla \refElem{IU-M01a}
 
 \end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}{A}{El \refElem{aAdministrador} desea administrar los usuarios
+dentro de la plataforma}
+    
+    \Actor Selecciona la pestaña {\bf Usuarios}.
+    \Sistema Carga la pantalla \refElem{IU-M01b}.
+\end{UCtrayectoriaA}
 
 \subsubsection{Puntos de extensión}
 
@@ -121,4 +128,11 @@ Estado/\ucstEnEdicion]%
     moodle debido a que ya no requiere de las funcionalidades
     que este brinda%
     }{Al inicio la trayectoria principal}{\refElem{CU-E03}}
+
+\UCExtensionPoint{Crear usuario gamificado}{%
+
+    El \refElem{aAdministrador} desea crear un usuario en moodle
+    para otorgarle acceso a las distintas funcionalidades que brinda
+    moodle.%
+    }{Al inicio la trayectoria principal}{\refElem{CU-E12}}
 
