@@ -59,11 +59,12 @@ class local_gamedlemaster_log {
         if(!defined('STDOUT'))
             define('STDOUT', fopen('php://stdout', 'wb'));
 
-        fwrite(STDOUT, local_gamedlemaster_log::ANSI_BLACK.
-                       local_gamedlemaster_log::ANSI_YELLOW_BACKGROUND.'m > '.
-                       local_gamedlemaster_log::ANSI_RESET.' '.$key."\n");
+        fwrite(STDOUT, "GAMEDLE: ".local_gamedlemaster_log::ANSI_BLACK.
+                       local_gamedlemaster_log::ANSI_YELLOW_BACKGROUND."m {$key} ".
+                       local_gamedlemaster_log::ANSI_RESET."\n");
 
-        fwrite(STDOUT, $color.'m'.print_r($arg, true).local_gamedlemaster_log::ANSI_RESET."\n");
+        fwrite(STDOUT, $color.'m'.print_r($arg, true).
+               local_gamedlemaster_log::ANSI_RESET."\n");
     }
 }
 

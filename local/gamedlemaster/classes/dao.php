@@ -12,9 +12,14 @@
 class local_gamedlemaster_dao {
 
     const TBL_USER = "user";
+
     const TBL_GAMIFIED_USER = "gmdl_usuario";
     const TBL_GAMIFIED_USER_ATTR_USER = "mdl_id_usuario";
     const TBL_GAMIFIED_USER_ATTR_ID = "id";
+
+    const TBL_GAMIFIED_USER_ATTR_XP_INIT= "0";
+    const TBL_GAMIFIED_USER_ATTR_LEVELXP_INIT = "0";
+    const TBL_GAMIFIED_USER_ATTR_LEVEL_INIT = "1";
 
     const TBL_REWARDED_SECTIONS = "gmdl_recompensas_seccion";
     const TBL_REWARDED_SECTIONS_ATTR_USER = "gmdl_id_usuario";
@@ -64,6 +69,25 @@ class local_gamedlemaster_dao {
         );
 
         return $DB->delete_records( self::TBL_GAMIFIED_USER, $conditions);
+    }
+
+    /**
+     * Crea el registros de experiencia de un usuario gamificado
+     *
+     * @param integer usuario de moodle: Id del usuario gamificado
+     * @return bool: Status of operation.
+     */ 
+    static function create_gamified_user($moodle_user) {
+        global $DB;
+
+        $gamified_user = new stdClass();
+        $gamified_user->mdl_id_usuario = $moodle_user; // or relateduserid, 
+        $gamified_user->nivel_actual = self::TBL_GAMIFIED_USER_ATTR_LEVEL_INIT;
+        $gamified_user->experiencia_nivel  = self::TBL_GAMIFIED_USER_ATTR_LEVELXP_INIT;
+        $gamified_user->experiencia_actual = self::TBL_GAMIFIED_USER_ATTR_XP_INIT;
+
+        // Event Object Table is user
+        return $DB->insert_record( self::TBL_GAMIFIED_USER, $gamified_user);
     }
 }
 ?>

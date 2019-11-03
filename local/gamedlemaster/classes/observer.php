@@ -21,14 +21,15 @@ class local_gamedlemaster_observer {
 
         global $DB;
 
-        $gamified_user = new stdClass();
-        $gamified_user->mdl_id_usuario = $event->objectid; // or relateduserid, 
-        $gamified_user->nivel_actual = self::DEFAULT_LEVEL;
-        $gamified_user->experiencia_nivel  = self::DEFAULT_LEVELXP;
-        $gamified_user->experiencia_actual = self::DEFAULT_XP;
+        $id = local_gamedlemaster_dao::create_gamified_user($event->objectid);
 
-        // Event Object Table is user
-        $DB->insert_record( self::GAMIFIED_USER_TABLE, $gamified_user);
+        if($id) {
+            local_gamedlemaster_log::success(
+                "Gamedle user {$id} from moodle user {$event->objectid}",'CREATE');
+        } else {
+            local_gamedlemaster_log::error(
+                "Gamedle user {$id} from moodle user {$event->objectid}",'CREATE');
+        }
     }
 
     public static function delete_gamified_user(core\event\user_deleted $event) {
@@ -39,16 +40,25 @@ class local_gamedlemaster_observer {
         try {
             $transaction = $DB->start_delegated_transaction();
 
-            local_gamedlemaster_dao::delete_rewarded_sections($gamified_user->id);
-            local_gamedlemaster_dao::delete_gamified_user($gamified_user->id);
+            $a = local_gamedlemaster_dao::delete_rewarded_sections($gamified_user->id);
+            $b = local_gamedlemaster_dao::delete_gamified_user($gamified_user->id);
 
-            // TODO MANAGE COMMIT WHEN BOTH CHANGES WERE POSITIVE
+            if ($a == 1 && $b == 1 ) {
+                $transaction->allow_commit();
+                local_gamedlemaster_log::warning( "Gamedle user {$gamified_user->id} ".
+                    "from moodle user {$event->objectid}",'DELETE');
 
-            $transaction->allow_commit();
+            } else {
+                $transaction->rollback();
+                throw new coding_exception(
+                    "Delete gamified user: {$b}, ".
+                    "Delete rewarded sections {$a}");
+            }
 
         } catch(Exception $ex) {
-            local_gamedlemaster_log::info($ex, 'Exception');
             $transaction->rollback($ex);
+            local_gamedlemaster_log::error( "Gamedle user {$gamified_user->id} ".
+                "from moodle user {$event->objectid}",'DELETE');
         }
     }
 
