@@ -71,6 +71,10 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019110200();
             }
+        else if ($oldversion < 2019110300)
+            {
+                upgrades2019110300();
+            }
 
 		return true;
 	}
@@ -832,6 +836,7 @@ function upgrades2019102902()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019102902, 'local', 'gamedlemaster');
+        upgrades2019103100();
     }
 
 
@@ -927,6 +932,7 @@ function upgrades2019103100($oldversion)
         }
     
 
+        upgrades2019110200();
     }
 
 function upgrades2019110200()
@@ -942,4 +948,57 @@ function upgrades2019110200()
  
          // Gamedlemaster savepoint reached.
          upgrade_plugin_savepoint(true, 2019110200, 'local', 'gamedlemaster');
+    }
+
+function upgrades2019110300($oldversion)
+    {
+        global $DB;
+        $dbman = $DB->get_manager();
+        // Define table gmpregdiarias to be created.
+        $table = new xmldb_table('gmpregdiarias');
+
+        // Adding fields to table gmpregdiarias.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('course', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('name', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('timemodified', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('intro', XMLDB_TYPE_TEXT, null, null, null, null, null);
+        $table->add_field('introformar', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0');
+        $table->add_field('mdl_question_categories_id', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
+
+        // Adding keys to table gmpregdiarias.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+
+        // Conditionally launch create table for gmpregdiarias.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+       
+        // Define table gmdl_intento_diario to be created.
+        $table = new xmldb_table('gmdl_intento_diario');
+
+        // Adding fields to table gmdl_intento_diario.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('gmdl_usuario_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('mdl_question_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('gmdl_preg_diarias_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('calificacion', XMLDB_TYPE_NUMBER, '12, 7', null, XMLDB_NOTNULL, null, '0.0');
+        $table->add_field('fecha', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+
+        // Adding keys to table gmdl_intento_diario.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_key('gmdl_usuario_id', XMLDB_KEY_FOREIGN, array('gmdl_usuario_id'), 'gmdl_usuario', array('id'));
+        $table->add_key('mdl_question_id', XMLDB_KEY_FOREIGN, array('mdl_question_id'), 'mdl_question', array('id'));
+        $table->add_key('gmdl_preg_diarias_id', XMLDB_KEY_FOREIGN, array('gmdl_preg_diarias_id'), 'gmpregdiarias', array('id'));
+
+        // Conditionally launch create table for gmdl_intento_diario.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Gamedlemaster savepoint reached.
+        upgrade_plugin_savepoint(true, 2019110300, 'local', 'gamedlemaster');
+
+
     }
