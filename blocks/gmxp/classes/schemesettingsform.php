@@ -104,19 +104,18 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
 
         $key = self::ELEM_PERCENTUAL;
         $mform->setType($key, PARAM_FLOAT);
-        //$mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, get_string('float',self::PLUGIN), 'regex',
-            self::PERCENTUAL_REGEX, 'client');
+        // $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        // $mform->addRule($key, get_string('float',self::PLUGIN), 'regex',
+        //    self::PERCENTUAL_REGEX, 'client');
 
         $mform->hideIf($key, self::INCREMENT, 'eq', self::LINEAL);
-
 
         $key = self::ELEM_LINEAL;
         $errormsg = get_string('integer', self::PLUGIN);
         $mform->setType($key, PARAM_INT);
-        //$mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, $errormsg, 'regex', self::XP_REGEX, 'client');
-        $mform->addRule($key, $errormsg, 'nonzero', null, 'client');
+        // $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        // $mform->addRule($key, $errormsg, 'regex', self::XP_REGEX, 'client');
+        // $mform->addRule($key, $errormsg, 'nonzero', null, 'client');
         $mform->hideIf($key, self::INCREMENT, 'eq', self::PERCENTUAL);
 
         $key = self::LEVELXP;
@@ -168,63 +167,63 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
      */
     public function validation($data, $files) {
         $errors = array();
-        /*
         $this->auth_error = false;
 
         // TODO: Handle error on external page settings/visual_settings.php
+        // TODO Pass TO PARENT
         if (!isset($data['sesskey'])) {
             $this->auth_error = true;
             $errors['sesskey'] = "AUTH ERROR";
             return $errors;
         }
 
-        $key = self::TITLE;
-        if ($data[$key] == null) {
-            $errors[$key] = get_string('required');
+        $increment = $data[self::INCREMENT];
+        $xp_incorrect = get_string('integer', self::PLUGIN);
 
-        } else if (strlen($data[$key]) >= self::TITLE_MAX_LENGTH) {
-            $errors[$key] =
-                get_string('maxlength', self::PLUGIN, self::TITLE_MAX_LENGTH);
+        if ($increment == self::LINEAL) {
+            $key = self::ELEM_LINEAL;
+            if( !isset($data[$key]) || empty($data[$key]) ) {
+                $errors[$key] = $xp_incorrect;
+
+            } else if (!preg_match( self::XP_REGEX, $data[$key] || $data[$key] == 0)) {
+                $errors[$key] = $xp_incorrect;
+            }
+
+        } else if ($increment == self::PERCENTUAL) {
+            $key = self::ELEM_PERCENTUAL;
+            if( !isset($data[$key]) || empty($data[$key]) ) {
+                $errors[$key] = get_string('required');
+
+            } else if (!preg_match( self::PERCENTUAL_REGEX, $data[$key]) ||
+              $data[$key] <= 1 || $data[$key] > 2 ) {
+                $errors[$key] = get_string('float', self::PLUGIN);
+            }
+
+        } else {
+            $data[self::INCREMENT] = get_string('required');
         }
 
-
-        $key = self::DESCRIPTION;
-        if ($data[$key] == null) {
+        $key = self::LEVELXP;
+        if( !isset($data[$key]) || empty($data[$key]) ) {
             $errors[$key] = get_string('required');
 
-        } else if (strlen($data[$key]) >= self::DESC_MAX_LENGTH) {
-            $errors[$key] =
-              get_string('maxlength', self::PLUGIN, self::DESC_MAX_LENGTH);
+        } else if (!preg_match( self::XP_REGEX, $data[$key] || $data[$key] == 0)) {
+            $errors[$key] = $xp_incorrect;
         }
 
-
-        $key = self::MESSAGE;
-        if ($data[$key] == null) {
+        $key = self::COURSEXP;
+        if( !isset($data[$key]) || empty($data[$key]) ) {
             $errors[$key] = get_string('required');
 
-        } else if (strlen($data[$key]) >= self::MSG_MAX_LENGTH) {
-            $errors[$key] =
-              get_string('maxlength', self::PLUGIN, self::MSG_MAX_LENGTH);
+        } else if (!preg_match( self::XP_REGEX, $data[$key] || $data[$key] == 0)) {
+            $errors[$key] = $xp_incorrect;
         }
 
-
-        $key = self::COLORLVL;
-        if ($data[$key] == null) {
-            $errors[$key] = get_string('required');
-
-        } else if (!preg_match( self::COLOR_REGEX, $data[$key])) {
-            $errors[$key] = get_string('color', self::PLUGIN);
+        $this->has_error = false;
+        if (!empty($errors)) {
+            $this->has_error = true;
         }
 
-
-        $key = self::COLORBAR;
-        if ($data[$key] == null) {
-            $errors[$key] = get_string('required');
-
-        } else if (!preg_match( self::COLOR_REGEX, $data[$key])) {
-            $errors[$key] = get_string('color', self::PLUGIN);
-        }
-        */
         return $errors;
     }
 
