@@ -939,7 +939,7 @@ function upgrades2019110200()
     {
         global $DB;
         $dbman = $DB->get_manager();
-         // Changing nullability of field fecha_inicio on table gmdl_participacion to null.
+         // Changing nullability of field fecha_inicio on table gmdl_participacion to null. 
          $table = new xmldb_table('gmdl_participacion');
          $field = new xmldb_field('fecha_inicio', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'gmdl_partida_id');
  
@@ -948,6 +948,7 @@ function upgrades2019110200()
  
          // Gamedlemaster savepoint reached.
          upgrade_plugin_savepoint(true, 2019110200, 'local', 'gamedlemaster');
+         upgrades2019110300();
     }
 
 function upgrades2019110300()
