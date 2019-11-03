@@ -16,7 +16,6 @@ class local_gamedlemaster_observer {
     const DEFAULT_LEVEL = 1;
     const DEFAULT_LEVELXP = 0;
     const DEFAULT_XP = 0;
-    const GAMIFIED_USER_TABLE = "gmdl_usuario";
 
     public static function create_gamified_user(core\event\user_created $event) {
 
@@ -30,6 +29,27 @@ class local_gamedlemaster_observer {
 
         // Event Object Table is user
         $DB->insert_record( self::GAMIFIED_USER_TABLE, $gamified_user);
+    }
+
+    public static function delete_gamified_user(core\event\user_deleted $event) {
+
+        global $DB;
+        $gamified_user = local_gamedlemaster_dao::get_gamified_user($event->objectid);
+
+        try {
+            $transaction = $DB->start_delegated_transaction();
+
+            local_gamedlemaster_dao::delete_rewarded_sections($gamified_user->id);
+            local_gamedlemaster_dao::delete_gamified_user($gamified_user->id);
+
+            // TODO MANAGE COMMIT WHEN BOTH CHANGES WERE POSITIVE
+
+            $transaction->allow_commit();
+
+        } catch(Exception $ex) {
+            local_gamedlemaster_log::info($ex, 'Exception');
+            $transaction->rollback($ex);
+        }
     }
 
 }
