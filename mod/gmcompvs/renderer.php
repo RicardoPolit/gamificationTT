@@ -198,7 +198,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
             $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
             $html.= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
-            
+
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opciones"));
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-scores"));
                     $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
@@ -317,7 +317,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     else if($lugar == 2){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmcompvs-trohpy-image")); }
                     else if($lugar == 3){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmcompvs-trohpy-image")); }
                     $html.= html_writer::end_tag('td', array());
-            
+
                     $html.= html_writer::nonempty_tag('td', $fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' , array("class"=>"gmcompvs-table-name-column"));
                     $html.= html_writer::nonempty_tag('td', $fila->victorias , array("class"=>"gmcompvs-table-victorias-column"));
 
@@ -329,7 +329,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $ultimosPuntos = $fila->victorias;
                     $html.= html_writer::end_tag('tr', array());
                 }
-            
+
             if($primeraFila == 1)
                 {
                     $html.= html_writer::start_tag('tr', array());
@@ -338,7 +338,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $html.= html_writer::nonempty_tag('td', '0' , array("class"=>"gmcompvs-table-victorias-column"));
                     $html.= html_writer::end_tag('tr', array());
                 }
-                
+
             $html.= html_writer::end_tag('tbody', array());
             $html.= html_writer::end_tag('table', array());
             $html.= html_writer::end_tag('div');
@@ -359,14 +359,14 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $tiempoFinal = " - - - ";
                     $tiempoFinalContrincante = " - - - ";
                     $imagen = "pix/derrota.png";
-                    if(!is_null($partida->fecha_fin_a))
+                    if(is_null($partida->fecha_fin_a))
                         {
                             $tiempoFinal = date('Y-m-d', $partida->fecha_fin_a);
                             $imagen = "pix/retirada.png";
                             $retiradas++;
                         }
-                    
-                    if(!is_null($partida->fecha_fin_b))
+
+                    if(is_null($partida->fecha_fin_b))
                         {
                             $tiempoFinalContrincante = date('Y-m-d', $partida->fecha_fin_b);
                             $imagen = "pix/incertidumbre.png";
@@ -401,7 +401,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $contenidoTabla.= html_writer::end_tag('td', array());
 
                     $contenidoTabla.= html_writer::end_tag('tr', array());
-                    
+
                 }
 
             $html= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
@@ -424,7 +424,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
                 $html.= html_writer::start_tag('div', array());
                     $html.= html_writer::empty_tag('img', array("src"=>"pix/tregua.png", "class"=>"gmcompvs-trohpy-image-table"));
-                    $html.= html_writer::nonempty_tag('h3', 'En curso: '.$derrotas, array());
+                    $html.= html_writer::nonempty_tag('h3', 'En curso: '.$encurso, array());
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array());
                     $html.= html_writer::empty_tag('img', array("src"=>"pix/retirada.png", "class"=>"gmcompvs-trohpy-image-table"));
@@ -470,7 +470,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         }
 
 
-    
+
     private function obtener_dato_sql_victorias($instancia, $usuario)
         {
             global $DB;
@@ -499,7 +499,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         {
             global $DB;
             $sql ="";
-            $sql.=" SELECT {user}.id as userid, username, firstname, lastname from";
+            $sql.=" SELECT {gmdl_usuario}.id as userid, username, firstname, lastname from";
             $sql.=" {user} JOIN";
             $sql.=" {role_assignments} ON {user}.id = {role_assignments}.userid ";
             $sql.=" JOIN {role} ON {role_assignments}.roleid = {role}.id";
@@ -546,15 +546,15 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.gmdl_usuario_id as contrincante";
             $sql.=" FROM {gmdl_partida} ";
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
-            $sql.=" WHERE gmdl_comp_vs_id = 1 AND";
-            $sql.=" {gmdl_participacion}.gmdl_usuario_id != 2 AND";
+            $sql.=" WHERE gmdl_comp_vs_id = ".$instancia." AND";
+            $sql.=" {gmdl_participacion}.gmdl_usuario_id != ".$usuario." AND";
             $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll) as b";
             $sql.=" ON b.contrincante = {gmdl_usuario}.id";
             $sql.=" JOIN (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.id as participacionid, {gmdl_participacion}.gmdl_usuario_id as principal";
             $sql.=" FROM {gmdl_participacion}";
             $sql.=" JOIN {gmdl_partida} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
-            $sql.=" WHERE {gmdl_partida}.gmdl_comp_vs_id = 1 AND";
-            $sql.=" {gmdl_participacion}.gmdl_usuario_id = 2 AND";
+            $sql.=" WHERE {gmdl_partida}.gmdl_comp_vs_id = ".$instancia." AND";
+            $sql.=" {gmdl_participacion}.gmdl_usuario_id = ".$usuario." AND";
             $sql.=" {gmdl_participacion}.fecha_inicio IS NUll) as a";
             $sql.=" ON a.partidaid = b.partidaid";
             return $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);

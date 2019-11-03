@@ -25,16 +25,14 @@ if($rivalid != -1 && $participacionid == -1){
 
     $participacionvalues = (object)array(
         'gmdl_usuario_id' => $gmuserid,
-        'gmdl_partida_id' => $partidaid,
-        'fecha_inicio' => -1                  //Porque no es nullable
+        'gmdl_partida_id' => $partidaid
     );
 
     $participacionid = $DB->insert_record('gmdl_participacion',$participacionvalues);
 
     $participacionvalues = (object)array(
         'gmdl_usuario_id' => $rivalid,
-        'gmdl_partida_id' => $partidaid,
-        'fecha_inicio' => -1                    //Porque no es nullable
+        'gmdl_partida_id' => $partidaid
     );
 
     $DB->insert_record('gmdl_participacion',$participacionvalues);

@@ -33,8 +33,8 @@ $DB->update_record('gmdl_participacion',$values);
 $sql =  'SELECT {gmdl_participacion}.puntuacion as contrincantepuntuacion, {gmdl_participacion}.gmdl_usuario_id as contrincante, {gmdl_participacion}.fecha_inicio as finicio, {gmdl_participacion}.fecha_fin as ffin, {gmdl_participacion}.id as id';
 $sql .= ' FROM {gmdl_participacion}';
 $sql .= ' WHERE {gmdl_participacion}.gmdl_usuario_id != '.$gmuserid.' AND';
-$sql .= ' {gmdl_participacion}.fecha_inicial IS NOT NUll AND {gmdl_participacion}.fecha_fin IS NOT NULL AND';
-$sql .= ' id = '.$participacionid;
+$sql .= ' {gmdl_participacion}.fecha_inicio IS NOT NUll AND {gmdl_participacion}.fecha_fin IS NOT NULL AND';
+$sql .= ' {gmdl_participacion}.gmdl_partida_id = '.$participacion->gmdl_partida_id;
 
 $rows = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
 
@@ -49,7 +49,27 @@ foreach ($rows as $row){
     $contrincante->idparticipacion = $row->id;
 }
 
+
+$gmcompvs  = $DB->get_record('gmcompvs', array('id' => $cm), '*', MUST_EXIST);
+$course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
+$cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
+
+require_login($course, true, $cm);
+
+$context = context_module::instance($cm->id);
+
+$PAGE->set_title(format_string($gmcompvs->name));
+$PAGE->set_heading(format_string($course->fullname));
+$PAGE->set_context($context);
 $renderer = $PAGE->get_renderer('mod_gmcompvs');
+
+echo $OUTPUT->header();
+
+echo $OUTPUT->heading($gmcompvs->name);
+
+echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
+
+/*echo $sql;*/
 
 if($contrincante->idusuario != null) {
 
@@ -76,39 +96,20 @@ if($contrincante->idusuario != null) {
 
     $vistausuario = $renderer->render_results_attempt($userScore,$contrincante->puntuacion);
 
-    $event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
+    /*$event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
         'objectid' => $gmcompvs->id,
         'context' => $context,
         'other' => array('userid' => $userid),
     ));
 
     $event->add_record_snapshot('gmcompvs', $gmcompvs);
-    $event->trigger();
+    $event->trigger();*/
 
 }else {
 
     $vistausuario = $renderer->render_wait_page();
 
 }
-
-
-$gmcompvs  = $DB->get_record('gmcompvs', array('id' => $cm), '*', MUST_EXIST);
-$course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
-$cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
-
-require_login($course, true, $cm);
-
-$context = context_module::instance($cm->id);
-
-$PAGE->set_title(format_string($gmcompvs->name));
-$PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_context($context);
-
-echo $OUTPUT->header();
-
-echo $OUTPUT->heading($gmcompvs->name);
-
-echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
 echo $vistausuario;
 
