@@ -38,8 +38,6 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
     const DESC_MAX_LENGTH  = 200;
     const DESC_COLS        = 40;
 
-    public $auth_error = false;
-
     protected function definition() {
 
         $mform = $this->_form;
@@ -187,6 +185,7 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
     public function validation($data, $files) {
 
         $errors = array();
+        /*
         $this->auth_error = false;
 
         // TODO: Handle error on external page settings/visual_settings.php
@@ -194,7 +193,7 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
             $this->auth_error = true;
             $errors['sesskey'] = "AUTH ERROR";
             return $errors;
-        }
+        }*/
 
         $key = self::TITLE;
         if ($data[$key] == null) {

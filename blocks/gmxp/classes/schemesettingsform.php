@@ -167,6 +167,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
      */
     public function validation($data, $files) {
         $errors = array();
+        /*
         $this->auth_error = false;
 
         // TODO: Handle error on external page settings/visual_settings.php
@@ -175,7 +176,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
             $this->auth_error = true;
             $errors['sesskey'] = "AUTH ERROR";
             return $errors;
-        }
+        }*/
 
         $increment = $data[self::INCREMENT];
         $xp_incorrect = get_string('integer', self::PLUGIN);
