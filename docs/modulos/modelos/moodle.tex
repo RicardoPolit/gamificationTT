@@ -152,6 +152,58 @@
 
     \end{cdtEntidad}\schemeName{course}
 
+
+    \begin{cdtEntidad}{mdl-course-format-options}{Opciones del formato del curso}{%
+    }
+
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+
+	    \brAttr{courseid}{Id}{tInt}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tForeignKey},
+            \refElem{tRequired}
+        }
+
+	    \brAttr{format}{formato}{tVarchar}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tRequired}.
+            \refElem{tDefault} topics,
+            \refElem{tLength} 0-21.
+        }
+
+	    \brAttr{name}{opcion}{tVarchar}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tLength} 0-100
+        }
+
+	    \brAttr{value}{valor}{tVarchar}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tRequired}
+        }
+
+    \end{cdtEntidad}\schemeName{course}
+
+
     \begin{cdtEntidad}{Plugin}{Plugin}{%
     La forma en que moodle obtiene información acerca de los plugins es analizando
     los archivos internos de cada uno, a pesar de que los plugins no forman parte
