@@ -950,7 +950,7 @@ function upgrades2019110200()
          upgrade_plugin_savepoint(true, 2019110200, 'local', 'gamedlemaster');
     }
 
-function upgrades2019110300($oldversion)
+function upgrades2019110300()
     {
         global $DB;
         $dbman = $DB->get_manager();
