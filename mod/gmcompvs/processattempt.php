@@ -33,7 +33,7 @@ $DB->update_record('gmdl_participacion',$values);
 $sql =  'SELECT {gmdl_participacion}.puntuacion as contrincantepuntuacion, {gmdl_participacion}.gmdl_usuario_id as contrincante, {gmdl_participacion}.fecha_inicio as finicio, {gmdl_participacion}.fecha_fin as ffin, {gmdl_participacion}.id as id';
 $sql .= ' FROM {gmdl_participacion}';
 $sql .= ' WHERE {gmdl_participacion}.gmdl_usuario_id != '.$gmuserid.' AND';
-$sql .= ' {gmdl_participacion}.fecha_inicial IS NOT NUll AND {gmdl_participacion}.fecha_fin IS NOT NULL AND';
+$sql .= ' {gmdl_participacion}.fecha_inicio IS NOT NUll AND {gmdl_participacion}.fecha_fin IS NOT NULL AND';
 $sql .= ' id = '.$participacionid;
 
 $rows = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
