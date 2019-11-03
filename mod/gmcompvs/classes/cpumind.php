@@ -1,14 +1,14 @@
 <?php
 
-class mod_gmcompcpu__cpumind {
+class mod_gmcompvs__cpumind {
 
 
 
     static function cpuattempt( $quba , $cm, $dificultad){
 
-        /*$gmcompcpu  = $DB->get_record('gmcompcpu', array('id' => $cm->instance), '*', MUST_EXIST);
+        /*$gmcompvs  = $DB->get_record('gmcompvs', array('id' => $cm->instance), '*', MUST_EXIST);
 
-        $difficulty = $gmcompcpu->cpudifficulty;*/
+        $difficulty = $gmcompvs->cpudifficulty;*/
 
         $slots = $quba->get_slots();
 

@@ -4,7 +4,7 @@
     
     $capabilities = array(
     
-        'mod/gmcompcpu:addinstance' => array(
+        'mod/gmcompvs:addinstance' => array(
             'riskbitmask' => RISK_XSS,
             'captype' => 'write',
             'contextlevel' => CONTEXT_COURSE,
@@ -14,7 +14,7 @@
             ),
             'clonepermissionsfrom' => 'moodle/course:manageactivities'
         ),
-        'mod/gmcompcpu:view' => array(
+        'mod/gmcompvs:view' => array(
             'captype' => 'read',
             'contextlevel' => CONTEXT_MODULE,
             'archetypes' => array(

@@ -20,7 +20,7 @@
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
  *
- * @package    mod_gmcompcpu
+ * @package    mod_gmcompvs
  * @copyright  2014 John Okely <john@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -35,21 +35,21 @@ $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 require_course_login($course);
 
 $coursecontext = context_course::instance($course->id);
-/*$event = \mod_gmcompcpu\event\course_module_instance_list_viewed::create(array(
+/*$event = \mod_gmcompvs\event\course_module_instance_list_viewed::create(array(
     'context' => $coursecontext
 ));
 $event->add_record_snapshot('course', $course);
 $event->trigger();
 
-$PAGE->set_url('/mod/gmcompcpu/index.php', array('id' => $id));
+$PAGE->set_url('/mod/gmcompvs/index.php', array('id' => $id));
 $PAGE->set_title(format_string($course->fullname));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($coursecontext);*/
 
 echo $OUTPUT->header();
 
-if (! $gmcompcpus = get_all_instances_in_course('gmcompcpu', $course)) {
-    notice(get_string('nogmcompcpus', 'gmcompcpu'), new moodle_url('/course/view.php', array('id' => $course->id)));
+if (! $gmcompvss = get_all_instances_in_course('gmcompvs', $course)) {
+    notice(get_string('nogmcompvss', 'gmcompvs'), new moodle_url('/course/view.php', array('id' => $course->id)));
 }
 
 $table = new html_table();
@@ -64,25 +64,25 @@ if ($course->format == 'weeks') {
     $table->align = array('left', 'left', 'left');
 }
 
-foreach ($gmcompcpus as $gmcompcpu) {
-    if (!$gmcompcpu->visible) {
+foreach ($gmcompvss as $gmcompvs) {
+    if (!$gmcompvs->visible) {
         $link = html_writer::link(
-            new moodle_url('/mod/gmcompcpu/view.php', array('id' => $gmcompcpu->coursemodule)),
-            format_string($gmcompcpu->name, true),
+            new moodle_url('/mod/gmcompvs/view.php', array('id' => $gmcompvs->coursemodule)),
+            format_string($gmcompvs->name, true),
             array('class' => 'dimmed'));
     } else {
         $link = html_writer::link(
-            new moodle_url('/mod/gmcompcpu/view.php', array('id' => $gmcompcpu->coursemodule)),
-            format_string($gmcompcpu->name, true));
+            new moodle_url('/mod/gmcompvs/view.php', array('id' => $gmcompvs->coursemodule)),
+            format_string($gmcompvs->name, true));
     }
 
     if ($course->format == 'weeks' or $course->format == 'topics') {
-        $table->data[] = array($gmcompcpu->section, $link);
+        $table->data[] = array($gmcompvs->section, $link);
     } else {
         $table->data[] = array($link);
     }
 }
 
-echo $OUTPUT->heading(get_string('modulenameplural', 'gmcompcpu'), 2);
+echo $OUTPUT->heading(get_string('modulenameplural', 'gmcompvs'), 2);
 echo html_writer::table($table);
 echo $OUTPUT->footer();

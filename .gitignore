@@ -110,6 +110,8 @@ webservice/
 !mod/gmcompcpu/**/*
 !mod/gmcompcpu/
 !mod/gmcompcpu/**/*
+!mod/gmcompvs/
+!mod/gmcompvs/**/*
 
 */**/.swp
 /mod/gmcompcpu/.travis.yml

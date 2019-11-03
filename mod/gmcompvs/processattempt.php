@@ -2,16 +2,17 @@
 
 require_once(dirname(__FILE__).'/../../config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
-require_once($CFG->dirroot . '/mod/gmcompcpu/classes/cpumind.php');
+require_once($CFG->dirroot . '/mod/gmcompvs/classes/cpumind.php');
 
 $fechafin = date('Y-m-d H:i:s');
 
 $id  = optional_param('id', "", PARAM_INT);  // Is the param action.
 $cm  = optional_param('cm', "", PARAM_INT);  // Is the param action.
 $userid = optional_param('userid', "", PARAM_INT);  // Is the param action.
-$intentoid = optional_param('intentoid', "", PARAM_INT);  // Is the param action.
+$gmuserid = optional_param('gmuserid', "", PARAM_INT);  // Is the param action.
+$participacionid = optional_param('participacionid', "", PARAM_INT);  // Is the param action.
 $idredirect  = optional_param('idredirect', "", PARAM_INT);  // Is the param action.
-$intento = $DB->get_record('gmdl_intento', array('id' => $intentoid), '*', MUST_EXIST);
+$participacion = $DB->get_record('gmdl_participacion', array('id' => $participacionid), '*', MUST_EXIST);
 
 $timenow = time();
 
@@ -19,139 +20,100 @@ $quba = question_engine::load_questions_usage_by_activity($id);
 
 $userScore = calculateScoreUser($quba,$timenow);
 
-/*echo json_encode($userScore);*/
-
-/*for ($i = 1; $i <= 4; $i++) {                                     //Pruebas para ver como se comportan las diferentes dificultades (funciona como se espera)
-
-    $scoreAv = 0;
-
-    $scorePercents = [];
-
-    for ($y = 0; $y <= 10; $y++) {
-
-        $scorePercents[$y] = 0;
-
-    }
-
-    for ($y = 0; $y < 10000; $y++) {
-
-        $questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$i);
-        $currentScore = calculateScoreCpu($questionswithAnswers);
-
-        $scoreAv += $currentScore;
-
-        $scorePercents[(int)($currentScore/50)]++;
-
-    }
-
-    for ($y = 0; $y <= 10; $y++) {
-
-        $scorePercents[$y] = ($scorePercents[$y]/10000)*100;
-
-    }
-
-    $scoreAv = $scoreAv/10000;
-
-    echo '<br>';
-    echo '---------------------------';
-    echo '<br>';
-    echo 'Promedio de puntaje en nivel: '.$i.': '.$scoreAv;
-    foreach ( $scorePercents as $x => $scorePercent ){
-
-        echo '<br>';
-        echo 'Probabilidad de puntuación de '.$x.': '.$scorePercent.'%';
-
-    }
-
-}*/
-
-$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$intento->gmdl_dificultad_cpu_id);          //ESTA
-
-/*echo json_encode($questionswithAnswers);
-echo '<br>';*/
-
-$cpuScore = calculateScoreCpu( $questionswithAnswers );
+$tiempotardado = $timenow-$participacion->fecha_inicio;
 
 $values = (object)[
-    'puntuacion_cpu' => $cpuScore,
-    'puntuacion_usuario' => $userScore,
-    'fecha_fin' => time()
+    'id' => $participacionid,
+    'puntuacion' => $userScore,
+    'fecha_fin' => $timenow
 ];
 
-$values->id = $intentoid;
+$DB->update_record('gmdl_participacion',$values);
+
+$sql =  'SELECT {gmdl_participacion}.puntuacion as contrincantepuntuacion, {gmdl_participacion}.gmdl_usuario_id as contrincante, {gmdl_participacion}.fecha_inicio as finicio, {gmdl_participacion}.fecha_fin as ffin, {gmdl_participacion}.id as id';
+$sql .= ' FROM {gmdl_participacion}';
+$sql .= ' WHERE {gmdl_participacion}.gmdl_usuario_id != '.$gmuserid.' AND';
+$sql .= ' {gmdl_participacion}.fecha_inicial IS NOT NUll AND {gmdl_participacion}.fecha_fin IS NOT NULL AND';
+$sql .= ' id = '.$participacionid;
+
+$rows = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+
+$contrincante = new stdClass();
+
+$contrincante->idusuario = null;
+
+foreach ($rows as $row){
+    $contrincante->puntuacion = $row->contrincantepuntuacion;
+    $contrincante->idusuario = $row->contrincante;
+    $contrincante->tiempotardado = $row->ffin - $row->finicio;
+    $contrincante->idparticipacion = $row->id;
+}
+
+$renderer = $PAGE->get_renderer('mod_gmcompvs');
+
+if($contrincante->idusuario != null) {
+
+    if ($tiempotardado > $contrincante->tiempotardado) {
+        $participacionid = $contrincante->idparticipacion;
+        $contrincante->puntuacion += (int)($contrincante->puntuacion / 5);
+        $userScoreUpdate = $contrincante->puntuacion;
+    } else {
+        $userScore += (int)($userScore / 5);
+        $userScoreUpdate = $userScore;
+    }
+
+    $values = (object)[
+        'id' => $participacionid,
+        'puntuacion' => $userScoreUpdate
+    ];
+
+    $DB->update_record('gmdl_participacion', $values);
+
+    if( $userScore > $contrincante->puntuacion )
+        $userid = $gmuserid;
+    else
+        $userid = $contrincante->idusuario;
+
+    $vistausuario = $renderer->render_results_attempt($userScore,$contrincante->puntuacion);
+
+    $event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
+        'objectid' => $gmcompvs->id,
+        'context' => $context,
+        'other' => array('userid' => $userid),
+    ));
+
+    $event->add_record_snapshot('gmcompvs', $gmcompvs);
+    $event->trigger();
+
+}else {
+
+    $vistausuario = $renderer->render_wait_page();
+
+}
 
 
-$gmcompcpu  = $DB->get_record('gmcompcpu', array('id' => $cm), '*', MUST_EXIST);
-$course     = $DB->get_record('course', array('id' => $gmcompcpu->course), '*', MUST_EXIST);
-$cm         = get_coursemodule_from_instance('gmcompcpu', $gmcompcpu->id, $course->id, false, MUST_EXIST);
+$gmcompvs  = $DB->get_record('gmcompvs', array('id' => $cm), '*', MUST_EXIST);
+$course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
+$cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
 
 require_login($course, true, $cm);
 
 $context = context_module::instance($cm->id);
 
-
-$PAGE->set_title(format_string($gmcompcpu->name));
+$PAGE->set_title(format_string($gmcompvs->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 
-$renderer = $PAGE->get_renderer('mod_gmcompcpu');
-
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading($gmcompcpu->name);
+echo $OUTPUT->heading($gmcompvs->name);
 
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
-echo $renderer->render_results_attempt($userScore,$cpuScore);
+echo $vistausuario;
 
 echo $OUTPUT->footer();
 
-$maxScore = 0;
-
-$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id),'MAX(puntuacion_usuario)');
-
-if($userScore > $maxScore && $userScore >= $cpuScore){
-
-    $event = \local_gamedlemaster\event\gmcompcpu_compFinishedWon::create(array(
-        'objectid' => $gmcompcpu->id,
-        'context' => $context,
-        'other' => array('userid' => $userid, 'dificultad' => $intento->gmdl_dificultad_cpu_id),
-    ));
-
-    $event->add_record_snapshot('gmcompcpu', $gmcompcpu);
-    $event->trigger();
-
-}
-
-$DB->update_record('gmdl_intento',$values);
-
-insertCpuAnswers($questionswithAnswers,$intentoid);
-
-/*$urltogo = new moodle_url('/mod/gmcompcpu/view.php', array('id' => $idredirect));
-
-redirect($urltogo);*/
-
-/*echo $userScore;
-echo '<br>';
-echo $cpuScore;*/
-
-function insertCpuAnswers( $questionswithAnswers ,$intentoid){
-
-    global $DB;
-
-    foreach ($questionswithAnswers as $questionwithAnswers){
-
-        foreach ( $questionwithAnswers as $answer ){
-
-            $values = (object)array('mdl_question_id' => $answer->question, 'mdl_question_answers_id' => $answer->id, 'gmdl_intento_id' => $intentoid);
-
-            $DB->insert_record('gmdl_respuesta_cpu',$values);
-
-        }
-
-    }
-
-}
 
 function processAnswer( $dbanswer ){
 
@@ -168,23 +130,6 @@ function processAnswer( $dbanswer ){
 
 }
 
-function calculateScoreCpu( $questionswithAnswers ){
-
-    $score = 0;
-
-    foreach ($questionswithAnswers as $questionwithAnswers){
-
-        foreach ( $questionwithAnswers as $answer ){
-
-            $score += (100) * $answer->fraction;
-
-        }
-
-    }
-
-    return $score;
-
-}
 
 function calculateScoreUser($quba, $timenow){
 
@@ -256,7 +201,7 @@ function calculateScoreUser($quba, $timenow){
                     {
                         $useranswer = null;
                     }
-                
+
                 if(!($useranswer === null))
                     {
                         if($useranswer)
@@ -302,6 +247,7 @@ function calculateScoreUser($quba, $timenow){
                     }
             }
     }
+
     return $score;
 
 }

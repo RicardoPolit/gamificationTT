@@ -1,198 +1,318 @@
-.path-mod-gmcompcpu div.fontloader {
-    visibility: hidden;
-    font-family: 'Audiowide', Sans;
+/* 
+    *****************************************************************************************************
+    *                                   Estilos que se repiten en cada pantalla                         *
+    *****************************************************************************************************
+*/
+.gmcompcpu-titulo{
+    padding: 1%;
 }
-.path-mod-gmcompcpu #mod_gmcompcpu_game {
-    background-color: #000;
+
+.gmcompcpu-container-overflow-eighty-height{
     width: 100%;
+    height: 80%;
+    padding: 0% 10%;
+
+}
+
+
+.gmcompcpu-color-cpu-nivel-1{
+    background-color:  #0981bd !important;
+    color: white;
+    
+}
+.gmcompcpu-color-cpu-nivel-2{
+    background-color: green !important;
+}
+.gmcompcpu-color-cpu-nivel-3{
+    background-color: orange !important;
+}
+.gmcompcpu-color-cpu-nivel-4{
+    background-color: red !important;
+}
+
+.gmcompcpu-linea-nivel-1, .gmcompcpu-linea-nivel-2, .gmcompcpu-linea-nivel-3, .gmcompcpu-linea-nivel-4{
+    width: 100%;
+    margin: 5% 0%;
+    padding: 1% 1%;
+    border: 5px double black;
+    text-align: center;
+}
+.gmcompcpu-linea-nivel-1{
+    background-image: radial-gradient(circle, #0981bd, white, whitesmoke);
+    
+}
+.gmcompcpu-linea-nivel-2{
+    background-image: radial-gradient(circle, green, white, whitesmoke);
+}
+.gmcompcpu-linea-nivel-3{
+    background-image: radial-gradient(circle, orange, white, whitesmoke);
+}
+.gmcompcpu-linea-nivel-4{
+    background-image: radial-gradient(circle, red, white, whitesmoke);
+}
+
+
+
+
+/* 
+    *****************************************************************************************************
+    *                         Estilos para mostrar el menú de selección de pantalla                     *
+    *****************************************************************************************************
+*/
+.gmcompcpu-contianer-menu-opciones{
+    height: 100px;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: flex-end center;
+    align-items: flex-end;
+}
+.gmcompcpu-contianer-menu-opcion-activa, .gmcompcpu-contianer-menu-opcion{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;  
+    border-top: 5px solid black;
+    border-left: 5px solid black;
+    border-right: 5px solid black;
+    cursor: pointer;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
+}
+
+
+.gmcompcpu-contianer-menu-opcion-activa{
+    height: 100%;
+    background-color: #0981bd;
+    color: white;
+    width: 34%;
+}
+.gmcompcpu-contianer-menu-opcion{
+    height: 60%;
+    background-color: white;
+    width: 33%;
+}
+
+
+#gmcompcpu-activity-container{
+    border: 10px solid black;
+    height: 800px;
+}
+
+/* 
+    *****************************************************************************************************
+    *                                     Estilos para la pantalla principal                            *
+    *****************************************************************************************************
+*/
+
+#gmcompcpu-contianer-menu-opcion-inicio-container{
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
     height: 100%;
 }
-.gmcompcpu-scores {
-    text-align: center;
-}
-.floating-button-container {
-    background: #fff;
-    border: 0.5rem solid #fff;
-}
-.floating-game-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999999;
-}
-#page-mod-gmcompcpu-view div[role="main"] {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
 
-.gmcompcpu-container th {
-    background-color: #059ee0;
-    color: white;
-    height: 40px;
-    font-size: 20px;
-    text-align: center;
-    border: 1px solid black;
-    border-bottom-width: 5px;
-    border-bottom-color: black;
-    border-bottom-style:  solid;
-}
-
-.gmcompcpu-container  th, td {
-    padding: 15px;
-}
-
-.gmcompcpu-container  td {
-    border: 2px solid black;
-}
-
-.gmcompcpu-container  table {
+#gmcompcpu-table-cpu-defeated{
     width: 80%;
-    align-content: center;
-    margin: auto;
-    border-collapse: collapse;
-    border: 0px;
-}
-.gmcompcpu-container {
-    margin-top: 2%;
-    width: 100%;
+    height: 20%;
+    margin: 5% 0%;
     text-align: center;
+}
+
+
+#gmcompcpu-table-cpu-defeated thead tr th{
+    color: white;
+    padding: 1% 0%;
+    border: 5px double black;
+}
+
+#gmcompcpu-table-cpu-defeated tbody tr td{
+    border: 5px double black;
+    background-color: whitesmoke;
+    padding: 1% 0%;
+}
+
+.gmcompcpu-imagen-cpu{
+    border: 5px solid black;
+}
+
+
+
+
+
+#responseform{
+    width: 40%;
+    height: 30%;
+    padding: 1%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    flex-direction: column;
+    box-sizing: border-box;
     display: flex;
-}
-
-.gmcompcpu-container-card {
-    padding: 1%;
-    margin: auto;
-    width: 30%;
-}
-.gmcompcpu-container-card-button {
-    margin: auto;
-}
-.gmcompcpu-card-element {
-    margin: 2%;
-
-}
-
-.gmcompcpu-container-card-title {
-    width: 100%;
-}
-.gmcompcpu-linea {
-    width: 100%;
-    height: 47px;
-    border-bottom: 1px solid black;
-}
-
-.gmcompcpu-titulo {
-    margin-top: 1%;
-    width: 100%;
-    font-style: oblique;
-    text-decoration: underline;
+    place-content: center space-evenly;
+    align-items: center;
     text-align: center;
+    
 }
 
-.gmcompcpu-titulo-ganador {
-    margin-top: 1%;
+.gmcompcpu-card-element{
     width: 100%;
-    color: darkgreen;
-    font-style: oblique;
-    text-decoration: underline;
-    text-align: center;
+    height: 30%;
+    transition: 0.3s;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+
 }
 
-.gmcompcpu-titulo-perdedor {
-    margin-top: 1%;
+.gmcompcpu-card-element > p{
+    margin: 0 1%;
+
+}
+
+
+/* 
+    *****************************************************************************************************
+    *                                 Estilos para la pantalla de intentos                              *
+    *****************************************************************************************************
+*/
+
+
+#gmcompcpu-contianer-menu-opcion-historial-container{
+    height: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+}
+
+#gmcompcpu-table-tries{
+    text-align: center;
     width: 100%;
-    color: darkred;
-    font-style: oblique;
-    text-decoration: underline;
-    text-align: center;
+    padding: 0% 10%;
 }
 
-.gmcompcpu-boton-empezar {
-    width: 20%;
-    padding: 1%;
-
-}
-
-.cgmcompcpu-cpu {
-    background: gray;
-    color: black;
-}
-
-.cgmcompcpu-cpu-vencida {
-    background: green;
-    color: black;
-}
-
-.gmcompcpu-half-container {
-    width: 50%;
-}
-
-
-.gmcompcpu-primer-lugar {
-    background-color: gold;
-    font-size: 20px;
-}
-.gmcompcpu-segundo-lugar {
-    background-color: silver;
-    font-size: 18px;
-}
-.gmcompcpu-tercer-lugar {
-    background-color: coral;
-    font-size: 16px;
-}
-
-.gmcompcpu-no-lugar {
-    background-color: gray;
-    font-size: 15px;
-}
-
-.gmcompcpu-linea-nivel-1 {
+#gmcompcpu-table-tries thead tr th{
     background-color: #0981bd;
-    width: 100%;
-    text-decoration: underline;
-    margin-top: 3%;
-    padding: 1%;
-    border: 2px solid black;
     color: white;
-    font-size: 30px;
+    padding: 1% 0%;
+    border: 5px double black;
+}
+#gmcompcpu-table-tries tbody tr td{
+    background-color: whitesmoke;
+    padding: 1% 0%;
+    border: 5px double black;
+}
+
+
+.gmcompcpu-container-scroll{
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: 5px solid black;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+
+/* 
+    *****************************************************************************************************
+    *                                 Estilos para la pantalla de leaderboards                          *
+    *****************************************************************************************************
+*/
+
+#gmcompcpu-contianer-menu-opcion-scores-container{
+    padding: 1% 0%;
+    height: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+}
+
+
+.gmcompcpu-contianer-card{
+    padding: 2%;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+}
+
+.gmcompcpu-contianer-leaderdoard{
+    width: 100%;
+    padding: 0% 10% 10% 10%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: flex-start;
+    align-items: center;
 
 }
-.gmcompcpu-linea-nivel-2 {
-    background-color: green;
-    width: 100%;
-    text-decoration: underline;
-    margin-top: 3%;
-    padding: 1%;
-    border: 2px solid black;
-    color: white;
-    font-size: 30px;
 
+.gmcompcpu-table-scores{
+    width: 90%;
+    padding: 0% 5%;
 }
-.gmcompcpu-linea-nivel-3 {
-    background-color: yellow;
-    width: 100%;
-    text-decoration: underline;
-    margin-top: 3%;
-    padding: 1%;
-    border: 2px solid black;
+
+
+.gmcompcpu-table-scores thead tr th{
+    color: white;
+    padding: 1% 0%;
+    border: 5px double black;
+}
+
+.gmcompcpu-table-scores tbody tr td{
+    background-color: whitesmoke;
     color: black;
-    font-size: 30px;
-
+    padding: 1% 0%;
+    border: 5px double black;
 }
-.gmcompcpu-linea-nivel-4 {
-    background-color: orange;
+
+
+.gmcompcpu-container-half-containers{
+    /*height: 100%;*/
     width: 100%;
-    text-decoration: underline;
-    margin-top: 3%;
-    padding: 1%;
-    border: 2px solid black;
-    color: white;
-    font-size: 30px;
-
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: flex-start space-evenly;
+    align-items: flex-start;
 }
-.gmcompcpu-tabla-celda-ganadora {
 
-    background-color: green;
+.gmcompcpu-half-container{
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+}
+
+
+.gmcompcpu-imagen-trophy{
+    max-width: 40%;
+    max-height: 40%;
+    border: 5px solid black;
+}
+
+.gmcompcpu-container-niveles{
+    width: 100%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
 }

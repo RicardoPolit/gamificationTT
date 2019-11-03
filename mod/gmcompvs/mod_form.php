@@ -15,12 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * The main gmcompcpu configuration form
+ * The main gmcompvs configuration form
  *
  * It uses the standard core Moodle formslib. For more info about them, please
  * visit: http://docs.moodle.org/en/Development:lib/formslib.php
  *
- * @package    mod_gmcompcpu
+ * @package    mod_gmcompvs
  * @copyright  2014 John Okely <john@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -35,7 +35,7 @@ require_once($CFG->dirroot.'/lib/questionlib.php');
  * @copyright  2014 John Okely <john@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class mod_gmcompcpu_mod_form extends moodleform_mod {
+class mod_gmcompvs_mod_form extends moodleform_mod {
 
     /**
      * Defines forms elements
@@ -49,7 +49,7 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
         $mform->addElement('header', 'general', get_string('general', 'form'));
 
         // Adding the standard "name" field.
-        $mform->addElement('text', 'name', get_string('gmcompcpuname', 'gmcompcpu'), array('size' => '64'));
+        $mform->addElement('text', 'name', get_string('gmcompvsname', 'gmcompvs'), array('size' => '64'));
         if (!empty($CFG->formatstringstriptags)) {
             $mform->setType('name', PARAM_TEXT);
         } else {
@@ -57,7 +57,7 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
         }
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $mform->addHelpButton('name', 'gmcompcpuname', 'gmcompcpu');
+        $mform->addHelpButton('name', 'gmcompvsname', 'gmcompvs');
 
         // Adding the standard "intro" and "introformat" fields.
         if ($CFG->branch >= 29) {
@@ -69,7 +69,7 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
         $context = context_course::instance($COURSE->id);
         $categories = question_category_options(array($context), false, 0);
 
-        $mform->addElement('selectgroups', 'mdl_question_categories_id', get_string('questioncategory', 'gmcompcpu'), $categories);
+        $mform->addElement('selectgroups', 'mdl_question_categories_id', get_string('questioncategory', 'gmcompvs'), $categories);
 
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
@@ -85,13 +85,13 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
         $mform =& $this->_form;
         $group = array();
         $group[] =& $mform->createElement('checkbox', 'completionscoreenabled', '',
-                get_string('completionscore', 'gmcompcpu'));
+                get_string('completionscore', 'gmcompvs'));
         $group[] =& $mform->createElement('text', 'completionscore', '', array('size' => 3));
         $mform->setType('completionscore', PARAM_INT);
         $mform->addGroup($group, 'completionscoregroup',
-                get_string('completionscoregroup', 'gmcompcpu'), array(' '), false);
+                get_string('completionscoregroup', 'gmcompvs'), array(' '), false);
         $mform->disabledIf('completionscore', 'completionscoreenabled', 'notchecked');
-        $mform->addHelpButton('completionscoregroup', 'completionscoregroup', 'gmcompcpu');
+        $mform->addHelpButton('completionscoregroup', 'completionscoregroup', 'gmcompvs');
         return array('completionscoregroup');
     }
 
