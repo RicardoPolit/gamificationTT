@@ -211,77 +211,74 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-activity-container"));
-            $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-inicio-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-victorias"));
-            $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy.png", "class"=>"gmcompvs-trohpy-image"));
-            $html.= html_writer::nonempty_tag('h1', "<b>Número victorias:</b> ",array());
-            $html.= html_writer::nonempty_tag('h1', $numVictorias, array("class" =>"gmcompvs-victories"));
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
-            $html.= html_writer::nonempty_tag('h2', "Compa&ntilde;eros", array("class" =>"gmcompvs-titulo"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-adversaries gmcompvs-container-overflow-half-height"));
-            $html.= html_writer::nonempty_tag('p','Buscar por nombre:', array("class"=>"gmcompvs-buscador-titulo"));
-            $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"text", "placeholder"=>"Nombres", "class"=>"gmcompvs-buscador", "id"=>"gmcompvs-buscador"));
-            foreach($posiblesRivales as $rival)
-                {
-                    $html.= html_writer::start_tag('form',
-                        array('action' => new moodle_url('/mod/gmcompvs/attempt.php',
-                            array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
-                            'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                            'id' => 'responseform'));
-                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival", "nombre"=>$rival->firstname . ' '. $rival->lastname));
-                    $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"hidden", "value"=>$rival->userid));
-                    $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array());
-                    $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
-                    'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
+                $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-inicio-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
+                        $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-victorias"));
+                            $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy.png", "class"=>"gmcompvs-trohpy-image"));
+                            $html.= html_writer::nonempty_tag('h1', "<b>Número victorias:</b> ",array());
+                            $html.= html_writer::nonempty_tag('h1', $numVictorias, array("class" =>"gmcompvs-victories"));
+                        $html.= html_writer::end_tag('div');
                     $html.= html_writer::end_tag('div');
-                    $html.= html_writer::end_tag('form');
-                }
-            if(sizeof($posiblesRivales) == 0)
-                {
-                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival"));
-                    $html.= html_writer::nonempty_tag('p', "No hay estudiantes registrados", array());
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
+                        $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
+                            $html.= html_writer::nonempty_tag('h2', "Compa&ntilde;eros", array("class" =>"gmcompvs-titulo"));
+                            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-adversaries gmcompvs-container-overflow-half-height"));
+                                $html.= html_writer::nonempty_tag('p','Buscar por nombre:', array("class"=>"gmcompvs-buscador-titulo"));
+                                $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"text", "placeholder"=>"Nombres", "class"=>"gmcompvs-buscador", "id"=>"gmcompvs-buscador"));
+                                foreach($posiblesRivales as $rival)
+                                {
+                                    $html.= html_writer::start_tag('form',
+                                        array('action' => new moodle_url('/mod/gmcompvs/attempt.php',
+                                            array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
+                                            'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                                            'id' => 'responseform'));
+                                        $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival", "nombre"=>$rival->firstname . ' '. $rival->lastname));
+                                            $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"hidden", "value"=>$rival->userid));
+                                            $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array());
+                                            $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
+                                                'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
+                                        $html.= html_writer::end_tag('div');
+                                    $html.= html_writer::end_tag('form');
+                                }
+                                if(sizeof($posiblesRivales) == 0)
+                                    {
+                                        $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival"));
+                                            $html.= html_writer::nonempty_tag('p', "No hay estudiantes registrados", array());
+                                        $html.= html_writer::end_tag('div');
+                                    }
+                                $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival-offset", "id"=>"gmdl-container-sin-resultados"));
+                                    $html.= html_writer::nonempty_tag('p', "No se encontraron estudiantes", array());
+                                $html.= html_writer::end_tag('div');
+                            $html.= html_writer::end_tag('div');
+                        $html.= html_writer::end_tag('div');
+                        $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
+                            $html.= html_writer::nonempty_tag('h2', "Desafios pendientes", array("class" =>"gmcompvs-titulo"));
+                            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-challenges gmcompvs-container-overflow-half-height"));
+                                foreach($desafiosPorTerminar as $desafio)
+                                    {
+                                        $html.= html_writer::start_tag('form',
+                                            array('action' => new moodle_url('/mod/gmcompvs/attempt.php',
+                                                array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
+                                                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                                                'id' => 'responseform'));
+                                            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
+                                                $html.= html_writer::empty_tag('input', array("name"=>"participacionid", "type"=>"hidden", "value"=>$desafio->participacionid));
+                                                $html.= html_writer::nonempty_tag('p', $desafio->firstname . ' '. $desafio->lastname, array());
+                                                $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
+                                                'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
+                                            $html.= html_writer::end_tag('div');
+                                        $html.= html_writer::end_tag('form');
+                                    }
+                                if(empty($desafiosPorTerminar) == 1)
+                                    {
+                                        $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
+                                            $html.= html_writer::nonempty_tag('p', "No hay desafios pendientes", array());
+                                        $html.= html_writer::end_tag('div');
+                                    }
+                            $html.= html_writer::end_tag('div');
+                        $html.= html_writer::end_tag('div');
                     $html.= html_writer::end_tag('div');
-                }
-
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival-offset", "id"=>"gmdl-container-sin-resultados"));
-            $html.= html_writer::nonempty_tag('p', "No se encontraron estudiantes", array());
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
-            $html.= html_writer::nonempty_tag('h2', "Desafios pendientes", array("class" =>"gmcompvs-titulo"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-challenges gmcompvs-container-overflow-half-height"));
-            foreach($desafiosPorTerminar as $desafio)
-                {
-                    $html.= html_writer::start_tag('form',
-                        array('action' => new moodle_url('/mod/gmcompvs/attempt.php',
-                            array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
-                            'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                            'id' => 'responseform'));
-                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
-                    $html.= html_writer::empty_tag('input', array("name"=>"participacionid", "type"=>"hidden", "value"=>$desafio->participacionid));
-                    $html.= html_writer::nonempty_tag('p', $desafio->firstname . ' '. $desafio->lastname, array());
-                    $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
-                    'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
-                    $html.= html_writer::end_tag('form');
-                    $html.= html_writer::end_tag('div');
-                }
-            if(empty($desafiosPorTerminar) == 1)
-                {
-                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
-                    $html.= html_writer::nonempty_tag('p', "No hay desafios pendientes", array());
-                    $html.= html_writer::end_tag('div');
-                }
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-
-
+                $html.= html_writer::end_tag('div');
             return $html.$this->render_scores_page($gmcompvs, $userid);
         }
 
@@ -292,56 +289,52 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $filas = $this->obtener_victorias_usuarios($gmcompvs->id);
             $html= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
             $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-scores-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table gmcompvs-container-overflow-eighty-height"));
-            $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
-            $html.= html_writer::start_tag('tr', array());
-            $html.= html_writer::nonempty_tag('th', "Posici&oacute;n", array("class"=>"gmcompvs-table-posicion-column"));
-            $html.= html_writer::nonempty_tag('th', "Nombre", array("class"=>"gmcompvs-table-name-column"));
-            $html.= html_writer::nonempty_tag('th', "N&uacute;m. vicotrias", array("class"=>"gmcompvs-table-victorias-column"));
-            $html.= html_writer::end_tag('tr', array());
-            $html.= html_writer::end_tag('thead', array());
-            $html.= html_writer::start_tag('tbody', array("class"=>"gmcompvs-tbody"));
-            $ultimosPuntos = 0;
-            $primeraFila = 1;
-            $lugar = 1;
-            foreach($filas as $fila)
-                {
-                    $html.= html_writer::start_tag('tr', array());
-                    if($ultimosPuntos > $fila->victorias && $primeraFila==0)
-                        {
-                            $lugar++;
-                        }
-                    $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-posicion-column"));
-                    if($lugar == 1){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompvs-trohpy-image")); }
-                    else if($lugar == 2){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmcompvs-trohpy-image")); }
-                    else if($lugar == 3){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmcompvs-trohpy-image")); }
-                    $html.= html_writer::end_tag('td', array());
-
-                    $html.= html_writer::nonempty_tag('td', $fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' , array("class"=>"gmcompvs-table-name-column"));
-                    $html.= html_writer::nonempty_tag('td', $fila->victorias , array("class"=>"gmcompvs-table-victorias-column"));
-
-
-                    if($primeraFila == 1)
-                        {
-                            $primeraFila = 0;
-                        }
-                    $ultimosPuntos = $fila->victorias;
-                    $html.= html_writer::end_tag('tr', array());
-                }
-
-            if($primeraFila == 1)
-                {
-                    $html.= html_writer::start_tag('tr', array());
-                    $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-posicion-column"));
-                    $html.= html_writer::nonempty_tag('td', 'Aun no hay competencias registradas' , array("class"=>"gmcompvs-table-name-column"));
-                    $html.= html_writer::nonempty_tag('td', '0' , array("class"=>"gmcompvs-table-victorias-column"));
-                    $html.= html_writer::end_tag('tr', array());
-                }
-
-            $html.= html_writer::end_tag('tbody', array());
-            $html.= html_writer::end_tag('table', array());
-            $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
+                    $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table gmcompvs-container-overflow-eighty-height"));
+                        $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
+                            $html.= html_writer::start_tag('tr', array());
+                                $html.= html_writer::nonempty_tag('th', "Posici&oacute;n", array("class"=>"gmcompvs-table-posicion-column"));
+                                $html.= html_writer::nonempty_tag('th', "Nombre", array("class"=>"gmcompvs-table-name-column"));
+                                $html.= html_writer::nonempty_tag('th', "N&uacute;m. vicotrias", array("class"=>"gmcompvs-table-victorias-column"));
+                            $html.= html_writer::end_tag('tr', array());
+                        $html.= html_writer::end_tag('thead', array());
+                        $html.= html_writer::start_tag('tbody', array("class"=>"gmcompvs-tbody"));
+                            $ultimosPuntos = 0;
+                            $primeraFila = 1;
+                            $lugar = 1;
+                            foreach($filas as $fila)
+                                {
+                                    $html.= html_writer::start_tag('tr', array());
+                                        if($ultimosPuntos > $fila->victorias && $primeraFila==0)
+                                            {
+                                                $lugar++;
+                                            }
+                                        $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-posicion-column"));
+                                            if($lugar == 1){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompvs-trohpy-image")); }
+                                            else if($lugar == 2){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmcompvs-trohpy-image")); }
+                                            else if($lugar == 3){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmcompvs-trohpy-image")); }
+                                        $html.= html_writer::end_tag('td', array());
+                                        $html.= html_writer::nonempty_tag('td', $fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' , array("class"=>"gmcompvs-table-name-column"));
+                                        $html.= html_writer::nonempty_tag('td', $fila->victorias , array("class"=>"gmcompvs-table-victorias-column"));
+                                        if($primeraFila == 1)
+                                            {
+                                                $primeraFila = 0;
+                                            }
+                                        $ultimosPuntos = $fila->victorias;
+                                    $html.= html_writer::end_tag('tr', array());
+                                }
+                            if($primeraFila == 1)
+                                {
+                                    $html.= html_writer::start_tag('tr', array());
+                                        $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-posicion-column"));
+                                        $html.= html_writer::end_tag('td', array());
+                                        $html.= html_writer::nonempty_tag('td', 'Aun no hay competencias registradas' , array("class"=>"gmcompvs-table-name-column"));
+                                        $html.= html_writer::nonempty_tag('td', '0' , array("class"=>"gmcompvs-table-victorias-column"));
+                                    $html.= html_writer::end_tag('tr', array());
+                                }
+                        $html.= html_writer::end_tag('tbody', array());
+                    $html.= html_writer::end_tag('table', array());
+                $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             return $html.$this->render_attempt_page($gmcompvs, $userid);
         }
@@ -393,77 +386,73 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                             $derrotas++;
                         }
                     $contenidoTabla.= html_writer::start_tag('tr', array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $partida->firstname_b.' '.$partida->lastname_b.' ('.$partida->firstname_b.')', array("class"=>"gmcompvs-table-history-name"));
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_b, array("class"=>"gmcompvs-table-history-points"));
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_a, array("class"=>"gmcompvs-table-history-points"));
-                    $contenidoTabla.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
-                    $contenidoTabla.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
-                    $contenidoTabla.= html_writer::end_tag('td', array());
-
+                        $contenidoTabla.= html_writer::nonempty_tag('td', $partida->firstname_b.' '.$partida->lastname_b.' ('.$partida->firstname_b.')', array("class"=>"gmcompvs-table-history-name"));
+                        $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_b, array("class"=>"gmcompvs-table-history-points"));
+                        $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_a, array("class"=>"gmcompvs-table-history-points"));
+                        $contenidoTabla.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
+                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
+                        $contenidoTabla.= html_writer::end_tag('td', array());
                     $contenidoTabla.= html_writer::end_tag('tr', array());
 
                 }
 
             $html= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
             $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-historial-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
-            $html.= html_writer::start_tag('div', array("class"=>""));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
-                $html.= html_writer::start_tag('div', array());
-                    $html.= html_writer::empty_tag('img', array("src"=>"pix/victoria.png", "class"=>"gmcompvs-trohpy-image-table"));
-                    $html.= html_writer::nonempty_tag('h3', 'Victorias: '.$victorias, array());
-                $html.= html_writer::end_tag('div');
-                $html.= html_writer::start_tag('div', array());
-                    $html.= html_writer::empty_tag('img', array("src"=>"pix/empate.png", "class"=>"gmcompvs-trohpy-image-table"));
-                    $html.= html_writer::nonempty_tag('h3', 'Empates: '.$empates, array());
-                $html.= html_writer::end_tag('div');
-                $html.= html_writer::start_tag('div', array());
-                    $html.= html_writer::empty_tag('img', array("src"=>"pix/derrota.png", "class"=>"gmcompvs-trohpy-image-table"));
-                    $html.= html_writer::nonempty_tag('h3', 'Derrotas: '.$derrotas, array());
-                $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
-                $html.= html_writer::start_tag('div', array());
-                    $html.= html_writer::empty_tag('img', array("src"=>"pix/tregua.png", "class"=>"gmcompvs-trohpy-image-table"));
-                    $html.= html_writer::nonempty_tag('h3', 'En curso: '.$encurso, array());
-                $html.= html_writer::end_tag('div');
-                $html.= html_writer::start_tag('div', array());
-                    $html.= html_writer::empty_tag('img', array("src"=>"pix/retirada.png", "class"=>"gmcompvs-trohpy-image-table"));
-                    $html.= html_writer::nonempty_tag('h3', 'Retirada: '.$retiradas, array());
-                $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
-            $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table gmcompvs-container-overflow-half-height"));
-            $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
-            $html.= html_writer::start_tag('tr', array());
-            $html.= html_writer::nonempty_tag('th', "Nombre contrincante", array("class"=>"gmcompvs-table-history-name"));
-            $html.= html_writer::nonempty_tag('th', "Puntos contrincante", array("class"=>"gmcompvs-table-history-points"));
-            $html.= html_writer::nonempty_tag('th', "Tus puntos", array("class"=>"gmcompvs-table-history-points"));
-            $html.= html_writer::nonempty_tag('th', "Estado de desaf&iacute;o", array("class"=>"gmcompvs-table-history-state"));
-            $html.= html_writer::end_tag('tr', array());
-            $html.= html_writer::end_tag('thead', array());
-            $html.= html_writer::start_tag('tbody', array("class"=>"gmcompvs-tbody"));
-            $html.= $contenidoTabla;
-            $aux = $victorias + $empates + $derrotas + $retiradas + $encurso;
-            if($aux == 0)
-                {
-                    $imagen = "pix/paz.png";
-                    $html.= html_writer::start_tag('tr', array());
+                $html.= html_writer::start_tag('div', array("class"=>""));
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
+                        $html.= html_writer::start_tag('div', array());
+                            $html.= html_writer::empty_tag('img', array("src"=>"pix/victoria.png", "class"=>"gmcompvs-trohpy-image-table"));
+                            $html.= html_writer::nonempty_tag('h3', 'Victorias: '.$victorias, array());
+                        $html.= html_writer::end_tag('div');
+                        $html.= html_writer::start_tag('div', array());
+                            $html.= html_writer::empty_tag('img', array("src"=>"pix/empate.png", "class"=>"gmcompvs-trohpy-image-table"));
+                            $html.= html_writer::nonempty_tag('h3', 'Empates: '.$empates, array());
+                        $html.= html_writer::end_tag('div');
+                        $html.= html_writer::start_tag('div', array());
+                            $html.= html_writer::empty_tag('img', array("src"=>"pix/derrota.png", "class"=>"gmcompvs-trohpy-image-table"));
+                            $html.= html_writer::nonempty_tag('h3', 'Derrotas: '.$derrotas, array());
+                        $html.= html_writer::end_tag('div');
+                    $html.= html_writer::end_tag('div');
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
+                        $html.= html_writer::start_tag('div', array());
+                            $html.= html_writer::empty_tag('img', array("src"=>"pix/tregua.png", "class"=>"gmcompvs-trohpy-image-table"));
+                            $html.= html_writer::nonempty_tag('h3', 'En curso: '.$encurso, array());
+                        $html.= html_writer::end_tag('div');
+                        $html.= html_writer::start_tag('div', array());
+                            $html.= html_writer::empty_tag('img', array("src"=>"pix/retirada.png", "class"=>"gmcompvs-trohpy-image-table"));
+                            $html.= html_writer::nonempty_tag('h3', 'Retirada: '.$retiradas, array());
+                        $html.= html_writer::end_tag('div');
+                    $html.= html_writer::end_tag('div');
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
+                        $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table gmcompvs-container-overflow-half-height"));
+                            $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
+                                $html.= html_writer::start_tag('tr', array());
+                                    $html.= html_writer::nonempty_tag('th', "Nombre contrincante", array("class"=>"gmcompvs-table-history-name"));
+                                    $html.= html_writer::nonempty_tag('th', "Puntos contrincante", array("class"=>"gmcompvs-table-history-points"));
+                                    $html.= html_writer::nonempty_tag('th', "Tus puntos", array("class"=>"gmcompvs-table-history-points"));
+                                    $html.= html_writer::nonempty_tag('th', "Estado de desaf&iacute;o", array("class"=>"gmcompvs-table-history-state"));
+                                $html.= html_writer::end_tag('tr', array());
+                            $html.= html_writer::end_tag('thead', array());
+                            $html.= html_writer::start_tag('tbody', array("class"=>"gmcompvs-tbody"));
+                                $html.= $contenidoTabla;
+                                $aux = $victorias + $empates + $derrotas + $retiradas + $encurso;
+                                if($aux == 0)
+                                    {
+                                        $imagen = "pix/paz.png";
+                                        $html.= html_writer::start_tag('tr', array());
+                                            $html.= html_writer::nonempty_tag('td', 'No has terminado ningun combate (Pacifista)', array("class"=>"gmcompvs-table-history-name"));
+                                            $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
+                                            $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
+                                            $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
+                                                $html.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
+                                            $html.= html_writer::end_tag('td', array());
+                                        $html.= html_writer::end_tag('tr', array());
 
-                    $html.= html_writer::nonempty_tag('td', 'No has terminado ningun combate (Pacifista)', array("class"=>"gmcompvs-table-history-name"));
-                    $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
-                    $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
-                    $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
-                    $html.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
-                    $html.= html_writer::end_tag('td', array());
-
-                    $html.= html_writer::end_tag('tr', array());
-
-                }
-            $html.= html_writer::end_tag('tbody');
-            $html.= html_writer::end_tag('table');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
-            $html.= html_writer::end_tag('div');
+                                    }
+                            $html.= html_writer::end_tag('tbody');
+                        $html.= html_writer::end_tag('table');
+                    $html.= html_writer::end_tag('div');
+                $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             return $html;

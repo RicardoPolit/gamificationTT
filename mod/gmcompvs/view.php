@@ -74,12 +74,12 @@ $renderer = $PAGE->get_renderer('mod_gmcompvs');
 // Output starts here.
 echo $OUTPUT->header();
 
-if ($gmcompvs->intro) {
+/*if ($gmcompvs->intro) {
     echo $OUTPUT->box(format_module_intro('gmcompvs', $gmcompvs, $cm->id), 'generalbox mod_introbox', 'gmcompvsintro');
-}
+}*/
 
 // Output header and directions.
-echo $OUTPUT->heading($gmcompvs->name);
+/*echo $OUTPUT->heading($gmcompvs->name);*/
 
 // Game here.
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
