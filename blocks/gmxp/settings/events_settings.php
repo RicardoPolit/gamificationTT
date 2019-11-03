@@ -19,7 +19,7 @@ $events_activated = get_config($PLUGIN, block_gmxp_core::EVENTS);
 if($experience_activated && $events_activated){
 
     if ($form->is_cancelled()) {
-        local_gamedlemaster_log::info('cancelled');
+        $form->go_site_administration();
 
     } else if ($changes = $form->get_data()) {
         $form->submit_changes($changes);
