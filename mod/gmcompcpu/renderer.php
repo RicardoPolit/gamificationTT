@@ -194,38 +194,31 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
     public function render_main_page($gmcompcpu, $userid,$id)
         {
             $moodleUserId = $userid;
-            global $DB;
-            $userid = $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $userid), $fields='*', $strictness=IGNORE_MISSING)->id;
-            $dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));
-            $sql = " SELECT gmdl_dificultad_cpu_id, COUNT(id)  FROM {gmdl_intento}";
-            $sql.= " WHERE puntuacion_usuario >= puntuacion_cpu";
-            $sql.= " AND gmdl_usuario_id = $userid";
-            $sql.= " AND gmdlcompcpu_id = ".$gmcompcpu->id;
-            $sql.= " GROUP BY 1;";
-            try {
-                $victorias = $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-                $querysucess = TRUE;
-            } catch (dml_exception $e) {
-                $querysucess = false;
-            }
+            $userid = $this->obtener_usuario_gamedle($moodleUserId);
+            $dificultades = $this->obtener_todas_dificultades();
+            $victorias = $this->obtener_cpus_vencidas($gmcompcpu->id, $userid);
             $compusVencidas = '';
             $nombresDificultades = '';
             $valoresSelect = '';
             foreach($dificultades as $dificultad)
                 {
                     $noEncontrado = TRUE;
-                    $nombresDificultades.= html_writer::nonempty_tag('th', $dificultad->nombre);
+                    $nombresDificultades.= html_writer::nonempty_tag('th', $dificultad->nombre, array("class"=>"gmcompcpu-color-cpu-nivel-".$dificultad->id));
                     foreach($victorias as $victoria)
                         {
                             if($victoria->gmdl_dificultad_cpu_id == $dificultad->id && $noEncontrado)
                             {
-                                $compusVencidas.= html_writer::nonempty_tag('td', 'S&iacute;', array("class"=> 'gmcompcpu-cpu-vencida'));
+                                $compusVencidas.= html_writer::start_tag('td', array());
+                                $compusVencidas.= html_writer::empty_tag('img', array("src"=>"pix/cpu_vencida.png", "class"=> 'gmcompcpu-imagen-cpu'));
+                                $compusVencidas.= html_writer::end_tag('td', array());
                                 $noEncontrado = FALSE;
                             }
                         }
                     if($noEncontrado)
                         {
-                            $compusVencidas.= html_writer::nonempty_tag('td', 'No', array("class"=> 'gmcompcpu-cpu'));
+                            $compusVencidas.= html_writer::start_tag('td', array());
+                            $compusVencidas.= html_writer::empty_tag('img', array("src"=>"pix/cpu_activa.png", "class"=> 'gmcompcpu-imagen-cpu'));
+                            $compusVencidas.= html_writer::end_tag('td', array());
                         }
 
 
@@ -235,65 +228,51 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
             $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
 
-
-            //Graficando el menú superior
-
-
-
-            //Graficando la tabla que muestra qué computadoras ha vencido el usuario
-
             $this->page->requires->js_call_amd('mod_gmcompcpu/js_competencia_cpu', 'init');
 
-            $html.= html_writer::tag('div', '',array("class" =>"gmcompcpu-linea"));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opciones"));
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-scores"));
+                    $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion-activa gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-inicio"));
+                    $html.= html_writer::nonempty_tag('h3', 'Inicio',array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-historial"));
+                    $html.= html_writer::nonempty_tag('h3', 'Historial',array());
+                $html.= html_writer::end_tag('div');
+            $html.= html_writer::end_tag('div');
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-activity-container"));
+            
 
 
-            $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-container-inicio"));
-            $html.= html_writer::nonempty_tag('h1', "Computadoras vencidas", array("class" =>"gmcompcpu-titulo"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container"));
-            $html.= html_writer::start_tag('table', array());
-            $html.= html_writer::start_tag('thead', array());
-            $html.= html_writer::nonempty_tag('tr', $nombresDificultades, array());
-            $html.= html_writer::end_tag('thead', array());
-            $html.= html_writer::start_tag('tbody', array());
-            $html.= html_writer::nonempty_tag('tr',$compusVencidas , array());
-            $html.= html_writer::end_tag('tbody', array());
-            $html.= html_writer::end_tag('table', array());
-            $html.= html_writer::end_tag('div', array());
-
-
-
-            //Iniciando el from, para poder mandar la información del choice a la página de preguntas
-
-            $html.= html_writer::start_tag('form',
-                array('action' => new moodle_url('/mod/gmcompcpu/attempt.php',
-                    array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompcpu->id, 'id' => $id)), 'method' => 'post',
-                    'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                    'id' => 'responseform'));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container-card"));
-            $html.= html_writer::nonempty_tag('h3', "<b>Desafiar computadora</b>", array("class" =>"gmcompcpu-container-card-title"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
-            $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmcompcpu-half-container", "name" => "dificultad"));
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
-            $html.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Empezar", "class" => "gmcompcpu-button btn btn-primary gmcompcpu-container-card-button" ));
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('form');
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-contianer-menu-opcion-inicio-container", "class"=>"gmcompcpu-section-contianer-menu-opcion"));
+                $html.= html_writer::nonempty_tag('h1', "Computadoras vencidas", array("class" =>"gmcompcpu-titulo"));
+                    $html.= html_writer::start_tag('table', array("id"=>"gmcompcpu-table-cpu-defeated"));
+                    $html.= html_writer::start_tag('thead', array());
+                    $html.= html_writer::nonempty_tag('tr', $nombresDificultades, array());
+                    $html.= html_writer::end_tag('thead', array());
+                    $html.= html_writer::start_tag('tbody', array());
+                    $html.= html_writer::nonempty_tag('tr',$compusVencidas , array());
+                    $html.= html_writer::end_tag('tbody', array());
+                    $html.= html_writer::end_tag('table', array());
 
 
 
+                $html.= html_writer::start_tag('form',
+                    array('action' => new moodle_url('/mod/gmcompcpu/attempt.php',
+                        array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompcpu->id, 'id' => $id)), 'method' => 'post',
+                        'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                        'id' => 'responseform'));
+                $html.= html_writer::nonempty_tag('h3', "<b>Desafiar computadora</b>", array("class" =>"gmcompcpu-container-card-title"));
+                $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
+                $html.= html_writer::nonempty_tag('p', "Seleccione una dificultad: ",array());
+                $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmcompcpu-half-container", "name" => "dificultad"));
+                $html.= html_writer::end_tag('div', array());
+                $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
+                $html.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Empezar", "class" => "gmcompcpu-button btn btn-primary gmcompcpu-container-card-button" ));
+                $html.= html_writer::end_tag('div', array());
+                $html.= html_writer::end_tag('form');
 
-
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-half-container"));
-            $html.= html_writer::nonempty_tag('button', " << Ver tabla de puntuaciones",array("class" =>"btn btn-primary gmcompcpu-half-container gmcompcpu-button", "id"=>"gmcompcpu-ver-scores"));
-            $html.= html_writer::end_tag('div', '',array());
-            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-half-container"));
-            $html.= html_writer::nonempty_tag('button', "Ver intentos >>",array("class" =>"btn btn-primary gmcompcpu-half-container gmcompcpu-button", "id"=>"gmcompcpu-ver-intentos"));
-            $html.= html_writer::end_tag('div', '',array());
-            $html.= html_writer::end_tag('div', '',array());
             $html.= html_writer::end_tag('div', array());
 
 
@@ -302,97 +281,87 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
 
 
-        public function render_scores_page($gmcompcpu, $userid, $dificultades, $moodleUserId)
+    public function render_scores_page($gmcompcpu, $userid, $dificultades, $moodleUserId)
         {
-            global $DB;
-            /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
             $leaderboards = [];
             $leaderboardsMax = [];
+            $valoresSelect = '';
             for($i=0; $i<sizeof($dificultades);$i++)
                 {
                     $leaderboards[] = array();
                     $leaderboardsMax[] = array();
+                    $valoresSelect.= html_writer::nonempty_tag('option', $dificultades[$i]->nombre, array("value"=> $dificultades[$i]->id));
                 }
-            $sql = "SELECT b.* FROM";
-		    $sql.= " (";
-			$sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id,  MIN(fecha_fin) as minima";
-			$sql.= " FROM {gmdl_intento} ";
-			$sql.= " WHERE fecha_fin IS NOT NULL";
-			$sql.= " AND gmdlcompcpu_id = ".$gmcompcpu->id;;
-            $sql.= " GROUP BY 1, 2";
-		    $sql.= " ) AS a";
-            $sql.= " JOIN";
-            $sql.= " (";
-            $sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id, puntuacion_usuario AS puntos, fecha_fin, username, firstname, lastname";
-            $sql.= " FROM {gmdl_intento}, {user}, {gmdl_usuario}";
-            $sql.= " WHERE gmdlcompcpu_id = ".$gmcompcpu->id." AND";
-            $sql.= " {user}.id = {gmdl_usuario}.mdl_id_usuario AND";
-            $sql.= " {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id ";
-            $sql.= " ) AS b";
-            $sql.="  ON";
-			$sql.= " a.gmdl_usuario_id = b.gmdl_usuario_id AND";
-			$sql.= " a.gmdl_dificultad_cpu_id = b.gmdl_dificultad_cpu_id AND";
-			$sql.= " a.minima = b.fecha_fin";
-            $sql.= " ORDER BY b.puntos DESC";
-
-            $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+            
+            $primerosIntentos = $this->obtener_primeros_intentos($gmcompcpu->id);
 
             foreach($primerosIntentos as $intento)
                 {
                     $leaderboards[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
                 }
 
-            $sql =" SELECT  a.*, username, firstname, lastname FROM";
-            $sql.=" (SELECT gmdl_dificultad_cpu_id, gmdl_usuario_id, MAX(puntuacion_usuario) AS puntos";
-            $sql.=" FROM {gmdl_intento}";
-            $sql.=" WHERE gmdlcompcpu_id = ".$gmcompcpu->id;
-            $sql.="  AND fecha_fin IS NOT NULL";
-            $sql.=" GROUP BY 1,2 ) as a, {user}, {gmdl_usuario}";
-            $sql.=" WHERE {user}.id =  {gmdl_usuario}.mdl_id_usuario AND";
-            $sql.=" {gmdl_usuario}.id = a.gmdl_usuario_id";
-            $sql.=" ORDER BY a.puntos DESC";
-            $mejoresIntentos = $primerosIntentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+            $mejoresIntentos = $this->obtener_mejores_intentos($gmcompcpu->id);
 
             foreach($mejoresIntentos as $intento)
                 {
                     $leaderboardsMax[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
                 }
 
-
-
-            #$html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-            $html= html_writer::start_tag('div', array("id"=>"gmcompcpu-container-posiciones"));
+            $html= html_writer::start_tag('div', array("id"=>"gmcompcpu-contianer-menu-opcion-scores-container", "class"=>"gmcompcpu-section-contianer-menu-opcion"));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-card"));
+            $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
+            $html.= html_writer::nonempty_tag('p', "Seleccione una dificultad: ",array());
+            $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmcompcpu-half-container", "id" => "gmcompcpu-select-scores-dificultad"));
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::end_tag('div', array());
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-leaderdoard"));
             $i = 0;
             foreach($dificultades as $dificultad)
                 {
                     $leaderboard = $leaderboards[$i];
+                    $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container-niveles", "id"=>"gmcompcpu-container-nivel-".$dificultad->id));
                     $html.= html_writer::nonempty_tag('div', $dificultad->nombre, array("class" => "gmcompcpu-linea-nivel-".$dificultad->id));
-                    $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container"));
+                    $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container-half-containers", "id"=>"gmcompcpu-contenedor-nivel-".$dificultad->id));
                     $leaderboardMax = $leaderboardsMax[$i];
                     $cabezeraTabla= html_writer::start_tag('thead', array());
-                    $cabezeraTabla.= html_writer::nonempty_tag('tr', "<th> Posici&oacute;n </th> <th> Nombre </th> <th> Puntuaci&oacute;n </th>", array());
+                    $cabezeraTabla.= html_writer::nonempty_tag('tr', "<th> Posici&oacute;n </th> <th> Nombre </th> <th> Puntuaci&oacute;n </th>", array("class"=>"gmcompcpu-color-cpu-nivel-".$dificultad->id));
                     $cabezeraTabla.= html_writer::end_tag('thead', array());
                     $j=1;
                     $contenidoTablaPrimerIntento= html_writer::start_tag('tbody', array());
+                    $ultimosPuntos = 0;
+                    $primeraIteracion = 1;
                     foreach($leaderboard as $intento)
                         {
+                            if( $ultimosPuntos> $intento->puntos && $primeraIteracion == 0)
+                                {
+                                    $ultimosPuntos = $puntos;
+                                    $j--;
+                                    $primeraIteracion = 1;
+                                }
+                            $contenidoTablaPrimerIntento.= html_writer::start_tag('tr');
                             if($j==1)
                                 {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-primer-lugar"));
+                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('td');
+                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy"));
+                                    $contenidoTablaPrimerIntento.= html_writer::end_tag('td');
                                 }
                             else if($j==2)
                                 {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-segundo-lugar"));
+                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('td');
+                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy"));
+                                    $contenidoTablaPrimerIntento.= html_writer::end_tag('td');
                                 }
                             else if($j ==3)
                                 {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-tercer-lugar"));
+                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('td');
+                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy"));
+                                    $contenidoTablaPrimerIntento.= html_writer::end_tag('td');
                                 }
                             else
                                 {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-n-lugar"));
+                                    $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $j."°", array());
                                 }
-                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $j."°", array());
+                                
                                 $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
                                 $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
                                 $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
@@ -408,29 +377,45 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                         }
                     $contenidoTablaPrimerIntento.= html_writer::end_tag('tbody', array());
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-half-container"));
-                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaPrimerIntento,array());
+                    $html.= html_writer::nonempty_tag('h3', 'Primeros intentos',array());
+                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaPrimerIntento, array("class"=>"gmcompcpu-table-scores"));
                     $html.= html_writer::end_tag('div', array());
                     $j=1;
+                    $primeraIteracion = 1;
                     $contenidoTablaMejorIntento= html_writer::start_tag('tbody', array());
+                    $ultimosPuntos = 0;
                     foreach($leaderboardMax as $intento)
                         {
+                            if( $ultimosPuntos> $intento->puntos && $primeraIteracion == 0)
+                                {
+                                    $ultimosPuntos = $puntos;
+                                    $j--;
+                                    $primeraIteracion = 0;
+                                }
+                            $contenidoTablaMejorIntento.= html_writer::start_tag('tr');
                             if($j==1)
                                 {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-primer-lugar"));
+                                    $contenidoTablaMejorIntento.= html_writer::start_tag('td');
+                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy"));
+                                    $contenidoTablaMejorIntento.= html_writer::end_tag('td');
                                 }
                             else if($j==2)
                                 {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-segundo-lugar"));
+                                    $contenidoTablaMejorIntento.= html_writer::start_tag('td');
+                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy"));
+                                    $contenidoTablaMejorIntento.= html_writer::end_tag('td');
                                 }
                             else if($j ==3)
                                 {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-tercer-lugar"));
+                                    $contenidoTablaMejorIntento.= html_writer::start_tag('td');
+                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy  "));
+                                    $contenidoTablaMejorIntento.= html_writer::end_tag('td');
                                 }
                             else
                                 {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmcompcpu-n-lugar"));
+                                    $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $j."°", array());
                                 }
-                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $j."°", array());
+                                
                                 $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
                                 $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
                                 $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
@@ -446,57 +431,49 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                         }
                     $contenidoTablaMejorIntento.= html_writer::end_tag('tbody', array());
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-half-container"));
-                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaMejorIntento,array());
+                    $html.= html_writer::nonempty_tag('h3', 'Mejores intentos',array());
+                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaMejorIntento,array("class"=>"gmcompcpu-table-scores"));
+                    $html.= html_writer::end_tag('div', array());
                     $html.= html_writer::end_tag('div', array());
                     $html.= html_writer::end_tag('div', array());
                     $i++;
                 }
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
-            $html.= html_writer::nonempty_tag('button', "Volver",array("class" =>"gmcompcpu-quarter-container btn btn-primary gmcompcpu-end-button-volver gmcompcpu-button", "id"=>"gmcompcpu-volver-posiciones"));
             $html.= html_writer::end_tag('div', array());
             $html.= html_writer::end_tag('div', array());
-            return $html.$this->render_attempt_page($gmcompcpu, $userid,$dificultades, $moodleUserId);
+            return $html.$this->render_attempt_page($gmcompcpu, $dificultades, $moodleUserId);
         }
-    public function render_attempt_page($gmcompcpu, $userid,$dificultades, $moodleUserId)
+    public function render_attempt_page($gmcompcpu, $dificultades, $moodleUserId)
         {
+            $intentos = $this->obtener_intentos_usuario($moodleUserId, $gmcompcpu->id); 
+
             $html = ' ';
-            #$html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-            global $DB;
-            /*$dificultades = array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));*/
-
-            $sql ="SELECT gmdl_dificultad_cpu_id, puntuacion_usuario, puntuacion_cpu";
-            $sql.=" FROM {gmdl_intento}";
-            $sql.=" JOIN {gmdl_usuario} ON {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id";
-            $sql.=" JOIN {user} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
-            $sql.=" WHERE {user}.id = ". $moodleUserId;
-            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id =".$gmcompcpu->id;
-            $sql.=" AND fecha_fin IS NOT NULL";
-            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id = ".$gmcompcpu->id;
-            $sql.=" ORDER BY fecha_fin DESC";
-
-            $intentos = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-            $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-container-intentos"));
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-contianer-menu-opcion-historial-container", "class"=>"gmcompcpu-section-contianer-menu-opcion"));
             $html.= html_writer::nonempty_tag('h1', 'Intentos realizados ',array("class" =>"gmcompcpu-titulo"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
             $cabezeraTabla= html_writer::start_tag('thead', array());
-            $cabezeraTabla.= html_writer::nonempty_tag('tr', '<th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th> <th> Victoria/Derrota</th>',array());
+            $cabezeraTabla.= html_writer::nonempty_tag('tr', '<th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th> <th> Victoria/Derrota</th>', array());
             $cabezeraTabla.= html_writer::end_tag('thead', array());
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container gmcompcpu-container-overflow-eighty-height"));
+            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container-scroll"));
 
             $contenidoTabla = html_writer::start_tag('tbody', array());
             foreach($intentos as $intento)
                 {
                     $contenidoTabla.= html_writer::start_tag('tr', array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre,array("class" => "gmcompcpu-tabla-celda-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id));
+                    $contenidoTabla.= html_writer::nonempty_tag('td', $dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre,array("class" => "gmcompcpu-color-cpu-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id));
                     $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_usuario, array());
                     $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_cpu, array());
                     if($intento->puntuacion_usuario >= $intento->puntuacion_cpu)
                         {
-                            $contenidoTabla.= html_writer::nonempty_tag('td', ' ', array("class" => "gmcompcpu-cpu-vencida"));
-
+                            
+                            $contenidoTabla.= html_writer::start_tag('td', array());
+                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_vencida.png", "class"=> 'gmcompcpu-imagen-cpu'));
+                            $contenidoTabla.= html_writer::end_tag('td', array());
                         }
                     else
                         {
-                            $contenidoTabla.= html_writer::nonempty_tag('td', ' ', array("class"=>"gmcompcpu-tabla-celda-perdedora"));
+                            $contenidoTabla.= html_writer::start_tag('td', array());
+                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_activa.png", "class"=> 'gmcompcpu-imagen-cpu'));
+                            $contenidoTabla.= html_writer::end_tag('td', array());
                         }
                     $contenidoTabla.= html_writer::end_tag('tr', array());
                 }
@@ -509,14 +486,95 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $contenidoTabla.= html_writer::end_tag('tr', array());
                 }
             $contenidoTabla.= html_writer::end_tag('tbody', array());
-            $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTabla, array());
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-container"));
-            $html.= html_writer::nonempty_tag('button', "Volver",array("class" =>" gmcompcpu-quarter-container btn btn-primary gmcompcpu-end-button-volver gmcompcpu-button", "id"=>"gmcompcpu-volver-intentos"));
+            $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTabla, array("id"=>"gmcompcpu-table-tries"));
             $html.= html_writer::end_tag('div', array());
             $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::tag('div', '',array("class" =>"gmcompcpu-linea"));
+            $html.= html_writer::end_tag('div', array());
+            
+            $html.= html_writer::end_tag('div');
             return $html;
         }
 
+    private function obtener_todas_dificultades()
+        {
+            global $DB;
+            return array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));
+        }
+
+
+    private function obtener_intentos_usuario($moodleUserId, $gmcompcpuid)
+        {
+            global $DB;
+            $sql ="SELECT gmdl_dificultad_cpu_id, puntuacion_usuario, puntuacion_cpu";
+            $sql.=" FROM {gmdl_intento}";
+            $sql.=" JOIN {gmdl_usuario} ON {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id";
+            $sql.=" JOIN {user} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
+            $sql.=" WHERE {user}.id = ". $moodleUserId;
+            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id =".$gmcompcpuid;
+            $sql.=" AND fecha_fin IS NOT NULL";
+            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id = ".$gmcompcpuid;
+            $sql.=" ORDER BY fecha_fin DESC";
+
+            return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+
+        }
+
+    private function obtener_cpus_vencidas($instancia, $usuario)
+        {
+            global $DB;
+            $sql = " SELECT gmdl_dificultad_cpu_id, COUNT(id)  FROM {gmdl_intento}";
+            $sql.= " WHERE puntuacion_usuario >= puntuacion_cpu";
+            $sql.= " AND gmdl_usuario_id = $usuario";
+            $sql.= " AND gmdlcompcpu_id = ".$instancia;
+            $sql.= " GROUP BY 1;";
+
+            return $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+        }
+    private function obtener_primeros_intentos($instancia)
+        {
+            global $DB;
+            $sql = "SELECT b.* FROM";
+		    $sql.= " (";
+			$sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id,  MIN(fecha_fin) as minima";
+			$sql.= " FROM {gmdl_intento} ";
+			$sql.= " WHERE fecha_fin IS NOT NULL";
+			$sql.= " AND gmdlcompcpu_id = ".$instancia;
+            $sql.= " GROUP BY 1, 2";
+		    $sql.= " ) AS a";
+            $sql.= " JOIN";
+            $sql.= " (";
+            $sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id, puntuacion_usuario AS puntos, fecha_fin, username, firstname, lastname";
+            $sql.= " FROM {gmdl_intento}, {user}, {gmdl_usuario}";
+            $sql.= " WHERE gmdlcompcpu_id = ".$instancia." AND";
+            $sql.= " {user}.id = {gmdl_usuario}.mdl_id_usuario AND";
+            $sql.= " {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id ";
+            $sql.= " ) AS b";
+            $sql.="  ON";
+			$sql.= " a.gmdl_usuario_id = b.gmdl_usuario_id AND";
+			$sql.= " a.gmdl_dificultad_cpu_id = b.gmdl_dificultad_cpu_id AND";
+			$sql.= " a.minima = b.fecha_fin";
+            $sql.= " ORDER BY b.puntos DESC";
+
+            return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+        }
+    private function obtener_mejores_intentos($instancia)
+        {
+            global $DB;
+            $sql =" SELECT  a.*, username, firstname, lastname FROM";
+            $sql.=" (SELECT gmdl_dificultad_cpu_id, gmdl_usuario_id, MAX(puntuacion_usuario) AS puntos";
+            $sql.=" FROM {gmdl_intento}";
+            $sql.=" WHERE gmdlcompcpu_id = ".$instancia;
+            $sql.="  AND fecha_fin IS NOT NULL";
+            $sql.=" GROUP BY 1,2 ) as a, {user}, {gmdl_usuario}";
+            $sql.=" WHERE {user}.id =  {gmdl_usuario}.mdl_id_usuario AND";
+            $sql.=" {gmdl_usuario}.id = a.gmdl_usuario_id";
+            $sql.=" ORDER BY a.puntos DESC";
+            return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+        }
+
+    private function obtener_usuario_gamedle($moodleUserId)
+        {
+            global $DB;
+            return $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $moodleUserId), $fields='*', $strictness=IGNORE_MISSING)->id;
+        }
 }
