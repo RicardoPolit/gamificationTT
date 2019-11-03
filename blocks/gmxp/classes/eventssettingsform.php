@@ -16,7 +16,7 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
     const COMPETENCEXP = block_gmxp_core::COMPETENCEXP;
 
     const XP_REGEX = '/^([0-9]){1,9}$/';
-    const XP_MAX_REGEX_LENGTH = 9;
+    const XP_MAX_REGEX_LENGTH = 9; 
 
     protected function definition() {
 
@@ -68,8 +68,8 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
 
         $key = self::COMPETENCEXP;
         $mform->setType($key, PARAM_INT);
-        $mform->addRule($key, $errormsg, 'nonzero', null, 'client');
-        $mform->addRule($key, $errormsg, 'regex', self::XP_REGEX, 'client');
+        // $mform->addRule($key, $errormsg, 'nonzero', null, 'client');
+        // $mform->addRule($key, $errormsg, 'regex', self::XP_REGEX, 'client');
         $mform->disabledIf($key, self::COMPETENCE, 'notchecked');
     }
 
@@ -91,6 +91,27 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
      */
     public function validation($data, $files) {
         $errors = array();
+        $xp_incorrect = get_string('integer', self::PLUGIN);
+
+        // TODO Validate self::COMPETENCE & parent::VALIDATE(SESSKEY)i
+
+        if ($data[self::COMPETENCE]) {
+
+            $key = self::COMPETENCEXP;
+            if ( !isset($data[$key]) ) {
+                $errors[$key] = get_config('required');
+
+            } else if (
+            !preg_match( self::XP_REGEX, $data[$key]) || $data[$key] <= 0 ) {
+                $errors[$key] = $xp_incorrect;
+            }
+        }
+
+        // TODO PASS TO PARENT
+        $this->has_error = false;
+        if (!empty($errors)) {
+            $this->has_error = true;
+        }
         return $errors;
     }
 
