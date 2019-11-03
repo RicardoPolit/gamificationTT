@@ -22,6 +22,7 @@ abstract class local_gamedlemaster_form extends moodleform {
     function __construct() {
         parent::__construct();
         $this->form_success = get_string('FORM_SUCCESS', 'local_gamedlemaster');
+        $this->error = get_string('FORM_ERROR', 'local_gamedlemaster');
     }
 
     function set_title($title) {
@@ -85,6 +86,11 @@ abstract class local_gamedlemaster_form extends moodleform {
     
         $output.= html_writer::end_tag('a');
         return $output;
+    }
+
+    function go_site_administration() {
+        global $CFG;
+        redirect("{$CFG->wwwroot}/admin/search.php");
     }
 }
 

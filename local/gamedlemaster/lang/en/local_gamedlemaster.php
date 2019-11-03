@@ -18,3 +18,4 @@ $string['gmxp'] = 'Gamedle Master'; // TODO INCORRECT STRING ENTRY
 
 // FORM STRING MESSAGES
 $string['FORM_SUCCESS'] = 'Configurations updated successfully';
+$string['FORM_ERROR'] = 'There are incorrect values';
