@@ -238,12 +238,27 @@
             \it Restricciones:
         }
 
+        \brAttr{sections}{número de secciones}{tInt}{%
+        }
+
+        \brAttr{hiddensections}{secciones ocultas}{tVarchar}{%
+        }
+
+        \brAttr{coursedisplay}{aspecto del curso}{tVarchar}{%
+        }
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-course-section}{Sección de curso gamificado}{%
     Esta entidad }
+        \brAttr{id}{Id}{tInt}{%
+            . \par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
     \end{cdtEntidad}
 
-    \begin{cdtEntidad}{xp-alumn}{Alumno}{%
+    \begin{cdtEntidad}{xp-section-reward}{Recompensa de sección}{%
     Esta entidad }
     \end{cdtEntidad}

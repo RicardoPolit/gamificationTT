@@ -47,10 +47,6 @@
             \refElem{tRange} (0,4294967295),
             \refElem{tRequired}
         }
-	%\cdtEntityRelSection
-	%\brRel{\brRelComposition}{Ejemplo}{Escribe el enunciado que denota la composición.}
-	%\brRel{\brRelAgregation}{Ejemplo}{Tambien puede ser con agregaciones.}
-	%\brRel{\brRelGeneralization}{Ejemplo}{De la misma forma con Generalizaciones.}
     \end{cdtEntidad}\schemeName{config\_plugins}
 
     \begin{cdtEntidad}{mdl-user}{Usuario de moodle}{%
@@ -150,8 +146,35 @@
             \refElem{tLength} 0-21.
         }
 
+	    \brAttr{fullname}{nombre completo}{tVarchar}{%
+	        Es el nombre completo que se le asigna al curso.\par
+
+            \it Restricciones:
+            \refElem{tRequired}.
+            \refElem{tLength} 0-21.
+        }
+
+	    \brAttr{shortname}{nombre corto}{tVarchar}{%
+            Es el nombre corto que se le asigna al curso.\par
+
+            \it Restricciones:
+            \refElem{tRequired}.
+            \refElem{tLength} 0-21.
+        }
+
     \end{cdtEntidad}\schemeName{course}
 
+    \begin{cdtEntidad}{mdl-course-sections}{Secciones del curso de moodle}{%
+    }
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa al identificador único para cada seccion
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+    \end{cdtEntidad}\schemeName{course\_sections}
 
     \begin{cdtEntidad}{mdl-course-format-options}{Opciones del formato del curso}{%
     }
@@ -201,8 +224,11 @@
             \refElem{tRequired}
         }
 
-    \end{cdtEntidad}\schemeName{course}
+    \end{cdtEntidad}\schemeName{course\_format\_options}
 
+    \begin{cdtEntidad}{mdl-course-category}{Categoria de curso}{%
+    .}
+    \end{cdtEntidad}\schemeName{course\_category}
 
     \begin{cdtEntidad}{Plugin}{Plugin}{%
     La forma en que moodle obtiene información acerca de los plugins es analizando
