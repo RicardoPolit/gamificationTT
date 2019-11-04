@@ -53,7 +53,7 @@ Estado/\ucstEnEdicion]%
         eliminados una vez concluida la desinstalación del o de los plugins.
 	}
 
-	\UCitem{Reglas de negocio}{Ninguna}
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
@@ -74,7 +74,7 @@ Estado/\ucstEnEdicion]%
 
 	\UCitem[admin]{Observaciones}{%
         Como se explica en el modelo de información la eliminación de las entidades
-        \refElem{xp-alumn}, \refElem{xp-user}, \refElem{xp-course-section} y
+        \refElem{xp-section-reward}, \refElem{xp-user}, \refElem{xp-course-section} y
         \refElem{xp-course} no afectan las funcionalidades de moodle.
 	}
 
@@ -108,8 +108,9 @@ Estado/\ucstEnEdicion]%
   \Sistema Obtiene las \entrada[secciones de los curso gamificados]{xp-course-section} 
            y las elimina.
 
-  \Sistema Elimina los datos de todos los \entrada[alumnos gamificados]{xp-alumn} y 
-           \entrada[usuarios gamificados]{xp-user} registrados en el sistema.
+  \Sistema Elimina los datos de todos las \entrada[recompensas de experiencia]%
+           {xp-section-reward} y \entrada[usuarios gamificados]{xp-user} 
+           registrados en el sistema.
 
   \Sistema Muestra la pantalla \refElem{IU-M04a} pidiendo al usuario la confirmación
            para eliminar los archivos del plugin.
