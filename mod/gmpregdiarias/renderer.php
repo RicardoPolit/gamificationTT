@@ -79,6 +79,16 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
         if($preguntaseleccionada){
 
+            $values = (object)[
+                'gmdl_usuario_id' => $gmuserid,
+                'mdl_question_id' => $actualquestionid,
+                'gmdl_preg_diarias_id' => $gmpregdiarias->id,
+                'calificacion' => 0,
+                'fecha' => time()
+            ];
+
+            $intentoid = $DB->insert_record('gmdl_intento_diario',$values);
+
             $quba->start_all_questions();
 
             question_engine::save_questions_usage_by_activity($quba);
@@ -95,9 +105,8 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
             $display .= '<input type="hidden" name="slots" value="' . implode(',', $idstoslots) . "\" />\n";
             $display .= '<input type="hidden" name="scrollpos" value="" />';
-            $display .= '<input type="hidden" name="questionid" value='.$actualquestionid.' />';
+            $display .= '<input type="hidden" name="intentoid" value='.$intentoid.' />';
             $display .= '<input type="hidden" name="idredirect" value='.$id.' />';
-            $display .= '<input type="hidden" name="gmuserid" value='.$gmuserid.' />';
 
             $options = new question_display_options();
             $options->marks = question_display_options::MAX_ONLY;
@@ -149,7 +158,7 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
     public function render_results_attempt($userScore){
 
-        if($userScore > 0 ){
+        if($userScore > 5 ){
 
             $mensaje = 'Felicidades! Pregunta diaria contestada correctamente!';
             $class = 'ganador';
@@ -658,8 +667,8 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
         $sql = "SELECT * from {gmdl_intento_diario}";
         $sql .= " WHERE {gmdl_intento_diario}.gmdl_usuario_id = ".$userid." AND";
-        $sql .= " {gmdl_intento_diario}.gmdl_preg_diarias_id = ".$instancia." AND";
-        $sql .= " {gmdl_intento_diario}.calificacion > 0";
+        $sql .= " {gmdl_intento_diario}.gmdl_preg_diarias_id = ".$instancia; /*." AND";
+        $sql .= " {gmdl_intento_diario}.calificacion > 5";*/
 
         $rows = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
 
