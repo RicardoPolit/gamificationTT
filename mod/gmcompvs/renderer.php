@@ -44,9 +44,9 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
         $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
 
-        $display .= html_writer::start_tag('div');
+        $display .= html_writer::start_tag('div', array("class"=>"gmcompvs-container-columns", "id"=>"gmcompvs-activity-container"));
 
-        $display .= html_writer::start_tag('h2',array('class' => 'gmcompvs-titulo'));
+        $display .= html_writer::start_tag('h2',array('class' => ''));
 
         $display .= html_writer::start_tag('b');
 
@@ -156,7 +156,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $class = 'perdedor';
 
         }
-        $display .= html_writer::start_tag('div');
+        $display .= html_writer::start_tag('div', array("class"=>"gmcompvs-container-columns"));
         $display .= html_writer::start_tag('h2',array('class' => 'gmcompvs-titulo-'.$class));
         $display .= html_writer::start_tag('b');
         $display .= $mensaje;

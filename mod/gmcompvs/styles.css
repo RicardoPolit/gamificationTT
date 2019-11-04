@@ -5,6 +5,19 @@
     *****************************************************************************************************
 */
 
+.gmcompvs-container-columns{
+    width: 100%;
+    margin-bottom: 1%;
+    padding: 1%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center;
+    align-items: center;
+    text-align: center;
+
+}
+
 .gmcompvs-container{
     width: 100%;
     margin-bottom: 1%;
