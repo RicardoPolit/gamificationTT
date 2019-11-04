@@ -58,6 +58,8 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
         $preguntascontestadas = $this->obtener_preguntas_contestadas($gmuserid,$gmpregdiarias->id);
 
+        $preguntaseleccionada = false;
+
         for($i = 0; $i < sizeof($questionids); $i++){
 
             $num = rand(0, sizeof($questionids)-1);
@@ -69,52 +71,77 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
             if(($questiondata->qtype == "multichoice" || $questiondata->qtype == "truefalse" || $questiondata->qtype == "shortanswer" || $questiondata->qtype == "numerical") && $sepuedecontestar){
                 $question = question_bank::make_question($questiondata);
                 $idstoslots[] = $quba->add_question($question, $questiondata->maxmark);
+                $preguntaseleccionada = true;
                 break;
             }
 
         }
 
-        $quba->start_all_questions();
+        if($preguntaseleccionada){
 
-        question_engine::save_questions_usage_by_activity($quba);
+            $quba->start_all_questions();
+
+            question_engine::save_questions_usage_by_activity($quba);
 
 
-        $display = html_writer::start_tag('form',
-            array('action' => new moodle_url('/mod/gmpregdiarias/processattempt.php',
-                array('id' => $quba->get_id(),'cm' => $cm->instance,'userid' => $userid)), 'method' => 'post',
-                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                'id' => 'responseform'));
+            $display = html_writer::start_tag('form',
+                array('action' => new moodle_url('/mod/gmpregdiarias/processattempt.php',
+                    array('id' => $quba->get_id(),'cm' => $cm->instance,'userid' => $userid)), 'method' => 'post',
+                    'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                    'id' => 'responseform'));
 
-        /*$this->page->requires->js_init_call('M.core_question_engine.init_form',
-            array('#responseform'), false, 'core_question_engine');*/
+            /*$this->page->requires->js_init_call('M.core_question_engine.init_form',
+                array('#responseform'), false, 'core_question_engine');*/
 
-        $display .= '<input type="hidden" name="slots" value="' . implode(',', $idstoslots) . "\" />\n";
-        $display .= '<input type="hidden" name="scrollpos" value="" />';
-        $display .= '<input type="hidden" name="questionid" value='.$actualquestionid.' />';
-        $display .= '<input type="hidden" name="idredirect" value='.$id.' />';
-        $display .= '<input type="hidden" name="gmuserid" value='.$gmuserid.' />';
+            $display .= '<input type="hidden" name="slots" value="' . implode(',', $idstoslots) . "\" />\n";
+            $display .= '<input type="hidden" name="scrollpos" value="" />';
+            $display .= '<input type="hidden" name="questionid" value='.$actualquestionid.' />';
+            $display .= '<input type="hidden" name="idredirect" value='.$id.' />';
+            $display .= '<input type="hidden" name="gmuserid" value='.$gmuserid.' />';
 
-        $options = new question_display_options();
-        $options->marks = question_display_options::MAX_ONLY;
-        $options->markdp = 2; // Display marks to 2 decimal places.
-        $options->feedback = question_display_options::VISIBLE;
-        $options->generalfeedback = question_display_options::HIDDEN;
+            $options = new question_display_options();
+            $options->marks = question_display_options::MAX_ONLY;
+            $options->markdp = 2; // Display marks to 2 decimal places.
+            $options->feedback = question_display_options::VISIBLE;
+            $options->generalfeedback = question_display_options::HIDDEN;
 
-        $display .= html_writer::start_tag('div');
+            $display .= html_writer::start_tag('div');
 
-        foreach ($idstoslots as $displaynumber => $slot) {
-            $display .= $quba->render_question($slot, $options, $displaynumber);
+            foreach ($idstoslots as $displaynumber => $slot) {
+                $display .= $quba->render_question($slot, $options, $displaynumber);
+            }
+
+
+            $display .= html_writer::start_tag('div', array("class"=>"gmpregdiarias-container"));
+
+            $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+                'value' => 'Terminar', 'class' => "mod_quiz-next-nav btn btn-primary gmpregdiarias-button", "style"=>"margin:auto; width: 25%;"));
+            $display .= html_writer::end_tag('div');
+
+            $display .= html_writer::end_tag('div');
+            $display .= html_writer::end_tag('form');
+
+        }else{
+
+            $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+
+            $display .= html_writer::start_tag('div');
+
+            $display .= html_writer::start_tag('h2',array('class' => 'gmpregdiarias-titulo'));
+
+            $display .= html_writer::start_tag('b');
+
+            $display .= 'Ya contestaste todas las preguntas!, contacta a tu profesor para que agregue m&aacute;s';
+
+            $display .= html_writer::end_tag('b');
+
+            $display .= html_writer::end_tag('h2');
+
+            $display .= html_writer::end_tag('div');
+
         }
 
 
-        $display .= html_writer::start_tag('div', array("class"=>"gmpregdiarias-container"));
-
-        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Terminar', 'class' => "mod_quiz-next-nav btn btn-primary gmpregdiarias-button", "style"=>"margin:auto; width: 25%;"));
-        $display .= html_writer::end_tag('div');
-
-        $display .= html_writer::end_tag('div');
-        $display .= html_writer::end_tag('form');
 
         return $display;
     }
@@ -165,7 +192,7 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
             if($sepuedecontestar){
 
-                $dificultades = $this->obtener_todas_dificultades();
+                /*$dificultades = $this->obtener_todas_dificultades();
                 $victorias = $this->obtener_cpus_vencidas($gmpregdiarias->id, $userid);
                 $compusVencidas = '';
                 $nombresDificultades = '';
@@ -243,7 +270,39 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
                 $html.= html_writer::end_tag('div', array());
                 $html.= html_writer::end_tag('form');
 
-                $html.= html_writer::end_tag('div', array());
+                $html.= html_writer::end_tag('div', array());*/
+
+                $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+
+                $display .= html_writer::start_tag('div');
+
+                $display .= html_writer::start_tag('h2',array('class' => 'gmpregdiarias-titulo'));
+
+                $display .= html_writer::start_tag('b');
+
+                $display .= 'Contesta tu pregunta diaria!!';
+
+                $display .= html_writer::end_tag('b');
+
+                $display .= html_writer::end_tag('h2');
+
+                $display .= html_writer::end_tag('div');
+
+                $display .= html_writer::start_tag('div');
+
+                $display .= html_writer::start_tag('form',
+                    array('action' => new moodle_url('/mod/gmpregdiarias/attempt.php',
+                        array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmpregdiarias->id, 'id' => $id)), 'method' => 'post',
+                        'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                        'id' => 'responseform'));
+
+                $display.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Contestar", "class" => "gmpregdiarias-button btn btn-primary gmpregdiarias-container-card-button" ));
+
+                $display  .= html_writer::end_tag('form');
+
+                $display .= html_writer::end_tag('div');
+
+                return $display;
 
             }else{
 
@@ -268,7 +327,7 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
             }
 
 
-            return $html.$this->render_scores_page($gmpregdiarias, $userid,$dificultades,$moodleUserId);
+            /*return $html.$this->render_scores_page($gmpregdiarias, $userid,$dificultades,$moodleUserId);*/
         }
 
 
