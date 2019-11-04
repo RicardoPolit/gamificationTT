@@ -1,13 +1,13 @@
-/* 
+/*
     *****************************************************************************************************
     *                                   Estilos que se repiten en cada pantalla                         *
     *****************************************************************************************************
 */
-.gmcompcpu-titulo{
+.gmpregdiarias-titulo{
     padding: 1%;
 }
 
-.gmcompcpu-container-overflow-eighty-height{
+.gmpregdiarias-container-overflow-eighty-height{
     width: 100%;
     height: 80%;
     padding: 0% 10%;
@@ -15,51 +15,51 @@
 }
 
 
-.gmcompcpu-color-cpu-nivel-1{
+.gmpregdiarias-color-cpu-nivel-1{
     background-color:  #0981bd !important;
     color: white;
-    
+
 }
-.gmcompcpu-color-cpu-nivel-2{
+.gmpregdiarias-color-cpu-nivel-2{
     background-color: green !important;
 }
-.gmcompcpu-color-cpu-nivel-3{
+.gmpregdiarias-color-cpu-nivel-3{
     background-color: orange !important;
 }
-.gmcompcpu-color-cpu-nivel-4{
+.gmpregdiarias-color-cpu-nivel-4{
     background-color: red !important;
 }
 
-.gmcompcpu-linea-nivel-1, .gmcompcpu-linea-nivel-2, .gmcompcpu-linea-nivel-3, .gmcompcpu-linea-nivel-4{
+.gmpregdiarias-linea-nivel-1, .gmpregdiarias-linea-nivel-2, .gmpregdiarias-linea-nivel-3, .gmpregdiarias-linea-nivel-4{
     width: 100%;
     margin: 5% 0%;
     padding: 1% 1%;
     border: 5px double black;
     text-align: center;
 }
-.gmcompcpu-linea-nivel-1{
+.gmpregdiarias-linea-nivel-1{
     background-image: radial-gradient(circle, #0981bd, white, whitesmoke);
-    
+
 }
-.gmcompcpu-linea-nivel-2{
+.gmpregdiarias-linea-nivel-2{
     background-image: radial-gradient(circle, green, white, whitesmoke);
 }
-.gmcompcpu-linea-nivel-3{
+.gmpregdiarias-linea-nivel-3{
     background-image: radial-gradient(circle, orange, white, whitesmoke);
 }
-.gmcompcpu-linea-nivel-4{
+.gmpregdiarias-linea-nivel-4{
     background-image: radial-gradient(circle, red, white, whitesmoke);
 }
 
 
 
 
-/* 
+/*
     *****************************************************************************************************
     *                         Estilos para mostrar el menú de selección de pantalla                     *
     *****************************************************************************************************
 */
-.gmcompcpu-contianer-menu-opciones{
+.gmpregdiarias-contianer-menu-opciones{
     height: 100px;
     flex-direction: row;
     box-sizing: border-box;
@@ -67,9 +67,9 @@
     place-content: flex-end center;
     align-items: flex-end;
 }
-.gmcompcpu-contianer-menu-opcion-activa, .gmcompcpu-contianer-menu-opcion{
+.gmpregdiarias-contianer-menu-opcion-activa, .gmpregdiarias-contianer-menu-opcion{
     border-top-left-radius: 10px;
-    border-top-right-radius: 10px;  
+    border-top-right-radius: 10px;
     border-top: 5px solid black;
     border-left: 5px solid black;
     border-right: 5px solid black;
@@ -81,31 +81,31 @@
 }
 
 
-.gmcompcpu-contianer-menu-opcion-activa{
+.gmpregdiarias-contianer-menu-opcion-activa{
     height: 100%;
     background-color: #0981bd;
     color: white;
     width: 34%;
 }
-.gmcompcpu-contianer-menu-opcion{
+.gmpregdiarias-contianer-menu-opcion{
     height: 60%;
     background-color: white;
     width: 33%;
 }
 
 
-#gmcompcpu-activity-container{
+#gmpregdiarias-activity-container{
     border: 10px solid black;
     height: 800px;
 }
 
-/* 
+/*
     *****************************************************************************************************
     *                                     Estilos para la pantalla principal                            *
     *****************************************************************************************************
 */
 
-#gmcompcpu-contianer-menu-opcion-inicio-container{
+#gmpregdiarias-contianer-menu-opcion-inicio-container{
     flex-direction: column;
     box-sizing: border-box;
     display: flex;
@@ -114,7 +114,7 @@
     height: 100%;
 }
 
-#gmcompcpu-table-cpu-defeated{
+#gmpregdiarias-table-cpu-defeated{
     width: 80%;
     height: 20%;
     margin: 5% 0%;
@@ -122,43 +122,42 @@
 }
 
 
-#gmcompcpu-table-cpu-defeated thead tr th{
+#gmpregdiarias-table-cpu-defeated thead tr th{
     color: white;
     padding: 1% 0%;
     border: 5px double black;
 }
 
-#gmcompcpu-table-cpu-defeated tbody tr td{
+#gmpregdiarias-table-cpu-defeated tbody tr td{
     border: 5px double black;
     background-color: whitesmoke;
     padding: 1% 0%;
 }
 
-.gmcompcpu-imagen-cpu{
+.gmpregdiarias-imagen-cpu{
     border: 5px solid black;
 }
 
 
 
-.gmcompcpu-card-container{
+
+
+#responseform{
     width: 40%;
-    height: 20%;
+    height: 30%;
     padding: 1%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: 0.3s;
-
-}
-.gmcompcpu-card-container form{
     flex-direction: column;
     box-sizing: border-box;
     display: flex;
     place-content: center space-evenly;
     align-items: center;
     text-align: center;
-    
+
 }
 
-.gmcompcpu-card-element{
+.gmpregdiarias-card-element{
     width: 100%;
     height: 30%;
     transition: 0.3s;
@@ -170,20 +169,20 @@
 
 }
 
-.gmcompcpu-card-element > p{
+.gmpregdiarias-card-element > p{
     margin: 0 1%;
 
 }
 
 
-/* 
+/*
     *****************************************************************************************************
     *                                 Estilos para la pantalla de intentos                              *
     *****************************************************************************************************
 */
 
 
-#gmcompcpu-contianer-menu-opcion-historial-container{
+#gmpregdiarias-contianer-menu-opcion-historial-container{
     height: 100%;
     flex-direction: column;
     box-sizing: border-box;
@@ -192,26 +191,26 @@
     align-items: center;
 }
 
-#gmcompcpu-table-tries{
+#gmpregdiarias-table-tries{
     text-align: center;
     width: 100%;
     padding: 0% 10%;
 }
 
-#gmcompcpu-table-tries thead tr th{
+#gmpregdiarias-table-tries thead tr th{
     background-color: #0981bd;
     color: white;
     padding: 1% 0%;
     border: 5px double black;
 }
-#gmcompcpu-table-tries tbody tr td{
+#gmpregdiarias-table-tries tbody tr td{
     background-color: whitesmoke;
     padding: 1% 0%;
     border: 5px double black;
 }
 
 
-.gmcompcpu-container-scroll{
+.gmpregdiarias-container-scroll{
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
@@ -221,13 +220,13 @@
 }
 
 
-/* 
+/*
     *****************************************************************************************************
     *                                 Estilos para la pantalla de leaderboards                          *
     *****************************************************************************************************
 */
 
-#gmcompcpu-contianer-menu-opcion-scores-container{
+#gmpregdiarias-contianer-menu-opcion-scores-container{
     padding: 1% 0%;
     height: 100%;
     flex-direction: column;
@@ -238,7 +237,7 @@
 }
 
 
-.gmcompcpu-contianer-card{
+.gmpregdiarias-contianer-card{
     padding: 2%;
     width: 40%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -249,7 +248,7 @@
     align-items: center;
 }
 
-.gmcompcpu-contianer-leaderdoard{
+.gmpregdiarias-contianer-leaderdoard{
     width: 100%;
     padding: 0% 10% 10% 10%;
     overflow-x: hidden;
@@ -262,19 +261,19 @@
 
 }
 
-.gmcompcpu-table-scores{
+.gmpregdiarias-table-scores{
     width: 90%;
     padding: 0% 5%;
 }
 
 
-.gmcompcpu-table-scores thead tr th{
+.gmpregdiarias-table-scores thead tr th{
     color: white;
     padding: 1% 0%;
     border: 5px double black;
 }
 
-.gmcompcpu-table-scores tbody tr td{
+.gmpregdiarias-table-scores tbody tr td{
     background-color: whitesmoke;
     color: black;
     padding: 1% 0%;
@@ -282,7 +281,7 @@
 }
 
 
-.gmcompcpu-container-half-containers{
+.gmpregdiarias-container-half-containers{
     /*height: 100%;*/
     width: 100%;
     flex-direction: row;
@@ -292,7 +291,7 @@
     align-items: flex-start;
 }
 
-.gmcompcpu-half-container{
+.gmpregdiarias-half-container{
     width: 100%;
     text-align: center;
     flex-direction: column;
@@ -303,13 +302,13 @@
 }
 
 
-.gmcompcpu-imagen-trophy{
+.gmpregdiarias-imagen-trophy{
     max-width: 40%;
     max-height: 40%;
     border: 5px solid black;
 }
 
-.gmcompcpu-container-niveles{
+.gmpregdiarias-container-niveles{
     width: 100%;
     flex-direction: column;
     box-sizing: border-box;

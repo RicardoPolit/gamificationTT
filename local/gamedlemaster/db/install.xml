@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/gamedlemaster/db" VERSION="20191102" COMMENT="Prueba de concepto para la creacion de los XML"
+<XMLDB PATH="local/gamedlemaster/db" VERSION="20191103" COMMENT="Prueba de concepto para la creacion de los XML"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -208,7 +208,7 @@
       <FIELDS>
         <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
         <FIELD NAME="gmdl_dificultad_cpu_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Dificultad que se seleccionó para el intento"/>
-        <FIELD NAME="gmdlcomcpu_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Qué instancia es donde se está llevando el intento"/>
+        <FIELD NAME="gmdlcompcpu_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Qué instancia es donde se está llevando el intento"/>
         <FIELD NAME="gmdl_usuario_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Usuario que hizó el intento"/>
         <FIELD NAME="puntuacion_cpu" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Puntuación de la CPU para el intento"/>
         <FIELD NAME="puntuacion_usuario" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Puntuación que obtuvo el usuario"/>
@@ -219,7 +219,7 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
         <KEY NAME="gmdl_dificultad_cpu_id" TYPE="foreign" FIELDS="gmdl_dificultad_cpu_id" REFTABLE="gmdl_dificultad_cpu" REFFIELDS="id" COMMENT="Llave foránea que apunta al catálogo de dificultades de CPU"/>
         <KEY NAME="gmdl_usuario_id" TYPE="foreign" FIELDS="gmdl_usuario_id" REFTABLE="gmdl_usuario" REFFIELDS="id" COMMENT="Llave foránea al usuario que contestó ese intento"/>
-        <KEY NAME="gmdlcomcpu_id" TYPE="foreign" FIELDS="gmdlcomcpu_id" REFTABLE="gmdlcomcpu" REFFIELDS="id" COMMENT="Llave foránea que apunta a la tabla que contiene las instancias de la actividad a lo largo de los cursos y páginas de moodle"/>
+        <KEY NAME="gmdlcompcpu_id" TYPE="foreign" FIELDS="gmdlcompcpu_id" REFTABLE="gmdlcompcpu" REFFIELDS="id" COMMENT="Llave foránea que apunta a la tabla que contiene las instancias de la actividad a lo largo de los cursos y páginas de moodle"/>
       </KEYS>
     </TABLE>
     <TABLE NAME="gmdl_respuesta_cpu" COMMENT="Tabla que relaciona a una instancia de la actividad &quot;Competencia VS CPU&quot;, la pregunta que se respondió  y las respuestas que se dieron">
@@ -273,6 +273,36 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
         <KEY NAME="gmdl_partida_id" TYPE="foreign" FIELDS="gmdl_partida_id" REFTABLE="gmdl_partida" REFFIELDS="id" COMMENT="Llave foránea a la  partida en la que tuvo lugar la participación"/>
         <KEY NAME="gmdl_usuario_id" TYPE="foreign" FIELDS="gmdl_usuario_id" REFTABLE="gmdl_usuario" REFFIELDS="id" COMMENT="Usuario que participó"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="gmpregdiarias" COMMENT="Tabla que contendrá las instancias de las actividades tipo pregunta diaria">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="course" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Curso al que está asociada la actividad"/>
+        <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="true" SEQUENCE="false" COMMENT="Nombre que recibirá la actividad"/>
+        <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="última modificación recibida en los registros"/>
+        <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Descripción de la instancia de la actividad"/>
+        <FIELD NAME="introformar" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Formato en el cual está escrita la descripción de la instancia de la activdad"/>
+        <FIELD NAME="mdl_question_categories_id" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Banco de preguntas de la actividad"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="gmdl_intento_diario" COMMENT="El intento de un usuario de contestar una pregunta del bacno de preguntas">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="gmdl_usuario_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Usuario que realizó el intento diario"/>
+        <FIELD NAME="mdl_question_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Pregunta que se intentó responder en el intento diario"/>
+        <FIELD NAME="gmdl_preg_diarias_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Instancia de la actividad preguntas diarias a la que se apunta"/>
+        <FIELD NAME="calificacion" TYPE="number" LENGTH="12" NOTNULL="true" DEFAULT="0.0" SEQUENCE="false" DECIMALS="7" COMMENT="Calificación del usuario al responder la pregunta"/>
+        <FIELD NAME="fecha" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="gmdl_usuario_id" TYPE="foreign" FIELDS="gmdl_usuario_id" REFTABLE="gmdl_usuario" REFFIELDS="id" COMMENT="Llave foránea que apunta a la tabla gmdl_usuario"/>
+        <KEY NAME="mdl_question_id" TYPE="foreign" FIELDS="mdl_question_id" REFTABLE="mdl_question" REFFIELDS="id" COMMENT="Llave foránea que apunta a la tabla pregunta de moodle"/>
+        <KEY NAME="gmdl_preg_diarias_id" TYPE="foreign" FIELDS="gmdl_preg_diarias_id" REFTABLE="gmpregdiarias" REFFIELDS="id" COMMENT="Llave foránea que apunta a la tabla gmpregdiarias"/>
       </KEYS>
     </TABLE>
   </TABLES>

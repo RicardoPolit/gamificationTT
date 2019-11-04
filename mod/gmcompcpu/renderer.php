@@ -258,21 +258,22 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
 
 
-                $html.= html_writer::start_tag('form',
-                    array('action' => new moodle_url('/mod/gmcompcpu/attempt.php',
-                        array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompcpu->id, 'id' => $id)), 'method' => 'post',
-                        'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                        'id' => 'responseform'));
-                $html.= html_writer::nonempty_tag('h3', "<b>Desafiar computadora</b>", array("class" =>"gmcompcpu-container-card-title"));
-                $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
-                $html.= html_writer::nonempty_tag('p', "Seleccione una dificultad: ",array());
-                $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmcompcpu-half-container", "name" => "dificultad"));
+                $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-container"));
+                    $html.= html_writer::start_tag('form',
+                        array('action' => new moodle_url('/mod/gmcompcpu/attempt.php',
+                            array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompcpu->id, 'id' => $id)), 'method' => 'post',
+                            'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                            'id' => 'responseform'));
+                    $html.= html_writer::nonempty_tag('h3', "<b>Desafiar computadora</b>", array("class" =>"gmcompcpu-container-card-title"));
+                    $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
+                    $html.= html_writer::nonempty_tag('p', "Seleccione una dificultad: ",array());
+                    $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmcompcpu-half-container", "name" => "dificultad"));
+                    $html.= html_writer::end_tag('div', array());
+                    $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
+                    $html.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Empezar", "class" => "gmcompcpu-button btn btn-primary gmcompcpu-container-card-button" ));
+                    $html.= html_writer::end_tag('div', array());
+                    $html.= html_writer::end_tag('form');
                 $html.= html_writer::end_tag('div', array());
-                $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-element"));
-                $html.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Empezar", "class" => "gmcompcpu-button btn btn-primary gmcompcpu-container-card-button" ));
-                $html.= html_writer::end_tag('div', array());
-                $html.= html_writer::end_tag('form');
-
             $html.= html_writer::end_tag('div', array());
 
 

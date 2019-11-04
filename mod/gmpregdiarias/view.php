@@ -15,12 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Prints a particular instance of gmcompvs
+ * Prints a particular instance of gmpregdiarias
  *
  * You can have a rather longer description of the file as well,
  * if you like, and it can span multiple lines.
  *
- * @package    mod_gmcompvs
+ * @package    mod_gmpregdiarias
  * @copyright  2014 John Okely <john@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -30,16 +30,16 @@ require_once(dirname(__FILE__).'/lib.php');
 
 
 $id = optional_param('id', 0, PARAM_INT); // Either course_module ID, or ...
-$n  = optional_param('q', 0, PARAM_INT);  // ...gmcompvs instance ID - it should be named as the first character of the module.
+$n  = optional_param('q', 0, PARAM_INT);  // ...gmpregdiarias instance ID - it should be named as the first character of the module.
 
 if ($id) {
-    $cm         = get_coursemodule_from_id('gmcompvs', $id, 0, false, MUST_EXIST);
+    $cm         = get_coursemodule_from_id('gmpregdiarias', $id, 0, false, MUST_EXIST);
     $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
-    $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $cm->instance), '*', MUST_EXIST);
+    $gmpregdiarias  = $DB->get_record('gmpregdiarias', array('id' => $cm->instance), '*', MUST_EXIST);
 } else if ($n) {
-    $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $n), '*', MUST_EXIST);
-    $course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
-    $cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
+    $gmpregdiarias  = $DB->get_record('gmpregdiarias', array('id' => $n), '*', MUST_EXIST);
+    $course     = $DB->get_record('course', array('id' => $gmpregdiarias->course), '*', MUST_EXIST);
+    $cm         = get_coursemodule_from_instance('gmpregdiarias', $gmpregdiarias->id, $course->id, false, MUST_EXIST);
 } else {
     error('You must specify a course_module ID or an instance ID');
 }
@@ -48,14 +48,14 @@ require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
 // Trigger module viewed event.
-/*$event = \mod_gmcompvs\event\course_module_viewed::create(array(
-    'objectid' => $gmcompvs->id,
+/*$event = \mod_gmpregdiarias\event\course_module_viewed::create(array(
+    'objectid' => $gmpregdiarias->id,
     'context' => $context,
 ));
 
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('course_modules', $cm);
-$event->add_record_snapshot('gmcompvs', $gmcompvs);
+$event->add_record_snapshot('gmpregdiarias', $gmpregdiarias);
 $event->trigger();*/
 
 // Mark as viewed.
@@ -64,32 +64,32 @@ $completion->set_module_viewed($cm);
 
 // Print the page header.
 
-$PAGE->set_url('/mod/gmcompvs/view.php', array('id' => $cm->id));
-$PAGE->set_title(format_string($gmcompvs->name));
+$PAGE->set_url('/mod/gmpregdiarias/view.php', array('id' => $cm->id));
+$PAGE->set_title(format_string($gmpregdiarias->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
-$PAGE->set_focuscontrol('mod_gmcompvs_game');
-$renderer = $PAGE->get_renderer('mod_gmcompvs');
+$PAGE->set_focuscontrol('mod_gmpregdiarias_game');
+$renderer = $PAGE->get_renderer('mod_gmpregdiarias');
 
 // Output starts here.
 echo $OUTPUT->header();
 
-/*if ($gmcompvs->intro) {
-    echo $OUTPUT->box(format_module_intro('gmcompvs', $gmcompvs, $cm->id), 'generalbox mod_introbox', 'gmcompvsintro');
-}*/
+//if ($gmpregdiarias->intro) {
+//    echo $OUTPUT->box(format_module_intro('gmpregdiarias', $gmpregdiarias, $cm->id), 'generalbox mod_introbox', 'gmpregdiariasintro');
+//}
 
 // Output header and directions.
-/*echo $OUTPUT->heading($gmcompvs->name);*/
+//echo $OUTPUT->heading($gmpregdiarias->name);
 
 // Game here.
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
-#echo $renderer->render_questions($gmcompvs, $cm,$USER->id);
-echo $renderer->render_main_page($gmcompvs,$USER->id,$id);
+#echo $renderer->render_questions($gmpregdiarias, $cm,$USER->id);
+echo $renderer->render_main_page($gmpregdiarias,$USER->id,$id);
 #echo "<div class=fontloader>Loading game</div>";
 
 // Display link to view student scores.
-#if (has_capability('mod/gmcompvs:viewallscores', $context)) {
-#    echo $renderer->render_score_link($gmcompvs);
+#if (has_capability('mod/gmpregdiarias:viewallscores', $context)) {
+#    echo $renderer->render_score_link($gmpregdiarias);
 #}
 
 // Finish the page.

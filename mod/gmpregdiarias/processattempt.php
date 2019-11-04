@@ -2,17 +2,15 @@
 
 require_once(dirname(__FILE__).'/../../config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
-require_once($CFG->dirroot . '/mod/gmcompvs/classes/cpumind.php');
+require_once($CFG->dirroot . '/mod/gmpregdiarias/classes/cpumind.php');
 
 $fechafin = date('Y-m-d H:i:s');
 
 $id  = optional_param('id', "", PARAM_INT);  // Is the param action.
 $cm  = optional_param('cm', "", PARAM_INT);  // Is the param action.
-$userid = optional_param('userid', "", PARAM_INT);  // Is the param action.
 $gmuserid = optional_param('gmuserid', "", PARAM_INT);  // Is the param action.
-$participacionid = optional_param('participacionid', "", PARAM_INT);  // Is the param action.
+$questionid = optional_param('questionid', "", PARAM_INT);  // Is the param action.
 $idredirect  = optional_param('idredirect', "", PARAM_INT);  // Is the param action.
-$participacion = $DB->get_record('gmdl_participacion', array('id' => $participacionid), '*', MUST_EXIST);
 
 $timenow = time();
 
@@ -20,101 +18,57 @@ $quba = question_engine::load_questions_usage_by_activity($id);
 
 $userScore = calculateScoreUser($quba,$timenow);
 
-$tiempotardado = $timenow-$participacion->fecha_inicio;
-
 $values = (object)[
-    'id' => $participacionid,
-    'puntuacion' => $userScore,
-    'fecha_fin' => $timenow
+    'gmdl_usuario_id' => $gmuserid,
+    'mdl_question_id' => $questionid,
+    'gmdl_preg_diarias_id' => $cm,
+    'calificacion' => $userScore,
+    'fecha' => time()
 ];
 
-$DB->update_record('gmdl_participacion',$values);
-
-$sql =  'SELECT {gmdl_participacion}.puntuacion as contrincantepuntuacion, {gmdl_participacion}.gmdl_usuario_id as contrincante, {gmdl_participacion}.fecha_inicio as finicio, {gmdl_participacion}.fecha_fin as ffin, {gmdl_participacion}.id as id';
-$sql .= ' FROM {gmdl_participacion}';
-$sql .= ' WHERE {gmdl_participacion}.gmdl_usuario_id != '.$gmuserid.' AND';
-$sql .= ' {gmdl_participacion}.fecha_inicio IS NOT NUll AND {gmdl_participacion}.fecha_fin IS NOT NULL AND';
-$sql .= ' {gmdl_participacion}.gmdl_partida_id = '.$participacion->gmdl_partida_id;
-
-$rows = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-
-$contrincante = new stdClass();
-
-$contrincante->idusuario = null;
-
-foreach ($rows as $row){
-    $contrincante->puntuacion = $row->contrincantepuntuacion;
-    $contrincante->idusuario = $row->contrincante;
-    $contrincante->tiempotardado = $row->ffin - $row->finicio;
-    $contrincante->idparticipacion = $row->id;
-}
-
-
-$gmcompvs  = $DB->get_record('gmcompvs', array('id' => $cm), '*', MUST_EXIST);
-$course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
-$cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
+$gmpregdiarias  = $DB->get_record('gmpregdiarias', array('id' => $cm), '*', MUST_EXIST);
+$course     = $DB->get_record('course', array('id' => $gmpregdiarias->course), '*', MUST_EXIST);
+$cm         = get_coursemodule_from_instance('gmpregdiarias', $gmpregdiarias->id, $course->id, false, MUST_EXIST);
 
 require_login($course, true, $cm);
 
 $context = context_module::instance($cm->id);
 
-$PAGE->set_title(format_string($gmcompvs->name));
+
+$PAGE->set_title(format_string($gmpregdiarias->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
-$renderer = $PAGE->get_renderer('mod_gmcompvs');
+
+$renderer = $PAGE->get_renderer('mod_gmpregdiarias');
 
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading($gmcompvs->name);
+echo $OUTPUT->heading($gmpregdiarias->name);
 
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
-/*echo $sql;*/
-
-if($contrincante->idusuario != null) {
-
-    if ($tiempotardado > $contrincante->tiempotardado) {
-        $participacionid = $contrincante->idparticipacion;
-        $contrincante->puntuacion += (int)($contrincante->puntuacion / 5);
-        $userScoreUpdate = $contrincante->puntuacion;
-    } else {
-        $userScore += (int)($userScore / 5);
-        $userScoreUpdate = $userScore;
-    }
-
-    $values = (object)[
-        'id' => $participacionid,
-        'puntuacion' => $userScoreUpdate
-    ];
-
-    $DB->update_record('gmdl_participacion', $values);
-
-    if( $userScore > $contrincante->puntuacion )
-        $userid = $gmuserid;
-    else
-        $userid = $contrincante->idusuario;
-
-    $vistausuario = $renderer->render_results_attempt($userScore,$contrincante->puntuacion);
-
-    /*$event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
-        'objectid' => $gmcompvs->id,
-        'context' => $context,
-        'other' => array('userid' => $userid),
-    ));
-
-    $event->add_record_snapshot('gmcompvs', $gmcompvs);
-    $event->trigger();*/
-
-}else {
-
-    $vistausuario = $renderer->render_wait_page();
-
-}
-
-echo $vistausuario;
+echo $renderer->render_results_attempt($userScore);
 
 echo $OUTPUT->footer();
 
+$DB->insert_record('gmdl_intento_diario',$values);
+
+/*$maxScore = 0;
+
+$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id),'MAX(puntuacion_usuario)');
+
+if($userScore > $maxScore && $userScore >= $cpuScore){
+
+    $event = \local_gamedlemaster\event\gmpregdiarias_compFinishedWon::create(array(
+        'objectid' => $gmpregdiarias->id,
+        'context' => $context,
+        'other' => array('userid' => $userid, 'dificultad' => $intento->gmdl_dificultad_cpu_id),
+    ));
+
+    $event->add_record_snapshot('gmpregdiarias', $gmpregdiarias);
+    $event->trigger();
+
+}*/
 
 function processAnswer( $dbanswer ){
 
@@ -131,6 +85,23 @@ function processAnswer( $dbanswer ){
 
 }
 
+function calculateScoreCpu( $questionswithAnswers ){
+
+    $score = 0;
+
+    foreach ($questionswithAnswers as $questionwithAnswers){
+
+        foreach ( $questionwithAnswers as $answer ){
+
+            $score += (100) * $answer->fraction;
+
+        }
+
+    }
+
+    return $score;
+
+}
 
 function calculateScoreUser($quba, $timenow){
 
@@ -248,7 +219,6 @@ function calculateScoreUser($quba, $timenow){
                     }
             }
     }
-
     return $score;
 
 }

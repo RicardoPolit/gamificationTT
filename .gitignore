@@ -112,6 +112,8 @@ webservice/
 !mod/gmcompcpu/**/*
 !mod/gmcompvs/
 !mod/gmcompvs/**/*
+!mod/gmpregdiarias/
+!mod/gmpregdiarias/**/*
 
 */**/.swp
 /mod/gmcompcpu/.travis.yml
