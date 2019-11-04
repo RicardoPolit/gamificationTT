@@ -49,22 +49,19 @@ echo $OUTPUT->footer();
 
 $DB->update_record('gmdl_intento_diario',$values);
 
-/*$maxScore = 0;
 
-$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id),'MAX(puntuacion_usuario)');
+if($userScore > 5 ){
 
-if($userScore > $maxScore && $userScore >= $cpuScore){
-
-    $event = \local_gamedlemaster\event\gmpregdiarias_compFinishedWon::create(array(
+    $event = \local_gamedlemaster\event\gmpregdiarias_pregCorrecta::create(array(
         'objectid' => $gmpregdiarias->id,
         'context' => $context,
-        'other' => array('userid' => $userid, 'dificultad' => $intento->gmdl_dificultad_cpu_id),
+        'other' => array('userid' => $userid),
     ));
 
     $event->add_record_snapshot('gmpregdiarias', $gmpregdiarias);
     $event->trigger();
 
-}*/
+}
 
 function processAnswer( $dbanswer ){
 

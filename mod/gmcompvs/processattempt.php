@@ -96,14 +96,14 @@ if($contrincante->idusuario != null) {
 
     $vistausuario = $renderer->render_results_attempt($userScore,$contrincante->puntuacion);
 
-    /*$event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
+    $event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
         'objectid' => $gmcompvs->id,
         'context' => $context,
         'other' => array('userid' => $userid),
     ));
 
     $event->add_record_snapshot('gmcompvs', $gmcompvs);
-    $event->trigger();*/
+    $event->trigger();
 
 }else {
 
