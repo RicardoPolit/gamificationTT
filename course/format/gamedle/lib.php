@@ -39,7 +39,7 @@ class format_gamedle extends format_topics {
         $record = new stdClass();
         $record->mdl_id_seccion_curso   = $id;
         $record->experiencia_de_seccion = 0;
-        $DB->insert_record('gmdl_seccion_curso', $record);
+        return $DB->insert_record('gmdl_seccion_curso', $record);
     }
     
     public function getSectionXP(int $section){
@@ -69,6 +69,8 @@ class format_gamedle extends format_topics {
         $record->experiencia_de_seccion = $experiencia;
         
         $DB->update_record('gmdl_seccion_curso', $record);
+        local_gamedlemaster_log::success(
+            "The XP of gamified section {$id} has been updated to {$experiencia}");
     }
     
     public function delete_section($section, $forcedeleteifnotempty = false) {
@@ -95,7 +97,7 @@ class format_gamedle extends format_topics {
     public function setDefaultSectionXP(){
         
         $numsec  = $this->getSectionNum();
-        $totalxp = (int)get_config('block_gmxp','firstExpGiven');
+        $totalxp = (int)get_config('block_gmxp', block_gmxp_core::COURSEXP);
         
         if( $numsec==1 ){ // course only has section 0
             $this->setSectionXP(0,$totalxp);
