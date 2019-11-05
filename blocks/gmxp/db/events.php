@@ -18,6 +18,10 @@ $observers = array (
         'eventname' => 'core\event\course_module_completion_updated',
         'callback'  => 'block_gmxp_observer::module_completion_updated',
     ),
+    array (
+        'eventname' => '\local_gamedlemaster\event\gmcompcpu_compFinishedWon',
+        'callback' => 'block_gmxp_observer::competence_won'
+    )
 );
 
 ?>

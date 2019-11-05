@@ -17,12 +17,12 @@
     CREATE DATABASE moodle DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
     GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,CREATE TEMPORARY TABLES,DROP,INDEX,ALTER ON moodle.* TO 'moodle'@'localhost' IDENTIFIED BY 'moodle';
 
-#OBTAINING MOODLE
+# OBTAINING MOODLE
 
     DEBIAN 10
-    git clone -b MOODLE_35_STABLE https://github.com/moodle/moodle.git gamedle
+    git clone --depth 1 -b MOODLE_35_STABLE https://github.com/moodle/moodle.git gamedle
 
-#PROCESO DE INSTALACION
+# PROCESO DE INSTALACION
 
 Directorio de datos
 

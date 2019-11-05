@@ -18,27 +18,33 @@ MoodleQuickForm::registerElementType('customcert_colourpicker',
  * 
  * Docs: https://docs.moodle.org/dev/lib/formslib.php_Form_Definition
  */
-class block_gmxp_visualsettingsform extends moodleform {
+class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
 
     const PLUGIN = 'block_gmxp';
+
+    const TITLE = block_gmxp_core::TITLE;
+    const DESCRIPTION = block_gmxp_core::DESCRIPTION;
+    const MESSAGE = block_gmxp_core::MESSAGE;
+    const COLORLVL = block_gmxp_core::COLORLVL;
+    const COLORBAR = block_gmxp_core::COLORBAR;
+    const IMAGE = block_gmxp_core::IMAGE;
+    const PATH_IMAGE = block_gmxp_core::PATH_IMAGE;
+    const RESERVED_IMAGE_NAME = block_gmxp_core::RESERVED_IMAGE_NAME;
+
     const COLOR_REGEX = '/^#[A-Fa-f0-9]{6,6}$/';
-    const IMAGE_FILE_TYPES = array(".png", ".jpg");
-    const RESERVED_IMAGE_NAME1 = "icon.png";
-    const RESERVED_IMAGE_NAME2 = "icon.svg";
 
     const TITLE_MAX_LENGTH = 40;
     const MSG_MAX_LENGTH   = 30;
     const DESC_MAX_LENGTH  = 200;
     const DESC_COLS        = 40;
 
-    public $file_error = false;
-    public $auth_error = false;
-    public $error = '';
-
     protected function definition() {
 
-        $mform = $this->_form; // Inherited from moodle form
-        // $mform->setDisableShortforms(true); // TODO CHECK WHY?
+        $mform = $this->_form;
+
+        $this->set_title(get_string('SETTINGS_VISUAL', self::PLUGIN));
+        $this->set_subtitle(get_string('SETTINGS_VISUAL_HEADER', self::PLUGIN));
+        $this->set_description(get_string('SETTINGS_VISUAL_DESC', self::PLUGIN));
 
         $this->create_definition();
         $this->create_help_messages();
@@ -52,8 +58,7 @@ class block_gmxp_visualsettingsform extends moodleform {
 
         $mform = $this->_form;
 
-        $mform->addElement('text',
-            get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN),
+        $mform->addElement('text', self::TITLE,
             get_string('VISUAL_SETTING_TEXT_TITLE', self::PLUGIN),
             array(
                 'size' => self::TITLE_MAX_LENGTH,
@@ -61,65 +66,54 @@ class block_gmxp_visualsettingsform extends moodleform {
             )
         );
 
-        $mform->addElement('textarea',
-            get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN),
+        $mform->addElement('textarea', self::DESCRIPTION,
             get_string('VISUAL_SETTING_TEXT_DESCRIPTION', self::PLUGIN),
             array(
                 'maxlength' => self::DESC_MAX_LENGTH,
                 'cols' => self::DESC_COLS,
-            )
-        );
+                )
+            );
 
-        $mform->addElement('text',
-            get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN),
+        $mform->addElement('text', self::MESSAGE,
             get_string('VISUAL_SETTING_TEXT_MESSAGE', self::PLUGIN),
             array(
                 'size' => self::MSG_MAX_LENGTH,
                 'maxlength' => self::MSG_MAX_LENGTH
-            )
-        );
+                )
+            );
 
-        $mform->addElement('customcert_colourpicker',
-            get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_COLORLVL', self::PLUGIN));
+        $mform->addElement('customcert_colourpicker', self::COLORLVL,
+                get_string('VISUAL_SETTING_TEXT_COLORLVL', self::PLUGIN));
 
-        $mform->addElement('customcert_colourpicker',
-            get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN),
-            get_string('VISUAL_SETTING_TEXT_COLORBAR', self::PLUGIN));
+        $mform->addElement('customcert_colourpicker', self::COLORBAR,
+                get_string('VISUAL_SETTING_TEXT_COLORBAR', self::PLUGIN));
 
-        $mform->addElement('filepicker',
-            get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN),
+        $mform->addElement('filepicker', self::IMAGE,
             get_string('VISUAL_SETTING_TEXT_IMAGE', self::PLUGIN),
             null, // TODO Why null?
-            array( 'accepted_types' => self::IMAGE_FILE_TYPES ));
+            array( 'accepted_types' => array(".png", ".jpg") ));
     }
 
     private function create_help_messages() {
 
         $mform = $this->_form;
 
-        $mform->addHelpButton(
-            get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN),
+        $mform->addHelpButton(self::TITLE,
             'VISUAL_SETTING_HELP_TITLE', self::PLUGIN);
-        
-        $mform->addHelpButton(
-            get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN),
+
+        $mform->addHelpButton(self::MESSAGE,
             'VISUAL_SETTING_HELP_MESSAGE', self::PLUGIN);
 
-        $mform->addHelpButton(
-            get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN),
+        $mform->addHelpButton(self::DESCRIPTION,
             'VISUAL_SETTING_HELP_DESCRIPTION', self::PLUGIN);
 
-        $mform->addHelpButton(
-            get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN),
+        $mform->addHelpButton(self::COLORLVL,
             'VISUAL_SETTING_HELP_COLORLVL', self::PLUGIN);
 
-        $mform->addHelpButton(
-            get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN),
+        $mform->addHelpButton(self::COLORBAR,
             'VISUAL_SETTING_HELP_COLORBAR', self::PLUGIN);
 
-        $mform->addHelpButton(
-            get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN),
+        $mform->addHelpButton(self::IMAGE,
             'VISUAL_SETTING_HELP_IMAGE', self::PLUGIN);
     }
 
@@ -127,38 +121,39 @@ class block_gmxp_visualsettingsform extends moodleform {
 
         $mform = $this->_form;
 
-        $key = get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN);
+        $key = self::TITLE;
         $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
-        $mform->addRule($key, get_string('maxlength', self::PLUGIN,
-            self::TITLE_MAX_LENGTH), 'maxlength', self::TITLE_MAX_LENGTH, 'client');
+        $mform->addRule($key,
+            get_string('maxlength', self::PLUGIN, self::TITLE_MAX_LENGTH),
+            'maxlength', self::TITLE_MAX_LENGTH, 'client');
 
-        $key = get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN);
+        $key = self::DESCRIPTION;
         $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
         $mform->addRule($key, get_string('maxlength', self::PLUGIN,
-            self::DESC_MAX_LENGTH), 'maxlength', self::DESC_MAX_LENGTH, 'client');
+                    self::DESC_MAX_LENGTH), 'maxlength', self::DESC_MAX_LENGTH, 'client');
 
-        $key = get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN);
+        $key = self::MESSAGE;
         $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
         $mform->addRule($key, get_string('maxlength', self::PLUGIN,
-            self::MSG_MAX_LENGTH), 'maxlength', self::MSG_MAX_LENGTH, 'client');
+                    self::MSG_MAX_LENGTH), 'maxlength', self::MSG_MAX_LENGTH, 'client');
 
         // Message of error in color field
         $colorErr = get_string('color', self::PLUGIN);
 
-        $key = get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN);
+        $key = self::COLORLVL;
         $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
         $mform->addRule($key, $colorErr, 'regex', self::COLOR_REGEX, 'client');
 
-        $key = get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN);
+        $key = self::COLORBAR;
         $mform->setType($key, PARAM_TEXT);
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
         $mform->addRule($key, $colorErr, 'regex', self::COLOR_REGEX, 'client');
 
-        $key = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
+        // $key = self::;
         // $mform->setType($key, PARAM_TEXT);
     }
 
@@ -166,19 +161,19 @@ class block_gmxp_visualsettingsform extends moodleform {
 
         $mform = $this->_form;
 
-        $key = get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN);
+        $key = self::TITLE;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
 
-        $key = get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN);
+        $key = self::DESCRIPTION;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
 
-        $key = get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN);
+        $key = self::MESSAGE;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
 
-        $key = get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN);
+        $key = self::COLORLVL;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
 
-        $key = get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN);
+        $key = self::COLORBAR;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
     }
 
@@ -190,6 +185,7 @@ class block_gmxp_visualsettingsform extends moodleform {
     public function validation($data, $files) {
 
         $errors = array();
+        /*
         $this->auth_error = false;
 
         // TODO: Handle error on external page settings/visual_settings.php
@@ -197,19 +193,19 @@ class block_gmxp_visualsettingsform extends moodleform {
             $this->auth_error = true;
             $errors['sesskey'] = "AUTH ERROR";
             return $errors;
-        }
+        }*/
 
-        $key = get_string('SYS_SETTINGS_VISUAL_TITLE', self::PLUGIN);
+        $key = self::TITLE;
         if ($data[$key] == null) {
             $errors[$key] = get_string('required');
 
         } else if (strlen($data[$key]) >= self::TITLE_MAX_LENGTH) {
             $errors[$key] =
-              get_string('maxlength', self::PLUGIN, self::TITLE_MAX_LENGTH);
+                get_string('maxlength', self::PLUGIN, self::TITLE_MAX_LENGTH);
         }
 
 
-        $key = get_string('SYS_SETTINGS_VISUAL_DESCRIPTION', self::PLUGIN);
+        $key = self::DESCRIPTION;
         if ($data[$key] == null) {
             $errors[$key] = get_string('required');
 
@@ -219,7 +215,7 @@ class block_gmxp_visualsettingsform extends moodleform {
         }
 
 
-        $key = get_string('SYS_SETTINGS_VISUAL_MESSAGE', self::PLUGIN);
+        $key = self::MESSAGE;
         if ($data[$key] == null) {
             $errors[$key] = get_string('required');
 
@@ -229,7 +225,7 @@ class block_gmxp_visualsettingsform extends moodleform {
         }
 
 
-        $key = get_string('SYS_SETTINGS_VISUAL_COLORLVL', self::PLUGIN);
+        $key = self::COLORLVL;
         if ($data[$key] == null) {
             $errors[$key] = get_string('required');
 
@@ -238,7 +234,7 @@ class block_gmxp_visualsettingsform extends moodleform {
         }
 
 
-        $key = get_string('SYS_SETTINGS_VISUAL_COLORBAR', self::PLUGIN);
+        $key = self::COLORBAR;
         if ($data[$key] == null) {
             $errors[$key] = get_string('required');
 
@@ -264,7 +260,7 @@ class block_gmxp_visualsettingsform extends moodleform {
         // Convertimos el objeto en un arreglo y eliminamos las entradas
         // que no pertenecen a las configuraciones del plugin
         $keys = get_object_vars($changes);
-        $filekey = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
+        $filekey = self::IMAGE;
         $filename = $this->get_new_filename($filekey);
         unset($keys['submitbutton']);
         unset($keys[$filekey]);
@@ -283,14 +279,13 @@ class block_gmxp_visualsettingsform extends moodleform {
 
         // Obtenemos el nombre del archivo y la ruta
         global $CFG;
-        $filekey  = get_string('SYS_SETTINGS_VISUAL_IMAGE', self::PLUGIN);
-        $filepath = get_String('SYS_SETTINGS_VISUAL_IMAGE_PATH', self::PLUGIN);
+        $filekey  = self::IMAGE;
+        $filepath = self::PATH_IMAGE;
         $filename = $this->get_new_filename($filekey);
-        $this->file_error = false;
+        $this->has_error = false;
 
-        if ( $filename == self::RESERVED_IMAGE_NAME1 ||
-          $filename == self::RESERVED_IMAGE_NAME2) {
-            $this->file_error = true;
+        if ($filename == self::RESERVED_IMAGE_NAME) {
+            $this->has_error = true;
             $this->error = get_string('VISUAL_SETTING_ERROR_IMAGE_NAME', self::PLUGIN);
             return false;
         }
@@ -298,8 +293,8 @@ class block_gmxp_visualsettingsform extends moodleform {
         // Guardamos el archivo con override = true
         $saved = $this->save_file($filekey, $CFG->dirroot.$filepath.$filename, false);
 
-        if (!$saved) { // TODO UNCOMMENT file_error = true AND CHECK ERRORS
-            //$this->file_error = true;
+        if (!$saved) { // TODO UNCOMMENT has_error = true AND CHECK ERRORS
+            //$this->has_error = true;
             $this->error = get_string('VISUAL_SETTING_ERROR_IMAGE_SAVE', self::PLUGIN);
             return false;
         }
@@ -309,7 +304,7 @@ class block_gmxp_visualsettingsform extends moodleform {
         $deleted = unlink( $CFG->dirroot. $filepath. $oldfilename);
 
         if (!$deleted) {
-            //$this->file_error = true;
+            //$this->has_error = true;
             $this->error= get_string('VISUAL_SETTING_ERROR_IMAGE_DELETE',self::PLUGIN);
         }
 

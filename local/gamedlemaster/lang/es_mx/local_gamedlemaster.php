@@ -15,3 +15,6 @@
 /* GENERAL STRINGS */
 $string['pluginname'] = 'Gamedle Master';
 $string['gmxp'] = 'Gamedle Master';
+
+// FORM STRING MESSAGES
+$string['FORM_SUCCESS'] = 'Configuraciones actualizadas exitosamente';

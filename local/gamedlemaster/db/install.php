@@ -23,6 +23,7 @@ function copiarUsuariosInstall()
         $data->mdl_id_usuario = $record->id;
         $data->nivel_actual = 1;
         $data->experiencia_actual = 0;
+        $data->experiencia_nivel = 0;
 
         $DB->insert_record("gmdl_usuario", $data);
     }

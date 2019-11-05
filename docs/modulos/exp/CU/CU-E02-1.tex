@@ -1,0 +1,222 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-E02-1}{Configurar visualización de niveles}{%
+%
+ Permite al \refElem{aAdministrador} establecer y modificar los colores, textos e
+ imagenes que se muestran en la visualización del nivel actual y en las ventanas
+ emergentes de un nuevo nivel alcanzado. Cuando un administrador actualice los valores
+ de la configuración los usuarios serán capaces de ver los cambios al renderizarse la
+ siguiente página.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ \today }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}
+    }
+
+	\UCitem{Propósito}{%
+      \Titem Cambiar las \refElem{xp-visual-settings} del módulo de experiencia.
+      \Titem Cambiar el color de la barra de progreso del nivel actual que ve cada
+             usuario.
+      \Titem Establecer la imagen que se presenta en cada nivel de la plataforma.
+      \Titem El mensaje de felicitaciones que se presenta al alcanzar un nuevo nivel
+      \Titem Establecer el color que tendrá el número del nivel
+      \Titem Cambiar la descripción de los mensajes visible cuando se alcanza un
+             nuevo nivel.
+      \Titem Cambiar el nombre de los niveles.
+	}
+	
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+        \Titem Teclado
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitems{Destino}{%
+		\Titem \refElem{IU-M01}
+	}
+	
+	\UCitems{Precondiciones}{%
+        \Titem Que los plugins del módulo de experiencia se encuentren instalados,
+        \Titem El módulo de experiencia haya sido habilitando en el caso uso
+               \refElem{CU-E02}
+	}
+
+	\UCitem{Postcondiciones}{%
+        Los nuevos valores de las \refElem{xp-visual-settings} deben ser actualizados
+        para todos los usuarios y además deben persistirse en el sistema.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+        % CAUSA
+            Los plugins del módulo de experiencia no se encuentran instalados,}{%
+        % EFECTO
+            No se presentan en el menú las opciones para acceder a la pantalla
+            de la configuración y no se puede llevar a cabo el caso de uso.}
+
+        \Titem \UCerr{Err2}{%
+        % CAUSA
+            La imagen no cumple con las restricciones de nombre de la regla de negocio
+            \refElem{BR-E01},}{%
+        % EFECTO
+            No se remplaza la imagen de la configuración actual, se realizan
+            las demás actualizaciones con los datos ingresados por el usuario,
+            y se emite el mensage que indica que el nombre es inválido.}
+
+        \Titem \UCerr{Err3}{%
+        % CAUSA
+            Ocurre un fallo durante la persistencia de la imagen en el sistema,}{%
+        % EFECTO
+            Se interrumpe la actualización de la imagen, se procede con las
+            demás actualizaciones y se emite el mensaje de error conrrespondiente}
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-E02-1}
+        \Titem \refElem{CPI-E02-1a}
+        \Titem \refElem{CPI-E02-1b}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{%
+        Ninguna
+	}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+  \includeUC{CU-M01} \refErr{Err1}
+
+  \Actor Presiona la opción {\bf \refElem{tExpSettingsVisual}} en la categoría
+         \refElem{tExpCategoria}. 
+  \Sistema Obtiene el valor de si el módulo de experiencia está \refElem[activado]%
+           {xp-general-settings.activated} o no. \refTray{A}
+  \Sistema Obtiene los valores actuales de la configuración:
+           \salida{xp-visual-settings.title},
+           \salida{xp-visual-settings.description},
+           \salida{xp-visual-settings.message},
+           \salida{xp-visual-settings.colorLvl} y
+           \salida{xp-visual-settings.colorBar}.
+
+  \Sistema Carga la pantalla \refElem{IU-E03} estableciendo como valores por defecto
+           las \refElem{tExpSettingsVisual} actuales obtenidas.
+
+  \Actor Ingresa los valores de \entrada{xp-visual-settings.title},
+         \entrada{xp-visual-settings.description} y
+         \entrada{xp-visual-settings.message} para los campos requeridos.
+         \label{CU-E02-1.formulario}
+  \Actor Ingresa los valores para el \entrada{xp-visual-settings.colorLvl} y
+         \entrada{xp-visual-settings.colorBar} seleccionando el color y la
+         tonalidad mediante el \refElem{tSelectColor}. \refTray{B}
+         \label{CU-E02-1.color}
+  \Actor Presiona la opción {\bf Seleccione un archivo}. \refTray{C}
+  \Sistema Despliega la pantalla \refElem{IU-M00a} como pantalla emergente 
+           \label{CU-E02-1.seleccion-archivo}
+
+  \Actor Selecciona la opción {\it Subir un archivo} en el menu izquierdo de la
+         pantalla emergente y posteriormente presiona el botón {\it Browse}.
+  \Actor Selecciona el archivo de la \entrada{xp-visual-settings.image}.
+  \Actor Presiona el botón {\bf Subir este archivo}.
+  \Sistema Valida que el archivo tenga alguna de las extensiones de indicadas
+           por la regla \regla{BR-E01}. \refTray{D}
+  \Sistema Cierra la pantalla emergente y muestra el nombre del archivo seleccionado
+           en la pantalla \refElem{IU-E03}.
+
+
+  \Actor Presiona el botón {\bf Guardar Cambios}. \refTray{E} \label{CU-E02-1.validacion}
+
+  \Sistema Valida que las opciones ingresadas cumplan con las restricciones
+           especificadas en el modelo de información. \refTray{F}.
+
+  \Sistema Valida que la \refElem{xp-visual-settings.image} proporcionada cumpla con
+           las restricciones de nombre de archivo establecida por la regla
+           \refElem{BR-E01}. \refErr{Err2}
+  \Sistema Remplaza la imagen de los niveles por la imagen propocionada por el usuario,
+           actualiza los demás valores de las configuraciones. \refErr{Err3}
+  \Sistema Despliega la pantalla \refElem{IU-E03} con el mensaje que indica que
+           los datos han sido actualizados exitosamente.
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}{A}{El módulo de experiencia no se encuentra activado}
+
+  \Sistema Carga la pantalla \refElem{IU-E03a}.
+
+  \Actor Presiona el botón {\bf Activar módulo de experiencia}
+  \includeUC{CU-E02} a partir del paso \ref{CU-E02-ir-a-formulario},
+                     para activar el módulo de experiencia.
+
+  \Sistema Regresa al inicio de la trayectoria principal.
+           
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{B}{%
+El \refElem{aAdministrador} desea especificar el valor del \refElem{tColor}
+directamente}
+
+    \Actor Ingresa el valor hexadecimal del color para el 
+           \refElem{xp-visual-settings.colorLvl} o 
+           \refElem{xp-visual-settings.colorBar}.
+
+    \Sistema Continua en el paso \ref{CU-E02-1.color} de la trayectoria principal.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{C}{%
+No desea cambiar la \refElem{xp-visual-settings.image} actual de los niveles}
+
+    \Sistema Continua en el paso \ref{CU-E02-1.validacion} de la trayectoria principal
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{D}{Cuando el archivo seleccionado es distinto de {\it png o jpg}}
+
+  \Sistema Emite en una ventana emergente el mensaje {\it Error: ``El tipo de
+           archivo \$EXT no se acepta.''} siendo {\it\$EXT} la extensión del
+           archivo seleccionado.
+  \Sistema Regresa al paso \ref{CU-E02-1.seleccion-archivo}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{E}{%
+Desea cancelar la actualización de las configuraciones}
+
+  \Actor Presiona el botón cancelar.
+  \Sistema Redirige a la pantala \refElem{IU-M01}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{F}{%
+Alguno de los datos ingresados no cumple con las restricciones en el modelo de
+información}
+
+    \Sistema Imprime los mensajes de error abajo de los campos con valores incorrectos.
+
+    \Actor Ingresa nuevamente los valores para los campos marcados como incorrectos.
+    \Sistema Regresa al paso \ref{CU-E02-1.formulario}
+
+\end{UCtrayectoriaA}
+

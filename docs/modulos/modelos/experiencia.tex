@@ -5,9 +5,10 @@
  de datos de moodle que son relevantes para el desarrollo del módulo de experiencia.
 
     \begin{cdtEntidad}{xp-general-settings}{Configuraciones Generales}{
-    A pesar de que las configuraciones son almacenadas en la entidad \refElem{mdl-config-plugins}.
-    Se decidió representar cómo una entidad diferente el conjunto de valores para las configuraciones
-    generales del módulo de experiencia.}
+    A pesar de que las configuraciones son almacenadas en la entidad 
+    \refElem{mdl-config-plugins}. Se decidió representar cómo una entidad diferente 
+    el conjunto de valores para las configuraciones generales del módulo de 
+    experiencia.}
 
         \brAttr{activated}{activado}{tBoolean}{%
             Valor que indica si el módulo de experiencia está activado o no.\par
@@ -17,7 +18,7 @@
             \refElem{tDefault}$:verdadero$
         }
 
-        \brAttr{events}{eventosActivados}{tBoolean}{%
+        \brAttr{events}{eventos activados}{tBoolean}{%
             Valor que indica si se entregará experiencia a los eventos establecidos
             en la entidad \refElem{xp-events-settings}.\par
 
@@ -28,8 +29,9 @@
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-visual-settings}{Configuraciones Visuales}{
-    De la misma forma que las configuraciones generales, las configuraciones visuales, los datos
-    correspondientes a las configuraciones visuales son representados mediante esta entidad.}
+    De la misma forma que las configuraciones generales, las configuraciones visuales,
+    los datos correspondientes a las configuraciones visuales son representados 
+    mediante esta entidad.}
 
         \brAttr{title}{Título de niveles}{tVarchar}{%
             Cadena que contiene el título que tienen por defecto todos los niveles.\par
@@ -41,7 +43,8 @@
         }
 
         \brAttr{description}{Descripción}{tVarchar}{%
-            Cadena que contiene la descripción qe tiene por defecto todos los niveles.\par
+            Cadena que contiene la descripción qe tiene por defecto todos los niveles.
+            \par
 
             \it Restricciones:
             \refElem{tRequired},
@@ -49,8 +52,8 @@
         }
 
         \brAttr{message}{Mensaje}{tVarchar}{%
-            Cadena que contiene el mensaje de felicitaciones que tienen por defecto todos
-            los niveles.\par
+            Cadena que contiene el mensaje de felicitaciones que tienen por defecto 
+            todos los niveles.\par
 
             \it Restricciones:
             \refElem{tRequired}
@@ -58,7 +61,8 @@
         }
 
         \brAttr{colorLvl}{Color de número de nivel}{tColor}{%
-            Valor que contiene el código de color con el cual se coloreará el número de nivel.\par
+            Valor que contiene el código de color con el cual se coloreará el número 
+            del nivel.\par
 
             \it Restricciones:
             \refElem{tRequired},
@@ -66,8 +70,8 @@
         }
 
         \brAttr{colorBar}{Color de la barra de progreso}{tColor}{%
-            Valor que contiene el código de color con el cual se pintará el avance en la barra
-            de progreso del nivel.\par
+            Valor que contiene el código de color con el cual se pintará el avance en 
+            la barra de progreso del nivel.\par
 
             \it Restricciones:
             \refElem{tRequired},
@@ -75,7 +79,7 @@
         }
 
         \brAttr{image}{Imagen}{tImage}{%
-            Imagen que se desplegará en los niveles cómo el escudo por defecto.\par
+            Imagen que se desplegará en los niveles cómo el escudo por defecto. \par
 
             \it Restricciones:
             \refElem{tRequired}, \refElem{tDefault} image.jpg (incluida en los
@@ -84,12 +88,13 @@
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-scheme-settings}{Configuraciones de Comportamiento}{
-    De la misma forma que las configuraciones generales, los datos correspondientes a las
-    configuraciones visuales son representados mediante esta entidad.}
+    De la misma forma que las configuraciones generales, los datos correspondientes a 
+    las configuraciones visuales son representados mediante esta entidad.}
 
         \brAttr{increment}{tipo de incremento}{tInt}{%
-            Valor que indica que tipo de incremento es usado para los niveles de experiencia,
-            El valor 0 indica un incremento lineal y el valor 1 indica un incremento porcentual.\par
+            Valor que indica que tipo de incremento es usado para los niveles de 
+            experiencia, El valor 0 indica un incremento lineal y el valor 1 indica 
+            un incremento porcentual.\par
 
             \it Restricciones:
             \refElem{tRequired},
@@ -98,8 +103,8 @@
         }
 
         \brAttr{incrementValue}{valor de incremento}{tDouble}{%
-            Valor que indica el factor o valor del incremento para realizar el calculo de la
-            experiencia requerida para subir de nivel.\par
+            Valor que indica el factor o valor del incremento para realizar el 
+            calculo de la experiencia requerida para subir de nivel.\par
 
             \it Restricciones:
             \refElem{tRequired},\par
@@ -108,9 +113,9 @@
             \refElem{tDefault}$:1.3$
         }
 
-        \brAttr{xpLvl}{experiencia del nivel 1}{tInt}{%
-            Valor que indica la cantidad de experiencia que tendrá el primer nivel para ser
-            completado.\par
+        \brAttr{levelXP}{experiencia del nivel 1}{tInt}{%
+            Valor que indica la cantidad de experiencia que tendrá el primer nivel 
+            para ser completado.\par
 
             \it Restricciones:
             \refElem{tRequired},
@@ -118,7 +123,7 @@
             \refElem{tDefault}$:1000$
         }
 
-        \brAttr{xpCourse}{experiencia por curso}{tInt}{%
+        \brAttr{courseXP}{experiencia por curso}{tInt}{%
             Valor que indica la cantidad de experiencia que otorgan los cursos al ser
             completados.\par
 
@@ -130,13 +135,33 @@
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-events-settings}{Configuraciones de Eventos}{%
-    De la misma forma que las configuraciones anteriores, los datos correspondientes a las
-    configuraciones de eventos son representados mediante esta entidad.}
+    De la misma forma que las configuraciones anteriores, los datos correspondientes 
+    a las configuraciones de eventos son representados mediante esta entidad.}
+
+        \brAttr{competence}{competencia ganada}{tBoolean}{%
+            Valor que indica la se brindarán puntos de experiencia al evento que 
+            es emitido cuando una competencia es ganada.\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tDefault}$:true$
+        }
+
+        \brAttr{competenceXP}{experiencia de competencia}{tInt}{%
+            Valor que indica la cantidad de experiencia que otorgará cuando el
+            evento de \refElem{xp-events-settings.competence} sea emitido.\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tDefault}$:1500$
+        }
+
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-user}{Usuario gamificado}{%
-    Esta entidad es una especialización de la entidad \refElem{mdl-user} la cual permite agregar
-    atributos cómo la cantidad de experiencia obtenida y el nivel actual del usuario.}
+    Esta entidad es una especialización de la entidad \refElem{mdl-user} la cual 
+    permite agregar atributos cómo la cantidad de experiencia obtenida y el nivel 
+    actual del usuario.}
 
         \brAttr{id}{id}{tInt}{%
             Es el número que representa el identificador único para cada usuario
@@ -148,8 +173,8 @@
         }
 
         \brAttr{mdl-user}{mdl-usuario}{tInt}{%
-            Es el número que permite conocer a que usuario de moodle pertecene la información
-            de un usuario gamificado.\par
+            Es el número que permite conocer a que usuario de moodle pertecene la 
+            información de un usuario gamificado.\par
 
             \it Restricciones:
             \refElem{tForeignKey},
@@ -158,10 +183,19 @@
         }
 
         \brAttr{level}{nivel}{tNatural}{%
-            Representa el nivel actual de experiencia que tiene un usuario gamificado en moodle.\par
+            Representa el nivel actual de experiencia que tiene un usuario gamificado 
+            en moodle. \par
 
             \it Restricciones:
             \refElem{tDefault} 1
+        }
+
+        \brAttr{levelxp}{experiencia del nivel}{tNatural}{%
+            Representa el nivel actual de experiencia que tiene un usuario gamificado 
+            en moodle.\par
+
+            \it Restricciones:
+            \refElem{tDefault} 0
         }
 
         \brAttr{xp}{experiencia}{tInt}{%
@@ -172,4 +206,59 @@
             \refElem{tDefault} 0
         }
 
+    \end{cdtEntidad}
+
+    \begin{cdtEntidad}{xp-course}{Curso gamificado}{%
+    Un curso gamificado es un \refElem{mdl-course} el cual tiene el
+    \refElem{mdl-course.format} de curso {\it ``gamedle''}, a pesar de que las
+    opciones de este formato son almacenadas en la tabla 
+    \refElem{mdl-course-format-options}, se decidió incluir esta entidad en el
+    dmodelo de información ya que reune las características que pertenecen a un curso
+    gamificado.}
+
+        \brAttr{id}{Id}{tInt}{%
+            . \par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+
+        \brAttr{format}{formato}{tVarchar}{%
+            Para que un curso pueda ser manejado como un curso gamificado este 
+            atributo debe de tener como valor ``Gamedle''. \par
+
+            \it Restricciones:
+        }
+
+        \brAttr{xpEnabled}{experiencia habilitada}{tBoolean}{%
+            Para que un curso pueda ser manejado como un curso gamificado este 
+            atributo debe de tener como valor ``Gamedle''. \par
+
+            \it Restricciones:
+        }
+
+        \brAttr{sections}{número de secciones}{tInt}{%
+        }
+
+        \brAttr{hiddensections}{secciones ocultas}{tVarchar}{%
+        }
+
+        \brAttr{coursedisplay}{aspecto del curso}{tVarchar}{%
+        }
+    \end{cdtEntidad}
+
+    \begin{cdtEntidad}{xp-course-section}{Sección de curso gamificado}{%
+    Esta entidad }
+        \brAttr{id}{Id}{tInt}{%
+            . \par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+    \end{cdtEntidad}
+
+    \begin{cdtEntidad}{xp-section-reward}{Recompensa de sección}{%
+    Esta entidad }
     \end{cdtEntidad}

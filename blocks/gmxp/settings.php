@@ -18,7 +18,6 @@
 defined('MOODLE_INTERNAL') || die();
 
     $PLUGIN = 'block_gmxp';
-    $CATEGORY = get_string('SYS_SETTINGS_CATEGORY',  $PLUGIN);
 
     /**
      * Creación de la pantalla para los settings generales
@@ -29,27 +28,25 @@ defined('MOODLE_INTERNAL') || die();
         get_string('SETTINGS_GENERAL_HEADER', $PLUGIN),
         get_string('SETTINGS_GENERAL_HEADER_DESC', $PLUGIN));
 
-    $enabledCheckbox = new admin_setting_configcheckbox( $PLUGIN.'/'.
-        get_string('SYS_SETTINGS_GENERAL_ACTIVATED', $PLUGIN),
+    $enabledCheckbox = new admin_setting_configcheckbox(
+        $PLUGIN.'/'.block_gmxp_core::ACTIVATED,
         get_string('SETTINGS_GENERAL_ENABLED', $PLUGIN),
         get_string('SETTINGS_GENERAL_ENABLED_DESC', $PLUGIN),
         true, 1, 0);
 
-    $eventsCheckbox = new admin_setting_configcheckbox( $PLUGIN.'/'.
-        get_string('SYS_SETTINGS_GENERAL_EVENTS', $PLUGIN),
+    $eventsCheckbox = new admin_setting_configcheckbox(
+        $PLUGIN.'/'.block_gmxp_core::EVENTS,
         get_string('SETTINGS_GENERAL_EVENTS_ENABLED', $PLUGIN),
         get_string('SETTINGS_GENERAL_EVENTS_ENABLED_DESC', $PLUGIN),
         true, 1, 0);
 
     $general_settings = new admin_settingpage(
-        get_string('SYS_SETTINGS_GENERAL', $PLUGIN),
-        get_string('SETTINGS_GENERAL', $PLUGIN)
+        block_gmxp_core::SETTINGS_GENERAL, get_string('SETTINGS_GENERAL', $PLUGIN)
     );
 
     $general_settings->add($heading);
     $general_settings->add($enabledCheckbox);
     $general_settings->add($eventsCheckbox);
-
 
     /**
      * Creación de la pantalla para los settings visuales
@@ -57,9 +54,9 @@ defined('MOODLE_INTERNAL') || die();
      *  Docs: lib/adminlib.php
      */
     $visual_settings = new admin_externalpage(
-        get_String('SYS_SETTINGS_VISUAL', $PLUGIN),
+        block_gmxp_core::SETTINGS_VISUAL,
         get_string('SETTINGS_VISUAL', $PLUGIN),
-        new moodle_url('/blocks/gmxp/settings/visual_settings.php')
+        new moodle_url(block_gmxp_core::PATH_SETTINGS_VISUAL)
     );
 
     /**
@@ -68,9 +65,9 @@ defined('MOODLE_INTERNAL') || die();
      *  Docs: lib/adminlib.php
      */
     $scheme_settings = new admin_externalpage(
-        get_string('SYS_SETTINGS_SCHEME', $PLUGIN),
+        block_gmxp_core::SETTINGS_SCHEME,
         get_string('SETTINGS_SCHEME', $PLUGIN),
-        new moodle_url('/blocks/gmxp/settings/scheme_settings.php')
+        new moodle_url(block_gmxp_core::PATH_SETTINGS_SCHEME)
     );
 
     /**
@@ -79,9 +76,9 @@ defined('MOODLE_INTERNAL') || die();
      *  Docs: lib/adminlib.php
      */
     $events_settings = new admin_externalpage(
-        get_string('SYS_SETTINGS_EVENTS', $PLUGIN),
+        block_gmxp_core::SETTINGS_EVENTS,
         get_string('SETTINGS_EVENTS', $PLUGIN),
-        new moodle_url('/blocks/gmxp/settings/events_settings.php')
+        new moodle_url(block_gmxp_core::PATH_SETTINGS_EVENTS)
     );
 
     /**
@@ -89,10 +86,10 @@ defined('MOODLE_INTERNAL') || die();
      *  Ref: CU-E02-2: Configurar Esquema de Experiencia
      *  Docs: lib/adminlib.php
      */
-    $settings = new admin_category($CATEGORY, get_string('SETTINGS_CATEGORY', $PLUGIN));
-    $settings->add($CATEGORY, $general_settings);
-    $settings->add($CATEGORY, $visual_settings);
-    $settings->add($CATEGORY, $scheme_settings);
-    $settings->add($CATEGORY, $events_settings);
+    $settings = new admin_category(block_gmxp_core::CATEGORY,
+        get_string('SETTINGS_CATEGORY', $PLUGIN));
 
-
+    $settings->add(block_gmxp_core::CATEGORY, $general_settings);
+    $settings->add(block_gmxp_core::CATEGORY, $visual_settings);
+    $settings->add(block_gmxp_core::CATEGORY, $scheme_settings);
+    $settings->add(block_gmxp_core::CATEGORY, $events_settings);
