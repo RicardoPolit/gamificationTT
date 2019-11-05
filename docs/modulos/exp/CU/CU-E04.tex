@@ -40,7 +40,7 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
 	\UCitem{Destino}{%
-		\refElem{IU-M02a}
+		\refElem{IU-E06a}
 	}
 	
 	\UCitems{Precondiciones}{%
@@ -93,7 +93,6 @@ Estado/\ucstEnEdicion]%
 
 \end{UseCase}
 
-\clearpage
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
@@ -120,11 +119,20 @@ Estado/\ucstEnEdicion]%
          \refTray{A} \refErr{2}
 
   \Actor Opcionalmente incluye valores en los demás campos opcionales del formulario.
-  \Actor Presiona el botón {\bf Aceptar}. \refTray{B} \refTray{C} \label{CU-E04-submit}
+  \Actor Presiona el botón {\bf Guardar cambios y mostrar}. \refTray{B} \refTray{C}
+         \refTray{D} \label{CU-E04-submit}.
 
   \Sistema Obtiene los datos ingresados por el usuario.
   \Sistema Crea un curso \salida{mdl-course} junto con la cantidad de
-           \salida[secciones]{mdl-course-sections} especificadas por el usuariS.
+           \salida[secciones]{mdl-course-sections} especificadas por el usuario.
+  \Sistema Crea un \salida{xp-course} con los valores de \salida{xp-course.hiddensections},
+           \salida{xp-course.coursedisplay} y \salida{xp-course.xpEnabled} ingresados por el
+           usuario.
+  \Sistema Por cada una de las \salida[secciones]{xp-course.sections} del curso gamificado
+           crea una \salida{xp-course-section}.
+  \Sistema Establece la \salida{xp-course-section.xp} con base en la regla de negocio
+           \regla{BR-E07}.
+  \Sistema Muestra la pantalla con \refElem{IU-E06a} con los datos del curso recien creado.
 
 \end{UCtrayectoria}
 
@@ -151,6 +159,16 @@ Alguno de los campos introducidos por el usuario es erroneo.
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}{C}{%
+El usuario desea regresar a la pantalla \refElem{IU-M06}.
+}
+
+  \Actor Presiona el botón {\bf Guardar y regresar}
+
+  \Sistema Redirige a la pantalla \refElem{IU-M06}
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{D}{%
 El usuario desea cancelar la creación del curso
 }
 
