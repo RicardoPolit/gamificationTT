@@ -38,7 +38,9 @@ $userScore = calculateScoreUser($quba,$timenow);
         $questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$i);
         $currentScore = calculateScoreCpu($questionswithAnswers);
 
-        $scoreAv += $currentScore;
+        $scoreAv += (int)($currentScore/50);
+
+        $scores[] = (int)($currentScore/50);
 
         $scorePercents[(int)($currentScore/50)]++;
 
@@ -51,9 +53,19 @@ $userScore = calculateScoreUser($quba,$timenow);
     }
 
     $scoreAv = $scoreAv/10000;
+    $sumasuperior = 0;
+    foreach ($scores as $score){
+
+        $sumasuperior += pow($score-$scoreAv,2);
+
+    }
+
+    $desviacionestandar = sqrt($sumasuperior/10000);
 
     echo '<br>';
     echo '---------------------------';
+    echo '<br>';
+    echo 'Desviación estandar en nivel: '.$i.': '.$desviacionestandar;
     echo '<br>';
     echo 'Promedio de puntaje en nivel: '.$i.': '.$scoreAv;
     foreach ( $scorePercents as $x => $scorePercent ){
@@ -63,9 +75,10 @@ $userScore = calculateScoreUser($quba,$timenow);
 
     }
 
+
 }*/
 
-$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$intento->gmdl_dificultad_cpu_id);          //ESTA
+$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$intento->gmdl_dificultad_cpu_id);         //ESTA
 
 /*echo json_encode($questionswithAnswers);
 echo '<br>';*/
@@ -256,7 +269,7 @@ function calculateScoreUser($quba, $timenow){
                     {
                         $useranswer = null;
                     }
-                
+
                 if(!($useranswer === null))
                     {
                         if($useranswer)
