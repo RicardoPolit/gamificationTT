@@ -30,6 +30,9 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['achievedhighscoreof'] = 'Achieved a high score of {$a}';
 $string['attempt'] = 'Attempt #{$a}';
+$string['completioncpudiff'] = 'El estudiante debe de vencer al menos a la dificultad:';
+$string['completioncpudiffgroup'] = 'Dificultad requerida';
+$string['completioncpudiffgroup_help'] = 'Si se activa, requiere que una minima dificultad del cpu sea vencida antes de que la actividad sea completada';
 $string['completionscore'] = 'Student must achieve a minimum score of:';
 $string['completionscoregroup'] = 'Require score';
 $string['completionscoregroup_help'] = 'If enabled, you can require a minimum score is met before the activity is marked as complete.

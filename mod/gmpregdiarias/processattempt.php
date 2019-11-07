@@ -4,12 +4,11 @@ require_once(dirname(__FILE__).'/../../config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
 require_once($CFG->dirroot . '/mod/gmpregdiarias/classes/cpumind.php');
 
-$fechafin = date('Y-m-d H:i:s');
 
 $id  = optional_param('id', "", PARAM_INT);  // Is the param action.
 $cm  = optional_param('cm', "", PARAM_INT);  // Is the param action.
 $gmuserid = optional_param('gmuserid', "", PARAM_INT);  // Is the param action.
-$questionid = optional_param('questionid', "", PARAM_INT);  // Is the param action.
+$intentoid = optional_param('intentoid', "", PARAM_INT);  // Is the param action.
 $idredirect  = optional_param('idredirect', "", PARAM_INT);  // Is the param action.
 
 $timenow = time();
@@ -19,11 +18,8 @@ $quba = question_engine::load_questions_usage_by_activity($id);
 $userScore = calculateScoreUser($quba,$timenow);
 
 $values = (object)[
-    'gmdl_usuario_id' => $gmuserid,
-    'mdl_question_id' => $questionid,
-    'gmdl_preg_diarias_id' => $cm,
-    'calificacion' => $userScore,
-    'fecha' => time()
+    'id' => $intentoid,
+    'calificacion' => (double)$userScore
 ];
 
 $gmpregdiarias  = $DB->get_record('gmpregdiarias', array('id' => $cm), '*', MUST_EXIST);
@@ -51,24 +47,21 @@ echo $renderer->render_results_attempt($userScore);
 
 echo $OUTPUT->footer();
 
-$DB->insert_record('gmdl_intento_diario',$values);
+$DB->update_record('gmdl_intento_diario',$values);
 
-/*$maxScore = 0;
 
-$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id),'MAX(puntuacion_usuario)');
+if($userScore > 5 ){
 
-if($userScore > $maxScore && $userScore >= $cpuScore){
-
-    $event = \local_gamedlemaster\event\gmpregdiarias_compFinishedWon::create(array(
+    $event = \local_gamedlemaster\event\gmpregdiarias_pregCorrecta::create(array(
         'objectid' => $gmpregdiarias->id,
         'context' => $context,
-        'other' => array('userid' => $userid, 'dificultad' => $intento->gmdl_dificultad_cpu_id),
+        'other' => array('userid' => $userid),
     ));
 
     $event->add_record_snapshot('gmpregdiarias', $gmpregdiarias);
     $event->trigger();
 
-}*/
+}
 
 function processAnswer( $dbanswer ){
 
@@ -85,29 +78,11 @@ function processAnswer( $dbanswer ){
 
 }
 
-function calculateScoreCpu( $questionswithAnswers ){
-
-    $score = 0;
-
-    foreach ($questionswithAnswers as $questionwithAnswers){
-
-        foreach ( $questionwithAnswers as $answer ){
-
-            $score += (100) * $answer->fraction;
-
-        }
-
-    }
-
-    return $score;
-
-}
-
 function calculateScoreUser($quba, $timenow){
 
     global $DB;
 
-    $score = 0;
+    $score = (double)0;
 
     $quba->process_all_actions($timenow);
 
@@ -156,7 +131,7 @@ function calculateScoreUser($quba, $timenow){
                     foreach ($useranswers as $useranswer){
                         foreach ($answers as $answer){
                             if($order[$useranswer] == $answer->id){
-                                $score += (100*$question->defaultmark) * $answer->fraction;
+                                $score += (double) $answer->fraction;
                             }
                         }
                     }
@@ -185,7 +160,7 @@ function calculateScoreUser($quba, $timenow){
                                 $useranswer = 1;
                             }
                         $answers = array_values($answers);
-                        $score += (100*$question->defaultmark) * $answers[$useranswer]->fraction;
+                        $score += (double) $answers[$useranswer]->fraction;
                     }
             }
         else
@@ -211,7 +186,7 @@ function calculateScoreUser($quba, $timenow){
 
                             if (strtolower($useranswer) == strtolower($answer->answer)) {
 
-                                $score += (100*$question->defaultmark) * $answer->fraction;
+                                $score += (double) $answer->fraction;
 
                             }
 
@@ -219,6 +194,6 @@ function calculateScoreUser($quba, $timenow){
                     }
             }
     }
-    return $score;
+    return (double)($score*10);
 
 }

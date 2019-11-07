@@ -111,13 +111,13 @@ function gmcompcpu_update_instance(stdClass $gmcompcpu, mod_gmcompcpu_mod_form $
 function gmcompcpu_delete_instance($id) {
     global $DB;
 
-    if (! $gmcompcpu = $DB->get_record('gmcompcpu', array('id' => $id))) {
-        return false;
+    $DB->delete_records('gmcompcpu', array('id' => $id));
+    $intentos = $DB->get_records('gmdl_intento',array('gmdlcompcpu_id' => $id));
+    $DB->delete_records('gmdl_intento', array('gmdlcompcpu_id' => $id));
+
+    foreach ( $intentos as $intento ){
+        $DB->delete_records('gmdl_respuesta_cpu', array('gmdl_intento_id' => $intento->id));
     }
-
-    $DB->delete_records('gmcompcpu', array('id' => $gmcompcpu->id));
-    $DB->delete_records('gmcompcpu_scores', array('gmcompcpuid' => $gmcompcpu->id));
-
     return true;
 }
 
@@ -211,14 +211,15 @@ function gmcompcpu_get_completion_state($course, $cm, $userid, $type) {
 
     // Default return value.
     $result = $type;
-    if ($gmcompcpu->completionscore) {
-        $where = ' gmcompcpuid = :gmcompcpuid AND userid = :userid AND score >= :score';
+    if ($gmcompcpu->completioncpudiff) {
+        $gmuserid = $DB->get_record('gmdl_usuario',array('mdl_id_usuario' => $userid));
+        $where = ' gmdlcompcpu_id = :gmcompcpuid AND gmdl_usuario_id = :gmuserid AND gmdl_dificultad_cpu_id >= :cpudificultad AND puntuacion_usuario >= puntuacion_cpu';
         $params = array(
             'gmcompcpuid' => $gmcompcpu->id,
-            'userid' => $userid,
-            'score' => $gmcompcpu->completionscore,
+            'gmuserid' => $gmuserid->id,
+            'cpudificultad' => $gmcompcpu->completioncpudiff,
         );
-        $value = $DB->count_records_select('gmcompcpu_scores', $where, $params) > 0;
+        $value = $DB->count_records_select('gmdl_intento', $where, $params) > 0;
         if ($type == COMPLETION_AND) {
             $result = $result && $value;
         } else {

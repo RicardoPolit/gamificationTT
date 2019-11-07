@@ -3,6 +3,7 @@
 require_once(dirname(__FILE__).'/../../config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
 require_once($CFG->dirroot . '/mod/gmcompvs/classes/cpumind.php');
+require_once($CFG->dirroot.'/lib/completionlib.php');
 
 $fechafin = date('Y-m-d H:i:s');
 
@@ -54,6 +55,7 @@ $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $cm), '*', MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
 $cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
 
+
 require_login($course, true, $cm);
 
 $context = context_module::instance($cm->id);
@@ -96,14 +98,21 @@ if($contrincante->idusuario != null) {
 
     $vistausuario = $renderer->render_results_attempt($userScore,$contrincante->puntuacion);
 
-    /*$event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
+    $moodleuserid = $DB->get_record('gmdl_usuario',array('id' => $userid));
+
+    $completion = new completion_info($course);
+    if($completion->is_enabled($cm) && $gmcompvs->completionnumwon != 0 && $gmcompvs->completionnumwon != NULL ) {
+        $completion->update_state($cm,COMPLETION_COMPLETE,$moodleuserid->mdl_id_usuario);
+    }
+
+    $event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
         'objectid' => $gmcompvs->id,
         'context' => $context,
-        'other' => array('userid' => $userid),
+        'other' => array('userid' => $moodleuserid->mdl_id_usuario),
     ));
 
     $event->add_record_snapshot('gmcompvs', $gmcompvs);
-    $event->trigger();*/
+    $event->trigger();
 
 }else {
 
