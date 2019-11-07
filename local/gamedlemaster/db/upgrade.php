@@ -75,6 +75,10 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019110300();
             }
+        else if($oldversion < 2019110700)
+            {
+                upgrades2019110700();
+            }
 
 		return true;
 	}
@@ -1000,6 +1004,34 @@ function upgrades2019110300()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019110300, 'local', 'gamedlemaster');
+        upgrades2019110700();
 
+    }
 
+function upgrades2019110700()
+    {
+        
+        global $DB;
+        $dbman = $DB->get_manager();
+        // Define field completioncpudiff to be added to gmcompcpu.
+        $table = new xmldb_table('gmcompcpu');
+        $field = new xmldb_field('completioncpudiff', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'mdl_question_categories_id');
+
+        // Conditionally launch add field completioncpudiff.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Define field completionnumwon to be added to gmcompvs.
+        $table = new xmldb_table('gmcompvs');
+        $field = new xmldb_field('completionnumwon', XMLDB_TYPE_INTEGER, '10', null, null, null, null, 'mdl_question_categories_id');
+
+        // Conditionally launch add field completionnumwon.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Gamedlemaster savepoint reached.
+        upgrade_plugin_savepoint(true, 2019110700, 'local', 'gamedlemaster');
+        
     }

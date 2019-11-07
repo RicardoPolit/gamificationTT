@@ -139,24 +139,6 @@
 }
 
 
-
-
-
-#responseform{
-    width: 40%;
-    height: 30%;
-    padding: 1%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    flex-direction: column;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-evenly;
-    align-items: center;
-    text-align: center;
-
-}
-
 .gmpregdiarias-card-element{
     width: 100%;
     height: 30%;
@@ -171,7 +153,6 @@
 
 .gmpregdiarias-card-element > p{
     margin: 0 1%;
-
 }
 
 

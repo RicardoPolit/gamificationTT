@@ -191,6 +191,10 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $moodleUserId = $userid;
             global $DB;
             $userid = $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $userid), $fields='*', $strictness=IGNORE_MISSING)->id;
+            if(is_null($userid))
+                {
+                    $userid = $this->insertar_usuario($moodleUserId);
+                }
             $numVictorias = $this->obtener_dato_sql_victorias($gmcompvs->id, $userid);
             $posiblesRivales = $this->obtener_posibles_rivales($gmcompvs->id, $userid);
             $desafiosPorTerminar = $this->obtener_desafios_pendientes($gmcompvs->id, $userid);
@@ -200,11 +204,11 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $html.= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
 
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opciones"));
-                $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-scores"));
-                    $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
-                $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion-activa gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-inicio"));
                     $html.= html_writer::nonempty_tag('h3', 'Inicio',array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-scores"));
+                    $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-historial"));
                     $html.= html_writer::nonempty_tag('h3', 'Historial',array());
@@ -306,7 +310,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                             foreach($filas as $fila)
                                 {
                                     $html.= html_writer::start_tag('tr', array());
-                                        if($ultimosPuntos > $fila->victorias && $primeraFila==0)
+                                        if($ultimosPuntos == $fila->victorias && $primeraFila==0)
                                             {
                                                 $lugar++;
                                             }
@@ -353,20 +357,25 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $tiempoFinal = " - - - ";
                     $tiempoFinalContrincante = " - - - ";
                     $imagen = "pix/derrota.png";
-                    if(is_null($partida->fecha_fin_a))
+                    if(is_null($partida->fecha_inicio_b))
+                        {
+                            $imagen = "pix/tregua.png";
+                            $encurso++;
+                        }
+                    else if(is_null($partida->fecha_fin_a))
                         {
                             $tiempoFinal = date('Y-m-d', $partida->fecha_fin_a);
                             $imagen = "pix/retirada.png";
                             $retiradas++;
                         }
 
-                    if(is_null($partida->fecha_fin_b))
+                    else if(is_null($partida->fecha_fin_b))
                         {
                             $tiempoFinalContrincante = date('Y-m-d', $partida->fecha_fin_b);
-                            $imagen = "pix/incertidumbre.png";
+                            $imagen = "pix/tregua.png";
                             $encurso++;
                         }
-                    if($partida->puntuacion_a > $partida->puntuacion_b)
+                    else if($partida->puntuacion_a > $partida->puntuacion_b)
                         {
                             if($imagen=='pix/derrota.png')
                                 {
@@ -378,7 +387,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                         {
                             if($imagen=='pix/derrota.png')
                                 {
-                                    $imagen = "pix/tregua.png";
+                                    $imagen = "pix/empate.png";
                                     $empates++;
                                 }
                         }
@@ -388,8 +397,8 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                         }
                     $contenidoTabla.= html_writer::start_tag('tr', array());
                         $contenidoTabla.= html_writer::nonempty_tag('td', $partida->firstname_b.' '.$partida->lastname_b.' ('.$partida->firstname_b.')', array("class"=>"gmcompvs-table-history-name"));
-                        $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_b, array("class"=>"gmcompvs-table-history-points"));
                         $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_a, array("class"=>"gmcompvs-table-history-points"));
+                        $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_b, array("class"=>"gmcompvs-table-history-points"));
                         $contenidoTabla.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
                             $contenidoTabla.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
                         $contenidoTabla.= html_writer::end_tag('td', array());
@@ -399,7 +408,9 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
             $html= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
             $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-historial-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
-                $html.= html_writer::start_tag('div', array("class"=>""));
+            $html.= html_writer::start_tag('div', array("id"=>"gmcompvs-fieldset-div"));
+                $html.= html_writer::start_tag('fieldset', array("id"=>"gmcompvs-fieldset"));
+                    $html.= html_writer::nonempty_tag('legend', 'Resumen de los estados de los desafíos', array());
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-resume"));
                         $html.= html_writer::start_tag('div', array());
                             $html.= html_writer::empty_tag('img', array("src"=>"pix/victoria.png", "class"=>"gmcompvs-trohpy-image-table"));
@@ -424,13 +435,15 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                             $html.= html_writer::nonempty_tag('h3', 'Retirada: '.$retiradas, array());
                         $html.= html_writer::end_tag('div');
                     $html.= html_writer::end_tag('div');
+                $html.= html_writer::end_tag('fieldset');
+                $html.= html_writer::end_tag('div');
                     $html.= html_writer::start_tag('div', array( "id"=>"gmcompvs-table-historial-container"));
                         $html.= html_writer::start_tag('table', array("class"=>"gmcompvs-table", "id"=>"gmcompvs-table-historial"));
                             $html.= html_writer::start_tag('thead', array("class"=>"gmcompvs-thead"));
                                 $html.= html_writer::start_tag('tr', array());
                                     $html.= html_writer::nonempty_tag('th', "Nombre contrincante", array("class"=>"gmcompvs-table-history-name"));
-                                    $html.= html_writer::nonempty_tag('th', "Puntos contrincante", array("class"=>"gmcompvs-table-history-points"));
                                     $html.= html_writer::nonempty_tag('th', "Tus puntos", array("class"=>"gmcompvs-table-history-points"));
+                                    $html.= html_writer::nonempty_tag('th', "Puntos contrincante", array("class"=>"gmcompvs-table-history-points"));
                                     $html.= html_writer::nonempty_tag('th', "Estado de desaf&iacute;o", array("class"=>"gmcompvs-table-history-state"));
                                 $html.= html_writer::end_tag('tr', array());
                             $html.= html_writer::end_tag('thead', array());
@@ -452,7 +465,6 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                             $html.= html_writer::end_tag('tbody');
                         $html.= html_writer::end_tag('table');
                     $html.= html_writer::end_tag('div');
-                $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             return $html;
@@ -614,9 +626,19 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" JOIN {gmdl_usuario} ON {gmdl_participacion}.gmdl_usuario_id = {gmdl_usuario}.id";
             $sql.=" JOIN {user} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
             $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id != $usuario AND";
-            $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
             $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
             $sql.=" ON a.partidaid_a = b.partidaid_b";
             return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+        }
+
+    
+    private function insertar_usuario($usuario)
+        {
+            global $DB;
+            $data = new stdClass();
+            $data->mdl_id_usuario = $usuario;
+            $data->nivel_actual = 1;
+            $data->experiencia_actual = 0;
+            return $DB->insert_record('gmdl_usuario', $data, $returnid=true, $bulk=false);
         }
 }

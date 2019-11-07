@@ -195,6 +195,10 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
         {
             $moodleUserId = $userid;
             $userid = $this->obtener_usuario_gamedle($moodleUserId);
+            if(is_null($userid))
+                {
+                    $userid = $this->insertar_usuario($moodleUserId);
+                }
             $dificultades = $this->obtener_todas_dificultades();
             $victorias = $this->obtener_cpus_vencidas($gmcompcpu->id, $userid);
             $compusVencidas = '';
@@ -203,13 +207,13 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             foreach($dificultades as $dificultad)
                 {
                     $noEncontrado = TRUE;
-                    $nombresDificultades.= html_writer::nonempty_tag('th', $dificultad->nombre, array("class"=>"gmcompcpu-color-cpu-nivel-".$dificultad->id));
+                    $nombresDificultades.= html_writer::nonempty_tag('th', $dificultad->nombre, array("class"=>""));
                     foreach($victorias as $victoria)
                         {
                             if($victoria->gmdl_dificultad_cpu_id == $dificultad->id && $noEncontrado)
                             {
                                 $compusVencidas.= html_writer::start_tag('td', array());
-                                $compusVencidas.= html_writer::empty_tag('img', array("src"=>"pix/cpu_vencida.png", "class"=> 'gmcompcpu-imagen-cpu'));
+                                $compusVencidas.= html_writer::empty_tag('img', array("src"=>"pix/cpu_v_".$dificultad->id.".png", "class"=> 'gmcompcpu-imagen-cpu'));
                                 $compusVencidas.= html_writer::end_tag('td', array());
                                 $noEncontrado = FALSE;
                             }
@@ -217,7 +221,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     if($noEncontrado)
                         {
                             $compusVencidas.= html_writer::start_tag('td', array());
-                            $compusVencidas.= html_writer::empty_tag('img', array("src"=>"pix/cpu_activa.png", "class"=> 'gmcompcpu-imagen-cpu'));
+                            $compusVencidas.= html_writer::empty_tag('img', array("src"=>"pix/cpu_pv_".$dificultad->id.".png", "class"=> 'gmcompcpu-imagen-cpu'));
                             $compusVencidas.= html_writer::end_tag('td', array());
                         }
 
@@ -231,11 +235,11 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $this->page->requires->js_call_amd('mod_gmcompcpu/js_competencia_cpu', 'init');
 
             $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opciones"));
-                $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-scores"));
-                    $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
-                $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion-activa gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-inicio"));
                     $html.= html_writer::nonempty_tag('h3', 'Inicio',array());
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-scores"));
+                    $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-historial"));
                     $html.= html_writer::nonempty_tag('h3', 'Historial',array());
@@ -246,7 +250,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
 
             $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-contianer-menu-opcion-inicio-container", "class"=>"gmcompcpu-section-contianer-menu-opcion"));
-                $html.= html_writer::nonempty_tag('h1', "Computadoras vencidas", array("class" =>"gmcompcpu-titulo"));
+                $html.= html_writer::nonempty_tag('h1', "Computadoras derrotadas", array("class" =>"gmcompcpu-titulo"));
                     $html.= html_writer::start_tag('table', array("id"=>"gmcompcpu-table-cpu-defeated"));
                     $html.= html_writer::start_tag('thead', array());
                     $html.= html_writer::nonempty_tag('tr', $nombresDificultades, array());
@@ -255,7 +259,11 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $html.= html_writer::nonempty_tag('tr',$compusVencidas , array());
                     $html.= html_writer::end_tag('tbody', array());
                     $html.= html_writer::end_tag('table', array());
-
+                    $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-left-align"));
+                        $imagen1 = html_writer::empty_tag('img', array("src"=>"pix/cpu_ejemplo_pv.png", "class"=> 'gmcompcpu-imagen-cpu-resumen'));
+                        $imagen2 = html_writer::empty_tag('img', array("src"=>"pix/cpu_ejemplo_v.png", "class"=> 'gmcompcpu-imagen-cpu-resumen'));
+                        $html.= html_writer::nonempty_tag('p', "E &iacute;cono $imagen1 se transformará en $imagen2 cuando se haya vencido a la computadora en esa respectiva dificultad.", array());
+                    $html.= html_writer::end_tag('div', array());
 
 
                 $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-card-container"));
@@ -321,11 +329,15 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                 {
                     $leaderboard = $leaderboards[$i];
                     $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container-niveles", "id"=>"gmcompcpu-container-nivel-".$dificultad->id));
-                    $html.= html_writer::nonempty_tag('div', $dificultad->nombre, array("class" => "gmcompcpu-linea-nivel-".$dificultad->id));
+                        $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container-muestra-nivel"));
+                            $html.= html_writer::empty_tag('img', array("src"=>"pix/cpu_pv_".$dificultad->id.".png", "class"=>"gmcompcpu-imagen-trophy"));
+                                $html.= html_writer::nonempty_tag('div', $dificultad->nombre, array("class" => "gmcompcpu-linea-nivel-".$dificultad->id));
+                            $html.= html_writer::empty_tag('img', array("src"=>"pix/cpu_v_".$dificultad->id.".png", "class"=>"gmcompcpu-imagen-trophy"));
+                        $html.= html_writer::end_tag('div', array());
                     $html.= html_writer::start_tag('div', array("class" =>"gmcompcpu-container-half-containers", "id"=>"gmcompcpu-contenedor-nivel-".$dificultad->id));
                     $leaderboardMax = $leaderboardsMax[$i];
                     $cabezeraTabla= html_writer::start_tag('thead', array());
-                    $cabezeraTabla.= html_writer::nonempty_tag('tr', "<th> Posici&oacute;n </th> <th> Nombre </th> <th> Puntuaci&oacute;n </th>", array("class"=>"gmcompcpu-color-cpu-nivel-".$dificultad->id));
+                    $cabezeraTabla.= html_writer::nonempty_tag('tr', "<th> Posici&oacute;n </th> <th> Nombre </th> <th> Puntuaci&oacute;n </th>", array(""));
                     $cabezeraTabla.= html_writer::end_tag('thead', array());
                     $j=1;
                     $contenidoTablaPrimerIntento= html_writer::start_tag('tbody', array());
@@ -333,11 +345,9 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $primeraIteracion = 1;
                     foreach($leaderboard as $intento)
                         {
-                            if( $ultimosPuntos> $intento->puntos && $primeraIteracion == 0)
+                            if( $ultimosPuntos == $intento->puntos && $primeraIteracion == 0)
                                 {
-                                    $ultimosPuntos = $puntos;
                                     $j--;
-                                    $primeraIteracion = 1;
                                 }
                             $contenidoTablaPrimerIntento.= html_writer::start_tag('tr');
                             if($j==1)
@@ -349,13 +359,13 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                             else if($j==2)
                                 {
                                     $contenidoTablaPrimerIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy"));
+                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmcompcpu-imagen-trophy"));
                                     $contenidoTablaPrimerIntento.= html_writer::end_tag('td');
                                 }
                             else if($j ==3)
                                 {
                                     $contenidoTablaPrimerIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy"));
+                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmcompcpu-imagen-trophy"));
                                     $contenidoTablaPrimerIntento.= html_writer::end_tag('td');
                                 }
                             else
@@ -367,6 +377,8 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                                 $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
                                 $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
                             $j++;
+                            $primeraIteracion = 0;
+                            $ultimosPuntos = $intento->puntos;
                         }
                     if($j == 1)
                         {
@@ -378,7 +390,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                         }
                     $contenidoTablaPrimerIntento.= html_writer::end_tag('tbody', array());
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-half-container"));
-                    $html.= html_writer::nonempty_tag('h3', 'Primeros intentos',array());
+                    $html.= html_writer::nonempty_tag('h3', 'Primer intento',array());
                     $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaPrimerIntento, array("class"=>"gmcompcpu-table-scores"));
                     $html.= html_writer::end_tag('div', array());
                     $j=1;
@@ -387,11 +399,9 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $ultimosPuntos = 0;
                     foreach($leaderboardMax as $intento)
                         {
-                            if( $ultimosPuntos> $intento->puntos && $primeraIteracion == 0)
+                            if( $ultimosPuntos == $intento->puntos && $primeraIteracion == 0)
                                 {
-                                    $ultimosPuntos = $puntos;
                                     $j--;
-                                    $primeraIteracion = 0;
                                 }
                             $contenidoTablaMejorIntento.= html_writer::start_tag('tr');
                             if($j==1)
@@ -403,13 +413,13 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                             else if($j==2)
                                 {
                                     $contenidoTablaMejorIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy"));
+                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmcompcpu-imagen-trophy"));
                                     $contenidoTablaMejorIntento.= html_writer::end_tag('td');
                                 }
                             else if($j ==3)
                                 {
                                     $contenidoTablaMejorIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompcpu-imagen-trophy  "));
+                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmcompcpu-imagen-trophy  "));
                                     $contenidoTablaMejorIntento.= html_writer::end_tag('td');
                                 }
                             else
@@ -417,10 +427,12 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                                     $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $j."°", array());
                                 }
                                 
-                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
-                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
-                                $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
+                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
+                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
+                            $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
                             $j++;
+                            $primeraIteracion = 0;
+                            $ultimosPuntos = $intento->puntos;
                         }
                     if($j == 1)
                         {
@@ -432,7 +444,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                         }
                     $contenidoTablaMejorIntento.= html_writer::end_tag('tbody', array());
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-half-container"));
-                    $html.= html_writer::nonempty_tag('h3', 'Mejores intentos',array());
+                    $html.= html_writer::nonempty_tag('h3', 'Mejor intento',array());
                     $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaMejorIntento,array("class"=>"gmcompcpu-table-scores"));
                     $html.= html_writer::end_tag('div', array());
                     $html.= html_writer::end_tag('div', array());
@@ -460,20 +472,20 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             foreach($intentos as $intento)
                 {
                     $contenidoTabla.= html_writer::start_tag('tr', array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre,array("class" => "gmcompcpu-color-cpu-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id));
+                    $contenidoTabla.= html_writer::nonempty_tag('td', $dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre,array("class" => ""));
                     $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_usuario, array());
                     $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_cpu, array());
                     if($intento->puntuacion_usuario >= $intento->puntuacion_cpu)
                         {
                             
                             $contenidoTabla.= html_writer::start_tag('td', array());
-                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_vencida.png", "class"=> 'gmcompcpu-imagen-cpu'));
+                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_v_".$intento->gmdl_dificultad_cpu_id.".png", "class"=> 'gmcompcpu-imagen-cpu'));
                             $contenidoTabla.= html_writer::end_tag('td', array());
                         }
                     else
                         {
                             $contenidoTabla.= html_writer::start_tag('td', array());
-                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_activa.png", "class"=> 'gmcompcpu-imagen-cpu'));
+                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_pv_".$intento->gmdl_dificultad_cpu_id.".png", "class"=> 'gmcompcpu-imagen-cpu'));
                             $contenidoTabla.= html_writer::end_tag('td', array());
                         }
                     $contenidoTabla.= html_writer::end_tag('tr', array());
@@ -577,5 +589,15 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
         {
             global $DB;
             return $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $moodleUserId), $fields='*', $strictness=IGNORE_MISSING)->id;
+        }
+
+    private function insertar_usuario($usuario)
+        {
+            global $DB;
+            $data = new stdClass();
+            $data->mdl_id_usuario = $usuario;
+            $data->nivel_actual = 1;
+            $data->experiencia_actual = 0;
+            return $DB->insert_record('gmdl_usuario', $data, $returnid=true, $bulk=false);
         }
 }

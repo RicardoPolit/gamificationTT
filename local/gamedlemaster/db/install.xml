@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/gamedlemaster/db" VERSION="20191103" COMMENT="Prueba de concepto para la creacion de los XML"
+<XMLDB PATH="local/gamedlemaster/db" VERSION="20191107" COMMENT="Prueba de concepto para la creacion de los XML"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -188,6 +188,7 @@
         <FIELD NAME="intro" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Este campo es la descripción de la instancia de la actividad (requerido por moodle)"/>
         <FIELD NAME="introformat" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Formato en el que está guardada la descripción de formato (requerido por moodle)"/>
         <FIELD NAME="mdl_question_categories_id" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Llave foránea que apunta  a la tabla mdl_question de moodle"/>
+        <FIELD NAME="completioncpudiff" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="dificultad mínima a vencer para completar un curso"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
@@ -244,6 +245,7 @@
         <FIELD NAME="intro" TYPE="text" NOTNULL="false" SEQUENCE="false" COMMENT="Descripción de la instancia de la actividad"/>
         <FIELD NAME="introformar" TYPE="int" LENGTH="4" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Formato en el cual está escrita la descripción de la instancia de la activdad"/>
         <FIELD NAME="mdl_question_categories_id" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Banco de preguntas de la actividad"/>
+        <FIELD NAME="completionnumwon" TYPE="int" LENGTH="10" NOTNULL="false" SEQUENCE="false" COMMENT="Mínimo número de victorios a tener para completar la actividad"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
