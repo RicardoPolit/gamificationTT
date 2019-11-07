@@ -28,13 +28,11 @@ require_once($CFG->dirroot.'/course/format/gamedle/lib.php');
         exit;
     }
 
-    // Exiting if undesired behave
-    if( !isset($_SESSION['Gamedle']['format'])   ) response(false);
-    if( $_SESSION['Gamedle']['format'] === false ) response(false);
+    local_gamedlemaster_log::info($_POST);
     if( !isset($_POST['defaultXP']) ) response(false);
     
     // Getting the needed variables|objects
-    $courseid  = $_SESSION['Gamedle']['format'];
+    $courseid  = $_POST['id'];
     $defaultxp = $_POST['defaultXP'];
     $format    = course_get_format($courseid);
     
@@ -49,7 +47,7 @@ require_once($CFG->dirroot.'/course/format/gamedle/lib.php');
         else { // else if( $defaultxp === "false" ){
             
             $sections = $_POST['data'];
-            $totalxp  = (int)get_config('block_gmxp','firstExpGiven');
+            $totalxp  = (int)get_config('block_gmxp',block_gmxp_core::COURSEXP);
             $sum = 0;
             
             foreach($sections as $xp)
@@ -57,7 +55,7 @@ require_once($CFG->dirroot.'/course/format/gamedle/lib.php');
             
             if($sum === $totalxp){
                 foreach($sections as $section => $xp)
-                    $format->setSectionXP($section,$xp);                
+                    $format->setSectionXP($section,$xp); 
                 response(true);
             }
             else

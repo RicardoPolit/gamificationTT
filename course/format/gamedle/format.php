@@ -55,10 +55,12 @@ require_once($CFG->libdir.'/completionlib.php');
      
     if ($PAGE->user_is_editing() && $format->get_format()==="gamedle") {
         $_SESSION['Gamedle']['format'] = $course->id;
-        $totalxp = (int)get_config('block_gmxp','firstExpGiven');
-
+        $totalxp = (int)get_config('block_gmxp', block_gmxp_core::COURSEXP);
         $service = "{$CFG->wwwroot}/course/format/gamedle/cli/courseXP.php";
-        $PAGE->requires->js_call_amd('format_gamedle/form_xp','form',array($totalxp,$service));
+
+        $PAGE->requires->js_call_amd('format_gamedle/form_xp','form',
+            array($course->id, $totalxp, $service));
+
     } else
         $_SESSION['Gamedle']['format'] = false;
     

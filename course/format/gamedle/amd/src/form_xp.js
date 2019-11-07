@@ -13,7 +13,7 @@
 
 define(['jquery'], function($) {
  
-    function validate(totalxp, service){
+    function validate(totalxp, service, courseid){
         var sectionsXP = Array();
         var exit  = false;
         var regex = /^\d+$/;
@@ -33,7 +33,7 @@ define(['jquery'], function($) {
         if( !exit && a == totalxp ){
             $("#gmxp-sum").hide();
             $("#submitError").css('color','#000');
-            requestChanges(false,sectionsXP, service);
+            requestChanges(false,sectionsXP, service, courseid);
             
         } else {
             if(!exit){
@@ -44,13 +44,11 @@ define(['jquery'], function($) {
         }
     }
     
-    function requestChanges(auto, data, service){
+    function requestChanges(auto, data, service, courseid){
     
-        var obj = { defaultXP:auto };
+        var obj = { defaultXP:auto, id: courseid };
         if(!auto)
             obj["data"] = data;
-
-            console.log(service);
         
         $.ajax({
     		method:"post",
@@ -72,9 +70,8 @@ define(['jquery'], function($) {
     }
  
     return {
-        form: function(totalxp, service){
+        form: function(courseid, totalxp, service){
             totalxp = parseInt(totalxp);
-            alert('thisis happendin');
             
             $('.gmxp-section').on('keyup',function(e){
                 var regex = /^\d+$/;
@@ -88,11 +85,11 @@ define(['jquery'], function($) {
             });
             
             $('#submitXP').on('click',function(){
-                validate(totalxp, service);
+                validate(totalxp, service, courseid);
             });
             
             $('#defaultXP').on('click',function(){
-                requestChanges(true, undefined, service);
+                requestChanges(true, undefined, service, courseid);
             });
         }
     };
