@@ -3,6 +3,7 @@
 require_once(dirname(__FILE__).'/../../config.php');
 require_once($CFG->dirroot . '/question/engine/lib.php');
 require_once($CFG->dirroot . '/mod/gmcompcpu/classes/cpumind.php');
+require_once($CFG->dirroot.'/lib/completionlib.php');
 
 $fechafin = date('Y-m-d H:i:s');
 
@@ -93,10 +94,22 @@ $values = (object)[
 
 $values->id = $intentoid;
 
+$DB->update_record('gmdl_intento',$values);
 
 $gmcompcpu  = $DB->get_record('gmcompcpu', array('id' => $cm), '*', MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $gmcompcpu->course), '*', MUST_EXIST);
 $cm         = get_coursemodule_from_instance('gmcompcpu', $gmcompcpu->id, $course->id, false, MUST_EXIST);
+
+if( $userScore >= $cpuScore ){
+
+    $completion = new completion_info($course);
+    if($completion->is_enabled($cm) && $gmcompcpu->completioncpudiff != 0 && $gmcompcpu->completioncpudiff != NULL ) {
+        $completion->update_state($cm,COMPLETION_COMPLETE,$userid);
+    }
+
+}
+
+insertCpuAnswers($questionswithAnswers,$intentoid);
 
 require_login($course, true, $cm);
 
@@ -135,10 +148,6 @@ if($userScore > $maxScore && $userScore >= $cpuScore){
     $event->trigger();
 
 }
-
-$DB->update_record('gmdl_intento',$values);
-
-insertCpuAnswers($questionswithAnswers,$intentoid);
 
 /*$urltogo = new moodle_url('/mod/gmcompcpu/view.php', array('id' => $idredirect));
 

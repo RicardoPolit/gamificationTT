@@ -48,7 +48,7 @@ require_login($course, true, $cm);
 $context = context_module::instance($cm->id);
 
 // Trigger module viewed event.
-/*$event = \mod_gmcompcpu\event\course_module_viewed::create(array(
+$event = \mod_gmcompcpu\event\course_module_viewed::create(array(
     'objectid' => $gmcompcpu->id,
     'context' => $context,
 ));
@@ -56,7 +56,7 @@ $context = context_module::instance($cm->id);
 $event->add_record_snapshot('course', $course);
 $event->add_record_snapshot('course_modules', $cm);
 $event->add_record_snapshot('gmcompcpu', $gmcompcpu);
-$event->trigger();*/
+$event->trigger();
 
 // Mark as viewed.
 $completion = new completion_info($course);
