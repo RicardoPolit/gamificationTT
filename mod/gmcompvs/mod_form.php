@@ -84,15 +84,15 @@ class mod_gmcompvs_mod_form extends moodleform_mod {
     public function add_completion_rules() {
         $mform =& $this->_form;
         $group = array();
-        $group[] =& $mform->createElement('checkbox', 'completionscoreenabled', '',
-                get_string('completionscore', 'gmcompvs'));
-        $group[] =& $mform->createElement('text', 'completionscore', '', array('size' => 3));
-        $mform->setType('completionscore', PARAM_INT);
-        $mform->addGroup($group, 'completionscoregroup',
-                get_string('completionscoregroup', 'gmcompvs'), array(' '), false);
-        $mform->disabledIf('completionscore', 'completionscoreenabled', 'notchecked');
-        $mform->addHelpButton('completionscoregroup', 'completionscoregroup', 'gmcompvs');
-        return array('completionscoregroup');
+        $group[] =& $mform->createElement('checkbox', 'completionnumwonenabled', '',
+                get_string('completionnumwon', 'gmcompvs'));
+        $group[] =& $mform->createElement('text', 'completionnumwon', '', array('size' => 3));
+        $mform->setType('completionnumwon', PARAM_INT);
+        $mform->addGroup($group, 'completionnumwongroup',
+                get_string('completionnumwongroup', 'gmcompvs'), array(' '), false);
+        $mform->disabledIf('completionnumwon', 'completionnumwonenabled', 'notchecked');
+        $mform->addHelpButton('completionnumwongroup', 'completionnumwongroup', 'gmcompvs');
+        return array('completionnumwongroup');
     }
 
     /**
@@ -101,7 +101,7 @@ class mod_gmcompvs_mod_form extends moodleform_mod {
      * @return bool
      */
     public function completion_rule_enabled($data) {
-        return (!empty($data['completionscoreenabled']) && $data['completionscore'] != 0);
+        return (!empty($data['completionnumwonenabled']) && $data['completionnumwon'] > 0);
     }
 
     /**
@@ -116,8 +116,8 @@ class mod_gmcompvs_mod_form extends moodleform_mod {
         if (!empty($data->completionunlocked)) {
             // Turn off completion settings if the checkboxes aren't ticked.
             $autocompletion = !empty($data->completion) && $data->completion == COMPLETION_TRACKING_AUTOMATIC;
-            if (empty($data->completionscoreenabled) || !$autocompletion) {
-                $data->completionscore = 0;
+            if (empty($data->completionnumwonenabled) || !$autocompletion) {
+                $data->completionnumwon = 0;
             }
         }
         return $data;
@@ -133,13 +133,13 @@ class mod_gmcompvs_mod_form extends moodleform_mod {
         // Set up the completion checkboxes which aren't part of standard data.
         // We also make the default value (if you turn on the checkbox) for those
         // numbers to be 1, this will not apply unless checkbox is ticked.
-        if (!empty($defaultvalues['completionscore'])) {
-            $defaultvalues['completionscoreenabled'] = 1;
+        if (!empty($defaultvalues['completionnumwon'])) {
+            $defaultvalues['completionnumwonenabled'] = 1;
         } else {
-            $defaultvalues['completionscoreenabled'] = 0;
+            $defaultvalues['completionnumwonenabled'] = 0;
         }
-        if (empty($defaultvalues['completionscore'])) {
-            $defaultvalues['completionscore'] = 10000;
+        if (empty($defaultvalues['completionnumwon'])) {
+            $defaultvalues['completionnumwon'] = 1;
         }
     }
 }
