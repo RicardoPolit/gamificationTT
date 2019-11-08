@@ -11,9 +11,9 @@ Autor/Daniel Ortega,%
 Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-X0Y}{Titulo}{%
+{CU-E10}{Eliminar un curso gamificado}{%
 %
- Permite al \refElem{aActor} .}
+ Permite al \refElem{aAdministrador} eliminar un curso gamificado ...}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -21,18 +21,18 @@ Estado/\ucstEnEdicion]%
  \UCsection{Atributos}
 
     \UCitem{Actor(es)}{%
-        \refElem{aActor}
+        \refElem{aAdministrador}
     }
 
 	\UCitem{Propósito}{%
-        ...
+        Permitir al administrador eliminar un curso que está gamificado junto
+        con los datos de gamificación que este ha otorgado.
 	}
 	
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
         \Titem Mouse
-        \Titem Teclado
 	}
 
 	\UCitem{Salidas}{\imprimeUC{salida}}
@@ -42,23 +42,22 @@ Estado/\ucstEnEdicion]%
 	}
 	
 	\UCitems{Precondiciones}{%
-        \Titem ...
+        \Titem El curso que se desea eliminar no debe haber sido eliminado
+               anteriormente.
 	}
 
 	\UCitem{Postcondiciones}{%
         Ninguna
 	}
 
-	\UCitem{Reglas de negocio}{%
-		Ninguna
-	}
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
         % CAUSA
-            ...,}{%
+            El curso que se desea eliminar ha sido eliminado previamente,}{%
         % EFECTO
-            ...}
+            termina el caso de uso.}
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -70,8 +69,8 @@ Estado/\ucstEnEdicion]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E0Y}
-        \Titem \refElem{CPI-E0Y}
+        \Titem \refElem{CPC-E05}
+        \Titem \refElem{CPC-E05a}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -87,23 +86,47 @@ Estado/\ucstEnEdicion]%
 
 \begin{UCtrayectoria}%
 %
- \Actor Presiona el botón \IUMenu en la esquina superior izquierda de la pantalla \refElem{IU-M01}
-        para abrir el menu de navegación.
+  \Actor Presiona la opción {\bf Gestionar cursos y categorías}.
+  \Sistema Obtiene las \salida[categorias]{mdl-course-category} y 
+           \salida{mdl-course.fullname} de los cursos presentes en la plataforma.
+  \Sistema Muestra la pantalla \refElem{IU-M06}. \refErr{Err1}
 
- \Actor Selecciona la opción {\it \IUAdminSitio Administración del sitio}
+  \Actor Presiona el botón \IUEliminar correspondiente al curso que desea eliminar.
+         \label{CU-E05-delete-button}. \refTray{A}
+  \Sistema Despliega la pantalla \refElem{IU-M06a} pidiendo la confirmación del 
+           usuario para continuar con la eliminación.
 
- \Sistema Carga la pantalla \refElem{IU-M02}
+  \Actor Presiona la opción {\bf Eliminar}. \refTray{B}
+  \Sistema Elimina las \entrada{xp-section-reward} de experiencia que se han 
+           entregado respetando la regla \regla{BR-E02}.
+  \Sistema Elimina las \entrada[secciones gamificadas]{xp-course-section} del curso.
+  \Sistema Elimina las opciones del \entrada{xp-course.format}.
+  \Sistema Procede con las demás tareas de eliminación para concluir con la 
+           eliminación del curso.
+  \Sistema Muestra la pantalla \refElem{IU-M06b}.
 
+  \Actor Presiona el botón {\bf Continuar}.
+  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
+           \refElem{mdl-course.fullname} de los cursos restantes en la plataforma.
+  \Sistema Muestra la pantalla \refElem{IU-M06}.
 \end{UCtrayectoria}
 
+\begin{UCtrayectoriaA}{A}{%
+El \refElem{mdl-course} que el \refElem{aAdministrador} desea eliminar se encuentra 
+en otra categoría diferente a la seleccionada por defecto.}
 
-\subsubsection{Puntos de extensión}
+  \Actor Selecciona la \refElem{mdl-course-category} donde se encuentra el curso
+         que desea eliminar.
 
-\UCExtensionPoint{Nombre del punto de extensión}{%
+  \Sistema Obtiene las \refElem{mdl-course.fullname} de los cursos pertenecientes a
+           dichas categorías.
+  \Sistema Regresa al paso \ref{CU-E05-delete-button}.
+\end{UCtrayectoriaA}
 
-    El \refElem{aAdministrador} desea/requiere/necesita ....%
-%
-    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
-%
-    }{\refElem{CU-E2-T}}
+\begin{UCtrayectoriaA}{B}{%
+El \refElem{aAdministrador} desea cancelar la eliminación del curso.}
 
+  \Actor Presiona el botón {\bf Cancelar}
+  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
+           \refElem{mdl-course.fullname} de los cursos presentes en la plataforma.
+\end{UCtrayectoriaA}
