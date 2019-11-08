@@ -68,7 +68,6 @@ $PAGE->set_url('/mod/gmcompcpu/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($gmcompcpu->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
-$PAGE->set_focuscontrol('mod_gmcompcpu_game');
 $renderer = $PAGE->get_renderer('mod_gmcompcpu');
 
 // Output starts here.
