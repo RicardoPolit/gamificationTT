@@ -141,28 +141,9 @@ function gmcompvs_delete_instance($id) {
  */
 function gmcompvs_user_outline($course, $user, $mod, $gmcompvs) {
 
-    global $DB;
-    if ($game = $DB->count_records('gmcompvs_scores', array('gmcompvsid' => $gmcompvs->id, 'userid' => $user->id))) {
-        $result = new stdClass();
-
-        if ($game > 0) {
-            $games = $DB->get_records('gmcompvs_scores',
-                    array('gmcompvsid' => $gmcompvs->id, 'userid' => $user->id), 'timecreated DESC', '*', 0, 1);
-            foreach ($games as $last) {
-                $data = new stdClass();
-                $data->score = $last->score;
-                $data->times = $game;
-                $result->info = get_string("playedxtimeswithhighscore", "gmcompvs", $data);
-                $result->time = $last->timecreated;
-            }
-        } else {
-            $result->info = get_string("notyetplayed", "gmcompvs");
-
-        }
-
-        return $result;
-    }
-    return null;
+    $result = new stdClass();
+    $result->info = get_string("notyetplayed", "gmpregdiarias");
+    return  $result;
 
 }
 
@@ -179,7 +160,7 @@ function gmcompvs_user_outline($course, $user, $mod, $gmcompvs) {
 function gmcompvs_user_complete($course, $user, $mod, $gmcompvs) {
     global $DB;
 
-    if ($games = $DB->get_records('gmcompvs_scores',
+    /*if ($games = $DB->get_records('gmcompvs_scores',
             array('gmcompvsid' => $gmcompvs->id, 'userid' => $user->id),
             'timecreated ASC')) {
         $attempt = 1;
@@ -189,9 +170,9 @@ function gmcompvs_user_complete($course, $user, $mod, $gmcompvs) {
             echo get_string('achievedhighscoreof', 'gmcompvs', $game->score);
             echo ' - '.userdate($game->timecreated).'<br />';
         }
-    } else {
+    } else {*/
         print_string("notyetplayed", "gmcompvs");
-    }
+    /*}*/
 
 }
 

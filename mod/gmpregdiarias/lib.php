@@ -111,12 +111,9 @@ function gmpregdiarias_update_instance(stdClass $gmpregdiarias, mod_gmpregdiaria
 function gmpregdiarias_delete_instance($id) {
     global $DB;
 
-    if (! $gmpregdiarias = $DB->get_record('gmpregdiarias', array('id' => $id))) {
-        return false;
-    }
+    $DB->delete_records('gmpregdiarias', array('id' => $id));
 
-    $DB->delete_records('gmpregdiarias', array('id' => $gmpregdiarias->id));
-    $DB->delete_records('gmpregdiarias_scores', array('gmpregdiariasid' => $gmpregdiarias->id));
+    $DB->delete_records('gmdl_intento_diario', array('gmdl_preg_diarias_id' => $id));
 
     return true;
 }
@@ -136,28 +133,9 @@ function gmpregdiarias_delete_instance($id) {
  */
 function gmpregdiarias_user_outline($course, $user, $mod, $gmpregdiarias) {
 
-    global $DB;
-    if ($game = $DB->count_records('gmpregdiarias_scores', array('gmpregdiariasid' => $gmpregdiarias->id, 'userid' => $user->id))) {
-        $result = new stdClass();
-
-        if ($game > 0) {
-            $games = $DB->get_records('gmpregdiarias_scores',
-                    array('gmpregdiariasid' => $gmpregdiarias->id, 'userid' => $user->id), 'timecreated DESC', '*', 0, 1);
-            foreach ($games as $last) {
-                $data = new stdClass();
-                $data->score = $last->score;
-                $data->times = $game;
-                $result->info = get_string("playedxtimeswithhighscore", "gmpregdiarias", $data);
-                $result->time = $last->timecreated;
-            }
-        } else {
-            $result->info = get_string("notyetplayed", "gmpregdiarias");
-
-        }
-
-        return $result;
-    }
-    return null;
+    $result = new stdClass();
+    $result->info = get_string("notyetplayed", "gmpregdiarias");
+    return  $result;
 
 }
 
@@ -174,7 +152,7 @@ function gmpregdiarias_user_outline($course, $user, $mod, $gmpregdiarias) {
 function gmpregdiarias_user_complete($course, $user, $mod, $gmpregdiarias) {
     global $DB;
 
-    if ($games = $DB->get_records('gmpregdiarias_scores',
+    /*if ($games = $DB->get_records('gmpregdiarias_scores',
             array('gmpregdiariasid' => $gmpregdiarias->id, 'userid' => $user->id),
             'timecreated ASC')) {
         $attempt = 1;
@@ -184,9 +162,9 @@ function gmpregdiarias_user_complete($course, $user, $mod, $gmpregdiarias) {
             echo get_string('achievedhighscoreof', 'gmpregdiarias', $game->score);
             echo ' - '.userdate($game->timecreated).'<br />';
         }
-    } else {
+    } else {*/
         print_string("notyetplayed", "gmpregdiarias");
-    }
+    /*}*/
 
 }
 

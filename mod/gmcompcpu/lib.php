@@ -136,28 +136,9 @@ function gmcompcpu_delete_instance($id) {
  */
 function gmcompcpu_user_outline($course, $user, $mod, $gmcompcpu) {
 
-    global $DB;
-    if ($game = $DB->count_records('gmcompcpu_scores', array('gmcompcpuid' => $gmcompcpu->id, 'userid' => $user->id))) {
-        $result = new stdClass();
-
-        if ($game > 0) {
-            $games = $DB->get_records('gmcompcpu_scores',
-                    array('gmcompcpuid' => $gmcompcpu->id, 'userid' => $user->id), 'timecreated DESC', '*', 0, 1);
-            foreach ($games as $last) {
-                $data = new stdClass();
-                $data->score = $last->score;
-                $data->times = $game;
-                $result->info = get_string("playedxtimeswithhighscore", "gmcompcpu", $data);
-                $result->time = $last->timecreated;
-            }
-        } else {
-            $result->info = get_string("notyetplayed", "gmcompcpu");
-
-        }
-
-        return $result;
-    }
-    return null;
+    $result = new stdClass();
+    $result->info = get_string("notyetplayed", "gmpregdiarias");
+    return  $result;
 
 }
 
@@ -174,7 +155,7 @@ function gmcompcpu_user_outline($course, $user, $mod, $gmcompcpu) {
 function gmcompcpu_user_complete($course, $user, $mod, $gmcompcpu) {
     global $DB;
 
-    if ($games = $DB->get_records('gmcompcpu_scores',
+   /* if ($games = $DB->get_records('gmcompcpu_scores',
             array('gmcompcpuid' => $gmcompcpu->id, 'userid' => $user->id),
             'timecreated ASC')) {
         $attempt = 1;
@@ -184,9 +165,9 @@ function gmcompcpu_user_complete($course, $user, $mod, $gmcompcpu) {
             echo get_string('achievedhighscoreof', 'gmcompcpu', $game->score);
             echo ' - '.userdate($game->timecreated).'<br />';
         }
-    } else {
+    } else {*/
         print_string("notyetplayed", "gmcompcpu");
-    }
+   /* }*/
 
 }
 
