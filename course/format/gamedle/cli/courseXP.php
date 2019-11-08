@@ -28,7 +28,6 @@ require_once($CFG->dirroot.'/course/format/gamedle/lib.php');
         exit;
     }
 
-    local_gamedlemaster_log::info($_POST);
     if( !isset($_POST['defaultXP']) ) response(false);
     
     // Getting the needed variables|objects

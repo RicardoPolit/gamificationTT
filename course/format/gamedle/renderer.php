@@ -51,6 +51,8 @@ class format_gamedle_renderer extends format_topics_renderer{
     }
 
     protected function section_right_content($section, $course, $onsectionpage){
+
+        
     
         $input = "";
         $id  = $section->section;
