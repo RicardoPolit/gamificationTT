@@ -111,12 +111,17 @@ function gmcompvs_update_instance(stdClass $gmcompvs, mod_gmcompvs_mod_form $mfo
 function gmcompvs_delete_instance($id) {
     global $DB;
 
-    if (! $gmcompvs = $DB->get_record('gmcompvs', array('id' => $id))) {
-        return false;
+    $DB->delete_records('gmcompvs', array('id' => $id));
+
+    $partidasid = $DB->get_records('gmdl_partida',array('gmdl_comp_vs_id' => $id));
+
+    foreach ( $partidasid as $partidaid ){
+
+        $DB->delete_records('gmdl_participacion',array('gmdl_partida_id' => $partidaid->id));
+
     }
 
-    $DB->delete_records('gmcompvs', array('id' => $gmcompvs->id));
-    $DB->delete_records('gmcompvs_scores', array('gmcompvsid' => $gmcompvs->id));
+    $DB->delete_records('gmdl_partida', array('gmdl_comp_vs_id' => $id));
 
     return true;
 }
@@ -136,28 +141,9 @@ function gmcompvs_delete_instance($id) {
  */
 function gmcompvs_user_outline($course, $user, $mod, $gmcompvs) {
 
-    global $DB;
-    if ($game = $DB->count_records('gmcompvs_scores', array('gmcompvsid' => $gmcompvs->id, 'userid' => $user->id))) {
-        $result = new stdClass();
-
-        if ($game > 0) {
-            $games = $DB->get_records('gmcompvs_scores',
-                    array('gmcompvsid' => $gmcompvs->id, 'userid' => $user->id), 'timecreated DESC', '*', 0, 1);
-            foreach ($games as $last) {
-                $data = new stdClass();
-                $data->score = $last->score;
-                $data->times = $game;
-                $result->info = get_string("playedxtimeswithhighscore", "gmcompvs", $data);
-                $result->time = $last->timecreated;
-            }
-        } else {
-            $result->info = get_string("notyetplayed", "gmcompvs");
-
-        }
-
-        return $result;
-    }
-    return null;
+    $result = new stdClass();
+    $result->info = get_string("notyetplayed", "gmpregdiarias");
+    return  $result;
 
 }
 
@@ -174,7 +160,7 @@ function gmcompvs_user_outline($course, $user, $mod, $gmcompvs) {
 function gmcompvs_user_complete($course, $user, $mod, $gmcompvs) {
     global $DB;
 
-    if ($games = $DB->get_records('gmcompvs_scores',
+    /*if ($games = $DB->get_records('gmcompvs_scores',
             array('gmcompvsid' => $gmcompvs->id, 'userid' => $user->id),
             'timecreated ASC')) {
         $attempt = 1;
@@ -184,9 +170,9 @@ function gmcompvs_user_complete($course, $user, $mod, $gmcompvs) {
             echo get_string('achievedhighscoreof', 'gmcompvs', $game->score);
             echo ' - '.userdate($game->timecreated).'<br />';
         }
-    } else {
+    } else {*/
         print_string("notyetplayed", "gmcompvs");
-    }
+    /*}*/
 
 }
 
@@ -204,6 +190,8 @@ function gmcompvs_user_complete($course, $user, $mod, $gmcompvs) {
 function gmcompvs_get_completion_state($course, $cm, $userid, $type) {
     global $DB;
 
+    $gmuserid = $DB->get_record('gmdl_usuario',array('mdl_id_usuario' => $userid));
+
     // Get gmcompvs details.
     if (!($gmcompvs = $DB->get_record('gmcompvs', array('id' => $cm->instance)))) {
         throw new Exception("Can't find gmcompvs {$cm->instance}");
@@ -211,19 +199,33 @@ function gmcompvs_get_completion_state($course, $cm, $userid, $type) {
 
     // Default return value.
     $result = $type;
-    if ($gmcompvs->completionscore) {
-        $where = ' gmcompvsid = :gmcompvsid AND userid = :userid AND score >= :score';
-        $params = array(
-            'gmcompvsid' => $gmcompvs->id,
-            'userid' => $userid,
-            'score' => $gmcompvs->completionscore,
-        );
-        $value = $DB->count_records_select('gmcompvs_scores', $where, $params) > 0;
+    if ($gmcompvs->completionnumwon) {
+
+        $sql = "";
+        $sql.=" SELECT COUNT(*) FROM";
+        $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion as puntuacion";
+        $sql.=" FROM {gmdl_partida} ";
+        $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+        $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $gmuserid->id AND";
+        $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+        $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $gmcompvs->id) as a";
+        $sql.=" JOIN ";
+        $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion  as puntuacion";
+        $sql.=" FROM {gmdl_partida}";
+        $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+        $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id != $gmuserid->id AND";
+        $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+        $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $gmcompvs->id) as b";
+        $sql.=" ON a.partidaid = b.partidaid";
+        $sql.=" WHERE a.puntuacion > b.puntuacion";
+        $value = $DB->count_records_sql($sql, null, $limitfrom = 0, $limitnum = 0) >= $gmcompvs->completionnumwon;
+
         if ($type == COMPLETION_AND) {
             $result = $result && $value;
         } else {
             $result = $result || $value;
         }
+
     }
 
     return $result;

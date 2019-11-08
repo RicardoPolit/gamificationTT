@@ -30,6 +30,13 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['achievedhighscoreof'] = 'Achieved a high score of {$a}';
 $string['attempt'] = 'Attempt #{$a}';
+
+$string['completionnumwon'] = 'Los estudiantes deben de haber ganado un minimo de competencias de:';
+$string['completionnumwongroup'] = 'Competencias ganadas requeridas';
+$string['completionnumwongroup_help'] = 'Si si activa, se debe de dar una cantidad minima de 
+competencias ganas para que se ponga como completada la actividad.
+(Por defecto es 1)';
+
 $string['completionscore'] = 'Student must achieve a minimum score of:';
 $string['completionscoregroup'] = 'Require score';
 $string['completionscoregroup_help'] = 'If enabled, you can require a minimum score is met before the activity is marked as complete.

@@ -82,17 +82,19 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
      * @return array
      */
     public function add_completion_rules() {
+        global $DB;
+        $rows = $DB->get_records('gmdl_dificultad_cpu');
+        foreach ($rows as $row){ $values[$row->id] = $row->nombre; }
         $mform =& $this->_form;
         $group = array();
-        $group[] =& $mform->createElement('checkbox', 'completionscoreenabled', '',
-                get_string('completionscore', 'gmcompcpu'));
-        $group[] =& $mform->createElement('text', 'completionscore', '', array('size' => 3));
-        $mform->setType('completionscore', PARAM_INT);
-        $mform->addGroup($group, 'completionscoregroup',
-                get_string('completionscoregroup', 'gmcompcpu'), array(' '), false);
-        $mform->disabledIf('completionscore', 'completionscoreenabled', 'notchecked');
-        $mform->addHelpButton('completionscoregroup', 'completionscoregroup', 'gmcompcpu');
-        return array('completionscoregroup');
+        $group[] =& $mform->createElement('checkbox', 'completioncpudiffenabled', '',
+                get_string('completioncpudiff', 'gmcompcpu'));
+        $group[] =& $mform->createElement('select', 'completioncpudiff', '', $values);
+        $mform->addGroup($group, 'completioncpudiffgroup',
+                get_string('completioncpudiffgroup', 'gmcompcpu'), array(' '), false);
+        $mform->disabledIf('completioncpudiff', 'completioncpudiffenabled', 'notchecked');
+        $mform->addHelpButton('completioncpudiffgroup', 'completioncpudiffgroup', 'gmcompcpu');
+        return array('completioncpudiffgroup');
     }
 
     /**
@@ -101,7 +103,7 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
      * @return bool
      */
     public function completion_rule_enabled($data) {
-        return (!empty($data['completionscoreenabled']) && $data['completionscore'] != 0);
+        return (!empty($data['completioncpudiffenabled']) && $data['completioncpudiff'] != 0);
     }
 
     /**
@@ -116,8 +118,8 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
         if (!empty($data->completionunlocked)) {
             // Turn off completion settings if the checkboxes aren't ticked.
             $autocompletion = !empty($data->completion) && $data->completion == COMPLETION_TRACKING_AUTOMATIC;
-            if (empty($data->completionscoreenabled) || !$autocompletion) {
-                $data->completionscore = 0;
+            if (empty($data->completioncpudiffenabled) || !$autocompletion) {
+                $data->completioncpudiff = 0;
             }
         }
         return $data;
@@ -133,13 +135,13 @@ class mod_gmcompcpu_mod_form extends moodleform_mod {
         // Set up the completion checkboxes which aren't part of standard data.
         // We also make the default value (if you turn on the checkbox) for those
         // numbers to be 1, this will not apply unless checkbox is ticked.
-        if (!empty($defaultvalues['completionscore'])) {
-            $defaultvalues['completionscoreenabled'] = 1;
+        if (!empty($defaultvalues['completioncpudiff'])) {
+            $defaultvalues['completioncpudiffenabled'] = 1;
         } else {
-            $defaultvalues['completionscoreenabled'] = 0;
+            $defaultvalues['completioncpudiffenabled'] = 0;
         }
-        if (empty($defaultvalues['completionscore'])) {
-            $defaultvalues['completionscore'] = 10000;
+        if (empty($defaultvalues['completioncpudiff'])) {
+            $defaultvalues['completioncpudiff'] = 0;
         }
     }
 }
