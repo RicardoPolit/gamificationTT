@@ -13,7 +13,7 @@
 
 define(['jquery'], function($) {
  
-    function validate(totalxp){
+    function validate(totalxp, service, courseid){
         var sectionsXP = Array();
         var exit  = false;
         var regex = /^\d+$/;
@@ -33,7 +33,7 @@ define(['jquery'], function($) {
         if( !exit && a == totalxp ){
             $("#gmxp-sum").hide();
             $("#submitError").css('color','#000');
-            requestChanges(false,sectionsXP);
+            requestChanges(false,sectionsXP, service, courseid);
             
         } else {
             if(!exit){
@@ -44,19 +44,15 @@ define(['jquery'], function($) {
         }
     }
     
-    function requestChanges(auto,data){
+    function requestChanges(auto, data, service, courseid){
     
-        var obj = { defaultXP:auto };
+        var obj = { defaultXP:auto, id: courseid };
         if(!auto)
             obj["data"] = data;
         
-        var proto = window.location.protocol;
-        var host  = window.location.hostname;
-        var path  = window.location.pathname.replace('view.php','format/gamedle/cli/courseXP.php');
-        
         $.ajax({
     		method:"post",
-    		url: proto+"//"+host+path,
+    		url: service,
     		data: obj,
     		success: function(resp){
     		    obj = JSON.parse(resp);
@@ -68,13 +64,13 @@ define(['jquery'], function($) {
 		            location.reload();
     		},
     		error: function(err,or){
-    			alert('SERVER ERROR: '+ proto+"//"+host+path);
+    			alert('SERVER ERROR: ' + service);
     		}
     	});
     }
  
     return {
-        form: function(totalxp){
+        form: function(courseid, totalxp, service){
             totalxp = parseInt(totalxp);
             
             $('.gmxp-section').on('keyup',function(e){
@@ -89,11 +85,11 @@ define(['jquery'], function($) {
             });
             
             $('#submitXP').on('click',function(){
-                validate(totalxp);
+                validate(totalxp, service, courseid);
             });
             
             $('#defaultXP').on('click',function(){
-                requestChanges(true);
+                requestChanges(true, undefined, service, courseid);
             });
         }
     };

@@ -1,0 +1,147 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.1,%
+Estado/\ucstEnEdicion]%
+%
+{CU-E03}{Desinstalar plugins del esquema de experiencia}{%
+%
+ Permite al \refElem{aAdministrador} desinstalr el o los plugins correspondientes
+ al módulo de experiencia cuando desee remover las funcionalidades que estos otorgan
+ y eliminar los registros de los puntos de experiencia de los usuarios y cursos.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ \today }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}
+    }
+
+	\UCitem{Propósito}{%
+        Remover el módulo de experiencia junto con las funcionalidades que
+        brinda y los datos generados por el mismo.
+	}
+	
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{Ninguna}
+
+	\UCitem{Destino}{%
+		\refElem{IU-M03}
+	}
+	
+	\UCitem{Precondiciones}{%
+        Los plugins que se desean instalar deben estar previamente 
+        instalados.
+	}
+
+	\UCitem{Postcondiciones}{%
+        Los datos de generados por el esquema de experiencia deben ser 
+        eliminados una vez concluida la desinstalación del o de los plugins.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+        % CAUSA
+            El plugin a desinstalar no se encuentra instalado}{%
+        % EFECTO
+            no se puede proceder con la ejecución debido a que ya está 
+            desinstalado}
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-E03}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{%
+        Como se explica en el modelo de información la eliminación de las entidades
+        \refElem{xp-section-reward}, \refElem{xp-user}, \refElem{xp-course-section} y
+        \refElem{xp-course} no afectan las funcionalidades de moodle.
+	}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+  \includeUC{CU-M01}
+  \Actor Presiona la opción {\bf Vista General de Plugins}.
+  \Sistema Carga la pantalla \refElem{IU-M03}.
+
+  \Actor Pide consultar únicamente los plugins adicionales instalados presionando
+         la opción {\bf Plugins adicionales}..
+  \Sistema Carga la pantalla \refElem{IU-M03a}.
+
+  \Actor Presiona la opción {\bf Desinstalar} correspondiente al
+         \entrada[plugin]{Plugin} del módulo de experiencia que desea desinstalar.
+  \Sistema Muestra la pantalla \refElem{IU-M04}.
+  \Sistema Pide la confirmación del usuario para continuar con la desinstalación.
+
+  \Actor Presiona el botón de {\bf Aceptar}. \refTray{A}
+
+  \Sistema Obtiene la lista de los \entrada[cursos gamificados]{xp-course} y por cada curso
+           realiza las siguientes acciones, y continua en el \label{CU-E03-loop-delete-course}
+
+  \Sistema Cambia los \entrada[formatos]{mdl-course.format} de los cursos por el formato de 
+           secciones aplicando la regla \regla{BR-E06}.
+
+  \Sistema Obtiene las \entrada[secciones de los curso gamificados]{xp-course-section} 
+           y las elimina.
+
+  \Sistema Elimina los datos de todos las \entrada[recompensas de experiencia]%
+           {xp-section-reward} y \entrada[usuarios gamificados]{xp-user} 
+           registrados en el sistema.
+
+  \Sistema Muestra la pantalla \refElem{IU-M04a} pidiendo al usuario la confirmación
+           para eliminar los archivos del plugin.
+
+  \Actor Presiona el botón {\bf Continuar}. \refTray{B}
+
+
+  \Sistema Elimina los archivos correspondientes al plugin.
+
+  \Sistema Redirige a la pantalla \refElem{IU-M03}.
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}{A}{%
+El \refElem{aAdministrador} desea cancelar la desinstalación del plugin
+}
+  \Actor Presiona el botón de {\bf Cancelar}.
+
+  \Sistema Cancela las operaciones de desinstalación y redirige al usuario a la 
+           pantalla \refElem{IU-M04}.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{B}{%
+El \refElem{aAdministrador} no desea eliminar los archivos del plugin}
+
+  \Actor Presiona el botón {\bf Cancelar}.
+
+  \Sistema Detectando que hay archivos de un plugin que no está instalado.
+
+  \Sistema Carga la pantalla \refElem{IU-M02b} detectando el plugin del módulo de experiencia como 
+           plugin a instalar.
+
+\end{UCtrayectoriaA}
+

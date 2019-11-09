@@ -4,35 +4,23 @@ require(__DIR__.'/../../../config.php');
 require_once($CFG->libdir.'/adminlib.php');
 
 $PLUGIN = 'block_gmxp';
-$MESSAGE = '';
-$CONTENT = '';
-$experience_activated = get_config($PLUGIN,
-  get_string('SYS_SETTINGS_GENERAL_ACTIVATED', $PLUGIN));
+admin_externalpage_setup(block_gmxp_core::SETTINGS_VISUAL);
 
+$CONTENT = '';
+$form = new block_gmxp_visualsettingsform(); 
+$experience_activated = get_config($PLUGIN, block_gmxp_core::ACTIVATED);
 
 /**
  * Si el módulo de experiencia se encuentra activado
  * procede de forma natural al formulario de configuraciones
  */ 
-admin_externalpage_setup( get_string('SYS_SETTINGS_VISUAL', $PLUGIN) );
 if ($experience_activated) {
 
-    $form = new block_gmxp_visualsettingsform(); 
-
     if ($form->is_cancelled()) {
-        local_gamedlemaster_log::info('cancelled');
+        $form->go_site_administration();
 
     } else if ($changes = $form->get_data()) {
-
         $form->submit_changes($changes);
-    
-        if ($form->file_error) {
-            $MESSAGE = $OUTPUT->notification( $form->error );
-
-        } else {
-            $MESSAGE = $OUTPUT->notification(get_string('success', $PLUGIN),
-              'notifysuccess');
-        }
 
     } else {
         local_gamedlemaster_log::info('not validated');
@@ -48,27 +36,14 @@ if ($experience_activated) {
  */ 
 } else {
 
-    $MESSAGE = $OUTPUT->notification(
-                 get_string('SETTINGS_EXPERIENCE_DISABLED', $PLUGIN));
+    $category = block_gmxp_core::CATEGORY;
+    $error =    get_string('SETTINGS_EXPERIENCE_DISABLED', $PLUGIN);
+    $text =     get_string('SETTINGS_EXPERIENCE_DISABLED_REDIRECT', $PLUGIN);
+    $link = "{$CFG->wwwroot}/admin/category.php?category={$category}";
 
-    $text = get_string('SETTINGS_EXPERIENCE_DISABLED_REDIRECT', $PLUGIN);
-    $category = get_string('SYS_SETTINGS_CATEGORY', $PLUGIN);
-
-    $CONTENT = html_writer::start_tag('a', array(
-        'href' => "{$CFG->wwwroot}/admin/category.php?category={$category}"
-    ));
-
-    $CONTENT .= html_writer::empty_tag('input', array(
-        'class' => "btn btn-primary",
-        'value' => $text,
-        'style' => 'margin:auto; display: block'
-    ));
-
-    $CONTENT .= html_writer::end_tag('a');
-
+    $CONTENT = $form->render_problem($error, $text, $link);
 }
 
 echo $OUTPUT->header();
-echo $MESSAGE;
 echo $CONTENT;
 echo $OUTPUT->footer();

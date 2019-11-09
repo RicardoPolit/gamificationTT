@@ -50,10 +50,13 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019102402();
             }
+        else if($oldversion < 2019102403)
+            {
+                upgrades2019102403();
+            }
         else if($oldversion < 2019102900)
             {
                 upgrades2019102900();
-
             }
         else if($oldversion < 2019102901)
             {
@@ -768,8 +771,19 @@ function upgrades2019102402()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019102402, 'local', 'gamedlemaster');
-        upgrades2019102900();
+        upgrades2019102403();
     }
+
+function upgrades2019102403(){ // Dan: Required extra field on user
+    global $DB;
+    $dbman = $DB->get_manager();
+
+    $table = new xmldb_table('gmdl_usuario');
+    $field = new xmldb_field('experiencia_nivel', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, 0);
+    $dbman->add_field($table, $field);
+    upgrade_plugin_savepoint(true, 2019102403, 'local', 'gamedlemaster');
+    upgrades2019102900();
+}
 
 
 function upgrades2019102900()
@@ -1005,7 +1019,6 @@ function upgrades2019110300()
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019110300, 'local', 'gamedlemaster');
         upgrades2019110700();
-
     }
 
 function upgrades2019110700()

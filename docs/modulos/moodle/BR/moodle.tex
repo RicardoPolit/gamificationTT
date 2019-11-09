@@ -1,0 +1,50 @@
+\begin{BusinessRule}[%
+Autor/Daniel Isai Ortega Zúñiga,%
+Version/0.1,%
+Estado/revisión]%
+%
+{BR-M01}{Restricciones del archivo de instalación}
+ % El archivo de instalación debe ser un archivo ZIP, el cual debe contener exactamente un
+ % directorio que coincida con el nombre del plugin.
+     \BRitem[control]{Revisor}{Sin asignar.}
+
+ \BRsection[control]{Atributos}
+    
+    \BRitem[admin]{Clase}{\bcCondition}%
+    %\BRitem[admin]{Clase}{\bcIntegridad}%
+    %\BRitem[admin]{Clase}{\bcAutorizacion}%
+    %\BRitem[admin]{Clase}{\bcDerivacion}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+    %\BRitem[admin]{Tipo}{\btTimer}%
+    %\BRitem[admin]{Tipo}{\btExecutive}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    %\BRitem[admin]{Nivel}{\blInfluencing}
+    
+    \BRitem{Descripción}{%
+        El archivo de instalación debe ser un archivo {\it ZIP}, el cual debe contener
+        exactamente un directorio que coincida con prefijo del nombre del plugin.
+    }
+
+%   \BRitem{Sentencia}{%
+%       Si $fecha$ 
+%   }%
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        \begin{itemize}
+        \item El plugin es un plugin de tipo bloque, cuyo nombre es {\it ``block\_html''}.
+        los archivos de dicho plugin se encuentran en una carpeta {\it ``html''} la
+        cual ha sido comprimida en un archivo {\it ZIP}.
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        \begin{itemize}
+        \item El plugin es un plugin de tipo bloque, cuyo nombre es {\it ``block\_clock''}.
+        los archivos de dicho plugin se encuentran en una carpeta {\it ``block-clock''}
+        la cual ha sido comprimida en un archivo {\it ZIP}.
+        \end{itemize}
+    }% 
+    
+ \end{BusinessRule}

@@ -1,0 +1,56 @@
+
+\begin{BusinessRule}[%
+Autor/Daniel Isai Ortega Zúñiga,%
+Version/0.1,%
+Estado/revision]%
+%
+{BR-E01}{Restricciones del nombre de la imagen de los archivos}
+ % El archivo de instalación debe ser un archivo ZIP, el cual debe contener
+ % exactamente un directorio que coincida con el nombre del plugin.
+     \BRitem[control]{Revisor}{Sin asignar.}
+
+ \BRsection[control]{Atributos}
+    
+    \BRitem[admin]{Clase}{\bcCondition}%
+    %\BRitem[admin]{Clase}{\bcIntegridad}%
+    %\BRitem[admin]{Clase}{\bcAutorizacion}%
+    %\BRitem[admin]{Clase}{\bcDerivacion}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+    %\BRitem[admin]{Tipo}{\btTimer}%
+    %\BRitem[admin]{Tipo}{\btExecutive}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    %\BRitem[admin]{Nivel}{\blInfluencing}
+    
+    \BRitem{Descripción}{%
+        El archivo seleccionado para la representación visual de los niveles debe
+        ser una imagen con las extensiones {\it``png''} o {\it''jgp}, además el
+        nombre del archivo que será subido no debe tener el nombre {\it``icon.png''}
+        ya que posiblemente colisionaría con el \refElem{Plugin.icon} del plugin.
+        % debido a que se el directorio donde se guardará será el directorio 
+        % para almacenar las imágenes del plugin.
+    }
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        \begin{itemize}
+        \item El archivo seleccionado para ser la imagen de los niveles tiene
+              como nombre {\it``logotipo''} con la extensión {\it png}.
+
+        \item El archivo seleccionado para ser la imagen de los niveles tiene
+              como nombre {\it``nivel''} con la extensión {\it jpg}
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        \begin{itemize}
+        \item El archivo seleccionado para ser la imagen de los niveles tiene
+              como nombre {\it``icon''} con la extensión {\it png}.
+
+        \item El archivo seleccionado para ser la imagen de los niveles tiene
+              como nombre {\it``documento''} con la extensión {\it doc}.
+        \end{itemize}
+    }% 
+    
+ \end{BusinessRule}
+

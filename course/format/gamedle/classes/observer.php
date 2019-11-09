@@ -34,9 +34,11 @@ class format_gamedle_observer {
         $section  = $event->get_data()['other']['sectionnum'];
         $format   = course_get_format($courseid);
         
-        if( $format->get_format() === "gamedle" )
-            if( $format->experienceEnabled() )
-                $format->createSectionXP($section);
+        if ($format->get_format() === "gamedle") {
+            if($format->experienceEnabled()) {
+                $id = $format->createSectionXP($section);
+            }
+        }
     }
     
     public static function enrol_instance_created(core\event\enrol_instance_created $event){
@@ -44,10 +46,16 @@ class format_gamedle_observer {
         $courseid = $event->get_data()['courseid'];
         $format   = course_get_format($courseid);
         
-        if( $format->get_format() === "gamedle" )
-            if( $format->experienceEnabled() )
-                if( !$format->isExperienceSet() )
+        if( $format->get_format() === "gamedle" ) {
+            if( $format->experienceEnabled() ) {
+
+                if( !$format->isExperienceSet() ) {
                     $format->setDefaultSectionXP();
+                    local_gamedlemaster_log::success(
+                        "Default experience set for course {$courseid}", "FORMAT");
+                }
+            }
+        }
     }
 }
     

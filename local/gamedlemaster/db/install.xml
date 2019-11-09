@@ -10,6 +10,7 @@
         <FIELD NAME="mdl_id_usuario" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="La referencia al usuario de moodle"/>
         <FIELD NAME="nivel_actual" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Nivel actual del usuario"/>
         <FIELD NAME="experiencia_actual" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="La experiencia que lleva del nivel  n el usuario"/>
+        <FIELD NAME="experiencia_nivel" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false"/>
       </FIELDS>
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

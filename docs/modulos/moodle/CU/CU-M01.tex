@@ -1,0 +1,138 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.1,%
+Estado/\ucstEnEdicion]%
+%
+{CU-M01}{Acceder a la administración del sitio}{% TODO; Deberia se Instalar/Actualizar ???
+%
+ Permite al \refElem{aAdministrador} acceder a la pantalla \refElem{IU-M01} realizar las
+ distintas tareas que incluye la administración del sitio de moodle. Esta caso de uso es realizado
+ debido a que es requerido para la ejecución de la mayoría de los casos de uso cuyo actor es el
+ administrador.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 14/OCT/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}
+    }
+
+	\UCitem{Propósito}{%
+        Permitir al administrador acceder a la administración del moodle que administra.
+	}
+	
+	\UCitem{Entradas}{-}
+
+	\UCitem{Origen}{-}
+
+	\UCitem{Salidas}{-}
+
+	\UCitems{Destino}{%
+        \refElem{IU-M01}
+	}
+	
+	\UCitem{Precondiciones}{-}
+
+	\UCitem{Postcondiciones}{-}
+
+	\UCitem{Reglas de negocio}{-}
+
+	\UCitem{Errores}{-}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }	
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitem[design]{Casos de Prueba}{%
+        Incluidos en la ejecución de los casos de uso que incluyen a este caso de uso
+    }
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{-}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+    \Actor Presiona el botón \IUMenu de la pantalla \refElem{IU-M00}
+    \Sistema Despliega el menú de navegación lateral.
+
+    \Actor Selecciona la opción {\bf \IUAdminSitio Administración del sitio}
+    \Sistema Carga la pantalla \refElem{IU-M01} con la pestaña de administración del
+             sitio preseleccionada.
+
+    \Actor Selecciona la pestaña {\bf plugins}. \refTray{A}
+    \Sistema Carga la pantalla \refElem{IU-M01a}
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}{A}{El \refElem{aAdministrador} desea administrar los usuarios
+dentro de la plataforma}
+    
+    \Actor Selecciona la pestaña {\bf Usuarios}.
+    \Sistema Carga la pantalla \refElem{IU-M01b}.
+\end{UCtrayectoriaA}
+
+\subsubsection{Puntos de extensión}
+
+\UCExtensionPoint{Instalación de un plugin}{%
+
+    El \refElem{aAdministrador} desea extender la funcionalidad
+    de moodle mediante la instalación de plugins.%
+    }{Al inicio la trayectoria principal}{\refElem{CU-E01}}
+
+\UCExtensionPoint{Configuraciones generales del módulo de experiencia}{%
+
+    El \refElem{aAdministrador} desea cambiar las configuraciones
+    generales del módulo de experiencia.%
+    }{Al inicio la trayectoria principal}{\refElem{CU-E02}}
+
+\UCExtensionPoint{Configuraciones visuales del módulo de experiencia}{%
+
+    El \refElem{aAdministrador} desea establecer las configuraciones
+    de la visualización de los niveles del módulo de experiencia.%
+    }{Al inicio la trayectoria principal}{\refElem{CU-E02-1}}
+
+\UCExtensionPoint{Configuraciones de comportamiento del módulo de experiencia}{%
+
+    El \refElem{aAdministrador} desea establecer el comportamiento del
+    sistema de experiencia que incluye el módulo de experiencia.%
+    }{Al inicio la trayectoria principal}{\refElem{CU-E02-2}}
+
+\UCExtensionPoint{Configuraciones de eventos del módulo de experiencia}{%
+
+    El \refElem{aAdministrador} desea establecer la cantidad de experiencia
+    que brindarán los eventos que soporta el módulo de experiencia.%
+    }{Al inicio la trayectoria principal}{\refElem{CU-E02-3}}
+
+\UCExtensionPoint{Desinstalación de un plugin}{%
+
+    El \refElem{aAdministrador} desea desinstalar un plugin en
+    moodle debido a que ya no requiere de las funcionalidades
+    que este brinda%
+    }{Al inicio la trayectoria principal}{\refElem{CU-E03}}
+
+\UCExtensionPoint{Crear usuario gamificado}{%
+
+    El \refElem{aAdministrador} desea crear un usuario en moodle
+    para otorgarle acceso a las distintas funcionalidades que brinda
+    moodle.%
+    }{Al inicio la trayectoria principal}{\refElem{CU-E12}}
+

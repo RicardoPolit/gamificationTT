@@ -25,7 +25,8 @@ class format_gamedle_renderer extends format_topics_renderer{
          
         global $PAGE;
         if($PAGE->user_is_editing()){
-            $totalxp = (int)get_config('block_gmxp','firstExpGiven');
+            // TODO Pass to constants
+            $totalxp = (int)get_config('block_gmxp',block_gmxp_core::COURSEXP);
             
             echo'<div id="submitError" class="gmxp-submit-error">'.
                     get_string('msgError','format_gamedle',$totalxp).'
@@ -50,6 +51,8 @@ class format_gamedle_renderer extends format_topics_renderer{
     }
 
     protected function section_right_content($section, $course, $onsectionpage){
+
+        
     
         $input = "";
         $id  = $section->section;

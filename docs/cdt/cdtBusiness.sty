@@ -159,7 +159,7 @@
 \newcommand{\bcAutorization}{De Autorización {\color{gray}\em Autoriza o restringe la ejecución de una operación.}}
 \newcommand{\bcDerivation}{De derivación {\color{gray}\em Explica como determinar una condición, estado o calcular un valor.}}
 \newcommand{\btEnabler}{Habilitadora. {\color{gray}\em Decisión de tipo Sí o No.}}
-\newcommand{\btTimer}{Cronometrada {\color{gray}\em Decisión que depende de un parámetro definido.}}
+\newcommand{\btTimer}{Cronometrada {\color{gray}\em Decisión que depende de un evento o parámetro definido.}}
 \newcommand{\btExecutive}{Ejecutiva. {\color{gray}\em Decisión que depende de la autorización de un superior.}}
 \newcommand{\blControlling}{Controla. {\color{gray}\em La operación está restringida a que se cumpla siempre esta regla.}}
 \newcommand{\blInfluencing}{Motiva. {\color{gray}\em Debe motivarse este comportamiento, pero la operación no está restringida a que se cumpla siempre esta regla.}}
@@ -183,11 +183,11 @@
 \NewEnviron{BusinessRule}[3][Estado/Propuesta]{%
     \CrearVariablesInternas{#1}%
     \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
-        \noindent{\includegraphics[width=\textwidth]{cdt/uc/rules/BRRule}}%\vspace*{-\baselineskip}%
-        \vspace{-25pt}%
+        %\noindent{\includegraphics[width=\textwidth]{cdt/uc/rules/BRRule}}%\vspace*{-\baselineskip}%
+        %\vspace{-25pt}%
         \hypertarget{#2}{\subsection{{#2} {#3}}}%
-        \begin{description}\addtolength{\itemsep}{-0.5\baselineskip}%
-            \BRsection[control]{Datos Para el Control Interno}
+        \begin{description}\addtolength{\itemsep}{-0.2\baselineskip}%
+            %\BRsection[control]{Datos Para el Control Interno}
 	        \BRitem[control]{Autor}{\Autor}
 	        \BRitem[control]{Versión}{\Version}
 	        \BRitem[control]{Estado}{\Estado}

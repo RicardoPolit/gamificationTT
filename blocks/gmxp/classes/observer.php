@@ -15,24 +15,24 @@
 defined('MOODLE_INTERNAL') || die();
 
 class block_gmxp_observer {
+
+    public static function competence_won(
+      \local_gamedlemaster\event\gmcompcpu_compFinishedWon $event) {
+
+        local_gamedle_log::info(
+          'Event triggered', 'block_gmxp_observer::competence_won');
+    }
     
     public static function module_completion_updated(core\event\course_module_completion_updated $event){
-        block_gmxp_observer::createSessionValues();
         
         global $USER;
         $courseGamified = true;
         if( $courseGamified  &&  $event->relateduserid == $USER->id ){
         
             $eventdata = $event->get_data();
+            local_gamedlemaster_log::info($eventdata);
             if(isset($eventdata['other']['completionstate']) && $eventdata['other']['completionstate'] == 1){
-            
-                $_SESSION['Gamedle']['debug'] = "Proof from gmxp_observer";
-                /* TODO: Check if all activities are done.
-                 *  If( allActivities.done ){
-                 *     calculateSeccionXP();
-                 *     $_SESSION['Gamedle']['XP']['Extra'] += $expSeccion;
-                 *  }
-                 */
+
             }
         }
     }
@@ -41,21 +41,6 @@ class block_gmxp_observer {
         $fp = fopen('proof.txt', 'a+');
         fwrite($fp, "\\\\".json_encode($event->get_data())." * " );
         fclose($fp);
-    }
-
-    private static function createSessionValues(){
-            
-        if(!isset($_SESSION['Gamedle']['XP']['Extra'])){
-            if(!isset($_SESSION['Gamedle']))
-                $_SESSION['Gamedle'] = array();
-                
-            if(!isset($_SESSION['Gamedle']['XP']))
-                $_SESSION['Gamedle']['XP'] = array();
-                
-            if(!isset($_SESSION['Gamedle']['XP']['Extra']))
-                $_SESSION['Gamedle']['XP']['Extra'] = 0;
-        }
-        //if(!isset($_SESSION['Gamedle']['CourseC']))    $_SESSION['Gamedle']['CourseC']    = "";
     }
     
     // Used with 
