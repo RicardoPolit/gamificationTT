@@ -130,7 +130,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         $display .= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
 
         $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Terminar', 'class' => "mod_quiz-next-nav btn btn-primary gmcompvs-button", "style"=>"margin:auto; width: 25%;"));
+            'value' => 'Terminar', 'class' => "mod_quiz-next-nav btn btn-primary gmcompvs-button btn-primary-js", "style"=>"margin:auto; width: 25%;"));
         $display .= html_writer::end_tag('div');
 
         $display .= html_writer::end_tag('div');
