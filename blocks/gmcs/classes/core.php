@@ -22,10 +22,13 @@ class block_gmcs_core {
     const PATH_SETTINGS_SCHEME = '/blocks/gmcs/settings/scheme_settings.php';
 
     // SCHEME SETTINGS VARIABLES
+    const SILVER_TO_GOLD = "silver_to_gold";
     const DEFEAT_SYSTEM = "victory_vs_system";
     const DEFEAT_USER = "victory_vs_user";
-    const SILVER_TO_GOLD = "silver_to_gold";
+
+    /*
     const DEFAULT_GOLD = "default_gold";
     const DEFAULT_SILVER = "default_silver";
+    */
 }
 ?>

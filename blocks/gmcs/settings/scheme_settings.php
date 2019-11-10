@@ -27,7 +27,7 @@ $currency_activated = get_config($PLUGIN, block_gmcs_core::ACTIVATED);
 
 if($currency_activated){
 
-    /*if ($form->is_cancelled()) {
+    if ($form->is_cancelled()) {
         $form->go_site_administration();
 
     } else if ($changes = $form->get_data()) {
@@ -35,7 +35,7 @@ if($currency_activated){
 
     } else {
         local_gamedlemaster_log::info('not validated');
-    }*/
+    }
 
     $CONTENT = $form->render();
 

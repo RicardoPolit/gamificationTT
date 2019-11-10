@@ -11,6 +11,9 @@
 class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
 
     const PLUGIN = 'block_gmcs';
+    const SILVER_TO_GOLD = block_gmcs_core::SILVER_TO_GOLD;
+    const CURRENCY_MAX_REGEX_LENGTH = 10;
+    const CURRENCY_REGEX = '/^[1-9][0-9]*$/';
 
     protected function definition() {
 
@@ -29,15 +32,36 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
     }
 
     private function create_definition() {
+
+        $mform = $this->_form;
+
+        $mform->addElement('text', self::SILVER_TO_GOLD,
+            get_string('SCHEME_SETTING_TEXT_SILVER', self::PLUGIN), array(
+            'size' => self::CURRENCY_MAX_REGEX_LENGTH,
+            'maxlength' => self::CURRENCY_MAX_REGEX_LENGTH
+        ));
     }
 
     private function create_help_messages() {
+        $mform = $this->_form;
+
+        $mform->addHelpButton(self::SILVER_TO_GOLD,
+            'SCHEME_SETTING_HELP_SILVER', self::PLUGIN);
     }
 
     private function create_form_restrictions() {
+        $mform = $this->_form;
+
+        $key = self::SILVER_TO_GOLD;
+        $mform->setType($key, PARAM_TEXT);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, get_string('currency', self::PLUGIN),
+            'regex', self::CURRENCY_REGEX, 'client');
     }
 
     private function set_default_values() {
+        // TODO The default value must be get from the database
+        // configurations
     }
 
     /**
@@ -60,6 +84,7 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
      * la configuracion
      */
     public function submit_changes(stdClass $changes) {
+        local_gamedlemaster_log::info($changes);
     }
 
 }
