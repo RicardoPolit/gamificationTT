@@ -103,6 +103,8 @@ webservice/
 !blocks/gmlb/**
 !local/gamedlemaster
 !local/gamedlemaster/**/*
+!local/gmtienda
+!local/gmtienda/**/*
 !course
 !course/format
 !course/format/gamedle
