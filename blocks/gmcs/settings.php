@@ -40,7 +40,7 @@ defined('MOODLE_INTERNAL') || die();
     $scheme_settings = new admin_externalpage(
         block_gmcs_core::SETTINGS_SCHEME,
         get_string('SETTINGS_SCHEME', $PLUGIN),
-        new moodle_url(block_gmcs_core::PATH_SETTINGS_VISUAL)
+        new moodle_url(block_gmcs_core::PATH_SETTINGS_SCHEME)
     );
 
 
