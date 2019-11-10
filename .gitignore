@@ -91,9 +91,6 @@ userpix/
 version.php
 webservice/
 
-# Temporary files of vim
-*.swp
-
 # Folders: Including plugins tested
 !blocks/gmxp
 !blocks/gmxp/**/*
@@ -117,5 +114,7 @@ webservice/
 !mod/gmpregdiarias/
 !mod/gmpregdiarias/**/*
 
+# Temporary files of vim
 */**/.swp
+*.swp
 /mod/gmcompcpu/.travis.yml
