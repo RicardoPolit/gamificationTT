@@ -106,8 +106,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
 
-        /*$this->page->requires->js_init_call('M.core_question_engine.init_form',
-            array('#responseform'), false, 'core_question_engine');*/
+        $this->page->requires->js_call_amd('mod_gmcompvs/js_protectclose', 'init');
 
         $display .= '<input type="hidden" name="slots" value="' . implode(',', $idstoslots) . "\" />\n";
         $display .= '<input type="hidden" name="scrollpos" value="" />';
@@ -131,7 +130,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         $display .= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
 
         $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Terminar', 'class' => "mod_quiz-next-nav btn btn-primary gmcompvs-button", "style"=>"margin:auto; width: 25%;"));
+            'value' => 'Terminar', 'class' => "mod_quiz-next-nav btn btn-primary gmcompvs-button btn-primary-js", "style"=>"margin:auto; width: 25%;"));
         $display .= html_writer::end_tag('div');
 
         $display .= html_writer::end_tag('div');
@@ -188,6 +187,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
     public function render_main_page($gmcompvs, $userid,$id)
         {
+            //TODO agregar revision de un dia para terminar la partida
             $moodleUserId = $userid;
             global $DB;
             $userid = $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $userid), $fields='*', $strictness=IGNORE_MISSING)->id;
@@ -241,10 +241,10 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                             $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array());
                                             $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
                                                 'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
-                                        
+
                                     $html.= html_writer::end_tag('form');
                                     $html.= html_writer::end_tag('div');
-                                    
+
                                 }
                                 if(sizeof($posiblesRivales) == 0)
                                     {
@@ -631,7 +631,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
         }
 
-    
+
     private function insertar_usuario($usuario)
         {
             global $DB;

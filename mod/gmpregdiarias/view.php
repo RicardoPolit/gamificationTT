@@ -68,7 +68,6 @@ $PAGE->set_url('/mod/gmpregdiarias/view.php', array('id' => $cm->id));
 $PAGE->set_title(format_string($gmpregdiarias->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
-$PAGE->set_focuscontrol('mod_gmpregdiarias_game');
 $renderer = $PAGE->get_renderer('mod_gmpregdiarias');
 
 // Output starts here.

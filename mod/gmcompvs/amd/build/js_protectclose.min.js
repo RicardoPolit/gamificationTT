@@ -1,12 +1,14 @@
-define([], function() {
+define(['jquery'], function($) {
 
     return {
         init: function() {
             // Put whatever you like here. $ is available
             // to you as normal.
-            window.addEventListener('beforeunload', function (e) {
-                e.preventDefault();
-                e.returnValue = '';
+            window.onbeforeunload = function(){
+                return "No podras volver a este intento";
+            };
+            $("form").on('submit', function() {
+                window.onbeforeunload = null;
             });
         }
     };
