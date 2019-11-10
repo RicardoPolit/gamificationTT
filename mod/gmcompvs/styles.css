@@ -107,6 +107,9 @@
     *****************************************************************************************************
 */
 
+.gmcompvs-al-desafiar-nombre{
+    width: 40%;
+}
 
 .gmcompvs-buscador{
     width: 80%;
@@ -240,8 +243,12 @@
 }
 
 
-.gmcompvs-table-history-state, .gmcompvs-table-history-points{
+.gmcompvs-table-history-state{
     width: 20%;
+} 
+
+.gmcompvs-table-history-points{
+    width: 10%;
 }
 
 .gmcompvs-table-history-state{
@@ -296,7 +303,7 @@
 
 
 #gmcompvs-activity-container{
-    width: 985;
+    width: 100%;
     border: 4px solid black;
     height: 750px;
 }
