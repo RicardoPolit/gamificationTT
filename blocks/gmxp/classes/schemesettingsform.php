@@ -208,7 +208,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
         if( !isset($data[$key]) || empty($data[$key]) ) {
             $errors[$key] = get_string('required');
 
-        } else if (!preg_match( self::XP_REGEX, $data[$key] || $data[$key] == 0)) {
+        } else if (!preg_match( self::XP_REGEX, $data[$key]) || $data[$key] == 0)) {
             $errors[$key] = $xp_incorrect;
         }
 
@@ -216,7 +216,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
         if( !isset($data[$key]) || empty($data[$key]) ) {
             $errors[$key] = get_string('required');
 
-        } else if (!preg_match( self::XP_REGEX, $data[$key] || $data[$key] == 0)) {
+        } else if (!preg_match( self::XP_REGEX, $data[$key]) || $data[$key] == 0) {
             $errors[$key] = $xp_incorrect;
         }
 
