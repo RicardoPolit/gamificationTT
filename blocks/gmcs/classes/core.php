@@ -20,6 +20,8 @@ class block_gmcs_core {
     // SCHEME SETTINGS
     const SETTINGS_SCHEME = "block_gmcs/scheme_settings";
     const PATH_SETTINGS_SCHEME = '/blocks/gmcs/settings/scheme_settings.php';
+
+    // SCHEME SETTINGS VARIABLES
     const DEFEAT_SYSTEM = "victory_vs_system";
     const DEFEAT_USER = "victory_vs_user";
     const SILVER_TO_GOLD = "silver_to_gold";
