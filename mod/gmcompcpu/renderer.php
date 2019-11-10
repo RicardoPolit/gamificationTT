@@ -70,7 +70,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
             if($questiondata->qtype == "multichoice" || $questiondata->qtype == "truefalse" || $questiondata->qtype == "shortanswer" || $questiondata->qtype == "numerical"){
                 $question = question_bank::make_question($questiondata);
-                $idstoslots[] = $quba->add_question($question, $questiondata->maxmark);
+                $idstoslots[] = $quba->add_question($question, null);
             }
 
         }
@@ -120,69 +120,59 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
     }
 
 
-    public function render_results_attempt($userScore,$cpuScore){
+    public function render_results_attempt($userScore, $cpuScore, $cmid){
 
         $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
 
         if($userScore >= $cpuScore){
 
-            $mensaje = 'Felicidades! Computadora derrotada';
+            $mensaje = '¡Felicidades! Computadora derrotada';
             $class = 'ganador';
 
         }else{
 
-            $mensaje = 'Oh no!, Debes practicar m&aacute;s!';
+            $mensaje = '¡Oh no!, Debes practicar m&aacute;s!';
             $class = 'perdedor';
 
         }
 
-        $display .= html_writer::start_tag('div');
-
-        $display .= html_writer::start_tag('h2',array('class' => 'gmcompcpu-titulo-'.$class));
-
-        $display .= html_writer::start_tag('b');
-
-        $display .= $mensaje;
-
-        $display .= html_writer::end_tag('b');
-
-        $display .= html_writer::end_tag('h2');
-
-        $display .= html_writer::end_tag('div');
-
-        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-container'));
-
-        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-half-container'));
-
-
-        $display .= html_writer::start_tag('h3');
-
-        $display .= html_writer::start_tag('b');
-
-        $display .= 'Tu puntuaci&oacute;n: '.$userScore;
-
-        $display .= html_writer::end_tag('b');
-
-        $display .= html_writer::end_tag('h3');
-
-
-        $display .= html_writer::end_tag('div');
-
-        $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-half-container'));
-
-        $display .= html_writer::start_tag('h3');
-
-        $display .= html_writer::start_tag('b');
-
-        $display .= 'Puntuaci&oacute;n cpu: '.$cpuScore;
-
-        $display .= html_writer::end_tag('b');
-
-        $display .= html_writer::end_tag('h3');
+        $display .= html_writer::start_tag('div', array("id"=>"gmcompcpu-activity-container", "class"=>"gmcompcpu-container-results"));
+            $display .= html_writer::start_tag('div');
+                $display .= html_writer::start_tag('h2',array('class' => 'gmcompcpu-titulo-'.$class));
+                    $display .= html_writer::start_tag('b');
+                    $display .= $mensaje;
+                    $display .= html_writer::end_tag('b');
+                $display .= html_writer::end_tag('h2');
+            $display .= html_writer::end_tag('div');
+            $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-container-half-containers'));
+                $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-half-container'));
+                    $display .= html_writer::start_tag('h3');
+                        $display .= html_writer::start_tag('b');
+                        $display .= 'Tu puntuaci&oacute;n:   '.$userScore;
+                        $display .= html_writer::end_tag('b');
+                    $display .= html_writer::end_tag('h3');
+                $display .= html_writer::end_tag('div');
+                $display .= html_writer::start_tag('div',array('class' => 'gmcompcpu-half-container'));
+                    $display .= html_writer::start_tag('h3');
+                        $display .= html_writer::start_tag('b');
+                            $display .= 'Puntuaci&oacute;n cpu:   '.$cpuScore;
+                        $display .= html_writer::end_tag('b');
+                    $display .= html_writer::end_tag('h3');
+                $display .= html_writer::end_tag('div');
+            $display .= html_writer::end_tag('div');
+            $display .= html_writer::start_tag('form',
+                array('action' => new moodle_url('/mod/gmcompcpu/view.php',
+                    array('id' => $cmid)), 'method' => 'post',
+                    'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                    'id' => 'responseform'));
+            $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+                'value' => 'Volver', 'class' => "btn btn-primary gmcompcpu-button"));
+            $display .= html_writer::end_tag('form');
 
         $display .= html_writer::end_tag('div');
 
-        $display .= html_writer::end_tag('div');
+        
+
 
         return $display;
 
@@ -239,7 +229,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $html.= html_writer::nonempty_tag('h3', 'Inicio',array());
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-scores"));
-                    $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
+                    $html.= html_writer::nonempty_tag('h3', 'Puntuaciones',array());
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-menu-opcion gmcompcpu-contianer-menu-opcion-js", "id"=>"gmcompcpu-contianer-menu-opcion-historial"));
                     $html.= html_writer::nonempty_tag('h3', 'Historial',array());
