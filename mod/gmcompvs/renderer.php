@@ -64,8 +64,6 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
     public function render_questions($gmcompvs, $cm,$userid,$participacionid,$gmuserid,$id,$montoapuesta) {
         global $DB;
 
-        $apuestaactiva = true;
-
         $participacion = (object)[
             'id' => $participacionid,
             'fecha_inicio' => time()
@@ -75,7 +73,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
         $usuario = $DB->get_record('gmdl_usuario',array('id' => $gmuserid));
 
-        if( $apuestaactiva && $montoapuesta != -1 && ($usuario->monedas_plata - $montoapuesta) >= 0 ){
+        if( $gmcompvs->apuestas_activas && $montoapuesta != -1 && ($usuario->monedas_plata - $montoapuesta) >= 0 ){
 
             $usuario->monedas_plata -=  $montoapuesta;
 
