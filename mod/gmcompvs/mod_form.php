@@ -71,6 +71,8 @@ class mod_gmcompvs_mod_form extends moodleform_mod {
 
         $mform->addElement('selectgroups', 'mdl_question_categories_id', get_string('questioncategory', 'gmcompvs'), $categories);
 
+        $mform->addElement('checkbox','apuestas_activas','Activar apuestas','Para el buen funcionamiento de las monedas una vez activado mantenerlo de esa manera');
+
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
         // Add standard buttons, common to all modules.

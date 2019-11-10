@@ -1,9 +1,10 @@
 <?php
 
+//Evento especial que se trigerea cuando la bandera de apuestas se apagó y se le tienen que devolver a los usuarios sus monedas correspondientes.
 
 namespace local_gamedlemaster\event;
 
-class gmcompvs_compFinishedWon extends \core\event\base {
+class gmcompvs_compFinishedReturnCon extends \core\event\base {
 
     protected function init() {
         $this->data['objecttable'] = 'gamedlemaster';
@@ -17,9 +18,10 @@ class gmcompvs_compFinishedWon extends \core\event\base {
             if($key == 'other'){
                 $userid = $datum['userid'];
                 $monedas = $datum['monedas'];
+                $rason = $datum['rason'];
             }
         }
-        return "Evento ganó el usuario: $userid una competencia 1vs1, se le debe de dar experiencia y las monedas: $monedas";
+        return "Evento para devolver al usuario gamificado: $userid el dinero apostado: $monedas, la razón es: $rason";
     }
 
 }

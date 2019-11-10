@@ -97,6 +97,8 @@ webservice/
 # Folders: Including plugins tested
 !blocks/gmxp
 !blocks/gmxp/**/*
+!blocks/gmcs
+!blocks/gmcs/**
 !blocks/gmlb
 !blocks/gmlb/**
 !local/gamedlemaster

@@ -9,6 +9,7 @@ $rivalid  = optional_param('rivalid', -1, PARAM_INT);
 $participacionid  = optional_param('participacionid', -1, PARAM_INT);
 $gmuserid  = optional_param('gmuserid', 0, PARAM_INT);
 $id = optional_param('id', 0, PARAM_INT);
+$montoapuesta = optional_param('montoapuesta', -1, PARAM_INT);
 
 $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $instance), '*', MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
@@ -54,7 +55,7 @@ echo $OUTPUT->heading($gmcompvs->name);
 
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
-echo $renderer->render_questions($gmcompvs,$cm,$USER->id,$participacionid,$gmuserid,$id);
+echo $renderer->render_questions($gmcompvs,$cm,$USER->id,$participacionid,$gmuserid,$id,$montoapuesta);
 
 echo $OUTPUT->footer();
 
