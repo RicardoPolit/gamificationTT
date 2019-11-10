@@ -65,9 +65,7 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
             $num = rand(0, sizeof($questionids)-1);
             $actualquestionid = $questionids[$num];
             $questiondata = question_bank::load_question_data($actualquestionid);
-
             $sepuedecontestar = $this->pregunta_no_contestada($preguntascontestadas,$actualquestionid);
-
             if(($questiondata->qtype == "multichoice" || $questiondata->qtype == "truefalse" || $questiondata->qtype == "shortanswer" || $questiondata->qtype == "numerical") && $sepuedecontestar){
                 $question = question_bank::make_question($questiondata);
                 $idstoslots[] = $quba->add_question($question, $questiondata->maxmark);
@@ -189,447 +187,180 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
         return $display;
 
     }
-
-
-
-
     public function render_main_page($gmpregdiarias, $userid,$id)
         {
             $moodleUserId = $userid;
             $userid = $this->obtener_usuario_gamedle($moodleUserId);
+            if(is_null($userid))
+                {
+                    $userid = $$this->obtener_usuario_gamedle($moodleUserId);
+                }
+
+            $preguntasDisponibles = $this->obtener_num_preguntas_disponibles($gmpregdiarias->id);   
+            $preguntasContestadas = $this->obtener_num_contestadas_usuario($gmpregdiarias->id, $userid);
             $sepuedecontestar = $this->pregunta_no_contestada_hoy($userid,$gmpregdiarias->id);
+            
+            $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+            
+            $this->page->requires->js_call_amd('mod_gmpregdiarias/js_preg_diarias', 'init');
 
-            if($sepuedecontestar){
+            $display.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-menu-opciones"));
+                $display.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-menu-opcion-activa gmpregdiarias-contianer-menu-opcion-js", "id"=>"gmpregdiarias-contianer-menu-opcion-inicio"));
+                    $display.= html_writer::nonempty_tag('h3', 'Inicio',array());
+                $display.= html_writer::end_tag('div');
+                $display.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-menu-opcion gmpregdiarias-contianer-menu-opcion-js", "id"=>"gmpregdiarias-contianer-menu-opcion-scores"));
+                    $display.= html_writer::nonempty_tag('h3', 'Tabla posiciones',array());
+                $display.= html_writer::end_tag('div');
+            $display.= html_writer::end_tag('div');
+            $display.= html_writer::start_tag('div', array("id"=>"gmpregdiarias-activity-container"));
 
-                /*$dificultades = $this->obtener_todas_dificultades();
-                $victorias = $this->obtener_cpus_vencidas($gmpregdiarias->id, $userid);
-                $compusVencidas = '';
-                $nombresDificultades = '';
-                $valoresSelect = '';
-                foreach($dificultades as $dificultad)
-                {
-                    $noEncontrado = TRUE;
-                    $nombresDificultades.= html_writer::nonempty_tag('th', $dificultad->nombre, array("class"=>"gmpregdiarias-color-cpu-nivel-".$dificultad->id));
-                    foreach($victorias as $victoria)
-                    {
-                        if($victoria->gmdl_dificultad_cpu_id == $dificultad->id && $noEncontrado)
-                        {
-                            $compusVencidas.= html_writer::start_tag('td', array());
-                            $compusVencidas.= html_writer::empty_tag('img', array("src"=>"pix/cpu_vencida.png", "class"=> 'gmpregdiarias-imagen-cpu'));
-                            $compusVencidas.= html_writer::end_tag('td', array());
-                            $noEncontrado = FALSE;
-                        }
-                    }
-                    if($noEncontrado)
-                    {
-                        $compusVencidas.= html_writer::start_tag('td', array());
-                        $compusVencidas.= html_writer::empty_tag('img', array("src"=>"pix/cpu_activa.png", "class"=> 'gmpregdiarias-imagen-cpu'));
-                        $compusVencidas.= html_writer::end_tag('td', array());
-                    }
+                $display.= html_writer::start_tag('div', array( "id"=>"gmpregdiarias-contianer-menu-opcion-inicio-container", "class"=>"gmpregdiarias-section-contianer-menu-opcion"));
+                $display.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-card-container"));
+                $display.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-card"));
 
-
-                    $valoresSelect.= html_writer::nonempty_tag('option', $dificultad->nombre, array("value"=> $dificultad->id));
-                }
-
-
-                $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-
-                $this->page->requires->js_call_amd('mod_gmpregdiarias/js_competencia_cpu', 'init');
-
-                $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-menu-opciones"));
-                $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-menu-opcion gmpregdiarias-contianer-menu-opcion-js", "id"=>"gmpregdiarias-contianer-menu-opcion-scores"));
-                $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
-                $html.= html_writer::end_tag('div');
-                $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-menu-opcion-activa gmpregdiarias-contianer-menu-opcion-js", "id"=>"gmpregdiarias-contianer-menu-opcion-inicio"));
-                $html.= html_writer::nonempty_tag('h3', 'Inicio',array());
-                $html.= html_writer::end_tag('div');
-                $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-menu-opcion gmpregdiarias-contianer-menu-opcion-js", "id"=>"gmpregdiarias-contianer-menu-opcion-historial"));
-                $html.= html_writer::nonempty_tag('h3', 'Historial',array());
-                $html.= html_writer::end_tag('div');
-                $html.= html_writer::end_tag('div');
-                $html.= html_writer::start_tag('div', array("id"=>"gmpregdiarias-activity-container"));
-
-
-
-                $html.= html_writer::start_tag('div', array("id"=>"gmpregdiarias-contianer-menu-opcion-inicio-container", "class"=>"gmpregdiarias-section-contianer-menu-opcion"));
-                $html.= html_writer::nonempty_tag('h1', "Computadoras vencidas", array("class" =>"gmpregdiarias-titulo"));
-                $html.= html_writer::start_tag('table', array("id"=>"gmpregdiarias-table-cpu-defeated"));
-                $html.= html_writer::start_tag('thead', array());
-                $html.= html_writer::nonempty_tag('tr', $nombresDificultades, array());
-                $html.= html_writer::end_tag('thead', array());
-                $html.= html_writer::start_tag('tbody', array());
-                $html.= html_writer::nonempty_tag('tr',$compusVencidas , array());
-                $html.= html_writer::end_tag('tbody', array());
-                $html.= html_writer::end_tag('table', array());
-
-
-
-                $html.= html_writer::start_tag('form',
-                    array('action' => new moodle_url('/mod/gmpregdiarias/attempt.php',
-                        array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmpregdiarias->id, 'id' => $id)), 'method' => 'post',
-                        'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                        'id' => 'responseform'));
-                $html.= html_writer::nonempty_tag('h3', "<b>Desafiar computadora</b>", array("class" =>"gmpregdiarias-container-card-title"));
-                $html.= html_writer::start_tag('div', array("class" =>"gmpregdiarias-card-element"));
-                $html.= html_writer::nonempty_tag('p', "Seleccione una dificultad: ",array());
-                $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmpregdiarias-half-container", "name" => "dificultad"));
-                $html.= html_writer::end_tag('div', array());
-                $html.= html_writer::start_tag('div', array("class" =>"gmpregdiarias-card-element"));
-                $html.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Empezar", "class" => "gmpregdiarias-button btn btn-primary gmpregdiarias-container-card-button" ));
-                $html.= html_writer::end_tag('div', array());
-                $html.= html_writer::end_tag('form');
-
-                $html.= html_writer::end_tag('div', array());*/
-
-                $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-
-                $display .= html_writer::start_tag('div');
-
-                $display .= html_writer::start_tag('h2',array('class' => 'gmpregdiarias-titulo'));
-
-                $display .= html_writer::start_tag('b');
-
-                $display .= 'Contesta tu pregunta diaria!!';
-
-                $display .= html_writer::end_tag('b');
-
-                $display .= html_writer::end_tag('h2');
-
+                    $display .= html_writer::nonempty_tag('h3', 'Tu progreso', array());
+                    $display.= html_writer::nonempty_tag('p', "<br>",array());
+                    $display.= html_writer::nonempty_tag('progress',' ',array("id"=>"gmpregdiarias-progress", "value"=>$preguntasContestadas+0.1, "max"=>$preguntasDisponibles));
+                    $display.= html_writer::nonempty_tag('p', "$preguntasContestadas/$preguntasDisponibles preguntas respondidas",array("id"=>"gmpregdiarias-progress-values"));
                 $display .= html_writer::end_tag('div');
+            $display .= html_writer::end_tag('div');
 
-                $display .= html_writer::start_tag('div');
+                $display .= html_writer::start_tag('h1',array('class' => 'gmpregdiarias-titulo'));
+                    $display .= html_writer::start_tag('b');
+                        $display .= 'Preguntas diarias';
+                    $display .= html_writer::end_tag('b');
+                $display .= html_writer::end_tag('h1');
 
-                $display .= html_writer::start_tag('form',
-                    array('action' => new moodle_url('/mod/gmpregdiarias/attempt.php',
-                        array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmpregdiarias->id, 'id' => $id)), 'method' => 'post',
-                        'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                        'id' => 'responseform'));
+            $text = '¡Contesta la pregunta diaria de hoy!';
+            $imagen = 'pix/reloj.png';
+            $boton = '';
 
-                $display.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Contestar", "class" => "gmpregdiarias-button btn btn-primary gmpregdiarias-container-card-button" ));
+            $boton .= html_writer::start_tag('form',
+                array('action' => new moodle_url('/mod/gmpregdiarias/attempt.php',
+                    array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmpregdiarias->id, 'id' => $id)), 'method' => 'post',
+                    'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                    'id' => 'responseform'));
 
-                $display  .= html_writer::end_tag('form');
+            $boton.= html_writer::empty_tag('input', array("type" =>"submit", "value"=>"Contestar", "class" => "gmpregdiarias-button btn btn-primary gmpregdiarias-container-card-button" ));
+            $boton  .= html_writer::end_tag('form');
 
-                $display .= html_writer::end_tag('div');
-
-                return $display;
-
-            }else{
-
-                $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-
-                $display .= html_writer::start_tag('div');
-
-                $display .= html_writer::start_tag('h2',array('class' => 'gmpregdiarias-titulo'));
-
-                $display .= html_writer::start_tag('b');
-
-                $display .= 'La pregunta diaria ya fue contestada, regresa mañana!';
-
-                $display .= html_writer::end_tag('b');
-
-                $display .= html_writer::end_tag('h2');
-
-                $display .= html_writer::end_tag('div');
-
-                return $display;
-
-            }
+            if(!$sepuedecontestar)
+                {
+                    $text = 'La pregunta diaria ya fue contestada. <br>Regresa mañana.';
+                    $imagen = 'pix/check.png';
+                    $boton = html_writer::nonempty_tag('button', 'Deshabilitado',array("class" => "btn btn-secondary" ));
+                }
+            
+            $display.= html_writer::start_tag('div', array("id"=>"gmpregdiarias-accion-container"));
+                $display.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=> 'gmpregdiarias-imagen'));
+                $display.= html_writer::nonempty_tag('h4', $text, array());
+                $display.= $boton;
+            $display.= html_writer::end_tag('div');
+            $display.= html_writer::end_tag('div');
+            
 
 
-            /*return $html.$this->render_scores_page($gmpregdiarias, $userid,$dificultades,$moodleUserId);*/
+
+
+            return $display.$this->render_scores_page($gmpregdiarias, $preguntasDisponibles);
         }
 
 
 
-    public function render_scores_page($gmpregdiarias, $userid, $dificultades, $moodleUserId)
+    public function render_scores_page($gmpregdiarias, $preguntasDisponibles)
         {
-            $leaderboards = [];
-            $leaderboardsMax = [];
-            $valoresSelect = '';
-            for($i=0; $i<sizeof($dificultades);$i++)
+            $filas = $this->obtener_preguntas_contestadas_todos($gmpregdiarias->id);
+            $html = html_writer::start_tag('div', array( "id"=>"gmpregdiarias-contianer-menu-opcion-scores-container", "class"=>"gmpregdiarias-section-contianer-menu-opcion"));
+            $html.= html_writer::start_tag('div', array( "id"=>"gmpregdiarias-table-historial-container"));
+                $html.= html_writer::start_tag('table', array("class"=>"gmpregdiarias-table", "id"=>"gmpregdiarias-table-historial"));
+                    $html.= html_writer::start_tag('thead', array("class"=>"gmpregdiarias-thead"));
+                        $html.= html_writer::start_tag('tr', array());
+                            $html.= html_writer::nonempty_tag('th', "Posición", array("class"=>"gmpregdiarias-table-posicion-column"));
+                            $html.= html_writer::nonempty_tag('th', "Nombre", array("class"=>"gmpregdiarias-table-name-column"));
+                            $html.= html_writer::nonempty_tag('th', "Preguntas", array("class"=>"gmpregdiarias-table-preguntas-column"));
+                        $html.= html_writer::end_tag('tr', array());
+                    $html.= html_writer::end_tag('thead', array());
+                    $html.= html_writer::start_tag('tbody', array("class"=>"gmpregdiarias-tbody"));
+            $lugar = 1;
+            $primeraFila = 1;
+            $ultimosPuntos = 0;
+            foreach($filas as $fila)
                 {
-                    $leaderboards[] = array();
-                    $leaderboardsMax[] = array();
-                    $valoresSelect.= html_writer::nonempty_tag('option', $dificultades[$i]->nombre, array("value"=> $dificultades[$i]->id));
+                    if($ultimosPuntos == $fila->preguntas && $primeraFila==0)
+                        {
+                            $lugar--;
+                        }
+                    $html.= html_writer::start_tag('tr');
+                        $html.= html_writer::start_tag('td', array("class"=>"gmpregdiarias-table-posicion-column"));
+                            if($lugar == 1){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmpregdiarias-trohpy-image")); }
+                            else if($lugar == 2){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmpregdiarias-trohpy-image")); }
+                            else if($lugar == 3){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmpregdiarias-trohpy-image")); }
+                            else{ $html.= html_writer::nonempty_tag('p',$lugar."°" ,array("")); }
+                        $html.= html_writer::end_tag('td', array());
+                        $html.= html_writer::nonempty_tag('td', $fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' , array("class"=>"gmpregdiarias-table-name-column"));
+                        
+                        $html.= html_writer::start_tag('td', array("class"=>"gmpregdiarias-table-preguntas-column"));
+                        $html.= html_writer::nonempty_tag('progress',' ',array("id"=>"gmpregdiarias-progress", "value"=>$fila->preguntas+0.1, "max"=>$preguntasDisponibles));
+                        $html.= html_writer::nonempty_tag('p', "$fila->preguntas/$preguntasDisponibles preguntas respondidas",array("id"=>"gmpregdiarias-progress-values"));
+                        $html.= html_writer::end_tag('td', array());
+                        
+                    $html.= html_writer::end_tag('tr', array());
+                    if($primeraFila == 1)
+                        {
+                            $primeraFila = 0;
+                        }
+                    $ultimosPuntos = $fila->preguntas;
+                    $lugar++;
+                    
                 }
-
-            $primerosIntentos = $this->obtener_primeros_intentos($gmpregdiarias->id);
-
-            foreach($primerosIntentos as $intento)
+            
+            if($primeraFila == 1)
                 {
-                    $leaderboards[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
+                    $html.= html_writer::start_tag('tr', array("class"=>"gmpregdiarias-no-lugar"));
+                    $html.= html_writer::nonempty_tag('td', "0°", array("class"=>"gmpregdiarias-table-posicion-column"));
+                    $html.= html_writer::nonempty_tag('td', "Sin participantes", array("class"=>"gmpregdiarias-table-name-column"));
+                    $html.= html_writer::nonempty_tag('td', " - - - ", array("class"=>"gmpregdiarias-table-preguntas-column"));
+                    $html.= html_writer::end_tag('tr');
                 }
-
-            $mejoresIntentos = $this->obtener_mejores_intentos($gmpregdiarias->id);
-
-            foreach($mejoresIntentos as $intento)
-                {
-                    $leaderboardsMax[$intento->gmdl_dificultad_cpu_id-1][] = $intento;
-                }
-
-            $html= html_writer::start_tag('div', array("id"=>"gmpregdiarias-contianer-menu-opcion-scores-container", "class"=>"gmpregdiarias-section-contianer-menu-opcion"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-card"));
-            $html.= html_writer::start_tag('div', array("class" =>"gmpregdiarias-card-element"));
-            $html.= html_writer::nonempty_tag('p', "Seleccione una dificultad: ",array());
-            $html.= html_writer::nonempty_tag('select', $valoresSelect, array("class" => "gmpregdiarias-half-container", "id" => "gmpregdiarias-select-scores-dificultad"));
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-leaderdoard"));
-            $i = 0;
-            foreach($dificultades as $dificultad)
-                {
-                    $leaderboard = $leaderboards[$i];
-                    $html.= html_writer::start_tag('div', array("class" =>"gmpregdiarias-container-niveles", "id"=>"gmpregdiarias-container-nivel-".$dificultad->id));
-                    $html.= html_writer::nonempty_tag('div', $dificultad->nombre, array("class" => "gmpregdiarias-linea-nivel-".$dificultad->id));
-                    $html.= html_writer::start_tag('div', array("class" =>"gmpregdiarias-container-half-containers", "id"=>"gmpregdiarias-contenedor-nivel-".$dificultad->id));
-                    $leaderboardMax = $leaderboardsMax[$i];
-                    $cabezeraTabla= html_writer::start_tag('thead', array());
-                    $cabezeraTabla.= html_writer::nonempty_tag('tr', "<th> Posici&oacute;n </th> <th> Nombre </th> <th> Puntuaci&oacute;n </th>", array("class"=>"gmpregdiarias-color-cpu-nivel-".$dificultad->id));
-                    $cabezeraTabla.= html_writer::end_tag('thead', array());
-                    $j=1;
-                    $contenidoTablaPrimerIntento= html_writer::start_tag('tbody', array());
-                    $ultimosPuntos = 0;
-                    $primeraIteracion = 1;
-                    foreach($leaderboard as $intento)
-                        {
-                            if( $ultimosPuntos> $intento->puntos && $primeraIteracion == 0)
-                                {
-                                    $ultimosPuntos = $puntos;
-                                    $j--;
-                                    $primeraIteracion = 1;
-                                }
-                            $contenidoTablaPrimerIntento.= html_writer::start_tag('tr');
-                            if($j==1)
-                                {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmpregdiarias-imagen-trophy"));
-                                    $contenidoTablaPrimerIntento.= html_writer::end_tag('td');
-                                }
-                            else if($j==2)
-                                {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmpregdiarias-imagen-trophy"));
-                                    $contenidoTablaPrimerIntento.= html_writer::end_tag('td');
-                                }
-                            else if($j ==3)
-                                {
-                                    $contenidoTablaPrimerIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaPrimerIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmpregdiarias-imagen-trophy"));
-                                    $contenidoTablaPrimerIntento.= html_writer::end_tag('td');
-                                }
-                            else
-                                {
-                                    $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $j."°", array());
-                                }
-
-                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
-                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
-                                $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
-                            $j++;
-                        }
-                    if($j == 1)
-                        {
-                            $contenidoTablaPrimerIntento.= html_writer::start_tag('tr', array("class"=>"gmpregdiarias-no-lugar"));
-                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', "0°", array());
-                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', "Sin participantes", array());
-                            $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', " - - - ", array());
-                            $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
-                        }
-                    $contenidoTablaPrimerIntento.= html_writer::end_tag('tbody', array());
-                    $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-half-container"));
-                    $html.= html_writer::nonempty_tag('h3', 'Primeros intentos',array());
-                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaPrimerIntento, array("class"=>"gmpregdiarias-table-scores"));
-                    $html.= html_writer::end_tag('div', array());
-                    $j=1;
-                    $primeraIteracion = 1;
-                    $contenidoTablaMejorIntento= html_writer::start_tag('tbody', array());
-                    $ultimosPuntos = 0;
-                    foreach($leaderboardMax as $intento)
-                        {
-                            if( $ultimosPuntos> $intento->puntos && $primeraIteracion == 0)
-                                {
-                                    $ultimosPuntos = $puntos;
-                                    $j--;
-                                    $primeraIteracion = 0;
-                                }
-                            $contenidoTablaMejorIntento.= html_writer::start_tag('tr');
-                            if($j==1)
-                                {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmpregdiarias-imagen-trophy"));
-                                    $contenidoTablaMejorIntento.= html_writer::end_tag('td');
-                                }
-                            else if($j==2)
-                                {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmpregdiarias-imagen-trophy"));
-                                    $contenidoTablaMejorIntento.= html_writer::end_tag('td');
-                                }
-                            else if($j ==3)
-                                {
-                                    $contenidoTablaMejorIntento.= html_writer::start_tag('td');
-                                    $contenidoTablaMejorIntento.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmpregdiarias-imagen-trophy  "));
-                                    $contenidoTablaMejorIntento.= html_writer::end_tag('td');
-                                }
-                            else
-                                {
-                                    $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $j."°", array());
-                                }
-
-                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
-                                $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
-                                $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
-                            $j++;
-                        }
-                    if($j == 1)
-                        {
-                            $contenidoTablaMejorIntento.= html_writer::start_tag('tr', array("class"=>"gmpregdiarias-no-lugar"));
-                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', "0°", array());
-                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', "Sin participantes", array());
-                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', " - - - ", array());
-                            $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
-                        }
-                    $contenidoTablaMejorIntento.= html_writer::end_tag('tbody', array());
-                    $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-half-container"));
-                    $html.= html_writer::nonempty_tag('h3', 'Mejores intentos',array());
-                    $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTablaMejorIntento,array("class"=>"gmpregdiarias-table-scores"));
-                    $html.= html_writer::end_tag('div', array());
-                    $html.= html_writer::end_tag('div', array());
-                    $html.= html_writer::end_tag('div', array());
-                    $i++;
-                }
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            return $html.$this->render_attempt_page($gmpregdiarias, $dificultades, $moodleUserId);
+                $html.= html_writer::end_tag('tbody');
+                $html.= html_writer::end_tag('table');
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::end_tag('div');
+                $html.= html_writer::end_tag('div');
+            return $html;   
         }
 
-    public function render_attempt_page($gmpregdiarias, $dificultades, $moodleUserId)
-        {
-            $intentos = $this->obtener_intentos_usuario($moodleUserId, $gmpregdiarias->id);
-
-            $html = ' ';
-            $html.= html_writer::start_tag('div', array("id"=>"gmpregdiarias-contianer-menu-opcion-historial-container", "class"=>"gmpregdiarias-section-contianer-menu-opcion"));
-            $html.= html_writer::nonempty_tag('h1', 'Intentos realizados ',array("class" =>"gmpregdiarias-titulo"));
-            $cabezeraTabla= html_writer::start_tag('thead', array());
-            $cabezeraTabla.= html_writer::nonempty_tag('tr', '<th> Dificultad </th> <th> Puntos obtenidos </th> <th> Puntos computadora </th> <th> Victoria/Derrota</th>', array());
-            $cabezeraTabla.= html_writer::end_tag('thead', array());
-            $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-container gmpregdiarias-container-overflow-eighty-height"));
-            $html.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-container-scroll"));
-
-            $contenidoTabla = html_writer::start_tag('tbody', array());
-            foreach($intentos as $intento)
-                {
-                    $contenidoTabla.= html_writer::start_tag('tr', array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $dificultades[$intento->gmdl_dificultad_cpu_id-1]->nombre,array("class" => "gmpregdiarias-color-cpu-nivel-".$dificultades[$intento->gmdl_dificultad_cpu_id-1]->id));
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_usuario, array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_cpu, array());
-                    if($intento->puntuacion_usuario >= $intento->puntuacion_cpu)
-                        {
-
-                            $contenidoTabla.= html_writer::start_tag('td', array());
-                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_vencida.png", "class"=> 'gmpregdiarias-imagen-cpu'));
-                            $contenidoTabla.= html_writer::end_tag('td', array());
-                        }
-                    else
-                        {
-                            $contenidoTabla.= html_writer::start_tag('td', array());
-                            $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_activa.png", "class"=> 'gmpregdiarias-imagen-cpu'));
-                            $contenidoTabla.= html_writer::end_tag('td', array());
-                        }
-                    $contenidoTabla.= html_writer::end_tag('tr', array());
-                }
-            if(sizeof($intentos) == 0)
-                {
-                    $contenidoTabla.= html_writer::start_tag('tr', array("class" => "gmpregdiarias-no-lugar"));
-                    $contenidoTabla.= html_writer::nonempty_tag('td', "Sin intentos", array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', "- - - -", array());
-                    $contenidoTabla.= html_writer::nonempty_tag('td', "- - - -", array());
-                    $contenidoTabla.= html_writer::end_tag('tr', array());
-                }
-            $contenidoTabla.= html_writer::end_tag('tbody', array());
-            $html.= html_writer::nonempty_tag('table', $cabezeraTabla.$contenidoTabla, array("id"=>"gmpregdiarias-table-tries"));
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-            $html.= html_writer::end_tag('div', array());
-
-            $html.= html_writer::end_tag('div');
-            return $html;
-        }
-
-    private function obtener_todas_dificultades()
+    private function obtener_num_preguntas_disponibles($instancia)
         {
             global $DB;
-            return array_values($DB->get_records($table='gmdl_dificultad_cpu', $conditions=null, $sort='id', $fields='*', $limitfrom=0, $limitnum=0));
+            $categorias = $DB->get_record('gmpregdiarias', array("id"=>$instancia), $fields='*', $strictness=MUST_EXIST)->mdl_question_categories_id;
+            $idCategoria = explode(',', $categorias)[0];
+            $sql = " SELECT COUNT({question}.id)";
+            $sql.= " FROM {question}";
+            $sql.= " JOIN {question_categories} ON {question_categories}.id = {question}.category";
+            $sql.= " WHERE {question_categories}.id = $idCategoria AND";
+            $sql.= " {question}.qtype IN ('multichoice', 'truefalse', 'shortanswer', 'numerical')";
+            return $DB->count_records_sql($sql, null);
         }
 
-
-    private function obtener_intentos_usuario($moodleUserId, $gmpregdiariasid)
+    private function obtener_num_contestadas_usuario($instancia, $userid)
         {
             global $DB;
-            $sql ="SELECT gmdl_dificultad_cpu_id, puntuacion_usuario, puntuacion_cpu";
-            $sql.=" FROM {gmdl_intento}";
-            $sql.=" JOIN {gmdl_usuario} ON {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id";
-            $sql.=" JOIN {user} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
-            $sql.=" WHERE {user}.id = ". $moodleUserId;
-            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id =".$gmpregdiariasid;
-            $sql.=" AND fecha_fin IS NOT NULL";
-            $sql.=" AND {gmdl_intento}.gmdlcompcpu_id = ".$gmpregdiariasid;
-            $sql.=" ORDER BY fecha_fin DESC";
-
-            return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-
+            return $DB->count_records('gmdl_intento_diario', array("gmdl_preg_diarias_id"=>$instancia, "gmdl_usuario_id"=>$userid));
         }
 
-    private function obtener_cpus_vencidas($instancia, $usuario)
+    private function obtener_preguntas_contestadas_todos($instancia)
         {
             global $DB;
-            $sql = " SELECT gmdl_dificultad_cpu_id, COUNT(id)  FROM {gmdl_intento}";
-            $sql.= " WHERE puntuacion_usuario >= puntuacion_cpu";
-            $sql.= " AND gmdl_usuario_id = $usuario";
-            $sql.= " AND gmdlcompcpu_id = ".$instancia;
-            $sql.= " GROUP BY 1;";
-
-            return $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-        }
-    private function obtener_primeros_intentos($instancia)
-        {
-            global $DB;
-            $sql = "SELECT b.* FROM";
-		    $sql.= " (";
-			$sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id,  MIN(fecha_fin) as minima";
-			$sql.= " FROM {gmdl_intento} ";
-			$sql.= " WHERE fecha_fin IS NOT NULL";
-			$sql.= " AND gmdlcompcpu_id = ".$instancia;
-            $sql.= " GROUP BY 1, 2";
-		    $sql.= " ) AS a";
+            $sql = " SELECT username, firstname, lastname, a.preguntas";
+            $sql.= " FROM {user}";
+            $sql.= " JOIN {gmdl_usuario} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
             $sql.= " JOIN";
-            $sql.= " (";
-            $sql.= " SELECT gmdl_usuario_id, gmdl_dificultad_cpu_id, puntuacion_usuario AS puntos, fecha_fin, username, firstname, lastname";
-            $sql.= " FROM {gmdl_intento}, {user}, {gmdl_usuario}";
-            $sql.= " WHERE gmdlcompcpu_id = ".$instancia." AND";
-            $sql.= " {user}.id = {gmdl_usuario}.mdl_id_usuario AND";
-            $sql.= " {gmdl_usuario}.id = {gmdl_intento}.gmdl_usuario_id ";
-            $sql.= " ) AS b";
-            $sql.="  ON";
-			$sql.= " a.gmdl_usuario_id = b.gmdl_usuario_id AND";
-			$sql.= " a.gmdl_dificultad_cpu_id = b.gmdl_dificultad_cpu_id AND";
-			$sql.= " a.minima = b.fecha_fin";
-            $sql.= " ORDER BY b.puntos DESC";
-
-            return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
-        }
-    private function obtener_mejores_intentos($instancia)
-        {
-            global $DB;
-            $sql =" SELECT  a.*, username, firstname, lastname FROM";
-            $sql.=" (SELECT gmdl_dificultad_cpu_id, gmdl_usuario_id, MAX(puntuacion_usuario) AS puntos";
-            $sql.=" FROM {gmdl_intento}";
-            $sql.=" WHERE gmdlcompcpu_id = ".$instancia;
-            $sql.="  AND fecha_fin IS NOT NULL";
-            $sql.=" GROUP BY 1,2 ) as a, {user}, {gmdl_usuario}";
-            $sql.=" WHERE {user}.id =  {gmdl_usuario}.mdl_id_usuario AND";
-            $sql.=" {gmdl_usuario}.id = a.gmdl_usuario_id";
-            $sql.=" ORDER BY a.puntos DESC";
+            $sql.= " (SELECT gmdl_usuario_id, COUNT(id) as preguntas";
+            $sql.= " FROM {gmdl_intento_diario}";
+            $sql.= " WHERE gmdl_preg_diarias_id = $instancia";
+            $sql.= " GROUP BY gmdl_usuario_id) as a";
+            $sql.= " ON a.gmdl_usuario_id = {gmdl_usuario}.id";
             return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
         }
 
