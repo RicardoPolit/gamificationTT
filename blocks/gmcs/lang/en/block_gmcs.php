@@ -22,7 +22,7 @@ $string['SETTINGS_SCHEME']  = "Currency Setting Up";
 // ==== GENERAL SETTINGS =====================================
 $string['SETTINGS_GENERAL_HEADER'] = "Choose the main features";
 $string['SETTINGS_GENERAL_HEADER_DESC'] = "TODO: Write header description";
-$string['SETTINGS_GENERAL_ENABLED'] = "Enable hte Currency System ";
+$string['SETTINGS_GENERAL_ENABLED'] = "Enable the Currency System ";
 $string['SETTINGS_GENERAL_ENABLED_DESC'] = "TODO: Write the enabled description";
 
 // ==== SCHEME SETTINGS =====================================
@@ -36,6 +36,9 @@ $string['SCHEME_SETTING_HELP_SILVER'] = "the {$string['SCHEME_SETTING_TEXT_SILVE
 $string['SCHEME_SETTING_HELP_SILVER_help'] =
     "Specify amount of silver coins required to buy a gold coin";
 
+$string['SCHEME_SETTING_DEFAULT_SILVER'] = "1000";
+$string['SCHEME_SETTING_DEFAULT_WIN_SYSTEM'] = "1000";
+$string['SCHEME_SETTING_DEFAULT_WIN_USER'] = "1000";
 // === FORM|SETTINGS ERRORS ==========================================
 $string['SETTINGS_CURRENCY_DISABLED_REDIRECT'] = "Enabled Module";
 $string['SETTINGS_CURRENCY_DISABLED'] =
