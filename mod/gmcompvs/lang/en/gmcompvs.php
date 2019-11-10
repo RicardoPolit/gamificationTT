@@ -30,7 +30,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['achievedhighscoreof'] = 'Achieved a high score of {$a}';
 $string['attempt'] = 'Attempt #{$a}';
-
+$string['gmcompvsapuestas'] = 'Apuestas';
+$string['gmcompvsapuestas_help'] = 'Para el buen funcionamiento de las monedas una vez activado mantenerlo de esa manera';
 $string['completionnumwon'] = 'Los estudiantes deben de haber ganado un minimo de competencias de:';
 $string['completionnumwongroup'] = 'Competencias ganadas requeridas';
 $string['completionnumwongroup_help'] = 'Si si activa, se debe de dar una cantidad minima de 
