@@ -61,8 +61,10 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         return $display;
     }
 
-    public function render_questions($gmcompvs, $cm,$userid,$participacionid,$gmuserid,$id) {
+    public function render_questions($gmcompvs, $cm,$userid,$participacionid,$gmuserid,$id,$montoapuesta) {
         global $DB;
+
+        $apuestaactiva = true;
 
         $participacion = (object)[
             'id' => $participacionid,
@@ -70,6 +72,24 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         ];
 
         $DB->update_record('gmdl_participacion',$participacion);
+
+        $usuario = $DB->get_record('gmdl_usuario',array('id' => $gmuserid));
+
+        if( $apuestaactiva && $montoapuesta != -1 && ($usuario->monedas_plata - $montoapuesta) >= 0 ){
+
+            $usuario->monedas_plata -=  $montoapuesta;
+
+            $DB->update_record('gmdl_usuario',$usuario);
+
+            $apuesta = (object)[
+                'gmdl_participacion_id' => $participacionid,
+                'activa' => 1,
+                'monedas_plata' => $montoapuesta
+            ];
+
+            $DB->insert_record('gmdl_apuesta',$apuesta);
+
+        }
 
         $categoryid = explode(',', $gmcompvs->mdl_question_categories_id)[0];
 
@@ -723,6 +743,25 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
             if( $cambiorealizado && !is_null($partida->fecha_fin_a) && !is_null($partida->fecha_fin_b)){
 
+                $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $instancia), '*', MUST_EXIST);
+                $course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
+                $cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
+                $context = context_module::instance($cm->id);
+
+                try {
+                    $apuestacontrincante = $DB->get_record('gmdl_apuesta', array("gmdl_participacion_id" => $partida->participacionid_b), '*', MUST_EXIST);
+                    $apuestacontrincanteexiste = true;
+                } catch (dml_exception $e) {
+                    $apuestacontrincanteexiste = false;
+                }
+
+                try {
+                    $apuestausuario = $DB->get_record('gmdl_apuesta', array("gmdl_participacion_id" => $partida->participacionid_a), '*', MUST_EXIST);
+                    $apuestausuarioexiste = true;
+                } catch (dml_exception $e) {
+                    $apuestausuarioexiste = false;
+                }
+
                 $tiempotardado = $partida->fecha_fin_a - $partida->fecha_inicio_a;
                 $tiempotardadoContri = $partida->fecha_fin_b - $partida->fecha_inicio_b;
                 $participacionid = $partida->participacionid_a;
@@ -746,14 +785,40 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 if( $partida->puntuacion_a > $partida->puntuacion_b )
                     $userid = $partida->gmdlusuarioid_a;
                 else
-                    $userid = $partida->gmdlusuarioid_a;
+                    $userid = $partida->gmdlusuarioid_b;
+
+                $monedasadar = 0;
+                $useridmonedas = -1;
+                if( $apuestacontrincanteexiste && $apuestausuarioexiste ){
+
+                    $monedasadar = $apuestacontrincante->monedas_plata + $apuestausuario->monedas_plata;
+
+                }else{
+
+                    if( $apuestacontrincanteexiste ){
+
+                        $useridmonedas = $partida->gmdlusuarioid_b;
+                        $monedasdevolver = $apuestacontrincante->monedas_plata;
+
+                    }else{
+
+                        $useridmonedas = $partida->gmdlusuarioid_a;
+                        $monedasdevolver = $apuestausuario->monedas_plata;
+
+                    }
+
+                    $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
+                        'objectid' => $gmcompvs->id,
+                        'context' => $context,
+                        'other' => array('userid' => $useridmonedas, 'monedas' => $monedasdevolver, 'rason' => 'bandera apagada'),
+                    ));
+
+                    $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                    $event->trigger();
+
+                }
 
                 $moodleuserid = $DB->get_record('gmdl_usuario',array('id' => $userid));
-
-                $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $instancia), '*', MUST_EXIST);
-                $course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
-                $cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
-                $context = context_module::instance($cm->id);
 
                 $completion = new completion_info($course);
                 if($completion->is_enabled($cm) && $gmcompvs->completionnumwon != 0 && $gmcompvs->completionnumwon != NULL ) {
@@ -764,11 +829,54 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
                         'objectid' => $gmcompvs->id,
                         'context' => $context,
-                        'other' => array('userid' => $moodleuserid->mdl_id_usuario),
+                        'other' => array('userid' => $userid, 'monedas' => $monedasadar),
                     ));
 
                     $event->add_record_snapshot('gmcompvs', $gmcompvs);
                     $event->trigger();
+
+                }else{
+
+                    if( $useridmonedas != $partida->gmdlusuarioid_a && $apuestausuarioexiste){
+
+                        $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
+                            'objectid' => $gmcompvs->id,
+                            'context' => $context,
+                            'other' => array('userid' => $partida->gmdlusuarioid_a, 'monedas' => $apuestausuario->monedas_plata, 'rason' => 'juego empatado'),
+                        ));
+
+                        $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                        $event->trigger();
+
+                    }
+
+                    if( $useridmonedas != $partida->gmdlusuarioid_b && $apuestacontrincanteexiste){
+
+                        $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
+                            'objectid' => $gmcompvs->id,
+                            'context' => $context,
+                            'other' => array('userid' => $partida->gmdlusuarioid_b, 'monedas' => $apuestacontrincante->monedas_plata, 'rason' => 'juego empatado'),
+                        ));
+
+                        $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                        $event->trigger();
+
+                    }
+
+                }
+
+                if( $apuestausuarioexiste ){
+
+                    $apuestausuario->activa = 0;
+                    $DB->update_record('gmdl_apuesta',$apuestausuario);
+
+                }
+
+                if( $apuestacontrincanteexiste ){
+
+                    $apuestacontrincante->activa = 0;
+                    $DB->update_record('gmdl_apuesta',$apuestacontrincante);
+
                 }
 
             }
