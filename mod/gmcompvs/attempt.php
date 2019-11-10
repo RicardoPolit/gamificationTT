@@ -55,8 +55,6 @@ echo $OUTPUT->heading($gmcompvs->name);
 
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
-$montoapuesta = 50;
-
 echo $renderer->render_questions($gmcompvs,$cm,$USER->id,$participacionid,$gmuserid,$id,$montoapuesta);
 
 echo $OUTPUT->footer();
