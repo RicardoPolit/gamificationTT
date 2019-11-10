@@ -12,6 +12,9 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
 
     const PLUGIN = 'block_gmcs';
     const SILVER_TO_GOLD = block_gmcs_core::SILVER_TO_GOLD;
+    const DEFEAT_SYSTEM  = block_gmcs_core::DEFEAT_SYSTEM;
+    const DEFEAT_USER    = block_gmcs_core::DEFEAT_USER;
+
     const CURRENCY_MAX_REGEX_LENGTH = 10;
     const CURRENCY_REGEX = '/^[1-9][0-9]*$/';
 
@@ -40,6 +43,18 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
             'size' => self::CURRENCY_MAX_REGEX_LENGTH,
             'maxlength' => self::CURRENCY_MAX_REGEX_LENGTH
         ));
+
+        $mform->addElement('text', self::DEFEAT_USER,
+            get_string('SCHEME_SETTING_TEXT_WIN_USER', self::PLUGIN), array(
+            'size' => self::CURRENCY_MAX_REGEX_LENGTH,
+            'maxlength' => self::CURRENCY_MAX_REGEX_LENGTH
+        ));
+
+        $mform->addElement('text', self::DEFEAT_SYSTEM,
+            get_string('SCHEME_SETTING_TEXT_WIN_SYSTEM', self::PLUGIN), array(
+            'size' => self::CURRENCY_MAX_REGEX_LENGTH,
+            'maxlength' => self::CURRENCY_MAX_REGEX_LENGTH
+        ));
     }
 
     private function create_help_messages() {
@@ -47,6 +62,12 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
 
         $mform->addHelpButton(self::SILVER_TO_GOLD,
             'SCHEME_SETTING_HELP_SILVER', self::PLUGIN);
+
+        $mform->addHelpButton(self::DEFEAT_SYSTEM,
+            'SCHEME_SETTING_HELP_WIN_SYSTEM', self::PLUGIN);
+
+        $mform->addHelpButton(self::DEFEAT_USER,
+            'SCHEME_SETTING_HELP_WIN_USER', self::PLUGIN);
     }
 
     private function create_form_restrictions() {
@@ -57,11 +78,31 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
         $mform->addRule($key, get_string('currency', self::PLUGIN),
             'regex', self::CURRENCY_REGEX, 'client');
+
+        $key = self::DEFEAT_SYSTEM;
+        $mform->setType($key, PARAM_TEXT);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, get_string('currency', self::PLUGIN),
+            'regex', self::CURRENCY_REGEX, 'client');
+
+        $key = self::DEFEAT_USER;
+        $mform->setType($key, PARAM_TEXT);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, get_string('currency', self::PLUGIN),
+            'regex', self::CURRENCY_REGEX, 'client');
     }
 
     private function set_default_values() {
-        // TODO The default value must be get from the database
-        // configurations
+        $mform = $this->_form;
+
+        $key = self::SILVER_TO_GOLD;
+        $mform->setDefault($key, get_config(self::PLUGIN, $key));
+
+        $key = self::DEFEAT_SYSTEM;
+        $mform->setDefault($key, get_config(self::PLUGIN, $key));
+
+        $key = self::DEFEAT_USER;
+        $mform->setDefault($key, get_config(self::PLUGIN, $key));
     }
 
     /**
@@ -71,6 +112,34 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
      */
     public function validation($data, $files) {
         $errors = array();
+
+        $key = self::SILVER_TO_GOLD;
+        if( !isset($data[$key]) || empty($data[$key]) ) {
+            $errors[$key] = get_string('required');
+
+        } else if (!preg_match( self::CURRENCY_REGEX, $data[$key]) ||
+          $data[$key] <= 0) {
+            $errors[$key] = get_string('currency', self::PLUGIN);
+        }
+
+        $key = self::DEFEAT_SYSTEM;
+        if( !isset($data[$key]) || empty($data[$key]) ) {
+            $errors[$key] = get_string('required');
+
+        } else if (!preg_match( self::CURRENCY_REGEX, $data[$key]) ||
+          $data[$key] <= 0) {
+            $errors[$key] = get_string('currency', self::PLUGIN);
+        }
+
+        $key = self::DEFEAT_USER;
+        if( !isset($data[$key]) || empty($data[$key]) ) {
+            $errors[$key] = get_string('required');
+
+        } else if (!preg_match( self::CURRENCY_REGEX, $data[$key]) ||
+          $data[$key] <= 0) {
+            $errors[$key] = get_string('currency', self::PLUGIN);
+        }
+
         return $errors;
     }
 
@@ -84,7 +153,12 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
      * la configuracion
      */
     public function submit_changes(stdClass $changes) {
-        local_gamedlemaster_log::info($changes);
+        $keys = get_object_vars($changes);
+        unset($keys['submitbutton']);
+
+        foreach ($keys as $key => $value) {
+            set_config($key, $value, self::PLUGIN);
+        }
     }
 
 }

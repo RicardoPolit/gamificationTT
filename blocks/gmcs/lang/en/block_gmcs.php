@@ -36,9 +36,22 @@ $string['SCHEME_SETTING_HELP_SILVER'] = "the {$string['SCHEME_SETTING_TEXT_SILVE
 $string['SCHEME_SETTING_HELP_SILVER_help'] =
     "Specify amount of silver coins required to buy a gold coin";
 
+$string['SCHEME_SETTING_TEXT_WIN_USER'] = "Reward for win against user";
+$string['SCHEME_SETTING_HELP_WIN_USER'] =
+    "the {$string['SCHEME_SETTING_TEXT_WIN_USER']}";
+$string['SCHEME_SETTING_HELP_WIN_USER_help'] =
+    "Specify amount of silver coins given when user wins another user";
+
+$string['SCHEME_SETTING_TEXT_WIN_SYSTEM'] = "Reward for win against system";
+$string['SCHEME_SETTING_HELP_WIN_SYSTEM'] =
+    "the {$string['SCHEME_SETTING_TEXT_WIN_SYSTEM']}";
+$string['SCHEME_SETTING_HELP_WIN_SYSTEM_help'] =
+    "Specify amount of silver coins given when user wins agains system";
+
 $string['SCHEME_SETTING_DEFAULT_SILVER'] = "1000";
 $string['SCHEME_SETTING_DEFAULT_WIN_SYSTEM'] = "1000";
 $string['SCHEME_SETTING_DEFAULT_WIN_USER'] = "1000";
+
 // === FORM|SETTINGS ERRORS ==========================================
 $string['SETTINGS_CURRENCY_DISABLED_REDIRECT'] = "Enabled Module";
 $string['SETTINGS_CURRENCY_DISABLED'] =
