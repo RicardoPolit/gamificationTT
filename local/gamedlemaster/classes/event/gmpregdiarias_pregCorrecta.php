@@ -12,7 +12,13 @@ class gmpregdiarias_pregCorrecta extends \core\event\base {
     }
 
     public function get_description() {
-        return "The user with id '$this->userid' answered correctly the question of today ";
+        $data = $this->get_data();
+        foreach ($data as $key => $datum){
+            if($key == 'other'){
+                $userid = $datum['userid'];
+            }
+        }
+        return "The user with id '$userid' answered correctly the question of today ";
     }
 
 }

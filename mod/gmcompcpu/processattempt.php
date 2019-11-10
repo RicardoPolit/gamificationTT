@@ -126,15 +126,14 @@ echo $OUTPUT->header();
 
 echo $OUTPUT->heading($gmcompcpu->name);
 
-echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
-echo $renderer->render_results_attempt($userScore,$cpuScore);
+echo $renderer->render_results_attempt($userScore, $cpuScore, $cm->id);
 
 echo $OUTPUT->footer();
 
 $maxScore = 0;
 
-$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id),'MAX(puntuacion_usuario)');
+$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id),'MAX(puntuacion_usuario) as puntos')->puntos;
 
 if($userScore > $maxScore && $userScore >= $cpuScore){
 

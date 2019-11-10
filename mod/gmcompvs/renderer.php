@@ -61,7 +61,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         return $display;
     }
 
-    public function render_questions($gmcompvs, $cm,$userid,$participacionid,$gmuserid,$id) {
+    public function render_questions($gmcompvs, $cm,$userid,$participacionid,$gmuserid,$id,$montoapuesta) {
         global $DB;
 
         $participacion = (object)[
@@ -70,6 +70,24 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         ];
 
         $DB->update_record('gmdl_participacion',$participacion);
+
+        $usuario = $DB->get_record('gmdl_usuario',array('id' => $gmuserid));
+
+        if( $gmcompvs->apuestas_activas && $montoapuesta != -1 && ($usuario->monedas_plata - $montoapuesta) >= 0 ){
+
+            $usuario->monedas_plata -=  $montoapuesta;
+
+            $DB->update_record('gmdl_usuario',$usuario);
+
+            $apuesta = (object)[
+                'gmdl_participacion_id' => $participacionid,
+                'activa' => 1,
+                'monedas_plata' => $montoapuesta
+            ];
+
+            $DB->insert_record('gmdl_apuesta',$apuesta);
+
+        }
 
         $categoryid = explode(',', $gmcompvs->mdl_question_categories_id)[0];
 
@@ -187,7 +205,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
     public function render_main_page($gmcompvs, $userid,$id)
         {
-            //TODO agregar revision de un dia para terminar la partida
+
             $moodleUserId = $userid;
             global $DB;
             $userid = $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $userid), $fields='*', $strictness=IGNORE_MISSING)->id;
@@ -195,6 +213,15 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 {
                     $userid = $this->insertar_usuario($moodleUserId);
                 }
+            $apuestasActivas = $this->obtener_apuestas_activas_instancia($gmcompvs->id);
+            $monedasDisponibles = $this->obtener_monedas_usuario($userid);
+
+            $apuestaMonedas = html_writer::start_tag('div', array("class"=>"gmcompvs-al-desafiar-monedas"));
+            $apuestaMonedas.= html_writer::nonempty_tag('p', "Monedas a apostar: <br>",array());
+            $apuestaMonedas.= html_writer::empty_tag('input', array("type"=>"number", "name"=>"montoapuesta", "step"=>"1", "min"=>'1', "max"=>$monedasDisponibles));
+            $apuestaMonedas.= html_writer::end_tag('div');
+
+            $this->revisar_partidas_enprogreso($gmcompvs->id,$userid);
             $numVictorias = $this->obtener_dato_sql_victorias($gmcompvs->id, $userid);
             $posiblesRivales = $this->obtener_posibles_rivales($gmcompvs->id, $userid);
             $desafiosPorTerminar = $this->obtener_desafios_pendientes($gmcompvs->id, $userid);
@@ -208,7 +235,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $html.= html_writer::nonempty_tag('h3', 'Inicio',array());
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-scores"));
-                    $html.= html_writer::nonempty_tag('h3', 'Tabla puntuaciones',array());
+                    $html.= html_writer::nonempty_tag('h3', 'Tabla posiciones',array());
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opcion gmcompvs-contianer-menu-opcion-js", "id"=>"gmcompvs-contianer-menu-opcion-historial"));
                     $html.= html_writer::nonempty_tag('h3', 'Historial',array());
@@ -225,20 +252,24 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $html.= html_writer::end_tag('div');
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container"));
                         $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
-                            $html.= html_writer::nonempty_tag('h2', "Compa&ntilde;eros", array("class" =>"gmcompvs-titulo"));
+                            $html.= html_writer::nonempty_tag('h2', "Compa&ntilde;eros del curso:", array("class" =>"gmcompvs-titulo"));
                             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-adversaries gmcompvs-container-overflow-half-height"));
                                 $html.= html_writer::nonempty_tag('p','Buscar por nombre:', array("class"=>"gmcompvs-buscador-titulo"));
                                 $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"text", "placeholder"=>"Nombres", "class"=>"gmcompvs-buscador", "id"=>"gmcompvs-buscador"));
                                 foreach($posiblesRivales as $rival)
                                 {
-                                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival", "nombre"=>$rival->firstname . ' '. $rival->lastname));
+                                    $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival"));
                                     $html.= html_writer::start_tag('form',
                                         array('action' => new moodle_url('/mod/gmcompvs/attempt.php',
                                             array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
                                             'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                                             'id' => 'responseform'));
                                         $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"hidden", "value"=>$rival->userid));
-                                            $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array());
+                                            $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array("class"=>"gmcompvs-al-desafiar-nombre"));
+                                            if($apuestasActivas == 1)
+                                                {
+                                                    $html.= $apuestaMonedas;
+                                                }
                                             $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
                                                 'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
 
@@ -246,7 +277,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                     $html.= html_writer::end_tag('div');
 
                                 }
-                                if(sizeof($posiblesRivales) == 0)
+                                if(empty($posiblesRivales) == 1)
                                     {
                                         $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-rival"));
                                             $html.= html_writer::nonempty_tag('p', "No hay estudiantes registrados", array());
@@ -258,7 +289,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                             $html.= html_writer::end_tag('div');
                         $html.= html_writer::end_tag('div');
                         $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-half-container"));
-                            $html.= html_writer::nonempty_tag('h2', "Desafios pendientes", array("class" =>"gmcompvs-titulo"));
+                            $html.= html_writer::nonempty_tag('h2', "Desafíos pendientes:", array("class" =>"gmcompvs-titulo"));
                             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-challenges gmcompvs-container-overflow-half-height"));
                                 foreach($desafiosPorTerminar as $desafio)
                                     {
@@ -269,28 +300,32 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                                 'id' => 'responseform'));
                                             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
                                                 $html.= html_writer::empty_tag('input', array("name"=>"participacionid", "type"=>"hidden", "value"=>$desafio->participacionid));
-                                                $html.= html_writer::nonempty_tag('p', $desafio->firstname . ' '. $desafio->lastname, array());
+                                                $html.= html_writer::nonempty_tag('p', $desafio->firstname . ' '. $desafio->lastname, array("class"=>"gmcompvs-al-desafiar-nombre"));
+                                                if($apuestasActivas == 1)
+                                                    {
+                                                        $html.= $apuestaMonedas;
+                                                    }
                                                 $html.= html_writer::empty_tag('input', array("class" =>"btn btn-primary gmcompvs-end-button-volver",
-                                                'type' => 'submit', 'name' => 'next', 'value' => 'Desafiar'));
+                                                'type' => 'submit', 'name' => 'next', 'value' => 'Aceptar desafío'));
                                             $html.= html_writer::end_tag('div');
                                         $html.= html_writer::end_tag('form');
                                     }
                                 if(empty($desafiosPorTerminar) == 1)
                                     {
                                         $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
-                                            $html.= html_writer::nonempty_tag('p', "No hay desafios pendientes", array());
+                                            $html.= html_writer::nonempty_tag('p', "No hay desafíos pendientes", array());
                                         $html.= html_writer::end_tag('div');
                                     }
                             $html.= html_writer::end_tag('div');
                         $html.= html_writer::end_tag('div');
                     $html.= html_writer::end_tag('div');
                 $html.= html_writer::end_tag('div');
-            return $html.$this->render_scores_page($gmcompvs, $userid);
+            return $html.$this->render_scores_page($gmcompvs, $userid, $apuestasActivas);
         }
 
 
 
-    public function render_scores_page($gmcompvs, $userid)
+    public function render_scores_page($gmcompvs, $userid, $apuestasActivas)
         {
             $filas = $this->obtener_victorias_usuarios($gmcompvs->id);
             $html= html_writer::start_tag('div', array("id"=>"gmcompvs-contianer-menu-opcion-scores-container", "class"=>"gmcompvs-section-contianer-menu-opcion"));
@@ -300,7 +335,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                             $html.= html_writer::start_tag('tr', array());
                                 $html.= html_writer::nonempty_tag('th', "Posici&oacute;n", array("class"=>"gmcompvs-table-posicion-column"));
                                 $html.= html_writer::nonempty_tag('th', "Nombre", array("class"=>"gmcompvs-table-name-column"));
-                                $html.= html_writer::nonempty_tag('th', "N&uacute;m. vicotrias", array("class"=>"gmcompvs-table-victorias-column"));
+                                $html.= html_writer::nonempty_tag('th', "N&uacute;m. victorias", array("class"=>"gmcompvs-table-victorias-column"));
                             $html.= html_writer::end_tag('tr', array());
                         $html.= html_writer::end_tag('thead', array());
                         $html.= html_writer::start_tag('tbody', array("class"=>"gmcompvs-tbody"));
@@ -312,12 +347,13 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                     $html.= html_writer::start_tag('tr', array());
                                         if($ultimosPuntos == $fila->victorias && $primeraFila==0)
                                             {
-                                                $lugar++;
+                                                $lugar--;
                                             }
                                         $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-posicion-column"));
                                             if($lugar == 1){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompvs-trohpy-image")); }
                                             else if($lugar == 2){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmcompvs-trohpy-image")); }
                                             else if($lugar == 3){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmcompvs-trohpy-image")); }
+                                            else{ $html.= html_writer::nonempty_tag('p',"$lugar°" ,array("")); }
                                         $html.= html_writer::end_tag('td', array());
                                         $html.= html_writer::nonempty_tag('td', $fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' , array("class"=>"gmcompvs-table-name-column"));
                                         $html.= html_writer::nonempty_tag('td', $fila->victorias , array("class"=>"gmcompvs-table-victorias-column"));
@@ -326,6 +362,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                                 $primeraFila = 0;
                                             }
                                         $ultimosPuntos = $fila->victorias;
+                                    $lugar++;
                                     $html.= html_writer::end_tag('tr', array());
                                 }
                             if($primeraFila == 1)
@@ -341,9 +378,9 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $html.= html_writer::end_tag('table', array());
                 $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
-            return $html.$this->render_attempt_page($gmcompvs, $userid);
+            return $html.$this->render_attempt_page($gmcompvs, $userid, $apuestasActivas);
         }
-    public function render_attempt_page($gmcompvs, $userid)
+    public function render_attempt_page($gmcompvs, $userid, $apuestasActivas)
         {
             $partidas = $this->obtener_historial_usuario($gmcompvs->id, $userid);
             $empates = 0;
@@ -357,21 +394,19 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $tiempoFinal = " - - - ";
                     $tiempoFinalContrincante = " - - - ";
                     $imagen = "pix/derrota.png";
-                    if(is_null($partida->fecha_inicio_b))
-                        {
-                            $imagen = "pix/tregua.png";
-                            $encurso++;
-                        }
-                    else if(is_null($partida->fecha_fin_a))
+                    if(is_null($partida->fecha_fin_a))
                         {
                             $tiempoFinal = date('Y-m-d', $partida->fecha_fin_a);
                             $imagen = "pix/retirada.png";
                             $retiradas++;
                         }
-
+                    else if(is_null($partida->fecha_inicio_b))
+                        {
+                            $imagen = "pix/tregua.png";
+                            $encurso++;
+                        }
                     else if(is_null($partida->fecha_fin_b))
                         {
-                            $tiempoFinalContrincante = date('Y-m-d', $partida->fecha_fin_b);
                             $imagen = "pix/tregua.png";
                             $encurso++;
                         }
@@ -398,7 +433,30 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $contenidoTabla.= html_writer::start_tag('tr', array());
                         $contenidoTabla.= html_writer::nonempty_tag('td', $partida->firstname_b.' '.$partida->lastname_b.' ('.$partida->firstname_b.')', array("class"=>"gmcompvs-table-history-name"));
                         $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_a, array("class"=>"gmcompvs-table-history-points"));
+                        if($apuestasActivas == 1)
+                            {
+                                if(is_null($partida->monedas_a))
+                                    {
+                                        $contenidoTabla.= html_writer::nonempty_tag('td', '0', array("class"=>"gmcompvs-table-history-points"));
+                                    }
+                                else
+                                    {
+                                        $contenidoTabla.= html_writer::nonempty_tag('td', ' '.$partida->monedas_a, array("class"=>"gmcompvs-table-history-points"));
+                                    }
+                                
+                            }
                         $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_b, array("class"=>"gmcompvs-table-history-points"));
+                        if($apuestasActivas == 1)
+                            {
+                                if(is_null($partida->monedas_b))
+                                    {
+                                        $contenidoTabla.= html_writer::nonempty_tag('td', '0', array("class"=>"gmcompvs-table-history-points"));
+                                    }
+                                else
+                                    {
+                                        $contenidoTabla.= html_writer::nonempty_tag('td', ' '.$partida->monedas_b, array("class"=>"gmcompvs-table-history-points"));
+                                    }
+                            }
                         $contenidoTabla.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
                             $contenidoTabla.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
                         $contenidoTabla.= html_writer::end_tag('td', array());
@@ -443,7 +501,15 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                 $html.= html_writer::start_tag('tr', array());
                                     $html.= html_writer::nonempty_tag('th', "Nombre contrincante", array("class"=>"gmcompvs-table-history-name"));
                                     $html.= html_writer::nonempty_tag('th', "Tus puntos", array("class"=>"gmcompvs-table-history-points"));
+                                    if($apuestasActivas == 1)
+                                        {
+                                            $html.= html_writer::nonempty_tag('th', "Tus monedas apostadas", array("class"=>"gmcompvs-table-history-points"));
+                                        }
                                     $html.= html_writer::nonempty_tag('th', "Puntos contrincante", array("class"=>"gmcompvs-table-history-points"));
+                                    if($apuestasActivas == 1)
+                                        {
+                                            $html.= html_writer::nonempty_tag('th', "Monedas apostadas contrincante", array("class"=>"gmcompvs-table-history-points"));
+                                        }
                                     $html.= html_writer::nonempty_tag('th', "Estado de desaf&iacute;o", array("class"=>"gmcompvs-table-history-state"));
                                 $html.= html_writer::end_tag('tr', array());
                             $html.= html_writer::end_tag('thead', array());
@@ -456,7 +522,15 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                         $html.= html_writer::start_tag('tr', array());
                                             $html.= html_writer::nonempty_tag('td', 'No has terminado ningun combate (Pacifista)', array("class"=>"gmcompvs-table-history-name"));
                                             $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
+                                            if($apuestasActivas == 1)
+                                                {
+                                                    $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
+                                                }
                                             $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
+                                            if($apuestasActivas == 1)
+                                                {
+                                                    $html.= html_writer::nonempty_tag('td', ' 0 ', array("class"=>"gmcompvs-table-history-points"));
+                                                }
                                             $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-history-state"));
                                                 $html.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=>"gmcompvs-trohpy-image-table"));
                                             $html.= html_writer::end_tag('td', array());
@@ -482,6 +556,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
             $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $usuario AND";
             $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_participacion}.fecha_fin IS NOT NUll AND";
             $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as a";
             $sql.=" JOIN ";
             $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion  as puntuacion";
@@ -489,6 +564,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
             $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id != $usuario AND";
             $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_participacion}.fecha_fin IS NOT NUll AND";
             $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
             $sql.=" ON a.partidaid = b.partidaid";
             $sql.=" WHERE a.puntuacion > b.puntuacion";
@@ -575,6 +651,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
             $sql.=" WHERE ";
             $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_participacion}.fecha_fin IS NOT NUll AND";
             $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as a";
             $sql.=" JOIN ";
             $sql.=" (SELECT {gmdl_partida}.id as partidaid, {gmdl_participacion}.puntuacion  as puntuacion, gmdl_usuario_id";
@@ -582,13 +659,14 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
             $sql.=" WHERE ";
             $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+            $sql.=" {gmdl_participacion}.fecha_fin IS NOT NUll AND";
             $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
             $sql.=" ON a.partidaid = b.partidaid";
             $sql.=" WHERE a.puntuacion > b.puntuacion";
             $sql.=" AND a.gmdl_usuario_id != b.gmdl_usuario_id";
-            $sql.=" GROUP BY a.gmdl_usuario_id";
-            $sql.=" ORDER BY 2 DESC) as c";
+            $sql.=" GROUP BY a.gmdl_usuario_id) as c";
             $sql.=" ON c.gmdluserid = {gmdl_usuario}.id";
+            $sql.=" ORDER BY victorias DESC";
             return $DB->get_records_sql($sql, null, $limitfrom = 0, $limitnum = 0);
         }
 
@@ -604,11 +682,13 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.="         {gmdl_partida}.id as partidaid_a,";
             $sql.="         {gmdl_participacion}.fecha_inicio as fecha_inicio_a,";
             $sql.="         {gmdl_participacion}.fecha_fin as fecha_fin_a,";
-            $sql.="         {gmdl_participacion}.puntuacion as puntuacion_a";
+            $sql.="         {gmdl_participacion}.puntuacion as puntuacion_a,";
+            $sql.="         {gmdl_apuesta}.monedas_plata as monedas_a";
             $sql.=" FROM {gmdl_partida} ";
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
             $sql.=" JOIN {gmdl_usuario} ON {gmdl_participacion}.gmdl_usuario_id = {gmdl_usuario}.id";
             $sql.=" JOIN {user} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
+            $sql.=" LEFT JOIN {gmdl_apuesta} ON {gmdl_participacion}.id = {gmdl_apuesta}.gmdl_participacion_id";
             $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $usuario AND";
             $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
             $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as a";
@@ -620,16 +700,64 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.="         {gmdl_partida}.id as partidaid_b,";
             $sql.="         {gmdl_participacion}.fecha_inicio as fecha_inicio_b,";
             $sql.="         {gmdl_participacion}.fecha_fin as fecha_fin_b,";
-            $sql.="         {gmdl_participacion}.puntuacion as puntuacion_b";
+            $sql.="         {gmdl_participacion}.puntuacion as puntuacion_b,";
+            $sql.="         {gmdl_apuesta}.monedas_plata as monedas_b";
             $sql.=" FROM {gmdl_partida}";
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
             $sql.=" JOIN {gmdl_usuario} ON {gmdl_participacion}.gmdl_usuario_id = {gmdl_usuario}.id";
             $sql.=" JOIN {user} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
+            $sql.=" LEFT JOIN {gmdl_apuesta} ON {gmdl_participacion}.id = {gmdl_apuesta}.gmdl_participacion_id";
             $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id != $usuario AND";
             $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
             $sql.=" ON a.partidaid_a = b.partidaid_b";
             return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
         }
+
+    private function obtener_partidas_enprogreso($instancia, $usuario)
+    {
+
+        global $DB;
+        $sql=" SELECT a.*, b.* FROM";
+        $sql.=" (SELECT ";
+        $sql.="         username as username_a,";
+        $sql.="         firstname as firstname_a,";
+        $sql.="         lastname as lastname_a,";
+        $sql.="         {gmdl_partida}.id as partidaid_a,";
+        $sql.="         {gmdl_participacion}.fecha_inicio as fecha_inicio_a,";
+        $sql.="         {gmdl_participacion}.fecha_fin as fecha_fin_a,";
+        $sql.="         {gmdl_participacion}.puntuacion as puntuacion_a,";
+        $sql.="         {gmdl_participacion}.id as participacionid_a,";
+        $sql.="         {gmdl_participacion}.gmdl_usuario_id as gmdlusuarioid_a";
+        $sql.=" FROM {gmdl_partida} ";
+        $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+        $sql.=" JOIN {gmdl_usuario} ON {gmdl_participacion}.gmdl_usuario_id = {gmdl_usuario}.id";
+        $sql.=" JOIN {user} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
+        $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id = $usuario AND";
+        $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+        $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as a";
+        $sql.=" JOIN ";
+        $sql.=" (SELECT ";
+        $sql.="         username as username_b,";
+        $sql.="         firstname as firstname_b,";
+        $sql.="         lastname as lastname_b,";
+        $sql.="         {gmdl_partida}.id as partidaid_b,";
+        $sql.="         {gmdl_participacion}.fecha_inicio as fecha_inicio_b,";
+        $sql.="         {gmdl_participacion}.fecha_fin as fecha_fin_b,";
+        $sql.="         {gmdl_participacion}.puntuacion as puntuacion_b,";
+        $sql.="         {gmdl_participacion}.id as participacionid_b,";
+        $sql.="         {gmdl_participacion}.gmdl_usuario_id as gmdlusuarioid_b";
+        $sql.=" FROM {gmdl_partida}";
+        $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
+        $sql.=" JOIN {gmdl_usuario} ON {gmdl_participacion}.gmdl_usuario_id = {gmdl_usuario}.id";
+        $sql.=" JOIN {user} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
+        $sql.=" WHERE {gmdl_participacion}.gmdl_usuario_id != $usuario AND";
+        $sql.=" {gmdl_participacion}.fecha_inicio IS NOT NUll AND";
+        $sql.=" {gmdl_partida}.gmdl_comp_vs_id = $instancia) as b";
+        $sql.=" ON a.partidaid_a = b.partidaid_b";
+        $sql.=" WHERE b.fecha_fin_b IS NUll OR";
+        $sql.=" a.fecha_fin_a IS NUll";
+        return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+    }
 
 
     private function insertar_usuario($usuario)
@@ -641,4 +769,189 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $data->experiencia_actual = 0;
             return $DB->insert_record('gmdl_usuario', $data, $returnid=true, $bulk=false);
         }
+
+    private function obtener_monedas_usuario($usuario)
+        {
+            global $DB;
+            return $DB->get_record('gmdl_usuario', array("id"=>$usuario), $fields='*', $strictness=IGNORE_MISSING)->monedas_plata;
+        }
+
+    private function obtener_apuestas_activas_instancia($instancia)
+        {
+            global $DB;
+            return $DB->get_record('gmcompvs', array("id"=>$instancia), $fields='*', $strictness=IGNORE_MISSING)->apuestas_activas;
+        }
+
+    private function revisar_partidas_enprogreso( $instancia, $usuario ){
+
+        global $DB;
+        $tiempoactual = time();
+        $partidas = $this->obtener_partidas_enprogreso( $instancia, $usuario);
+
+        foreach ( $partidas as $partida ){
+            $cambiorealizado = false;
+            if( is_null($partida->fecha_fin_a) && ($tiempoactual-$partida->fecha_inicio_a) >= 86400 ){
+                $values = (object)[
+                    'id' => $partida->participacionid_a,
+                    'fecha_fin' => $tiempoactual
+                ];
+                $partida->fecha_fin_a = $tiempoactual;
+                $DB->update_record('gmdl_participacion',$values);
+                $cambiorealizado = true;
+            }
+
+            if( is_null($partida->fecha_fin_b) && ($tiempoactual-$partida->fecha_inicio_b) >= 86400 ){
+                $values = (object)[
+                    'id' => $partida->participacionid_b,
+                    'fecha_fin' => $tiempoactual
+                ];
+                $partida->fecha_fin_b = $tiempoactual;
+                $DB->update_record('gmdl_participacion',$values);
+                $cambiorealizado = true;
+            }
+
+            if( $cambiorealizado && !is_null($partida->fecha_fin_a) && !is_null($partida->fecha_fin_b)){
+
+                $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $instancia), '*', MUST_EXIST);
+                $course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
+                $cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
+                $context = context_module::instance($cm->id);
+
+                try {
+                    $apuestacontrincante = $DB->get_record('gmdl_apuesta', array("gmdl_participacion_id" => $partida->participacionid_b), '*', MUST_EXIST);
+                    $apuestacontrincanteexiste = true;
+                } catch (dml_exception $e) {
+                    $apuestacontrincanteexiste = false;
+                }
+
+                try {
+                    $apuestausuario = $DB->get_record('gmdl_apuesta', array("gmdl_participacion_id" => $partida->participacionid_a), '*', MUST_EXIST);
+                    $apuestausuarioexiste = true;
+                } catch (dml_exception $e) {
+                    $apuestausuarioexiste = false;
+                }
+
+                $tiempotardado = $partida->fecha_fin_a - $partida->fecha_inicio_a;
+                $tiempotardadoContri = $partida->fecha_fin_b - $partida->fecha_inicio_b;
+                $participacionid = $partida->participacionid_a;
+
+                if ($tiempotardado > $tiempotardadoContri) {
+                    $participacionid = $partida->participacionid_b;
+                    $partida->puntuacion_b += (int)($partida->puntuacion_b / 5);
+                    $userScoreUpdate = $partida->puntuacion_b;
+                } else {
+                    $partida->puntuacion_a += (int)($partida->puntuacion_a / 5);
+                    $userScoreUpdate = $partida->puntuacion_a;
+                }
+
+                $values = (object)[
+                    'id' => $participacionid,
+                    'puntuacion' => $userScoreUpdate
+                ];
+
+                $DB->update_record('gmdl_participacion', $values);
+
+                if( $partida->puntuacion_a > $partida->puntuacion_b )
+                    $userid = $partida->gmdlusuarioid_a;
+                else
+                    $userid = $partida->gmdlusuarioid_b;
+
+                $monedasadar = 0;
+                $useridmonedas = -1;
+                if( $apuestacontrincanteexiste && $apuestausuarioexiste ){
+
+                    $monedasadar = $apuestacontrincante->monedas_plata + $apuestausuario->monedas_plata;
+
+                }else{
+
+                    if( $apuestacontrincanteexiste ){
+
+                        $useridmonedas = $partida->gmdlusuarioid_b;
+                        $monedasdevolver = $apuestacontrincante->monedas_plata;
+
+                    }else{
+
+                        $useridmonedas = $partida->gmdlusuarioid_a;
+                        $monedasdevolver = $apuestausuario->monedas_plata;
+
+                    }
+
+                    $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
+                        'objectid' => $gmcompvs->id,
+                        'context' => $context,
+                        'other' => array('userid' => $useridmonedas, 'monedas' => $monedasdevolver, 'rason' => 'bandera apagada'),
+                    ));
+
+                    $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                    $event->trigger();
+
+                }
+
+                $moodleuserid = $DB->get_record('gmdl_usuario',array('id' => $userid));
+
+                $completion = new completion_info($course);
+                if($completion->is_enabled($cm) && $gmcompvs->completionnumwon != 0 && $gmcompvs->completionnumwon != NULL ) {
+                    $completion->update_state($cm,COMPLETION_COMPLETE,$moodleuserid->mdl_id_usuario);
+                }
+
+                if($partida->puntuacion_a != $partida->puntuacion_b){
+                    $event = \local_gamedlemaster\event\gmcompvs_compFinishedWon::create(array(
+                        'objectid' => $gmcompvs->id,
+                        'context' => $context,
+                        'other' => array('userid' => $userid, 'monedas' => $monedasadar),
+                    ));
+
+                    $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                    $event->trigger();
+
+                }else{
+
+                    if( $useridmonedas != $partida->gmdlusuarioid_a && $apuestausuarioexiste){
+
+                        $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
+                            'objectid' => $gmcompvs->id,
+                            'context' => $context,
+                            'other' => array('userid' => $partida->gmdlusuarioid_a, 'monedas' => $apuestausuario->monedas_plata, 'rason' => 'juego empatado'),
+                        ));
+
+                        $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                        $event->trigger();
+
+                    }
+
+                    if( $useridmonedas != $partida->gmdlusuarioid_b && $apuestacontrincanteexiste){
+
+                        $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
+                            'objectid' => $gmcompvs->id,
+                            'context' => $context,
+                            'other' => array('userid' => $partida->gmdlusuarioid_b, 'monedas' => $apuestacontrincante->monedas_plata, 'rason' => 'juego empatado'),
+                        ));
+
+                        $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                        $event->trigger();
+
+                    }
+
+                }
+
+                if( $apuestausuarioexiste ){
+
+                    $apuestausuario->activa = 0;
+                    $DB->update_record('gmdl_apuesta',$apuestausuario);
+
+                }
+
+                if( $apuestacontrincanteexiste ){
+
+                    $apuestacontrincante->activa = 0;
+                    $DB->update_record('gmdl_apuesta',$apuestacontrincante);
+
+                }
+
+            }
+
+        }
+
+    }
+
 }

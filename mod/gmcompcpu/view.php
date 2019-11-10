@@ -81,7 +81,7 @@ echo $OUTPUT->header();
 //echo $OUTPUT->heading($gmcompcpu->name);
 
 // Game here.
-echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
+#echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 #echo $renderer->render_questions($gmcompcpu, $cm,$USER->id);
 echo $renderer->render_main_page($gmcompcpu,$USER->id,$id);
 #echo "<div class=fontloader>Loading game</div>";

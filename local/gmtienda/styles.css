@@ -1,11 +1,11 @@
 
-/* 
+/*
     *****************************************************************************************************
     *                                           Estilos genéricos                                       *
     *****************************************************************************************************
 */
 
-.gmcompvs-container-columns{
+.gmtienda-container-columns{
     width: 100%;
     margin-bottom: 1%;
     padding: 1%;
@@ -18,7 +18,7 @@
 
 }
 
-.gmcompvs-container{
+.gmtienda-container{
     width: 100%;
     margin-bottom: 1%;
     padding: 1%;
@@ -29,38 +29,38 @@
     align-items: flex-start;
 }
 
-.gmcompvs-half-container{
+.gmtienda-half-container{
     width: 50%;
 }
 
 
-.gmcompvs-buscador-titulo{
+.gmtienda-buscador-titulo{
     margin: 3% 10% 0% 10%;
     width: 100%;
 
 }
 
 
-.gmcompvs-titulo{
+.gmtienda-titulo{
     text-align: left;
 }
 
-.gmcompvs-trohpy-image{
+.gmtienda-trohpy-image{
     max-height: 100%;
     max-width: 20%;
 }
 
 
-.gmcompvs-table {
+.gmtienda-table {
     width: 60%;
     margin: auto;
 
 }
-.gmcompvs-tbody tr{
+.gmtienda-tbody tr{
     background-color: whitesmoke;
 }
 
-.gmcompvs-table tr{
+.gmtienda-table tr{
     width: 100%;
     margin: auto;
     flex-direction: row;
@@ -73,7 +73,7 @@
 }
 
 
-.gmcompvs-thead{
+.gmtienda-thead{
     background-color: #0981bd;
     color: white;
     font-size: 20px;
@@ -84,7 +84,7 @@
     align-items: center;
 }
 
-.gmcompvs-tbody{
+.gmtienda-tbody{
     flex-direction: column;
     box-sizing: border-box;
     display: flex;
@@ -94,31 +94,31 @@
 
 
 
-.gmcompvs-trohpy-image-table{
+.gmtienda-trohpy-image-table{
     max-height: 80px;
     max-width: 80px;
     border: 10px double black;
 }
 
 
-/* 
+/*
     *****************************************************************************************************
     *                                    Estilos patnalla principal                                     *
     *****************************************************************************************************
 */
 
-.gmcompvs-al-desafiar-nombre{
+.gmtienda-al-desafiar-nombre{
     width: 40%;
 }
 
-.gmcompvs-buscador{
+.gmtienda-buscador{
     width: 80%;
     margin: 0% 10% 0% 10%;
     padding: 2%;
 
 }
 
-.gmcompvs-container-victorias{
+.gmtienda-container-victorias{
     margin: 1.5% 24% 1.5% 24%;
     width: 50%;
     background-color: gold;
@@ -133,11 +133,11 @@
 
 }
 
-.gmcompvs-victories{
+.gmtienda-victories{
     text-align: center;
 }
 
-.gmcompvs-container-adversaries{
+.gmtienda-container-adversaries{
     width: 80%;
     border: 10px double #0981bd;
     align-content: center;
@@ -145,7 +145,7 @@
     overflow-x: hidden;
 }
 
-.gmcompvs-container-challenges{
+.gmtienda-container-challenges{
 
     width: 100%;
     border: 10px double #bd2d09;
@@ -155,7 +155,7 @@
 }
 
 
-.gmcompvs-container-rival form{
+.gmtienda-container-rival form{
 
     width: 100%;
     border-radius: 10px;
@@ -171,7 +171,7 @@
 
 }
 
-.gmcompvs-container-desafio{
+.gmtienda-container-desafio{
 
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -186,7 +186,7 @@
 
 }
 
-.gmcompvs-container-rival-offset{
+.gmtienda-container-rival-offset{
 
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
@@ -202,28 +202,28 @@
 
 }
 
-/* 
+/*
     *****************************************************************************************************
     *                                    Estilos patnalla history                                    *
     *****************************************************************************************************
 */
 
-.gmcompvs-table-posicion-column{
+.gmtienda-table-posicion-column{
     max-height: 100%;
     width: 20%;
 
 }
-.gmcompvs-table-name-column{
+.gmtienda-table-name-column{
     width: 50%;
 
 }
 
-.gmcompvs-table-victorias-column{
+.gmtienda-table-victorias-column{
     width: 30%;
 
 }
 
-.gmcompvs-container-resume{
+.gmtienda-container-resume{
     padding: 2% 0% 1% 0%;
     flex-direction: row;
     box-sizing: border-box;
@@ -233,7 +233,7 @@
     width: 80%;
 }
 
-.gmcompvs-container-resume div{
+.gmtienda-container-resume div{
     padding: 0% 1%;
     flex-direction: row;
     box-sizing: border-box;
@@ -243,31 +243,31 @@
 }
 
 
-.gmcompvs-table-history-state{
+.gmtienda-table-history-state{
     width: 20%;
-} 
+}
 
-.gmcompvs-table-history-points{
+.gmtienda-table-history-points{
     width: 10%;
 }
 
-.gmcompvs-table-history-state{
+.gmtienda-table-history-state{
     padding: 10px;
 }
 
-.gmcompvs-table-history-name{
+.gmtienda-table-history-name{
     width: 40%;
 }
 
 
 
-/* 
+/*
     *****************************************************************************************************
     *                                    Estilos patnalla menú                                       *
     *****************************************************************************************************
 */
 
-.gmcompvs-contianer-menu-opciones{
+.gmtienda-contianer-menu-opciones{
     height: 100px;
     flex-direction: row;
     box-sizing: border-box;
@@ -276,7 +276,7 @@
     align-items: flex-end;
     width: 100%;
 }
-.gmcompvs-contianer-menu-opcion-activa, .gmcompvs-contianer-menu-opcion{
+.gmtienda-contianer-menu-opcion-activa, .gmtienda-contianer-menu-opcion{
     border-top: 4px solid black;
     border-left: 4px solid black;
     border-right: 4px solid black;
@@ -290,32 +290,32 @@
 }
 
 
-.gmcompvs-contianer-menu-opcion-activa{
+.gmtienda-contianer-menu-opcion-activa{
     height: 100%;
     background-color: #0981bd;
     width: 34%;
 }
-.gmcompvs-contianer-menu-opcion{
+.gmtienda-contianer-menu-opcion{
     height: 60%;
     background-color: #075982;;
     width: 33%;
 }
 
 
-#gmcompvs-activity-container{
+#gmtienda-activity-container{
     width: 100%;
     border: 4px solid black;
     height: 750px;
 }
 
-#gmcompvs-fieldset-div{
+#gmtienda-fieldset-div{
 
     width: 80%;
     margin: 2% 10% 1% 10%;
     padding: 0;
     border: solid;
 }
-#gmcompvs-fieldset{
+#gmtienda-fieldset{
     text-align: center;
     flex-direction: column;
     box-sizing: border-box;
@@ -325,48 +325,48 @@
 }
 
 
-#gmcompvs-table-historial{
+#gmtienda-table-historial{
     width: 100%;
     font-size: 20px;
 }
-#gmcompvs-table-historial-container{
+#gmtienda-table-historial-container{
     height: 400px;
     overflow-x: hidden;
-    overflow-y: auto; 
+    overflow-y: auto;
     margin: 0% 10%;
-    border: 10px double gray;   
+    border: 10px double gray;
 }
 
-/* 
+/*
     *****************************************************************************************************
     *                                    Estilos patnalla highscores                                    *
     *****************************************************************************************************
 */
 
 
-.gmcompvs-container-overflow-half-height{
+.gmtienda-container-overflow-half-height{
     height: 400px;
 
 }
 
-.gmcompvs-container-overflow-eighty-height{
+.gmtienda-container-overflow-eighty-height{
     height: 80%;
 
 }
 
-#gmcompvs-contianer-menu-opcion-scores-container{
+#gmtienda-contianer-menu-opcion-scores-container{
     width: 100%;
     height: 100%;
 }
 
-.gmcompvs-container-scores-scroll{
+.gmtienda-container-scores-scroll{
     height: 100%;
     margin: auto;
     overflow-x: hidden;
-    overflow-y: auto; 
+    overflow-y: auto;
 }
 
-#gmcompvs-table-scores{
+#gmtienda-table-scores{
     margin-top: 2%;
     margin-bottom: 2%;
 }

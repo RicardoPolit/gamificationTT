@@ -12,7 +12,14 @@ class gmcompcpu_compFinishedWon extends \core\event\base {
     }
 
     public function get_description() {
-        return "The user with id '$this->userid' got a new high score with dificulty ".$this->data['dificultad'];
+        $data = $this->get_data();
+        foreach ($data as $key => $datum){
+            if($key == 'other'){
+                $userid = $datum['userid'];
+                $dificultad = $datum['dificultad'];
+            }
+        }
+        return "The user with id '$userid' got a new high score with dificulty $dificultad";
     }
 
 }
