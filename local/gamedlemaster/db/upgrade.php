@@ -86,7 +86,10 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019110800();
             }
-
+        else if($oldversion < 2019111000)
+            {
+                upgrades2019111000();
+            }
 		return true;
 	}
 
@@ -1096,4 +1099,31 @@ function upgrades2019110800()
 
         // Gamedlemaster savepoint reached.
         upgrade_plugin_savepoint(true, 2019110800, 'local', 'gamedlemaster');
+        upgrades2019111000();
+    }
+
+
+function upgrades2019111000()
+    {
+        global $DB;
+        $dbman = $DB->get_manager();
+
+        // Rename field introformar on table gmpregdiarias to introformat.
+        $table = new xmldb_table('gmpregdiarias');
+        $field = new xmldb_field('introformar', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'intro');
+
+        // Launch rename field introformar.
+        $dbman->rename_field($table, $field, 'introformat');
+ 
+
+
+        // Rename field introformar on table gmpregdiarias to introformat.
+        $table = new xmldb_table('gmcompvs');
+        $field = new xmldb_field('introformar', XMLDB_TYPE_INTEGER, '4', null, XMLDB_NOTNULL, null, '0', 'intro');
+
+        // Launch rename field introformar.
+        $dbman->rename_field($table, $field, 'introformat');
+
+         // Gamedlemaster savepoint reached.
+         upgrade_plugin_savepoint(true, 2019111000, 'local', 'gamedlemaster');
     }
