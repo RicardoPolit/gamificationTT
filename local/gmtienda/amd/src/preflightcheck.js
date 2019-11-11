@@ -40,9 +40,8 @@ define(['jquery', 'core/yui'], function($, Y) {
          * @param {String} startButton the id of the start attempt button that we will be enhancing.
          * @param {String} confirmationTitle the title of the dialogue.
          * @param {String} confirmationForm selector for the confirmation form to show in the dialogue.
-         * @param {String} popupoptions If not null, the quiz should be launced in a pop-up.
          */
-        init: function(startButton, confirmationTitle, confirmationForm, popupoptions) {
+        init: function(startButton, confirmationTitle, confirmationForm) {
             var finalStartButton = startButton;
 
             Y.use('moodle-core-notification', function() {
@@ -54,19 +53,14 @@ define(['jquery', 'core/yui'], function($, Y) {
                         visible: false,
                         center: true,
                         modal: true,
-                        width: null,
-                        extraClasses: ['local_gmtienda_preflight_popup']
+                        width: null
                     });
-
                     Y.one(startButton).on('click', t.displayDialogue);
                     Y.one('#id_cancel').on('click', t.hideDialogue);
 
                     finalStartButton = t.confirmDialogue.get('boundingBox').one('[name="submitbutton"]');
                 }
-
-                if (popupoptions) {
-                    Y.one(finalStartButton).on('click', t.launchQuizPopup, t, popupoptions);
-                }
+                Y.one(finalStartButton).on('click', t.launchPage, t);
             });
         },
 
@@ -74,7 +68,10 @@ define(['jquery', 'core/yui'], function($, Y) {
          * Display the dialogue.
          * @param {Y.EventFacade} e the event being responded to, if any.
          */
-        displayDialogue: function() {
+        displayDialogue: function(e) {
+            if (e) {
+                e.halt();
+            }
             t.confirmDialogue.show();
         },
 
@@ -82,26 +79,22 @@ define(['jquery', 'core/yui'], function($, Y) {
          * Hide the dialogue.
          * @param {Y.EventFacade} e the event being responded to, if any.
          */
-        hideDialogue: function() {
-            t.confirmDialogue.hide();
+        hideDialogue: function(e) {
+            if (e) {
+                e.halt();
+            }
+            t.confirmDialogue.hide(e);
         },
-
         /**
          * Event handler for the quiz start attempt button.
-          * @param {Event} e the event being responded to
-          * @param {Object} popupoptions
+         * @param {Event} e the event being responded to
          */
-        launchQuizPopup: function(e, popupoptions) {
+        launchPage: function(e) {
             e.halt();
             Y.use('moodle-core-formchangechecker', 'io-form', function() {
                 M.core_formchangechecker.reset_form_dirty_state();
                 var form = e.target.ancestor('form');
-                window.openpopup(e, {
-                    url: form.get('action') + '?' + Y.IO.stringify(form).replace(/\bcancel=/, 'x='),
-                    windowname: 'quizpopup',
-                    options: popupoptions,
-                    fullscreen: true,
-                });
+                window.location.href = form.get('action') + '?' + Y.IO.stringify(form).replace(/\bcancel=/, 'x=');
             });
         }
     };

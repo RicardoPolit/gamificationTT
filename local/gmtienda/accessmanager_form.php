@@ -38,7 +38,10 @@ class local_gmtienda_preflight_check_form extends moodleform {
 
     protected function definition() {
         $mform = $this->_form;
-        $this->_form->updateAttributes(array('id' => 'local_gmtienda_preflight_form'));
+        $objetoid = $this->_customdata['objetoid'];
+        $nombreboton = $this->_customdata['nombreboton'];
+        $this->_form->updateAttributes(array('class' => "local_gmtienda_preflight_form"));
+        $this->_form->updateAttributes(array('id' => "popup-$nombreboton-$objetoid"));
 
         foreach ($this->_customdata['hidden'] as $name => $value) {
             if ($name === 'sesskey') {
@@ -48,7 +51,7 @@ class local_gmtienda_preflight_check_form extends moodleform {
             $mform->setType($name, PARAM_INT);
         }
 
-        $this->add_action_buttons(true, 'Comprar');
+        $this->add_action_buttons(true, $nombreboton);
         $mform->setDisableShortforms();
     }
 

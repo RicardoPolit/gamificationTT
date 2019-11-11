@@ -378,11 +378,11 @@
 */
 
 
-.quizattempt #local_gmtienda_preflight_form {
+.quizattempt .local_gmtienda_preflight_form {
     display: none;
 }
 
-#local_gmtienda_preflight_form .femptylabel .fitemtitle {
+.local_gmtienda_preflight_form .femptylabel .fitemtitle {
     display: none;
 }
 
@@ -398,17 +398,17 @@
     padding: 0;
 }
 
-.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd #local_gmtienda_preflight_form legend {
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd .local_gmtienda_preflight_form legend {
     padding: 0 10px;
     margin: 0;
     border: 0 none;
 }
 
-.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd #local_gmtienda_preflight_form .fitem {
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd .local_gmtienda_preflight_form .fitem {
     margin-left: 10px;
 }
 
-.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd #local_gmtienda_preflight_form #fgroup_id_buttonar {
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd .local_gmtienda_preflight_form #fgroup_id_buttonar {
     padding: 10px 0 0;
     margin: 0;
 }
@@ -417,7 +417,7 @@
     margin: 0;
 }
 /* Standard Moodle rule that needs to be more specific here. */
-.moodle-dialogue-bd #local_gmtienda_preflight_form fieldset.hidden {
+.moodle-dialogue-bd .local_gmtienda_preflight_form fieldset.hidden {
     display: inherit;
     visibility: inherit;
 }

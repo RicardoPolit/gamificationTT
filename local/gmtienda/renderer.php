@@ -12,65 +12,115 @@ class local_gmtienda_renderer extends plugin_renderer_base {
 
     public function render_main_page($usuariogamificado){
 
+        $botones = array();
+
         $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+
         $display .= html_writer::start_tag('div',array('class' => 'gmtienda-container'));
         $display .= html_writer::start_tag('div',array('class' => 'gmtienda-half-container'));
-        /*$display .= html_writer::start_tag('form',
+
+        $display .= html_writer::start_tag('form',
             array('action' => new moodle_url('/local/gmtienda/comprar.php',
                 array('gmuserid' => $usuariogamificado->id)), 'method' => 'post',
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                'id' => 'comprarform'));*/
+                'id' => 'responseform'));
 
         $display .= '<input type="hidden" name="objetoid" value=1 />';
 
         $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Comprar', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-comprar", "style"=>"margin:auto; width: 25%;"));
+            'value' => 'Comprar', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-comprar", 'id' => "btn-comprar-1" , "style"=>"margin:auto; width: 25%;"));
 
-        /*$display .= html_writer::end_tag('form');*/
+        $display .= html_writer::end_tag('form');
+
+
         $display .= html_writer::end_tag('div');
         $display .= html_writer::start_tag('div',array('class' => 'gmtienda-half-container'));
+
         $display .= html_writer::start_tag('form',
-            array('action' => new moodle_url('/local/gmtienda/elegir.php',
+            array('action' => new moodle_url('/local/gmtienda/comprar.php',
                 array('gmuserid' => $usuariogamificado->id)), 'method' => 'post',
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                'id' => 'elegirform'));
+                'id' => 'responseform'));
 
         $display .= '<input type="hidden" name="objetoid" value=1 />';
 
         $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Elegir', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-primary-js", "style"=>"margin:auto; width: 25%;"));
+            'value' => 'Elegir', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-primary-js btn-elegir", 'id' => "btn-elegir-2", "style"=>"margin:auto; width: 25%;"));
+
         $display .= html_writer::end_tag('form');
+
+        $display .= html_writer::end_tag('div');
         $display .= html_writer::end_tag('div');
 
         /*
-         * Esto es el código para mostrar el popup, todavía no lo hace y ya no se porque, pero de todas maneras lo dejo junto con sus js y archivos por si luego tengo otra idea
          *
-         * $method = 'post';
+         * Se comenta las siguientes lineas porque el popup todavia no funciona bien, solo muestra el ultimo popup sin importar que boton fue presionado,
+         * se le podria poner uno solo de confimacion?
+         *
+         * */
 
-        $url = new moodle_url('/local/gmtienda/comprar.php',
-            array('gmuserid' => $usuariogamificado->id));
+        /*$botones[] = (object)[
+            'tipo' => 'comprar',
+            'objetoid' => 1
+        ];
 
-        $preflightcheckform = new local_gmtienda_preflight_check_form($url->out_omit_querystring(),
-            array('hidden' => $url->params()), $method);
+        $botones[] = (object)[
+            'tipo' => 'elegir',
+            'objetoid' => 2
+        ];
 
-        $popupjsoptions = null;
-        if ($popuprequired = true ) {
-            $action = new popup_action('click', $url, 'popup');
-            $popupjsoptions = $action->get_js_options();
-        }
 
-        if ($preflightcheckform) {
-            $display .= $preflightcheckform->render();
-        } else {
-            $display .= null;
-        }
+        $display .= $this->render_allpopups($botones,$usuariogamificado->id);*/
 
-        $this->page->requires->js_call_amd('local_gmtienda/preflightcheck', 'init',
-            array(".btn-comprar [type=submit]", 'Seguro que quieres comprar este item?',
-                '#local_gmtienda_preflight_form', $popupjsoptions));*/
 
         return $display;
 
+    }
+
+    private function render_allpopups( $botones , $gmuserid){
+        $display = '';
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmtienda-popups-container'));
+
+        foreach ( $botones as $boton ){
+
+            $display .= html_writer::start_tag('div',array('class' => "gmtienda-popup-container-$boton->tipo-$boton->objetoid"));
+
+            $display .= $this->render_popup(new moodle_url("/local/gmtienda/$boton->tipo.php",
+                array('gmuserid' => $gmuserid, 'objetoid' => $boton->objetoid )),
+                "btn-$boton->tipo-$boton->objetoid",
+                $boton->objetoid,
+                "Seguro que quieres $boton->tipo el objeto $boton->objetoid?",
+                $boton->tipo
+            );
+
+            $display .= html_writer::end_tag('div');
+        }
+
+        $display .= html_writer::end_tag('div');
+
+        return $display;
+
+    }
+
+    private function render_popup($url,$id, $objetoid ,$mensaje = "Confirmar la accion",$nombreboton = "Confirmar"){
+
+        $method = 'post';
+
+        $preflightcheckform = new local_gmtienda_preflight_check_form($url->out_omit_querystring(),
+            array('hidden' => $url->params(),'nombreboton' => $nombreboton, 'objetoid' => $objetoid), $method);
+
+        if ($preflightcheckform) {
+            $display = $preflightcheckform->render();
+        } else {
+            $display = null;
+        }
+
+        $this->page->requires->js_call_amd('local_gmtienda/preflightcheck', 'init',
+            array("#$id", $mensaje,
+                "#popup-$nombreboton-$objetoid"));
+
+        return $display;
     }
 
 
