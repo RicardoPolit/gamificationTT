@@ -176,7 +176,6 @@ class local_gmtienda_renderer extends plugin_renderer_base {
     }
 
 
-
     public function render_main_page($userid, $moodleUserId)
         {
             $objetosBD = $this->obtener_objetos_dependiendo_usuario($userid);

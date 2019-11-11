@@ -289,10 +289,9 @@
 #gmtienda-boton-guardar{
     background-color: green;
 }
-<<<<<<< HEAD
 #gmtienda-boton-cancelar{
     background-color: darkred;
-=======
+}
 
 #gmtienda-table-scores{
     margin-top: 2%;
@@ -348,5 +347,4 @@
 .moodle-dialogue-bd .local_gmtienda_preflight_form fieldset.hidden {
     display: inherit;
     visibility: inherit;
->>>>>>> 5697a853412daa4f5f91b7402f8a9232d9d7b194
 }
