@@ -17,6 +17,14 @@ class local_gmtienda_renderer extends plugin_renderer_base {
         $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
 
         $display .= html_writer::start_tag('div',array('class' => 'gmtienda-container'));
+            $display .= html_writer::start_tag('h2',array('class' => 'gmtienda-titulo'));
+                $display .= html_writer::start_tag('b');
+                    $display .= "Monedas disponibles: $usuariogamificado->monedas_plata";
+                $display .= html_writer::end_tag('b');
+            $display .= html_writer::end_tag('h2');
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmtienda-container'));
         $display .= html_writer::start_tag('div',array('class' => 'gmtienda-half-container'));
 
         $display .= html_writer::start_tag('form',
@@ -37,12 +45,17 @@ class local_gmtienda_renderer extends plugin_renderer_base {
         $display .= html_writer::start_tag('div',array('class' => 'gmtienda-half-container'));
 
         $display .= html_writer::start_tag('form',
-            array('action' => new moodle_url('/local/gmtienda/comprar.php',
+            array('action' => new moodle_url('/local/gmtienda/elegir.php',
                 array('gmuserid' => $usuariogamificado->id)), 'method' => 'post',
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
 
-        $display .= '<input type="hidden" name="objetoid" value=1 />';
+        $objetoselegidos = array(
+            '1'
+        );
+        $objetoselegidosjson = json_encode($objetoselegidos);
+
+        $display .= "<input type='hidden' name='objetosjson' value=$objetoselegidosjson />";
 
         $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
             'value' => 'Elegir', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-primary-js btn-elegir", 'id' => "btn-elegir-2", "style"=>"margin:auto; width: 25%;"));
@@ -72,6 +85,91 @@ class local_gmtienda_renderer extends plugin_renderer_base {
 
         $display .= $this->render_allpopups($botones,$usuariogamificado->id);*/
 
+
+        return $display;
+
+    }
+
+    public function render_choices_answer($objetoselegidos){
+
+        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+
+        foreach ( $objetoselegidos as $objetoelegido ){
+
+            if($objetoelegido->bandera == 1 || $objetoelegido->bandera == 0){
+
+                $mensaje = "¡Objeto $objetoelegido->nombre seleccionado!";
+                $class = 'ganador';
+
+            }elseif ( $objetoelegido->bandera == -1 ){
+
+                $mensaje = "¡Que raro, el objeto que seleccionaste $objetoelegido->nombre no está desbloqueado, objeto default seleccionado!";
+                $class = 'ganador';
+
+            }else{
+
+                $mensaje = "¡Esto no debería de pasar nunca!, intenta más tarde";
+                $class = 'perdedor';
+
+            }
+            $display .= html_writer::start_tag('div');
+            $display .= html_writer::start_tag('h2',array('class' => 'gmtienda-titulo-'.$class));
+            $display .= html_writer::start_tag('b');
+            $display .= $mensaje;
+            $display .= html_writer::end_tag('b');
+            $display .= html_writer::end_tag('h2');
+            $display .= html_writer::end_tag('div');
+
+        }
+
+
+        $display .= html_writer::start_tag('div',array('class' => 'gmtienda-container'));
+        $display .= html_writer::start_tag('form', array('action' => new moodle_url('/local/gmtienda/perfilgamificado.php')));
+        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'value' => 'Regresar' , 'class' => "btn btn-primary gmtienda-button"));
+        $display .= html_writer::end_tag('form');
+        $display .= html_writer::end_tag('div');
+
+        return $display;
+
+    }
+
+    public function render_buy_answer($objeto,$objetocomprado){
+
+        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+
+        if($objetocomprado == 1){
+
+            $mensaje = "¡Objeto $objeto->nombre comprado!";
+            $class = 'ganador';
+
+        }elseif ( $objetocomprado == 0 ){
+
+            $mensaje = "¡Oh no!, No tienes suficiente dinero para comprar el objeto $objeto->nombre!";
+            $class = 'perdedor';
+
+        }elseif ( $objetocomprado == -1 ){
+
+            $mensaje = "¡Que raro, Felicidades parece ser que ya tienes desbloqueado el objeto $objeto->nombre!";
+            $class = 'ganador';
+
+        }else{
+
+            $mensaje = "¡Esto no debería de pasar nunca!, intenta más tarde";
+            $class = 'perdedor';
+
+        }
+        $display .= html_writer::start_tag('div');
+        $display .= html_writer::start_tag('h2',array('class' => 'gmtienda-titulo-'.$class));
+        $display .= html_writer::start_tag('b');
+        $display .= $mensaje;
+        $display .= html_writer::end_tag('b');
+        $display .= html_writer::end_tag('h2');
+        $display .= html_writer::end_tag('div');
+        $display .= html_writer::start_tag('div',array('class' => 'gmtienda-container'));
+        $display .= html_writer::start_tag('form', array('action' => new moodle_url('/local/gmtienda/perfilgamificado.php')));
+        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'value' => 'Regresar' , 'class' => "btn btn-primary gmtienda-button"));
+        $display .= html_writer::end_tag('form');
+        $display .= html_writer::end_tag('div');
 
         return $display;
 
