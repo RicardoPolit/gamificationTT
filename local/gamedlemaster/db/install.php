@@ -33,4 +33,9 @@ function copiarUsuariosInstall()
 function definirCatalogos()
 {
     guardarCatalogosDificultadCPU2019101501();
+    guardarCatalogosRarezaObjetos();
+    guardarCatalogosTipoObjetos();
+    guardarCatalogosObjetosTiposBordes();
+    guardarCatalogosObjetosImagenes();
+    guardarCatalogosObjetosColorBordes();
 }

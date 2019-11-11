@@ -498,6 +498,8 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             return $html;
         }
 
+    
+
     private function obtener_todas_dificultades()
         {
             global $DB;

@@ -94,6 +94,14 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019111001();
             }
+        else if($oldversion < 2019111002)
+            {
+                guardarCatalogosRarezaObjetos();
+                guardarCatalogosTipoObjetos();
+                guardarCatalogosObjetosImagenes();
+                guardarCatalogosObjetosTiposBordes();
+                guardarCatalogosObjetosColorBordes();
+            }
 		return true;
 	}
 
