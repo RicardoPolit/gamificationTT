@@ -30,11 +30,13 @@ class block_gmxp extends block_base {
 	    }
 
 	    $this->content = new StdClass;
-	    $this->content->text   = $this->htmlMedal(3);
+
+        $this->loadImage();
+	    $this->content->text   = self::htmlMedal(3, $this->image);
 
         //$this->representarDeExperiencia();
-	    $this->content->footer = $this->htmlProgressBar(3,100,200,100);
-	    $this->content->footer.= $this->htmlPopUp(3);
+	    $this->content->footer = self::htmlProgressBar(3,100,200,100);
+	    $this->content->footer.= self::htmlPopUp(3, $this->image);
 	   
 	    $experience = array("inicio"=>0,"final"=>53);
 	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
@@ -58,10 +60,7 @@ class block_gmxp extends block_base {
         $this->image = $CFG->wwwroot . block_gmxp_core::PATH_IMAGE . $image;
     }
 
-    private function htmlMedal($level){
-        $this->loadImage();
-        $urlimage = $this->image;
-            
+    static function htmlMedal($level, $urlimage){
         if($level<1)
             $level = 1;
 
@@ -71,23 +70,31 @@ class block_gmxp extends block_base {
                </div>";
     }
     
-    private function htmlProgressBar($progress,$exp_updated,$exp_need,$acumulada){
-        return "<div class=\"gmxp-bar\">
+    static function htmlProgressBar($progress,$exp_updated,$exp_need,$acumulada,
+      $detail = true) {
+
+        $content = "<div class=\"gmxp-bar\">
                     <div class=\"gmxp-progress\"
-                      style=\"width:$progress%;background-color:".get_config('block_gmxp','defaultColorPickerProgressBar')."\">
+                      style=\"width:$progress%;background-color:".
+                        get_config(self::PLUGIN, block_gmxp_core::COLORBAR)."\">
                     </div>
-                </div>
-                <div class='gmxp-txt-lvl'>
-                    Level XP: <b>$exp_updated/$exp_need </b><br>
-                    Total XP: <b> $acumulada</b>
                 </div>";
+
+        if($detail) {
+            $content .= "<div class='gmxp-txt-lvl'>
+                Level XP: <b>$exp_updated/$exp_need </b><br>
+                Total XP: <b> $acumulada</b>
+            </div>";
+        }
+
+        return $content;
     }
     
-    private function htmlPopup($level){
+    static function htmlPopup($level, $image){
         return "<div id=\"gmxp-popup\">
                    <div id=\"gmxp-content\">
                         <div class=\"gmxp-title\">".get_config('block_gmxp','defaultLevelsMessage')."</div>".
-                        $this->htmlMedal($level).
+                        self::htmlMedal($level, $image).
                         "<div class=\"gmxp-level-name\"><b>".get_config('block_gmxp','defaultLevelsName')."</b></div>".
                         "<div class=\"gmxp-desc\">Descripcion de un nivel bien bonito carnal</div>".
                     "</div>
