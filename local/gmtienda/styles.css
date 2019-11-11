@@ -289,6 +289,64 @@
 #gmtienda-boton-guardar{
     background-color: green;
 }
+<<<<<<< HEAD
 #gmtienda-boton-cancelar{
     background-color: darkred;
+=======
+
+#gmtienda-table-scores{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+/*
+    *****************************************************************************************************
+    *                                    Estilos popup confirmación                                     *
+    *****************************************************************************************************
+*/
+
+
+.quizattempt .local_gmtienda_preflight_form {
+    display: none;
+}
+
+.local_gmtienda_preflight_form .femptylabel .fitemtitle {
+    display: none;
+}
+
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup {
+    width: 600px;
+}
+
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-wrap {
+    overflow: hidden;
+}
+
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd {
+    padding: 0;
+}
+
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd .local_gmtienda_preflight_form legend {
+    padding: 0 10px;
+    margin: 0;
+    border: 0 none;
+}
+
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd .local_gmtienda_preflight_form .fitem {
+    margin-left: 10px;
+}
+
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-bd .local_gmtienda_preflight_form #fgroup_id_buttonar {
+    padding: 10px 0 0;
+    margin: 0;
+}
+
+.moodle-dialogue-base .moodle-dialogue.local_gmtienda_preflight_popup .moodle-dialogue-content .moodle-dialogue-ft {
+    margin: 0;
+}
+/* Standard Moodle rule that needs to be more specific here. */
+.moodle-dialogue-bd .local_gmtienda_preflight_form fieldset.hidden {
+    display: inherit;
+    visibility: inherit;
+>>>>>>> 5697a853412daa4f5f91b7402f8a9232d9d7b194
 }

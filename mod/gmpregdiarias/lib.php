@@ -182,29 +182,18 @@ function gmpregdiarias_user_complete($course, $user, $mod, $gmpregdiarias) {
 function gmpregdiarias_get_completion_state($course, $cm, $userid, $type) {
     global $DB;
 
-    // Get gmpregdiarias details.
-    if (!($gmpregdiarias = $DB->get_record('gmpregdiarias', array('id' => $cm->instance)))) {
-        throw new Exception("Can't find gmpregdiarias {$cm->instance}");
-    }
+    $categorias = $DB->get_record('gmpregdiarias', array("id"=>$cm->instance), $fields='*', $strictness=MUST_EXIST)->mdl_question_categories_id;
+    $gmuserid = $DB->get_record('gmdl_usuario', array('mdl_id_usuario' => $userid));
+    $idCategoria = explode(',', $categorias)[0];
+    $sql = " SELECT COUNT({question}.id)";
+    $sql.= " FROM {question}";
+    $sql.= " JOIN {question_categories} ON {question_categories}.id = {question}.category";
+    $sql.= " WHERE {question_categories}.id = $idCategoria AND";
+    $sql.= " {question}.qtype IN ('multichoice', 'truefalse', 'shortanswer', 'numerical')";
+    $preguntasposibles = $DB->count_records_sql($sql, null);
+    $preguntascontestadas = $DB->count_records('gmdl_intento_diario', array("gmdl_preg_diarias_id"=>$cm->instance, "gmdl_usuario_id"=>$gmuserid->id));
 
-    // Default return value.
-    $result = $type;
-    if ($gmpregdiarias->completionscore) {
-        $where = ' gmpregdiariasid = :gmpregdiariasid AND userid = :userid AND score >= :score';
-        $params = array(
-            'gmpregdiariasid' => $gmpregdiarias->id,
-            'userid' => $userid,
-            'score' => $gmpregdiarias->completionscore,
-        );
-        $value = $DB->count_records_select('gmpregdiarias_scores', $where, $params) > 0;
-        if ($type == COMPLETION_AND) {
-            $result = $result && $value;
-        } else {
-            $result = $result || $value;
-        }
-    }
-
-    return $result;
+    return $preguntascontestadas >= $preguntasposibles;
 }
 
 /**
