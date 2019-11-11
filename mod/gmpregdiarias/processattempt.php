@@ -43,7 +43,7 @@ echo $OUTPUT->heading($gmpregdiarias->name);
 
 echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 
-echo $renderer->render_results_attempt($userScore);
+echo $renderer->render_results_attempt($userScore,$cm->id);
 
 echo $OUTPUT->footer();
 
