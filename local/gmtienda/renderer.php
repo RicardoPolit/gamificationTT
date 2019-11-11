@@ -344,7 +344,15 @@ class local_gmtienda_renderer extends plugin_renderer_base {
     private function obtener_objetos_dependiendo_usuario($usuario)
         {
             global $DB;
-            $sql = " SELECT gmdl_rareza_objeto_id as rareza, gmdl_tipo_objeto_id as tipo, {gmdl_rareza_objeto}.costo_adquisicion as costo, {gmdl_objeto}.nombre as objeto, {gmdl_tipo_objeto}.nombre as nombre_tipo, valor, elegido, {gmdl_objeto}.id as ide";
+            $sql = " SELECT ";
+            $sql.= "    gmdl_rareza_objeto_id as rareza,";
+            $sql.= "    gmdl_tipo_objeto_id as tipo,";
+            $sql.= "    {gmdl_rareza_objeto}.costo_adquisicion as costo,";
+            $sql.= "    {gmdl_objeto}.nombre as objeto,";
+            $sql.= "    {gmdl_tipo_objeto}.nombre as nombre_tipo,";
+            $sql.= "    valor,";
+            $sql.= "    elegido,";
+            $sql.= "    {gmdl_objeto}.id as ide";
             $sql.= " FROM {gmdl_objeto}";
             $sql.= " JOIN {gmdl_tipo_objeto}";
             $sql.= " ON {gmdl_tipo_objeto}.id = {gmdl_objeto}.gmdl_tipo_objeto_id";
@@ -352,6 +360,7 @@ class local_gmtienda_renderer extends plugin_renderer_base {
             $sql.= " ON {gmdl_rareza_objeto}.id = {gmdl_objeto}.gmdl_rareza_objeto_id";
             $sql.= " LEFT JOIN {gmdl_objeto_desbloqueado}";
             $sql.= " ON {gmdl_objeto}.id = {gmdl_objeto_desbloqueado}.gmdl_objeto_id";
+            $sql.= " WHERE gmdl_usuario_id = $usuario";
             $sql.= " ORDER BY 2, 1, 6 DESC";
             return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
         }
