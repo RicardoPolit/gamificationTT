@@ -25,6 +25,10 @@
  * @return bool false if the file not found, just send the file otherwise and do not return anything
  */
 
+// Used for myprofile callback
+require_once("{$CFG->dirroot}/blocks/moodleblock.class.php");
+require_once("{$CFG->dirroot}/blocks/gmxp/block_gmxp.php");
+
 function block_gmxp_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
 
     // Check the contextlevel is as expected - if your plugin is a block, this becomes CONTEXT_BLOCK, etc.
@@ -71,6 +75,44 @@ function block_gmxp_pluginfile($course, $cm, $context, $filearea, $args, $forced
 
     // We can now send the file back to the browser - in this case with a cache lifetime of 1 day and no filtering. 
     send_stored_file($file, 86400, 0, $forcedownload, $options);
+}
+
+function block_gmxp_myprofile_navigation(core_user\output\myprofile\tree $tree,
+  $user, $iscurrentuser, $course){
+ 
+    $PLUGIN = "block_gmxp";
+
+    /*local_gamedlemaster_log::info($tree);
+    local_gamedlemaster_log::info($user);
+    local_gamedlemaster_log::info($course);
+    local_gamedlemaster_log::info($iscurrentuser);*/
+
+    /*global $CFG;
+    $image = get_config($PLUGIN, block_gmxp_core::IMAGE);
+    $image = $CFG->wwwroot . block_gmxp_core::PATH_IMAGE . $image;*/
+
+    $level = 3;
+
+    $node_title = get_string('gmxp', $PLUGIN).' '.$level;
+    $node_content = block_gmxp::htmlProgressBar($level,100,200,100,false);
+    //$node_content = block_gmxp::htmlMedal(3, $image);*/
+
+    $node = new core_user\output\myprofile\node( //block_gmxp_core::CATEGORY
+        'contact', block_gmxp_core::PERFIL_EXPERIENCE,
+        $node_title, null, null, $node_content);
+
+    /*$category = new core_user\output\myprofile\category(
+        block_gmxp_core::CATEGORY, get_string('gmxp', $PLUGIN), 'contact');
+
+    $tree->add_category($category);*/
+    $tree->add_node($node);
+}
+
+function block_gmxp_extend_navigation($node, $course, $module, $cm) {
+    local_gamedlemaster_log::info($node);
+    local_gamedlemaster_log::info($coourse);
+    local_gamedlemaster_log::info($module);
+    local_gamedlemaster_log::info($cm);
 }
 
 ?>
