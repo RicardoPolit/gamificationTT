@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/gamedlemaster/db" VERSION="20191110" COMMENT="Prueba de concepto para la creacion de los XML"
+<XMLDB PATH="local/gamedlemaster/db" VERSION="20191111" COMMENT="Version 6 de la BD"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
 >
@@ -320,6 +320,53 @@
       <KEYS>
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
         <KEY NAME="gmdl_participacion_id" TYPE="foreign-unique" FIELDS="gmdl_participacion_id" REFTABLE="gmdl_participacion" REFFIELDS="id" COMMENT="Llave foránea que apunta a la participación donde se apostó"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="gmdl_tipo_objeto" COMMENT="Catálogos de los tipos de objetos disponibles para la personalización">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="nombre" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="Tipo objeto" SEQUENCE="false" COMMENT="Nombre de la categotía de objetos en cuanto a los tipos de objetos que son"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="gmdl_rareza_objeto" COMMENT="Rarezas de los objetos que se tienen">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="nombre" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="Raro" SEQUENCE="false" COMMENT="Nombre que recibe la rareza, que se le presenta al usuario"/>
+        <FIELD NAME="costo_adquisicion" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1000" SEQUENCE="false" COMMENT="El costo en monedas de plata que cuesta obtener un objeto de dicha rareza"/>
+        <FIELD NAME="posibilidad_de_desbloqueo" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="30" SEQUENCE="false" COMMENT="Probabilidad que un objeto de esta rareza sea desbloqueado al dar un objeto"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="gmdl_objeto" COMMENT="Objetos de personalización disponibles">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="nombre" TYPE="char" LENGTH="50" NOTNULL="true" DEFAULT="Un objeto" SEQUENCE="false" COMMENT="Nombre del objeto que se le mostrará al usuario"/>
+        <FIELD NAME="valor" TYPE="text" NOTNULL="true" SEQUENCE="false" COMMENT="Valor que puede significar varios valores dependiendo su tipo. Nombre clase si es un stilo y nombre de ubicación del archivo si es una imagen"/>
+        <FIELD NAME="gmdl_tipo_objeto_id" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Tipo de objeto"/>
+        <FIELD NAME="gmdl_rareza_objeto_id" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="1" SEQUENCE="false" COMMENT="Rareza del objeto"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="gmdl_tipo_objeto_id" TYPE="foreign" FIELDS="gmdl_tipo_objeto_id" REFTABLE="gmdl_tipo_objeto" REFFIELDS="id" COMMENT="Llave foránea que apunta a la tabla de tipo objeto"/>
+        <KEY NAME="gmdl_rareza_objeto_id" TYPE="foreign" FIELDS="gmdl_rareza_objeto_id" REFTABLE="gmdl_rareza_objeto" REFFIELDS="id" COMMENT="Llave foránea que apunta a la rareza de objeto"/>
+      </KEYS>
+    </TABLE>
+    <TABLE NAME="gmdl_objeto_desbloqueado" COMMENT="Objeto ya adqurido por el usuario">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="gmdl_objeto_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Objeto que fue adquirido"/>
+        <FIELD NAME="gmdl_usuario_id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Usuario que adquirió el objeto"/>
+        <FIELD NAME="elegido" TYPE="int" LENGTH="1" NOTNULL="true" DEFAULT="0" SEQUENCE="false" COMMENT="Número entero que refleja que este elemento está selccionado para la muestra en las pantallas"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="gmdl_usuario_id" TYPE="foreign" FIELDS="gmdl_usuario_id" REFTABLE="gmdl_usuario" REFFIELDS="id" COMMENT="Llave foránea que apunta a la tabla Usuario"/>
+        <KEY NAME="gmdl_objeto_id" TYPE="foreign" FIELDS="gmdl_objeto_id" REFTABLE="gmdl_objeto" REFFIELDS="id" COMMENT="Objeto que fue desbloqueado"/>
       </KEYS>
     </TABLE>
   </TABLES>

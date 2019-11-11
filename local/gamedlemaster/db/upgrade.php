@@ -90,6 +90,10 @@ function xmldb_local_gamedlemaster_upgrade($oldversion)
             {
                 upgrades2019111000();
             }
+        else if ($oldversion < 2019111001)
+            {
+                upgrades2019111001();
+            }
 		return true;
 	}
 
@@ -1126,4 +1130,83 @@ function upgrades2019111000()
 
          // Gamedlemaster savepoint reached.
          upgrade_plugin_savepoint(true, 2019111000, 'local', 'gamedlemaster');
+    }
+function upgrades2019111001()
+    {
+        global $DB;
+        $dbman = $DB->get_manager();
+        // Define table gmdl_tipo_objeto to be created.
+        $table = new xmldb_table('gmdl_tipo_objeto');
+
+        // Adding fields to table gmdl_tipo_objeto.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('nombre', XMLDB_TYPE_CHAR, '50', null, XMLDB_NOTNULL, null, 'Tipo objeto');
+
+        // Adding keys to table gmdl_tipo_objeto.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+
+        // Conditionally launch create table for gmdl_tipo_objeto.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Define table gmdl_rareza_objeto to be created.
+        $table = new xmldb_table('gmdl_rareza_objeto');
+
+        // Adding fields to table gmdl_rareza_objeto.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('nombre', XMLDB_TYPE_CHAR, '50', null, XMLDB_NOTNULL, null, 'Raro');
+        $table->add_field('costo_adquisicion', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '1000');
+        $table->add_field('posibilidad_de_desbloqueo', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '30');
+
+        // Adding keys to table gmdl_rareza_objeto.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+
+        // Conditionally launch create table for gmdl_rareza_objeto.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+
+        // Define table gmdl_objeto to be created.
+        $table = new xmldb_table('gmdl_objeto');
+
+        // Adding fields to table gmdl_objeto.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('nombre', XMLDB_TYPE_CHAR, '50', null, XMLDB_NOTNULL, null, 'Un objeto');
+        $table->add_field('valor', XMLDB_TYPE_TEXT, null, null, XMLDB_NOTNULL, null, null);
+        $table->add_field('gmdl_tipo_objeto_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '1');
+        $table->add_field('gmdl_rareza_objeto_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '1');
+
+        // Adding keys to table gmdl_objeto.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_key('gmdl_tipo_objeto_id', XMLDB_KEY_FOREIGN, array('gmdl_tipo_objeto_id'), 'gmdl_tipo_objeto', array('id'));
+        $table->add_key('gmdl_rareza_objeto_id', XMLDB_KEY_FOREIGN, array('gmdl_rareza_objeto_id'), 'gmdl_rareza_objeto', array('id'));
+
+        // Conditionally launch create table for gmdl_objeto.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Define table gmdl_objeto_desbloqueado to be created.
+        $table = new xmldb_table('gmdl_objeto_desbloqueado');
+
+        // Adding fields to table gmdl_objeto_desbloqueado.
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('gmdl_objeto_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('gmdl_usuario_id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $table->add_field('elegido', XMLDB_TYPE_INTEGER, '1', null, XMLDB_NOTNULL, null, '0');
+
+        // Adding keys to table gmdl_objeto_desbloqueado.
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $table->add_key('gmdl_usuario_id', XMLDB_KEY_FOREIGN, array('gmdl_usuario_id'), 'gmdl_usuario', array('id'));
+        $table->add_key('gmdl_objeto_id', XMLDB_KEY_FOREIGN, array('gmdl_objeto_id'), 'gmdl_objeto', array('id'));
+
+        // Conditionally launch create table for gmdl_objeto_desbloqueado.
+        if (!$dbman->table_exists($table)) {
+            $dbman->create_table($table);
+        }
+
+        // Gamedlemaster savepoint reached.
+        upgrade_plugin_savepoint(true, 2019111001, 'local', 'gamedlemaster');
     }
