@@ -28,6 +28,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['completionpregdiarenabled'] = 'El estudiante debe de contestar todas las preguntas diarias';
+$string['completionpregdiargroup'] = 'Total de preguntas';
+$string['completionpregdiargroup_help'] = 'Si se activa, se requiere que el estudiante conteste todas las preguntas diarias para que sea completada la actividad, advertencia: si se agregan nuevas preguntas al banco de preguntas seleccionado no se descompletará la actividad';
 $string['achievedhighscoreof'] = 'Achieved a high score of {$a}';
 $string['attempt'] = 'Attempt #{$a}';
 $string['completionscore'] = 'Student must achieve a minimum score of:';
@@ -49,18 +52,20 @@ $string['howtoplay_help'] = 'You can move the ship by using the arrow keys, or b
 Press the spacebar or click the mouse button to shoot, or tap with two fingers anywhere on the game.
 
 Clear as many questions as possible by shooting the correct answer.  Good Luck!';
-$string['modulename_help'] = 'Students procastinating too much? Are they playing games instead of studying? Well now you can motivate them by allowing them to do both at once!
+$string['modulename_help'] = 'Esta actividad ayuda a los estudiantes a mejorar constantemente su conocimiento al desafiarlos a contestar la pregunta del día.
 
-gmpregdiarias is an activity module that loads quiz questions from the course it\'s added to. The possible answers come down as space ships and you have to shoot the correct one.
+Esta pregunta es elegida aleatoriamente del banco de preguntas seleccionado al crear la actividad.
 
-**Note**: gmpregdiarias is designed to promote learning rather than for assessment. Students will have infinite attempts with instant feedback. For this reason, only add questions you want students to learn the answer to, rather than questions you want to assess if they have learned';
+Esta actividad se puede completar automaticamente cuando el estudiante termina de contestar todas las preguntas del banco de preguntas seleccionado, es necesario activar que se complete automaticamente al agregar la actividad.
+
+Al contestar la pregunta diaria correctamente se le otorga al estudiante experiencia y monedas.';
 $string['modulenameplural'] = 'gmpregdiarias games';
-$string['modulename'] = 'gmpregdiarias';
+$string['modulename'] = 'Gamedle - Preguntas diarias';
 $string['notyetplayed'] = 'Not yet played';
 $string['achievedhighscoreof'] = 'Achieved a high score of {$a}';
 $string['playedxtimeswithhighscore'] = 'Played {$a->times} times. The last game ended with a high score of {$a->score}';
 $string['pluginadministration'] = 'gmpregdiarias administration';
-$string['pluginname'] = 'gmpregdiarias';
+$string['pluginname'] = 'Preguntas diarias';
 $string['playerscores'] = 'Player scores';
 $string['privacy:metadata:gmpregdiarias_scores'] = 'Information about the user\'s chosen answer(s) for a given choice activity';
 $string['privacy:metadata:gmpregdiarias_scores:gmpregdiariasid'] = 'The ID of the gmpregdiarias activity the user is providing answer for';
@@ -68,11 +73,8 @@ $string['privacy:metadata:gmpregdiarias_scores:score'] = 'The score of the user 
 $string['privacy:metadata:gmpregdiarias_scores:timecreated'] = 'The timestamp indicating when the gmpregdiarias was played by the user';
 $string['privacy:metadata:gmpregdiarias_scores:userid'] = 'The ID of the user playing this gmpregdiarias activity';
 $string['questioncategory'] = 'Question category';
-$string['questioncategory_help'] = 'Select the category from the question bank to use in the game.
-
-Note that you should only select questions that are not critical to assessment later on. The quiz game is similar to creating a quiz with infinite attempts and instant feedback on whether you got something right or wrong.
-
-**Note**: gmpregdiarias is designed to promote learning rather than for assessment. Students will have infinite attempts with instant feedback. For this reason, only add questions you want students to learn the answer to, rather than questions you want to assess if they have learned';
+$string['questioncategory_help'] = 'Selecciona el banco de preguntas que quieres utilizar para las preguntas diarias
+ADVERTENCIA al banco de preguntas seleccionado no se le deben de agregar o quitar preguntas puesto que no es posible validar el buen comportamiendo de la actividad si esto llegara a suceder ';
 $string['gmpregdiariasfieldset'] = 'Custom example fieldset';
 $string['gmpregdiariasname_help'] = 'What is the name of this gmpregdiarias?';
 $string['gmpregdiariasname'] = 'gmpregdiarias name';

@@ -70,7 +70,7 @@ class mod_gmpregdiarias_mod_form extends moodleform_mod {
         $categories = question_category_options(array($context), false, 0);
 
         $mform->addElement('selectgroups', 'mdl_question_categories_id', get_string('questioncategory', 'gmpregdiarias'), $categories);
-
+        $mform->addHelpButton('mdl_question_categories_id', 'questioncategory', 'gmpregdiarias');
         // Add standard elements, common to all modules.
         $this->standard_coursemodule_elements();
         // Add standard buttons, common to all modules.
@@ -84,15 +84,12 @@ class mod_gmpregdiarias_mod_form extends moodleform_mod {
     public function add_completion_rules() {
         $mform =& $this->_form;
         $group = array();
-        $group[] =& $mform->createElement('checkbox', 'completionscoreenabled', '',
-                get_string('completionscore', 'gmpregdiarias'));
-        $group[] =& $mform->createElement('text', 'completionscore', '', array('size' => 3));
-        $mform->setType('completionscore', PARAM_INT);
-        $mform->addGroup($group, 'completionscoregroup',
-                get_string('completionscoregroup', 'gmpregdiarias'), array(' '), false);
-        $mform->disabledIf('completionscore', 'completionscoreenabled', 'notchecked');
-        $mform->addHelpButton('completionscoregroup', 'completionscoregroup', 'gmpregdiarias');
-        return array('completionscoregroup');
+        $group[] =& $mform->createElement('checkbox', 'completionpregdiarenabled', '',
+            get_string('completionpregdiarenabled', 'gmpregdiarias'));
+        $mform->addGroup($group, 'completionpregdiargroup',
+            get_string('completionpregdiargroup', 'gmpregdiarias'), array(' '), false);
+        $mform->addHelpButton('completionpregdiargroup', 'completionpregdiargroup', 'gmpregdiarias');
+        return array('completionpregdiargroup');
     }
 
     /**
@@ -101,45 +98,7 @@ class mod_gmpregdiarias_mod_form extends moodleform_mod {
      * @return bool
      */
     public function completion_rule_enabled($data) {
-        return (!empty($data['completionscoreenabled']) && $data['completionscore'] != 0);
+        return (!empty($data['completionpregdiarenabled']) );
     }
 
-    /**
-     * Loads custom completion data.
-     * @return boolean
-     */
-    public function get_data() {
-        $data = parent::get_data();
-        if (!$data) {
-            return false;
-        }
-        if (!empty($data->completionunlocked)) {
-            // Turn off completion settings if the checkboxes aren't ticked.
-            $autocompletion = !empty($data->completion) && $data->completion == COMPLETION_TRACKING_AUTOMATIC;
-            if (empty($data->completionscoreenabled) || !$autocompletion) {
-                $data->completionscore = 0;
-            }
-        }
-        return $data;
-    }
-
-    /**
-     * Used to pre-populate mform.
-     * @param array $defaultvalues
-     */
-    public function data_preprocessing(&$defaultvalues) {
-        parent::data_preprocessing($defaultvalues);
-
-        // Set up the completion checkboxes which aren't part of standard data.
-        // We also make the default value (if you turn on the checkbox) for those
-        // numbers to be 1, this will not apply unless checkbox is ticked.
-        if (!empty($defaultvalues['completionscore'])) {
-            $defaultvalues['completionscoreenabled'] = 1;
-        } else {
-            $defaultvalues['completionscoreenabled'] = 0;
-        }
-        if (empty($defaultvalues['completionscore'])) {
-            $defaultvalues['completionscore'] = 10000;
-        }
-    }
 }

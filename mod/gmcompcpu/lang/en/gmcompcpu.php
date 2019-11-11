@@ -52,18 +52,19 @@ $string['howtoplay_help'] = 'You can move the ship by using the arrow keys, or b
 Press the spacebar or click the mouse button to shoot, or tap with two fingers anywhere on the game.
 
 Clear as many questions as possible by shooting the correct answer.  Good Luck!';
-$string['modulename_help'] = 'Students procastinating too much? Are they playing games instead of studying? Well now you can motivate them by allowing them to do both at once!
+$string['modulename_help'] = 'Este módulo es una competencia entre un estudiante y la computadora, se puede elegir entre 4 niveles de dificultad.
 
-gmcompcpu is an activity module that loads quiz questions from the course it\'s added to. The possible answers come down as space ships and you have to shoot the correct one.
+Se debe de seleccionar un banco de preguntas al agregar la competencia y ese banco se utilizará para competir, también tiene la capacidad
+de completarse automaticamente al seleccionar un minimo requerido de dificultad de la computadora al vencer.
 
-**Note**: gmcompcpu is designed to promote learning rather than for assessment. Students will have infinite attempts with instant feedback. For this reason, only add questions you want students to learn the answer to, rather than questions you want to assess if they have learned';
+Al vencer a una computadora y obtener un puntaje maximo nuevo se le otorga al estudiante experiencia y monedas para que pueda subir de nivel en su perfil gamificado y así ganar más premios';
 $string['modulenameplural'] = 'gmcompcpu games';
-$string['modulename'] = 'gmcompcpu';
+$string['modulename'] = 'Gamedle - Competencia 1vsCPU';
 $string['notyetplayed'] = 'Not yet played';
 $string['achievedhighscoreof'] = 'Achieved a high score of {$a}';
 $string['playedxtimeswithhighscore'] = 'Played {$a->times} times. The last game ended with a high score of {$a->score}';
 $string['pluginadministration'] = 'gmcompcpu administration';
-$string['pluginname'] = 'gmcompcpu';
+$string['pluginname'] = 'Competencia 1 vs CPU';
 $string['playerscores'] = 'Player scores';
 $string['privacy:metadata:gmcompcpu_scores'] = 'Information about the user\'s chosen answer(s) for a given choice activity';
 $string['privacy:metadata:gmcompcpu_scores:gmcompcpuid'] = 'The ID of the gmcompcpu activity the user is providing answer for';

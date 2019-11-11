@@ -52,6 +52,13 @@ $DB->update_record('gmdl_intento_diario',$values);
 
 if($userScore > 5 ){
 
+    $moodleuserid = $DB->get_record('gmdl_usuario',array('id' => $gmuserid));
+
+    $completion = new completion_info($course);
+    if($completion->is_enabled($cm) ) {
+        $completion->update_state($cm,COMPLETION_COMPLETE,$moodleuserid->mdl_id_usuario);
+    }
+
     $event = \local_gamedlemaster\event\gmpregdiarias_pregCorrecta::create(array(
         'objectid' => $gmpregdiarias->id,
         'context' => $context,
