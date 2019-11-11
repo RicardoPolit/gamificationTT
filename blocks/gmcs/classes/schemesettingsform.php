@@ -14,7 +14,7 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
     const SILVER_TO_GOLD = block_gmcs_core::SILVER_TO_GOLD;
     const DEFEAT_SYSTEM  = block_gmcs_core::DEFEAT_SYSTEM;
     const DEFEAT_USER    = block_gmcs_core::DEFEAT_USER;
-    const DEFEAT_USER    = block_gmcs_core::ANSWER_QUESTION;
+    const ANSWER_QUESTION    = block_gmcs_core::ANSWER_QUESTION;
 
     const CURRENCY_MAX_REGEX_LENGTH = 10;
     const CURRENCY_REGEX = '/^[1-9][0-9]*$/';
