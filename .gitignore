@@ -98,6 +98,8 @@ webservice/
 !blocks/gmcs/**
 !blocks/gmlb
 !blocks/gmlb/**
+!blocks/gmcz
+!blocks/gmcz/**
 !local/gamedlemaster
 !local/gamedlemaster/**/*
 !local/gmtienda
