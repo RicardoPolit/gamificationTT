@@ -359,8 +359,7 @@ class local_gmtienda_renderer extends plugin_renderer_base {
             $sql.= " JOIN {gmdl_rareza_objeto}";
             $sql.= " ON {gmdl_rareza_objeto}.id = {gmdl_objeto}.gmdl_rareza_objeto_id";
             $sql.= " LEFT JOIN {gmdl_objeto_desbloqueado}";
-            $sql.= " ON {gmdl_objeto}.id = {gmdl_objeto_desbloqueado}.gmdl_objeto_id";
-            $sql.= " WHERE gmdl_usuario_id = $usuario";
+            $sql.= " ON {gmdl_objeto}.id = {gmdl_objeto_desbloqueado}.gmdl_objeto_id AND gmdl_usuario_id = $usuario ";
             $sql.= " ORDER BY 2, 1, 6 DESC";
             return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
         }
