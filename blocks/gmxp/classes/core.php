@@ -47,5 +47,8 @@ class block_gmxp_core {
     const PATH_SETTINGS_EVENTS = "/blocks/gmxp/settings/events_settings.php";
     const COMPETENCE = 'competence';
     const COMPETENCEXP = 'competenceXP';
+
+    // VALUES FOR MOODLE PROFILE PAGE
+    const PERFIL_EXPERIENCE = 'xp_node';
 }
 ?>
