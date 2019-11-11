@@ -14,6 +14,7 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
     const SILVER_TO_GOLD = block_gmcs_core::SILVER_TO_GOLD;
     const DEFEAT_SYSTEM  = block_gmcs_core::DEFEAT_SYSTEM;
     const DEFEAT_USER    = block_gmcs_core::DEFEAT_USER;
+    const DEFEAT_USER    = block_gmcs_core::ANSWER_QUESTION;
 
     const CURRENCY_MAX_REGEX_LENGTH = 10;
     const CURRENCY_REGEX = '/^[1-9][0-9]*$/';
@@ -55,6 +56,12 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
             'size' => self::CURRENCY_MAX_REGEX_LENGTH,
             'maxlength' => self::CURRENCY_MAX_REGEX_LENGTH
         ));
+
+        $mform->addElement('text', self::ANSWER_QUESTION,
+            get_string('SCHEME_SETTING_TEXT_QUESTION', self::PLUGIN), array(
+            'size' => self::CURRENCY_MAX_REGEX_LENGTH,
+            'maxlength' => self::CURRENCY_MAX_REGEX_LENGTH
+        ));
     }
 
     private function create_help_messages() {
@@ -68,6 +75,9 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
 
         $mform->addHelpButton(self::DEFEAT_USER,
             'SCHEME_SETTING_HELP_WIN_USER', self::PLUGIN);
+
+        $mform->addHelpButton(self::ANSWER_QUESTION,
+            'SCHEME_SETTING_HELP_QUESTION', self::PLUGIN);
     }
 
     private function create_form_restrictions() {
@@ -90,6 +100,12 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
         $mform->addRule($key, get_string('required'), 'required', null, 'client');
         $mform->addRule($key, get_string('currency', self::PLUGIN),
             'regex', self::CURRENCY_REGEX, 'client');
+
+        $key = self::ANSWER_QUESTION;
+        $mform->setType($key, PARAM_TEXT);
+        $mform->addRule($key, get_string('required'), 'required', null, 'client');
+        $mform->addRule($key, get_string('currency', self::PLUGIN),
+            'regex', self::CURRENCY_REGEX, 'client');
     }
 
     private function set_default_values() {
@@ -102,6 +118,9 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
 
         $key = self::DEFEAT_USER;
+        $mform->setDefault($key, get_config(self::PLUGIN, $key));
+
+        $key = self::ANSWER_QUESTION;
         $mform->setDefault($key, get_config(self::PLUGIN, $key));
     }
 
@@ -132,6 +151,15 @@ class block_gmcs_schemesettingsform extends local_gamedlemaster_form {
         }
 
         $key = self::DEFEAT_USER;
+        if( !isset($data[$key]) || empty($data[$key]) ) {
+            $errors[$key] = get_string('required');
+
+        } else if (!preg_match( self::CURRENCY_REGEX, $data[$key]) ||
+          $data[$key] <= 0) {
+            $errors[$key] = get_string('currency', self::PLUGIN);
+        }
+
+        $key = self::ANSWER_QUESTION;
         if( !isset($data[$key]) || empty($data[$key]) ) {
             $errors[$key] = get_string('required');
 

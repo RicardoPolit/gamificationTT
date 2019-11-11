@@ -24,6 +24,9 @@
         set_config(block_gmcs_core::DEFEAT_USER,
             get_string('SCHEME_SETTING_DEFAULT_WIN_USER', $PLUGIN), $PLUGIN);
 
+        set_config(block_gmcs_core::ANSWER_QUESTION,
+            get_string('SCHEME_SETTING_DEFAULT_QUESTION', $PLUGIN), $PLUGIN);
+
         local_gamedlemaster_log::success(
             'established default scheme settings', 'GMCS');
     }

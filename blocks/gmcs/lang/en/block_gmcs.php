@@ -48,9 +48,17 @@ $string['SCHEME_SETTING_HELP_WIN_SYSTEM'] =
 $string['SCHEME_SETTING_HELP_WIN_SYSTEM_help'] =
     "Specify amount of silver coins given when user wins agains system";
 
+$string['SCHEME_SETTING_TEXT_QUESTION'] = "Reward for answer daily question";
+$string['SCHEME_SETTING_HELP_QUESTION'] =
+    "the {$string['SCHEME_SETTING_TEXT_QUESTION']}";
+$string['SCHEME_SETTING_HELP_QUESTION_help'] =
+    "Specify amount of silver coins given when user answers correctly 
+    a daily question";
+
 $string['SCHEME_SETTING_DEFAULT_SILVER'] = "1000";
 $string['SCHEME_SETTING_DEFAULT_WIN_SYSTEM'] = "1000";
 $string['SCHEME_SETTING_DEFAULT_WIN_USER'] = "1000";
+$string['SCHEME_SETTING_DEFAULT_QUESTION'] = "1000";
 
 // === FORM|SETTINGS ERRORS ==========================================
 $string['SETTINGS_CURRENCY_DISABLED_REDIRECT'] = "Enabled Module";

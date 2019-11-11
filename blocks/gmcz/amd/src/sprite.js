@@ -49,7 +49,6 @@ define(['jquery'], function($) {
       images[name] = new Image();
       images[name].onload = function() { 
           resourceLoaded();
-          console.log('loaded');
       }
       images[name].src = src;
     }
@@ -171,13 +170,6 @@ define(['jquery'], function($) {
                 image => loadImage(image.name, image.src)
             );
 
-            /*
-            loadImage("leftArm");
-            loadImage("legs");
-            loadImage("torso");
-            loadImage("rightArm");
-            loadImage("head");
-            loadImage("hair");*/
         }
     };
 

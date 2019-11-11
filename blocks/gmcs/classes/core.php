@@ -25,6 +25,7 @@ class block_gmcs_core {
     const SILVER_TO_GOLD = "silver_to_gold";
     const DEFEAT_SYSTEM = "victory_vs_system";
     const DEFEAT_USER = "victory_vs_user";
+    const ANSWER_QUESTION = "daily_question";
 
     /*
     const DEFAULT_GOLD = "default_gold";
