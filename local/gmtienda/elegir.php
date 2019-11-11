@@ -56,10 +56,10 @@ if( $usuariogamificado->mdl_id_usuario == $USER->id ){
             $sql .= " {gmdl_objeto_desbloqueado}.gmdl_usuario_id as userid";
             $sql .= " FROM (";
             $sql .= " SELECT {gmdl_objeto}.id as id";
-            $sql .= " FROM (SELECT {gmdl_objeto}.gmdl_rareza_objeto_id as id FROM {gmdl_objeto} WHERE {gmdl_objeto}.id = $objetoelegido) as rarezaid";
-            $sql .= " INNER JOIN {gmdl_objeto} ON rarezaid.id = {gmdl_objeto}.gmdl_rareza_objeto_id) as objetosdemismarareza";
+            $sql .= " FROM (SELECT {gmdl_objeto}.gmdl_tipo_objeto_id as id FROM {gmdl_objeto} WHERE {gmdl_objeto}.id = $objetoelegido) as tipoobjetoid";
+            $sql .= " INNER JOIN {gmdl_objeto} ON tipoobjetoid.id = {gmdl_objeto}.gmdl_tipo_objeto_id) as objetosdemismotipo";
             $sql .= " INNER JOIN {gmdl_objeto_desbloqueado}";
-            $sql .= " ON objetosdemismarareza.id = {gmdl_objeto_desbloqueado}.id";
+            $sql .= " ON objetosdemismotipo.id = {gmdl_objeto_desbloqueado}.id";
             $sql .= " ) as objetosfinal WHERE objetosfinal.elegido = 1 AND objetosfinal.userid = $gmuserid";
 
             if( $desbloqueado ) {
