@@ -223,32 +223,32 @@
 			
 			$data->nombre = 'Normal';
 			$data->valor = 'gmtienda-objeto-tipo-borde-normal';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 2;
 			$data->gmdl_rareza_objeto_id = 1;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Entrecortado';
 			$data->valor = 'gmtienda-objeto-tipo-borde-entrecortado';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 2;
 			$data->gmdl_rareza_objeto_id = 1;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 
 			$data->nombre = 'Punteado';
 			$data->valor = 'gmtienda-objeto-tipo-borde-punteado';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 2;
 			$data->gmdl_rareza_objeto_id = 2;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Doble';
 			$data->valor = 'gmtienda-objeto-tipo-borde-doble';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 2;
 			$data->gmdl_rareza_objeto_id = 3;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Relieve';
 			$data->valor = 'gmtienda-objeto-tipo-borde-relieve';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 2;
 			$data->gmdl_rareza_objeto_id = 4;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
@@ -261,43 +261,43 @@
 			
 			$data->nombre = 'Rojo';
 			$data->valor = 'gmtienda-objeto-color-borde-rojo';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 3;
 			$data->gmdl_rareza_objeto_id = 1;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Azul';
 			$data->valor = 'gmtienda-objeto-color-borde-azul';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 3;
 			$data->gmdl_rareza_objeto_id = 1;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Amarillo';
 			$data->valor = 'gmtienda-objeto-color-borde-amarillo';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 3;
 			$data->gmdl_rareza_objeto_id = 1;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Naranja';
 			$data->valor = 'gmtienda-objeto-color-borde-naranja';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 3;
 			$data->gmdl_rareza_objeto_id = 2;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Verde';
 			$data->valor = 'gmtienda-objeto-color-borde-verde';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 3;
 			$data->gmdl_rareza_objeto_id = 2;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Plateado';
 			$data->valor = 'gmtienda-objeto-color-borde-plateado';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 3;
 			$data->gmdl_rareza_objeto_id = 3;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 
 			$data->nombre = 'Dorado';
 			$data->valor = 'gmtienda-objeto-color-borde-dorado';
-			$data->gmdl_tipo_objeto_id = 1;
+			$data->gmdl_tipo_objeto_id = 3;
 			$data->gmdl_rareza_objeto_id = 4;
 	        $DB->insert_record('gmdl_objeto', $data, $returnid=true, $bulk=false);
 

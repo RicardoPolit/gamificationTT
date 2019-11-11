@@ -276,21 +276,24 @@
 }
 
 
-#gmtienda-boton-limpiar, #gmtienda-boton-guardar, #gmtienda-boton-cancelar{
+#gmtienda-boton-limpiar, .gmtienda-container-boton-guardar, #gmtienda-boton-cancelar{
     color: white;
     padding: 1%;
     width: 40%;
     cursor: pointer;
 }
 
-#gmtienda-boton-limpiar{
-    background-color: #0981bd;
-}
+
 #gmtienda-boton-guardar{
+    width: 100%;
     background-color: green;
 }
 #gmtienda-boton-cancelar{
     background-color: darkred;
+}
+
+#gmtienda-boton-limpiar{
+    background-color: #0981bd;
 }
 
 #gmtienda-table-scores{
