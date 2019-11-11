@@ -23,14 +23,39 @@ class block_gmcz extends block_base {
 	}
 
 	public function get_content() {
-		
+
 	    global $PAGE;
-	    $obj = array("inicio"=>0,"final"=>53);
-	    $PAGE->requires->js_call_amd('block_gmcz/sprite', 'init',array($obj,120));
-	    return "HOLA MUNDO";
+
+        if ($this->content !== null) {
+            return $this->content;
+        }
+
+        $this->content = new stdClass;
+        $this->content->text = html_writer::empty_tag( 'div',
+            array('id'=>'canvasDiv')
+        );
+        $this->content->footer = "";
+        $avatar = self::get_avatar('default');
+
+	    $PAGE->requires->js_call_amd('block_gmcz/sprite', 'init',array($avatar));
+	    return $this->content;
 	}
 
     function has_config() { return true; }
     function hide_header() { return false; }
 
+    static function get_avatar($avatar) {
+
+        global $CFG;
+        $path = "{$CFG->wwwroot}/blocks/gmcz/pix/{$avatar}";
+
+        return array(
+            array('name' => 'hair', 'src' => "$path/hair.png"),
+            array('name' => 'head', 'src' => "$path/head.png"),
+            array('name' => 'torso', 'src' => "$path/torso.png"),
+            array('name' => 'rightArm', 'src' => "$path/rightArm.png"),
+            array('name' => 'leftArm', 'src' => "$path/leftArm.png"),
+            array('name' => 'legs', 'src' => "$path/legs.png"),
+        );
+    }
 }
