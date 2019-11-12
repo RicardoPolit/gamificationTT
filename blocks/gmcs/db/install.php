@@ -27,6 +27,15 @@
         set_config(block_gmcs_core::ANSWER_QUESTION,
             get_string('SCHEME_SETTING_DEFAULT_QUESTION', $PLUGIN), $PLUGIN);
 
+        set_config(block_gmcs_core::DEFEAT_SYSTEM_ENABLED,
+            get_string('SCHEME_SETTING_DEFAULT_WIN_SYSTEM_ENABLED', $PLUGIN), $PLUGIN);
+
+        set_config(block_gmcs_core::DEFEAT_USER_ENABLED,
+            get_string('SCHEME_SETTING_DEFAULT_WIN_USER_ENABLED', $PLUGIN), $PLUGIN);
+
+        set_config(block_gmcs_core::ANSWER_QUESTION_ENABLED,
+            get_string('SCHEME_SETTING_DEFAULT_QUESTION_ENABLED', $PLUGIN), $PLUGIN);
+
         local_gamedlemaster_log::success(
             'established default scheme settings', 'GMCS');
     }
@@ -34,7 +43,7 @@
     /**
      * Function that is called by moodle when right after the
      * installation of this plugin.
-     */ 
+     */
     function xmldb_block_gmcs_install() {
 
         $PLUGIN = 'block_gmcs';

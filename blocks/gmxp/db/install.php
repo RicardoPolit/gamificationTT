@@ -9,14 +9,14 @@
  *
  * PRACTICE _:  TITULO DE LA PRACTICA
  *               - DESCRIPCION
- *		
+ *
 */
 
     /**
      * Set the default visual settings
      */
     function set_default_visual_settings($PLUGIN) {
-        
+
         local_gamedlemaster_log::info(
             "Setting the default values for visual settings", "GMXP");
 
@@ -60,16 +60,28 @@
         local_gamedlemaster_log::info(
             "Setting the default values for scheme settings", "GMXP");
 
-        set_config(block_gmxp_core::COMPETENCE,
-            get_string('EVENTS_SETTING_DEFAULT_COMP', $PLUGIN), $PLUGIN);
+        set_config(block_gmxp_core::COMPETENCECPU,
+            get_string('EVENTS_SETTING_DEFAULT_COMPCPU', $PLUGIN), $PLUGIN);
 
-        set_config(block_gmxp_core::COMPETENCEXP,
-            get_string('EVENTS_SETTING_DEFAULT_COMPXP', $PLUGIN), $PLUGIN);
+        set_config(block_gmxp_core::COMPETENCECPUXP,
+            get_string('EVENTS_SETTING_DEFAULT_COMPCPUXP', $PLUGIN), $PLUGIN);
+
+        set_config(block_gmxp_core::COMPETENCEVS,
+            get_string('EVENTS_SETTING_DEFAULT_COMPVS', $PLUGIN), $PLUGIN);
+
+        set_config(block_gmxp_core::COMPETENCEVSXP,
+            get_string('EVENTS_SETTING_DEFAULT_COMPVSXP', $PLUGIN), $PLUGIN);
+
+        set_config(block_gmxp_core::PREGUNTADIARIA,
+            get_string('EVENTS_SETTING_DEFAULT_PREGDIARIA', $PLUGIN), $PLUGIN);
+
+        set_config(block_gmxp_core::PREGUNTADIARIAXP,
+            get_string('EVENTS_SETTING_DEFAULT_PREGDIARIAXP', $PLUGIN), $PLUGIN);
     }
 
     /**
      * Function that is called when installing
-     */ 
+     */
     function xmldb_block_gmxp_install() {
 
         $PLUGIN = 'block_gmxp';

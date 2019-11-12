@@ -7,7 +7,7 @@ require_once($CFG->dirroot . '/mod/gmpregdiarias/classes/cpumind.php');
 
 $id  = optional_param('id', "", PARAM_INT);  // Is the param action.
 $cm  = optional_param('cm', "", PARAM_INT);  // Is the param action.
-$gmuserid = optional_param('gmuserid', "", PARAM_INT);  // Is the param action.
+$gmuserid = optional_param('gmuserid', 0, PARAM_INT);  // Is the param action.
 $intentoid = optional_param('intentoid', "", PARAM_INT);  // Is the param action.
 $idredirect  = optional_param('idredirect', "", PARAM_INT);  // Is the param action.
 
@@ -62,7 +62,7 @@ if($userScore > 5 ){
     $event = \local_gamedlemaster\event\gmpregdiarias_pregCorrecta::create(array(
         'objectid' => $gmpregdiarias->id,
         'context' => $context,
-        'other' => array('userid' => $userid),
+        'other' => array('userid' => $gmuserid),
     ));
 
     $event->add_record_snapshot('gmpregdiarias', $gmpregdiarias);

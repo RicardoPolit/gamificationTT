@@ -5,8 +5,6 @@ require_once($CFG->dirroot . '/question/engine/lib.php');
 require_once($CFG->dirroot . '/mod/gmcompcpu/classes/cpumind.php');
 require_once($CFG->dirroot.'/lib/completionlib.php');
 
-$fechafin = date('Y-m-d H:i:s');
-
 $id  = optional_param('id', "", PARAM_INT);  // Is the param action.
 $cm  = optional_param('cm', "", PARAM_INT);  // Is the param action.
 $userid = optional_param('userid', "", PARAM_INT);  // Is the param action.
@@ -86,16 +84,6 @@ echo '<br>';*/
 
 $cpuScore = calculateScoreCpu( $questionswithAnswers );
 
-$values = (object)[
-    'puntuacion_cpu' => $cpuScore,
-    'puntuacion_usuario' => $userScore,
-    'fecha_fin' => time()
-];
-
-$values->id = $intentoid;
-
-$DB->update_record('gmdl_intento',$values);
-
 $gmcompcpu  = $DB->get_record('gmcompcpu', array('id' => $cm), '*', MUST_EXIST);
 $course     = $DB->get_record('course', array('id' => $gmcompcpu->course), '*', MUST_EXIST);
 $cm         = get_coursemodule_from_instance('gmcompcpu', $gmcompcpu->id, $course->id, false, MUST_EXIST);
@@ -133,20 +121,38 @@ echo $OUTPUT->footer();
 
 $maxScore = 0;
 
-$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id),'MAX(puntuacion_usuario) as puntos')->puntos;
+$maxScore = $DB->get_record('gmdl_intento',array('gmdl_dificultad_cpu_id' => $intento->gmdl_dificultad_cpu_id, 'gmdl_usuario_id' => $intento->gmdl_usuario_id, 'gmdlcompcpu_id' => $gmcompcpu->id),'MAX(puntuacion_usuario) as puntos')->puntos;
 
-if($userScore > $maxScore && $userScore >= $cpuScore){
+$where = ' gmdlcompcpu_id = :gmcompcpuid AND gmdl_dificultad_cpu_id = :cpudificultad AND gmdl_usuario_id = :gmuserid AND puntuacion_usuario >= puntuacion_cpu';
+$params = array(
+    'gmcompcpuid' => $gmcompcpu->id,
+    'gmuserid' =>  $intento->gmdl_usuario_id,
+    'cpudificultad' => $intento->gmdl_dificultad_cpu_id,
+);
+$defeatedcpu = $DB->count_records_select('gmdl_intento', $where, $params) == 0;
+
+if(($userScore > $maxScore || $defeatedcpu) && $userScore >= $cpuScore){
 
     $event = \local_gamedlemaster\event\gmcompcpu_compFinishedWon::create(array(
         'objectid' => $gmcompcpu->id,
         'context' => $context,
-        'other' => array('userid' => $userid, 'dificultad' => $intento->gmdl_dificultad_cpu_id),
+        'other' => array('userid' => $intento->gmdl_usuario_id, 'dificultad' => $intento->gmdl_dificultad_cpu_id),
     ));
 
     $event->add_record_snapshot('gmcompcpu', $gmcompcpu);
     $event->trigger();
 
 }
+
+$values = (object)[
+    'puntuacion_cpu' => $cpuScore,
+    'puntuacion_usuario' => $userScore,
+    'fecha_fin' => $timenow
+];
+
+$values->id = $intentoid;
+
+$DB->update_record('gmdl_intento',$values);
 
 /*$urltogo = new moodle_url('/mod/gmcompcpu/view.php', array('id' => $idredirect));
 
