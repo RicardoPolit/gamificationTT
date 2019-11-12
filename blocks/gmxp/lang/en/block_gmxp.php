@@ -2,7 +2,7 @@
 /*
  * UNIVERSITY:  INSTITUTO POLITECNICO NACIONAL (IPN)
  *              ESCUELA SUPERIOR DE COMPUTO (ESCOM)
- *   
+ *
  * TRABAJO TERMINAL: 2018-B029
  *   "GAMIFICACIÓN EN UNA PLATAFORMA WEB DE APRENDIZAJE"
  *
@@ -40,7 +40,7 @@ $string['SETTINGS_EVENTS']  = "Events Setting Up";
 
 // ==== GENERAL SETTINGS ====================================
 $string['SETTINGS_GENERAL_HEADER'] = "Choose the main features";
-$string['SETTINGS_GENERAL_HEADER_DESC'] = 
+$string['SETTINGS_GENERAL_HEADER_DESC'] =
     "You can prevent the events to give experience points and/or disable the 
     experience system";
 
@@ -52,13 +52,13 @@ $string['SETTINGS_GENERAL_ENABLED_DESC'] =
 $string['SETTINGS_GENERAL_EVENTS_ENABLED'] =
     "Enable the experience points in supported events";
 
-$string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] = 
+$string['SETTINGS_GENERAL_EVENTS_ENABLED_DESC'] =
     "Gives experience the default or established xp points for the list of events 
     supported";
 
 // ==== VISUAL SETTINGS =====================================
 $string['SETTINGS_VISUAL_HEADER'] = "Customize the levels looking";
-$string['SETTINGS_VISUAL_DESC'] = 
+$string['SETTINGS_VISUAL_DESC'] =
     "You can specify the title, description and congratulations message of levels. 
     In addition you can set the image and colors of levels.";
 
@@ -114,7 +114,7 @@ $string['VISUAL_SETTING_DEFAULT_IMAGE'] = "image.jpg";
 
 // ==== SCHEME SETTINGS =====================================
 $string['SETTINGS_SCHEME_HEADER'] = "Customize the experience points system";
-$string['SETTINGS_SCHEME_DESC'] = 
+$string['SETTINGS_SCHEME_DESC'] =
     "Control how does the required amount of experience points increases
     from level to level, set the experience points that the courses gives
     and specify the experience points given by the first level.";
@@ -129,26 +129,26 @@ $string['SCHEME_SETTING_HELP_INCREMENT_help'] =
 
 $string['SCHEME_SETTING_TEXT_LINEAL'] = "Lineal Increment";
 $string['SCHEME_SETTING_HELP_LINEAL'] = "the {$string['SCHEME_SETTING_TEXT_LINEAL']}";
-$string['SCHEME_SETTING_HELP_LINEAL_help'] = 
+$string['SCHEME_SETTING_HELP_LINEAL_help'] =
     "Indicates the lineal value in which the levels will increase. If level 'i' consists of
     'n' experience points and increment value is 'y', then the following level 'n+1' will consist
     on 'n+y' experience points";
 
 $string['SCHEME_SETTING_TEXT_PERCENTUAL'] = "Percentual Increment";
 $string['SCHEME_SETTING_HELP_PERCENTUAL'] = "the {$string['SCHEME_SETTING_TEXT_PERCENTUAL']}";
-$string['SCHEME_SETTING_HELP_PERCENTUAL_help'] = 
+$string['SCHEME_SETTING_HELP_PERCENTUAL_help'] =
     "Indicates the percentual value from 0.1 to 1.0 in which the levels increase. If the level 
     '1' consists of 'n' experience points and increment value is 'y', then the level 'i' 
     experience points will be determined by the following formula 'n*(1+y)^i'";
 
 $string['SCHEME_SETTING_TEXT_LEVELXP'] = "First Level Experience Points";
 $string['SCHEME_SETTING_HELP_LEVELXP'] = "the {$string['SCHEME_SETTING_TEXT_LEVELXP']}";
-$string['SCHEME_SETTING_HELP_LEVELXP_help'] = 
+$string['SCHEME_SETTING_HELP_LEVELXP_help'] =
     "Specify the experience points required to get through the first level";
 
 $string['SCHEME_SETTING_TEXT_COURSEXP'] = "Course Experience Points";
 $string['SCHEME_SETTING_HELP_COURSEXP'] = "the {$string['SCHEME_SETTING_TEXT_COURSEXP']}";
-$string['SCHEME_SETTING_HELP_COURSEXP_help'] = 
+$string['SCHEME_SETTING_HELP_COURSEXP_help'] =
     "Specify the experience points given each time a course is successfully concluded";
 
 $string['SCHEME_SETTING_WARNING_MESSAGE'] = "";
@@ -156,29 +156,65 @@ $string['SCHEME_SETTING_WARNING_MESSAGE'] = "";
 
 $string['SCHEME_SETTING_DEFAULT_INCREMENT'] = "1"; // 0:LINEAL 1:PERCENTUAL
 $string['SCHEME_SETTING_DEFAULT_VALUE'] = "1.3";
-$string['SCHEME_SETTING_DEFAULT_LEVELXP'] = "1000"; 
+$string['SCHEME_SETTING_DEFAULT_LEVELXP'] = "1000";
 $string['SCHEME_SETTING_DEFAULT_COURSEXP'] = "1500";
 
 // ==== EVENTS SETTINGS =====================================
 $string['SETTINGS_EVENTS_HEADER'] = "Set the experience that the events should give";
-$string['SETTINGS_EVENTS_DESC'] = 
+$string['SETTINGS_EVENTS_DESC'] =
     "From the following of supported events enable or disabled which events should 
     give experience points to the user and the quantity of points given";
 
-$string['EVENTS_SETTING_TEXT_COMP'] = "Competence Won Event";
-$string['EVENTS_SETTING_HELP_COMP'] = "the {$string['EVENTS_SETTING_TEXT_COMP']}";
-$string['EVENTS_SETTING_HELP_COMP_help'] =
-    "This events is triggered when a user wins a competence in the competence module 
-    of 'Gamedle Suite Components'";
-
-$string['EVENTS_SETTING_TEXT_XP_SUPPORT'] = "Give experience";
+$string['EVENTS_SETTING_TEXT_XP_SUPPORT'] = "Dar experiencia: ";
 $string['EVENTS_SETTING_TEXT_XP'] = "Experience given";
 $string['EVENTS_SETTING_HELP_XP'] = "the {$string['EVENTS_SETTING_TEXT_XP']}";
 $string['EVENTS_SETTING_HELP_XP_help'] =
     "Specify the experience give by this event";
 
-$string['EVENTS_SETTING_DEFAULT_COMP'] = "1"; // 0:FALSE 1:TRUE
-$string['EVENTS_SETTING_DEFAULT_COMPXP'] = "1000";
+$string['EVENTS_SETTING_TEXT_COMPCPU'] = "activar";
+$string['EVENTS_SETTING_HELP_COMPCPU'] = "the {$string['EVENTS_SETTING_TEXT_COMPCPU']}";
+$string['EVENTS_SETTING_HELP_COMPCPU_help'] =
+    "This events is triggered when a user wins a competence in the competence module 
+    of 'Gamedle Suite Components'";
+
+$string['EVENTS_SETTING_TEXT_COMPCPU_GROUP'] = "Competencia vs CPU ganar evento";
+$string['EVENTS_SETTING_HELP_COMPCPU_GROUP'] = "la {$string['EVENTS_SETTING_TEXT_COMPCPU_GROUP']}";
+$string['EVENTS_SETTING_HELP_COMPCPU_GROUP_help'] = "  {$string['EVENTS_SETTING_HELP_COMPCPU_help']}
+
+{$string['EVENTS_SETTING_HELP_XP_help']}";
+
+$string['EVENTS_SETTING_TEXT_COMPVS'] = "activar";
+$string['EVENTS_SETTING_HELP_COMPVS'] = "the {$string['EVENTS_SETTING_TEXT_COMPVS']}";
+$string['EVENTS_SETTING_HELP_COMPVS_help'] =
+    "This events is triggered when a user wins a competence in the competence module 
+    of 'Gamedle Suite Components'";
+
+$string['EVENTS_SETTING_TEXT_COMPVS_GROUP'] = "Competencia 1vs1 ganar evento";
+$string['EVENTS_SETTING_HELP_COMPVS_GROUP'] = "la {$string['EVENTS_SETTING_TEXT_COMPVS_GROUP']}";
+$string['EVENTS_SETTING_HELP_COMPVS_GROUP_help'] = "  {$string['EVENTS_SETTING_HELP_COMPVS_help']}
+
+{$string['EVENTS_SETTING_HELP_XP_help']}";
+
+$string['EVENTS_SETTING_TEXT_PREGDIARIA'] = "activar";
+$string['EVENTS_SETTING_HELP_PREGDIARIA'] = "the {$string['EVENTS_SETTING_TEXT_PREGDIARIA']}";
+$string['EVENTS_SETTING_HELP_PREGDIARIA_help'] =
+    "This events is triggered when a user wins a competence in the competence module 
+    of 'Gamedle Suite Components'";
+
+$string['EVENTS_SETTING_TEXT_PREGDIARIA_GROUP'] = "Pregunta diaria correcta evento";
+$string['EVENTS_SETTING_HELP_PREGDIARIA_GROUP'] = "la {$string['EVENTS_SETTING_TEXT_PREGDIARIA_GROUP']}";
+$string['EVENTS_SETTING_HELP_PREGDIARIA_GROUP_help'] = "  {$string['EVENTS_SETTING_HELP_PREGDIARIA_help']}
+
+{$string['EVENTS_SETTING_HELP_XP_help']}";
+
+$string['EVENTS_SETTING_DEFAULT_COMPCPU'] = "1"; // 0:FALSE 1:TRUE
+$string['EVENTS_SETTING_DEFAULT_COMPCPUXP'] = "1000";
+
+$string['EVENTS_SETTING_DEFAULT_COMPVS'] = "1"; // 0:FALSE 1:TRUE
+$string['EVENTS_SETTING_DEFAULT_COMPVSXP'] = "1000";
+
+$string['EVENTS_SETTING_DEFAULT_PREGDIARIA'] = "1"; // 0:FALSE 1:TRUE
+$string['EVENTS_SETTING_DEFAULT_PREGDIARIAXP'] = "1000";
 
 // ==== FORM MESSAGES =====================================
 $string['SETTINGS_EXPERIENCE_DISABLED_REDIRECT'] = "Enable module";
@@ -198,3 +234,15 @@ $string['integer'] = 'The value must be an integer greater than 0';
 $string['float'] =
     'The value must be a float between 1.0 and 2.0 of maximun 5 floating precision 
     points';
+
+// ===== NOTIFICATION MESSAGES =========================================
+$string['messageprovider:coinsgiven'] = 'Notificacion de experiencia recibida';
+
+$string['expgivensubject'] = '{$a->nombre} has recibido {$a->exp} experiencia!';
+$string['expgivenbody'] = 'Hola {$a->nombre}
+
+Recibiste experiencia por haber ganado la competencia {$a->typecomp}
+
+Cantidad de experiencia recibida: {$a->exp}';
+
+$string['expgivensmall'] = 'Recibiste {$a->exp} monedas!';

@@ -10,86 +10,6 @@ require_once($CFG->dirroot . '/local/gmtienda/accessmanager_form.php');
  */
 class local_gmtienda_renderer extends plugin_renderer_base {
 
-    public function render_main_page2($usuariogamificado){
-
-        $botones = array();
-
-        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-
-        $display .= html_writer::start_tag('div',array('class' => 'gmtienda-container'));
-            $display .= html_writer::start_tag('h2',array('class' => 'gmtienda-titulo'));
-                $display .= html_writer::start_tag('b');
-                    $display .= "Monedas disponibles: $usuariogamificado->monedas_plata";
-                $display .= html_writer::end_tag('b');
-            $display .= html_writer::end_tag('h2');
-        $display .= html_writer::end_tag('div');
-
-        $display .= html_writer::start_tag('div',array('class' => 'gmtienda-container'));
-        $display .= html_writer::start_tag('div',array('class' => 'gmtienda-half-container'));
-
-        $display .= html_writer::start_tag('form',
-            array('action' => new moodle_url('/local/gmtienda/comprar.php',
-                array('gmuserid' => $usuariogamificado->id)), 'method' => 'post',
-                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                'id' => 'responseform'));
-
-        $display .= '<input type="hidden" name="objetoid" value=1 />';
-
-        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Comprar', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-comprar", 'id' => "btn-comprar-1" , "style"=>"margin:auto; width: 25%;"));
-
-        $display .= html_writer::end_tag('form');
-
-
-        $display .= html_writer::end_tag('div');
-        $display .= html_writer::start_tag('div',array('class' => 'gmtienda-half-container'));
-
-        $display .= html_writer::start_tag('form',
-            array('action' => new moodle_url('/local/gmtienda/elegir.php',
-                array('gmuserid' => $usuariogamificado->id)), 'method' => 'post',
-                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                'id' => 'responseform'));
-
-        $objetoselegidos = array(
-            '1'
-        );
-        $objetoselegidosjson = json_encode($objetoselegidos);
-
-        $display .= "<input type='hidden' name='objetosjson' value=$objetoselegidosjson />";
-
-        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Elegir', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-primary-js btn-elegir", 'id' => "btn-elegir-2", "style"=>"margin:auto; width: 25%;"));
-
-        $display .= html_writer::end_tag('form');
-
-        $display .= html_writer::end_tag('div');
-        $display .= html_writer::end_tag('div');
-
-        /*
-         *
-         * Se comenta las siguientes lineas porque el popup todavia no funciona bien, solo muestra el ultimo popup sin importar que boton fue presionado,
-         * se le podria poner uno solo de confimacion?
-         *
-         * */
-
-        /*$botones[] = (object)[
-            'tipo' => 'comprar',
-            'objetoid' => 1
-        ];
-
-        $botones[] = (object)[
-            'tipo' => 'elegir',
-            'objetoid' => 2
-        ];
-
-
-        $display .= $this->render_allpopups($botones,$usuariogamificado->id);*/
-
-
-        return $display;
-
-    }
-
     public function render_choices_answer($objetoselegidos){
 
         $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
@@ -245,8 +165,8 @@ class local_gmtienda_renderer extends plugin_renderer_base {
                         $html.= html_writer::nonempty_tag('h1', 'Nueva visualización', array());
 
                         $html.= html_writer::start_tag('div', array("class"=>"gmtienda-container-muestra-card"));
-                            $html.= html_writer::empty_tag('img', array("src"=>"pix/default.png", "id"=> 'gmtienda-objeto-muestra', "class"=> 'gmtienda-objeto-imagen '));
-                            $html.= html_writer::nonempty_tag('p', 'Nombre: <br> Nombre_del_usuario', array("class"=>"gmcompvs-al-desafiar-nombre"));
+                            $html.= html_writer::empty_tag('img', array("src"=>$seleccionado[0]['valor'], "id"=> 'gmtienda-objeto-muestra', "class"=> 'gmtienda-objeto-imagen '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor'], 'data-id'=>$encoded));
+                            $html.= html_writer::nonempty_tag('p', 'Nombre: <br> '.$datosUsuario->firstname.' '.$datosUsuario->lastname, array("class"=>"gmcompvs-al-desafiar-nombre"));
                         $html.= html_writer::end_tag('div');
                         $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra'));
                             $html.= html_writer::nonempty_tag('button', 'Deshacer', array('id'=>'gmtienda-boton-limpiar'));

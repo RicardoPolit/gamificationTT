@@ -83,7 +83,17 @@ echo $OUTPUT->header();
 // Game here.
 #echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
 #echo $renderer->render_questions($gmcompcpu, $cm,$USER->id);
+
+/*$notify = new \core\output\notification('JALA ESTE PEDO',
+    \core\output\notification::NOTIFY_SUCCESS);
+
+echo $OUTPUT->render($notify);*/
+
 echo $renderer->render_main_page($gmcompcpu,$USER->id,$id);
+
+
+
+
 #echo "<div class=fontloader>Loading game</div>";
 
 // Display link to view student scores.

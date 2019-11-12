@@ -134,7 +134,7 @@ if($contrincante->idusuario != null) {
         $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
             'objectid' => $gmcompvs->id,
             'context' => $context,
-            'other' => array('userid' => $useridmonedas, 'monedas' => $monedasdevolver, 'rason' => 'bandera apagada'),
+            'other' => array('userid' => $useridmonedas, 'monedas' => $monedasdevolver, 'rason' => 'tu contrincante no aposto'),
         ));
 
         $event->add_record_snapshot('gmcompvs', $gmcompvs);

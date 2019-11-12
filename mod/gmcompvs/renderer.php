@@ -218,7 +218,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
             $apuestaMonedas = html_writer::start_tag('div', array("class"=>"gmcompvs-al-desafiar-monedas"));
             $apuestaMonedas.= html_writer::nonempty_tag('p', "Monedas a apostar: <br>",array());
-            $apuestaMonedas.= html_writer::empty_tag('input', array("type"=>"number", "name"=>"montoapuesta", "step"=>"1", "min"=>'1', "max"=>$monedasDisponibles));
+            $apuestaMonedas.= html_writer::empty_tag('input', array("type"=>"number", "name"=>"montoapuesta", "step"=>"1", "min"=>'1', "max"=>$monedasDisponibles, "value" => "1"));
             $apuestaMonedas.= html_writer::end_tag('div');
 
             $this->revisar_partidas_enprogreso($gmcompvs->id,$userid);
@@ -853,7 +853,14 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             return $DB->get_record('gmcompvs', array("id"=>$instancia), $fields='*', $strictness=IGNORE_MISSING)->apuestas_activas;
         }
 
+        /*
+         *
+         * No funciona correctamente la funcion, si actualiza las fecha fin pero los eventos no los está lanzando....
+         *
+         * */
+
     private function revisar_partidas_enprogreso( $instancia, $usuario ){
+        /*global $OUTPUT;*/
 
         global $DB;
         $tiempoactual = time();
@@ -882,19 +889,26 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             }
 
             if( $cambiorealizado && !is_null($partida->fecha_fin_a) && !is_null($partida->fecha_fin_b)){
+                /*$notify = new \core\output\notification('cambiosrealizado',
+                    \core\output\notification::NOTIFY_SUCCESS);
 
+                echo $OUTPUT->render($notify);*/
                 $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $instancia), '*', MUST_EXIST);
                 $course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
                 $cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
                 $context = context_module::instance($cm->id);
 
-                try {
+                $apuestacontrincanteexiste = false;
+                $apuestacontrincante = null;
+                try{
                     $apuestacontrincante = $DB->get_record('gmdl_apuesta', array("gmdl_participacion_id" => $partida->participacionid_b), '*', MUST_EXIST);
                     $apuestacontrincanteexiste = true;
                 } catch (dml_exception $e) {
                     $apuestacontrincanteexiste = false;
                 }
 
+                $apuestausuarioexiste = false;
+                $apuestausuario = null;
                 try {
                     $apuestausuario = $DB->get_record('gmdl_apuesta', array("gmdl_participacion_id" => $partida->participacionid_a), '*', MUST_EXIST);
                     $apuestausuarioexiste = true;
@@ -921,7 +935,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                 ];
 
                 $DB->update_record('gmdl_participacion', $values);
-
+                $userid = $usuario;
                 if( $partida->puntuacion_a > $partida->puntuacion_b )
                     $userid = $partida->gmdlusuarioid_a;
                 else
@@ -929,33 +943,35 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
                 $monedasadar = 0;
                 $useridmonedas = -1;
-                if( $apuestacontrincanteexiste && $apuestausuarioexiste ){
+                if( $apuestacontrincanteexiste || $apuestausuarioexiste ){
+                    if( $apuestacontrincanteexiste && $apuestausuarioexiste ){
 
-                    $monedasadar = $apuestacontrincante->monedas_plata + $apuestausuario->monedas_plata;
-
-                }else{
-
-                    if( $apuestacontrincanteexiste ){
-
-                        $useridmonedas = $partida->gmdlusuarioid_b;
-                        $monedasdevolver = $apuestacontrincante->monedas_plata;
+                        $monedasadar = $apuestacontrincante->monedas_plata + $apuestausuario->monedas_plata;
 
                     }else{
 
-                        $useridmonedas = $partida->gmdlusuarioid_a;
-                        $monedasdevolver = $apuestausuario->monedas_plata;
+                        if( $apuestacontrincanteexiste ){
+
+                            $useridmonedas = $partida->gmdlusuarioid_b;
+                            $monedasdevolver = $apuestacontrincante->monedas_plata;
+
+                        }else{
+
+                            $useridmonedas = $partida->gmdlusuarioid_a;
+                            $monedasdevolver = $apuestausuario->monedas_plata;
+
+                        }
+
+                        $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
+                            'objectid' => $gmcompvs->id,
+                            'context' => $context,
+                            'other' => array('userid' => $useridmonedas, 'monedas' => $monedasdevolver, 'rason' => 'bandera apagada'),
+                        ));
+
+                        $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                        $event->trigger();
 
                     }
-
-                    $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
-                        'objectid' => $gmcompvs->id,
-                        'context' => $context,
-                        'other' => array('userid' => $useridmonedas, 'monedas' => $monedasdevolver, 'rason' => 'bandera apagada'),
-                    ));
-
-                    $event->add_record_snapshot('gmcompvs', $gmcompvs);
-                    $event->trigger();
-
                 }
 
                 $moodleuserid = $DB->get_record('gmdl_usuario',array('id' => $userid));
@@ -976,9 +992,15 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                     $event->trigger();
 
                 }else{
+                    /*$notify = new \core\output\notification('empate',
+                        \core\output\notification::NOTIFY_SUCCESS);
 
+                    echo $OUTPUT->render($notify);*/
                     if( $useridmonedas != $partida->gmdlusuarioid_a && $apuestausuarioexiste){
+                        /*$notify = new \core\output\notification('antes de evento '.$partida->gmdlusuarioid_a,
+                            \core\output\notification::NOTIFY_SUCCESS);
 
+                        echo $OUTPUT->render($notify);*/
                         $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
                             'objectid' => $gmcompvs->id,
                             'context' => $context,
@@ -987,11 +1009,17 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
                         $event->add_record_snapshot('gmcompvs', $gmcompvs);
                         $event->trigger();
+                        /*$notify = new \core\output\notification('despues de evento '.$partida->gmdlusuarioid_a,
+                            \core\output\notification::NOTIFY_SUCCESS);
 
+                        echo $OUTPUT->render($notify);*/
                     }
 
                     if( $useridmonedas != $partida->gmdlusuarioid_b && $apuestacontrincanteexiste){
+                        /*$notify = new \core\output\notification('antes de evento '.$partida->gmdlusuarioid_b,
+                            \core\output\notification::NOTIFY_SUCCESS);
 
+                        echo $OUTPUT->render($notify);*/
                         $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
                             'objectid' => $gmcompvs->id,
                             'context' => $context,
@@ -1000,7 +1028,10 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
                         $event->add_record_snapshot('gmcompvs', $gmcompvs);
                         $event->trigger();
+                        /*$notify = new \core\output\notification('despues de evento '.$partida->gmdlusuarioid_a,
+                            \core\output\notification::NOTIFY_SUCCESS);
 
+                        echo $OUTPUT->render($notify);*/
                     }
 
                 }
