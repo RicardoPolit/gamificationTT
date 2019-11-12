@@ -12,9 +12,10 @@
  *
 */
 
+defined('MOODLE_INTERNAL') || die();
+
 /* GENERAL STRINGS */
 $string['pluginname'] = 'Tienda de gamedle y El perfil';
-$string['gmxp'] = 'Gamedle Master'; // TODO INCORRECT STRING ENTRY
 $string['perfilgamificado'] = 'Perfil gamificado';
 
 // FORM STRING MESSAGES

@@ -171,7 +171,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
         $display .= html_writer::end_tag('div');
 
-        
+
 
 
         return $display;
@@ -236,7 +236,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                 $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-activity-container"));
-            
+
 
 
             $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-contianer-menu-opcion-inicio-container", "class"=>"gmcompcpu-section-contianer-menu-opcion"));
@@ -291,7 +291,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $leaderboardsMax[] = array();
                     $valoresSelect.= html_writer::nonempty_tag('option', $dificultades[$i]->nombre, array("value"=> $dificultades[$i]->id));
                 }
-            
+
             $primerosIntentos = $this->obtener_primeros_intentos($gmcompcpu->id);
 
             foreach($primerosIntentos as $intento)
@@ -362,8 +362,11 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                                 {
                                     $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $j."°", array());
                                 }
-                                
-                                $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
+                                $contenidoTablaPrimerIntento .= html_writer::start_tag('td');
+                                $seleccionado = $this->obtener_objetos_dependiendo_usuario($intento->gmdl_usuario_id);
+                                $contenidoTablaPrimerIntento .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
+                                $contenidoTablaPrimerIntento .= html_writer::nonempty_tag('p',$intento->firstname." ".$intento->lastname ,array(""));
+                                $contenidoTablaPrimerIntento .= html_writer::end_tag('td');
                                 $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
                                 $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
                             $j++;
@@ -416,8 +419,12 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                                 {
                                     $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $j."°", array());
                                 }
-                                
-                            $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->firstname." ".$intento->lastname, array());
+
+                            $contenidoTablaMejorIntento .= html_writer::start_tag('td');
+                            $seleccionado = $this->obtener_objetos_dependiendo_usuario($intento->gmdl_usuario_id);
+                            $contenidoTablaMejorIntento .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
+                            $contenidoTablaMejorIntento .= html_writer::nonempty_tag('p',$intento->firstname." ".$intento->lastname ,array(""));
+                            $contenidoTablaMejorIntento .= html_writer::end_tag('td');
                             $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
                             $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
                             $j++;
@@ -447,7 +454,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
         }
     public function render_attempt_page($gmcompcpu, $dificultades, $moodleUserId)
         {
-            $intentos = $this->obtener_intentos_usuario($moodleUserId, $gmcompcpu->id); 
+            $intentos = $this->obtener_intentos_usuario($moodleUserId, $gmcompcpu->id);
 
             $html = ' ';
             $html.= html_writer::start_tag('div', array("id"=>"gmcompcpu-contianer-menu-opcion-historial-container", "class"=>"gmcompcpu-section-contianer-menu-opcion"));
@@ -467,7 +474,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $contenidoTabla.= html_writer::nonempty_tag('td', $intento->puntuacion_cpu, array());
                     if($intento->puntuacion_usuario >= $intento->puntuacion_cpu)
                         {
-                            
+
                             $contenidoTabla.= html_writer::start_tag('td', array());
                             $contenidoTabla.= html_writer::empty_tag('img', array("src"=>"pix/cpu_v_".$intento->gmdl_dificultad_cpu_id.".png", "class"=> 'gmcompcpu-imagen-cpu'));
                             $contenidoTabla.= html_writer::end_tag('td', array());
@@ -493,10 +500,12 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $html.= html_writer::end_tag('div', array());
             $html.= html_writer::end_tag('div', array());
             $html.= html_writer::end_tag('div', array());
-            
+
             $html.= html_writer::end_tag('div');
             return $html;
         }
+
+
 
     private function obtener_todas_dificultades()
         {
@@ -574,6 +583,60 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
             $sql.=" ORDER BY a.puntos DESC";
             return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
         }
+
+    private function obtener_objetos_dependiendo_usuario($usuario)
+    {
+        global $DB;
+        $sql = " SELECT ";
+        $sql.= "    gmdl_rareza_objeto_id as rareza,";
+        $sql.= "    gmdl_tipo_objeto_id as tipo,";
+        $sql.= "    {gmdl_rareza_objeto}.costo_adquisicion as costo,";
+        $sql.= "    {gmdl_objeto}.nombre as objeto,";
+        $sql.= "    {gmdl_tipo_objeto}.nombre as nombre_tipo,";
+        $sql.= "    valor,";
+        $sql.= "    elegido,";
+        $sql.= "    {gmdl_objeto}.id as ide";
+        $sql.= " FROM {gmdl_objeto}";
+        $sql.= " JOIN {gmdl_tipo_objeto}";
+        $sql.= " ON {gmdl_tipo_objeto}.id = {gmdl_objeto}.gmdl_tipo_objeto_id";
+        $sql.= " JOIN {gmdl_rareza_objeto}";
+        $sql.= " ON {gmdl_rareza_objeto}.id = {gmdl_objeto}.gmdl_rareza_objeto_id";
+        $sql.= " LEFT JOIN {gmdl_objeto_desbloqueado}";
+        $sql.= " ON {gmdl_objeto}.id = {gmdl_objeto_desbloqueado}.gmdl_objeto_id AND gmdl_usuario_id = $usuario ";
+        $sql.= " ORDER BY 2, 1, 6 DESC";
+        $objetosBD = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+
+        $ultimoId = 0;
+
+        foreach($objetosBD  as $objetoBD) {
+            if($objetoBD->tipo > $ultimoId)
+            {
+                $objetos[] = array();
+                $tipos[] = $objetoBD->nombre_tipo;
+                if($objetoBD->tipo == 1)
+                {
+                    $seleccionado[] = array("valor"=>'pix/default.png', "id"=>0);
+                }
+                else
+                {
+                    $seleccionado[] = array("valor"=>'', "id"=>0);
+                }
+
+            }
+            if(!is_null($objetoBD->elegido))
+            {
+                if($objetoBD->elegido==1)
+                {
+                    $seleccionado[$objetoBD->tipo -1] = array("valor"=>$objetoBD->valor, "id"=>$objetoBD->ide);
+                }
+            }
+            $objetos[$objetoBD->tipo -1][]= $objetoBD;
+            $ultimoId = $objetoBD->tipo;
+        }
+
+        return $seleccionado;
+
+    }
 
     private function obtener_usuario_gamedle($moodleUserId)
         {

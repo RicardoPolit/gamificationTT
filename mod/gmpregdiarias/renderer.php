@@ -154,7 +154,7 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
     }
 
 
-    public function render_results_attempt($userScore){
+    public function render_results_attempt($userScore,$cmid){
 
         if($userScore > 5 ){
 
@@ -184,6 +184,15 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
         $display .= html_writer::end_tag('div');
 
+        $display .= html_writer::start_tag('form',
+            array('action' => new moodle_url('/mod/gmpregdiarias/view.php',
+                array('id' => $cmid)), 'method' => 'post',
+                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                'id' => 'responseform'));
+        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+            'value' => 'Volver', 'class' => "btn btn-primary gmpregdiarias-button"));
+        $display .= html_writer::end_tag('form');
+
         return $display;
 
     }
@@ -196,12 +205,12 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
                     $userid = $$this->obtener_usuario_gamedle($moodleUserId);
                 }
 
-            $preguntasDisponibles = $this->obtener_num_preguntas_disponibles($gmpregdiarias->id);   
+            $preguntasDisponibles = $this->obtener_num_preguntas_disponibles($gmpregdiarias->id);
             $preguntasContestadas = $this->obtener_num_contestadas_usuario($gmpregdiarias->id, $userid);
             $sepuedecontestar = $this->pregunta_no_contestada_hoy($userid,$gmpregdiarias->id);
-            
+
             $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
-            
+
             $this->page->requires->js_call_amd('mod_gmpregdiarias/js_preg_diarias', 'init');
 
             $display.= html_writer::start_tag('div', array("class"=>"gmpregdiarias-contianer-menu-opciones"));
@@ -250,14 +259,14 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
                     $imagen = 'pix/check.png';
                     $boton = html_writer::nonempty_tag('button', 'Deshabilitado',array("class" => "btn btn-secondary" ));
                 }
-            
+
             $display.= html_writer::start_tag('div', array("id"=>"gmpregdiarias-accion-container"));
                 $display.= html_writer::empty_tag('img', array("src"=>$imagen, "class"=> 'gmpregdiarias-imagen'));
                 $display.= html_writer::nonempty_tag('h4', $text, array());
                 $display.= $boton;
             $display.= html_writer::end_tag('div');
             $display.= html_writer::end_tag('div');
-            
+
 
 
 
@@ -297,13 +306,16 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
                             else if($lugar == 3){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmpregdiarias-trohpy-image")); }
                             else{ $html.= html_writer::nonempty_tag('p',$lugar."°" ,array("")); }
                         $html.= html_writer::end_tag('td', array());
-                        $html.= html_writer::nonempty_tag('td', $fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' , array("class"=>"gmpregdiarias-table-name-column"));
-                        
+                        $html .= html_writer::start_tag('td',array("class"=>"gmpregdiarias-table-name-column"));
+                        $seleccionado = $this->obtener_objetos_dependiendo_usuario($fila->gmuserid);
+                        $html .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
+                        $html .= html_writer::nonempty_tag('p',$fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' ,array(""));
+                        $html .= html_writer::end_tag('td');
                         $html.= html_writer::start_tag('td', array("class"=>"gmpregdiarias-table-preguntas-column"));
                         $html.= html_writer::nonempty_tag('progress',' ',array("id"=>"gmpregdiarias-progress", "value"=>$fila->preguntas+0.1, "max"=>$preguntasDisponibles));
                         $html.= html_writer::nonempty_tag('p', "$fila->preguntas/$preguntasDisponibles preguntas respondidas",array("id"=>"gmpregdiarias-progress-values"));
                         $html.= html_writer::end_tag('td', array());
-                        
+
                     $html.= html_writer::end_tag('tr', array());
                     if($primeraFila == 1)
                         {
@@ -311,9 +323,9 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
                         }
                     $ultimosPuntos = $fila->preguntas;
                     $lugar++;
-                    
+
                 }
-            
+
             if($primeraFila == 1)
                 {
                     $html.= html_writer::start_tag('tr', array("class"=>"gmpregdiarias-no-lugar"));
@@ -327,7 +339,7 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::end_tag('div');
-            return $html;   
+            return $html;
         }
 
     private function obtener_num_preguntas_disponibles($instancia)
@@ -352,7 +364,7 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
     private function obtener_preguntas_contestadas_todos($instancia)
         {
             global $DB;
-            $sql = " SELECT username, firstname, lastname, a.preguntas";
+            $sql = " SELECT username, firstname, lastname, a.preguntas, a.gmdl_usuario_id as gmuserid";
             $sql.= " FROM {user}";
             $sql.= " JOIN {gmdl_usuario} ON {user}.id = {gmdl_usuario}.mdl_id_usuario";
             $sql.= " JOIN";
@@ -404,6 +416,60 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
         $rows = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
 
         return $rows;
+
+    }
+
+    private function obtener_objetos_dependiendo_usuario($usuario)
+    {
+        global $DB;
+        $sql = " SELECT ";
+        $sql.= "    gmdl_rareza_objeto_id as rareza,";
+        $sql.= "    gmdl_tipo_objeto_id as tipo,";
+        $sql.= "    {gmdl_rareza_objeto}.costo_adquisicion as costo,";
+        $sql.= "    {gmdl_objeto}.nombre as objeto,";
+        $sql.= "    {gmdl_tipo_objeto}.nombre as nombre_tipo,";
+        $sql.= "    valor,";
+        $sql.= "    elegido,";
+        $sql.= "    {gmdl_objeto}.id as ide";
+        $sql.= " FROM {gmdl_objeto}";
+        $sql.= " JOIN {gmdl_tipo_objeto}";
+        $sql.= " ON {gmdl_tipo_objeto}.id = {gmdl_objeto}.gmdl_tipo_objeto_id";
+        $sql.= " JOIN {gmdl_rareza_objeto}";
+        $sql.= " ON {gmdl_rareza_objeto}.id = {gmdl_objeto}.gmdl_rareza_objeto_id";
+        $sql.= " LEFT JOIN {gmdl_objeto_desbloqueado}";
+        $sql.= " ON {gmdl_objeto}.id = {gmdl_objeto_desbloqueado}.gmdl_objeto_id AND gmdl_usuario_id = $usuario ";
+        $sql.= " ORDER BY 2, 1, 6 DESC";
+        $objetosBD = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+
+        $ultimoId = 0;
+
+        foreach($objetosBD  as $objetoBD) {
+            if($objetoBD->tipo > $ultimoId)
+            {
+                $objetos[] = array();
+                $tipos[] = $objetoBD->nombre_tipo;
+                if($objetoBD->tipo == 1)
+                {
+                    $seleccionado[] = array("valor"=>'pix/default.png', "id"=>0);
+                }
+                else
+                {
+                    $seleccionado[] = array("valor"=>'', "id"=>0);
+                }
+
+            }
+            if(!is_null($objetoBD->elegido))
+            {
+                if($objetoBD->elegido==1)
+                {
+                    $seleccionado[$objetoBD->tipo -1] = array("valor"=>$objetoBD->valor, "id"=>$objetoBD->ide);
+                }
+            }
+            $objetos[$objetoBD->tipo -1][]= $objetoBD;
+            $ultimoId = $objetoBD->tipo;
+        }
+
+        return $seleccionado;
 
     }
 

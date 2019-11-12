@@ -1,369 +1,299 @@
 
-/*
-    *****************************************************************************************************
-    *                                           Estilos genéricos                                       *
-    *****************************************************************************************************
-*/
 
-.gmtienda-container-columns{
+.gmtienda-container-tienda, .gmtienda-container-tipos-objetos{
     width: 100%;
-    margin-bottom: 1%;
-    padding: 1%;
     flex-direction: column;
     box-sizing: border-box;
     display: flex;
     place-content: center;
-    align-items: center;
-    text-align: center;
-
+    align-items: cnter;
 }
-
-.gmtienda-container{
+.gmtienda-container-tipos-objetos{
+    margin-top: 3%;
+    width: 99%;
+}
+.gmtienda-container-muestra{
     width: 100%;
-    margin-bottom: 1%;
-    padding: 1%;
+    margin-top: 3%;
     flex-direction: row;
     box-sizing: border-box;
     display: flex;
-    place-content: flex-start space-between;
-    align-items: flex-start;
-}
-
-.gmtienda-half-container{
-    width: 50%;
-}
-
-
-.gmtienda-buscador-titulo{
-    margin: 3% 10% 0% 10%;
-    width: 100%;
-
-}
-
-
-.gmtienda-titulo{
-    text-align: left;
-}
-
-.gmtienda-trohpy-image{
+    place-content: center space-between;
+    align-items: center;
     max-height: 100%;
-    max-width: 20%;
 }
 
-
-.gmtienda-table {
-    width: 60%;
-    margin: auto;
-
-}
-.gmtienda-tbody tr{
-    background-color: whitesmoke;
-}
-
-.gmtienda-table tr{
+.gmtienda-container-objetos-imagen{
     width: 100%;
-    margin: auto;
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-evenly;
-    align-items: center;
-    border: 5px double black;
-    text-align: center;
-}
-
-
-.gmtienda-thead{
-    background-color: #0981bd;
-    color: white;
-    font-size: 20px;
-    flex-direction: column;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-evenly;
-    align-items: center;
-}
-
-.gmtienda-tbody{
-    flex-direction: column;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-evenly;
-    align-items: center;
-}
-
-
-
-.gmtienda-trohpy-image-table{
-    max-height: 80px;
-    max-width: 80px;
-    border: 10px double black;
-}
-
-
-/*
-    *****************************************************************************************************
-    *                                    Estilos patnalla principal                                     *
-    *****************************************************************************************************
-*/
-
-.gmtienda-al-desafiar-nombre{
-    width: 40%;
-}
-
-.gmtienda-buscador{
-    width: 80%;
-    margin: 0% 10% 0% 10%;
-    padding: 2%;
-
-}
-
-.gmtienda-container-victorias{
-    margin: 1.5% 24% 1.5% 24%;
-    width: 50%;
-    background-color: gold;
-    padding: 1% 5% 1% 2%;
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-between;
-    align-items: center;
-    border: 5px solid black;
-    height: 100px;
-
-}
-
-.gmtienda-victories{
-    text-align: center;
-}
-
-.gmtienda-container-adversaries{
-    width: 80%;
-    border: 10px double #0981bd;
-    align-content: center;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-.gmtienda-container-challenges{
-
-    width: 100%;
-    border: 10px double #bd2d09;
-    align-content: center;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-
-.gmtienda-container-rival form{
-
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    margin: 1%;
-    padding: 3%;
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-between;
-    align-items: center;
-
-}
-
-.gmtienda-container-desafio{
-
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    margin: 1%;
-    padding: 3%;
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-between;
-    align-items: center;
-
-}
-
-.gmtienda-container-rival-offset{
-
-    border-radius: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    margin: 1%;
-    padding: 3%;
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-between;
-    align-items: center;
-    background-color: darkgray;
-
-}
-
-/*
-    *****************************************************************************************************
-    *                                    Estilos patnalla history                                    *
-    *****************************************************************************************************
-*/
-
-.gmtienda-table-posicion-column{
-    max-height: 100%;
-    width: 20%;
-
-}
-.gmtienda-table-name-column{
-    width: 50%;
-
-}
-
-.gmtienda-table-victorias-column{
-    width: 30%;
-
-}
-
-.gmtienda-container-resume{
-    padding: 2% 0% 1% 0%;
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-around;
-    align-items: center;
-    width: 80%;
-}
-
-.gmtienda-container-resume div{
-    padding: 0% 1%;
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center space-between;
-    align-items: center;
-}
-
-
-.gmtienda-table-history-state{
-    width: 20%;
-}
-
-.gmtienda-table-history-points{
-    width: 10%;
-}
-
-.gmtienda-table-history-state{
-    padding: 10px;
-}
-
-.gmtienda-table-history-name{
-    width: 40%;
-}
-
-
-
-/*
-    *****************************************************************************************************
-    *                                    Estilos patnalla menú                                       *
-    *****************************************************************************************************
-*/
-
-.gmtienda-contianer-menu-opciones{
-    height: 100px;
-    flex-direction: row;
-    box-sizing: border-box;
-    display: flex;
-    place-content: flex-end center;
-    align-items: flex-end;
-    width: 100%;
-}
-.gmtienda-contianer-menu-opcion-activa, .gmtienda-contianer-menu-opcion{
-    border-top: 4px solid black;
-    border-left: 4px solid black;
-    border-right: 4px solid black;
-    cursor: pointer;
-    display: flex;
-    place-content: center;
-    align-items: center;
-    color: white;
-    padding: 1%;
-
-}
-
-
-.gmtienda-contianer-menu-opcion-activa{
-    height: 100%;
-    background-color: #0981bd;
-    width: 34%;
-}
-.gmtienda-contianer-menu-opcion{
-    height: 60%;
-    background-color: #075982;;
-    width: 33%;
-}
-
-
-#gmtienda-activity-container{
-    width: 100%;
-    border: 4px solid black;
-    height: 750px;
-}
-
-#gmtienda-fieldset-div{
-
-    width: 80%;
-    margin: 2% 10% 1% 10%;
-    padding: 0;
-    border: solid;
-}
-#gmtienda-fieldset{
-    text-align: center;
-    flex-direction: column;
-    box-sizing: border-box;
-    display: flex;
-    place-content: center;
-    align-items: center;
-}
-
-
-#gmtienda-table-historial{
-    width: 100%;
-    font-size: 20px;
-}
-#gmtienda-table-historial-container{
+    padding-right: 10%;
     height: 400px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    margin: 0% 10%;
-    border: 10px double gray;
-}
-
-/*
-    *****************************************************************************************************
-    *                                    Estilos patnalla highscores                                    *
-    *****************************************************************************************************
-*/
-
-
-.gmtienda-container-overflow-half-height{
-    height: 400px;
+    margin-bottom: 3%;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-between;
+    align-items: center;
+    overflow-y: hidden;
+    overflow-x: auto;
 
 }
 
-.gmtienda-container-overflow-eighty-height{
+.gmtienda-container-tipos-objetos h1{
+    border-bottom: 3px solid #0981bd;
+}
+
+.gmtienda-container-objeto{
+    min-width: 12%;
     height: 80%;
-
+    padding: 1%;
+    margin: 1%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: inline-flex;
+    place-content: center space-between;
+    align-items: center;
+    transition: 0.3s;
+    text-align: center;
 }
 
-#gmtienda-contianer-menu-opcion-scores-container{
+.gmtienda-container-objeto:hover{
+    box-shadow: 0 8px 8px 0 lightskyblue;
+    cursor: pointer;
+}
+
+.gmtienda-objeto-imagen{
+    max-width: 80px;
+    max-height: 80px;
+}
+
+.gmtienda-color-fondo-rareza-1{
+    box-shadow: 0 4px 8px 0 black;
+}
+
+.gmtienda-color-fondo-rareza-2{
+    box-shadow: 0 4px 8px 0 blue;
+}
+
+.gmtienda-color-fondo-rareza-3{
+    box-shadow: 0 4px 8px 0 purple;
+}
+
+.gmtienda-color-fondo-rareza-4{
+    box-shadow: 0 4px 8px 0 orange;
+}
+
+.gmtienda-imagen-monedas-boton{
+    max-width: 20px;
+    max-height: 20px;
+}
+
+.gmtienda-boton-compra-form{
+    width: 80%;
+}
+
+.gmtienda-boton-compra{
+    padding: 2%;
     width: 100%;
-    height: 100%;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+    max-height: 100%;
+    color: white;
+    background-color: #0981bd;
+
 }
 
-.gmtienda-container-scores-scroll{
-    height: 100%;
-    margin: auto;
-    overflow-x: hidden;
-    overflow-y: auto;
+.gmtienda-boton-compra:hover{
+    background-color: #075982;
+}
+
+
+.gmtienda-objeto-tipo-borde-normal{
+    border: 4px solid black;
+    padding: 1%;
+}
+
+.gmtienda-objeto-tipo-borde-entrecortado{
+    border: 4px dashed black;
+    padding: 1%;
+}
+
+.gmtienda-objeto-tipo-borde-punteado{
+    border: 4px dotted black;
+    padding: 1%;
+}
+
+.gmtienda-objeto-tipo-borde-doble{
+    border: 4px double black;
+    padding: 1%;
+}
+
+.gmtienda-objeto-tipo-borde-relieve{
+    border: 4px inset black;
+    padding: 1%;
+}
+
+.gmtienda-objeto-color-borde-rojo{
+    border-width: 4px;
+    border-style: solid;
+    border-color: #750D04;
+}
+
+.gmtienda-objeto-color-borde-azul{
+    border-width: 4px;
+    border-style: solid;
+    border-color: #075982;
+}
+
+.gmtienda-objeto-color-borde-amarillo{
+    border-width: 4px;
+    border-style: solid;
+    border-color: yellow;
+}
+
+.gmtienda-objeto-color-borde-naranja{
+    border-width: 4px;
+    border-style: solid;
+    border-color: orange;
+}
+
+
+.gmtienda-objeto-color-borde-verde{
+    border-width: 4px;
+    border-style: solid;
+    border-color: lime;
+}
+
+
+.gmtienda-objeto-color-borde-plateado{
+    border-width: 4px;
+    border-style: solid;
+    border-color: silver;
+}
+
+
+.gmtienda-objeto-color-borde-dorado{
+    border-width: 4px;
+    border-style: solid;
+    border-color: gold;
+}
+
+
+
+.gmtienda-objeto-color-borde-rojo-solo{
+    border-width: 4px;
+    border-color: #750D04;
+}
+
+.gmtienda-objeto-color-borde-azul-solo{
+    border-width: 4px;
+    border-color: #075982;
+}
+
+.gmtienda-objeto-color-borde-amarillo-solo{
+    border-width: 4px;
+    border-color: yellow;
+}
+
+.gmtienda-objeto-color-borde-naranja-solo{
+    border-width: 4px;
+    border-color: orange;
+}
+
+
+.gmtienda-objeto-color-borde-verde-solo{
+    border-width: 4px;
+    border-color: lime;
+}
+
+
+.gmtienda-objeto-color-borde-plateado-solo{
+    border-width: 4px;
+    border-color: silver;
+}
+
+
+.gmtienda-objeto-color-borde-dorado-solo{
+    border-width: 4px;
+    border-color: gold;
+}
+
+
+.gmtienda-container-muestra-actual{
+    width: 40%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+}
+
+
+.gmtienda-container-muestra-nuevo{
+    width: 40%;
+    flex-direction: column;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+}
+
+.gmtienda-container-muestra-card{
+    width: 80%;
+    padding: 4%;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+    max-height: 100%;
+    box-shadow: 0 4px 8px 0 black;
+}
+
+.gmtienda-container-monedas-disponibles{
+    width: 15%;
+    text-align: center;
+
+}
+
+.gmtienda-monedas-disponibles{
+    background-color: gold;
+    width: 100%;
+    padding: 4%;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center space-evenly;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 black;
+}
+
+.gmtienda-imagen-monedas{
+    max-width: 30px;
+    max-height: 30px;
+}
+
+
+#gmtienda-boton-limpiar, .gmtienda-container-boton-guardar, #gmtienda-boton-cancelar{
+    color: white;
+    padding: 1%;
+    width: 40%;
+    cursor: pointer;
+}
+
+
+#gmtienda-boton-guardar{
+    width: 100%;
+    background-color: green;
+}
+#gmtienda-boton-cancelar{
+    background-color: darkred;
+}
+
+#gmtienda-boton-limpiar{
+    background-color: #0981bd;
 }
 
 #gmtienda-table-scores{

@@ -226,7 +226,6 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $posiblesRivales = $this->obtener_posibles_rivales($gmcompvs->id, $userid);
             $desafiosPorTerminar = $this->obtener_desafios_pendientes($gmcompvs->id, $userid);
             $this->page->requires->js_call_amd('mod_gmcompvs/js_competencia_vs', 'init');
-
             $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
             $html.= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
 
@@ -264,8 +263,10 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                             array('userid' => $moodleUserId, 'gmuserid' => $userid ,'instance' => $gmcompvs->id, 'id' => $id)), 'method' => 'post',
                                             'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                                             'id' => 'responseform'));
-                                        $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"hidden", "value"=>$rival->userid));
-                                            $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array("class"=>"gmcompvs-al-desafiar-nombre"));
+                                    $html.= html_writer::empty_tag('input', array("name"=>"rivalid", "type"=>"hidden", "value"=>$rival->userid));
+                                    $seleccionado = $this->obtener_objetos_dependiendo_usuario($rival->userid);
+                                    $html .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
+                                    $html.= html_writer::nonempty_tag('p', "Nombre: <br>".$rival->firstname . ' '. $rival->lastname, array("class"=>"gmcompvs-al-desafiar-nombre"));
                                             if($apuestasActivas == 1)
                                                 {
                                                     $html.= $apuestaMonedas;
@@ -300,6 +301,8 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                                 'id' => 'responseform'));
                                             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-container-desafio"));
                                                 $html.= html_writer::empty_tag('input', array("name"=>"participacionid", "type"=>"hidden", "value"=>$desafio->participacionid));
+                                                $seleccionado = $this->obtener_objetos_dependiendo_usuario($desafio->gmuserid);
+                                                $html .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
                                                 $html.= html_writer::nonempty_tag('p', $desafio->firstname . ' '. $desafio->lastname, array("class"=>"gmcompvs-al-desafiar-nombre"));
                                                 if($apuestasActivas == 1)
                                                     {
@@ -349,13 +352,20 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                             {
                                                 $lugar--;
                                             }
+                                        /*Manera de acceder a pix/ de otro plugin:
+                                         * new moodle_url('/local/gmtienda/pix/icon.png')
+                                         * */
                                         $html.= html_writer::start_tag('td', array("class"=>"gmcompvs-table-posicion-column"));
                                             if($lugar == 1){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_first.png", "class"=>"gmcompvs-trohpy-image")); }
                                             else if($lugar == 2){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_second.png", "class"=>"gmcompvs-trohpy-image")); }
                                             else if($lugar == 3){ $html.= html_writer::empty_tag('img', array("src"=>"pix/trophy_third.png", "class"=>"gmcompvs-trohpy-image")); }
-                                            else{ $html.= html_writer::nonempty_tag('p',"$lugar°" ,array("")); }
+                                            else{ $html.= html_writer::nonempty_tag('p',$lugar.'°' ,array("")); }
                                         $html.= html_writer::end_tag('td', array());
-                                        $html.= html_writer::nonempty_tag('td', $fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' , array("class"=>"gmcompvs-table-name-column"));
+                                        $html.= html_writer::start_tag('td',array("class"=>"gmcompvs-table-name-column"));
+                                        $seleccionado = $this->obtener_objetos_dependiendo_usuario($fila->gmuserid);
+                                        $html.= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
+                                        $html.= html_writer::nonempty_tag('p',$fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' ,array(""));
+                                        $html.= html_writer::end_tag('td');
                                         $html.= html_writer::nonempty_tag('td', $fila->victorias , array("class"=>"gmcompvs-table-victorias-column"));
                                         if($primeraFila == 1)
                                             {
@@ -430,8 +440,12 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                         {
                             $derrotas++;
                         }
-                    $contenidoTabla.= html_writer::start_tag('tr', array());
-                        $contenidoTabla.= html_writer::nonempty_tag('td', $partida->firstname_b.' '.$partida->lastname_b.' ('.$partida->firstname_b.')', array("class"=>"gmcompvs-table-history-name"));
+                        $contenidoTabla.= html_writer::start_tag('tr', array());
+                        $contenidoTabla .= html_writer::start_tag('td',array("class"=>"gmcompvs-table-history-name"));
+                        $seleccionado = $this->obtener_objetos_dependiendo_usuario($partida->gmuserid_b);
+                        $contenidoTabla .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
+                        $contenidoTabla .= html_writer::nonempty_tag('p',$partida->firstname_b.' '.$partida->lastname_b.' ('.$partida->firstname_b.')' ,array(""));
+                        $contenidoTabla .= html_writer::end_tag('td');
                         $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_a, array("class"=>"gmcompvs-table-history-points"));
                         if($apuestasActivas == 1)
                             {
@@ -443,7 +457,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                     {
                                         $contenidoTabla.= html_writer::nonempty_tag('td', ' '.$partida->monedas_a, array("class"=>"gmcompvs-table-history-points"));
                                     }
-                                
+
                             }
                         $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_b, array("class"=>"gmcompvs-table-history-points"));
                         if($apuestasActivas == 1)
@@ -615,7 +629,8 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.=" a.participacionid,";
             $sql.=" username,";
             $sql.=" firstname,";
-            $sql.=" lastname";
+            $sql.=" lastname,";
+            $sql.=" {gmdl_usuario}.id as gmuserid";
             $sql.=" FROM";
             $sql.=" {user} JOIN";
             $sql.=" {gmdl_usuario} ON {gmdl_usuario}.mdl_id_usuario = {user}.id";
@@ -641,7 +656,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         {
 
             global $DB;
-            $sql = "SELECT username, firstname, lastname, c.victorias FROM";
+            $sql = "SELECT username, firstname, lastname, c.victorias, {gmdl_usuario}.id as gmuserid FROM";
             $sql.= " {user} JOIN";
             $sql.= " {gmdl_usuario} ON  {user}.id = {gmdl_usuario}.mdl_id_usuario";
             $sql.= " JOIN ";
@@ -683,6 +698,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.="         {gmdl_participacion}.fecha_inicio as fecha_inicio_a,";
             $sql.="         {gmdl_participacion}.fecha_fin as fecha_fin_a,";
             $sql.="         {gmdl_participacion}.puntuacion as puntuacion_a,";
+            $sql.="         {gmdl_participacion}.gmdl_usuario_id as gmuserid_a,";
             $sql.="         {gmdl_apuesta}.monedas_plata as monedas_a";
             $sql.=" FROM {gmdl_partida} ";
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
@@ -701,6 +717,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $sql.="         {gmdl_participacion}.fecha_inicio as fecha_inicio_b,";
             $sql.="         {gmdl_participacion}.fecha_fin as fecha_fin_b,";
             $sql.="         {gmdl_participacion}.puntuacion as puntuacion_b,";
+            $sql.="         {gmdl_participacion}.gmdl_usuario_id as gmuserid_b,";
             $sql.="         {gmdl_apuesta}.monedas_plata as monedas_b";
             $sql.=" FROM {gmdl_partida}";
             $sql.=" JOIN {gmdl_participacion} ON {gmdl_partida}.id = {gmdl_participacion}.gmdl_partida_id";
@@ -757,6 +774,60 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         $sql.=" WHERE b.fecha_fin_b IS NUll OR";
         $sql.=" a.fecha_fin_a IS NUll";
         return $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+    }
+
+    private function obtener_objetos_dependiendo_usuario($usuario)
+    {
+        global $DB;
+        $sql = " SELECT ";
+        $sql.= "    gmdl_rareza_objeto_id as rareza,";
+        $sql.= "    gmdl_tipo_objeto_id as tipo,";
+        $sql.= "    {gmdl_rareza_objeto}.costo_adquisicion as costo,";
+        $sql.= "    {gmdl_objeto}.nombre as objeto,";
+        $sql.= "    {gmdl_tipo_objeto}.nombre as nombre_tipo,";
+        $sql.= "    valor,";
+        $sql.= "    elegido,";
+        $sql.= "    {gmdl_objeto}.id as ide";
+        $sql.= " FROM {gmdl_objeto}";
+        $sql.= " JOIN {gmdl_tipo_objeto}";
+        $sql.= " ON {gmdl_tipo_objeto}.id = {gmdl_objeto}.gmdl_tipo_objeto_id";
+        $sql.= " JOIN {gmdl_rareza_objeto}";
+        $sql.= " ON {gmdl_rareza_objeto}.id = {gmdl_objeto}.gmdl_rareza_objeto_id";
+        $sql.= " LEFT JOIN {gmdl_objeto_desbloqueado}";
+        $sql.= " ON {gmdl_objeto}.id = {gmdl_objeto_desbloqueado}.gmdl_objeto_id AND gmdl_usuario_id = $usuario ";
+        $sql.= " ORDER BY 2, 1, 6 DESC";
+        $objetosBD = $DB->get_recordset_sql($sql, null, $limitfrom = 0, $limitnum = 0);
+
+        $ultimoId = 0;
+
+        foreach($objetosBD  as $objetoBD) {
+            if($objetoBD->tipo > $ultimoId)
+            {
+                $objetos[] = array();
+                $tipos[] = $objetoBD->nombre_tipo;
+                if($objetoBD->tipo == 1)
+                {
+                    $seleccionado[] = array("valor"=>'pix/default.png', "id"=>0);
+                }
+                else
+                {
+                    $seleccionado[] = array("valor"=>'', "id"=>0);
+                }
+
+            }
+            if(!is_null($objetoBD->elegido))
+            {
+                if($objetoBD->elegido==1)
+                {
+                    $seleccionado[$objetoBD->tipo -1] = array("valor"=>$objetoBD->valor, "id"=>$objetoBD->ide);
+                }
+            }
+            $objetos[$objetoBD->tipo -1][]= $objetoBD;
+            $ultimoId = $objetoBD->tipo;
+        }
+
+        return $seleccionado;
+
     }
 
 
