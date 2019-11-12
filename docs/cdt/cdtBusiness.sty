@@ -102,7 +102,7 @@
     \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
     \cdtLabel{#2}{}%\hspace{1pt}}%
 %    \newline\noindent{\includegraphics[width=\textwidth]{cdt/uc/rules/classRule}}\vspace{-25pt}%
-    \subsection{Entidad: #3}%\section{Entidad: #3}%
+    \subsection*{Entidad: #3}%\section{Entidad: #3}%
     \IfStrEq{\detokenize{#4}}{}{%
         \hspace{0pt}%
     }{%
@@ -185,7 +185,7 @@
     \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
         %\noindent{\includegraphics[width=\textwidth]{cdt/uc/rules/BRRule}}%\vspace*{-\baselineskip}%
         %\vspace{-25pt}%
-        \hypertarget{#2}{\subsection{{#2} {#3}}}%
+        \hypertarget{#2}{\subsubsection{{#2} {#3}}}%
         \begin{description}\addtolength{\itemsep}{-0.2\baselineskip}%
             %\BRsection[control]{Datos Para el Control Interno}
 	        \BRitem[control]{Autor}{\Autor}
