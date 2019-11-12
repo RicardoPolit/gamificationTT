@@ -121,7 +121,7 @@
     \CrearVariablesInternas{#1}%
     \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
     \hypertarget{#2}{}%
-    \section{#2 #3}
+    \subsubsection{#2 #3}
 }%
 }
 

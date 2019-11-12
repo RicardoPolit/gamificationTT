@@ -1,4 +1,4 @@
-\chapter{Modelo de Dominio de Datos}
+\section{Modelo de información}
 \label{ch:dominioDatos}
 
  Este capítulo describe las decisiones más relevantes tomadas en relación al esquema de
@@ -13,7 +13,7 @@
  directamente del esquema de base de datos, ya que no existe documentación oficial acerca
  del esquema.
 
-\section{Esquema de la base de datos}
+\subsection{Esquema de la base de datos}
 
  % DONDE SE DOCUMENTA QUE SE VA A USAR MYSQL ???
 
@@ -49,7 +49,7 @@
     \addfigure{1}{analisis/diagrams/db}{fig:EGBD}{Esquema de la base de datos}
 
 \clearpage
-\section{Diccionario de datos}
+\subsection{Diccionario de datos}
 
  En esta sección se detalla el diccionario de datos del proyecto, en él se describe cada una
  de las entidades pertenecientes al modelo de información, así como el nombre, tipo de dato,
@@ -132,94 +132,6 @@
     \input{modulos/modelos/experiencia}
 
 \begin{comment}
-
-
-    \begin{Entidad}
-        {alumno}
-            \attrG{id\_ usuario}
-            {Atributo que relaciona un usuario con un papel de alumno. }
-                \Titem{ Llave foránea a \textbf{gmdl\_usuario (mdl\_id\_ usuario)}}
-                \Titem{ No nulo}
-            {General}
-
-            \attrM{id\_ curso}
-            {Atributo que relaciona un curso con un papel de alumno.}
-                \Titem{ Llave foránea  a \textbf{mdl\_course (id)}.}
-                \Titem{ No nulo.}
-            {General}
-
-            \attr{experiencia\_ total\_ recibida}
-            {Toda la experiencia que ha recibido un usuario haciendo las actividades de un determinado curso.}
-                \Titem{ Su valor es $ \geq 0$}
-                \Titem{ No nulo.}
-            {Experiencia}
-    \end{Entidad}
-
- \noindent La combinación de los atributos ( \textbf{gmdl\_id\_usuario } y \textbf{mdl\_id\_curso} ) es un índice único.
-
-    \begin{Entidad}
-        {nivel\_categoria\_curso}
-            \attrG{id\_ usuario}
-            {Atributo que relaciona un usuario con un nivel. }
-                \Titem{ Llave foránea  a \textbf{gmdl\_usuario (mdl\_id\_usuario)}}
-                \Titem{ No nulo}
-            {General}
-
-            \attrM{id\_ categoria\_ curso}
-            {Atributo que relaciona un nivel con una categoría de curso de Moodle.}
-                \Titem{ Llave foránea  a \textbf{mdl\_course\_categories (id)}.}
-                \Titem{ No nulo.}
-            {General}
-
-            \attr{nivel\_actual}
-            {Nivel actual del usuario en una categoría de cursos.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-            \attr{experiencia\_ actual}
-            {Número entero  \newline \textbf{Tamaño:}\newline 10 dígitos }
-            {Experiencia actual del usuario de su nivel actual en una categoría de cursos.}
-                \Titem{ Su valor es $ \geq 0$}
-                \Titem{ No nulo.}
-            {Experiencia}
-    \end{Entidad}
-
- \noindent La combinación de los atributos ( \textbf{gmdl\_id\_usuario } y \textbf{mdl\_categoria\_curso} ) es un índice único.
-
-    \begin{Entidad}
-        {rango\_nivel}
-
-            \attr{nombre}
-            {Nivel actual del usuario en una categoría de cursos.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-            \attr{nivel\_inferior}
-            {Nivel mínimo requerido que puede tener un usuario para estar dentro del rango.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-            \attr{nivel\_superior}
-            {Nivel máximo que puede tener un usuario para estar dentro del rango.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-            \attr{imagen}
-            {Ruta donde se guarda la imagen asociada al rango.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-            \attr{mensaje}
-            {Mensaje de felicitaciones que se le muestra al usuario al subir de nivel.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-            \attr{descripcion}
-            {Descripción del rango, que se le muestra al usuario al subir de nivel.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-    \end{Entidad}
 
     \begin{Entidad}
         {logro}
