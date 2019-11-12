@@ -85,12 +85,13 @@ Estado/\ucstEnEdicion]%
  \UCsection[admin]{Datos de Administración de Requerimiento}
 
 	\UCitem[admin]{Observaciones}{%
-        Ninguna
+        Hay distintas formas de llegar a la pantalla para editar las configuraciones de
+        un curso, sin embargo este caso de uso solo contempla el acceso mediante la gestión
+        de usuarios y categorias.
 	}
 
 \end{UseCase}
 
-\clearpage
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
@@ -100,24 +101,79 @@ Estado/\ucstEnEdicion]%
   \Actor Presiona la opción {\bf Gestionar cursos y categorías}.
   \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
            \refElem{mdl-course.fullname} de los cursos presentes en la plataforma.
-  \Sistema Muestra en la pantalla \refElem{IU-M06} la lista de cursos. \refTray{A}.
+  \Sistema Muestra en la pantalla \refElem{IU-M06} la lista de cursos.
            \label{CU-E05-course-list}
 
-  \Actor Presiona el botón  
+  \Actor Presiona el botón \IUConfigurar del curso que desea editar.
+  \Sistema Obtiene el \salida{mdl-course.fullname}, \salida{mdl-course.shortname} y
+           \salida{mdl-course.format} y demás datos del curso que se desea editar.
+  \Sistema Muestra los datos obtenidos del curso en la pantalla \refElem{IU-M05}.
+
+
+  \Actor Despliega la sección para el formato del curso.
+  \Actor Selecciona el \entrada{xp-course.format} de curso gamificado.
+         \refErr{Err1}
+  \Sistema Carga la información correspondiente al formato del curso gamificado
+           como se muestra en la pantalla \refElem{IU-E06}.
+
+  \Actor Especifica las opciones \entrada{xp-course.hiddensections} y
+         \entrada{xp-course.coursedisplay} del formato de curso gamificado. \refTray{A}
+         \refErr{Err2}
+
+  \Actor Opcionalmente edita los demás campos opcionales del formulario.
+  \Actor Presiona el botón {\bf Guardar Cambios y mostrar}. \refTray{B}, \refTray{C},
+         \refTray{D} \label{CU-E05-submit}
+
+  \Sistema Obtiene los datos ingresados por el usuario.
+  \Sistema Crea un \salida{xp-course} con los valores de  \salida{xp-course.hiddensections}
+           y \salida{xp-course.coursedisplay} ingresados por el usuario.
+  \Sistema Actualiza los demas datos del \refElem{mdl-course}.
+  \Sistema Por cada una de las \entrada[secciones]{xp-course.sections} del curso crea las
+           \salida[secciones gamificadas]{xp-course-section} correspondientes.
+  \Sistema Establece la \salida{xp-course-section.xp} de cada seccion del curso con base 
+           en la regla de negocio \regla{BR-E08}.
+  \Sistema Brinda la \refElem{xp-course-section.xp} de las secciones del curso
+           gamificadas a los alumnos que las hayan completado. \label{CU-E05-finish}
+  \Sistema Muestra la pantalla con \refElem{IU-E06a} con los datos del curso recien
+           creado.
 
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}{A}{%
-El curso al cual el \refElem{aProfesor} desea brindar soporte para experiencia 
-se encuentra en una categoria distinta a la mostrada por defecto.
+El módulo de experiencia se encuentra deshabilitado
 }
-  \Actor Selecciona la \refElem{course.category} a la que pertenece el curso
-         que desea agregarle experiencia.
-
-  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
-           \refElem{mdl-course.fullname} de los cursos presentes en la plataforma.
-
-  \Sistema Redirige al paso \ref{CU-E05-course-list} de la trayectoria principal.
+  \Sistema Muestra el mensaje informando que el módulo de experiencia está deshabilitado.
+  \Actor Si es que desea continuar cambiando el formato del curso por uno gamificado,
+         prosigue en el paso \ref{CU-E05-submit}
 
 \end{UCtrayectoriaA}
 
+\begin{UCtrayectoriaA}{B}{%
+Alguno de los campos introducidos por el usuario es erroneo.
+}
+
+  \Sistema Muestra los mensajes de error correspondientes en los campos que
+           contienen datos inválidos.
+  \Actor Ingresa de nuevo los campos que contiene errores.
+  \Sistema Regresa al paso \ref{CU-E05-submit}
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{C}{%
+El usuario desea regresar a la pantalla \refElem{IU-M06}.
+}
+
+  \Actor Presiona el botón {\bf Guardar y regresar}
+  \Sistema Ejecuta los pasos a partir del paso \ref{CU-E05-submit} hasta el
+           paso \ref{CU-E05-finish}.
+  \Sistema Redirige a la pantalla \refElem{IU-M06}
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{D}{%
+El usuario desea cancelar la creación del curso
+}
+  \Actor Presiona el botón {\bf Cancelar}
+  \Sistema Redirige a la pantalla \refElem{IU-M06}
+
+\end{UCtrayectoriaA}
