@@ -1,0 +1,42 @@
+
+\subsection{Extensión del esquema de base de datos}
+
+ Moodle cuenta con su propio lenguaje de definición de datos (DDL, Data Definition
+ Language), y lenguaje de manipulación de datos (DML, Data Management Language), que añaden
+ una capa de abstracción independiente del sistema gestor de base de datos que se este
+ utilizando. Moodle tiene soporte para funcionar sobre bases de datos MySQL, PostgresSQL,
+ MariaDB, MSSQL y Oracle \cite{moodleInstall}.
+
+\subsubsection{Pautas de Moodle para la base de datos}
+
+    %[] https://www.oreilly.com/library/view/high-performance-mysql/9781449332471/
+Moodle permite extender su esquema de base de datos mediante la instalación de plugins. Esto no solo nos lleva a conocer y entender su esquema de datos hasta un cierto punto, sino también, nos lleva a apegarnos a las restricciones que impone Moodle para la creación de la base de datos de los componentes.\\
+
+    \noindent Tampoco hay que olvidar lo que significa el desarrollo de componentes, ya que, deben permitirle al usuario instalarlos y desinstalarlos cuando ella quiera y no tener ningún tipo de problema en su plataforma de Moodle, es decir, los componentes deben tener un bajo acoplamiento \cite[pp. 244-245]{defAcoplamiento} con Moodle.\\
+
+    \noindent Moodle presenta varias pautas a seguir \cite{moodlePautasBD1},\cite{ moodlePautasBD2}, donde el público objetivo de las mismas es muy amplio. Por ello a continuación se presentan las pautas consideradas más relevantes e importantes.
+    
+\subsubsection{Pautas en tablas y atributos}
+    \begin{enumerate}
+        \item Cada tabla debe tener como llave primaria un atributo llamado ''id'' de tipo entero con una longitud de 10 dígitos que sea auto-incremental.
+        \item Si se está desarrollando un componente que es una actividad para un curso, el esquema del componente deberá tener una tabla principal que lleve el mismo nombre que el componente y dicha tabla deberá contener como mínimo los siguientes campos: el principal anteriormente explicado ''id', una referencia al curso ''course'' y un nombre ''name''.
+        %\item Además del punto anterior, toda tabla que contenga información extra o relacionada con la actividad, por ejemplo preguntas de un examen, deberá llamarse (nombre de la actividad)\_(información extra), dicha información extra deberá estar en plural. Siguiendo con el ejemplo seria; examen\_preguntas.
+        %\item Las tablas deberán tener un nombre en singular, exceptuando el ejemplo anterior o uno que defina la misma estructura.
+        \item Los nombres de atributos y tablas deberán estar en minúsculas y el único carácter especial que se puede usar en ellos es el guión bajo.
+        \item El nombre de las llaves deberá tener los nombres de los campos que se utiliza para crearlas (Excluyendo los atributos de otras tablas). Dichos nombres deberán ser separados por el signo menos ''-''.
+        \item Se recomienda que el nombre de las tablas no pase de 28 caracteres
+        \item Se recomienda que el nombre de los atributos no exceda los 30 caracteres.
+        \item Los atributos que hacen referencia a otra tabla deberán tener el nombre de la tabla a la que hace referencia y la palabra ''id'' en su nombre. Por ejemplo, la\_otra\_tabla\_id.
+        \item Solo se definirá un atributo como llave única (UNIQUE KEY), si este es apuntado por otro atributo, ya sea en la misma o en otra tabla con una llave foránea (FOREIGN KEY).
+        \item No se deben de usar vistas, debido a que no existe soporte para ellas.
+        \item Si se quiere tener un valor único no se deben usar llaves únicas (UNIQUE KEY), se recomienda utilizar en su lugar un índice único (UNIQUE INDEX)
+    \end{enumerate}
+
+\subsubsection{Pautas en tipos de datos}
+
+         Moodle establece la relación entre sus tipos de datos -los cuales se ingresan en el XMLDB Editor- y los tipos de dato que se guardan en los distintos gestores de base de datos \cite{moodleTiposBD}.  Gracias a esto, existen nuevas restricciones:
+        \begin{enumerate}
+            \item El tipo de dato de fecha, es guardado como un número entero de 10 dígitos ( int(10) ).
+            \item El tamaño indicado para un entero establece el tipo de entero que se usará, esto usando los rangos que tiene cada gestor de base de datos. Por ejemplo: INT(10) = BIGINT en MySQL.
+            \item No existe la posibilidad de indicar un número sin signo.
+        \end{enumerate}
