@@ -9,7 +9,7 @@
  *
  * PRACTICE _:  TITULO DE LA PRACTICA
  *               - DESCRIPCION
- *		
+ *
 */
 
 defined('MOODLE_INTERNAL') || die();
@@ -20,7 +20,15 @@ $observers = array (
     ),
     array (
         'eventname' => '\local_gamedlemaster\event\gmcompcpu_compFinishedWon',
-        'callback' => 'block_gmxp_observer::competence_won'
+        'callback' => 'block_gmxp_observer::competencecpu_won'
+    ),
+    array (
+        'eventname' => '\local_gamedlemaster\event\gmcompvs_compFinishedWon',
+        'callback' => 'block_gmxp_observer::competencevs_won'
+    ),
+    array (
+        'eventname' => '\local_gamedlemaster\event\gmpregdiarias_pregCorrecta',
+        'callback' => 'block_gmxp_observer::daily_question_answered'
     )
 );
 

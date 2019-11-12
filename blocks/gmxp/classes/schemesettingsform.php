@@ -64,7 +64,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
             'size' => self::PERCENTUAL_MAX_REGEX_LENGTH,
             'maxlength' => self::PERCENTUAL_MAX_REGEX_LENGTH
         ));
-        
+
         $mform->addElement('text', self::LEVELXP,
             get_string('SCHEME_SETTING_TEXT_LEVELXP', self::PLUGIN), array(
             'size' => self::XP_MAX_REGEX_LENGTH,
@@ -90,7 +90,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
 
         $mform->addHelpButton(self::ELEM_PERCENTUAL,
             'SCHEME_SETTING_HELP_PERCENTUAL', self::PLUGIN);
-        
+
         $mform->addHelpButton(self::LEVELXP,
             'SCHEME_SETTING_HELP_LEVELXP', self::PLUGIN);
 
@@ -208,7 +208,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
         if( !isset($data[$key]) || empty($data[$key]) ) {
             $errors[$key] = get_string('required');
 
-        } else if (!preg_match( self::XP_REGEX, $data[$key]) || $data[$key] == 0)) {
+        } else if (!preg_match( self::XP_REGEX, $data[$key]) || $data[$key] == 0) {
             $errors[$key] = $xp_incorrect;
         }
 
@@ -231,7 +231,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
     /**
      * Este método actualiza las configuraciones de la
      * base de datos con los valores enviados en el formulacion
-     * 
+     *
      * El objeto (stdClass) de entrada se convierte en un arreglo
      * donde cada clave es el identificador de la configuracion
      * del plugin y el valor de dicha clave es el nuevo valor de

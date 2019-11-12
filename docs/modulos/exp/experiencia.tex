@@ -1,12 +1,12 @@
 
-\chapter{Análisis}
+\subsection{Análisis}
 
  Este apartado contiene el análisis requerido para la elaboración de módulo de experiencia,
  contiene la especificación del alcance de este módulo, la descripción de las funcionalidades
  a desarrollar, la reglas de negocio que rigen el comportamiento del módulo, y por último la
  especificación de los casos de uso a los que brinda soporte.
 
-\section{Esquema de experiencia}
+\subsubsection{Esquema de experiencia}
 
  El esquema de experiencia le proporciona al \refElem{aAdministrador} y a los \refElem[Profesores]%
  {aProfesor} un mecanismo mediante el cual pueden configurar la forma en que se obtienen los puntos
@@ -19,11 +19,10 @@
  curso} las cuales definen valores para un curso en específico. A continuación se describen cada
  uno de los grupos.\\
 
-\section{Submódulo de niveles}
+\subsubsection{Submódulo de niveles}
+\subsubsection{Funcionalidades}
 
-\section{Funcionalidades}
-
-\section{Reglas de negocio}
+\subsubsection{Reglas de negocio} %========================================================
 
  En esta sección se especifican todas las reglas de negocio relevantes para el módulo de
  experiencia. Las reglas de negocio que establece moodle son diferenciadas por tener la letra {\it M}
@@ -42,13 +41,13 @@
     % INPUT: Administración de experiencia en el curso
 
 \clearpage
-\section{Casos de uso}
+\subsubsection{Casos de uso} % ============================================================
 
  En este apartado se especifican todos los casos de usos contemplados para el módulo de
  experiencia, para cada caso de uso se especifica su tabla de atributos la cual indica que casos
  de prueba deberán ejecutarse correctamente para corrobarar la completitud del caso de uso.
 
-\subsection{Diagrama de casos de uso}
+\subsubsection*{Diagrama de casos de uso}
 
  En la figura \ref{exp:usecases} se detalla el diagrama de casos de uso correspondiente al módulo
  de experiencia. Los casos de uso de moodle (en color blanco) son modelados como casos de uso
@@ -88,7 +87,9 @@
 
 % =========================================================
 \clearpage
-\section{Interfaces de Moodle}
+\subsection{Diseño}
+
+\subsubsection{Interfaces de Moodle}
 
     % INTERFACES DE MOODLE 
     \input{modulos/moodle/IU/IU-M00}  % Tablero (Dashboard)
@@ -117,7 +118,7 @@
     \input{modulos/moodle/IU/IU-M06a} % Confirmación eliminar curso
     \input{modulos/moodle/IU/IU-M06b} % Estado de eliminación de un curso
 
-\section{Interfaces del módulo de experiencia}
+\subsubsection{Interfaces del módulo de experiencia}
 
     \input{modulos/exp/IU/IU-E01}  % Configuraciones
     \input{modulos/exp/IU/IU-E02}  % Configuraciones Generales
@@ -133,12 +134,11 @@
     %\input{modulos/modExpIU/IU-E04} % Configuraciones de Comportamiento
     %\input{modulos/modExpIU/IU-E05} % Configuraciones de eventos
 
-\chapter{Diseño}
-\section{Diseño de plugins}
-\section{Diagrama de componentes}
-\section{Diagrama de clases}
+\subsubsection{Diseño de plugins} % TODO CHANGE FOR INPUTS
+\subsubsection{Diagrama de componentes} % TODO CHANGE FOR INPUTS
+\subsubsection{Diagrama de clases} % TODO CHANGE FOR INPUTS
 
-\chapter{Pruebas}
+\subsection{Pruebas}
 
     \input{modulos/exp/CP/CPC-E01}
     \input{modulos/exp/CP/CPC-E02}
