@@ -1,0 +1,123 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.1,%
+Estado/\ucstEnEdicion]%
+%
+{CU-E05}{Habilitar el soporte para experiencia en un curso}{%
+%
+ Permite al \refElem{aProfesor} incluir el soporte para que las secciones del curso
+ que administra brinden experiencia a los alumnos conforme estos las vayan completando.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ \today }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor}
+    }
+
+	\UCitem{Propósito}{%
+        Agregar soporte para brindar experiencia en cualquier curso que haya sido creado
+        en moodle.
+	}
+	
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-E06a}
+	}
+	
+	\UCitems{Precondiciones}{%
+        \Titem Los plugins correspondientes al módulo de experiencia deben de estar
+               habilitados.
+	}
+
+	\UCitem{Postcondiciones}{%
+        \Titem Se debe de brindar la experiencia correspondiente de las secciones que
+               hayan completado los alumnos inscritos en el curso.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+        % CAUSA
+            Los plugins corespondientes al módulo de experiencia no se encuentran
+            instalados,}{%
+        % EFECTO
+            no aparece la opción para cambiar el formato del curso al formato gamificado}
+
+        \Titem \UCerr{Err2}{%
+        % CAUSA
+            El módulo de experiencia se encuentra deshabilitado en la plataforma,}{%
+        % EFECTO
+            se le solicita al \refElem{aAdministrador} que habilite la experiencia}
+    }
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }	
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-E05}
+        \Titem \refElem{CPC-E05a}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{%
+        Ninguna
+	}
+
+\end{UseCase}
+
+\clearpage
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+ \includeUC{CU-M01} presionando la pestaña {\bf Cursos}.
+
+  \Actor Presiona la opción {\bf Gestionar cursos y categorías}.
+  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
+           \refElem{mdl-course.fullname} de los cursos presentes en la plataforma.
+  \Sistema Muestra en la pantalla \refElem{IU-M06} la lista de cursos. \refTray{A}.
+           \label{CU-E05-course-list}
+
+  \Actor Presiona el botón  
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}{A}{%
+El curso al cual el \refElem{aProfesor} desea brindar soporte para experiencia 
+se encuentra en una categoria distinta a la mostrada por defecto.
+}
+  \Actor Selecciona la \refElem{course.category} a la que pertenece el curso
+         que desea agregarle experiencia.
+
+  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
+           \refElem{mdl-course.fullname} de los cursos presentes en la plataforma.
+
+  \Sistema Redirige al paso \ref{CU-E05-course-list} de la trayectoria principal.
+
+\end{UCtrayectoriaA}
+
