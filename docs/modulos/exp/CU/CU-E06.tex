@@ -107,21 +107,21 @@ Estado/\ucstEnEdicion]%
   \Sistema Muestra los datos obtenidos del curso en la pantalla \refElem{IU-E05}.
 
   \Actor Despliega la sección para el formato del curso.
-  \Actor Selecciona UN \entrada{mdl-course.format} distinto al \refElem[formato gamificado]%
-         {xp-course.format}.
+  \Actor Selecciona UN \entrada{mdl-course.format} distinto al 
+         \refElem[formato gamificado]{xp-course.format}.
   \Sistema Carga la información correspondiente al formato del curso elegido.
 
   \Actor Opcionalmente edita los demás campos opcionales del formulario.
   \Actor Presiona el botón {\bf Guardar Cambios y mostrar}. \refTray{B}, \refTray{C},
          \refTray{D} \label{CU-E05-submit}
-
   \Sistema Actualiza los datos del curso de moodle con los ingresados por el usuario.
   \Sistema Elimina el \entrada{xp-course} vinculado al \refElem{mdl-course} y las
            configuraciones del mismo.
   \Sistema Elimina las \entrada{xp-course-section} vinculadas al curso.
-  \Sistema Elimina las \entrada[recompensas]{xp-section-reward} de las secciones del curso
-           sin alterar la experiencia recibida por los alumnos de acuerdo con la regla
-           \regla{BR-E02}.
+  \Sistema Elimina las \entrada[recompensas]{xp-section-reward} de las secciones del 
+           curso sin alterar la experiencia recibida por los alumnos de acuerdo con 
+           la regla \regla{BR-E02}.
+  \Sistema Muestra la pantalla \refElem{IU-M06a}.
 
 \end{UCtrayectoria}
 
