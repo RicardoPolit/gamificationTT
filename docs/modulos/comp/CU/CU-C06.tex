@@ -1,0 +1,109 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Ricardo Naranjo,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-C06}{Eliminar instancia (Competencia uno contra sistema)}{%
+%
+ Permite al \refElem{aProfesor} y al \refElem{aAdministrador} eliminar una instancia de la actividad competencia uno contra sistema en su curso.
+ Este caso de uso es una extensión del caso de uso {\it Ver curso} que es propio de moodle.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitir al \refElem{aProfesor} y al \refElem{aAdministrador} eliminar una instancia de la actividad de competencia uno contra sistema.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-M07}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El plugin de competencia uno contra sistema debe estar instalado en moodle.
+        \Titem La instancia de la actividad de competencia uno contra sistema debe estar creada.
+        % Realizar el caso de uso "listar actividades disponibles?"
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem La instancia de la actividad eliminada no debe mostrarse en la pantalla \refElem{IU-M07}.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-C01}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Activa la edición del curso en la pantalla \refElem{IU-M07}.
+
+    \Sistema Redirige a la pantalla de edición del curso \refElem{IU-M07aa}.
+
+    \Actor Presiona el botón {\bf Editar} de la instancia que desea eliminar.
+
+    \Sistema Despliega el menú \refElem{IU-M07b}.
+
+    \Actor Presiona el botón {\bf Eliminar} del menú desplegable \refElem{IU-M07b}.
+
+    \Sistema Despliega mensaje de confirmación de eliminación. \refElem{IU-M07c}
+
+    \Actor Presiona el botón {\bf Si}. \refTray{A}
+
+    \Sistema Redirige a la pantalla \refElem{IU-M07} y elimina la instancia y los valores de la instancia \refElem{comp-cpu-gmcompcpu}, así como los datos que dependen de la instancia en las siguientes entidades: \refElem{comp-cpu-gmdl-intento} y \refElem{comp-cpu-gmdl-respuesta-cpu}.
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{A}{El \refElem{aProfesor} o \refElem{aAdministrador} desea cancelar la eliminación después de mostrar el mensaje de confirmación}
+
+  \Actor Presiona el botón {\bf No} en la mensaje de confirmación \refElem{IU-M07C}.
+  \Sistema Redirige a la pantalla \refElem{IU-M07}.
+
+\end{UCtrayectoriaA}

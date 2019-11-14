@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -30,7 +30,7 @@ Estado/\ucstEnEdicion]%
         Remover el módulo de experiencia junto con las funcionalidades que
         brinda y los datos generados por el mismo.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -42,14 +42,14 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Destino}{%
 		\refElem{IU-M03}
 	}
-	
+
 	\UCitem{Precondiciones}{%
-        Los plugins que se desean instalar deben estar previamente 
+        Los plugins que se desean instalar deben estar previamente
         instalados.
 	}
 
 	\UCitem{Postcondiciones}{%
-        Los datos de generados por el esquema de experiencia deben ser 
+        Los datos de generados por el esquema de experiencia deben ser
         eliminados una vez concluida la desinstalación del o de los plugins.
 	}
 
@@ -60,7 +60,7 @@ Estado/\ucstEnEdicion]%
         % CAUSA
             El plugin a desinstalar no se encuentra instalado}{%
         % EFECTO
-            no se puede proceder con la ejecución debido a que ya está 
+            no se puede proceder con la ejecución debido a que ya está
             desinstalado}
 	}
 
@@ -102,14 +102,14 @@ Estado/\ucstEnEdicion]%
   \Sistema Obtiene la lista de los \entrada[cursos gamificados]{xp-course} y por cada curso
            realiza las siguientes acciones, y continua en el \label{CU-E03-loop-delete-course}
 
-  \Sistema Cambia los \entrada[formatos]{mdl-course.format} de los cursos por el formato de 
+  \Sistema Cambia los \entrada[formatos]{mdl-course.format} de los cursos por el formato de
            secciones aplicando la regla \regla{BR-E06}.
 
-  \Sistema Obtiene las \entrada[secciones de los curso gamificados]{xp-course-section} 
+  \Sistema Obtiene las \entrada[secciones de los curso gamificados]{xp-course-section}
            y las elimina.
 
   \Sistema Elimina los datos de todos las \entrada[recompensas de experiencia]%
-           {xp-section-reward} y \entrada[usuarios gamificados]{xp-user} 
+           {xp-section-reward} y \entrada[usuarios gamificados]{xp-user}
            registrados en el sistema.
 
   \Sistema Muestra la pantalla \refElem{IU-M04a} pidiendo al usuario la confirmación
@@ -129,7 +129,7 @@ El \refElem{aAdministrador} desea cancelar la desinstalación del plugin
 }
   \Actor Presiona el botón de {\bf Cancelar}.
 
-  \Sistema Cancela las operaciones de desinstalación y redirige al usuario a la 
+  \Sistema Cancela las operaciones de desinstalación y redirige al usuario a la
            pantalla \refElem{IU-M04}.
 \end{UCtrayectoriaA}
 
@@ -140,7 +140,7 @@ El \refElem{aAdministrador} no desea eliminar los archivos del plugin}
 
   \Sistema Detectando que hay archivos de un plugin que no está instalado.
 
-  \Sistema Carga la pantalla \refElem{IU-M02b} detectando el plugin del módulo de experiencia como 
+  \Sistema Carga la pantalla \refElem{IU-M02b} detectando el plugin del módulo de experiencia como
            plugin a instalar.
 
 \end{UCtrayectoriaA}

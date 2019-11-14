@@ -1,10 +1,10 @@
 \begin{UseCase}{CU-E9}{Recibir experiencia}{
-Cuando un alumno conteste un ejercicio y suba un intento para revisión, el sistema le otorgará la experiencia correspondiente. Si recibe experiencia suficiente, el usuario subirá de nivel.
+Cuando un estudiante conteste un ejercicio y suba un intento para revisión, el sistema le otorgará la experiencia correspondiente. Si recibe experiencia suficiente, el usuario subirá de nivel.
 }
 	\UCrow{Versión}{\color{gray} 0.2 (Revisado)}
     \UCrow{Autor}{\color{gray}	David Flores Casanova}
     \UCrow{Supervisa}{\color{gray}	Daniel Isaí Ortega Zúñiga}
-    \UCrow{Actor}{Alumno} % Gerente, Instructor
+    \UCrow{Actor}{Estudiante} % Gerente, Instructor
     \UCrow{Propósito}{Otorgarle experiencia al actor por completar una actividad.}
     \UCrow{Entradas}{
         Selección en el botón \#2 ''Enviar todo y terminar'' de la interfaz \hyperref[IUM01]{IU-M01 Ver intento de examen} .\newline
@@ -27,9 +27,9 @@ Cuando un alumno conteste un ejercicio y suba un intento para revisión, el sist
     \UCrow{Destino}{Pantalla}
     \UCrow{Precondiciones}{
 		\begin{CUTitemize}
-	        \CUTitem{El actor está registrado como alumno del curso.}
+	        \CUTitem{El actor está registrado como estudiante del curso.}
             \CUTitem{El actor no tiene registrados intentos anteriores.}
-			\CUTitem{La actividad del curso está creada.} 
+			\CUTitem{La actividad del curso está creada.}
             \CUTitem{El módulo de experiencia está habilitado.}
 		\end{CUTitemize}
     }
@@ -39,7 +39,7 @@ Cuando un alumno conteste un ejercicio y suba un intento para revisión, el sist
 			\CUTitem{Se actualiza la cantidad de experiencia que ha recibido el actor en ese curso.}
 		\end{CUTitemize}
     }
-	\UCrow{Errores}{E1: El actor no está registrado como alumno del curso}
+	\UCrow{Errores}{E1: El actor no está registrado como estudiante del curso}
     \UCrow{Observaciones}{}
 \end{UseCase}
 
@@ -51,7 +51,7 @@ Cuando un alumno conteste un ejercicio y suba un intento para revisión, el sist
     \sistema muestra la ventana emergente \hyperref[IUM02]{IU-M02 Confirmación de envío de intento}.
     \actor selecciona el botón \#1 ''Enviar todo y terminar'' ({\it Trayectoria alternativa A})
     \sistema comprueba que el módulo de experiencia esté habilitado ({\it Trayectoria alternativa B}).
-    \sistema comprueba que el actor que subió el intento es un alumno del curso ({\it Trayectoria alternativa C}).
+    \sistema comprueba que el actor que subió el intento es un estudiante del curso ({\it Trayectoria alternativa C}).
     \sistema comprueba que el actor no tenga registrados intentos anteriores ({\it Trayectoria alternativa D}).
     \sistema calcula si la experiencia que se le dará al actor provoca que este ''suba de nivel'' ({\it Trayectoria alternativa E}).
     \sistema carga la interfaz \hyperref[IUM03]{IU-M03 Intento calificado}.
@@ -70,7 +70,7 @@ Cuando un alumno conteste un ejercicio y suba un intento para revisión, el sist
 \end{UCtrayectoria}
 
 \begin{UCtrayectoria}{alternativa C}
-    \item[- -] - - {\em El actor no está registrado como alumno del curso.}
+    \item[- -] - - {\em El actor no está registrado como estudiante del curso.}
     \item[- -] - - {\em El caso de uso termina.}
 \end{UCtrayectoria}
 
@@ -86,7 +86,7 @@ Cuando un alumno conteste un ejercicio y suba un intento para revisión, el sist
     \sistema incrementa el nivel actual del actor en una unidad.
     \sistema cambia el valor de la ''\hyperref[table:METerminosExperiencia1]{experiencia actual}'' por la de la ''\hyperref[table:METerminosExperiencia1]{experiencia sobrante}''
     \sistema guarda el nivel actual del actor y la ''\hyperref[table:METerminosExperiencia1]{experiencia actual}''.
-    \sistema comprueba si el nivel actual del actor existe dentro de un rango de niveles ({\it Trayectoria alternativa F}). 
+    \sistema comprueba si el nivel actual del actor existe dentro de un rango de niveles ({\it Trayectoria alternativa F}).
     \sistema carga la interfaz \hyperref[IUE02]{IU-E02 Subir de nivel} con la información por defecto de niveles.
     \actor presiona la tecla ''enter'' o ''espacio''.
     \sistema cierra la interfaz \hyperref[IUE02]{IU-E02 Subir de nivel}.

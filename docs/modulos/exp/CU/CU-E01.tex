@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -16,7 +16,7 @@ Estado/\ucstEnRevision]%
  Permite al \refElem{aAdministrador} incluir todas las funcionalidades que brinda el módulo de
  experiencia al moodle que administra mediante la instalación de los plugins correspondientes.
  La conclusión de la trayectoria principal de esta caso de uso es una precondición para que los
- demás casos de uso del módulo de experiencia puedan ejercutarse.}
+ demás casos de uso del módulo de experiencia puedan ejecutarse.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ 13/OCT/19 }
@@ -34,7 +34,7 @@ Estado/\ucstEnRevision]%
         \Titem Permitir a los usuarios de moodle ver su progreso en la plataforma mediante puntos
         de experiencia.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -46,9 +46,9 @@ Estado/\ucstEnRevision]%
 	\UCitem{Destino}{%
 		\refElem{IU-M01}
 	}
-	
+
 	\UCitems{Precondiciones}{%
-        \Titem La caperta comprimida que contiene los archivos del plugin
+        \Titem La carpeta comprimida que contiene los archivos del plugin
         \Titem El plugin debe cumplir con la regla \refElem{BR-M01} para poder ser
                instalado.
         % \Titem Si se trata de una actualización de un plugin la versión de este debe
@@ -67,7 +67,7 @@ Estado/\ucstEnRevision]%
 
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
-            El archivo zip del plugin seleccionado está corroto,}{% CAUSA
+            El archivo zip del plugin seleccionado está roto,}{% CAUSA
             no se puede continuar con la instalación del plugin}% EFECTO
 
         \Titem \UCerr{Err2}{%
@@ -84,11 +84,11 @@ Estado/\ucstEnRevision]%
             el plugin sigue }
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
 					  % extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
-	% }	
+	% }
 
  \UCsection[design]{Datos de Diseño}
 
@@ -112,8 +112,8 @@ Estado/\ucstEnRevision]%
     \Sistema Carga la pantalla \refElem{IU-M02} con el formulario para seleccionar el
              plugin a instalar. \label{CU-E01-formulario-instalacion}
 
-    \Actor Presiona la opción {\bf Seleccione un archivo} 
-    \Sistema Despliega la pantalla \refElem{IU-M00a} como pantalla emergente 
+    \Actor Presiona la opción {\bf Seleccione un archivo}
+    \Sistema Despliega la pantalla \refElem{IU-M00a} como pantalla emergente
              \label{CU-E01-seleccion-archivo}
 
     \Actor Selecciona la opción {\it Subir un archivo} en el menu izquierdo de la pantalla
@@ -147,10 +147,10 @@ Estado/\ucstEnRevision]%
              estableciendo el \refElem{xp-user.level} actual igual a $1$,
              la \refElem{xp-user.xp} igual a $0$.
     \Sistema Establece los valores por defecto para las \refElem{xp-visual-settings} (
-              \entrada{xp-visual-settings.title}, 
-              \entrada{xp-visual-settings.description}, 
-              \entrada{xp-visual-settings.message}, 
-              \entrada{xp-visual-settings.colorLvl}, 
+              \entrada{xp-visual-settings.title},
+              \entrada{xp-visual-settings.description},
+              \entrada{xp-visual-settings.message},
+              \entrada{xp-visual-settings.colorLvl},
               \entrada{xp-visual-settings.colorBar} e
               \entrada{xp-visual-settings.image}), especificadas en el modelo de información.
 
@@ -172,7 +172,7 @@ Estado/\ucstEnRevision]%
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
-{B}{El \refElem{aAdministrador} desea cancelar la instalación despues de la validación del archivo ZIP}
+{B}{El \refElem{aAdministrador} desea cancelar la instalación después de la validación del archivo ZIP}
 
     \Actor Presiona el botón {\bf cancelar} de la pantalla \refElem{IU-M02a}.
     \Sistema Cancela la instalación del plugin y redirige a la pantalla \refElem{IU-M02}
@@ -180,12 +180,12 @@ Estado/\ucstEnRevision]%
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
-{C}{El \refElem{aAdministrador} desea cancelar la instalación despues de ver la comprobación de plugins a instalar}
+{C}{El \refElem{aAdministrador} desea cancelar la instalación después de ver la comprobación de plugins a instalar}
 
     \Actor Presiona el botón {\bf cancelar esta instalación} o {\bf cancelar las nuevas instalaciones}
     \Sistema Redirige a la pantalla \refElem{IU-M02c}
 
-    \Actor Si el actor presiona el botón {\bf Continuar} entonces 
+    \Actor Si el actor presiona el botón {\bf Continuar} entonces
     \UCpaso[--] el caso de uso terminará, (en caso contrario)
 
     \Actor Si el actor presiona el botón {\bf Cancelar}
@@ -201,4 +201,3 @@ Estado/\ucstEnRevision]%
 %    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
 %
 %    }{\refElem{CU-E2-T}}
-

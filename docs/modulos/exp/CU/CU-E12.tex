@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -23,14 +23,14 @@ Estado/\ucstEnEdicion]%
  \UCsection{Atributos}
 
     \UCitem{Actor(es)}{%
-        \refElem{aAdministrador} o \refElem{aAlumno}.
+        \refElem{aAdministrador} o \refElem{aEstudiante}.
     }
 
 	\UCitem{Propósito}{%
         Asociar una cuenta de un \refElem{xp-user} a un \refElem{mdl-user}
         cuando es creado por el administrador.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -41,10 +41,10 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
 	\UCitem{Destino}{\refElem{IU-M05a}}
-	
+
 	\UCitems{Precondiciones}{%
         \Titem Los plugins del módulo de experiencia deben de estar instalados.
-        \Titem Cuando el actor es un \refElem{aAlumno} \refTray{A}, la opción
+        \Titem Cuando el actor es un \refElem{aEstudiante} \refTray{A}, la opción
                opción de permitir autoregistros debe estar habilitada y las
                configuraciones para poder realizar envío de correos mediante SMTP
                deben ser las correctas.
@@ -68,23 +68,23 @@ Estado/\ucstEnEdicion]%
             La opción de creación de cuentas mediante autoregistro se encuentra
             deshabilitada}{%
         % EFECTO
-            no se muestra la opción para que el alumno cree su propia contraseña,
+            no se muestra la opción para que el estudiante cree su propia contraseña,
             termina el caso de uso.}
         \Titem \UCerr{Err3}{%
         % CAUSA
             La configuración de envío de correos para autoregistrarse no permite
             enviar correos}{%
         % EFECTO
-            no se puede enviar el correo de confirmación, pero la cuenta ha sido 
-            creada, el \refElem{aAlumno} contacta con soporte para que validen su
+            no se puede enviar el correo de confirmación, pero la cuenta ha sido
+            creada, el \refElem{aEstudiante} contacta con soporte para que validen su
             cuenta manualmente}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de 
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de
     % otro. La mayoría se extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
-	% }	
+	% }
 
  \UCsection[design]{Datos de Diseño}
 
@@ -108,8 +108,8 @@ Estado/\ucstEnEdicion]%
   \includeUC{CU-M01} presionando la pestaña {\bf Usuarios}. \refTray{A}
   \Actor Presiona la opción {\bf Agregar un usuario} de la pantalla \refElem{IU-M01b}.
   \Sistema Carga la pantalla \refElem{IU-M05}.
-  \Actor Ingresa el \entrada{mdl-user.username}, \entrada{mdl-user.password}, 
-         \entrada{mdl-user.firstname} y \entrada{mdl-user.lastname}, que son los 
+  \Actor Ingresa el \entrada{mdl-user.username}, \entrada{mdl-user.password},
+         \entrada{mdl-user.firstname} y \entrada{mdl-user.lastname}, que son los
          atributos requeridos para el nuevo usuario. \label{IU-E12-input-data}
 
   \Actor Opcionalmente ingresa los valores de los demás campos.
@@ -118,16 +118,16 @@ Estado/\ucstEnEdicion]%
          \label{CU-E12-submit}.
 
   \Sistema Obtiene lo valores ingresados para el nuevo usuario y crea la cuenta de un
-           \refElem{mdl-user}. 
+           \refElem{mdl-user}.
 
   \Sistema Vincula los datos de un \salida{xp-user} con el \refElem{mdl-user} obtenido,
            estableciendo los valores iniciales para el \refElem{xp-user.level},
            \refElem{xp-user.levelxp} y \refElem{xp-user.xp} de acuerdo con la regla
            \regla{BR-E07}. \refErr{Err1} \label{IU-E12}
 
-  \Sistema Obtiene el \salida{mdl-user.firstname}, \salida{mdl-user.lastname}, 
+  \Sistema Obtiene el \salida{mdl-user.firstname}, \salida{mdl-user.lastname},
            \salida{mdl-user.email}, \salida{mdl-user.lastaccess},
-           \salida{mdl-user.city} y \salida{mdl-user.country} de los usuarios 
+           \salida{mdl-user.city} y \salida{mdl-user.country} de los usuarios
            presentes en moodle.
 
   \Sistema Despliega la información de los usuarios en la pantalla \refElem{IU-M05a}.
@@ -135,14 +135,14 @@ Estado/\ucstEnEdicion]%
 
 
 \begin{UCtrayectoriaA}{A}{%
-El usuario que ejecuta este caso de uso es el \refElem{aAlumno} para registrarse
+El usuario que ejecuta este caso de uso es el \refElem{aEstudiante} para registrarse
 así mismo.
 }
   \Actor Se encuentra en la pantalla \refElem{IU-M00b}. \refErr{Err2}
   \Actor Presiona el botón {\bf Comience ahora creando una cuenta}.
   \Sistema Carga la pantalla \refElem{IU-M05c}.
-  \Sistema Ejecuta del paso \ref{IU-E12-input-data} al 
-  \Sistema Envía el correo de confirmación al \refElem{aAlumno}. \refErr{Err3}
+  \Sistema Ejecuta del paso \ref{IU-E12-input-data} al
+  \Sistema Envía el correo de confirmación al \refElem{aEstudiante}. \refErr{Err3}
   \Actor Revisa su correo y accede al enlace para confirmar el registro de su cuenta.
 \end{UCtrayectoriaA}
 

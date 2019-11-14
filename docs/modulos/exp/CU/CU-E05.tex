@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -14,7 +14,7 @@ Estado/\ucstEnEdicion]%
 {CU-E05}{Habilitar el soporte para experiencia en un curso}{%
 %
  Permite al \refElem{aProfesor} incluir el soporte para que las secciones del curso
- que administra brinden experiencia a los alumnos conforme estos las vayan completando.}
+ que administra brinden experiencia a los estudiantes conforme estos las vayan completando.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -29,7 +29,7 @@ Estado/\ucstEnEdicion]%
         Agregar soporte para brindar experiencia en cualquier curso que haya sido creado
         en moodle.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -41,7 +41,7 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Destino}{%
 		\refElem{IU-E06a}
 	}
-	
+
 	\UCitems{Precondiciones}{%
         \Titem Los plugins correspondientes al módulo de experiencia deben de estar
                habilitados.
@@ -49,7 +49,7 @@ Estado/\ucstEnEdicion]%
 
 	\UCitems{Postcondiciones}{%
         \Titem Se debe de brindar la experiencia correspondiente de las secciones que
-               hayan completado los alumnos inscritos en el curso.
+               hayan completado los estudiantes inscritos en el curso.
 	}
 
 	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
@@ -69,11 +69,11 @@ Estado/\ucstEnEdicion]%
             se le solicita al \refElem{aAdministrador} que habilite la experiencia}
     }
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
 					  % extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
-	% }	
+	% }
 
  \UCsection[design]{Datos de Diseño}
 
@@ -99,7 +99,7 @@ Estado/\ucstEnEdicion]%
  \includeUC{CU-M01} presionando la pestaña {\bf Cursos}.
 
   \Actor Presiona la opción {\bf Gestionar cursos y categorías}.
-  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
+  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y
            \refElem{mdl-course.fullname} de los cursos presentes en la plataforma.
   \Sistema Muestra en la pantalla \refElem{IU-M06} la lista de cursos.
            \label{CU-E05-course-list}
@@ -130,10 +130,10 @@ Estado/\ucstEnEdicion]%
   \Sistema Actualiza los demas datos del \refElem{mdl-course}.
   \Sistema Por cada una de las \entrada[secciones]{xp-course.sections} del curso crea las
            \salida[secciones gamificadas]{xp-course-section} correspondientes.
-  \Sistema Establece la \salida{xp-course-section.xp} de cada seccion del curso con base 
+  \Sistema Establece la \salida{xp-course-section.xp} de cada seccion del curso con base
            en la regla de negocio \regla{BR-E08}.
   \Sistema Brinda las \salida[recompensas]{xp-section-reward} de las secciones del curso
-           gamificadas a los alumnos que las hayan completado. \label{CU-E05-finish}
+           gamificadas a los estudiantes que las hayan completado. \label{CU-E05-finish}
   \Sistema Muestra la pantalla con \refElem{IU-E06a} con los datos del curso recien
            creado.
 

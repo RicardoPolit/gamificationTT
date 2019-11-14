@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -39,7 +39,7 @@ Estado/\ucstEnRevision]%
              nuevo nivel.
       \Titem Cambiar el nombre de los niveles.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -52,7 +52,7 @@ Estado/\ucstEnRevision]%
 	\UCitems{Destino}{%
 		\Titem \refElem{IU-M01}
 	}
-	
+
 	\UCitems{Precondiciones}{%
         \Titem Que los plugins del módulo de experiencia se encuentren instalados,
         \Titem El módulo de experiencia haya sido habilitando en el caso uso
@@ -113,7 +113,7 @@ Estado/\ucstEnRevision]%
   \includeUC{CU-M01} \refErr{Err1}
 
   \Actor Presiona la opción {\bf \refElem{tExpSettingsVisual}} en la categoría
-         \refElem{tExpCategoria}. 
+         \refElem{tExpCategoria}.
   \Sistema Obtiene el valor de si el módulo de experiencia está \refElem[activado]%
            {xp-general-settings.activated} o no. \refTray{A}
   \Sistema Obtiene los valores actuales de la configuración:
@@ -135,7 +135,7 @@ Estado/\ucstEnRevision]%
          tonalidad mediante el \refElem{tSelectColor}. \refTray{B}
          \label{CU-E02-1.color}
   \Actor Presiona la opción {\bf Seleccione un archivo}. \refTray{C}
-  \Sistema Despliega la pantalla \refElem{IU-M00a} como pantalla emergente 
+  \Sistema Despliega la pantalla \refElem{IU-M00a} como pantalla emergente
            \label{CU-E02-1.seleccion-archivo}
 
   \Actor Selecciona la opción {\it Subir un archivo} en el menu izquierdo de la
@@ -171,15 +171,15 @@ Estado/\ucstEnRevision]%
                      para activar el módulo de experiencia.
 
   \Sistema Regresa al inicio de la trayectoria principal.
-           
+
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}{B}{%
 El \refElem{aAdministrador} desea especificar el valor del \refElem{tColor}
 directamente}
 
-    \Actor Ingresa el valor hexadecimal del color para el 
-           \refElem{xp-visual-settings.colorLvl} o 
+    \Actor Ingresa el valor hexadecimal del color para el
+           \refElem{xp-visual-settings.colorLvl} o
            \refElem{xp-visual-settings.colorBar}.
 
     \Sistema Continua en el paso \ref{CU-E02-1.color} de la trayectoria principal.

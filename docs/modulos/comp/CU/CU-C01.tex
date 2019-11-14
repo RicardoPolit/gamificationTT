@@ -1,0 +1,152 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Ricardo Naranjo,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-C01}{Crear instancia (Competencia uno contra uno)}{%
+%
+ Permite al \refElem{aProfesor} y al \refElem{aAdministrador} crear una nueva instancia de la actividad competencia uno contra uno en su curso.
+ La conclusión de la trayectoria principal de esta caso de uso es una precondición para que
+ algunos casos de uso del módulo de competencia puedan ejecutarse.\\%
+ Este caso de uso es una extensión del caso de uso {\it Listar actividades disponibles} que es propio de moodle.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitir al \refElem{aProfesor} y al \refElem{aAdministrador} incluir en su curso una nueva instancia de la actividad de competencia uno contra uno.
+
+        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y \refElem{aAdministrador} con acceso al curso utilizar la instancia de la actividad de competencia uno contra uno creada por el \refElem{aProfesor} o \refElem{aAdministrador}.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+        \Titem Teclado
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-M07}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El plugin de competencia uno contra uno debe estar instalado en moodle.
+        % Realizar el caso de uso "listar actividades disponibles?"
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem La nueva instancia de la actividad debe mostrarse en la pantalla \refElem{IU-M07}.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+            No se ingresó un campo requerido en el formulario de creación de la actividad,}{% CAUSA
+            no se puede crear la nueva instancia de la actividad}% EFECTO
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-C01}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+    \Actor Selecciona la actividad Gamedle - Competencia uno contra uno en la pantalla \refElem{IU-M07a}.
+    \Sistema Muestra la descripción de la actividad Gamedle - Competencia uno contra uno en la pantalla.
+
+    \Actor Presiona el botón {\bf Agregar} en la pantalla. \refTray{A}
+    \Sistema Redirige a la pantalla \refElem{IU-C01}.
+    \label{CU-C01-muestra-pantalla}
+
+    \Actor Ingresa los datos correspondientes en el formulario.
+
+    \Actor Presiona el botón {\bf Guardar cambios y regresar al curso}.\refTray{B} \refTray{C}
+
+    \Sistema Valida que los campos ingresados sean válidos. \refTray{D} \refErr{Err1}
+
+    \Sistema Establece los valores ingresados para la nueva instancia \refElem{comp-1v1-gmcompvs} (
+      \entrada{comp-1v1-gmcompvs.name},
+      \entrada{comp-1v1-gmcompvs.mdl-question-categories-id},
+      \entrada{comp-1v1-gmcompvs.apuestas-activas},
+      \entrada{comp-1v1-gmcompvs.completionnumwon}), especificadas en el modelo de información.
+
+    \Sistema Redirige a la pantalla \refElem{IU-M07} y muestra la nueva instancia creada en el curso.
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+  {A}{El \refElem{aProfesor} o \refElem{aAdministrador} desea cancelar la creación de la nueva instancia después que se le muestra la descripción de la actividad}
+
+  \Actor Presiona el botón {\bf cancelar} en la pantalla \refElem{IU-M07a}.
+  \Sistema Cierra la pantalla \refElem{IU-M07a} y redirige a la pantalla \refElem{IU-M07}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{B}{El \refElem{aProfesor} o \refElem{aAdministrador} desea ver la nueva instancia de la actividad}
+
+    \Actor Presiona el botón {\bf Guardar cambios y mostrar} de la pantalla \refElem{IU-C01}.
+
+    \Sistema Valida que los campos ingresados sean válidos. \refTray{D} \refErr{Err1}
+
+    \Sistema Establece los valores ingresados para la nueva instancia \refElem{comp-1v1-gmcompvs} (
+      \refElem{comp-1v1-gmcompvs.name},
+      \refElem{comp-1v1-gmcompvs.mdl-question-categories-id},
+      \refElem{comp-1v1-gmcompvs.apuestas-activas},
+      \refElem{comp-1v1-gmcompvs.completionnumwon}), especificadas en el modelo de información.
+
+    \Sistema Redirige a la pantalla \refElem{IU-C02}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+  {C}{El \refElem{aProfesor} desea cancelar la creación de la nueva instancia después de mostrar el formulario de creación}
+
+  \Actor Presiona el botón {\bf cancelar} en la pantalla \refElem{IU-C01}.
+  \Sistema Redirige a la pantalla \refElem{IU-C01}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{D}{Algún dato ingresado por el \refElem{aProfesor} o \refElem{aAdministrador} es inválido}
+
+  \Sistema Muestra un mensaje de error "-Usted debe poner un valor aquí", en los campos de la pantalla \refElem{IU-C01} que sean requeridos.
+  \Sistema Regresa al paso \ref{CU-C01-muestra-pantalla}
+
+\end{UCtrayectoriaA}

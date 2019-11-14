@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -37,7 +37,7 @@ Estado/\ucstEnEdicion]%
         \Titem Cambiar la forma en cómo se incrementa la cantidad de experiencia
                requerida para avanzar de un nivel a otro.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -51,7 +51,7 @@ Estado/\ucstEnEdicion]%
 	\UCitems{Destino}{%
 		\Titem \refElem{IU-E04}
 	}
-	
+
 	\UCitems{Precondiciones}{%
         \Titem Que los plugins del módulo de experiencia se encuentren instalados
         \Titem El módulo de experiencia debe estár habilitado en el caso de uso
@@ -90,7 +90,7 @@ Estado/\ucstEnEdicion]%
         Los cambios en las configuraciones del sistema de experiencia podrían hacer
         que los usuarios aumenten de nivel si la cantidad de experiencia acumulada del
         nivel es mayor a la nueva cantidad de experiencia correspondiente a dicho nivel.
-        Se recomienda que los cambios se realicen cuando la cantidad alumnos que usen el
+        Se recomienda que los cambios se realicen cuando la cantidad estudiantes que usen el
         sistema sea mínima.}
 
 \end{UseCase}
@@ -102,7 +102,7 @@ Estado/\ucstEnEdicion]%
   \includeUC{CU-M01} \refErr{Err1}
 
   \Actor Presiona la opción {\bf \refElem{tExpSettingsComportamiento}} en la categoría
-         \refElem{tExpCategoria}. \refTray{A} 
+         \refElem{tExpCategoria}. \refTray{A}
   \Sistema Obtiene el valor de si el módulo de experiencia está \refElem[activado]%
            {xp-general-settings.activated} o no. \refTray{B} \label{CU-E02-2-loading}
   \Sistema Obtiene los valores actuales de la configuración del sistema de experiencia:
@@ -112,7 +112,7 @@ Estado/\ucstEnEdicion]%
            \salida{xp-scheme-settings.courseXP}.
   \Sistema Carga la pantalla \refElem{IU-E04} estableciendo como valores por defecto
            las \refElem{xp-scheme-settings} obtenidas en el anterior paso.
-  %\sistema muestra un mensaje informando al \refelem{aadministrador} de que si 
+  %\sistema muestra un mensaje informando al \refelem{aadministrador} de que si
   %         modifica la experiencia el nivel 1 o el tipo de incremento se alterarían
   %         la cantidad de experiencia requerida para subir de nivel.
 

@@ -5,9 +5,9 @@
  de datos de moodle que son relevantes para el desarrollo del módulo de experiencia.
 
     \begin{cdtEntidad}{xp-general-settings}{Configuraciones Generales}{
-    A pesar de que las configuraciones son almacenadas en la entidad 
-    \refElem{mdl-config-plugins}. Se decidió representar cómo una entidad diferente 
-    el conjunto de valores para las configuraciones generales del módulo de 
+    A pesar de que las configuraciones son almacenadas en la entidad
+    \refElem{mdl-config-plugins}. Se decidió representar cómo una entidad diferente
+    el conjunto de valores para las configuraciones generales del módulo de
     experiencia.}
 
         \brAttr{activated}{activado}{tBoolean}{%
@@ -30,7 +30,7 @@
 
     \begin{cdtEntidad}{xp-visual-settings}{Configuraciones Visuales}{
     De la misma forma que las configuraciones generales, las configuraciones visuales,
-    los datos correspondientes a las configuraciones visuales son representados 
+    los datos correspondientes a las configuraciones visuales son representados
     mediante esta entidad.}
 
         \brAttr{title}{Título de niveles}{tVarchar}{%
@@ -52,7 +52,7 @@
         }
 
         \brAttr{message}{Mensaje}{tVarchar}{%
-            Cadena que contiene el mensaje de felicitaciones que tienen por defecto 
+            Cadena que contiene el mensaje de felicitaciones que tienen por defecto
             todos los niveles.\par
 
             \it Restricciones:
@@ -61,7 +61,7 @@
         }
 
         \brAttr{colorLvl}{Color de número de nivel}{tColor}{%
-            Valor que contiene el código de color con el cual se coloreará el número 
+            Valor que contiene el código de color con el cual se coloreará el número
             del nivel.\par
 
             \it Restricciones:
@@ -70,7 +70,7 @@
         }
 
         \brAttr{colorBar}{Color de la barra de progreso}{tColor}{%
-            Valor que contiene el código de color con el cual se pintará el avance en 
+            Valor que contiene el código de color con el cual se pintará el avance en
             la barra de progreso del nivel.\par
 
             \it Restricciones:
@@ -88,12 +88,12 @@
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-scheme-settings}{Configuraciones de Comportamiento}{
-    De la misma forma que las configuraciones generales, los datos correspondientes a 
+    De la misma forma que las configuraciones generales, los datos correspondientes a
     las configuraciones visuales son representados mediante esta entidad.}
 
         \brAttr{increment}{tipo de incremento}{tInt}{%
-            Valor que indica que tipo de incremento es usado para los niveles de 
-            experiencia, El valor 0 indica un incremento lineal y el valor 1 indica 
+            Valor que indica que tipo de incremento es usado para los niveles de
+            experiencia, El valor 0 indica un incremento lineal y el valor 1 indica
             un incremento porcentual.\par
 
             \it Restricciones:
@@ -103,7 +103,7 @@
         }
 
         \brAttr{incrementValue}{valor de incremento}{tDouble}{%
-            Valor que indica el factor o valor del incremento para realizar el 
+            Valor que indica el factor o valor del incremento para realizar el
             calculo de la experiencia requerida para subir de nivel.\par
 
             \it Restricciones:
@@ -114,7 +114,7 @@
         }
 
         \brAttr{levelXP}{experiencia del nivel 1}{tInt}{%
-            Valor que indica la cantidad de experiencia que tendrá el primer nivel 
+            Valor que indica la cantidad de experiencia que tendrá el primer nivel
             para ser completado.\par
 
             \it Restricciones:
@@ -135,11 +135,11 @@
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-events-settings}{Configuraciones de Eventos}{%
-    De la misma forma que las configuraciones anteriores, los datos correspondientes 
+    De la misma forma que las configuraciones anteriores, los datos correspondientes
     a las configuraciones de eventos son representados mediante esta entidad.}
 
         \brAttr{competence}{competencia ganada}{tBoolean}{%
-            Valor que indica la se brindarán puntos de experiencia al evento que 
+            Valor que indica la se brindarán puntos de experiencia al evento que
             es emitido cuando una competencia es ganada.\par
 
             \it Restricciones:
@@ -159,8 +159,8 @@
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-user}{Usuario gamificado}{%
-    Esta entidad es una especialización de la entidad \refElem{mdl-user} la cual 
-    permite agregar atributos cómo la cantidad de experiencia obtenida y el nivel 
+    Esta entidad es una especialización de la entidad \refElem{mdl-user} la cual
+    permite agregar atributos cómo la cantidad de experiencia obtenida y el nivel
     actual del usuario.}
 
         \brAttr{id}{id}{tInt}{%
@@ -173,7 +173,7 @@
         }
 
         \brAttr{mdl-user}{mdl-usuario}{tInt}{%
-            Es el número que permite conocer a que usuario de moodle pertecene la 
+            Es el número que permite conocer a que usuario de moodle pertecene la
             información de un usuario gamificado.\par
 
             \it Restricciones:
@@ -183,7 +183,7 @@
         }
 
         \brAttr{level}{nivel}{tNatural}{%
-            Representa el nivel actual de experiencia que tiene un usuario gamificado 
+            Representa el nivel actual de experiencia que tiene un usuario gamificado
             en moodle. \par
 
             \it Restricciones:
@@ -191,7 +191,7 @@
         }
 
         \brAttr{levelxp}{experiencia del nivel}{tNatural}{%
-            Representa el nivel actual de experiencia que tiene un usuario gamificado 
+            Representa el nivel actual de experiencia que tiene un usuario gamificado
             en moodle.\par
 
             \it Restricciones:
@@ -211,7 +211,7 @@
     \begin{cdtEntidad}{xp-course}{Curso gamificado}{%
     Un curso gamificado es un \refElem{mdl-course} el cual tiene el
     \refElem{mdl-course.format} de curso {\it ``gamedle''}, a pesar de que las
-    opciones de este formato son almacenadas en la tabla 
+    opciones de este formato son almacenadas en la tabla
     \refElem{mdl-course-format-options}, se decidió incluir esta entidad en el
     dmodelo de información ya que reune las características que pertenecen a un curso
     gamificado.}
@@ -225,14 +225,14 @@
         }
 
         \brAttr{format}{formato}{tVarchar}{%
-            Para que un curso pueda ser manejado como un curso gamificado este 
+            Para que un curso pueda ser manejado como un curso gamificado este
             atributo debe de tener como valor ``Gamedle''. \par
 
             \it Restricciones:
         }
 
         \brAttr{xpEnabled}{experiencia habilitada}{tBoolean}{%
-            Para que un curso pueda ser manejado como un curso gamificado este 
+            Para que un curso pueda ser manejado como un curso gamificado este
             atributo debe de tener como valor ``Gamedle''. \par
 
             \it Restricciones:

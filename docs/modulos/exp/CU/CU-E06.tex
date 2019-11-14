@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -31,7 +31,7 @@ Estado/\ucstEnEdicion]%
         Permitir al profesor remover el soporte brindar puntos de experiencia de
         un curso que previamente gamificado.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -43,7 +43,7 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Destino}{%
 		\refElem{IU-M02a}
 	}
-	
+
 	\UCitems{Precondiciones}{%
         \Titem El curso al que se le debe quitar el soporte de experiencia debe tener
                el formato gamificado.
@@ -64,11 +64,11 @@ Estado/\ucstEnEdicion]%
             termina el caso de uso}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
 					  % extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
-	% }	
+	% }
 
  \UCsection[design]{Datos de Diseño}
 
@@ -93,7 +93,7 @@ Estado/\ucstEnEdicion]%
  \includeUC{CU-M01} presionando la pestaña {\bf Cursos}.
 
   \Actor Presiona la opción {\bf Gestionar cursos y categorías}.
-  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
+  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y
            \refElem{mdl-course.fullname} de los cursos presentes en la plataforma.
   \Sistema Muestra en la pantalla \refElem{IU-M06} la lista de cursos.
            \label{CU-E05-course-list}
@@ -107,7 +107,7 @@ Estado/\ucstEnEdicion]%
   \Sistema Muestra los datos obtenidos del curso en la pantalla \refElem{IU-E05}.
 
   \Actor Despliega la sección para el formato del curso.
-  \Actor Selecciona UN \entrada{mdl-course.format} distinto al 
+  \Actor Selecciona UN \entrada{mdl-course.format} distinto al
          \refElem[formato gamificado]{xp-course.format}.
   \Sistema Carga la información correspondiente al formato del curso elegido.
 
@@ -118,8 +118,8 @@ Estado/\ucstEnEdicion]%
   \Sistema Elimina el \entrada{xp-course} vinculado al \refElem{mdl-course} y las
            configuraciones del mismo.
   \Sistema Elimina las \entrada{xp-course-section} vinculadas al curso.
-  \Sistema Elimina las \entrada[recompensas]{xp-section-reward} de las secciones del 
-           curso sin alterar la experiencia recibida por los alumnos de acuerdo con 
+  \Sistema Elimina las \entrada[recompensas]{xp-section-reward} de las secciones del
+           curso sin alterar la experiencia recibida por los estudiantes de acuerdo con
            la regla \regla{BR-E02}.
   \Sistema Muestra la pantalla \refElem{IU-M06a}.
 

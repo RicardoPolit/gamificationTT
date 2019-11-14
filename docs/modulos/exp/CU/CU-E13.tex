@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -13,7 +13,7 @@ Estado/\ucstEnEdicion]%
 %
 {CU-E13}{Eliminar usuario gamificado}{%
 %
- Permite al \refElem{aAdministrador} que cuando se elimine a algun alumno de moodle
+ Permite al \refElem{aAdministrador} que cuando se elimine a algun estudiante de moodle
  tambien se eliminen los datos correspondientes al módulo de experiencia de dicho
  usuario.}
 
@@ -30,7 +30,7 @@ Estado/\ucstEnEdicion]%
         Eliminar los datos de experiencia de un usuario gamificado cuando se vaya al
         usuario de moodle vinculado a este.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -46,7 +46,7 @@ Estado/\ucstEnEdicion]%
 	\UCitems{Precondiciones}{%
         \Titem Los plugins correspondientes al módulo de experiencia deben de estar
                instalados.
-        \Titem El \refElem{mdl-user} que se desea eliminar no debe haber sido 
+        \Titem El \refElem{mdl-user} que se desea eliminar no debe haber sido
                eliminado previamente.
 	}
 
@@ -60,7 +60,7 @@ Estado/\ucstEnEdicion]%
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
         % CAUSA
-            Los plugins correspondientes al módulo de experiencia no se encuentran 
+            Los plugins correspondientes al módulo de experiencia no se encuentran
             instalados,}{%
         % EFECTO
             continua en el penúltimo paso de la trayectoria principal}
@@ -69,15 +69,15 @@ Estado/\ucstEnEdicion]%
         % CAUSA
             El usuario que se desea eliminar ha sido eliminado previamente,}{%
         % EFECTO
-            no se muestra la entrada del alumno en la pantalla \refElem{IU-M05a},
+            no se muestra la entrada del estudiante en la pantalla \refElem{IU-M05a},
             termina el caso de uso}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
 					  % extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
-	% }	
+	% }
 
  \UCsection[design]{Datos de Diseño}
 
@@ -100,9 +100,9 @@ Estado/\ucstEnEdicion]%
   \includeUC{CU-M01} presionando la pestaña {\bf Usuarios}
 
   \Actor Presiona la opción {\bf Mirar lista de usuarios}
-  \Sistema Obtiene el \salida{mdl-user.firstname}, \salida{mdl-user.lastname}, 
+  \Sistema Obtiene el \salida{mdl-user.firstname}, \salida{mdl-user.lastname},
            \salida{mdl-user.email}, \salida{mdl-user.lastaccess},
-           \salida{mdl-user.city} y \salida{mdl-user.country} de los usuarios 
+           \salida{mdl-user.city} y \salida{mdl-user.country} de los usuarios
            presentes en moodle.
 
   \Sistema Despliega la información de los usuarios en la pantalla \refElem{IU-M05a}.
@@ -110,7 +110,7 @@ Estado/\ucstEnEdicion]%
   \Actor Presiona el botón \IUEliminar correspondiente al usuario que desea eliminar.
          \refErr{Err2}.
 
-  \Sistema Pide la confirmación para eliminar al usuario seleccionado mediante la 
+  \Sistema Pide la confirmación para eliminar al usuario seleccionado mediante la
            pantalla \refElem{IU-M05b}.
   \Actor Presiona el botón {\bf Eliminar} \refTray{A}
 
@@ -121,9 +121,9 @@ Estado/\ucstEnEdicion]%
 
   \Sistema Elimina al \entrada{mdl-user}.
 
-  \Sistema Obtiene el \refElem{mdl-user.firstname}, \refElem{mdl-user.lastname}, 
+  \Sistema Obtiene el \refElem{mdl-user.firstname}, \refElem{mdl-user.lastname},
            \refElem{mdl-user.email}, \refElem{mdl-user.lastaccess},
-           \refElem{mdl-user.city} y \refElem{mdl-user.country} de los usuarios 
+           \refElem{mdl-user.city} y \refElem{mdl-user.country} de los usuarios
            presentes en moodle.
 
   \Sistema Despliega la información de los usuarios en la pantalla \refElem{IU-M05a}.
@@ -136,9 +136,9 @@ El \refElem{aAdministrador} desea cancelar la eliminación del usuario seleccion
 }%
 
   \Actor Presiona el botón {\bf Cancelar}
-  \Sistema Obtiene el \refElem{mdl-user.firstname}, \refElem{mdl-user.lastname}, 
+  \Sistema Obtiene el \refElem{mdl-user.firstname}, \refElem{mdl-user.lastname},
            \refElem{mdl-user.email}, \refElem{mdl-user.lastaccess},
-           \refElem{mdl-user.city} y \refElem{mdl-user.country} de los usuarios 
+           \refElem{mdl-user.city} y \refElem{mdl-user.country} de los usuarios
            presentes en moodle.
   \Sistema Redirige a la pantalla \refElem{IU-M05a}.
 \end{UCtrayectoriaA}

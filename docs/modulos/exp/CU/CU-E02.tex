@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -31,7 +31,7 @@ Estado/\ucstEnRevision]%
         \Titem Habilitar/deshabilitar el módulo de experiencia.
         \Titem Habilitar/deshabilitar que los eventos proporcionen experiencia.
 	}
-	
+
 %% BEGIN-BLOQUE PARA AGREGAR UNA REVISION ------------------------------------->
 %% Copiar y descomentar este bloque por cada revision que se realice
 %	\UCsection[control]{% Indicar la versión objeto de la revisión.
@@ -44,7 +44,7 @@ Estado/\ucstEnRevision]%
 %		% EJEMPLO: 21 de Septiembre de 2019.
 %		\TODO Especificar
 %	}
-%	\UCitem[control]{Resultado}{% Las opciones son: 
+%	\UCitem[control]{Resultado}{% Las opciones son:
 %								% Pendiente: se pasa a EnEdicion y se agregan las observaciones
 %								% Aprobado: Se pasa a EnAprobacion.
 %		\TODO Especificar
@@ -54,7 +54,7 @@ Estado/\ucstEnRevision]%
 %		\Titem \TODO Agregar observaciones en cada viñeta, usar el comando \TODO %\TOCHK \DONE.
 %	}
 %% <------------------------------------------ END-BLOQUE PARA AGREGAR UNA REVISION
-	
+
 	\UCitems{Entradas}{\imprimeUC{entrada}}
 
 	\UCitem{Origen}{%
@@ -66,7 +66,7 @@ Estado/\ucstEnRevision]%
 	\UCitem{Destino}{%
 		\refElem{IU-M01}
 	}
-	
+
 	\UCitem{Precondiciones}{%
         Que los plugins del módulo de experiencia se encuentren instalados
 	}
@@ -89,11 +89,11 @@ Estado/\ucstEnRevision]%
             experiencia. No se puede llevar a cabo el caso de uso}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
 					  % extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
-	% }	
+	% }
 
  \UCsection[design]{Datos de Diseño}
 
@@ -130,10 +130,10 @@ Estado/\ucstEnRevision]%
          el sistema de experiencia estará habilitado o deshabilitado.
          \label{CU-E02-settings}
   \Actor Establece el valor para los \entrada[eventos activados]%
-         {xp-general-settings.events}, indicando si se les brindará soporte a que 
+         {xp-general-settings.events}, indicando si se les brindará soporte a que
          los eventos soportados brinden experiencia o no.
   \Actor Presiona el botón {\bf Guardar cambios}.
-  \Sistema Obtiene los valores indicados por el usuario y actualiza las 
+  \Sistema Obtiene los valores indicados por el usuario y actualiza las
            \refElem{xp-general-settings}.
   \Sistema Carga la pantalla \refElem{IU-E02} con los valores actualizados.
 

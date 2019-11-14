@@ -123,7 +123,7 @@
     \end{cdtEntidad}\schemeName{user}
 
     \begin{cdtEntidad}{mdl-course}{Curso de moodle}{%
-    Es una tabla del núcleo de moodle que contiene la información principal de cada 
+    Es una tabla del núcleo de moodle que contiene la información principal de cada
     curso registrado en moodle. Esta entidad contiene 31 atributos, a continuación se
     detallan los atributos relevantes para la especificación de este proyecto.}
 
@@ -262,7 +262,7 @@
         }
 
 	    \brAttr{path}{Ruta relativa}{tPath}{%
-	        La ruta relativa denota la ubicación del plugin dentro de la carpeta 
+	        La ruta relativa denota la ubicación del plugin dentro de la carpeta
             donde se encuentran los archivos de moodle, esta ruta está compuesta
             por la carpeta correspondiente al tipo del plugin y el nombre del
             plugin.\par
@@ -271,22 +271,22 @@
         }
 
 	    \brAttr{version}{Versión}{tVersion}{%
-	        Numero entero de longitud de 10 dígitos que representa la versión del 
+	        Numero entero de longitud de 10 dígitos que representa la versión del
             plugin.\par
 
             \it Restricciones: Ninguna adicional al tipo de dato
         }
 
 	    \brAttr{moodle}{Versión de Moodle}{tVersion}{%
-	        Número entero de longitud de 10 dígitos que representa la versión de 
+	        Número entero de longitud de 10 dígitos que representa la versión de
             moodle en la que se puede instalar el plugin.\par
 
             \it Restricciones: Ninguna adicional al tipo de dato
         }
 
         \brAttr{dependencies}{Dependencias}{tObject}{%
-            Objeto que almacena un conjunto de claves con sus respectivos valores, 
-            donde cada clave representa el nombre del componente del plugin y el valor 
+            Objeto que almacena un conjunto de claves con sus respectivos valores,
+            donde cada clave representa el nombre del componente del plugin y el valor
             es la \refElem{Plugin.version} requerida del mismo.
 
             \it Restricciones: Ninguna
@@ -296,7 +296,7 @@
             Imagen para el ícono del plugin, debe estar contenida en el directorio
             {\it pix/} del plugin y tener como nombre {\it icon.png} o {\it icon.svg},
             moodle recomienda tener ambos archivos por si los navegadores no soportan
-            algun tipo de archivo \cite{moodlePluginfiles}.\par 
+            algun tipo de archivo \cite{moodlePluginfiles}.\par
 
             \it Restricciones: El nombre debe ser icon con extensiones png o svg
         }

@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -14,7 +14,7 @@ Estado/\ucstEnEdicion]%
 {CU-E02-3}{Configurar los eventos que entregan experiencia}{%
 %
  Permite al \refElem{aAdministrador} elegir cuales eventos de los soportados
- brindarán experiencia y cuales no. Además de aquellos eventos que brindan 
+ brindarán experiencia y cuales no. Además de aquellos eventos que brindan
  experiencia puede especificar la cantidad de experiencia que estos entregan.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
@@ -33,7 +33,7 @@ Estado/\ucstEnEdicion]%
         \Titem Deshabilitar eventos para que dejen de brindar
                experiencia.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -46,7 +46,7 @@ Estado/\ucstEnEdicion]%
 	\UCitems{Destino}{%
 		\Titem \refElem{IU-E05}
 	}
-	
+
 	\UCitems{Precondiciones}{%
         \Titem Los plugins correspondientes al módulo de experiencia deben
                de estar previamente instalados.
@@ -72,11 +72,11 @@ Estado/\ucstEnEdicion]%
             a las configuraciones}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
 					  % extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
-	% }	
+	% }
 
  \UCsection[design]{Datos de Diseño}
 
@@ -101,7 +101,7 @@ Estado/\ucstEnEdicion]%
   \includeUC{CU-M01} \refErr{Err1}
 
   \Actor Presiona la opción {\bf\refElem{tExpSettingsEventos}} en la categoría
-         \refElem{tExpCategoria}. \refTray{A} 
+         \refElem{tExpCategoria}. \refTray{A}
 
   \Sistema Obtiene el valor de si el módulo de experiencia está \refElem[activado]%
            {xp-general-settings.activated} o no. \refTray{B} \label{CU-E02-3-activated}

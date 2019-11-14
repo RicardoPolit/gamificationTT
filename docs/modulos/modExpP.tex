@@ -2,7 +2,7 @@
 
 \chapter{Análisis}
 
-Este módulo contiene la especificación de cómo se obtienen los puntos de experiencia, la cantidad a otorgar, el número requerido para alcanzar cada nivel en la plataforma, la forma en que el usuario puede visualizar su nivel y la barra de progreso del nivel actual del alumno. Los dos submódulos involucrados son el esquema de experiencia y el submódulo de niveles.
+Este módulo contiene la especificación de cómo se obtienen los puntos de experiencia, la cantidad a otorgar, el número requerido para alcanzar cada nivel en la plataforma, la forma en que el usuario puede visualizar su nivel y la barra de progreso del nivel actual del estudiante. Los dos submódulos involucrados son el esquema de experiencia y el submódulo de niveles.
 
 \section{Esquema de experiencia}
 
@@ -26,7 +26,7 @@ Es la especificación de los conceptos relacionados con los puntos de experienci
 
     \begin{quote}
     \begin{itemize}
-        \item Crear un curso que otorgue experiencia conforme los alumnos completen las secciones.
+        \item Crear un curso que otorgue experiencia conforme los estudiantes completen las secciones.
         \item Asignar igualitariamente la experiencia de un curso entre las secciones del mismo.
         \item Repartir la experiencia a su gusto entre las distintas secciones de un curso.
     \end{itemize}
@@ -35,7 +35,7 @@ Es la especificación de los conceptos relacionados con los puntos de experienci
 
 \section{Submódulo de niveles}
 
-Es el mecanismo que permite medir mostrar a los alumnos el progreso que han tenido a nivel plataforma mediante el nivel y los puntos de experiencia obtenidos en los cursos, además contiene la configuración para establecer el cómo se vera el nivel y la experiencia obtenida de dicho nivel. A continuación se detallan las funcionalidades para cada rol. %y en otras actividades.
+Es el mecanismo que permite medir mostrar a los estudiantes el progreso que han tenido a nivel plataforma mediante el nivel y los puntos de experiencia obtenidos en los cursos, además contiene la configuración para establecer el cómo se vera el nivel y la experiencia obtenida de dicho nivel. A continuación se detallan las funcionalidades para cada rol. %y en otras actividades.
 
 \subsection*{Administrador}
 \noindent Mediante este submódulo el administrador podrá establecer:
@@ -84,7 +84,7 @@ Las reglas de negocio que forman parte del módulo de experiencia son listadas a
 \begin{comment}
 \section{Historias de usuario}
 
-    En la figura \ref{fig:expUS} se muestran las historias de usuario correspondientes al módulo de experiencia. Las historias de usuario suman un total de nueve historias, las cuales fueron agrupadas en los tres distintos roles (administrador, profesor y alumno) para facilitar la lectura del diagrama.\\
+    En la figura \ref{fig:expUS} se muestran las historias de usuario correspondientes al módulo de experiencia. Las historias de usuario suman un total de nueve historias, las cuales fueron agrupadas en los tres distintos roles (administrador, profesor y estudiante) para facilitar la lectura del diagrama.\\
 
     \addfigure{0.7}{diagrams/UserStories}{fig:expUS}{Historias de usuario del módulo de experiencia}
 
@@ -92,7 +92,7 @@ Las reglas de negocio que forman parte del módulo de experiencia son listadas a
 
     \begin{UserStory}{E2}{Crear curso con experiencia}{%
         Como {\bf profesor} me gustaría crear un nuevo curso en moodle con soporte para brindar puntos
-        de experiencia para que los alumnos reciban retroalimentación conforme van completando las secciones
+        de experiencia para que los estudiantes reciban retroalimentación conforme van completando las secciones
         de un curso.
     }
         \criteria[\done]{Elección de la cantidad de secciones que tendrá el curso}
@@ -116,7 +116,7 @@ Las reglas de negocio que forman parte del módulo de experiencia son listadas a
 \clearpage
 
     \begin{UserStory}{E4}{Agregar sección con experiencia}{%
-        Como {\bf profesor} me gustaría que en el modo de edición del curso pudiera añadir una nueva sección con experiencia para poder incluir nuevos tópicos y actividades, y que estos puedan brindar también retroalimentación a los alumnos cuando completen dicha sección.
+        Como {\bf profesor} me gustaría que en el modo de edición del curso pudiera añadir una nueva sección con experiencia para poder incluir nuevos tópicos y actividades, y que estos puedan brindar también retroalimentación a los estudiantes cuando completen dicha sección.
     }
     \end{UserStory}
 
