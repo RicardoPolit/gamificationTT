@@ -36,6 +36,9 @@
     \input{modulos/exp/BR/BR-E05} % Incremento lineal
     \input{modulos/exp/BR/BR-E06} % Eliminación de cursos gamificados
     \input{modulos/exp/BR/BR-E07} % Valores iniciales de experiencia
+    \input{modulos/exp/BR/BR-E08} % Valores iniciales de experiencia del curso
+    \input{modulos/exp/BR/BR-E09} % Secciones editables de un curso con experiencia
+
     % INPUT: Cursos Igualitarios.
     % INPUT: Otorgar experiencia
     % INPUT: Administración de experiencia en el curso
@@ -75,15 +78,15 @@
     \input{modulos/exp/CU/CU-E02-3} % Configurar Eventos de experiencia
     \input{modulos/exp/CU/CU-E03}   % Desinstalar plugin del esquema de experiencia
     \input{modulos/exp/CU/CU-E04}   % Crear un curso gamificado
+    \input{modulos/exp/CU/CU-E05}   % Convertir un curso ordinario a uno gamificado
+    \input{modulos/exp/CU/CU-E06}   % Convertir Curso gamificado -> curso ordinario
+    \input{modulos/exp/CU/CU-E07}   % Administrar Curso gamificado
+    %\input{modulos/exp/CU/CU-E0}   % Agregar seccion con experiencia
+    %\input{modulos/exp/CU/CU-E0}   % Eliminar seccion con experiencia
     \input{modulos/exp/CU/CU-E10}   % Eliminar un curso gamificado
+    %\input{modulos/exp/CU/CU-E11}   % Recibir Experiencia
     \input{modulos/exp/CU/CU-E12}   % Crear cuenta de un usuario gamificado
     \input{modulos/exp/CU/CU-E13}   % Eliminar cuenta de un usuario gamificado
-
-    %\input{modulos/modExpCU/CU-E02-1} % Configuraciones generales
-    %\input{modulos/modExpCU/CU-E02-2} % Visualización de niveles
-    %\input{modulos/modExpCU/CU-E02-3} % Esquema de experiencia
-    %\input{CU/cu-e2}\clearpage % Crear curso con experiencia
-    %\input{CU/cu-e9}\clearpage % Recibir experiencia
 
 % =========================================================
 \clearpage
@@ -106,17 +109,24 @@
     \input{modulos/moodle/IU/IU-M02b} % Comprobación de plugibs
     \input{modulos/moodle/IU/IU-M02c} % Cancelación Instalación Plugin
     \input{modulos/moodle/IU/IU-M02d} % Resultado Instalación Plugin
-    \input{modulos/moodle/IU/IU-M03}  % Resultado Instalación Plugin
-    \input{modulos/moodle/IU/IU-M03a} % Resultado Instalación Plugin
-    \input{modulos/moodle/IU/IU-M04}  % Resultado Instalación Plugin
-    \input{modulos/moodle/IU/IU-M04a} % Resultado Instalación Plugin
-    \input{modulos/moodle/IU/IU-M05}  % Resultado Instalación Plugin
-    \input{modulos/moodle/IU/IU-M05a} % Resultado Instalación Plugin
-    \input{modulos/moodle/IU/IU-M05b} % Resultado Instalación Plugin
-    \input{modulos/moodle/IU/IU-M05c} % Resultado Instalación Plugin
+
+    \input{modulos/moodle/IU/IU-M03}  % 
+    \input{modulos/moodle/IU/IU-M03a} % 
+
+    \input{modulos/moodle/IU/IU-M04}  % 
+    \input{modulos/moodle/IU/IU-M04a} % 
+
+    \input{modulos/moodle/IU/IU-M05}  % 
+    \input{modulos/moodle/IU/IU-M05a} % 
+    \input{modulos/moodle/IU/IU-M05b} % 
+    \input{modulos/moodle/IU/IU-M05c} % 
+
     \input{modulos/moodle/IU/IU-M06}  % Cursos y Categorías
     \input{modulos/moodle/IU/IU-M06a} % Confirmación eliminar curso
     \input{modulos/moodle/IU/IU-M06b} % Estado de eliminación de un curso
+    \input{modulos/moodle/IU/IU-M06c} % Curso de moodle
+
+    \input{modulos/moodle/IU/IU-M07} % Pagina Inicial del Sitio
 
 \subsubsection{Interfaces del módulo de experiencia}
 
@@ -140,32 +150,7 @@
 
 \subsection{Pruebas}
 
-    \input{modulos/exp/CP/CPC-E01}
-    \input{modulos/exp/CP/CPC-E02}
-    \input{modulos/exp/CP/CPC-E02-1}
-    \input{modulos/exp/CP/CPI-E02-1a}
-    \input{modulos/exp/CP/CPI-E02-1b}
-
-    \input{modulos/exp/CP/CPC-E02-2a}
-    \input{modulos/exp/CP/CPC-E02-2b}
-    \input{modulos/exp/CP/CPC-E02-2c}
-    \input{modulos/exp/CP/CPI-E02-2}
-
-    \input{modulos/exp/CP/CPC-E02-3}
-    \input{modulos/exp/CP/CPI-E02-3}
-
-    \input{modulos/exp/CP/CPC-E03}
-
-    \input{modulos/exp/CP/CPC-E04}
-    \input{modulos/exp/CP/CPI-E04}
-
-    \input{modulos/exp/CP/CPC-E10}
-    \input{modulos/exp/CP/CPC-E10a}
-
-    \input{modulos/exp/CP/CPC-E12}
-    \input{modulos/exp/CP/CPC-E12a}
-
-    \input{modulos/exp/CP/CPC-E13}
+    \input{modulos/exp/pruebas}
 
 \begin{comment}
 \section{Submódulos}

@@ -1,0 +1,45 @@
+\begin{BusinessRule}[%
+Autor/El Despistado,%
+Version/0.1,%
+Estado/edicion]%
+%
+{BR-E08}{Valores iniciales de experiencia de un curso}
+
+     \BRitem[control]{Revisada por}{Pendiente.}
+
+ \BRsection[control]{Atributos}
+    % Clases: \bcCondition, \bcIntegridad, \bcAutorization o \bcDerivation
+    % Tipos: \btEnabler, \btTimer o \btExecutive
+    % Niveles: \blControlling o \blInfluencing.
+    
+    \BRitem[admin]{Clase}{\bcIntegridad}%
+        
+    \BRitem[admin]{Tipo}{\btTimer}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    
+    \BRitem{Descripción}{%
+        Cuando un \refElem{xp-course} es creado la \refElem[experiencia total del curso]%
+        {xp-scheme-settings.courseXP} de ser dividida uniformemente entre las
+        \refElem[secciones del curso gamificado]{xp-course-section}. Si la división del
+        total de experiencia entre el número de secciones genera un residuo entonces este
+        se deberá agregan a la última seccion del curso.
+    }
+
+%   \BRitem{Sentencia}{%
+%       Si $fecha$ 
+%   }%
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        \begin{itemize}
+        \item ...
+        \end{itemize}
+    }
+    
+ \end{BusinessRule}
