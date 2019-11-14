@@ -1,7 +1,53 @@
 
-\subsection{Relaciones de moodle}
+\subsection{Entidades de moodle}
 
- A continuación se presenta la especificación de las relaciones del esquema de base
+Debido a que moodle cuenta con más de 400 tablas en su versión 3.5, se opta
+por mostrar 2 subconjuntos que muestren las tablas que se utilizan para el proyecto.\\
+
+\noindent El primer subconjunto es aquel que explica la forma en que moodle implementa los cursos, 
+secciones de curso, actividades, usuarios y roles (el cual se presenta en la figura \ref{fig:BD-ER-M1}), 
+mientras que el segundo conjunto muestra como moodle maneja toda la 
+estructura de las preguntas creadas por el profesor y respondidas por el usuario
+(el cual se presenta en la figura \ref{fig:BD-ER-M2}).  
+
+
+
+En lugar de describir y mostrar cada uno de los campos de cada una de las entidades de moodle que se contemplan,
+lo que se quiere lograr con ambos esquemas (\ref{fig:BD-ER-M1}) y \ref{fig:BD-ER-M2}))
+es expresar la idea general del comportamiento.
+
+\clearpage
+\addfigure{0.7}{analisis/diagrams/db_module_structure}{fig:BD-ER-M1}{Esquema de la base de datos de moodle 'Cursos'}
+
+
+\noindent Utilizando la figura \ref{fig:BD-ER-M1}, se obtuvieron las siguientes reglas y caracteristicas que contiene moodle respecto a los usuarios en un curso y a la estructura de los cursos.
+\begin{enumerate}
+    \item Un usuario -{\it mdl\_user}- tiene un rol -{\it mdl\_role}- en un cierto contexto -{\it mdl\_context}-, cuyo  '{\it context\_level}' sea igual a cincuenta(50).
+    \item Si el contexto '{\it context\_level}' es de 50, el atributo '{\it instance\_id}' hace referencia al atributo '{\it id}' de un curso -{\it mdl\_course}-.
+    \item El curso -{\it mdl\_course}- tiene varias secciones -{\it mdl\_course\_sections}-.
+    \item Cada seccion -{\it mdl\_course\_sections}- tiene varias actividades -{\it mdl\_course\_modules}- que pertenecen a un tipo de actividad -{\it mdl\_modules}-.
+    \item Por cada registro en tipo de actividad -{\it mdl\_modules}-, se tiene una entidad que lleva el mismo nombre.
+    \item El atributo '{\it instance\_id}' de una actividad  -{\it mdl\_course\_modules}- apunta a diferentes entidades. La entidad a la que apunta depende del nombre del tipo de actividad -{\it mdl\_modules}-.
+    \item Un usuario -{\it mdl\_user}- se inscribió -{\it mdl\_user\_enrolments}- a un curso -{\it mdl\_course}-, por medio de un formato soportado de inscripción -{\it mdl\_enrol}-.
+\end{enumerate}
+
+\clearpage
+
+ \addfigure{0.7}{analisis/diagrams/db_module_questions}{fig:BD-ER-M2}{Esquema de la base de datos de moodle 'Preguntas' }
+
+
+
+\noindent Utilizando la figura \ref{fig:BD-ER-M2}, se obtuvieron las siguientes reglas y caracteristicas que contiene moodle respecto a las preguntas.
+\begin{enumerate}
+    \item Las preguntas -{\it mdl\_question}- tienen versiones -{\it mdl\_question\_attempts}-.
+    \item Una pregunta -{\it mdl\_question}- pertenece a un banco de preguntas -{\it mdl\_question\_categories}-.
+    \item La versión de una pregunta -{\it mdl\_question\_attempts}- es contestada -{\it mdl\_question\_usages}- en un determinado contexto -{\it mdl\_context}-.
+    \item Un usuario -{\it mdl\_user}- responde una versión de una pregunta -{\it mdl\_question\_attempt\_stepts}-.
+    \item El responder una versión de una pregunta -{\it mdl\_question\_attempt\_stepts}- conlleva pasos -{\it mdl\_question\_attempt\_stept\_data}-, los cuales son: cómo se muestra, si ya se terminó de responder y qué se respondió.
+\end{enumerate}
+
+
+ A continuación se presenta la especificación de las entidades del esquema de base
  de datos de moodle que son relevantes para el desarrollo de los módulos y submódulos
  de proyecto.
 

@@ -1,54 +1,19 @@
 \section{Modelo de información}
 \label{ch:dominioDatos}
 
- Este capítulo describe las decisiones más relevantes tomadas en relación al esquema de
- base de datos de moodle, el modelo de información que le brinda soporte a la persistencia
- de los datos usados y requeridos por los módulos y submódulos previamente establecidos,
- finalmente se presenta el diccionario de datos que contiene la especificación de los
- atributos de las distintas relaciones requeridas.\\
+ Este capítulo se presenta el diccionario de datos que contiene la especificación de los
+ atributos que se utilizarán a lo largo del mismo y se describe el modelo
+ de información que le brinda soporte a la persistencia de los datos requeridos
+ por los módulos y submódulos previamente establecidos.\\
 
- \noindent Debido a que el esquema de base de datos de moodle contiene alrededor de 400
- relaciones, solo se hace mención de aquellas relevantes para el desarrollo de este proyecto,
- cabe recalcar que la información recopilada de la base de datos de moodle fue obtenida
+ \noindent Debido a que este proyecto extiende la funcionalidad de moodle,
+ se debe contemplar el esquema de base de datos de moodle para el diseño del modelo de información. 
+ El esquema de base de datos de moodle contiene alrededor de 400 entidades, por ello solo se hace mención de aquellas
+ entidades relevantes para el desarrollo de este proyecto. Cabe recalcar que la información
+ recopilada de la base de datos de moodle fue obtenida
  directamente del esquema de base de datos, ya que no existe documentación oficial acerca
  del esquema.
 
-\subsection{Esquema de la base de datos}
-
- % DONDE SE DOCUMENTA QUE SE VA A USAR MYSQL ???
-
- En la figura \ref{fig:EGBD} se muestran aquellas relaciones relevantes para el desarrollo
- de este proyecto, tanto del esquema de la base de datos de moodle cómo de las relaciones
- que fueron requeridas crear, el diagrama presentado contiene las relaciones agrupadas
- de la siguiente forma:\\
-
-    \begin{quote}
-    \begin{description}
-        \item[Relaciones de Moodle] Contiene un subconjunto de las relaciones del esquema de
-            base de datos de moodle que son relevantes para el desarrollo de este proyecto.\\
-
-        \item[General] Contiene a todas las relaciones que no pertenecen propiamente a un
-            módulo pero que son esenciales para el funcionamiento de los distintos módulos
-            propuestos.\\
-
-    \end{description}
-    \end{quote}
-
- \noindent Las demás relaciones se encuentran organizadas en seis grupos correspondientes
- a los módulos de este proyecto (\nameref{mod:exp}, \nameref{mod:recomp}, \nameref{mod:financ},
- \nameref{mod:pers}, \nameref{mod:comp} y \nameref{mod:seguim}).
-
- \clearpage
-
- \noindent Todas las relaciones creadas para este proyecto fueron diseñadas tomando en
- consideración que se debía extender el esquema de base de datos sin afectar las distintas
- funcionalidades que brinda de forma nativa. En los casos en los que se requería añadir
- atributos de moodle a una relación en particular, se agregaría una relación con los atributos
- requeridos, más la referencia a la relación del esquema de moodle.
-
-    \addfigure{1}{analisis/diagrams/db}{fig:EGBD}{Esquema de la base de datos}
-
-\clearpage
 \subsection{Diccionario de datos}
 
  En esta sección se detalla el diccionario de datos del proyecto, en él se describe cada una
@@ -65,7 +30,7 @@
         \bTerm{tBoolean}{boolean} Tipo de dato que solo tiene dos valores posibles,
                                   verdadero y falso.
         \bTerm{tNatural}{natural} Número entero mayores a cero.
-        \bTerm{tDouble}{double}   Números reales con soporte para doble punto flotante.
+        \bTerm{tDouble}{double}   Número real que contiene valores decimales.
         \bTerm{tColor}{color}     Cadena de texto que almacena el código de un color en hexadecimal,
                                   de la forma {\it ``\#RRGGBB''}.
         \bTerm{tImage}{imagen}    Tipo de dato que almacena la referencia a una imagen almacenada por
@@ -74,9 +39,11 @@
                                   de archivos.
         \bTerm{tVersion}{version} Conjunto de dígitos que representan la fecha de la ultima
                                   actualización del plugin.
-        \bTerm{tObject}{objecto}  Es una colección de propiedades, y una propiedad es una
+        \bTerm{tObject}{objeto}  Es una colección de propiedades, y una propiedad es una
                                   asociación entre un nombre (o clave) y un valor
-                                  \cite{ObjectMozilla}.
+                                  %\cite{ObjectMozilla}.
+        \bTerm{tText}{texto}      Cadena de caracteres que tiene una longitud máxima de $2^{(16)}$ caracteres.
+        \bTerm{tTime}{tiempo}     Fecha y hora representadas como un número entero que contiene el valor en segundos de esa fecha y hora.
     \end{bGlosario}
     \end{quote}
 
@@ -123,389 +90,46 @@
 
 \clearpage
 
+\subsection{Entidades contempladas}
+
+ Debido a que el esquema de la base de datos contiene las suficientes entidades para ser ilegible al ser mostradas en una imagen, se optó por
+ enlistar en la imagen \ref{fig:BD-RDT} los nombres de las entidades que se contemplan en este proyecto y la especificación del esquema se va mostrando
+ por cada módulo/submódulo en sus sendas secciones. Dicha imagen está dividida 
+ por cada submódulo contemplado, además de contar con una sección que lista las entidades de moodle.\\
+
+
+% \noindent Las definiciones de cada una de las entidades de la imagen  \ref{fig:BD_RDT}, así como el esquema de base de datos de cada sección
+% están especificados en cada una de ls siguientes secciones; \nameref{mod:exp}, \nameref{mod:recomp}, \nameref{mod:financ},
+% \nameref{mod:pers}, \nameref{mod:comp} y \nameref{mod:seguim}.
+ 
+    \addfigure{1}{analisis/diagrams/db_tables}{fig:BD-RDT}{Entidades contempladas en el proyecto}
+
+
+    Las entidades que son de moodle tienen el prefijo \(\textbf{mdl\_}\), las entidades con el prefijo 
+ \(\textbf{gmdl\_}\) son las entidades diseñadas en este proyecto y por último, aquellas con el prefijo 
+ \(\textbf{gm}\) y sin guiones bajos, son aquellas que se utilizan para alvergar actividades de moodle.\\
+
+ \noindent Todas las entidades creadas para este proyecto fueron diseñadas tomando en
+ consideración que se debe extender el esquema de base de datos sin afectar las distintas
+ funcionalidades que brinda de forma nativa. En los casos en los que se requería añadir
+ atributos de moodle a una relación en particular, se agregaría una relación con los atributos
+ requeridos, más la referencia a la relación del esquema de moodle.
+
+
+
 \newcommand{\schemeName}[1]{%
 % Esta macro se usa inmediatamente despues de una entidad
     \vspace{-1em}\hfill Nombre en el esquema: {\it #1}\ \ \par%
 }
 
     \input{modulos/modelos/moodle}
+
+    \input{modulos/modelos/general}
+    \input{modulos/modelos/competencia}
+    \input{modulos/modelos/seguimiento}
+    \input{modulos/modelos/personalizacion}
+    \input{modulos/modelos/financiero}
     \input{modulos/modelos/experiencia}
-
-\begin{comment}
-
-    \begin{Entidad}
-        {logro}
-            \attr{icono}
-            {Ruta donde se guardará el icono del logro..}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-            \attr{nombre}
-            { Nombre  \textbf{único} del logro.}
-                \Titem{ Índice único.}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-            \attr{descripción}
-            {Descripción que le indica al usuario, cómo se desbloquea el logro.}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-            \attr{modulo}
-            {Nombre del módulo al que pertenece el logro.}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-            \attr{experiencia\_ de\_logro}
-            {Experiencia que otorga el logro al ser desbloqueado.}
-                \Titem{ No nulo.}
-            {Experiencia}
-
-            \attr{tipo}
-                Caracter que nos indica que tipo de logro es.
-                    \newline ''A'': El logro es a nivel curso.
-                    \newline ''B'': El logro es a nivel curso y es una advertencia.
-                    \newline ''C'': El logro es a nivel plataforma.
-                    \newline ''D'': El logro es a nivel plataforma y es una advertencia.
-                \Titem{ Sus únicos valores posibles son: \{'A','B','C','D'\}.}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-    \end{Entidad}
-
-    \begin{Entidad}
-        {evento}
-
-            \attr{nombre\_ evento}
-            { Nombre  \textbf{único} del evento.}
-                \Titem{ Índice único.}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-    \end{Entidad}
-
-    \begin{Entidad}
-        {evento\_logro}
-
-            \attrG{id\_ logro}
-            { Atributo que relaciona un logro con una lista de eventos. }
-                \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}}
-                \Titem{ No nulo}
-            {General}
-
-            \attrG{id\_ evento}
-            { Atributo que relaciona un evento con una lista de logros.}
-                \Titem{ Llave foránea a \textbf{gmdl\_evento(id)}}
-                \Titem{ No nulo}
-            {General}
-
-    \end{Entidad}
-
-    \noindent La combinación de los atributos ( \textbf{gmdl\_id\_logro } y \textbf{gmdl\_id\_evento } ) es un índice único.
-
-    \begin{Entidad}
-        {condicion}
-
-            \attr{tabla}
-            { Nombre de la tabla, la cual contiene la información para saber si la condición se cumple o no.}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-            \attr{atributo}
-            { Nombre del atributo que se usará para ver si la condición se cumple o no.}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-            \attr{expresión}
-            { Expresión a usar con el atributo y el valor.}
-                \Titem{ No nulo.}
-            {Recompensa}
-
-            \attr{valor}
-            {Valor que establece la referencia para saber si la condición de cumple o no. }
-                \Titem{ No nulo.}
-            {Recompensa}
-
-    \end{Entidad}
-
-    \begin{Entidad}
-        {condicion\_logro}
-
-            \attrG{id\_ logro}
-            {Atributo que relaciona a un logro con una lista de condiciones. }
-                \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}}
-                \Titem{ No nulo}
-            {General}
-
-            \attrG{id\_ condicion}
-            {Atributo que relaciona a una condición con una lista de logros. }
-                \Titem{ Llave foránea a \textbf{gmdl\_condicion(id)}}
-                \Titem{ No nulo}
-            {General}
-
-    \end{Entidad}
-
-    \noindent La combinación de los atributos ( \textbf{gmdl\_id\_logro } y \textbf{gmdl\_id\_condicion } ) es un índice único.
-
-    \begin{Entidad}
-        {usuario\_logro\_curso}
-
-            \attrG{id\_ logro}
-            {Atributo que relaciona un logro con usuarios y cursos. }
-                \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}.}
-                \Titem{ No nulo.}
-            {General}
-
-            \attrG{id\_ usuario}
-            {Atributo que relaciona a un usuario con logros y cursos. }
-                \Titem{ Llave foránea a \textbf{gmdl\_usuario(mdl\_ id\_usuario)} .}
-                \Titem{ No nulo.}
-            {General}
-
-            \attrM{id\_ curso}
-            {Atributo que relaciona a un curso con usuarios y logros. }
-                \Titem{ Llave foránea a \textbf{mdl\_curso(id)}.}
-                \Titem{ No nulo.}
-            {General}
-
-            \attr{cuando}
-            {  Fecha que nos indica cuándo el logro fue desbloqueado.        }
-                \Titem{ No nulo.}
-            {Recompensa}
-
-    \end{Entidad}
-
-    \begin{Entidad}
-        {usuario\_logro\_global}
-
-            \attrG{id\_ logro}
-            {Número entero positivo. \newline {\bf Tamaño:}\newline 10 dígitos}
-            {Atributo que relaciona un logro con usuarios y cursos. }
-                \Titem{ Llave foránea a \textbf{gmdl\_logro(id)}.}
-                \Titem{ No nulo.}
-            {General}
-
-            \attrG{id\_ usuario}
-            {Atributo que relaciona a un usuario con logros y cursos. }
-                \Titem{ Llave foránea a \textbf{gmdl\_usuario(mdl\_ id\_usuario)} .}
-                \Titem{ No nulo.}
-            {General}
-
-            \attr{cuando}
-            {  Fecha que nos indica cuándo el logro fue desbloqueado.        }
-                \Titem{ No nulo.}
-            {Recompensa}
-
-    \end{Entidad}
-
-\section{Formas normales}
-
-    %En esta sección se analiza el cumplimiento de las seis formas normales propuestas por Frank Codd y de la forma normal Boyce-Codd, con el propósito a que se quiere reducir en lo mayor posible la redundancia de datos. Si existe alguna forma normal que no sea cumplida, %se analizarán los cambios requeridos para su cumplimiento. En caso de que no se pueda, se especificará el por qué.
-%
-    Debido a que las pautas de Moodle entorpecen el diseño de la base de datos, se analizará si afectan en redundancia. Para ello se tomarán en cuenta las 6+2 formas normales con el esquema de la base de datos propuesto.
-%
-\subsection*{Primera forma normal}
-
-    Cada tabla en un esquema de base de datos se considera en primera forma normal si y solo si, cumple las siguientes condiciones \cite[pág. 154]{libroBaseDeDatosIngles}:
-
-    \begin{enumerate}
-        \item Tiene un dominio atómico. Un dominio es atómico si y solo si, cada elemento del dominio es indivisible \cite[pág. 161]{libroBaseDeDatosEspaniol}.
-        \item Cada registro debe de tener el mismo número de valores.
-        \item Cada registro debe ser único.
-    \end{enumerate}
-
-    \noindent Un ejemplo de un dominio no atómico es tener todos los teléfonos de un cliente en un mismo elemento. "\textit{Teléfono\_A},  \textit{Teléfono\_B}".  Haciendo lo anterior el elemento puede albergar más de un valor, haciendo que ya no sea indivisible.\\
-
-    \noindent Continuando con el ejemplo anterior, si en lugar de guardar todos los teléfonos en un atributo, se crean más atributos para poder guardar todos los teléfonos del cliente que tiene más teléfonos. Se incumple con el segundo punto de la primera forma normal.\\
-
-
-    \noindent \textbf{Se cumple} con esta forma normal en nuestro esquema de la base de datos porqué no existe ningún atributo en ninguna tabla que no sea atómico.
-
-
-\subsection*{Segunda forma normal}
-
-    Cada tabla en un esquema de base de datos se considera en segunda forma normal si y solo si, cumple las siguientes 2 condiciones \cite[pág. 159]{libroBaseDeDatosIngles}:
-    \begin{enumerate}
-        \item Cumple con la primera forma normal.
-        \item Todo atributo que no forma parte de la clave primaria debe depender funcionalmente de toda la clave primaria.
-    \end{enumerate}
-
-    \noindent \textbf{Se cumple} con esta forma normal gracias a que no se cuenta con ninguna clave primaria compuesta. Esto gracias a las pautas de moodle, que nos hacen diferenciar un registro únicamente con un número entero positivo.
-
-\clearpage
-\subsection*{Tercera forma normal}
-
-    Cada tabla en un esquema de base de datos se considera en tercera forma normal si y solo si, cumple con las siguientes 2 condiciones \cite[pág. 163]{libroBaseDeDatosIngles}:
-
-    \begin{enumerate}
-        \item Cumple con la segunda forma normal.
-        \item No existen dependencias funcionales transitivas a la clave primaria.
-    \end{enumerate}
-
-    \noindent \textbf{No se cumple} con esta forma normal en las siguientes tablas de la base de datos.
-    \begin{itemize}
-        \item \textbf{gmdl\_usuario}
-        \item \textbf{gmdl\_alumno}
-        %\item \textbf{gmdl\_logro}
-        %\item \textbf{gmdl\_condicion}
-        %\item \textbf{gmdl\_usuario\_logro\_curso}
-        %\item \textbf{gmdl\_usuario\_logro\_global}
-        %\item \textbf{gmdl\_evento\_logro}
-        %\item \textbf{gmdl\_condicion\_logro}
-    \end{itemize}
-
-    \noindent Se tiene el mismo problema en cada una de las tablas anteriores, porque en sus atributos contienen una llave candidata que terminó no formando parte de la llave primaria. Gracias a esto se crea una dependencia funcional a la llave candidata y la llave candidata depende funcionalmente de la llave primaria, generando así el no cumplimiento de esta forma normal.
-
-    \noindent Dicho problema se puede solventar tomando en consideración la forma normal de Boyce-Codd, es por eso que no se realizarán cambios a dichas tablas de la base de datos.
-
-\subsection*{Forma normal de Boyce-Codd (FNBC)}
-
-    Cada tabla en un esquema de base de datos se considera en la forma normal de Boyce-Codd si y solo si, cumple con las siguientes condiciones \cite[pág. 168]{libroBaseDeDatosIngles}:
-
-    \begin{enumerate}
-        \item Todos los atributos no claves de la tabla deben depender funcionalmente de toda una clave candidata.
-        \item Toda dependencia funcional de la tabla debe ser hacia una clave candidata.
-    \end{enumerate}
-
-    \noindent Esta forma normal extiende las anteriores formas normales diciendo que en una entidad puede haber más de una clave candidata y que todos los atributos de esa entidad deben depender de una de esas claves. Gracias a esto se considera a la forma normal de Boyce-Codd como una alternativa a la segunda y tercer forma normal.\\
-
-
-    \noindent \textbf{Se cumple} con la forma normal de Boyce-Codd. Si recordamos las tablas que no cumplieron con la tercera forma normal, tienen el mismo problema de tener una dependencia funcional hacia la llave candidata, y con esta forma normal no existe ese problema. \\
-
-
-
-
-\clearpage
-\subsection*{Cuarta forma normal}
-
-    Cada tabla en un esquema de base de datos se considera en cuarta forma normal si y solo si, cumple con las siguientes 2 condiciones \cite[pág. 182]{libroBaseDeDatosIngles}:
-
-    \begin{enumerate}
-        \item Cumple con la tercera forma normal o con la forma normal de Boyce-Codd.
-        \item No existen dependencias multivaloradas.
-    \end{enumerate}
-
-    \noindent Una dependencia multivalorada $ A \twoheadrightarrow B$ se cumple si en una relación legal \textit{r(R)}, para todo par de tuplas $t_1$ y $t_2$    tales que $t_1[A] = t_2[A]$, existen unas tuplas $t_3$ y $t_4$ de \textit{r} tales que \cite[pág. 180]{libroBaseDeDatosEspaniol}:
-
-    \begin{center}
-           $t_1[A] = t_2[A] = t_3[A] = t_4[A]$\\
-           $t_3[B] = t_1[B]$\\
-           $t_3[R - B] = t_2[R - B]$\\
-           $t_4[B] = t_2[B]$\\
-           $t_4[R - B] = t_1[R - B]$
-    \end{center}
-
-    \noindent En otras palabras, si existe una relación ternaria cuyas claves foráneas A, B y C, donde C y B están relacionadas con A, pero son independientes entre sí, dicha relación tiene una dependencia multivalorada \cite[pág. 118]{libroBaseDeDatosInglesCuarteEnAdelante}.\\
-
-    \noindent \textbf{Se cumple} con esta forma normal, debido a que no se cuentan con relaciones ternarias en la base de datos.
-
-\end{comment}
-
-\begin{comment}
-    \noindent Si se ve nuestro esquema de la base de datos, solo se cuenta con una relación que contempla 3 tablas que es \textbf{gmdl\_usuario\_logro\_curso}. Sus claves foráneas son \textbf{gmdl\_id\_curso} que hace referencia a un curso, \textbf{gmdl\_id\_logro} que hace referencia a un logro y \textbf{gmdl\_id\_usuario} que hace referencia a un usuario.\\
-
-    \noindent En dicha tabla, las claves se relacionan de la siguiente manera:
-    \begin{itemize}
-        \item Un usuario desbloquea logros de un curso.
-        \item Un curso cuenta con logros que fueron desbloqueados por usuarios.
-        \item Un logro fue desbloqueado por usuarios en uno o más cursos.
-    \end{itemize}
-
-    \noindent \textbf{Se cumple} con la cuarta forma normal. Observando las relaciones anteriores podemos observar que no existe una dependencia multivalorada porque cada atributo se relaciona/depende de los otros 2.
-\end{comment}
-
-
-\begin{comment}
-\subsection*{Quinta forma normal}
-
-    Cada tabla en un esquema de base de datos se considera en quinta forma normal si y solo si, cumple con las siguientes 2 condiciones \cite[pág. 124]{libroBaseDeDatosInglesCuarteEnAdelante}:
-
-    \begin{enumerate}
-        \item Cumple con la cuarta forma normal.
-        \item Todas las dependencias de unión ''JOIN'' están implicadas por las claves candidatas.
-    \end{enumerate}
-
-    \noindent Una dependencia de unión ''JOIN'' ocurre cuando una tabla puede volver a ser formada correctamente (refiriéndonos a que los registros permanezcan intactos) uniendo 2 o más tablas cuyos atributos sean de la tabla original \cite[pág. 124]{libroBaseDeDatosInglesCuarteEnAdelante}.\\
-
-    \noindent Respecto a que las uniones ''JOIN'' estén implicadas por las claves candidatas, se refiere a que los atributos que se utilicen como pivote (para hacer dicha separación) no sean otros que los que son claves candidatas.\\
-
-\end{comment}
-
-\begin{comment}
-    \noindent  La única tabla que puede llegar a darnos problemas con esta forma normal es la misma que se analizó en la cuarta forma normal. Para analizar si esta tabla (\textbf{gmdl\_usuario\_logro\_curso}) cumple con esta forma tenemos que listar sus atributos.
-    \begin{itemize}
-        \item id
-        \item gmdl\_id\_logro
-        \item gmdl\_id\_usuario
-        \item gmdl\_id\_curso
-        \item cuando
-    \end{itemize}
-
-    \noindent  Las únicas 2 formas en las que se puede dividir la anterior tabla, conservando los mismos registros son las siguientes:
-    \begin{multicols}{2}
-
-    \noindent Utilizando como pivote el atributo ''id''.
-    \begin{itemize}
-        \item A1(id, gmdl\_id\_usuario)
-        \item A2(id, gmdl\_id\_logro)
-        \item A3(id, gmdl\_id\_curso)
-        \item A4(id, cuando)
-    \end{itemize}
-    \noindent \textbf{Nota:} Se pueden desarrollar distintas combinaciones con lo anterior, sin embargo, siempre se usa como pivote al atributo ''id'' es por eso que no se contemplan.
-    \columnbreak
-
-    \noindent Utilizando como pivote la llave candidata ''gmdl\_id\_usuario, gmdl\_id\_logro , gmdl\_id\_curso''.
-    \begin{itemize}
-        \item B1(id, gmdl\_id\_usuario, gmdl\_id\_logro , gmdl\_id\_curso)
-        \item B2(gmdl\_id\_usuario, gmdl\_id\_logro , gmdl\_id\_curso, cuando)
-    \end{itemize}
-
-    \end{multicols}
-\end{comment}
-
-\begin{comment}
-    \noindent \textbf{Se cumple} con esta forma normal, debido a que ninguna de las tablas en el esquema puede ser dividida sin contemplar como pivote a una clave candidata.
-
-
-\clearpage
-\subsection*{Sexta forma normal}
-
-    No se cuenta con una definición formal de esta forma normal.\\
-
-    \noindent La sexta forma normal trata de datos que son temporales, refiriéndose a que estos pueden cambiar en un futuro. Siendo más específicos, si la base de datos necesita llevar un historial para poder hacer estadísticas, dichas estadísticas no deberían presentar diferentes resultados sin importar cuándo se consulten \cite[pág. 125-126]{libroBaseDeDatosInglesCuarteEnAdelante}.\\
-
-    \noindent Lo anterior se puede ver más a detalle con el ejemplo de; ¿cuánto se ha vendido el mes ''X''?.
-
-    \noindent Si el único atributo que se tiene para calcular lo anterior es el ''precio'' en una tabla ''producto''. Esto incumple la sexta forma normal, ya que, cuando el precio de dicho producto cambie, la consulta para determinar cuánto se ha ganado el mes ''X'' con ese producto también cambiaría.\\
-
-
-    \noindent \textbf{Se cumple} con la sexta forma normal, debido a que no tenemos datos temporales que puedan llegar a afectar de esa forma a nuestra interpretación de los datos. \\
-
-    \noindent Los únicos datos temporales que se tienen son; El nivel\_actual y la experiencia\_actual tanto del usuario como del tipo de categoría del curso. Ambos en sus sendas tablas \textbf{gmdl\_usuario} y \textbf{gmdl\_nivel\_categoria\_curso}
-
-
-\subsection*{Forma normal de dominio clave}
-
-    Una tabla cumple con la forma normal de dominio/clave si todas las restricciones que se tienen en los datos están asociados con una clave o un dominio \cite[p. 193]{libroBaseDeDatosIngles}.
-
-    \begin{itemize}
-        \item Un dominio es cualquier limitación que se tengan en los datos para ser guardados en una cierta columna en una base de datos. Esto refiriéndonos a las limitaciones como las llaves foráneas o el tipo de dato.
-        \item La clave es una clave única.
-    \end{itemize}
-
-    \noindent Esta forma normal es considerada como la perfecta forma normal.\\
-
-    \noindent \textbf{No se cumple} con esta formal, gracias a los atributos nivel\_actual y la experiencia\_actual tanto del usuario como del tipo de categoría del curso. Ambos en sus sendas tablas \textbf{gmdl\_usuario} y \textbf{gmdl\_nivel\_categoria\_curso}.\\
-
-    \noindent El atributo experiencia\_actual tiene un límite superior dependiendo del valor del atributo nivel\_actual. La forma para reparar este problema es creando una tabla ''nivel'', sin embargo, se desea que los niveles sean un infinito simbólico.
-
-    \noindent \textbf{No se cumple} con esta forma normal en la tabla \textbf{gmdl\_condicion} debido a que  los valores del atributo ''atributo'' dependen del valor del atributo ''tabla''.
-
-    \noindent Se considera que el incumplimiento anterior no será atendido, esto por que para resolverlo se necesitaría crear 2 tablas extras que contengan todas las tablas relacionadas con Moodle y todos los atributos asociados con esas tablas. Estas tablas actuarían como un catálogo para la tabla \textbf{gmdl\_condicion} y se tendrían que estar actualizando si se quiere que los plugins a desarrollar tengan compatibilidad con versiones posteriores de Moodle.
-
-    \noindent Otro motivo por el cual no se atiende es que los datos de la tabla \textbf{gmdl\_condicion} nunca cambiarán una vez que se haya creado la base de datos y llenado los valores por defecto.
-\end{comment}
-
 
 
 % ==================================================================
