@@ -64,27 +64,27 @@ de completarse automaticamente al seleccionar un minimo requerido de competencia
 
 Al ganar una competencia se le otorga al estudiante experiencia y monedas para que pueda subir de nivel en su perfil gamificado y así ganar más premios';
 $string['modulenameplural'] = 'gmcompvs games';
-$string['modulename'] = 'Gamedle - Competencia 1vs1';
+$string['modulename'] = 'Gamedle - Competencia uno contra uno';
 $string['notyetplayed'] = 'Not yet played';
 $string['achievedhighscoreof'] = 'Achieved a high score of {$a}';
 $string['playedxtimeswithhighscore'] = 'Played {$a->times} times. The last game ended with a high score of {$a->score}';
 $string['pluginadministration'] = 'gmcompvs administration';
-$string['pluginname'] = 'Competencia 1 vs 1';
+$string['pluginname'] = 'Competencia uno contra uno';
 $string['playerscores'] = 'Player scores';
 $string['privacy:metadata:gmcompvs_scores'] = 'Information about the user\'s chosen answer(s) for a given choice activity';
 $string['privacy:metadata:gmcompvs_scores:gmcompvsid'] = 'The ID of the gmcompvs activity the user is providing answer for';
 $string['privacy:metadata:gmcompvs_scores:score'] = 'The score of the user during that playthrough.';
 $string['privacy:metadata:gmcompvs_scores:timecreated'] = 'The timestamp indicating when the gmcompvs was played by the user';
 $string['privacy:metadata:gmcompvs_scores:userid'] = 'The ID of the user playing this gmcompvs activity';
-$string['questioncategory'] = 'Question category';
+$string['questioncategory'] = 'Categoría de preguntas';
 $string['questioncategory_help'] = 'Select the category from the question bank to use in the game.
 
 Note that you should only select questions that are not critical to assessment later on. The quiz game is similar to creating a quiz with infinite attempts and instant feedback on whether you got something right or wrong.
 
 **Note**: gmcompvs is designed to promote learning rather than for assessment. Students will have infinite attempts with instant feedback. For this reason, only add questions you want students to learn the answer to, rather than questions you want to assess if they have learned';
 $string['gmcompvsfieldset'] = 'Custom example fieldset';
-$string['gmcompvsname_help'] = 'What is the name of this gmcompvs?';
-$string['gmcompvsname'] = 'gmcompvs name';
+$string['gmcompvsname_help'] = 'Cual es el nombre de esta actividad?';
+$string['gmcompvsname'] = 'Nombre de actividad';
 $string['gmcompvs'] = 'gmcompvs';
 $string['gmcompvs:addinstance'] = 'Add a gmcompvs instance';
 $string['gmcompvs:view'] = 'View gmcompvs';

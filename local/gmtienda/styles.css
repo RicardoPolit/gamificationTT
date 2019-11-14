@@ -6,7 +6,7 @@
     box-sizing: border-box;
     display: flex;
     place-content: center;
-    align-items: cnter;
+    align-items: center;
 }
 .gmtienda-container-tipos-objetos{
     margin-top: 3%;
@@ -21,6 +21,11 @@
     place-content: center space-between;
     align-items: center;
     max-height: 100%;
+}
+
+.gmtienda-boton-elegir p{
+    margin: 0;
+    padding: 0;
 }
 
 .gmtienda-container-objetos-imagen{
@@ -38,7 +43,11 @@
 
 }
 
-.gmtienda-container-tipos-objetos h1{
+.gmtienda-nombre-tipo{
+    width: 100%;
+}
+
+.gmtienda-container-tipos-objetos h3{
     border-bottom: 3px solid #0981bd;
 }
 
@@ -57,29 +66,29 @@
 }
 
 .gmtienda-container-objeto:hover{
-    box-shadow: 0 8px 8px 0 lightskyblue;
+    box-shadow: 0 8px 8px 4px lightskyblue;
     cursor: pointer;
 }
 
 .gmtienda-objeto-imagen{
-    max-width: 80px;
-    max-height: 80px;
+    max-width: 100px;
+    max-height: 100px;
 }
 
 .gmtienda-color-fondo-rareza-1{
-    box-shadow: 0 4px 8px 0 black;
+    box-shadow: 8px 8px 4px black;
 }
 
 .gmtienda-color-fondo-rareza-2{
-    box-shadow: 0 4px 8px 0 blue;
+    box-shadow: 8px 8px 4px blue;
 }
 
 .gmtienda-color-fondo-rareza-3{
-    box-shadow: 0 4px 8px 0 purple;
+    box-shadow: 8px 8px 4px green;
 }
 
 .gmtienda-color-fondo-rareza-4{
-    box-shadow: 0 4px 8px 0 orange;
+    box-shadow: 8px 8px 4px orange;
 }
 
 .gmtienda-imagen-monedas-boton{
@@ -232,7 +241,7 @@
 
 
 .gmtienda-container-muestra-nuevo{
-    width: 40%;
+    width: 80%;
     flex-direction: column;
     box-sizing: border-box;
     display: flex;
@@ -253,7 +262,7 @@
 }
 
 .gmtienda-container-monedas-disponibles{
-    width: 15%;
+    width: 33%;
     text-align: center;
 
 }
@@ -278,11 +287,13 @@
 
 #gmtienda-boton-limpiar, .gmtienda-container-boton-guardar, #gmtienda-boton-cancelar{
     color: white;
-    padding: 1%;
     width: 40%;
     cursor: pointer;
 }
 
+.gmtienda-container-boton-guardar{
+    padding: 0;
+}
 
 #gmtienda-boton-guardar{
     width: 100%;
@@ -350,4 +361,29 @@
 .moodle-dialogue-bd .local_gmtienda_preflight_form fieldset.hidden {
     display: inherit;
     visibility: inherit;
+}
+
+
+/*
+    *****************************************************************************************************
+    *                                    Estilos en otras pantallas                                     *
+    *****************************************************************************************************
+*/
+
+
+.gmtienda-muestra-en-tabla{
+    margin: 0;
+    padding: 0;
+    flex-direction: row;
+    box-sizing: border-box;
+    display: flex;
+    place-content: center flex-start;
+    align-items: center;
+}
+
+.gmtienda-muestra-en-tabla img{
+    max-width: 80px;
+    max-height: 80px;
+    margin-left: 4%;
+    margin-right: 4%;
 }

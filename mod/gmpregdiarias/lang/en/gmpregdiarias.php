@@ -72,12 +72,12 @@ $string['privacy:metadata:gmpregdiarias_scores:gmpregdiariasid'] = 'The ID of th
 $string['privacy:metadata:gmpregdiarias_scores:score'] = 'The score of the user during that playthrough.';
 $string['privacy:metadata:gmpregdiarias_scores:timecreated'] = 'The timestamp indicating when the gmpregdiarias was played by the user';
 $string['privacy:metadata:gmpregdiarias_scores:userid'] = 'The ID of the user playing this gmpregdiarias activity';
-$string['questioncategory'] = 'Question category';
+$string['questioncategory'] = 'Categoría de preguntas';
 $string['questioncategory_help'] = 'Selecciona el banco de preguntas que quieres utilizar para las preguntas diarias
 ADVERTENCIA al banco de preguntas seleccionado no se le deben de agregar o quitar preguntas puesto que no es posible validar el buen comportamiendo de la actividad si esto llegara a suceder ';
 $string['gmpregdiariasfieldset'] = 'Custom example fieldset';
 $string['gmpregdiariasname_help'] = 'What is the name of this gmpregdiarias?';
-$string['gmpregdiariasname'] = 'gmpregdiarias name';
+$string['gmpregdiariasname'] = 'Nombre de actividad';
 $string['gmpregdiarias'] = 'gmpregdiarias';
 $string['gmpregdiarias:addinstance'] = 'Add a gmpregdiarias instance';
 $string['gmpregdiarias:view'] = 'View gmpregdiarias';

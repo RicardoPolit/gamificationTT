@@ -1,0 +1,326 @@
+\clearpage
+\subsection{Entidades del módulo de competencia}
+
+ En esta sección se presentan las entidades del módulo de competencia,
+ las cuales están divididas en 2 submódulos;
+ el submódulo de competencia uno contra uno y el submódulo de competencia uno contra sistema.\\
+ 
+    \subsubsection{Entidades del submódulo competencia uno contra uno}
+ 
+        El esquema que se utiliza para este submódulo, se presenta en la figura 
+        \ref{fig:BD-ER-C-1v1}, el cual muestra en color rojo las entidades propias del submódulo, 
+        en azul las entidades que se utilizan de moodle  y en blanco las entidades generales. 
+
+        \addfigure{0.8}{analisis/diagrams/db_comp_1v1}{fig:BD-ER-C-1v1}{Esquema de la base de datos del submódulo 'Competencia 1 contra 1'}
+
+
+        \begin{cdtEntidad}{comp-1v1-gmcompvs}{Actividad competencia uno contra uno}{
+        Esta relación es requerida por moodle para poder guardar los registros de cada instancia de la actividad creadas a lo largo de los cursos. Los requisitos que debe cumplir esta relación son:\\
+            1.- El nombre de la tabla debe ser igual al nombre del plugin.\\
+            2.- Se deben contar con los atributos \{id, course, name, intro, introformat, timemodified.\}}
+
+            \brAttr{course}{Curso}{tInt}{%
+                Identificador del curso donde se creó la instancia.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{name}{Nombre}{tVarchar}{%
+                El nombre que lleva la instancia de la actividad.\par
+
+                \it Restricciones:
+                \refElem{tLength} $MAX(255)$,
+                \refElem{tRequired}.
+            }
+
+            \brAttr{intro}{Introducción}{tText}{%
+                La introducción de la instancia de la actividad.\par
+
+                \it Restricciones:
+                \refElem{tRequired}.
+            }
+            \brAttr{introformat}{Formato de la introducción}{tInt}{%
+                Entero que especifica en qué formato ha sido escrita la introducción del curso.\par
+
+                \it Restricciones:
+                \refElem{tPositive}, 
+                \refElem{tRequired}.
+            }
+
+
+            \brAttr{timemodified}{Tiempo de la última modificación}{tTime}{%
+                Fecha en la que se empezó el intento.
+                \it Restricciones:
+                \refElem{tRequired}.
+
+            }
+            \brAttr{mdl-question-categories-id}{banco de preguntas}{tInt}{%
+                Identificador del banco de preguntas del cual se obtendrán las preguntas a mostrar en la instancia de la actividad.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{completionnumwon}{Victorias para finalizar}{tInt}{%
+                Número de victorias necesarias para que un usuario complete la instancia de la actividad.\par
+
+                \it Restricciones:
+                \refElem{tPositive}, 
+                \refElem{tRequired}.
+            }
+            \brAttr{apuestas-activas}{Apuestas activas}{tBoolean}{%
+                Indicador para saber si en esa instancia de la actividad se pueden llevar acabo apuestas al competir o no.\par
+
+                \it Restricciones:
+                \refElem{tRequired}.
+            }
+
+        \end{cdtEntidad}
+        \schemeName{gmcompvs}
+
+
+        \begin{cdtEntidad}{comp-1v1-gmdl-partida}{Partida}{
+            Esta relacion contiene las partidas que se llevan acabo por cada instancia.}
+
+            \brAttr{gmdl-comp-vs-id}{Instancia de la actividad}{tInt}{%
+                Identificador de la instancia en la que se lleva acabo la partida.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+        \end{cdtEntidad}
+        \schemeName{gmdl\_partida}
+
+
+        \begin{cdtEntidad}{comp-1v1-gmdl-participacion}{Participación}{
+            Esta relacion contiene los usuarios que participaron en una partida.}
+
+            \brAttr{gmdl-usuario-id}{Usuario gamificado}{tInt}{%
+                Identificador del usuario que realizó la participación.
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{gmdl-partida-id}{Partida}{tInt}{%
+                Identificador de la partida en la que se participó.
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{fecha-inicio}{Fecha inicio}{tTime}{%
+                Fecha en la que se empezó la participación.
+
+            }
+
+            \brAttr{fecha-fin}{Fecha fin}{tTime}{%
+                Fecha en la que se terminó la participación.
+
+            }
+
+            \brAttr{puntuacion}{Puntuación}{tInt}{%
+                Puntos obtenidos en la participación.
+
+                \it Restricciones:
+                \refElem{tDefault} $: 0$, 
+                \refElem{tRequired}.
+            }
+        \end{cdtEntidad}
+        \schemeName{gmdl\_participacion}
+
+        \begin{cdtEntidad}{comp-1v1-gmdl-apuesta}{Apuesta}{
+            Esta relacion contiene los usuarios que participaron en una partida.}
+
+            \brAttr{gmdl-participacion-id}{Participación}{tInt}{%
+                Identificador de la partida dónde se apostó.
+
+                \it Restricciones:
+                \refElem{tUniqueKey}, 
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{monedas-plata}{Monedas de plata}{tInt}{%
+                Número de monedas de plata apostadas.
+
+                \it Restricciones:
+                \refElem{tDefault} $: 0$ ,
+                \refElem{tRequired}.
+            }
+
+            
+            \brAttr{activa}{Activa}{tBoolean}{%
+                Incica si la apuesta sigue activa o no.
+
+                \it Restricciones:
+                \refElem{tDefault} $: Falso$, 
+                \refElem{tRequired}.
+            }
+        \end{cdtEntidad}
+        \schemeName{gmdl\_apuesta}
+
+
+\clearpage
+    \subsubsection{Entidades del submódulo competencia uno contra sistema}
+ 
+        El esquema que se utiliza para este submódulo, se presenta en la figura 
+        \ref{fig:BD-ER-C-CPU}, el cual muestra en color rojo las entidades propias del submódulo, 
+        en azul las entidades que se utilizan de moodle  y en blanco las entidades generales.
+
+        \addfigure{0.8}{analisis/diagrams/db_comp_cpu}{fig:BD-ER-C-CPU}{Esquema de la base de datos del submódulo 'Competencia 1 contra sistema'}
+
+
+        \begin{cdtEntidad}{comp-cpu-gmcompcpu}{Actividad competencia uno contra sistema}{
+        Esta relación es requerida por moodle para poder guardar los registros de cada instancia de la actividad creadas a lo largo de los cursos. Los requisitos que debe cumplir esta relación son:\\
+            1.- El nombre de la tabla debe contener el mismo nombre que el nombre del plugin.\\
+            2.- Se deben contar con los atributos \{id, course, name, intro, introformat, timemodified\}}
+
+            \brAttr{course}{Curso}{tInt}{%
+                Identificador del curso donde se creó la instancia.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{name}{Nombre}{tVarchar}{%
+                El nombre que lleva la instancia de la actividad.\par
+
+                \it Restricciones:
+                \refElem{tLength} $1-255$, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{intro}{Introducción}{tText}{%
+                La introducción de la instancia de la actividad.\par
+
+                \it Restricciones:
+                \refElem{tRequired}.
+            }
+            \brAttr{introformat}{Formato de la introducción}{tInt}{%
+                Entero que especifica en qué formato ha sido escrita la introducción del curso.\par
+
+                \it Restricciones:
+                \refElem{tPositive}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{timemodified}{Tiempo de la última modificación}{tTime}{%
+                Fecha en la que se empezó el intento.
+                \it Restricciones:
+                \refElem{tRequired}.
+
+            }
+            \brAttr{mdl-question-categories-id}{banco de preguntas}{tInt}{%
+                Identificador del banco de preguntas del cual se obtendrán las preguntas a mostrar en la instancia de la actividad.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{completioncpudiff}{Dificultad mínima}{tInt}{%
+                Identificador del nivel de dificultad que debe tener el sistema al que venció el usuario para poder completar la actividad.\par
+
+                \it Restricciones:
+                \refElem{tPositive}, 
+                \refElem{tRequired}.
+            }
+
+        \end{cdtEntidad}
+        \schemeName{gmcompcpu}
+
+        \begin{cdtEntidad}{comp-cpu-dificultad-cpu}{Dificultad del sistema}{
+            Esta relacion contiene un catálogo de dificultades.}
+
+            \brAttr{nombre}{Nombre}{tVarchar}{%
+                Nombre de la dificultad que puede tener el sistema.
+
+                \it Restricciones:
+                \refElem{tRequired}.
+            }
+
+        \end{cdtEntidad}
+        \schemeName{gmdl\_dificultad\-CPU}
+
+
+        \begin{cdtEntidad}{comp-cpu-gmdl-intento}{Intento}{
+            Esta relacion contiene los intentos de un usuario de vencer a un sistema de cierto nivel de dificultad.}
+
+            \brAttr{gmdl-usuario-id}{Usuario gamificado}{tInt}{%
+                Identificador del usuario que realizó el intento.
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{gmdl-dificultad-cpu-id}{Dificultad}{tInt}{%
+                Identificador del nivel de dificultad del sistema al que se intentó derrotar.
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{puntiacion-usuario}{Puntos usuario}{tInt}{%
+                Puntuación que logró el usuario en ese intento.
+
+            }
+            \brAttr{puntiacion-cpu}{Puntos sistema}{tInt}{%
+                Puntuación que logró el sistema en ese intento.
+
+            }
+
+            \brAttr{fecha-inicio}{Fecha inicio}{tTime}{%
+                Fecha en la que se empezó el intento.
+                \it Restricciones:
+                \refElem{tRequired}.
+
+            }
+
+            \brAttr{fecha-fin}{Fecha fin}{tTime}{%
+                Fecha en la que se terminó el intento.
+
+            }
+
+        \end{cdtEntidad}
+        \schemeName{gmdl\_intento}
+
+
+        \begin{cdtEntidad}{comp-cpu-gmdl-respuesta-cpu}{Respuesta sistema}{
+            Esta relacion contiene las respuesta que eligió reponder el sistema de una cierta pregunta.}
+
+            \brAttr{gmdl-intento-id}{Intento}{tInt}{%
+                Identificador del intento donde se respondió la pregunta.
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{mdl-question-id}{Pregunta}{tInt}{%
+                Identificador de la pregunta que respondió el sistema.
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{mdl-question-answers}{Respuesta}{tInt}{%
+                Identificador de la respuesta que se eligió.\par
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+
+            }
+        \end{cdtEntidad}
+        \schemeName{gmdl\_respuesta\-CPU}

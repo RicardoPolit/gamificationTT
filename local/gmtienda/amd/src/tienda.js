@@ -52,6 +52,7 @@ define(['jquery'], function($) {
                 $('#gmtienda-arreglo-para-cambiar').attr('value', $('#gmtienda-objeto-muestra-ant').attr('data-id') )
                 
             });
+            $('.gmtienda-container-muestra-actual').hide();
         }
     };
 });

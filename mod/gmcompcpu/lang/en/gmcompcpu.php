@@ -59,27 +59,27 @@ de completarse automaticamente al seleccionar un minimo requerido de dificultad 
 
 Al vencer a una computadora y obtener un puntaje maximo nuevo se le otorga al estudiante experiencia y monedas para que pueda subir de nivel en su perfil gamificado y así ganar más premios';
 $string['modulenameplural'] = 'gmcompcpu games';
-$string['modulename'] = 'Gamedle - Competencia 1vsCPU';
+$string['modulename'] = 'Gamedle - Competencia uno contra sistema';
 $string['notyetplayed'] = 'Not yet played';
 $string['achievedhighscoreof'] = 'Achieved a high score of {$a}';
 $string['playedxtimeswithhighscore'] = 'Played {$a->times} times. The last game ended with a high score of {$a->score}';
 $string['pluginadministration'] = 'gmcompcpu administration';
-$string['pluginname'] = 'Competencia 1 vs CPU';
+$string['pluginname'] = 'Competencia uno contra sistema';
 $string['playerscores'] = 'Player scores';
 $string['privacy:metadata:gmcompcpu_scores'] = 'Information about the user\'s chosen answer(s) for a given choice activity';
 $string['privacy:metadata:gmcompcpu_scores:gmcompcpuid'] = 'The ID of the gmcompcpu activity the user is providing answer for';
 $string['privacy:metadata:gmcompcpu_scores:score'] = 'The score of the user during that playthrough.';
 $string['privacy:metadata:gmcompcpu_scores:timecreated'] = 'The timestamp indicating when the gmcompcpu was played by the user';
 $string['privacy:metadata:gmcompcpu_scores:userid'] = 'The ID of the user playing this gmcompcpu activity';
-$string['questioncategory'] = 'Question category';
+$string['questioncategory'] = 'Categoría de preguntas';
 $string['questioncategory_help'] = 'Select the category from the question bank to use in the game.
 
 Note that you should only select questions that are not critical to assessment later on. The quiz game is similar to creating a quiz with infinite attempts and instant feedback on whether you got something right or wrong.
 
 **Note**: gmcompcpu is designed to promote learning rather than for assessment. Students will have infinite attempts with instant feedback. For this reason, only add questions you want students to learn the answer to, rather than questions you want to assess if they have learned';
 $string['gmcompcpufieldset'] = 'Custom example fieldset';
-$string['gmcompcpuname_help'] = 'What is the name of this gmcompcpu?';
-$string['gmcompcpuname'] = 'gmcompcpu name';
+$string['gmcompcpuname_help'] = 'Cual es el nombre de esta actividad?';
+$string['gmcompcpuname'] = 'Nombre de actividad';
 $string['gmcompcpu'] = 'gmcompcpu';
 $string['gmcompcpu:addinstance'] = 'Add a gmcompcpu instance';
 $string['gmcompcpu:view'] = 'View gmcompcpu';

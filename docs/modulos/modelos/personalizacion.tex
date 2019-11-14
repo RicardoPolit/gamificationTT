@@ -1,0 +1,122 @@
+
+\clearpage
+\subsection{Entidades del módulo de personalización}
+
+ En esta sección se presentan las entidades del módulo de personalización,
+ las cuales están respresentadas en la figura  \ref{fig:BD-ER-P}, 
+ el cual muestra en color verde las entidades propias del módulo, 
+ en azul las entidades que se utilizan de moodle  y en blanco las entidades generales. 
+
+        \addfigure{0.8}{analisis/diagrams/db_tienda}{fig:BD-ER-P}{Esquema de la base de datos del módulo 'Personalización'}
+
+        \begin{cdtEntidad}{tienda-gmdl-tipo-objeto}{Tipo objeto}{
+            Esta entidad guarda los tipos de objetos disponibles.
+            }
+
+            \brAttr{nombre}{Nombre}{tVarchar}{%
+                Nombre del tipo de objeto.\par
+
+                \it Restricciones:
+                \refElem{tLength} $1-50$, 
+                \refElem{tRequired}.
+            }
+
+        \end{cdtEntidad}
+        \schemeName{gmdl\_tipo\_objeto}
+
+
+        \begin{cdtEntidad}{tienda-gmdl-rareza-objeto}{Rareza objeto}{
+            Esta entidad guarda la especificación de las rarezas que puede tener un objeto.
+            }
+
+            \brAttr{nombre}{Nombre}{tVarchar}{%
+                Nombre del tipo de objeto.\par
+
+                \it Restricciones:
+                \refElem{tLength} $1-50$, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{costo-adquisicion}{Costo adquisición}{tInt}{%
+                El precio del objeto en monedas de plata del sistema.\par
+
+                \it Restricciones:
+                \refElem{tRequired}.
+            }
+
+            \brAttr{probabilidad-obtención}{Probabilidad de obtención}{tInt}{%
+                La probabilidad de obtener el objeto cuando se recibe un premio al azar.\par
+
+                \it Restricciones:
+                \refElem{tRange} (0 - 100)\%, 
+                \refElem{tRequired}.
+            }
+
+        \end{cdtEntidad}
+        \schemeName{gmdl\_rareza\_objeto}
+
+        
+        \begin{cdtEntidad}{tienda-gmdl-objeto}{Objeto}{
+            Esta entidad guarda los elementos de personalización a los que denominamos objetos.
+            }
+
+            \brAttr{nombre}{Nombre}{tVarchar}{%
+                Nombre del objeto.\par
+
+                \it Restricciones:
+                \refElem{tLength} $1-50$, 
+                \refElem{tRequired}.
+            }
+
+            \brAttr{gmdl-tipo-objeto-id}{Tipo objeto}{tVarchar}{%
+                Identificador del tipo al que pertenece el objeto.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+            \brAttr{gmdl-rareza-objeto-id}{Rareza objeto}{tVarchar}{%
+                Identificador de la rareza a la que pertenece el objeto.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+            \brAttr{valor}{Valor}{tText}{%
+                Campo de texto que guarda  la forma de desplegar el objeto. Esto puede ser la ruta del archivo, la ruta del directorio o el nombre de las clases de CSS.\par
+
+                \it Restricciones:
+                \refElem{tRequired}.
+            }
+        \end{cdtEntidad}
+        \schemeName{gmdl\_objeto}
+
+
+
+
+        \begin{cdtEntidad}{tienda-gmdl-objeto-desbloqueado}{Objeto desbloqueado}{
+            Esta entidad guarda los objetos desbloqueados por usuarios y si un dicho objeto está seleccionado o no.
+            }
+
+            \brAttr{gmdl-usuario-id}{Tipo objeto}{tInt}{%
+                Identificador del usuario que desbloqueó el objeto.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+            \brAttr{gmdl-objeto-id}{Rareza objeto}{tInt}{%
+                Identificador del objeto que fue desbloqueado.\par
+
+                \it Restricciones:
+                \refElem{tForeignKey}, 
+                \refElem{tRequired}.
+            }
+            \brAttr{elegido}{Elegido}{tBoolean}{%
+                Bnadera que indica si el objeto desbloqueado está seleccionado.\par
+
+                \it Restricciones:
+                \refElem{tRequired}.
+            }
+        \end{cdtEntidad}
+        \schemeName{gmdl\_objeto\_desbloqueado}

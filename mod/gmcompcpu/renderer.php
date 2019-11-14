@@ -122,7 +122,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
 
     public function render_results_attempt($userScore, $cpuScore, $cmid){
 
-        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+        $display = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
 
         if($userScore >= $cpuScore){
 
@@ -220,7 +220,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                 }
 
 
-            $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+            $html = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
 
             $this->page->requires->js_call_amd('mod_gmcompcpu/js_competencia_cpu', 'init');
 
@@ -252,7 +252,7 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                     $html.= html_writer::start_tag('div', array("class"=>"gmcompcpu-contianer-left-align"));
                         $imagen1 = html_writer::empty_tag('img', array("src"=>"pix/cpu_ejemplo_pv.png", "class"=> 'gmcompcpu-imagen-cpu-resumen'));
                         $imagen2 = html_writer::empty_tag('img', array("src"=>"pix/cpu_ejemplo_v.png", "class"=> 'gmcompcpu-imagen-cpu-resumen'));
-                        $html.= html_writer::nonempty_tag('p', "E &iacute;cono $imagen1 se transformará en $imagen2 cuando se haya vencido a la computadora en esa respectiva dificultad.", array());
+                        $html.= html_writer::nonempty_tag('p', "El &iacute;cono $imagen1 se transformará en $imagen2 cuando se haya vencido a la computadora en esa respectiva dificultad.", array());
                     $html.= html_writer::end_tag('div', array());
 
 
@@ -362,11 +362,13 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                                 {
                                     $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $j."°", array());
                                 }
-                                $contenidoTablaPrimerIntento .= html_writer::start_tag('td');
-                                $seleccionado = $this->obtener_objetos_dependiendo_usuario($intento->gmdl_usuario_id);
-                                $contenidoTablaPrimerIntento .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
-                                $contenidoTablaPrimerIntento .= html_writer::nonempty_tag('p',$intento->firstname." ".$intento->lastname ,array(""));
+                                $contenidoTablaPrimerIntento .= html_writer::start_tag('td', array("class"=>""));
+                                $contenidoTablaPrimerIntento .= html_writer::start_tag('div', array("class"=>"gmtienda-muestra-en-tabla"));
+                                    $seleccionado = $this->obtener_objetos_dependiendo_usuario($intento->gmdl_usuario_id);
+                                    $contenidoTablaPrimerIntento .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
+                                    $contenidoTablaPrimerIntento .= html_writer::nonempty_tag('p',$intento->firstname." ".$intento->lastname ,array(""));
                                 $contenidoTablaPrimerIntento .= html_writer::end_tag('td');
+                                $contenidoTablaPrimerIntento.= html_writer::end_tag('div');
                                 $contenidoTablaPrimerIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
                                 $contenidoTablaPrimerIntento.= html_writer::end_tag('tr');
                             $j++;
@@ -421,10 +423,12 @@ class mod_gmcompcpu_renderer extends plugin_renderer_base {
                                 }
 
                             $contenidoTablaMejorIntento .= html_writer::start_tag('td');
-                            $seleccionado = $this->obtener_objetos_dependiendo_usuario($intento->gmdl_usuario_id);
-                            $contenidoTablaMejorIntento .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
-                            $contenidoTablaMejorIntento .= html_writer::nonempty_tag('p',$intento->firstname." ".$intento->lastname ,array(""));
-                            $contenidoTablaMejorIntento .= html_writer::end_tag('td');
+                                $contenidoTablaMejorIntento .= html_writer::start_tag('div', array("class"=>"gmtienda-muestra-en-tabla"));
+                                    $seleccionado = $this->obtener_objetos_dependiendo_usuario($intento->gmdl_usuario_id);
+                                    $contenidoTablaMejorIntento .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
+                                    $contenidoTablaMejorIntento .= html_writer::nonempty_tag('p',$intento->firstname." ".$intento->lastname ,array(""));
+                                $contenidoTablaMejorIntento .= html_writer::end_tag('td');
+                                $contenidoTablaMejorIntento.= html_writer::end_tag('div');
                             $contenidoTablaMejorIntento.= html_writer::nonempty_tag('td', $intento->puntos, array());
                             $contenidoTablaMejorIntento.= html_writer::end_tag('tr');
                             $j++;

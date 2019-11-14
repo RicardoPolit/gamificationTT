@@ -1,10 +1,15 @@
+\clearpage
+\subsection{Entidades del módulo de experiencia}
 
-\subsection{Relaciones del módulo de experiencia}
 
- A continuación se presenta la especificación de las relaciones del esquema de base
- de datos de moodle que son relevantes para el desarrollo del módulo de experiencia.
+ A continuación se presentan las entidades del módulo de seguimiento,
+ las cuales están respresentadas en la figura  \ref{fig:BD-ER-XP},
+ el cual muestra en color amarillo las entidades propias del módulo,
+ en azul las entidades que se utilizan de moodle  y en blanco las entidades generales.
 
-    \begin{cdtEntidad}{xp-general-settings}{Configuraciones Generales}{
+    \addfigure{0.8}{analisis/diagrams/db_exp}{fig:BD-ER-XP}{Esquema de la base de datos del módulo 'Experiencia'}
+
+    \begin{cdtEntidad}{xp-general-settings}{Configuraciones generales}{
     A pesar de que las configuraciones son almacenadas en la entidad
     \refElem{mdl-config-plugins}. Se decidió representar cómo una entidad diferente
     el conjunto de valores para las configuraciones generales del módulo de
@@ -15,7 +20,7 @@
 
             \it Restricciones:
             \refElem{tRequired}.
-            \refElem{tDefault}$:verdadero$
+            \refElem{tDefault} $:verdadero$
         }
 
         \brAttr{events}{eventos activados}{tBoolean}{%
@@ -24,7 +29,7 @@
 
             \it Restricciones:
             \refElem{tRequired}.
-            \refElem{tDefault}$:verdadero$
+            \refElem{tDefault} $:verdadero$
         }
     \end{cdtEntidad}
 
@@ -37,7 +42,7 @@
             Cadena que contiene el título que tienen por defecto todos los niveles.\par
 
             \it Restricciones:
-            \refElem{tLength}$0-30$,
+            \refElem{tLength} $0-30$,
             \refElem{tDefault} ``Gamedle Levels'',
             \refElem{tRequired}
         }
@@ -138,82 +143,68 @@
     De la misma forma que las configuraciones anteriores, los datos correspondientes
     a las configuraciones de eventos son representados mediante esta entidad.}
 
-        \brAttr{competence}{competencia ganada}{tBoolean}{%
-            Valor que indica la se brindarán puntos de experiencia al evento que
+        \brAttr{competencecpuevent}{Competencia contra sistema ganada}{tBoolean}{%
+            Valor que indica si se brindarán puntos de experiencia al evento que
+            es emitido cuando una competencia contra el sistema es ganada.\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tDefault}$: true$
+        }
+
+        \brAttr{competencecpuxp}{Experiencia de competencia contra sistema}{tInt}{%
+            Valor que indica la cantidad de experiencia que otorgará cuando el
+            evento de \refElem{xp-events-settings.competencecpuevent} sea emitido.\par
+
+            \it Restricciones:
+            \refElem{tRequired},
+            \refElem{tDefault}$: 1000$
+        }
+
+        \brAttr{competencevsevent}{Competencia ganada}{tBoolean}{%
+            Valor que indica si se brindarán puntos de experiencia al evento que
             es emitido cuando una competencia es ganada.\par
 
             \it Restricciones:
             \refElem{tRequired},
-            \refElem{tDefault}$:true$
+            \refElem{tDefault}$: true$
         }
 
-        \brAttr{competenceXP}{experiencia de competencia}{tInt}{%
+        \brAttr{competencevsxp}{Experiencia de competencia}{tInt}{%
             Valor que indica la cantidad de experiencia que otorgará cuando el
-            evento de \refElem{xp-events-settings.competence} sea emitido.\par
+            evento de \refElem{xp-events-settings.competencevsevent} sea emitido.\par
 
             \it Restricciones:
             \refElem{tRequired},
-            \refElem{tDefault}$:1500$
+            \refElem{tDefault}$: 1000$
         }
 
-    \end{cdtEntidad}
-
-    \begin{cdtEntidad}{xp-user}{Usuario gamificado}{%
-    Esta entidad es una especialización de la entidad \refElem{mdl-user} la cual
-    permite agregar atributos cómo la cantidad de experiencia obtenida y el nivel
-    actual del usuario.}
-
-        \brAttr{id}{id}{tInt}{%
-            Es el número que representa el identificador único para cada usuario
-            gamificado en la plataforma.\par
+        \brAttr{preguntadiariaevento}{Pregunta diaria}{tBoolean}{%
+            Valor que indica si se brindarán puntos de experiencia al evento que
+            es emitido cuando una pregunta diaria es respondida.\par
 
             \it Restricciones:
-            \refElem{tPrimaryKey},
-            \refElem{tAutoIncrement}
-        }
-
-        \brAttr{mdl-user}{mdl-usuario}{tInt}{%
-            Es el número que permite conocer a que usuario de moodle pertecene la
-            información de un usuario gamificado.\par
-
-            \it Restricciones:
-            \refElem{tForeignKey},
             \refElem{tRequired},
-            \refElem{tUniqueKey}
+            \refElem{tDefault}$: true$
         }
 
-        \brAttr{level}{nivel}{tNatural}{%
-            Representa el nivel actual de experiencia que tiene un usuario gamificado
-            en moodle. \par
+        \brAttr{preguntadiariaxp}{Experiencia de pregunta diaria}{tInt}{%
+            Valor que indica la cantidad de experiencia que otorgará cuando el
+            evento de \refElem{xp-events-settings.preguntadiariaevento} sea emitido.\par
 
             \it Restricciones:
-            \refElem{tDefault} 1
+            \refElem{tRequired},
+            \refElem{tDefault}$: 1000$
         }
-
-        \brAttr{levelxp}{experiencia del nivel}{tNatural}{%
-            Representa el nivel actual de experiencia que tiene un usuario gamificado
-            en moodle.\par
-
-            \it Restricciones:
-            \refElem{tDefault} 0
-        }
-
-        \brAttr{xp}{experiencia}{tInt}{%
-            Representa los puntos de experiencia que tiene un usuario en moodle \par
-
-            \it Restricciones:
-            \refElem{tPositive},
-            \refElem{tDefault} 0
-        }
-
     \end{cdtEntidad}
 
+\begin{comment}
     \begin{cdtEntidad}{xp-course}{Curso gamificado}{%
     Un curso gamificado es un \refElem{mdl-course} el cual tiene el
     \refElem{mdl-course.format} de curso {\it ``gamedle''}, a pesar de que las
     opciones de este formato son almacenadas en la tabla
     \refElem{mdl-course-format-options}, se decidió incluir esta entidad en el
-    dmodelo de información ya que reune las características que pertenecen a un curso
+    modelo de información ya que reune las características que pertenecen a un curso
     gamificado.}
 
         \brAttr{id}{Id}{tInt}{%
@@ -247,9 +238,11 @@
         \brAttr{coursedisplay}{aspecto del curso}{tVarchar}{%
         }
     \end{cdtEntidad}
+\end{comment}
+
 
     \begin{cdtEntidad}{xp-course-section}{Sección de curso gamificado}{%
-    Esta entidad }
+    Esta entidad es la extensión de la sección de moodle, la cual agrega configuraciones de experiencia. }
         \brAttr{id}{Id}{tInt}{%
             . \par
 
@@ -257,13 +250,35 @@
             \refElem{tPrimaryKey},
             \refElem{tAutoIncrement}.
         }
-        \brAttr{xp}{experiencia}{tInt}{%
-            . \par
+        \brAttr{xp}{experiencia seccion}{tInt}{%
+            Valor de experiencia que se le dará al usuario una vez complete las actividades de la sección. \par
 
             \it Restricciones:
+            \refElem{tRequired}.
         }
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-section-reward}{Recompensa de sección}{%
-    Esta entidad }
+    Esta entidad es el registro de qué recomensas a recibido el usuario al completar una sección.}
+        \brAttr{id}{Id}{tInt}{%
+            . \par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+        \brAttr{gmdl-id-usuario}{Usuario}{tInt}{%
+            Identificador del usuario al cual se le otorgaron las recompensas. \par
+
+            \it Restricciones:
+            \refElem{tForeignKey}.
+            \refElem{tRequired}.
+        }
+        \brAttr{gmdl-id-seccion-curso}{Seccion curso}{tInt}{%
+            Identificador de la sección gamificada de la cual se otorgaron las recompensas. \par
+
+            \it Restricciones:
+            \refElem{tForeignKey}.
+            \refElem{tRequired}.
+        }
     \end{cdtEntidad}

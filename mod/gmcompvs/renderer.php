@@ -42,7 +42,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
     public function render_wait_page(){
 
-        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+        $display = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
 
         $display .= html_writer::start_tag('div', array("class"=>"gmcompvs-container-columns", "id"=>"gmcompvs-activity-container"));
 
@@ -160,7 +160,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
     public function render_results_attempt($userScore,$contrincanteScore){
 
-        $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+        $display = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
 
         if($userScore > $contrincanteScore){
 
@@ -226,7 +226,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $posiblesRivales = $this->obtener_posibles_rivales($gmcompvs->id, $userid);
             $desafiosPorTerminar = $this->obtener_desafios_pendientes($gmcompvs->id, $userid);
             $this->page->requires->js_call_amd('mod_gmcompvs/js_competencia_vs', 'init');
-            $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
+            $html = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
             $html.= html_writer::tag('div', '',array("class" =>"gmcompvs-linea"));
 
             $html.= html_writer::start_tag('div', array("class"=>"gmcompvs-contianer-menu-opciones"));
@@ -363,8 +363,10 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                                         $html.= html_writer::end_tag('td', array());
                                         $html.= html_writer::start_tag('td',array("class"=>"gmcompvs-table-name-column"));
                                         $seleccionado = $this->obtener_objetos_dependiendo_usuario($fila->gmuserid);
+                                        $html .= html_writer::start_tag('div', array("class"=>"gmtienda-muestra-en-tabla"));
                                         $html.= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
-                                        $html.= html_writer::nonempty_tag('p',$fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' ,array(""));
+                                        $html.= html_writer::nonempty_tag('p',$fila->firstname.' '.$fila->lastname.'  ('.$fila->username.')' ,array(""));
+                                        $html.= html_writer::end_tag('div');
                                         $html.= html_writer::end_tag('td');
                                         $html.= html_writer::nonempty_tag('td', $fila->victorias , array("class"=>"gmcompvs-table-victorias-column"));
                                         if($primeraFila == 1)
@@ -442,10 +444,12 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
                         }
                         $contenidoTabla.= html_writer::start_tag('tr', array());
                         $contenidoTabla .= html_writer::start_tag('td',array("class"=>"gmcompvs-table-history-name"));
+                        $contenidoTabla .= html_writer::start_tag('div', array("class"=>"gmtienda-muestra-en-tabla"));
                         $seleccionado = $this->obtener_objetos_dependiendo_usuario($partida->gmuserid_b);
                         $contenidoTabla .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
-                        $contenidoTabla .= html_writer::nonempty_tag('p',$partida->firstname_b.' '.$partida->lastname_b.' ('.$partida->firstname_b.')' ,array(""));
+                        $contenidoTabla .= html_writer::nonempty_tag('p',$partida->firstname_b.' '.$partida->lastname_b.' <br> ('.$partida->firstname_b.')' ,array(""));
                         $contenidoTabla .= html_writer::end_tag('td');
+                        $contenidoTabla.= html_writer::end_tag('div');
                         $contenidoTabla.= html_writer::nonempty_tag('td', $partida->puntuacion_a, array("class"=>"gmcompvs-table-history-points"));
                         if($apuestasActivas == 1)
                             {

@@ -1,0 +1,60 @@
+
+
+\subsection{Entidades generales}
+
+
+    En esta sección se describen todas las entidades que son requeridas por 2 o más módulos.
+    Por cada entidad en esta sección se tiene referencias a las secciones donde aparecen.
+
+
+
+    \begin{cdtEntidad}{xp-user}{Usuario gamificado}{%
+    Esta entidad es una especialización de la entidad \refElem{mdl-user} la cual 
+    permite agregar atributos cómo la cantidad de experiencia obtenida y el nivel 
+    actual del usuario.}
+
+        \brAttr{id}{id}{tInt}{%
+            Es el número que representa el identificador único para cada usuario
+            gamificado en la plataforma.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}
+        }
+
+        \brAttr{mdl-user}{Usuario moodle}{tInt}{%
+            Es el número que permite conocer a que usuario de moodle pertecene la 
+            información de un usuario gamificado.\par
+
+            \it Restricciones:
+            \refElem{tForeignKey},
+            \refElem{tRequired},
+            \refElem{tUniqueKey}
+        }
+
+        \brAttr{level}{nivel}{tNatural}{%
+            Representa el nivel actual de experiencia que tiene un usuario gamificado 
+            en moodle. \par
+
+            \it Restricciones:
+            \refElem{tDefault} 1
+        }
+
+        \brAttr{levelxp}{experiencia del nivel}{tNatural}{%
+            Representa el nivel actual de experiencia que tiene un usuario gamificado 
+            en moodle.\par
+
+            \it Restricciones:
+            \refElem{tDefault} 0
+        }
+
+        \brAttr{xp}{experiencia}{tInt}{%
+            Representa los puntos de experiencia que tiene un usuario en moodle \par
+
+            \it Restricciones:
+            \refElem{tPositive},
+            \refElem{tDefault} 0
+        }
+
+    \end{cdtEntidad}
+    \schemeName{gmdl\_usuario}

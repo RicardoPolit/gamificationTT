@@ -39,7 +39,7 @@ Estado/\ucstEnRevision]%
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
 	\UCitem{Destino}{%
-		\refElem{IU-M07}
+		\refElem{IU-M08}
 	}
 
 	\UCitems{Precondiciones}{%
@@ -51,7 +51,7 @@ Estado/\ucstEnRevision]%
 	}
 
 	\UCitems{Postcondiciones}{%
-        \Titem La instancia de la actividad eliminada no debe mostrarse en la pantalla \refElem{IU-M07}.%
+        \Titem La instancia de la actividad eliminada no debe mostrarse en la pantalla \refElem{IU-M08}.%
 
 	}
 
@@ -83,27 +83,27 @@ Estado/\ucstEnRevision]%
 \begin{UCtrayectoria}%
 %
 
-    \Actor Activa la edición del curso en la pantalla \refElem{IU-M07}.
+    \Actor Activa la edición del curso en la pantalla \refElem{IU-M08}.
 
-    \Sistema Redirige a la pantalla de edición del curso \refElem{IU-M07aa}.
+    \Sistema Redirige a la pantalla de edición del curso \refElem{IU-M08aa}.
 
     \Actor Presiona el botón {\bf Editar} de la instancia que desea eliminar.
 
-    \Sistema Despliega el menú \refElem{IU-M07b}.
+    \Sistema Despliega el menú \refElem{IU-M08b}.
 
-    \Actor Presiona el botón {\bf Eliminar} del menú desplegable \refElem{IU-M07b}.
+    \Actor Presiona el botón {\bf Eliminar} del menú desplegable \refElem{IU-M08b}.
 
-    \Sistema Despliega mensaje de confirmación de eliminación. \refElem{IU-M07c}
+    \Sistema Despliega mensaje de confirmación de eliminación. \refElem{IU-M08c}
 
     \Actor Presiona el botón {\bf Si}. \refTray{A}
 
-    \Sistema Redirige a la pantalla \refElem{IU-M07} y elimina la instancia y los valores de la instancia \refElem{comp-cpu-gmcompcpu}, así como los datos que dependen de la instancia en las siguientes entidades: \refElem{comp-cpu-gmdl-intento} y \refElem{comp-cpu-gmdl-respuesta-cpu}.
+    \Sistema Redirige a la pantalla \refElem{IU-M08} y elimina la instancia y los valores de la instancia \refElem{comp-cpu-gmcompcpu}, así como los datos que dependen de la instancia en las siguientes entidades: \refElem{comp-cpu-gmdl-intento} y \refElem{comp-cpu-gmdl-respuesta-cpu}.
 
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]{A}{El \refElem{aProfesor} o \refElem{aAdministrador} desea cancelar la eliminación después de mostrar el mensaje de confirmación}
 
-  \Actor Presiona el botón {\bf No} en la mensaje de confirmación \refElem{IU-M07C}.
-  \Sistema Redirige a la pantalla \refElem{IU-M07}.
+  \Actor Presiona el botón {\bf No} en la mensaje de confirmación \refElem{IU-M08C}.
+  \Sistema Redirige a la pantalla \refElem{IU-M08}.
 
 \end{UCtrayectoriaA}
