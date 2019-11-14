@@ -308,8 +308,11 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
                         $html.= html_writer::end_tag('td', array());
                         $html .= html_writer::start_tag('td',array("class"=>"gmpregdiarias-table-name-column"));
                         $seleccionado = $this->obtener_objetos_dependiendo_usuario($fila->gmuserid);
+
+                        $html .= html_writer::start_tag('div', array("class"=>"gmtienda-muestra-en-tabla"));
                         $html .= html_writer::empty_tag('img', array( "src"=>new moodle_url('/local/gmtienda/'.$seleccionado[0]['valor']), "class"=> 'gmcompvs-profile-image '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor']));
                         $html .= html_writer::nonempty_tag('p',$fila->firstname.' '.$fila->lastname.' ('.$fila->username.')' ,array(""));
+                        $html .= html_writer::end_tag('div');
                         $html .= html_writer::end_tag('td');
                         $html.= html_writer::start_tag('td', array("class"=>"gmpregdiarias-table-preguntas-column"));
                         $html.= html_writer::nonempty_tag('progress',' ',array("id"=>"gmpregdiarias-progress", "value"=>$fila->preguntas+0.1, "max"=>$preguntasDisponibles));

@@ -134,60 +134,55 @@ class local_gmtienda_renderer extends plugin_renderer_base {
 
             $html = "<link href='styles.css' rel='stylesheet' type='text/css'>";
             $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-tienda'));
-                $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra'));
-                    $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra-actual'));
-                        $html.= html_writer::nonempty_tag('h1', 'Visualización actual', array());
+                $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra-actual'));
+                    $html.= html_writer::nonempty_tag('h1', 'Visualización actual', array());
 
-                        $html.= html_writer::start_tag('div', array("class"=>"gmtienda-container-muestra-card"));
-                            $encoded = array();
-                            $encoded[]= $seleccionado[0]['id'];
-                            $encoded[]= $seleccionado[1]['id'];
-                            $encoded[]= $seleccionado[2]['id'];
-                            $encoded = json_encode($encoded);
-                            $html.= html_writer::empty_tag('img', array('id'=>"gmtienda-objeto-muestra-ant", "src"=>$seleccionado[0]['valor'], "class"=> 'gmtienda-objeto-imagen '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor'], 'data-id'=>$encoded));
-                            $html.= html_writer::nonempty_tag('p', 'Nombre: <br> '.$datosUsuario->firstname.' '.$datosUsuario->lastname, array("class"=>"gmcompvs-al-desafiar-nombre"));
-                        $html.= html_writer::end_tag('div');
-                        $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra'));
-                            $html.= html_writer::nonempty_tag('button', 'Cancelar', array('id'=>'gmtienda-boton-cancelar'));
-                        $html.= html_writer::end_tag('div');
-
+                    $html.= html_writer::start_tag('div', array("class"=>"gmtienda-container-muestra-card"));
+                        $encoded = array();
+                        $encoded[]= $seleccionado[0]['id'];
+                        $encoded[]= $seleccionado[1]['id'];
+                        $encoded[]= $seleccionado[2]['id'];
+                        $encoded = json_encode($encoded);
+                        $html.= html_writer::empty_tag('img', array('id'=>"gmtienda-objeto-muestra-ant", "src"=>$seleccionado[0]['valor'], "class"=> 'gmtienda-objeto-imagen '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor'], 'data-id'=>$encoded));
+                        $html.= html_writer::nonempty_tag('p', 'Nombre: <br> '.$datosUsuario->firstname.' '.$datosUsuario->lastname, array("class"=>"gmtienda-al-desafiar-nombre"));
                     $html.= html_writer::end_tag('div');
 
-                    $html.= html_writer::start_tag('div', array("class"=>"gmtienda-container-monedas-disponibles"));
-                    $html.= html_writer::nonempty_tag('h5', 'Monedas disponibles', array());
-                        $html.= html_writer::start_tag('div', array('class'=>'gmtienda-monedas-disponibles'));
-                        $html.= html_writer::empty_tag('img', array("src"=>"pix/monedas.png", "class"=> 'gmtienda-imagen-monedas'));
-                        $html.= html_writer::nonempty_tag('h4', '<b>'.$datosUsuario->monedas_plata.'</b>', array("style"=>"margin: 0%;"));
+                $html.= html_writer::end_tag('div');
+
+                
+
+                $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra-nuevo'));
+
+                    $html.= html_writer::start_tag('div', array("class"=>"gmtienda-container-muestra-card"));
+                        $html.= html_writer::empty_tag('img', array("src"=>$seleccionado[0]['valor'], "id"=> 'gmtienda-objeto-muestra', "class"=> 'gmtienda-objeto-imagen '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor'], 'data-id'=>$encoded));
+                        $html.= html_writer::nonempty_tag('h2', '<b>Nombre: </b><br> '.$datosUsuario->firstname.' '.$datosUsuario->lastname, array("class"=>"gmtienda-al-desafiar-nombre"));
+                        $html.= html_writer::start_tag('div', array("class"=>"gmtienda-container-monedas-disponibles"));
+                            $html.= html_writer::nonempty_tag('h5', 'Monedas disponibles', array());
+                                $html.= html_writer::start_tag('div', array('class'=>'gmtienda-monedas-disponibles'));
+                                $html.= html_writer::empty_tag('img', array("src"=>"pix/monedas.png", "class"=> 'gmtienda-imagen-monedas'));
+                                $html.= html_writer::nonempty_tag('h4', '<b>'.$datosUsuario->monedas_plata.'</b>', array("style"=>"margin: 0%;"));
+                            $html.= html_writer::end_tag('div');
                         $html.= html_writer::end_tag('div');
                     $html.= html_writer::end_tag('div');
+                    $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra'));
+                        $html.= html_writer::nonempty_tag('button', 'Deshacer', array('class'=>'btn btn-primary', 'id'=>'gmtienda-boton-limpiar'));
+                        $html .= html_writer::start_tag('form',
+                        array('action' => new moodle_url('/local/gmtienda/elegir.php',
+                            array('gmuserid' => $userid)), 'method' => 'post',
+                            'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                            'id' => 'responseform', 'class'=>"gmtienda-container-boton-guardar"));
 
-                    $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra-nuevo'));
-                        $html.= html_writer::nonempty_tag('h1', 'Nueva visualización', array());
+                            $html .= "<input id='gmtienda-arreglo-para-cambiar' type='hidden' name='objetosjson' value='$encoded' />";
+                            $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+                            'value' => 'Guardar', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-primary-js btn-elegir", 'id' => "gmtienda-boton-guardar"));
+                        $html .= html_writer::end_tag('form');
 
-                        $html.= html_writer::start_tag('div', array("class"=>"gmtienda-container-muestra-card"));
-                            $html.= html_writer::empty_tag('img', array("src"=>$seleccionado[0]['valor'], "id"=> 'gmtienda-objeto-muestra', "class"=> 'gmtienda-objeto-imagen '.$seleccionado[1]['valor'].' '.$seleccionado[2]['valor'], 'data-id'=>$encoded));
-                            $html.= html_writer::nonempty_tag('p', 'Nombre: <br> '.$datosUsuario->firstname.' '.$datosUsuario->lastname, array("class"=>"gmcompvs-al-desafiar-nombre"));
-                        $html.= html_writer::end_tag('div');
-                        $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-muestra'));
-                            $html.= html_writer::nonempty_tag('button', 'Deshacer', array('id'=>'gmtienda-boton-limpiar'));
-                            $html .= html_writer::start_tag('form',
-                            array('action' => new moodle_url('/local/gmtienda/elegir.php',
-                                array('gmuserid' => $userid)), 'method' => 'post',
-                                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
-                                'id' => 'responseform', 'class'=>"gmtienda-container-boton-guardar"));
-
-                                $html .= "<input id='gmtienda-arreglo-para-cambiar' type='hidden' name='objetosjson' value='$encoded' />";
-                                $html .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-                                'value' => 'Elegir', 'class' => "mod_quiz-next-nav btn btn-primary gmtienda-button btn-primary-js btn-elegir", 'id' => "gmtienda-boton-guardar"));
-                            $html .= html_writer::end_tag('form');
-
-                        $html.= html_writer::end_tag('div');
                     $html.= html_writer::end_tag('div');
                 $html.= html_writer::end_tag('div');
                 $html.= html_writer::start_tag('div', array('class'=>'gmtienda-container-tipos-objetos'));
                 for($i =0; $i<sizeof($objetos); $i++)
                     {
-                        $html.= html_writer::nonempty_tag('h1', $tipos[$i], array('class'=>'gmtienda-nombre-tipo'));
+                        $html.= html_writer::nonempty_tag('h3', $tipos[$i], array('class'=>'gmtienda-nombre-tipo'));
                         $html.= $this->renderizar_objetos_tipo_imagen($objetos[$i], $userid);
                     }
                 $html.= html_writer::end_tag('div');
@@ -239,7 +234,7 @@ class local_gmtienda_renderer extends plugin_renderer_base {
                         'id' => 'comprarform', "class"=>"gmtienda-boton-compra-form"));
         
                     $html .= '<input type="hidden" name="objetoid" value='.$objeto->ide.' />';
-                    $html.= html_writer::start_tag('button', array('class'=>'gmtienda-boton-compra'));
+                    $html.= html_writer::start_tag('button', array('class'=>' btn gmtienda-boton-compra'));
                     $html.= html_writer::empty_tag('img', array("src"=>"pix/monedas.png", "class"=> 'gmtienda-imagen-monedas-boton'));
                     $html.= html_writer::nonempty_tag('p', ''.$objeto->costo, array("style"=>"margin: 0%;"));
                     $html.= html_writer::end_tag('button');
@@ -253,8 +248,8 @@ class local_gmtienda_renderer extends plugin_renderer_base {
                 }*/
             else
                 {
-                    $html.= html_writer::start_tag('button', array());
-                    $html.= html_writer::nonempty_tag('p', ' ', array());
+                    $html.= html_writer::start_tag('button', array('class'=>'btn gmtienda-boton-elegir'));
+                    $html.= html_writer::nonempty_tag('p', 'Adquirido', array());
                     $html.= html_writer::end_tag('button');
                 }
             return $html;
