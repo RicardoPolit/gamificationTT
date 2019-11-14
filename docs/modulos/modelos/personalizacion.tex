@@ -3,9 +3,9 @@
 \subsection{Entidades del módulo de personalización}
 
  En esta sección se presentan las entidades del módulo de personalización,
- las cuales están respresentadas en la figura  \ref{fig:BD-ER-P}, 
- el cual muestra en color verde las entidades propias del módulo, 
- en azul las entidades que se utilizan de moodle  y en blanco las entidades generales. 
+ las cuales están respresentadas en la figura  \ref{fig:BD-ER-P},
+ el cual muestra en color verde las entidades propias del módulo,
+ en azul las entidades que se utilizan de moodle  y en blanco las entidades generales.
 
         \addfigure{0.8}{analisis/diagrams/db_tienda}{fig:BD-ER-P}{Esquema de la base de datos del módulo 'Personalización'}
 
@@ -17,7 +17,7 @@
                 Nombre del tipo de objeto.\par
 
                 \it Restricciones:
-                \refElem{tLength} $1-50$, 
+                \refElem{tLength} $1-50$,
                 \refElem{tRequired}.
             }
 
@@ -33,7 +33,7 @@
                 Nombre del tipo de objeto.\par
 
                 \it Restricciones:
-                \refElem{tLength} $1-50$, 
+                \refElem{tLength} $1-50$,
                 \refElem{tRequired}.
             }
 
@@ -44,18 +44,18 @@
                 \refElem{tRequired}.
             }
 
-            \brAttr{probabilidad-obtención}{Probabilidad de obtención}{tInt}{%
+            \brAttr{probabilidad-obtencion}{Probabilidad de obtención}{tInt}{%
                 La probabilidad de obtener el objeto cuando se recibe un premio al azar.\par
 
                 \it Restricciones:
-                \refElem{tRange} (0 - 100)\%, 
+                \refElem{tRange} (0 - 100)\%,
                 \refElem{tRequired}.
             }
 
         \end{cdtEntidad}
         \schemeName{gmdl\_rareza\_objeto}
 
-        
+
         \begin{cdtEntidad}{tienda-gmdl-objeto}{Objeto}{
             Esta entidad guarda los elementos de personalización a los que denominamos objetos.
             }
@@ -64,7 +64,7 @@
                 Nombre del objeto.\par
 
                 \it Restricciones:
-                \refElem{tLength} $1-50$, 
+                \refElem{tLength} $1-50$,
                 \refElem{tRequired}.
             }
 
@@ -72,14 +72,14 @@
                 Identificador del tipo al que pertenece el objeto.\par
 
                 \it Restricciones:
-                \refElem{tForeignKey}, 
+                \refElem{tForeignKey},
                 \refElem{tRequired}.
             }
             \brAttr{gmdl-rareza-objeto-id}{Rareza objeto}{tVarchar}{%
                 Identificador de la rareza a la que pertenece el objeto.\par
 
                 \it Restricciones:
-                \refElem{tForeignKey}, 
+                \refElem{tForeignKey},
                 \refElem{tRequired}.
             }
             \brAttr{valor}{Valor}{tText}{%
@@ -102,14 +102,14 @@
                 Identificador del usuario que desbloqueó el objeto.\par
 
                 \it Restricciones:
-                \refElem{tForeignKey}, 
+                \refElem{tForeignKey},
                 \refElem{tRequired}.
             }
             \brAttr{gmdl-objeto-id}{Rareza objeto}{tInt}{%
                 Identificador del objeto que fue desbloqueado.\par
 
                 \it Restricciones:
-                \refElem{tForeignKey}, 
+                \refElem{tForeignKey},
                 \refElem{tRequired}.
             }
             \brAttr{elegido}{Elegido}{tBoolean}{%
