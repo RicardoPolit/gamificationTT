@@ -73,8 +73,8 @@ Estado/\ucstEnEdicion]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-E0Y}
-        \Titem \refElem{CPI-E0Y}
+        \Titem \refElem{CPC-E06}
+        \Titem \refElem{CPC-E06a}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -107,32 +107,49 @@ Estado/\ucstEnEdicion]%
   \Sistema Muestra los datos obtenidos del curso en la pantalla \refElem{IU-E05}.
 
   \Actor Despliega la sección para el formato del curso.
-  \Actor Selecciona UN \entrada{mdl-course.format} distinto al 
+  \Actor Selecciona un \entrada{mdl-course.format} distinto al 
          \refElem[formato gamificado]{xp-course.format}.
   \Sistema Carga la información correspondiente al formato del curso elegido.
 
   \Actor Opcionalmente edita los demás campos opcionales del formulario.
-  \Actor Presiona el botón {\bf Guardar Cambios y mostrar}. \refTray{B}, \refTray{C},
-         \refTray{D} \label{CU-E05-submit}
-  \Sistema Actualiza los datos del curso de moodle con los ingresados por el usuario.
+  \Actor Presiona el botón {\bf Guardar Cambios y mostrar}. \refTray{A}, \refTray{B},
+         \refTray{C} \label{CU-E06-submit}
+  \Sistema Actualiza los datos del curso de moodle con los datos ingresados por el usuario.
   \Sistema Elimina el \entrada{xp-course} vinculado al \refElem{mdl-course} y las
            configuraciones del mismo.
-  \Sistema Elimina las \entrada{xp-course-section} vinculadas al curso.
+  \Sistema Elimina las \entrada[secciones del curso gamificado]{xp-course-section} 
+           vinculadas al curso.
   \Sistema Elimina las \entrada[recompensas]{xp-section-reward} de las secciones del 
            curso sin alterar la experiencia recibida por los alumnos de acuerdo con 
-           la regla \regla{BR-E02}.
-  \Sistema Muestra la pantalla \refElem{IU-M06a}.
+           la regla \regla{BR-E02}. \label{CU-E06-finish}
+  \Sistema Muestra la pantalla \refElem{IU-M06c}.
 
 \end{UCtrayectoria}
 
+\begin{UCtrayectoriaA}{A}{%
+Alguno de los campos introducidos por el usuario es erroneo.
+}
 
-\subsubsection{Puntos de extensión}
+  \Sistema Muestra los mensajes de error correspondientes debajo de cada campo inválido.
+  \Actor Ingresa de nuevo el valor para los campos que contienen errores.
+  \Sistema Regresa al paso \ref{CU-E06-submit}
 
-\UCExtensionPoint{Nombre del punto de extensión}{%
+\end{UCtrayectoriaA}
 
-    El \refElem{aAdministrador} desea/requiere/necesita ....%
-%
-    }{En el paso \ref{CU-ET-1x} de la trayectoria principal  ...%
-%
-    }{\refElem{CU-E2-T}}
+\begin{UCtrayectoriaA}{B}{%
+El usuario desea regresar a la pantalla \refElem{IU-M06}.}
 
+  \Actor Presiona el botón {\bf Guardar y regresar}
+  \Sistema Ejecuta los pasos a partir del paso \ref{CU-E06-submit} hasta el
+           paso \ref{CU-E06-finish}.
+  \Sistema Redirige a la pantalla \refElem{IU-M06}
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{C}{%
+El usuario desea cancelar la eliminación del soporte para brindar experiencia en el curso}
+
+  \Actor Presiona el botón {\bf Cancelar}
+  \Sistema Redirige a la pantalla \refElem{IU-M06}
+
+\end{UCtrayectoriaA}
