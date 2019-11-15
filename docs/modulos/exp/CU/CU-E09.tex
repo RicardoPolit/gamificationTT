@@ -1,0 +1,150 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.1,%
+Estado/\ucstEnEdicion]%
+%
+{CU-E09}{Eliminar sección con experiencia}{%
+%
+ Permite al \refElem{aProfesor} eliminar una seccion de un curso gamificado con soporte
+ para experiencia con base en la regla \refElem{BR-E11}, la cual indica para eliminar una
+ sección de un curso gamificado esta debe brindar 0 puntos de experiencia.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ \today }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitirle al profesor eliminar una sección de un curso con soporte 
+               para experiencia.
+        \Titem Permitirle al profesor eliminar secciones del curso de manera controlada
+               sin afectar la cantidad de experiencia total que brinda el curso.
+	}
+	
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-E06b}
+	}
+	
+	\UCitems{Precondiciones}{%
+        \Titem El curso debe debe de tener el \refElem{xp-course.format} gamificado.
+	}
+
+	\UCitem{Postcondiciones}{%
+        Las eliminación de las secciones de experiencia debe permanecer en el sistema.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+        % CAUSA
+            El curso elegido no es un curso gamificado con soporte para experiencia,}{%
+        % EFECTO
+            termina el caso de uso.}
+        \Titem \UCerr{Err2}{%
+        % CAUSE
+            La sección que se desea eliminar ya ha sido completada por alguno
+            de los \refElem{aAlumno},}{%
+        % EFECTO
+            la opción de eliminar sección no se muestra, termina el caso de uso.}
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }	
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-E08}
+        \Titem \refElem{CPI-E08}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{%
+        Ninguna
+	}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+  \Actor Presiona el botón \IUMenu de la pantalla \refElem{IU-M00}
+  \Sistema Despliega el menú de navegación lateral
+  \Actor Selecciona la opción \IUHome {\bf Página Inicial del Sitio}
+
+  \Sistema Obtiene el \salida{mdl-course.fullname} de los cursos disponibles en la
+           plataforma.
+
+  \Sistema Muestra la lista de cursos disponibles en la pantalla \refElem{IU-M07}.
+
+  \Actor Selecciona el \entrada{mdl-course} al cual desea agregar una sección con
+         soporte de gamificación.
+  \Sistema Obtiene el \entrada{mdl-course.fullname}, \entrada{mdl-course.shortname}
+           así como el \salida[secciones]{mdl-course-section.name} de las secciones 
+           del curso junto con las \salida[actividades]{mdl-course-module} 
+           correspondients a cada sección y el estado de \refElem[completitud]%
+           {mdl-course-module.completionstate}.
+
+  \Sistema Muestra los datos obtenidos en la pantalla \refElem{IU-M07}.
+           \label{CU-E07-pantalla}
+
+  \Actor Presiona el botón \IUAdminSitio en la parte superior izquierda de la pantalla
+  \Sistema Muestra el menu desplegable de la administración del curso
+
+  \Actor Presiona el botón \IUEditar {\bf Activar Edición}. \refErr{Err1}
+  \Sistema Obtiene la \salida{xp-course-section.xp} de la secciones gamificadas del 
+           curso y revisa hay \refElem[recompensas]{xp-section-reward} que hayan sido
+           entregadas correspondientes a dicha sección.
+  \Sistema Obtiene la cantidad total de \salida{xp-scheme-settings.courseXP}.
+  \Sistema Muestra la experiencia de cada sección y el total de experiencia 
+           en la pantalla \refElem{IU-E06b}.
+  \Sistema Habilita o deshabilita los campos para editar la experiencia de cada 
+           sección con base en la regla \regla{BR-E09}.
+
+  \Actor Presiona la opción {\bf Editar} correspondiente a la \entrada{xp-course-section}
+         seccion que desea eliminar. \label{CU-E09-options}.
+
+  \Sistema Muestra el menu acciones de edición que se pueden realizar a dicha sección de
+           acuerdo con la regla \regla{BR-E11}. \refTray{A} \refErr{Err2}
+
+  \Actor Selecciona la opción \IUEliminar {\bf Eliminar sección}.
+
+  \Sistema Elimina la \refElem{mdl-course-section} especificada, así como la
+           \refElem{xp-course-section}.
+  \Sistema Muestra la pantalla \refElem{IU-E06b} con los datos de las secciones restantes
+           del curso.
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}{A}{%
+La cantidad de \refElem{xp-course-section.xp} de la sección a eliminar es distinta de cero.
+}
+  \Sistema Redirige al paso \ref{CU-E09-options} de la trayectoria principal.
+\end{UCtrayectoriaA}
+
