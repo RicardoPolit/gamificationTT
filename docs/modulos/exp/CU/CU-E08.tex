@@ -1,3 +1,4 @@
+
 % \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
 %                    y al inicio del CU.
 %
@@ -10,11 +11,11 @@ Autor/Daniel Ortega,%
 Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-E09}{Eliminar sección con experiencia}{%
+{CU-E08}{Agregar sección con experiencia}{%
 %
- Permite al \refElem{aProfesor} eliminar una seccion de un curso gamificado con soporte
- para experiencia con base en la regla \refElem{BR-E11}, la cual indica para eliminar una
- sección de un curso gamificado esta debe brindar 0 puntos de experiencia.}
+ Permite al \refElem{aProfesor} agregar una sección con soporte para experiencia
+ en un curso gamificado y que pueda configurar la cantidad de experiencia que brinda
+ dicha sección mediante el caso de uso \refElem{CU-E07}.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -26,10 +27,10 @@ Estado/\ucstEnEdicion]%
     }
 
 	\UCitems{Propósito}{%
-        \Titem Permitirle al profesor eliminar una sección de un curso con soporte 
-               para experiencia.
-        \Titem Permitirle al profesor eliminar secciones del curso de manera controlada
-               sin afectar la cantidad de experiencia total que brinda el curso.
+        \Titem Permitirle al profesor agregar una sección con soporte para experiencia
+               en curso gamificado.
+        \Titem Permitirle al profesor tener la misma funcionalidad de agregar nuevas
+               secciones en como en un curso normal en moodle.
 	}
 	
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -45,11 +46,13 @@ Estado/\ucstEnEdicion]%
 	}
 	
 	\UCitems{Precondiciones}{%
+        \Titem El módulo de experiencia debe estar habilitado.
         \Titem El curso debe debe de tener el \refElem{xp-course.format} gamificado.
 	}
 
 	\UCitem{Postcondiciones}{%
-        Las eliminación de las secciones de experiencia debe permanecer en el sistema.
+        Los valores de experiencia para cada sección del curso deben ser
+        almacenados en el sistema.
 	}
 
 	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
@@ -59,13 +62,7 @@ Estado/\ucstEnEdicion]%
         % CAUSA
             El curso elegido no es un curso gamificado con soporte para experiencia,}{%
         % EFECTO
-            termina el caso de uso.}
-        \Titem \UCerr{Err2}{%
-        % CAUSE
-            La sección que se desea eliminar ya ha sido completada por alguno
-            de los \refElem{aAlumno},}{%
-        % EFECTO
-            la opción de eliminar sección no se muestra, termina el caso de uso.}
+            no se puede crear una sección con experiencia y termina el caso de uso}
 	}
 
 	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
@@ -78,7 +75,6 @@ Estado/\ucstEnEdicion]%
 
 	\UCitems[design]{Casos de Prueba}{%
         \Titem \refElem{CPC-E08}
-        \Titem \refElem{CPI-E08}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -126,24 +122,12 @@ Estado/\ucstEnEdicion]%
   \Sistema Habilita o deshabilita los campos para editar la experiencia de cada 
            sección con base en la regla \regla{BR-E09}.
 
-  \Actor Presiona la opción {\bf Editar} correspondiente a la \entrada{xp-course-section}
-         seccion que desea eliminar. \label{CU-E09-options}.
-
-  \Sistema Muestra el menu acciones de edición que se pueden realizar a dicha sección de
-           acuerdo con la regla \regla{BR-E11}. \refTray{A} \refErr{Err2}
-
-  \Actor Selecciona la opción \IUEliminar {\bf Eliminar sección}.
-
-  \Sistema Elimina la \refElem{mdl-course-section} especificada, así como la
-           \refElem{xp-course-section}.
-  \Sistema Muestra la pantalla \refElem{IU-E06b} con los datos de las secciones restantes
-           del curso.
-
+  \Actor Presiona el botón \IUAnadir {\bf Misión}.
+  \Sistema Crea una sección \entrada{mdl-course-section} perteneciente al
+           \refElem{mdl-course}.
+  \Sistema Crea una sección \entrada{xp-course-section} asociada a la śección
+           recientemente creada, indicando que dicha sección tiene cero puntos de
+           \refElem{xp-course.section.xp}.
+  \Sistema Muestra la pantalla \refElem{IU-E06b} con los datos de la nueva sección creada.
 \end{UCtrayectoria}
-
-\begin{UCtrayectoriaA}{A}{%
-La cantidad de \refElem{xp-course-section.xp} de la sección a eliminar es distinta de cero.
-}
-  \Sistema Redirige al paso \ref{CU-E09-options} de la trayectoria principal.
-\end{UCtrayectoriaA}
 
