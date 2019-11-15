@@ -210,7 +210,7 @@ es expresar la idea general del comportamiento.
 
     \end{cdtEntidad}\schemeName{course}
 
-    \begin{cdtEntidad}{mdl-course-sections}{Secciones del curso de moodle}{%
+    \begin{cdtEntidad}{mdl-course-section}{Sección del curso de moodle}{%
     }
 	    \brAttr{id}{Id}{tInt}{%
 	        Es el dígito que representa al identificador único para cada seccion
@@ -219,6 +219,13 @@ es expresar la idea general del comportamiento.
             \it Restricciones:
             \refElem{tPrimaryKey},
             \refElem{tAutoIncrement}.
+        }
+
+        \brAttr{name}{nombre}{tVarchar}{%
+	        Es el dígito nombre que permite identificar a una sección dentro de un curso
+            en moodle.\par
+
+            \it Restricciones: ...
         }
     \end{cdtEntidad}\schemeName{course\_sections}
 
@@ -275,6 +282,16 @@ es expresar la idea general del comportamiento.
     \begin{cdtEntidad}{mdl-course-category}{Categoria de curso}{%
     .}
     \end{cdtEntidad}\schemeName{course\_category}
+
+    \begin{cdtEntidad}{mdl-course-module}{Actividad del curso}{%
+    .}
+    \end{cdtEntidad}\schemeName{course\_module}
+
+    \begin{cdtEntidad}{mdl-course-module-completion}{Actividad del curso para alumno}{%
+    .}
+        \brAttr{completionstate}{completitud}{tBoolean}{%
+        .}
+    \end{cdtEntidad}\schemeName{course\_module}
 
     \begin{cdtEntidad}{Plugin}{Plugin}{%
     La forma en que moodle obtiene información acerca de los plugins es analizando
