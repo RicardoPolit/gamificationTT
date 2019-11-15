@@ -11,7 +11,7 @@ Autor/Daniel Ortega,%
 Version/0.1,%
 Estado/\ucstEnEdicion]%
 %
-{CU-E08}{Administración }{%
+{CU-E08}{Agregar sección con experiencia}{%
 %
  Permite al \refElem{aProfesor} agregar una sección con soporte para experiencia
  en un curso gamificado y que pueda configurar la cantidad de experiencia que brinda
@@ -37,7 +37,6 @@ Estado/\ucstEnEdicion]%
 
 	\UCitems{Origen}{%
         \Titem Mouse
-        \Titem Teclado
 	}
 
 	\UCitem{Salidas}{\imprimeUC{salida}}
@@ -126,11 +125,9 @@ Estado/\ucstEnEdicion]%
   \Actor Presiona el botón \IUAnadir {\bf Misión}.
   \Sistema Crea una sección \entrada{mdl-course-section} perteneciente al
            \refElem{mdl-course}.
-  \Sistema Crea uan sección \entrada{xp-course-section} asociada a la śección
+  \Sistema Crea una sección \entrada{xp-course-section} asociada a la śección
            recientemente creada, indicando que dicha sección tiene cero puntos de
            \refElem{xp-course.section.xp}.
-  \Sistema Muestra la pantalla \refElem{IU-E06b} con la \refElem{xp-course-section.xp}
-           actualizada incluyendo los datos de la nueva sección creada.
-
+  \Sistema Muestra la pantalla \refElem{IU-E06b} con los datos de la nueva sección creada.
 \end{UCtrayectoria}
 
