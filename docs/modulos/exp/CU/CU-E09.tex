@@ -1,103 +1,149 @@
-\begin{UseCase}{CU-E9}{Recibir experiencia}{
-Cuando un estudiante conteste un ejercicio y suba un intento para revisión, el sistema le otorgará la experiencia correspondiente. Si recibe experiencia suficiente, el usuario subirá de nivel.
-}
-	\UCrow{Versión}{\color{gray} 0.2 (Revisado)}
-    \UCrow{Autor}{\color{gray}	David Flores Casanova}
-    \UCrow{Supervisa}{\color{gray}	Daniel Isaí Ortega Zúñiga}
-    \UCrow{Actor}{Estudiante} % Gerente, Instructor
-    \UCrow{Propósito}{Otorgarle experiencia al actor por completar una actividad.}
-    \UCrow{Entradas}{
-        Selección en el botón \#2 ''Enviar todo y terminar'' de la interfaz \hyperref[IUM01]{IU-M01 Ver intento de examen} .\newline
-        Selección en el botón \#1 ''Enviar todo y terminar'' de la interfaz \hyperref[IUM02]{IU-M02 Confirmación de envío de intento} .\newline
-        Presión de la tecla ''Enter'' o la tecla ''espacio''.
-   	}
-    \UCrow{Origen}{Ratón y teclado de la computadora }
-	\UCrow{Salidas}{
-	    \begin{Titemize}
-        \Titem{''\hyperref[table:METerminosExperiencia1]{Experiencia otorgada}''.}
-        \Titem{''\hyperref[table:METerminosExperiencia1]{Experiencia actual}'' del actor.}
-        \Titem{''\hyperref[table:METerminosExperiencia1]{Experiencia del nivel}'' del nivel actual del actor.}
-        \Titem{Barra de progreso, mostrada según el \hyperref[table:METerminosExperiencia1]{porcentaje actual}.}
-        \Titem{Nombre del nivel (Cadena de caracteres, longitud $\leq$ 60)}
-        \Titem{Mensaje de felicitaciones del nivel (Cadena de caracteres, longitud $\leq$ 50)}
-        \Titem{Imagen del nivel (Imagen, formato '.png')}
-        \Titem{Descripción del nivel (Cadena de caracteres, longitud $\leq$ 200)}
-	    \end{Titemize}
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/Daniel Ortega,%
+Version/0.1,%
+Estado/\ucstEnEdicion]%
+%
+{CU-E09}{Eliminar sección con experiencia}{%
+%
+ Permite al \refElem{aProfesor} eliminar una seccion de un curso gamificado con soporte
+ para experiencia con base en la regla \refElem{BR-E11}, la cual indica para eliminar una
+ sección de un curso gamificado esta debe brindar 0 puntos de experiencia.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ \today }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor}
     }
-    \UCrow{Destino}{Pantalla}
-    \UCrow{Precondiciones}{
-		\begin{CUTitemize}
-	        \CUTitem{El actor está registrado como estudiante del curso.}
-            \CUTitem{El actor no tiene registrados intentos anteriores.}
-			\CUTitem{La actividad del curso está creada.}
-            \CUTitem{El módulo de experiencia está habilitado.}
-		\end{CUTitemize}
-    }
-    \UCrow{Postcondiciones}{
-		\begin{CUTitemize}
-	        \CUTitem{Al actor se le registra su nueva cantidad de experiencia.}
-			\CUTitem{Se actualiza la cantidad de experiencia que ha recibido el actor en ese curso.}
-		\end{CUTitemize}
-    }
-	\UCrow{Errores}{E1: El actor no está registrado como estudiante del curso}
-    \UCrow{Observaciones}{}
+
+	\UCitems{Propósito}{%
+        \Titem Permitirle al profesor eliminar una sección de un curso con soporte 
+               para experiencia.
+        \Titem Permitirle al profesor eliminar secciones del curso de manera controlada
+               sin afectar la cantidad de experiencia total que brinda el curso.
+	}
+	
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-E06b}
+	}
+	
+	\UCitems{Precondiciones}{%
+        \Titem El curso debe debe de tener el \refElem{xp-course.format} gamificado.
+	}
+
+	\UCitem{Postcondiciones}{%
+        Las eliminación de las secciones de experiencia debe permanecer en el sistema.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+        % CAUSA
+            El curso elegido no es un curso gamificado con soporte para experiencia,}{%
+        % EFECTO
+            termina el caso de uso.}
+        \Titem \UCerr{Err2}{%
+        % CAUSE
+            La sección que se desea eliminar ya ha sido completada por alguno
+            de los \refElem{aAlumno},}{%
+        % EFECTO
+            la opción de eliminar sección no se muestra, termina el caso de uso.}
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }	
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-E08}
+        \Titem \refElem{CPI-E08}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{%
+        Ninguna
+	}
+
 \end{UseCase}
 
-%\textbullet{Trayectorias}
+\subsubsection{Trayectorias del caso de uso}
 
-\begin{UCtrayectoria}{Principal}
-    \actor se encuentra en la interfaz \hyperref[IUM01]{IU-M01 Ver intento de examen}.
-    \actor selecciona el botón \#2 ''Enviar todo y terminar'' .
-    \sistema muestra la ventana emergente \hyperref[IUM02]{IU-M02 Confirmación de envío de intento}.
-    \actor selecciona el botón \#1 ''Enviar todo y terminar'' ({\it Trayectoria alternativa A})
-    \sistema comprueba que el módulo de experiencia esté habilitado ({\it Trayectoria alternativa B}).
-    \sistema comprueba que el actor que subió el intento es un estudiante del curso ({\it Trayectoria alternativa C}).
-    \sistema comprueba que el actor no tenga registrados intentos anteriores ({\it Trayectoria alternativa D}).
-    \sistema calcula si la experiencia que se le dará al actor provoca que este ''suba de nivel'' ({\it Trayectoria alternativa E}).
-    \sistema carga la interfaz \hyperref[IUM03]{IU-M03 Intento calificado}.
-    \item[- -] - - {\em El caso de uso termina.}
+\begin{UCtrayectoria}%
+%
+  \Actor Presiona el botón \IUMenu de la pantalla \refElem{IU-M00}
+  \Sistema Despliega el menú de navegación lateral
+  \Actor Selecciona la opción \IUHome {\bf Página Inicial del Sitio}
+
+  \Sistema Obtiene el \salida{mdl-course.fullname} de los cursos disponibles en la
+           plataforma.
+
+  \Sistema Muestra la lista de cursos disponibles en la pantalla \refElem{IU-M07}.
+
+  \Actor Selecciona el \entrada{mdl-course} al cual desea agregar una sección con
+         soporte de gamificación.
+  \Sistema Obtiene el \entrada{mdl-course.fullname}, \entrada{mdl-course.shortname}
+           así como el \salida[secciones]{mdl-course-section.name} de las secciones 
+           del curso junto con las \salida[actividades]{mdl-course-module} 
+           correspondients a cada sección y el estado de \refElem[completitud]%
+           {mdl-course-module.completionstate}.
+
+  \Sistema Muestra los datos obtenidos en la pantalla \refElem{IU-M07}.
+           \label{CU-E07-pantalla}
+
+  \Actor Presiona el botón \IUAdminSitio en la parte superior izquierda de la pantalla
+  \Sistema Muestra el menu desplegable de la administración del curso
+
+  \Actor Presiona el botón \IUEditar {\bf Activar Edición}. \refErr{Err1}
+  \Sistema Obtiene la \salida{xp-course-section.xp} de la secciones gamificadas del 
+           curso y revisa hay \refElem[recompensas]{xp-section-reward} que hayan sido
+           entregadas correspondientes a dicha sección.
+  \Sistema Obtiene la cantidad total de \salida{xp-scheme-settings.courseXP}.
+  \Sistema Muestra la experiencia de cada sección y el total de experiencia 
+           en la pantalla \refElem{IU-E06b}.
+  \Sistema Habilita o deshabilita los campos para editar la experiencia de cada 
+           sección con base en la regla \regla{BR-E09}.
+
+  \Actor Presiona la opción {\bf Editar} correspondiente a la \entrada{xp-course-section}
+         seccion que desea eliminar. \label{CU-E09-options}.
+
+  \Sistema Muestra el menu acciones de edición que se pueden realizar a dicha sección de
+           acuerdo con la regla \regla{BR-E11}. \refTray{A} \refErr{Err2}
+
+  \Actor Selecciona la opción \IUEliminar {\bf Eliminar sección}.
+
+  \Sistema Elimina la \refElem{mdl-course-section} especificada, así como la
+           \refElem{xp-course-section}.
+  \Sistema Muestra la pantalla \refElem{IU-E06b} con los datos de las secciones restantes
+           del curso.
+
 \end{UCtrayectoria}
 
-\begin{UCtrayectoria}{alternativa A}
-    \item[- -] - - {\em El usuario presionó el botón \#2 \fbox{Cancelar} o  el botón \#3 \fbox{X}.}
-    \sistema cierra la interfaz \hyperref[IUM02]{IU-M02 Confirmación de envío de intento}.
-    \item[- -] - - {\em El caso de uso termina.}
-\end{UCtrayectoria}
+\begin{UCtrayectoriaA}{A}{%
+La cantidad de \refElem{xp-course-section.xp} de la sección a eliminar es distinta de cero.
+}
+  \Sistema Redirige al paso \ref{CU-E09-options} de la trayectoria principal.
+\end{UCtrayectoriaA}
 
-\begin{UCtrayectoria}{alternativa B}
-    \item[- -] - - {\em El módulo de experiencia no está habilitado.}
-    \item[- -] - - {\em El caso de uso termina.}
-\end{UCtrayectoria}
-
-\begin{UCtrayectoria}{alternativa C}
-    \item[- -] - - {\em El actor no está registrado como estudiante del curso.}
-    \item[- -] - - {\em El caso de uso termina.}
-\end{UCtrayectoria}
-
-\begin{UCtrayectoria}{alternativa D}
-    \item[- -] - - {\em El actor ya había hecho intentos anteriores.}
-    \item[- -] - - {\em El caso de uso termina.}
-\end{UCtrayectoria}
-
-\begin{UCtrayectoria}{alternativa E}
-    \item[- -] - - {\em La ''\hyperref[table:METerminosExperiencia1]{experiencia otorgada}'' que recibe el actor es suficiente para ''subir de nivel''.}
-    %\item[- -] - - {\em Se extiende al CU-E02.}
-    \sistema calcula la ''\hyperref[table:METerminosExperiencia2]{experiencia sobrante}''.
-    \sistema incrementa el nivel actual del actor en una unidad.
-    \sistema cambia el valor de la ''\hyperref[table:METerminosExperiencia1]{experiencia actual}'' por la de la ''\hyperref[table:METerminosExperiencia1]{experiencia sobrante}''
-    \sistema guarda el nivel actual del actor y la ''\hyperref[table:METerminosExperiencia1]{experiencia actual}''.
-    \sistema comprueba si el nivel actual del actor existe dentro de un rango de niveles ({\it Trayectoria alternativa F}).
-    \sistema carga la interfaz \hyperref[IUE02]{IU-E02 Subir de nivel} con la información por defecto de niveles.
-    \actor presiona la tecla ''enter'' o ''espacio''.
-    \sistema cierra la interfaz \hyperref[IUE02]{IU-E02 Subir de nivel}.
-    \item[- -] - - {\em Se continua en el paso \#9 de la trayectoria principal.}
-\end{UCtrayectoria}
-
-
-\begin{UCtrayectoria}{alternativa F}
-    \item[- -] - - {\em El nivel actual del actor está dentro de un rango de niveles.}
-    \sistema carga la interfaz \hyperref[IUE02]{IU-E02 Subir de nivel}  con la información especificada en el rango de niveles.
-    \item[- -] - - {\em Se continua en el paso \#7 de la trayectoria alternativa E.}
-\end{UCtrayectoria}
-
-\vfill\clearpage
