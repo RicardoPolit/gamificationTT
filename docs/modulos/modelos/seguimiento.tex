@@ -3,17 +3,25 @@
 \subsection{Entidades del módulo de seguimiento}
 
  En esta sección se presentan las entidades del módulo de seguimiento,
- las cuales están respresentadas en la figura  \ref{fig:BD_ER_S_PD}, 
- el cual muestra en color amarillo las entidades propias del módulo, 
+ las cuales están representadas en la figura  \ref{fig:BD_ER_S_PD},
+ el cual muestra en color amarillo las entidades propias del módulo,
  en azul las entidades que se utilizan de moodle  y en blanco las entidades generales.
 
         \addfigure{0.7}{analisis/diagrams/db_seguimiento}{fig:BD_ER_S_PD}{Esquema de la base de datos del módulo 'Seguimiento'}
 
         \begin{cdtEntidad}{seg-gmpregdiarias}{Actividad preguntas diarias}{
-                
+
         Esta entidad es requerida por moodle para poder guardar los registros de cada instancia de la actividad creadas a lo largo de los cursos. Los requisitos que debe cumplir esta entidad son:\\
             1.- El nombre de la tabla debe contener el mismo nombre que el nombre del plugin.\\
             2.- Se deben contar con los atributos \{id, course, name, intro, introformat, timemodified.\}
+            }
+
+            \brAttr{id}{id}{tInt}{%
+                Es el número que representa el identificador único.\par
+
+                \it Restricciones:
+                \refElem{tPrimaryKey},
+                \refElem{tAutoIncrement}
             }
 
             \brAttr{course}{Curso}{tInt}{%
@@ -48,7 +56,7 @@
 
 
             \brAttr{timemodified}{Tiempo de la última modificación}{tTime}{%
-                Fecha en la que se empezó el intento.
+                Fecha en la que se actualizó la instancia de la actividad.
                 \it Restricciones:
                 \refElem{tRequired}.
 
@@ -57,7 +65,7 @@
                 Identificador del banco de preguntas del cual se obtendrán las preguntas a mostrar en la instancia de la actividad.\par
 
                 \it Restricciones:
-                \refElem{tForeignKey}, 
+                \refElem{tForeignKey},
                 \refElem{tRequired}.
             }
 
@@ -67,6 +75,14 @@
 
         \begin{cdtEntidad}{seg-gmdl-intento-diario}{Intento diario}{
             Esta entidad contiene los intentos diarios que se llevan a cabo por cada instancia.}
+
+            \brAttr{id}{id}{tInt}{%
+                Es el número que representa el identificador único.\par
+
+                \it Restricciones:
+                \refElem{tPrimaryKey},
+                \refElem{tAutoIncrement}
+            }
 
             \brAttr{gmdl-usuario-id}{Usuario gamificado}{tInt}{%
                 Identificador del usuario que respondió el intento diario.
@@ -108,5 +124,3 @@
 
         \end{cdtEntidad}
         \schemeName{gmdl\_intento\_diario}
-
-

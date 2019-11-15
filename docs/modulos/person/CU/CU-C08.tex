@@ -1,0 +1,99 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+%\addfigure[(adaptado de {\it For The Win} \cite{ForTheWin})]%
+%    {.4}{investigacion/images/forthewin}{fig:ForTheWin}%
+%    {Jerarquía de elementos de juego segun For The Win}
+
+\begin{UseCase}[%
+Autor/Ricardo Naranjo,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-C08}{Ver historial de sus partidas (Competencia uno contra uno)}{%
+%
+ Permite al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver su historial de una instancia de la actividad competencia uno contra uno en el curso.
+ Este caso de uso es una extensión del caso de uso \refElem{CU-C07}.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aEstudiante},
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver su historial de una instancia de la actividad de competencia uno contra uno.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-C07}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El plugin de competencia uno contra uno debe estar instalado en moodle.
+        \Titem La instancia de la actividad de competencia uno contra uno debe estar creada.
+        % Realizar el caso de uso "listar actividades disponibles?"
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem La pantalla de historial de la instancia de la actividad de competencia uno contra uno \refElem{IU-C07} debe mostrar los datos pertinentes al usuario que realizó el caso de uso.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-C01}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Presiona el botón {\bf Historial} de la pantalla \refElem{IU-C02}.
+
+    \Sistema Redirige a la pantalla historial de la instancia \refElem{IU-C07}.
+
+    \Sistema Muestra en la sección {\bf Resumen de los estados de los desafíos} los siguientes números: \salida{Victorias}, \salida{Empates}, \salida{Derrotas}, \salida{En curso}, \salida{Retirada}.
+
+    \Sistema Muestra en la sección inferior un bloque por cada partida iniciada, en el bloque se muestra: \salida{Imagen de perfil de contrincante}, \salida{Nombre de contrincante}, \salida{Los puntos del actor}, \salida{Monedas apostadas}, \salida{Puntos contrincante}, \salida{Monedas apostadas contrincante}, \salida{Estado de desafío}.
+
+\end{UCtrayectoria}

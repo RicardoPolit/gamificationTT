@@ -1,0 +1,48 @@
+
+\begin{BusinessRule}[%
+Autor/Ricard Naranjo Polit,%
+Version/0.1,%
+Estado/revision]%
+%
+{BR-C02}{Un usuario no puede desafiar a otro con el que tenga un desafío pendiente}
+ % El archivo de instalación debe ser un archivo ZIP, el cual debe contener
+ % exactamente un directorio que coincida con el nombre del plugin.
+     \BRitem[control]{Revisor}{Sin asignar.}
+
+ \BRsection[control]{Atributos}
+
+    \BRitem[admin]{Clase}{\bcCondition}%
+    %\BRitem[admin]{Clase}{\bcIntegridad}%
+    %\BRitem[admin]{Clase}{\bcAutorizacion}%
+    %\BRitem[admin]{Clase}{\bcDerivacion}%
+
+    \BRitem[admin]{Tipo}{\btEnabler}%
+    %\BRitem[admin]{Tipo}{\btTimer}%
+    %\BRitem[admin]{Tipo}{\btExecutive}%
+
+    \BRitem[admin]{Nivel}{\blControlling}
+    %\BRitem[admin]{Nivel}{\blInfluencing}
+
+    \BRitem{Descripción}{%
+        Cuando un usuario desafía a un \refElem{aEstudiante} no lo podrá volver a desafiar hasta que el desafiante
+        y desafiado terminen hayan completado la competencia.
+        % debido a que se el directorio donde se guardará será el directorio
+        % para almacenar las imágenes del plugin.
+    }
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        \begin{itemize}
+        \item El usuario desafía a un estudiante, los dos terminan la competencia y el usuario vuelve a desafiar al mismo estudiante.
+
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        \begin{itemize}
+          \item El usuario desafía a un estudiante y no alguno de los dos no termina la competencia,
+          el usuario no puede volver a desafiar al mismo estudiante.
+
+        \end{itemize}
+    }%
+
+ \end{BusinessRule}

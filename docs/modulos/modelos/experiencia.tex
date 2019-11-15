@@ -3,7 +3,7 @@
 
 
  A continuación se presentan las entidades del módulo de seguimiento,
- las cuales están respresentadas en la figura  \ref{fig:BD-ER-XP},
+ las cuales están representadas en la figura  \ref{fig:BD-ER-XP},
  el cual muestra en color amarillo las entidades propias del módulo,
  en azul las entidades que se utilizan de moodle  y en blanco las entidades generales.
 
@@ -48,7 +48,7 @@
         }
 
         \brAttr{description}{Descripción}{tVarchar}{%
-            Cadena que contiene la descripción qe tiene por defecto todos los niveles.
+            Cadena que contiene la descripción que tiene por defecto todos los niveles.
             \par
 
             \it Restricciones:
@@ -243,13 +243,13 @@
 
     \begin{cdtEntidad}{xp-course-section}{Sección de curso gamificado}{%
     Esta entidad es la extensión de la sección de moodle, la cual agrega configuraciones de experiencia. }
-        \brAttr{id}{Id}{tInt}{%
-            . \par
+    \brAttr{id}{id}{tInt}{%
+        Es el número que representa el identificador único.\par
 
-            \it Restricciones:
-            \refElem{tPrimaryKey},
-            \refElem{tAutoIncrement}.
-        }
+        \it Restricciones:
+        \refElem{tPrimaryKey},
+        \refElem{tAutoIncrement}
+    }
         \brAttr{xp}{experiencia seccion}{tInt}{%
             Valor de experiencia que se le dará al usuario una vez complete las actividades de la sección. \par
 
@@ -259,14 +259,14 @@
     \end{cdtEntidad}
 
     \begin{cdtEntidad}{xp-section-reward}{Recompensa de sección}{%
-    Esta entidad es el registro de qué recomensas a recibido el usuario al completar una sección.}
-        \brAttr{id}{Id}{tInt}{%
-            . \par
+    Esta entidad es el registro de qué recompensas a recibido el usuario al completar una sección.}
+    \brAttr{id}{id}{tInt}{%
+        Es el número que representa el identificador único.\par
 
-            \it Restricciones:
-            \refElem{tPrimaryKey},
-            \refElem{tAutoIncrement}.
-        }
+        \it Restricciones:
+        \refElem{tPrimaryKey},
+        \refElem{tAutoIncrement}
+    }
         \brAttr{gmdl-id-usuario}{Usuario}{tInt}{%
             Identificador del usuario al cual se le otorgaron las recompensas. \par
 

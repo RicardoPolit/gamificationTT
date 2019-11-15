@@ -17,7 +17,7 @@
 \subsection{Diccionario de datos}
 
  En esta sección se detalla el diccionario de datos del proyecto, en él se describe cada una
- de las entidades pertenecientes al modelo de información, así como el nombre, tipo de dato,
+ de las entidades pertenecientes al modelo de información, así como, el nombre, tipo de dato,
  descripción y restricciones sobre los atributos de las entidades.\\
 
  A continuación se listan y describen los tipos de
@@ -26,7 +26,7 @@
     \begin{quote}
     \begin{bGlosario}
         \bTerm{tVarchar}{varchar} Cadena de caracteres de longitud variable
-        \bTerm{tInt}{int}         Numeros enteros incluyendo, positivos y negativos.
+        \bTerm{tInt}{int}         Números enteros incluyendo, positivos y negativos.
         \bTerm{tBoolean}{boolean} Tipo de dato que solo tiene dos valores posibles,
                                   verdadero y falso.
         \bTerm{tNatural}{natural} Número entero mayores a cero.
@@ -41,7 +41,7 @@
                                   actualización del plugin.
         \bTerm{tObject}{objecto}  Es una colección de propiedades, y una propiedad es una
                                   asociación entre un nombre (o clave) y un valor
-                                  %\cite{ObjectMozilla}.
+                                  \cite{ObjectMozilla}.
         \bTerm{tText}{texto}      Cadena de caracteres que tiene una longitud máxima de $2^{(16)}$ caracteres.
         \bTerm{tTime}{tiempo}     Fecha y hora representadas como un número entero que contiene el valor en segundos de esa fecha y hora.
     \end{bGlosario}
@@ -94,7 +94,7 @@
 
  Debido a que el esquema de la base de datos contiene las suficientes entidades para ser ilegible al ser mostradas en una imagen, se optó por
  enlistar en la imagen \ref{fig:BD-RDT} los nombres de las entidades que se contemplan en este proyecto y la especificación del esquema se va mostrando
- por cada módulo/submódulo en sus sendas secciones. Dicha imagen está dividida
+ por cada módulo/submódulo en sus respectivas secciones. Dicha imagen está dividida
  por cada submódulo contemplado, además de contar con una sección que lista las entidades de moodle.\\
 
 
@@ -106,15 +106,13 @@
 
 
     Las entidades que son de moodle tienen el prefijo \(\textbf{mdl\_}\), las entidades con el prefijo
- \(\textbf{gmdl\_}\) son las entidades diseñadas en este proyecto y por último, aquellas con el prefijo
- \(\textbf{gm}\) y sin guiones bajos, son aquellas que se utilizan para alvergar actividades de moodle.\\
+ \(\textbf{gmdl\_}\) y \(\textbf{gm}\) son las entidades diseñadas en este proyecto.\\
 
- \noindent Todas las entidades creadas para este proyecto fueron diseñadas tomando en
- consideración que se debe extender el esquema de base de datos sin afectar las distintas
- funcionalidades que brinda de forma nativa. En los casos en los que se requería añadir
- atributos de moodle a una relación en particular, se agregaría una relación con los atributos
- requeridos, más la referencia a la relación del esquema de moodle.
+ \noindent Todas las entidades creadas para este proyecto, fueron diseñadas tomando en
+ consideración que se debe extender el esquema de base de datos de moodle, sin afectar las distintas
+ funcionalidades que brinda de forma nativa. Es por ello que si se requiere agregar atributos a una entidad de moodle, en lugar de modificar esa entidad se hará una especialización de la misma.
 
+ \noindent Cabe recalcar que no se utilizarán solo unicamente las tablas propuestas, sino que, también se utilizarán referencias a las entidades de moodle en caso de ser requerido.
 
 
 \newcommand{\schemeName}[1]{%
