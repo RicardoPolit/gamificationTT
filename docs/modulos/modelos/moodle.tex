@@ -231,7 +231,6 @@ es expresar la idea general del comportamiento.
 
     \begin{cdtEntidad}{mdl-course-format-options}{Opciones del formato del curso}{%
     }
-
 	    \brAttr{id}{Id}{tInt}{%
 	        Es el dígito que representa al identificador único para cada uno
             de los cursos en moodle.\par
@@ -280,15 +279,45 @@ es expresar la idea general del comportamiento.
     \end{cdtEntidad}\schemeName{course\_format\_options}
 
     \begin{cdtEntidad}{mdl-course-category}{Categoria de curso}{%
+        \brAttr{id}{id}{tInt}{%
+        .}
+        \brAttr{name}{nombre}{tInt}{%
+        .}
     .}
     \end{cdtEntidad}\schemeName{course\_category}
 
     \begin{cdtEntidad}{mdl-course-module}{Actividad del curso}{%
     .}
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+        \brAttr{course}{curso}{tInt}{%
+        .}
+        \brAttr{module}{actividad}{tInt}{%
+        .}
+        \brAttr{section}{sección}{tInt}{%
+        .}
     \end{cdtEntidad}\schemeName{course\_module}
 
     \begin{cdtEntidad}{mdl-course-module-completion}{Actividad del curso para alumno}{%
     .}
+	    \brAttr{id}{Id}{tInt}{%
+	        Es el dígito que representa al identificador único para cada uno
+            de los cursos en moodle.\par
+
+            \it Restricciones:
+            \refElem{tPrimaryKey},
+            \refElem{tAutoIncrement}.
+        }
+        \brAttr{coursemoduleid}{actividad}{tInt}{%
+        .}
+        \brAttr{userid}{usuario}{tInt}{%
+        .}
         \brAttr{completionstate}{completitud}{tBoolean}{%
         .}
     \end{cdtEntidad}\schemeName{course\_module}
