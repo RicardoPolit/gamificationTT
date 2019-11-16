@@ -19,6 +19,8 @@ define(['jquery'], function($) {
                 $('.gmcompcpu-container-niveles').hide();
                 $('#gmcompcpu-container-nivel-'+this.value).show();
               });
+
+            
         }
     };
 });

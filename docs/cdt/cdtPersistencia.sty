@@ -202,6 +202,14 @@
     }}}}}}}}%
 }
 
+\makeatletter
+\ifnum\inputlineno=\m@ne
+\let\showlineno\@empty
+\else
+\def\showlineno{ line \the\inputlineno}
+\fi
+\makeatother
+
 %=====================================================
 % Referencía a un elemento imprimiendo su nombre
 %=====================================================
@@ -231,8 +239,8 @@
             \hyperlink{#2}{#1}%
         }%
 	}{%
-	    \message{^^JWarning Referencia a elemento no definido /\referencedElementFamily/#2, pp\thepage}%
-		{\bf\color{red}{#2}}%
+        \message{^^JWarning Undefined /\referencedElementFamily/#2, LOC: \the\inputlineno,
+        pp\thepage}{\bf\color{red}{#2}}%
 	}%
 }
 
@@ -266,7 +274,8 @@
             \hyperlink{#2}{#1}%
         }
 	}{%
-	    \message{^^JWarning Referencia a elemento no definido /\referencedElementFamily/#2, pp\thepage}%
+        \PackageWarning{cdtPersistencia}{%
+        ^^JWarning Referencia no definida /\referencedElementFamily/#2, pp\thepage}%
 		{\bf\color{red}{#2}}%
 	}%
 }

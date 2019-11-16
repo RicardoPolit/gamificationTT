@@ -3,7 +3,7 @@
 \subsection{Entidades del módulo de personalización}
 
  En esta sección se presentan las entidades del módulo de personalización,
- las cuales están respresentadas en la figura  \ref{fig:BD-ER-P},
+ las cuales están representadas en la figura  \ref{fig:BD-ER-P},
  el cual muestra en color verde las entidades propias del módulo,
  en azul las entidades que se utilizan de moodle  y en blanco las entidades generales.
 
@@ -11,6 +11,14 @@
 
         \begin{cdtEntidad}{tienda-gmdl-tipo-objeto}{Tipo objeto}{
             Esta entidad guarda los tipos de objetos disponibles.
+            }
+
+            \brAttr{id}{id}{tInt}{%
+                Es el número que representa el identificador único.\par
+
+                \it Restricciones:
+                \refElem{tPrimaryKey},
+                \refElem{tAutoIncrement}
             }
 
             \brAttr{nombre}{Nombre}{tVarchar}{%
@@ -27,6 +35,14 @@
 
         \begin{cdtEntidad}{tienda-gmdl-rareza-objeto}{Rareza objeto}{
             Esta entidad guarda la especificación de las rarezas que puede tener un objeto.
+            }
+
+            \brAttr{id}{id}{tInt}{%
+                Es el número que representa el identificador único.\par
+
+                \it Restricciones:
+                \refElem{tPrimaryKey},
+                \refElem{tAutoIncrement}
             }
 
             \brAttr{nombre}{Nombre}{tVarchar}{%
@@ -58,6 +74,14 @@
 
         \begin{cdtEntidad}{tienda-gmdl-objeto}{Objeto}{
             Esta entidad guarda los elementos de personalización a los que denominamos objetos.
+            }
+
+            \brAttr{id}{id}{tInt}{%
+                Es el número que representa el identificador único.\par
+
+                \it Restricciones:
+                \refElem{tPrimaryKey},
+                \refElem{tAutoIncrement}
             }
 
             \brAttr{nombre}{Nombre}{tVarchar}{%
@@ -96,6 +120,14 @@
 
         \begin{cdtEntidad}{tienda-gmdl-objeto-desbloqueado}{Objeto desbloqueado}{
             Esta entidad guarda los objetos desbloqueados por usuarios y si un dicho objeto está seleccionado o no.
+            }
+
+            \brAttr{id}{id}{tInt}{%
+                Es el número que representa el identificador único.\par
+
+                \it Restricciones:
+                \refElem{tPrimaryKey},
+                \refElem{tAutoIncrement}
             }
 
             \brAttr{gmdl-usuario-id}{Tipo objeto}{tInt}{%

@@ -1,0 +1,261 @@
+
+  	\subsubsection{Creación de páginas propias}
+
+    \paragraph{APIs necesarias}\mbox{}\\
+
+
+    \begin{enumerate}
+      \item {\bf Page API}
+        Esta API se utiliza para establecer la página, agregar js, y configurar como se van a mostrar las cosas al usuario.
+        \item {\bf Output API}
+          Esta API se encarga de que los temas, renders y plantillas de moodle trabajen en conjunto.
+    \end{enumerate}
+
+		\paragraph{Funciones de APIs utilizadas}\mbox{}\\
+
+    \begin{enumerate}
+      \item Page API
+
+      \begin{itemize}
+        \item {\bf set\_url()}, esta función es necesaria para la creación de una página, se encarga de establecer el url con el cual moodle va a interactuar con la página, y será utilizado para la navegación adentro de moodle.
+
+        \item {\bf set\_title()}, se utiliza para establecer el titulo que va a mostrar la página.
+
+        \item {\bf set\_heading()}, establece la cabecera de la página.
+
+        \item {\bf set\_context()}, esta función es necesaria para la creación de la página puesto que establece el contexto de la página a mostrar.
+
+        \item {\bf get\_renderer()}, obtiene un objeto de la clase que muestra el contenido de la página.
+      \end{itemize}
+
+      \item Output API
+
+      \begin{itemize}
+        \item 	{\bf header()}, esta función imprime la cabecera de la página en la parte superior de ésta.
+        \item {\bf footer()}, imprime el pie de página.
+      \end{itemize}
+
+    \end{enumerate}
+
+
+			\paragraph{Utilización de clase renderer para mostrar propio código html}\mbox{}\\
+
+			El renderer es una clase que se crea que contiene las funciones que imprimen el código html de la página, esta clase debe de heredar de la clase plugin\_renderer\_base, y es cargada por la API PAGE, al utilizar la función get\_renderer. El nombre de la clase debe de ser compuesto por una combinación de palabras las cuales son:
+      \begin{itemize}
+        \item El tipo de plugin.
+        \item El nombre del plugin.
+        \item La palabra "renderer".
+      \end{itemize}
+
+			Estas palabras deben de ir unidas entre ellas por un guión bajo \_.
+
+    \paragraph{Creación de página principal de cada instancia}\mbox{}\\
+
+			Moodle busca en el plugin el archivo llamado "view.php" el cual debe de contener los métodos necesarios para crear la página. Cuando moodle ejecuta el archivo "view.php" le manda como parámetros un "id" que es el id de la instancia del plugin, el cual se utiliza para diferenciar entre las diferentes instancias creadas.
+
+  \subsubsection{Creación del formulario para crear instancia de actividad}
+		Al crear una nueva instancia del plugin moodle espera que se tenga un archivo llamado "mod\_form.php" el cual contiene la clase que mostrará el formulario para crear y actualizar la instancia. El nombre de la clase debe de ser compuesto por una combinación de palabras las cuales son:
+    \begin{itemize}
+      \item La palabra "mod".
+      \item El nombre del plugin.
+      \item La palabra "mod".
+      \item La palabra "form".
+    \end{itemize}
+
+			Estas palabras deben de ir unidas entre ellas por un guión bajo \_.
+
+		Se debe de crear una función llamada definition() la cual contendrá los elementos a mostrar en el formulario de creación de la instancia.
+
+    \paragraph{Utilización de base de datos para guardar las instancias.}\mbox{}\\
+
+			Cada plugin de tipo "mod" debe de tener al menos una tabla que se llame igual que el nombre del plugin, en ésta tabla se insertan los datos de cada nueva instancia que se haga. Esta tabla debe de tener como mínimo los siguientes campos:
+      \begin{enumerate}
+        \item id bigint()
+        \item course bigint()
+        \item name char(255)
+        \item timemodified bigint()
+        \item intro longtext()
+        \item introformat bigint()
+      \end{enumerate}
+
+        Se le pueden agregar más campos a la tabla si es que lo requiere nuestra actividad.
+
+    \subsubsection{Utilización de preguntas}
+
+		Para mostrar las preguntas se utiliza la API Question, aunque no se utilizaron las funciones específicamente de la API puesto que el plugin obligaba a encontrar otras maneras de obtener los datos y mostrarlos.
+
+    \paragraph{Las funciones que se utilizaron de la API Question fueron}\mbox{}\\
+
+    \begin{itemize}
+
+				\item {\bf question\_engine::make\_questions\_usage\_by\_activity()}, esta función crea el objeto encargado de manejar las preguntas, así como iniciarlas y mostrarlas.
+				\item {\bf question\_bank::load\_question\_data()}, esta función se encarga de obtener los datos de la pregunta al proporcionarle el id correspondiente.
+				\item {\bf question\_bank::make\_question()}, esta función crea la pregunta como objeto al proporcionarle los datos de ésta.
+				\item {\bf question\_usage\_by\_activity::add\_question()}, se encarga de agregar el objeto pregunta al objeto encargado de manejar todas las preguntas.
+				\item {\bf question\_usage\_by\_activity::start\_all\_questions()}, inicia todas las preguntas que fueron agregadas al objeto.
+				\item {\bf question\_engine::save\_questions\_usage\_by\_activity()}, guarda las preguntas que fueron iniciadas en el objeto para tener un registro de el intento del usuario de contestar las preguntas.
+				\item {\bf question\_usage\_by\_activity::render\_question()}, crea el código html necesario para mostrar la pregunta que se le proporcionó.
+
+      \end{itemize}
+
+		\paragraph{Selección de preguntas por categoría (banco de preguntas)}\mbox{}\\
+
+			Para obtener las preguntas primero se realizó una consulta a la tabla question para obtener los ids de las preguntas que pertenecían a la categoría y luego se utilizó la función load\_question\_data()
+
+    \paragraph{Filtración de preguntas por tipo: fracción en respuestas.}\mbox{}\\
+
+			Se obtiene los datos de la función load\_question\_data() y de ahí obtiene la variable qtype la cual contiene el tipo de pregunta. Se eligió los tipos de preguntas "multichoice", "truefalse", "shortanswer", "numerical" porque son los únicos que asignan una fracción a sus respuestas, lo cual es necesario para la evaluación automática del intento del estudiante, así como que la computadora pueda simular la contestación de las preguntas dadas.
+
+		\paragraph{Obtención de respuestas de preguntas}\mbox{}\\
+
+    \begin{enumerate}
+
+			\item Se utiliza la función question\_engine::load\_questions\_usage\_by\_activity() para obtener el objeto question\_usage\_by\_activity en el cual fueron guardadas las preguntas que se utilizaron y se mostraron.
+			\item Se utiliza la funcion question\_usage\_by\_activity::process\_all\_actions() para guardar el intento realizado por el usuario.
+			\item Se utiliza la función question\_usage\_by\_activity::get\_slots() para obtener las preguntas que se mostraron al usuario en el intento.
+			\item Se utiliza la función question\_usage\_by\_activity::get\_question\_attempt() para obtener el objeto intento que contiene la pregunta y sus datos del intento del usuario.
+			\item Se hace una consulta a la tabla "question\_answers" para obtener las respuestas posibles que contiene la pregunta.
+			\item Se utiliza la funcion get\_step\_iterator() del objeto intento para obtener el iterador de los pasos que contienen los datos ingresados por el usuario en el intento.
+			\item Se utiliza la funcion get\_all\_data() para obtener los datos que contiene el iterador de los pasos.
+			\item Los datos obtenidos de get\_all\_data() se procesan dependiendo del tipo de pregunta y de los tipos de respuestas posibles. Los datos obtenidos contienen la respuesta que dio el usuario en el intento de responder las preguntas.
+    \end{enumerate}
+
+    \subsubsection{Importación y utilización de scripts en javascript}
+
+		El plugin API PAGE tiene la función requires() la cual se debe de llamar para los requerimientos especiales que debe de tener la página a crear. Uno de estos requerimientos puede ser un script js. Para importarlo se debe de utilizar la función js\_call\_amd(), la cual permitirá que se ejecute la función que le fue mandada como parámetro y que se encuentra en el js del plugin.
+
+    \subsubsection{Creación de clases propias y su utilización}
+
+		Para que las clases sean cargadas automáticamente y puedan ser utilizadas a lo largo de todo el plugin se debe de nombrar de la siguiente manera la clase:
+    \begin{itemize}
+      \item El nombre del tipo de plugin.
+      \item El nombre del plugin.
+      \item El nombre de la clase.
+    \end{itemize}
+
+		Estas palabras deben de ir unidas entre ellas por un guión bajo \_ .
+
+    Para utilizar la clase debe de ejecutarse de la siguiente manera:\\
+			nombredeclase::funciondeclase();
+
+  \subsubsection{Creación de método para calificar las preguntas resueltas}
+
+		Para la creación del método para calificar las preguntas resueltas primero se obtuvo las respuestas del usuario y las respuestas posibles de las preguntas, luego se revisó el atributo fraction para evaluar si la respuesta del usuario fue buena o mala, y dependiendo del resultado se califica la pregunta en cuestión.
+		Depende del tipo de pregunta la manera en que se califica puesto que el tipo "multichoice" guarda de una manera diferente la respuesta del usuario a los otros tipos de preguntas.
+
+    \paragraph{La pregunta true/false depende del idioma en que se creó lo que se guarda en la base de datos}\mbox{}\\
+
+			Se encontró que el idioma de las respuestas de las preguntas true/false posibles que son almacenadas en la base de datos dependen del idioma en que se encontraba moodle al momento de su creación por lo cual se tiene que tomar esto a consideración al evaluar automáticamente la respuesta del usuario.
+
+  \subsubsection{Creación de eventos y como lanzarlos}
+
+			Se utiliza la API de eventos para manejar su creación y lanzamiento. Es necesario crear una clase en el carpeta event por cada evento que se quiera crear. Esta clase debe de heredar de "\textbackslash core\textbackslash event\textbackslash base" y debe de tener al menos una función init() con los atributos "objecttable", "crud" y "edulevel" declarados y asignados como correspondan.
+			Se pueden crear otras funciones como "get\_description()", la cual ayuda al administrador a entender de una mejor manera el evento cuando es lanzado.
+			Para lanzar un evento se tiene que hacer lo siguiente:
+
+      \begin{enumerate}
+
+
+
+				\item Se debe de declarar una instancia de la clase del evento definido en la carpeta "event" a la cual se le pasará como argumento un arreglo con los siguientes atributos:
+        \begin{itemize}
+          \item "objectid", este es el id de la instancia en la cual fue lanzado el evento.
+          \item "context", el contexto en el que se encuentra el usuario al lanzar el evento.
+          \item "other", el cual debe de ser un arreglo que contiene atributos extra que se le mandan al administrador que recibe el evento.
+        \end{itemize}
+
+
+				\item Se ejecuta la función "add\_record\_snapshot", la cual guarda en cache los datos del evento para un mejor rendimiento del sistema.
+				\item Se ejecuta la función "trigger()", la cual lanza el evento.
+
+      \end{enumerate}
+
+  \subsubsection{Utilización de API para manejo de datos en moodle}
+
+		La API para el manejo de datos en moodle es esencial puesto que se requiere que cualquier consulta a la base de datos que se realice en el plugin pueda ser ejecutada sin importar el gestor de base de datos utilizado, ya sea mysql, sql server, etc. Esto debido a que moodle soporta estar creado sobre diferentes tipos de gestor.
+		Todas las funciones de esta API requieren como primer argumento el nombre sin el prefijo "mdl\_" de la tabla a la cual se le realizará la consulta.
+
+    Las funciones más utilizadas de esta API son las siguientes:
+
+    \begin{itemize}
+      \item Para inserción de datos a la tabla:
+
+\begin{itemize}
+  \item "insert\_record()" esta función requiere que se le pase como argumento un objeto estándar que contenga como atributo y su valor los valores a insertar en la base de datos. Esta función devuelve el valor del id insertado en la tabla.
+\end{itemize}
+
+      \item Para actualización de datos a la tabla:
+
+      \begin{itemize}
+        \item 	"update\_record()" esta función requiere que se le pase como argumento un objeto estándar que contenga como atributo y su valor los valores a actualizar en la base de datos así como el atributo "id" que será el que diga que fila actualizar.
+      \end{itemize}
+
+      \item Para eliminación de datos de la tabla:
+
+      \begin{itemize}
+        \item "delete\_records()", esta función puede funcionar sin ningún argumento lo cual eliminaría todos los datos de la tabla, al pasar un arreglo que tenga como atributo y su valor los valores que se quieren igualar en la condición para que solo se elimine la o las filas que cumplan con la condición dada.
+      \end{itemize}
+
+      \item Para obtención de datos de la tabla:
+
+      \begin{itemize}
+        \item "get\_records()", esta función requiere que se le pase como argumento un arreglo que tenga como atributo y su valor, los valores que serán igualados como condición para obtener las filas que cumplan con dicha condición. Se le puede pasar como argumento una instrucción "sort" y decir cuales campos se van a devolver de la consulta. Esta función devuelve un diccionario de diccionarios de datos.
+        \item "get\_record()", es igual a la función de "get\_records()" pero solo devuelve una fila como un diccionario de datos.
+        \item "get\_records\_sql", requiere que se le pase un string que será una consulta de sql, esta función se utiliza para consultas que requieren de más complejidad en sus clausulas where. A su vez devuelve un diccionario de diccionarios de datos.
+        \item "get\_recordset\_sql", requiere el mismo atributo que la función "get\_records\_sql", pero devuelve un arreglo de diccionarios de datos.
+      \end{itemize}
+
+    \end{itemize}
+
+    \paragraph{Funciones especiales.}\mbox{}\\
+
+\begin{itemize}
+  \item La función "count\_records\_select()" devuelve el contador de la consulta que se le dio como atributo. Esta función debe tener un atributo "where" y otro "param" los cuales contienen la condición a cumplir y los datos que llenan la condición respectivamente.
+  \item La función "count\_records\_select\_sql()" realiza la consulta que contiene el string dado, es importante recalcar que la consulta que se encuentra en el string debe de tener como campo "COUNT()" para que sea exitosa la función.
+\end{itemize}
+
+    \paragraph{Recordset array, Records diccionario (hashed)}\mbox{}\\
+
+			Es muy importante recalcar que las funciones que devuelven un diccionario de diccionarios de datos el cual como llave utiliza el primer campo de la izquierda que devuelve la consulta deben de ser manejadas cuidadosamente puesto que existe la posibilidad de que los datos sean sobrescritos al encontrarse con un mismo valor en el primer campo de la izquierda lo cual significa una misma llave.\\
+			Para evitar este fallo, al estar realizando consultas las cuales no permiten tener un "id" en el primer campo de la izquierda se debe de utilizar la función "get\_recordset\_sql" el cual devuelve un arreglo a diferencia del diccionario de la función "get\_records\_sql".
+
+
+  \subsubsection{API para seleccionar como completada la actividad automáticamente}
+
+      \begin{enumerate}
+        \item En caso de que sea necesario se debe de agregar un campo nuevo a la tabla principal de las instancias de la actividad para que el dato sea guardado cuando se cree o actualice la actividad. Este dato es el que influye en la condición de que se complete la actividad.
+        \item Para que en el formulario de creación de la instancia aparezca nuestra regla de completar la actividad en el archivo "mod\_form.php" se deben de declarar las siguientes funciones:
+
+        \begin{enumerate}
+          \item "add\_completion\_rules()", en esta función se debe de declarar los campos extra que incluirá nuestra regla para que sea completada la actividad.
+          \item "completion\_rule\_enabled()", en esta función se debe de comprobar que los datos ingresados son validos para iniciar la regla de completar actividad.
+          \item "get\_data()", esta función debe de regresar los datos ingresados por el usuario en los nuevos campos definidos.
+          \item "data\_preprocessing()", esta función debe de cargar los datos por defecto en los nuevos campos definidos.
+        \end{enumerate}
+
+        \item En el archivo "lib.php" se debe de crear la función <nombredeplugin>\_get\_completion\_state() que se encarga de evaluar si el usuario ya completó la actividad de acuerdo a las condiciones que aparezcan en la función, y devuelve un verdadero o falso dependiendo de cada caso.
+        \item Para hacer que moodle compruebe el estado de completado de la actividad se debe de actualizar el estado en el momento de la ejecución que se crea que pudo haber cambiado la condición, se debe de realizar con el objeto completion\_info luego ejecutar la función completion\_info::is\_enabled() y posteriormente utilizar la función completion\_info::update\_state() para que se evalué si la condición se volvió verdadera.
+
+      \end{enumerate}
+
+
+  \subsubsection{Utilización de carpeta "pix"}
+
+			En esta carpeta se guarda el icono del plugin, el cual se debe de llamar "icon.<tipoimagen>" el cual puede ser png, svg o gif.
+			También se pueden guardar las imágenes que se vayan a utilizar a lo largo del plugin, estas imágenes se pueden importar al render y en especifico al código html a mostrar por medio del atributo "src" con valor "pix/<nombredeimaen>".
+
+	\subsubsection{Creación de alerta js al salir de la pantalla de cuestionario sin haber presionado "terminar"}
+
+    \begin{enumerate}
+      \item Para mostrar la alerta al salir de la pantalla del cuestionario sin haber presionado "terminar" se debe de definir una función en la variable "window" en su atributo "onbeforeunload" que devuelva el mensaje a mostrar en la alerta.
+      \item Posteriormente se debe de crear la función que defina al atributo "onbeforeunload" como null al enviar los datos que se encuentran en el formulario por medio del botón "terminar", para así evitar que se cree el mensaje de alerta.
+    \end{enumerate}
+
+
+  \subsubsection{Usuarios inscritos en el curso}
+		Para saber cuales usuarios están inscritos en el curso se debe de tomar en cuenta varias tablas de la base de datos las cuales son:
+    \begin{itemize}
+      \item "mdl\_context", se debe de obtener de esta tabla el id del curso al asegurar que el context\_level sea 50(mdl\_course) y que el instance id sea el id de la instancia del curso que se quiere saber sus estudiantes.
+      \item "mdl\_role", se debe de obtener el id del rol de estudiante.
+      \item "mdl\_role\_assigments", se obtienen los usuarios que están en el rol de estudiante en el curso, al realiar la consulta y condicionarlo al id del contexto y el id del rol.
+    \end{itemize}

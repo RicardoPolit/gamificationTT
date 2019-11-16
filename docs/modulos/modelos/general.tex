@@ -9,8 +9,8 @@
 
 
     \begin{cdtEntidad}{xp-user}{Usuario gamificado}{%
-    Esta entidad es una especialización de la entidad \refElem{mdl-user} la cual 
-    permite agregar atributos cómo la cantidad de experiencia obtenida y el nivel 
+    Esta entidad es una especialización de la entidad \refElem{mdl-user} la cual
+    permite agregar atributos cómo la cantidad de experiencia obtenida y el nivel
     actual del usuario.}
 
         \brAttr{id}{id}{tInt}{%
@@ -23,7 +23,7 @@
         }
 
         \brAttr{mdl-user}{Usuario moodle}{tInt}{%
-            Es el número que permite conocer a que usuario de moodle pertecene la 
+            Es el número que permite conocer a que usuario de moodle pertenece la
             información de un usuario gamificado.\par
 
             \it Restricciones:
@@ -33,7 +33,7 @@
         }
 
         \brAttr{level}{nivel}{tNatural}{%
-            Representa el nivel actual de experiencia que tiene un usuario gamificado 
+            Representa el nivel actual de experiencia que tiene un usuario gamificado
             en moodle. \par
 
             \it Restricciones:
@@ -41,7 +41,7 @@
         }
 
         \brAttr{levelxp}{experiencia del nivel}{tNatural}{%
-            Representa el nivel actual de experiencia que tiene un usuario gamificado 
+            Representa el nivel actual de experiencia que tiene un usuario gamificado
             en moodle.\par
 
             \it Restricciones:
@@ -49,11 +49,29 @@
         }
 
         \brAttr{xp}{experiencia}{tInt}{%
-            Representa los puntos de experiencia que tiene un usuario en moodle \par
+            Representa los puntos de experiencia que tiene un usuario. \par
 
             \it Restricciones:
             \refElem{tPositive},
             \refElem{tDefault} 0
+        }
+
+        \brAttr{monedas-plata}{Monedas de plata}{tInt}{%
+            Representa la cantidad de monedas de plata que tiene un usuario. \par
+
+            \it Restricciones:
+            \refElem{tPositive},
+            \refElem{tDefault} 100,
+            \refElem{tRequired}.
+        }
+
+        \brAttr{monedas-oro}{Monedas de oro}{tInt}{%
+            Representa la cantidad de monedas de oro que tiene un usuario. \par
+
+            \it Restricciones:
+            \refElem{tPositive},
+            \refElem{tDefault} 1,
+            \refElem{tRequired}.
         }
 
     \end{cdtEntidad}

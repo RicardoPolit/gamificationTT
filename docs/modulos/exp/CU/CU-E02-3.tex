@@ -93,7 +93,6 @@ Estado/\ucstEnEdicion]%
 
 \end{UseCase}
 
-\clearpage
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
@@ -111,14 +110,30 @@ Estado/\ucstEnEdicion]%
            \refTray{C} \label{CU-E02-3-events}
 
   \Sistema Obtiene los valores actuales de la configuración de los eventos con experiencia:
-           \salida{xp-events-settings.competence} y \salida{xp-events-settings.competenceXP}
+           \salida{xp-events-settings.competencecpuevent},
+           \salida{xp-events-settings.competencecpuxp},
+           \salida{xp-events-settings.competencevsevent},
+           \salida{xp-events-settings.competencevsxp},
+           \salida{xp-events-settings.preguntadiariaevento} y 
+           \salida{xp-events-settings.preguntadiariaxp}.
+
   \Sistema Carga la pantalla \refElem{IU-E05} estableciendo como valores por defecto
            las \refElem{xp-events-settings} obtenidas en el anterior paso.
 
   \Actor Habilita los eventos que desea que otorgen experiencia:
-         \entrada{xp-events-settings.competence}
-  \Actor Especifica la \entrada[experiencia del evento de competencia ganada]%
-         {xp-events-settings.competence}
+           \entrada{xp-events-settings.competencecpuevent},
+           \entrada{xp-events-settings.competencevsevent} y
+           \entrada{xp-events-settings.preguntadiariaevento}.
+
+  \Sistema Habilita los campos para especificar la experienca correspondientes a aquellos
+           eventos que el usuario haya habilitado.
+
+  \Actor Especifica los valores para la experiencia correspondientes a los eventos que haya
+         habilitado, en los campos:
+           \entrada{xp-events-settings.competencecpuxp},
+           \entrada{xp-events-settings.competencevsxp} y
+           \entrada{xp-events-settings.preguntadiariaxp}.
+
   \Actor Presiona el botón {\bf Guardar Cambios} \refTray{D} \label{CU-E02-3-submit}
 
   \Sistema Valida que los datos ingresados por el usuario cumplan con las restricciones

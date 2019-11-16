@@ -1,0 +1,97 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+%\addfigure[(adaptado de {\it For The Win} \cite{ForTheWin})]%
+%    {.4}{investigacion/images/forthewin}{fig:ForTheWin}%
+%    {Jerarquía de elementos de juego segun For The Win}
+
+\begin{UseCase}[%
+Autor/Ricardo Naranjo,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-C09}{Ver tabla de posiciones (Competencia uno contra uno)}{%
+%
+ Permite al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver la tabla de posiciones de una instancia de la actividad competencia uno contra uno en el curso.
+ Este caso de uso es una extensión del caso de uso \refElem{CU-C07}.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aEstudiante},
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver la tabla de posiciones de una instancia de la actividad de competencia uno contra uno.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-C08}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El plugin de competencia uno contra uno debe estar instalado en moodle.
+        \Titem La instancia de la actividad de competencia uno contra uno debe estar creada.
+        % Realizar el caso de uso "listar actividades disponibles?"
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem Se muestra la pantalla de tabla de posiciones de la instancia de la actividad de competencia uno contra uno \refElem{IU-C08} de acuerdo a su número de victorias.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-C01}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Presiona el botón {\bf Tabla posiciones} de la pantalla \refElem{IU-C08}.
+
+    \Sistema Redirige a la pantalla historial de la instancia \refElem{IU-C08}.
+
+    \Sistema Muestra un bloque por cada usuario con al menos una partida terminada, en el bloque se muestra: \salida{posición del usuario} \salida{Imagen de perfil de usuario}, \salida{Nombre de usuario}, \salida{Número de victorias del usuario}.
+
+\end{UCtrayectoria}

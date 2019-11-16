@@ -3,7 +3,7 @@
 \subsection{Relaciones del módulo financiero}
 
     Esta sección no cuenta propiamente con entidades, sin embargo,
-    se utilizan configuraciones que se guardan en la tabla de moodle 
+    se utilizan configuraciones que se guardan en la entidad de moodle \refElem{mdl-config-plugins}
     y dichas configuraciones se describen en esta sección.
 
 
@@ -13,11 +13,11 @@
         }
 
         \brAttr{victory-vs-system}{Victoria contra el sistema}{tInt}{%
-            Cuántas monedas de plata de le darán a un usuario por vencer a
+            Cuántas monedas de plata se le darán a un usuario por vencer a
             el sistema de cada dificultad por primera vez.\par
 
             \it Restricciones:
-            \refElem{tDefault} $: 50$, 
+            \refElem{tDefault} $: 50$,
             \refElem{tRequired}.
         }
 
@@ -25,22 +25,22 @@
             Cuántas monedas de plata se le darán a un usuario cuando venza a otro usuario.\par
 
             \it Restricciones:
-            \refElem{tDefault} $: 50$, 
+            \refElem{tDefault} $: 50$,
             \refElem{tRequired}.
         }
 
         \brAttr{daily-question}{Pregunta diaria respondida}{tInt}{%
-            Cuántas monedas de plata se le darán a un usurio cuando responda una pregunta diaria.\par
+            Cuántas monedas de plata se le darán a un usuario cuando responda una pregunta diaria.\par
 
             \it Restricciones:
-            \refElem{tDefault} $: 50$, 
+            \refElem{tDefault} $: 50$,
             \refElem{tRequired}.
         }
         \brAttr{victory-vs-system-enabled}{Habilitar victoria contra el sistema}{tBoolean}{%
             Bandera que indica si está habilitado el dar monedas cuando se gane al sistema.\par
 
             \it Restricciones:
-            \refElem{tDefault} $: true$, 
+            \refElem{tDefault} $: true$,
             \refElem{tRequired}.
         }
 
@@ -48,7 +48,7 @@
             Bandera que indica si está habilitado el dar monedas cuando se gane a otro usuario.\par
 
             \it Restricciones:
-            \refElem{tDefault} $: true$, 
+            \refElem{tDefault} $: true$,
             \refElem{tRequired}.
         }
 
@@ -56,9 +56,7 @@
             Bandera que indica si está habilitado el dar monedas cuando responda una pregunta diaria.\par
 
             \it Restricciones:
-            \refElem{tDefault} $: true$, 
+            \refElem{tDefault} $: true$,
             \refElem{tRequired}.
         }
     \end{cdtEntidad}
-
-

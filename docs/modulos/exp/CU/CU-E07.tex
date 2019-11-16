@@ -105,9 +105,10 @@ Estado/\ucstEnEdicion]%
            así como el \salida[secciones]{mdl-course-section.name} de las secciones 
            del curso junto con las \salida[actividades]{mdl-course-module} 
            correspondients a cada sección y el estado de \refElem[completitud]%
-           {mdl-course-module.completionstate}.
+           {mdl-course-module-completion.completionstate}.
 
   \Sistema Muestra los datos obtenidos en la pantalla \refElem{IU-M07}.
+           \label{CU-E07-pantalla}
 
   \Actor Presiona el botón \IUAdminSitio en la parte superior izquierda de la pantalla
   \Sistema Muestra el menu desplegable de la administración del curso
@@ -116,15 +117,68 @@ Estado/\ucstEnEdicion]%
   \Sistema Obtiene la \salida{xp-course-section.xp} de la secciones gamificadas del 
            curso y revisa hay \refElem[recompensas]{xp-section-reward} que hayan sido
            entregadas correspondientes a dicha sección.
-  \Sistema Muestra la experiencia de cada sección en la pantalla \refElem{IU-E06b}
-           habilitando o deshabilitando el campo para editar la experiencia con base
-           en la regla \regla{BR-E08}.
+  \Sistema Obtiene la cantidad total de \salida{xp-scheme-settings.courseXP}.
+  \Sistema Muestra la experiencia de cada sección y el total de experiencia 
+           en la pantalla \refElem{IU-E06b}.
+  \Sistema Habilita o deshabilita los campos para editar la experiencia de cada 
+           sección con base en la regla \regla{BR-E09}.
 
-  \Actor Especifica la cantidad de experiencia correspondiente a cada módulo
+  \Actor Introduce la experiencia de las secciones de acuerdo con la regla
+         \regla{BR-E10}. \refTray{A}
+  \Actor Presiona el botón {\bf Guardar cambios}. \refTray{B} \label{CU-E07-submit}
+  \Sistema Obtiene los valores de experiencia ingresados por el usuario
+           correspondientes a las secciones del curso.
+  \Sistema Valida que los valores de experiencia ingresados cumplan con las
+           restricciones especificadas en el modelo de información. \refTray{C}
+  \Sistema Valida que los valores de experiencia cumplan con la regla
+           \refElem{BR-E10} \refTray{D}.
+  \Sistema Actualiza los valores de experiencia correspondientes a cada sección.
+           \label{CU-E07-finish}
+  \Sistema Muestra la pantalla \refElem{IU-E06b} con la \refElem{xp-course-section.xp}
+           actualizada de las secciones del curso.
+           
 
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}{A}{%
-Somethins is good
+Alguna de las secciones gamificadas ha sido completada por almenos un alumno.
 }
+  \Sistema Detecta que todas las \refElem{mdl-course-module} de una sección
+           han sido completadas por al menos un \refElem{aEstudiante}.
+  \Sistema Deshabilita los campos de edición en todas las secciones que entre
+           en el anterior supuesto.
+  \Sistema Continua en el paso \ref{CU-E07-pantalla}.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{B}{%
+El \refElem{aProfesor} desea distribuir uniformemente la experiencia del curso
+disponible entre las distintas secciones de acuerdo con la regla.}
+
+  \Actor Presiona el botón {\bf Distribuir uniformemente}
+  \Sistema Divide la cantidad de experiencia entre las secciones editables
+           de acuerdo con las reglas \refElem{BR-E10} y \regla{BR-E08}.
+  \Sistema Continua en el paso \ref{CU-E07-finish} de la trayectoria principal.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{C}{%
+Alguno de los campos para establecer la experiencia de las %
+\refElem[secciones del curso]{xp-course-section} es incorrecto.}
+
+  \Sistema Muestra el mensaje de error debajo de los campos con un valor de
+           experiencia incorrecto.
+
+  \Actor Ingresa de nuevo los valores de experiencia de los campos de experiencia
+         incrrectos.
+  \Sistema Regresa la paso \ref{CU-E07-submit} de la trayectoria principal
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{D}{%
+Los valores de experiencia introducidos por el \refElem{aProfesor} no cumplen con
+la regla \refElem{BR-E09}.}
+
+  \Sistema Muestra el mensaje de error de que la suma de la experiencia no es igual
+           al total de experiencia del curso.
+  \Actor Ingresa de nuevo los valores de experiencia correspondientes a cada sección
+         del curso.
+  \Sistema Regresa la paso \ref{CU-E07-submit} de la trayectoria principal
 \end{UCtrayectoriaA}
