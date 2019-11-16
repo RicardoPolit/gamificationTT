@@ -42,7 +42,10 @@
     overflow-x: auto;
 
 }
-
+.gmtienda-contenido-vacio{
+    width: 12%;
+    padding: 1%;
+}
 .gmtienda-nombre-tipo{
     width: 100%;
 }

@@ -216,7 +216,7 @@ class local_gmtienda_renderer extends plugin_renderer_base {
                     $html.= html_writer::end_tag('div');
 
                 }
-            $html.= html_writer::start_tag('div', array());
+            $html.= html_writer::start_tag('div', array('class'=>'gmtienda-contenido-vacio'));
             $html.= html_writer::end_tag('div');
             $html.= html_writer::end_tag('div');
             return $html;
