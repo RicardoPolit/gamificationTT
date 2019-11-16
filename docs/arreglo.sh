@@ -7,4 +7,4 @@ mkdir output/investigacion
 mkdir output/modulos
 mkdir output/modulos/concentrado
 mkdir output/conclusiones
-./compile.sh main
+./compile.sh -f main \makeglossaries
