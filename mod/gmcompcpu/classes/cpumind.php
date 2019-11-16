@@ -36,7 +36,7 @@ class mod_gmcompcpu__cpumind {
             while (sizeof($respuestasElegidas) < $y) {
 
                 $resp = self::responderAlAzar($w);
-
+                $esCorrecta = false;
                 if(!self::esCorrecta($resp)) {
 
                     if($intentosDisponibles == 0) {
@@ -50,14 +50,24 @@ class mod_gmcompcpu__cpumind {
                     }
                 } else {
 
+                    $esCorrecta = true;
                     $respuestasElegidas[] = $resp;
+                    $x --;
 
                 }
 
                 $lenW = sizeof($w);
-                $w = self::quitarRespuesta($resp, $w, $espacio);
+                if($esCorrecta)
+                    {
+                        $w = self::quitarRespuesta($resp, $w);
+                    }
+                else
+                    {
+                        $w = self::intentarQuitarRespuesta($resp, $w, $espacio);
+                    }
+                
 
-                if( $lenW > sizeof($w)) {
+                if( $lenW > sizeof($w) &&  sizeof($w) > 0) {
 
                     $w = self::ponderarRespuestas($x,$dificultad, $w);
 
@@ -190,7 +200,10 @@ class mod_gmcompcpu__cpumind {
                     $answer->weighing -= (2-$dificultad)*5;
 
                 }else{
+                    if ((sizeof($w)-$x) == 0)
+                        {
 
+                        }
                     $answer->weighing += $valorQuitado/(sizeof($w)-$x);
 
                 }
@@ -271,20 +284,28 @@ class mod_gmcompcpu__cpumind {
 
     //Revisar cuando ya no se puedan quitar las respuestas y todavia falte por elegir respuestas, existirá el caso de que se elija la misma respuesta?
 
-    protected static function quitarRespuesta($resp, $w, $espacio){
+
+    protected static function intentarQuitarRespuesta($resp, $w, $espacio){
         $r = $w;
         if(sizeof($w) > 1)
             {
                 if( $espacio >= 100/(sizeof($w)-1) ){
-                    $r = [];
-                    foreach($w as $c)
-                        {
-                            if($c->id != $resp->id)
-                                {
-                                    $r[] = $c;
-                                }
-                        }
+                    $r = self::quitarRespuesta($resp, $w);
                 }
+            }
+        return $r;
+
+    }
+
+
+    protected static function quitarRespuesta($resp, $w){
+        $r = [];
+        foreach($w as $c)
+            {
+                if($c->id != $resp->id)
+                    {
+                        $r[] = $c;
+                    }
             }
         return $r;
 
