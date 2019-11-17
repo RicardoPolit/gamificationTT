@@ -278,7 +278,7 @@
         \end{cdtEntidad}
         \schemeName{gmcompcpu}
 
-        \begin{cdtEntidad}{comp-cpu-dificultad-cpu}{Dificultad del sistema}{
+        \begin{cdtEntidad}{comp-cpu-gmdl-dificultad-cpu}{Dificultad del sistema}{
             Esta relación contiene un catálogo de dificultades.}
 
             \brAttr{id}{id}{tInt}{%
@@ -311,6 +311,15 @@
                 \refElem{tAutoIncrement}
             }
 
+            \brAttr{gmdl-comp-cpu-id}{Instancia}{tInt}{%
+                Identificador de la instancia de la competencia donde se desafió.
+
+                \it Restricciones:
+                \refElem{tUniqueKey},
+                \refElem{tForeignKey},
+                \refElem{tRequired}.
+            }
+
             \brAttr{gmdl-usuario-id}{Usuario gamificado}{tInt}{%
                 Identificador del usuario que realizó el intento.
 
@@ -327,11 +336,11 @@
                 \refElem{tRequired}.
             }
 
-            \brAttr{puntiacion-usuario}{Puntos usuario}{tInt}{%
+            \brAttr{puntuacion-usuario}{Puntos usuario}{tInt}{%
                 Puntuación que logró el usuario en ese intento.
 
             }
-            \brAttr{puntiacion-cpu}{Puntos sistema}{tInt}{%
+            \brAttr{puntuacion-cpu}{Puntos sistema}{tInt}{%
                 Puntuación que logró el sistema en ese intento.
 
             }

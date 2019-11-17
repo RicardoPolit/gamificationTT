@@ -1,0 +1,131 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+%\addfigure[(adaptado de {\it For The Win} \cite{ForTheWin})]%
+%    {.4}{investigacion/images/forthewin}{fig:ForTheWin}%
+%    {Jerarquía de elementos de juego segun For The Win}
+
+\begin{UseCase}[%
+Autor/Ricardo Naranjo,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-C12}{Ver estado de instancia de actividad (Competencia uno contra sistema)}{%
+%
+ Permite al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver el estado actual de una instancia de la actividad competencia uno contra sistema en el curso.
+ Este caso de uso es una extensión del caso de uso {\it Ver curso} que es propio de moodle.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aEstudiante},
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver el estado actual de una instancia de la actividad de competencia uno contra sistema.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida} \begin{itemize}
+    \item {\bf Icono de dificultad vencida}\IUCpuvencida
+    \item {\bf Icono de dificultad no vencida}\IUCpunovencida
+  \end{itemize} }
+
+	\UCitem{Destino}{%
+		\refElem{IU-C04}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El plugin de competencia uno contra sistema debe estar instalado en moodle.
+        \Titem La instancia de la actividad de competencia uno contra sistema debe estar creada.
+        % Realizar el caso de uso "listar actividades disponibles?"
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem La pantalla principal de la instancia de la actividad de competencia uno contra sistema \refElem{IU-C04} debe mostrar los datos pertinentes al usuario que realizó el caso de uso.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-C12}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Presiona el nombre de la instancia a la que quiere acceder en la pantalla \refElem{IU-M07}.
+
+    \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-C04}.
+
+    \Sistema Muestra las dificultades del sistema vencido por medio del icono \IUCpuvencida.
+
+    \Sistema Muestra las dificultades del sistema que no han sido vencidas por medio del icono \IUCpunovencida.
+
+    \Sistema Muestra en la sección {\bf Desafiar computadora} las dificultades que se pueden desafiar \salida{comp-cpu-gmdl-dificultad-cpu}
+
+\end{UCtrayectoria}
+
+\subsubsection{Puntos de extensión}
+
+\UCExtensionPoint{Ver historial de sus partidas}{%
+
+    El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desea ver su historial de las partidas de competencia uno contra sistema.
+%
+    }{Al final de la trayectoria principal del caso de uso.
+%
+    }{\refElem{CU-C15}}
+
+
+\UCExtensionPoint{Ver tabla de puntuaciones}{%
+
+    El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desea ver la tabla de puntuaciones de una instancia de competencia uno contra sistema.
+%
+    }{Al final de la trayectoria principal del caso de uso.
+%
+    }{\refElem{CU-C14}}
+
+  \UCExtensionPoint{Desafiar al sistema}{%
+
+      El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desea desafiar al sistema en alguna de sus dificultades.
+  %
+      }{Al final de la trayectoria principal del caso de uso.
+  %
+      }{\refElem{CU-C13}}

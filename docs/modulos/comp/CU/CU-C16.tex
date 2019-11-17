@@ -15,9 +15,9 @@ Autor/Ricardo Naranjo,%
 Version/0.1,%
 Estado/\ucstEnRevision]%
 %
-{CU-C10}{Desafiar a un estudiante apostando (Competencia uno contra uno)}{%
+{CU-C16}{Aceptar un desafío apostando (Competencia uno contra uno)}{%
 %
- Permite al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} desafiar a un estudiante que se encuentra inscrito en el curso y a su vez se otorga la posibilidad de apostar en la partida.
+ Permite al \refElem{aEstudiante} aceptar un desafío y a su vez se otorga la posibilidad de apostar en la partida.
  Este caso de uso es una extensión del caso de uso \refElem{CU-C07}.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
@@ -26,14 +26,12 @@ Estado/\ucstEnRevision]%
  \UCsection{Atributos}
 
     \UCitem{Actor(es)}{%
-        \refElem{aEstudiante},
-        \refElem{aProfesor},
-        \refElem{aAdministrador}
+        \refElem{aEstudiante}
     }
 
 	\UCitems{Propósito}{%
-        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} desafiar a un estudiante que forma parte de un curso y apostar la cantidad de monedas decidida por el usuario.
-        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} terminar un desafío.
+        \Titem Permitir al \refElem{aEstudiante} aceptar un desafío y apostar la cantidad de monedas decidida por el usuario.
+        \Titem Permitir al \refElem{aEstudiante} terminar un desafío.
 	}
 
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -58,7 +56,7 @@ Estado/\ucstEnRevision]%
 	}
 
 	\UCitems{Postcondiciones}{%
-        \Titem Se muestra en la pantalla de historial del usuario \refElem{IU-C07} la partida que inició.%
+        \Titem Se muestra en la pantalla de historial del usuario \refElem{IU-C07} la nueva partida.%
 
 	}
 
@@ -76,7 +74,7 @@ Estado/\ucstEnRevision]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-C10}
+        \Titem \refElem{CPC-C16}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -90,11 +88,11 @@ Estado/\ucstEnRevision]%
 \begin{UCtrayectoria}%
 %
 
-    \Actor Ingresa la cantidad de monedas que desea apostar en el campo "Monedas a apostar" en el bloque del estudiante que quiere desafiar en la pantalla \refElem{IU-C02}.
+    \Actor Ingresa la cantidad de monedas que desea apostar en el campo "Monedas a apostar" en el bloque del usuario del que quiere aceptar el desafío en la pantalla \refElem{IU-C02} en la sección "Desafíos pendientes".
 
-    \Actor Presiona el botón {\bf Desafiar}.
+    \Actor Presiona el botón {\bf Aceptar desafío}.
 
-    \Sistema Inicia la partida y establece los valores correspondientes \refElem{comp-1v1-gmdl-partida}( \entrada{comp-1v1-gmdl-partida.gmdl-comp-vs-id} ), una entrada por cada usuario de la partida \refElem{comp-1v1-gmdl-participacion} ( \entrada{comp-1v1-gmdl-participacion.gmdl-usuario-id}, \entrada{comp-1v1-gmdl-participacion.gmdl-partida-id}, \entrada{comp-1v1-gmdl-participacion.fecha-inicio}, \refElem{comp-1v1-gmdl-participacion.puntuacion} ) y agrega la apuesta \refElem{comp-1v1-gmdl-apuesta}( \entrada{comp-1v1-gmdl-apuesta.gmdl-participacion-id}, \entrada{comp-1v1-gmdl-apuesta.monedas-plata}, \entrada{comp-1v1-gmdl-apuesta.activa} ).
+    \Sistema Inicia la partida y establece los valores correspondientes en \refElem{comp-1v1-gmdl-participacion} ( \entrada{comp-1v1-gmdl-participacion.fecha-inicio} ) y agrega la apuesta \refElem{comp-1v1-gmdl-apuesta}( \entrada{comp-1v1-gmdl-apuesta.gmdl-participacion-id}, \entrada{comp-1v1-gmdl-apuesta.monedas-plata}, \entrada{comp-1v1-gmdl-apuesta.activa} ).
 
     \Sistema Redirige a la pantalla del cuestionario del desafío \refElem{IU-C09}.
 
@@ -108,9 +106,14 @@ Estado/\ucstEnRevision]%
     \entrada{comp-1v1-gmdl-participacion.fecha-fin},
     \entrada{comp-1v1-gmdl-participacion.puntuacion}).
 
-    \Sistema Valida que el estudiante desafiado no haya terminado de contestar su cuestionario. \refTray{B}
+    \Sistema Valida que el usuario que lo desafió haya terminado de contestar su cuestionario. \refTray{B}
 
-    \Sistema Redirige a la pantalla \refElem{IU-C10}.
+    \Sistema Calcula y otorga puntaje extra de acuerdo al tiempo tardado en contestar el cuestionario.
+    \Sistema Comprueba que el actor haya obtenido un mayor puntaje que el usuario desafiante. \refTray{C}
+    \Sistema Lanza el evento para dar las monedas que le corresponden al actor.
+    \Sistema Lanza el evento para dar la experiencia que le corresponde al actor.
+    \Sistema Redirige a la pantalla \refElem{IU-C11}.
+    \Sistema Muestra el puntaje de cada participante \salida{comp-1v1-gmdl-participacion.puntuacion}.
 
 \end{UCtrayectoria}
 
@@ -127,22 +130,17 @@ Estado/\ucstEnRevision]%
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
-  {B}{El \refElem{aEstudiante} desafiado ya había terminado de contestar el cuestionario}
+  {B}{El usuario que lo desafió no ha terminado de contestar su cuestionario}
 
-  \Sistema Calcula y otorga puntaje extra de acuerdo al tiempo tardado en contestar el cuestionario.
-  \Sistema Comprueba que el actor haya obtenido un mayor puntaje que el \refElem{aEstudiante} desafiado. \refTray{C}
-  \Sistema Lanza el evento para dar las monedas que le corresponden al actor.
-  \Sistema Lanza el evento para dar la experiencia que le corresponde al actor.
-  \Sistema Redirige a la pantalla \refElem{IU-C11}.
-  \Sistema Muestra el puntaje de cada participante \salida{comp-1v1-gmdl-participacion.puntuacion}.
+  \Sistema Redirige a la pantalla \refElem{IU-C10}
 
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
-  {C}{El \refElem{aEstudiante} desafiado obtuvo un mayor puntaje que el actor}
+  {C}{El usuario desafiante obtuvo un mayor puntaje que el actor}
 
-  \Sistema Lanza el evento para dar las monedas que le corresponden al \refElem{aEstudiante} desafiado.
-  \Sistema Lanza el evento para dar la experiencia que le corresponde al \refElem{aEstudiante} desafiado.
+  \Sistema Lanza el evento para dar las monedas que le corresponden al usuario desafiante.
+  \Sistema Lanza el evento para dar la experiencia que le corresponde al usuario desafiante.
   \Sistema Redirige a la pantalla \refElem{IU-C12}.
   \Sistema Muestra el puntaje de cada participante \refElem{comp-1v1-gmdl-participacion.puntuacion}.
 

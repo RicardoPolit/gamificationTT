@@ -74,7 +74,7 @@ Estado/\ucstEnRevision]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-C01}
+        \Titem \refElem{CPC-C07}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -90,13 +90,13 @@ Estado/\ucstEnRevision]%
 
     \Actor Presiona el nombre de la instancia a la que quiere acceder en la pantalla \refElem{IU-M07}.
 
-    \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-C02}.
-
     \Sistema Valida que las partidas en curso cumplan con la \regla{BR-C01} y las partidas que no la cumplen son terminadas.
 
-    \Sistema Muestra el \salida{número de victorias}.
-
     \Sistema Valida que la bandera \refElem{comp-1v1-gmcompvs.apuestas-activas} esté activa. \refTray{A}.
+
+    \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-C02}.
+
+    \Sistema Muestra el \salida{número de victorias}.
 
     \Sistema Muestra en el área {\bf Compañeros del curso} un bloque compañero por cada \refElem{aEstudiante} que esté inscrito en el curso y que cumpla con la \regla{BR-C02}, dicho bloque se compone de la \salida{imagen de perfil compañero}, \salida{nombre compañero}, campo {\bf Monedas a apostar} y el botón {\bf Desafiar}.
 
@@ -105,6 +105,10 @@ Estado/\ucstEnRevision]%
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]{A}{La bandera \refElem{comp-1v1-gmcompvs.apuestas-activas} está inactiva}
+
+  \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-C02a}.
+
+  \Sistema Muestra el número de victorias.
 
   \Sistema Muestra en el área {\bf Compañeros del curso} un bloque por cada \refElem{aEstudiante} que esté inscrito en el curso y que cumpla con la \regla{BR-C02}, dicho bloque se compone de la imagen de perfil compañero, nombre compañero y el botón {\bf Desafiar}.
 
@@ -139,3 +143,12 @@ Estado/\ucstEnRevision]%
       }{Al final de la trayectoria principal del caso de uso.
   %
       }{\refElem{CU-C10}}
+
+
+\UCExtensionPoint{Desafiar a un estudiante sin apuestas}{%
+
+    El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desafiar a un estudiante.
+%
+    }{Al final de la \refTray{A}.
+%
+    }{\refElem{CU-C11}}
