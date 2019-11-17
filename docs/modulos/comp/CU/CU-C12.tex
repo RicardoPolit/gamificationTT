@@ -15,9 +15,9 @@ Autor/Ricardo Naranjo,%
 Version/0.1,%
 Estado/\ucstEnRevision]%
 %
-{CU-C07}{Ver estado de instancia de actividad (Competencia uno contra uno)}{%
+{CU-C07}{Ver estado de instancia de actividad (Competencia uno contra sistema)}{%
 %
- Permite al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver el estado actual de una instancia de la actividad competencia uno contra uno en el curso.
+ Permite al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver el estado actual de una instancia de la actividad competencia uno contra sistema en el curso.
  Este caso de uso es una extensión del caso de uso {\it Ver curso} que es propio de moodle.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
@@ -32,7 +32,7 @@ Estado/\ucstEnRevision]%
     }
 
 	\UCitems{Propósito}{%
-        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver el estado actual de una instancia de la actividad de competencia uno contra uno.
+        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver el estado actual de una instancia de la actividad de competencia uno contra sistema.
 	}
 
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -44,11 +44,11 @@ Estado/\ucstEnRevision]%
 	\UCitem{Salidas}{\imprimeUC{salida}}
 
 	\UCitem{Destino}{%
-		\refElem{IU-C02}
+		\refElem{IU-C04}
 	}
 
 	\UCitems{Precondiciones}{%
-        \Titem El plugin de competencia uno contra uno debe estar instalado en moodle.
+        \Titem El plugin de competencia uno contra sistema debe estar instalado en moodle.
         \Titem La instancia de la actividad de competencia uno contra uno debe estar creada.
         % Realizar el caso de uso "listar actividades disponibles?"
         % \Titem Si se trata de una actualización de un plugin la versión de este debe
