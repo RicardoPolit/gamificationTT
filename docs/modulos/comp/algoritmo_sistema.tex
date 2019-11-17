@@ -1,0 +1,102 @@
+
+
+A continuación se presenta de manera general el algoritmo que sigue el
+sistema para responder un cuestionario.
+
+\noindent Al diseñar el algoritmo se tuvo en cuenta que no respondiera únicamente 
+de manera correcta o incorrecta determinado por una probabilidad.
+Se diseño para que cada nivel de dificultad del sistema hiciera las mismas acciones, 
+pero con más oportunidades o más probabilidades de contestar correctamente. 
+Es por ello que se concideran 4 factores:
+
+\begin{enumerate}
+    \item Saber cuántas respuestas se deben elegir para responer correctamente la pregunta.
+    \item El número de intentos para responder la pregunta correctamente.
+    \item La probabilidad de que una respuesta sea elegida ante las otras respuestas.
+    \item La posibilidad de reducir el número de respuestas que se tienen.
+\end{enumerate}
+
+El flujo general que no depende de la dificultad del sistema está representado en la figura \ref{fig:algoritmo-cpu-1},
+en dicha figura se presentan cuadros azules cuya especificación se encuentran en las figuras:
+
+
+\begin{enumerate}
+    \item 'Calcular intentos [i]' está representado en la figura \ref{fig:algoritmo-cpu-2}.
+    \item 'Calcular [c]' está representado en la figura \ref{fig:algoritmo-cpu-3} .
+    \item 'Ponderar las respuestas' está representado en la figura \ref{fig:algoritmo-cpu-4} .
+    \item 'Intentar descartar la respuesta [r] como una opción' está representado en la figura \ref{fig:algoritmo-cpu-5} .
+\end{enumerate}
+
+\clearpage
+    \addfigure{0.8}{modulos/comp/diagrams/algoritmo_parte_1}{fig:algoritmo-cpu-1}{Diagrama de flujo del algoritmo, General}
+
+\clearpage
+    \addfigure{0.8}{modulos/comp/diagrams/algoritmo_parte_2}{fig:algoritmo-cpu-2}{Diagrama de flujo del algoritmo, 'Obtener inentos'}
+    
+
+\clearpage
+    El algoritmo debe tomar en cuenta los casos en que las preguntas tienen más de una respuesta correcta 
+    y los casos en que la respuesta correcta a una pregunta es una combinación de 2 o más respuestas.\\
+    \addfigure{0.8}{modulos/comp/diagrams/algoritmo_parte_3}{fig:algoritmo-cpu-3}{Diagrama de flujo del algoritmo, 'Respuestas a elegir'}
+\clearpage
+    Debido a que el sistema elige una pregunta de manera al azar, 
+    dependiendo de la dificultad se hace más probable que eliga una respuesta correcta o que se eliga una respuesta incorrecta.
+    \addfigure{0.8}{modulos/comp/diagrams/algoritmo_parte_4}{fig:algoritmo-cpu-4}{Diagrama de flujo del algoritmo, 'Ponderación de respuestas'}
+\clearpage
+    Para aprovechar los intentos que tiene un sistema,
+    se hace que cada nivel de dificultad pueda reducir las respuestas posibles una vez haya seleccionado una respuesta.
+    \addfigure{0.8}{modulos/comp/diagrams/algoritmo_parte_5}{fig:algoritmo-cpu-5}{Diagrama de flujo del algoritmo, 'Reducir opciones'}
+\clearpage
+
+
+\noindent Para corroborar el funcionamiento del algoritmo y que cada dificultad tenga más probabilidad de obtener una mejor calificación se hicieron pruebas. 
+Dichas pruebas consistían en eligir una dificultad y que el sistema contestara 10,000 veces el mismo cuestionario y con ello obtener 
+el promedio de su calificación en ese questionario \ref{table:resultados-calificaciones-algoritmo-sistema}, 
+el promedio de obtención de cada una de las calificaciones  \ref{table:resultados-calificacion-promedio-algoritmo-sistema} 
+y la desviación estándar que se tiene \ref{table:resultados-desviacion-algoritmo-sistema} . 
+
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+        Dificultad del sistema & Fácil &     Normal &    Difícil &   Imposible \\\hline
+        Caliifcación de 0 &  0.37\% &    0.02\% &   0.0\%  &  0.0\%   \\\hline
+        Caliifcación de 1 &  0.91\% &    0.05\% &   0.0\%  &  0.0\%\\\hline
+        Caliifcación de 2 &  3.73\% &    0.27\% &   0.0\%  &  0.0\%\\\hline
+        Caliifcación de 3 &  5.3\% &    0.68\% &   0.0\%  &  0.0\%\\\hline
+        Caliifcación de 4 &  13.5\% &    2.95\% &   0.1\%  &  0.0\%\\\hline
+        Caliifcación de 5 &  13.92\% &    4.4\% &   0.04\%  &  0.01\%\\\hline
+        Caliifcación de 6 &  22.5\% &    13.44\% &   1.3\%  &  0.23\%\\\hline
+        Caliifcación de 7 &  13.57\% &    12.67\% &   1.41\%  &  0.21\%\\\hline
+        Caliifcación de 8 &  16.72\% &    29.25\% &   16.55\%  &  6.44\%\\\hline
+        Caliifcación de 9 &  5\% &    13.68\% &   8.62\%  &  3.66\%\\\hline
+        Caliifcación de 10 &  4.48\% &    22.59\% &   71.98\%  &  89.45\%\\\hline
+    \end{tabular}
+    \caption{Tabla de resultados- Prueba algoritmo del sistema 'Porcentaje de obtención de calificación'}
+    \label{table:resultados-calificaciones-algoritmo-sistema}
+\end{table}
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+        Dificultad del sistema &                 Fácil &     Normal &    Difícil &   Imposible \\\hline
+        Promedio de calificación &  6.0142 &    7.8878 &    9.4805 &    9.8186 \\ \hline
+    \end{tabular}
+    \caption{Tabla de resultados- Prueba algoritmo del sistema 'Calificación promedio'}
+    \label{table:resultados-calificacion-promedio-algoritmo-sistema}
+\end{table}
+
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|} \hline
+        Dificultad del sistema &                 Fácil &     Normal &    Difícil &   Imposible \\\hline
+        Porcentaje de confianza &  2.0210884097436 &    3.2341593158042 &    4.7286951952952 &    9.8186 \\\hline
+    \end{tabular}
+    \caption{Tabla de resultados- Prueba algoritmo del sistema 'Calificación promedio'}
+    \label{table:resultados-desviacion-algoritmo-sistema}
+\end{table}
+
+

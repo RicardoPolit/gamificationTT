@@ -1,0 +1,20 @@
+
+En este capítulo se especifica cómo se implementó el modelo de información utilizando los complementos de moodle
+y la especificación del análisis, diseño, desarrollo y pruebas
+por cada uno de los módulos del proyecto. \\
+
+\noindent Moodle permite definir una base de datos mediante los archivos db/install.xml, db/upgrade.php y db/install.php de cada complemento.
+Esto permite que cada complemento pueda especificar las entidades que estos utilizen por separado. 
+Sin embargo, se optó por crear un complemento cuya función sea la implementación del modelo de información
+y que en caso de que un complemento necesite usar alguna entidad, este pueda sin problemas acceder a ella 
+sin la necesidad de ocuparse de la creación o las versiones que se tengan
+del modelo de información.\\
+
+\noindent En otras palabras, la definciión del modelo de información está centralizada en
+un complemento del cual todos los otros complementos dependen. Esto se logra gracias al archivo version.php que establece
+las dependencias que tiene un complemento de moodle. Este componente que crea la base de datos,
+siguiendo el modelo de infomación es denominado gamedlemaster.\\
+
+\noindent El complemento gamedlemaster también se encarga de definir
+los eventos con los que los complementos se puedan comunicar entre si.
+
