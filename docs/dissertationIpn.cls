@@ -128,7 +128,7 @@
 \def\principioIx{Epic Meaning \& Calling}
 \def\principioIIx{Development \& Accomplishment}
 \def\principioIIIx{Empowerment of Creativity \& FeedBack}
-\def\principioIVx{OwnerShip \& Posession}
+\def\principioIVx{Ownership \& Posession}
 \def\principioVx{Social Influence \& Relateness}
 \def\principioVIx{Scarcity \& Impatience}
 \def\principioVIIx{Unpredictability \& Curiosity}
