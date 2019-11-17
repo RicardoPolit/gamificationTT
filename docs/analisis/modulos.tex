@@ -56,21 +56,31 @@
 
 \subsection{Módulo de Competencias}
 
-  Este módulo brindará dos opciones de competencia que otorgan al usuario
-  la posibilidad de poner en practica sus conocimientos del curso y a su vez interactuar
+  Este módulo brindará dos opciones para competir que otorgan al usuario
+  la posibilidad de poner en práctica sus conocimientos del curso y a su vez interactuar
   con otros usuarios inscritos al curso.
+
+  \noindent El resultado de la competencia se mide respecto a puntos y estos son utilizados para determinar al ganador.
 
 \subsubsection{Competencia uno contra uno}
 
-La competencia uno contra uno permite al usuario desafiar a otro dentro del curso con
-el objetivo de ayudarles a practicar los temas que contiene el curso, aportando retroalimentación
-del puntaje obtenido en comparación al usuario que desafió.
+
+La competencia uno contra uno es una actividad que se puede llevar acabo en un curso, 
+la cual le permite al usuario competir con otro mientras responde un cuestionario.
+Esto para permitirle practicar y medir sus conocimientos con el resto de sus compañeros.\\
 
 \subsubsection{Competencia uno contra sistema}
 
-La competencia uno contra sistema permite al usuario poner en practica sus conocimientos y evaluarlos
-al desafiar al sistema en alguna de sus dificultades. Exigiendo un nivel más alto de conocimiento al
-subir la dificultad.
+  Esta competencia es una actividad que se puede llevar acabo en un curso, la cual consiste en competir con el sistema al responder un cuestionario.
+  El sistema cuenta con varios niveles de dificultad, los cuales son; \\
+  \begin{enumerate}
+    \item Fácil.
+    \item Normal.
+    \item Difícil.
+    \item Imposible.
+  \end{enumerate}
+  \noindent Mientras más alto sea el nivel de dificultad, es más probable que el sistema conteste correctamente las preguntas del cuestionario. 
+  Así un estudiante, puede poner en práctica sus conocimientos mientras intenta vencer al sistema.
 
 %\subsection{Módulo de Recompensa}
 %
@@ -80,64 +90,80 @@ subir la dificultad.
 
 \subsection{Módulo de Personalización}
 
-Este modulo pondrá a disposición de los usuarios una extensión a su perfil de moodle llamado "perfil gamificado". En el cual se podrá
-seleccionar objetos para personalizar su perfil. Esta personalización será visible en los diferentes módulos del sistema que soporten
+Este módulo pondrá a disposición de los usuarios una extensión a su perfil de moodle llamado "perfil gamificado". En el cual se podrá
+seleccionar objetos para personalizar su perfil. Esta personalización será visible en los diferentes módulos de este proyecto que soporten
 esta función.
 
 \subsubsection{Objetos de personalización}
 
-Existen diferentes tipos de objetos de personalización así como diferentes rarezas que tienen. Se proponen 3 tipos de objetos:
 
-\begin{itemize}
-  \item Imagen de perfil
-  \item Tipo de marco
-  \item Color de marco
-\end{itemize}
+Los objetos se clasifican mediante 2 características, las cuales son; el tipo y su rareza.\\
 
-Se proponen 4 categorías de rareza para cada tipo de objeto:
+\noindent Se tienen 3 tipos de objetos:
 
-\begin{itemize}
-  \item Común
-  \item Rara
-  \item Épica
-  \item Legendaria
-\end{itemize}
+\begin{multicols}{2}
+  \begin{Titemize}
+    \Titem Imagen de perfil
+    \Titem Tipo de marco
+    \Titem Color de marco
+  \end{Titemize}
 
-\subsubsection{Personalización}
+  \noindent Se tienen 4 rarezas:
 
-Entre los objetos propuestos se podrá elegir un objeto por cada tipo para que sea mostrado en los diferentes módulos del sistema. La disponibilidad
-o no disponibilidad de objetos a elegir dependerá de los módulos que se encuentren activados en el mismo sistema que el módulo de personalización.
+  \begin{Titemize}
+    \Titem Común
+    \Titem Rara
+    \Titem Épica
+    \Titem Legendaria
+  \end{Titemize}
+\end{multicols}
 
+
+\subsubsection{Perfil gamificado}
+
+  El usuario tiene la posibilidad de personalizar su perfil gamificado al establecer 
+  los objetos que quiere mostrar. Los objetos a disposición del usuario debieron haber sido desbloqueados
+  previamente al intercambiar sus monedas por estos. 
+  
+  \noindent Esto otorga un grado de importancia a los objetos dependiendo de la cantidad de monedas necesarias para desbloquearlos,
+  es por ello, que lo que determina la cantidad de monedas requeridas es la rareza del objeto.
 %\subsubsection{Narrativa}
 
 \subsection{Módulo Financiero}
 
-Este módulo brindará un mecanismo que permite a los usuarios obtener monedas al realizar diferentes acciones en el sistema, estas acciones dependen
-de los módulos que se encuentren instalados y activados en el mismo sistema que el módulo financiero. Es importante aclarar que es necesario que se
-encuentre instalado el módulo de personalización para que tenga relevancia este módulo.
+Este módulo brindará un mecanismo que otorga la posiblidad a los usuarios de 
+obtener monedas al realizar diferentes acciones en el sistema, las cuales son:
+
+\begin{itemize}
+  \item Derrotar al sistema en una competencia uno contra sistema.
+  \item Derrotar a otro usuario en una competencia uno contra uno (Incluyendo las monedas apostadas).
+  \item Contestar correctamente una pregunta diaria.
+\end{itemize}
+
+  \noindent El lugar donde se pueden utilizar las monedas adquiridas es en el módulo de personalización.
 
 \subsubsection{Esquema Financiero}
 
-Este esquema es la configuración sobre cómo funciona el módulo financiero, esto incluye la posibilidad elegir qué acciones otorgan monedas a los usuarios
-y la cantidad que reciben por la acción en concreto.
-
-\subsubsection{Tienda}
-
-La función de la tienda es permitir utilizar las monedas para desbloquear objetos de personalización y así poder seleccionarlos. Lo cual otorga un grado de importancia a los objetos dependiendo de la cantidad necesaria para desbloquearlos.
-
-%\subsubsection{Loot Boxes}
+Este esquema es la configuración del módulo financiero, lo cual incluye la posibilidad de habilitar o deshabilitar qué acciones anteriormente descritas
+ otorgan monedas a los usuarios y la cantidad de monedas que reciben por esa acción en concreto.
 
 \subsection{Módulo de Seguimiento}
 
-Este módulo permitirá a los usuarios tener un seguimiento de su progreso de mejora en el sistema. Lo cual otorga al usuario una manera de evaluar su rendimiento en el curso.
+Este módulo permitirá a los usuarios tener un seguimiento de su progreso en el sistema. 
+Lo cual otorga al usuario una manera de evaluar su rendimiento.
 
 \subsubsection{Preguntas diarias}
 
-Las preguntas diarias permiten al usuario contestar una pregunta elegida de manera aleatoria de un banco de preguntas seleccionado con anterioridad. Esto brinda la posibilidad de desafiar constantemente los conocimientos del usuario sobre el curso en el que se encuentra inscrito.
+Las preguntas diarias permiten al usuario contestar únicamente una pregunta por día,
+la cual es seleccionada de manera aleatoria de un banco de preguntas. 
+Esto brinda la posibilidad de desafiar diariamente los conocimientos del usuario sobre el curso.
 
 \subsubsection{Barras de progreso}
 
-Las barras de progreso brindarán al usuario una manera visual de comparar su progreso y conocer fácilmente la cantidad de acciones que tiene que seguir realizando para llegar a la meta propuesta en dicha barra de progreso. Tomando como ejemplo las preguntas diarias se le mostrará al usuario cuantas preguntas diarias ha contestado y cuantas le faltan por contestar para llegar a la meta.
+Las barras de progreso brindarán al usuario una manera visual de comparar su progreso y conocer
+ la cantidad de acciones que tiene que seguir realizando para llegar a la meta establecida en dicha barra de progreso.
+Tomando como ejemplo las preguntas diarias se le mostrará al usuario cuantas preguntas ha contestado 
+y cuantas le faltan por contestar para llegar a la meta.
 
 % =========================================
 %  N O T E S

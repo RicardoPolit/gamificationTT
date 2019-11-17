@@ -15,7 +15,7 @@ Autor/Ricardo Naranjo,%
 Version/0.1,%
 Estado/\ucstEnRevision]%
 %
-{CU-C07}{Ver estado de instancia de actividad (Competencia uno contra sistema)}{%
+{CU-C12}{Ver estado de instancia de actividad (Competencia uno contra sistema)}{%
 %
  Permite al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver el estado actual de una instancia de la actividad competencia uno contra sistema en el curso.
  Este caso de uso es una extensión del caso de uso {\it Ver curso} que es propio de moodle.}
@@ -41,7 +41,10 @@ Estado/\ucstEnRevision]%
         \Titem Mouse
 	}
 
-	\UCitem{Salidas}{\imprimeUC{salida}}
+	\UCitem{Salidas}{\imprimeUC{salida} \begin{itemize}
+    \item {\bf Icono de dificultad vencida}\IUCpuvencida
+    \item {\bf Icono de dificultad no vencida}\IUCpunovencida
+  \end{itemize} }
 
 	\UCitem{Destino}{%
 		\refElem{IU-C04}
@@ -49,14 +52,14 @@ Estado/\ucstEnRevision]%
 
 	\UCitems{Precondiciones}{%
         \Titem El plugin de competencia uno contra sistema debe estar instalado en moodle.
-        \Titem La instancia de la actividad de competencia uno contra uno debe estar creada.
+        \Titem La instancia de la actividad de competencia uno contra sistema debe estar creada.
         % Realizar el caso de uso "listar actividades disponibles?"
         % \Titem Si se trata de una actualización de un plugin la versión de este debe
                % cumplir con la regla \refElem{BR-M02}.
 	}
 
 	\UCitems{Postcondiciones}{%
-        \Titem La pantalla principal de la instancia de la actividad de competencia uno contra uno \refElem{IU-C02} debe mostrar los datos pertinentes al usuario que realizó el caso de uso.%
+        \Titem La pantalla principal de la instancia de la actividad de competencia uno contra sistema \refElem{IU-C04} debe mostrar los datos pertinentes al usuario que realizó el caso de uso.%
 
 	}
 
@@ -74,7 +77,7 @@ Estado/\ucstEnRevision]%
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-C01}
+        \Titem \refElem{CPC-C12}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -90,65 +93,39 @@ Estado/\ucstEnRevision]%
 
     \Actor Presiona el nombre de la instancia a la que quiere acceder en la pantalla \refElem{IU-M07}.
 
-    \Sistema Valida que las partidas en curso cumplan con la \regla{BR-C01} y las partidas que no la cumplen son terminadas.
+    \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-C04}.
 
-    \Sistema Valida que la bandera \refElem{comp-1v1-gmcompvs.apuestas-activas} esté activa. \refTray{A}.
+    \Sistema Muestra las dificultades del sistema vencido por medio del icono \IUCpuvencida.
 
-    \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-C02}.
+    \Sistema Muestra las dificultades del sistema que no han sido vencidas por medio del icono \IUCpunovencida.
 
-    \Sistema Muestra el \salida{número de victorias}.
-
-    \Sistema Muestra en el área {\bf Compañeros del curso} un bloque compañero por cada \refElem{aEstudiante} que esté inscrito en el curso y que cumpla con la \regla{BR-C02}, dicho bloque se compone de la \salida{imagen de perfil compañero}, \salida{nombre compañero}, campo {\bf Monedas a apostar} y el botón {\bf Desafiar}.
-
-    \Sistema Muestra en el área {\bf Desafíos pendientes} un bloque desafiante por cada \refElem{aEstudiante}, \refElem{aProfesor} o \refElem{aAdministrador} que haya desafiado al \refElem{aEstudiante} que está realizando el caso de uso, dicho bloque se compone de la \salida{imagen de perfil desafiante}, \salida{nombre desafiante}, campo {\bf Monedas a apostar} y el botón {\bf Aceptar desafío}.
+    \Sistema Muestra en la sección {\bf Desafiar computadora} las dificultades que se pueden desafiar \salida{comp-cpu-gmdl-dificultad-cpu}
 
 \end{UCtrayectoria}
 
-\begin{UCtrayectoriaA}[Fin del caso de uso]{A}{La bandera \refElem{comp-1v1-gmcompvs.apuestas-activas} está inactiva}
-
-  \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-C02a}.
-
-  \Sistema Muestra el número de victorias.
-
-  \Sistema Muestra en el área {\bf Compañeros del curso} un bloque por cada \refElem{aEstudiante} que esté inscrito en el curso y que cumpla con la \regla{BR-C02}, dicho bloque se compone de la imagen de perfil compañero, nombre compañero y el botón {\bf Desafiar}.
-
-  \Sistema Muestra en el área {\bf Desafíos pendientes} un bloque desafiante por cada \refElem{aEstudiante}, \refElem{aProfesor} o \refElem{aAdministrador} que haya desafiado al \refElem{aEstudiante} que está realizando el caso de uso, dicho bloque se compone de la imagen de perfil desafiante, nombre desafiante y el botón {\bf Aceptar desafío}.
-
-\end{UCtrayectoriaA}
-
-
 \subsubsection{Puntos de extensión}
 
-\UCExtensionPoint{Ver historial de las partidas}{%
+\UCExtensionPoint{Ver historial de sus partidas}{%
 
-    El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desea ver su historial de las partidas de competencia uno contra uno.
+    El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desea ver su historial de las partidas de competencia uno contra sistema.
 %
     }{Al final de la trayectoria principal del caso de uso.
 %
-    }{\refElem{CU-C08}}
+    }{\refElem{CU-C15}}
 
 
-\UCExtensionPoint{Ver tabla de posiciones}{%
+\UCExtensionPoint{Ver tabla de puntuaciones}{%
 
-    El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desea ver la tabla de posiciones de una instancia de competencia uno contra uno.
+    El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desea ver la tabla de puntuaciones de una instancia de competencia uno contra sistema.
 %
     }{Al final de la trayectoria principal del caso de uso.
 %
-    }{\refElem{CU-C09}}
+    }{\refElem{CU-C14}}
 
-  \UCExtensionPoint{Desafiar a un estudiante con apuestas}{%
+  \UCExtensionPoint{Desafiar al sistema}{%
 
-      El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desafiar a un estudiante y apostar una cantidad de monedas.
+      El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desea desafiar al sistema en alguna de sus dificultades.
   %
       }{Al final de la trayectoria principal del caso de uso.
   %
-      }{\refElem{CU-C10}}
-
-
-\UCExtensionPoint{Desafiar a un estudiante sin apuestas}{%
-
-    El \refElem{aAdministrador}, \refElem{aProfesor} o \refElem{aEstudiante} desafiar a un estudiante.
-%
-    }{Al final de la \refTray{A}.
-%
-    }{\refElem{CU-C11}}
+      }{\refElem{CU-C13}}

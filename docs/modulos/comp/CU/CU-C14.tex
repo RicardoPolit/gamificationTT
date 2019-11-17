@@ -1,0 +1,111 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+%\addfigure[(adaptado de {\it For The Win} \cite{ForTheWin})]%
+%    {.4}{investigacion/images/forthewin}{fig:ForTheWin}%
+%    {Jerarquía de elementos de juego segun For The Win}
+
+\begin{UseCase}[%
+Autor/Ricardo Naranjo,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-C14}{Ver tabla de puntuaciones (Competencia uno contra sistema)}{%
+%
+ Permite al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver la tabla de puntuaciones de una instancia de la actividad competencia uno contra sistema en el curso.
+ Este caso de uso es una extensión del caso de uso \refElem{CU-C12}.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aEstudiante},
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitir al \refElem{aEstudiante}, \refElem{aProfesor} y al \refElem{aAdministrador} ver la tabla de puntuaciones de una instancia de la actividad de competencia uno contra sistema.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-C15}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El plugin de competencia uno contra sistema debe estar instalado en moodle.
+        \Titem La instancia de la actividad de competencia uno contra sistema debe estar creada.
+        % Realizar el caso de uso "listar actividades disponibles?"
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem Se muestra la pantalla de tabla de puntuaciones de la instancia de la actividad de competencia uno contra sistema \refElem{IU-C15} de acuerdo a la dificultad seleccionada.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
+					  % extienden de Login.
+		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
+	% 	\TODO Especificar.
+	% }
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-C14}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Presiona el botón {\bf Puntuaciones} de la pantalla \refElem{IU-C04}.
+
+    \Sistema Redirige a la pantalla de la instancia \refElem{IU-C15}.
+
+    \Sistema Muestra un campo {\bf Seleccione una dificultad} que está por defecto en fácil. \refTray{A}
+
+    \Sistema Muestra el \salida{comp-cpu-gmdl-dificultad-cpu.nombre} seleccionada en el campo {\bf Seleccione una dificultad}
+    \label{CU-C14-muestra-informacion}
+
+    \Sistema Muestra una tabla que presenta una fila, que contiene \salida{Posición del usuario}, \salida{Imagen de perfil}, \salida{Nombre de usuario}, \salida{comp-cpu-gmdl-intento.puntuacion-usuario} , por cada primer intento de cada usuario en esta instancia de la competencia en la dificultad seleccionada.
+
+    \Sistema Muestra una tabla que presenta una fila, que contiene {\bf Posición del usuario}, {\bf Imagen de perfil}, {\bf Nombre de usuario}, \refElem{comp-cpu-gmdl-intento.puntuacion-usuario} , por cada mejor intento de cada usuario en esta instancia de la competencia en la dificultad seleccionada.
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}{A}{El actor desea seleccionar otra dificultad a ver}
+
+  \Actor Selecciona en el campo {\bf Seleccione una dificultad} la dificultad deseada.
+  \Sistema Regresa al paso \ref{CU-C14-muestra-informacion}
+
+\end{UCtrayectoriaA}

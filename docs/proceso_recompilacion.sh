@@ -8,4 +8,3 @@ mkdir output/modulos
 mkdir output/modulos/concentrado
 mkdir output/conclusiones
 ./compile.sh -f main \makeglossaries
-./compile.sh -f main

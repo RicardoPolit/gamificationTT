@@ -43,7 +43,7 @@
 %    @optional Titulo, el valor por defecto es "Requerimientos iniciales para el Sistemas"
 %
 %    @required \RFItem, indica un elemento en la tabla de requerimientos iniciales.
-%    @required   id,  iddentificador para el 
+%    @required   id,  iddentificador para el
 %    @required   Nombre, indica el nombre para el requerimiento funcional
 %    @required   Descripción, contiene información detallada acerca del requerimiento funcional
 %
@@ -67,7 +67,7 @@
 % Define los atributos de software ademas del objetivo, definición metricas, unidad de medida
 % procedimiento de medición y meta (valores de aceptaciÓn)
 %  NOTA:  Usabilidad, funcionalidad, entre otros forman parte de los atributos de software
-%  NOTA2: La medición debe contener una descripción del procedimiento y ambiente en necesarios para obtener evidencia objetiva sobre la propiedad que se 
+%  NOTA2: La medición debe contener una descripción del procedimiento y ambiente en necesarios para obtener evidencia objetiva sobre la propiedad que se
 %         pueda presentar en la Unidad de medida descrita. Esta descripción debe garantizar su reprodución: la repeticion del procedimiento, bajo las %         mismas condiciones descritas,  de los mismos artefactos de software,  deben producir los mismos resultados.
 %=====================================================================
 % Ejemplos:
@@ -83,12 +83,12 @@
 %    @required Id, Identificador del atributo de software
 %    @required Tipo, Puede tener el valor de "Propiedad", "Restricción" y "Negocio"
 %    @required Nombre del atributo de software
-% 
+%
 %    @required \item, indica un elemento que describe al atributo de software
 %                     se recomienda tener los siguientes:
 %    @required   Objetivo:Descripción,   Objetivo que explica el comportamiento esperado del sistema en relación a este atributo.}
 %    @required   Definición:Descripción, Describe la forma de interpretar al atributo de forma concreta.
-%    @required   Metrica:Descrición,     Descripción objetiva, reproducible y cuantificable de la medición de la propiedad 
+%    @required   Metrica:Descrición,     Descripción objetiva, reproducible y cuantificable de la medición de la propiedad
 %    @required   Unidad de Medida:Descripción, Descripción de la unidad utilizada para presentar el resultado de la medición.
 %    @required   Medición:Descripción, Descripción del procedimiento y ambiente necesarios para medir con base en la unidad de medida anterior
 %    @required   Meta:Descripción, Descrpición del rango de valores que determina si la propiedad de software de se cumple o no
@@ -105,7 +105,7 @@
 
 
 %==========================================================================================================================================
-% COMANDOS PARA LOS CASOS DE USO 
+% COMANDOS PARA LOS CASOS DE USO
 %==========================================================================================================================================
 
 %=====================================================
@@ -121,10 +121,10 @@
 %         \item[Cantidad:] Descripción
 %     \end{Actor}
 %  @params:
-%    @required Id, Identificador de la 
+%    @required Id, Identificador de la
 %    @required Tipo, Puede tener el valor de "Propiedad", "Restricción" y "Negocio"
 %    @required Nombre del atributo de software
-% 
+%
 %    @required \item, añade un atributo del actor, se recomienda incluir al menos los siguientes.
 %    @required   Area:Descripción,              Área(s) dentro de la organización a la(s) que pertenece el actor
 %    @required   Responsabilidades:Descripción, Lista de responsabilidades que desempeña el actor dentro de la organización.
@@ -364,7 +364,7 @@
 % Ejemplos:
 %     \begin{UCtrayectoria}
 %         \UCpaso[\UCActor] Descripción
-%         \UCpaso[\UCsist] Descripción 
+%         \UCpaso[\UCsist] Descripción
 %         \UCpaso Descripcion
 %         ...
 %     \end{UCtrayectoria}
@@ -495,7 +495,7 @@
 %Insertar una interfaz desde un documento externo (PDF).
 %=====================================================
 \newcommand{\IUpdf}[5]{
-% Ejemplos: 
+% Ejemplos:
 %     \IUpdf{Ruta}{Página}{Id}{Nombre}{Tamaño}
 % @params:
 %     @required Ruta, drección al archivo PDF que contiene a la interfaz.
@@ -505,7 +505,7 @@
 %     @required Tamaño, indica el ancho que va a ocupar la interfaz, (por ejemplo 0.4 que equilave a 40% de la pantalla)
     \cdtAddElement{#3}{Interfaz de usuario}{#4}{NA}{NA}{NA}
     \hypertarget{#3}{
-    \includepdf[pages={#2},link=true,width=#5\textwidth,pagecommand={},pagecommand=\section{{#3}~{}{#4}}]{#1}}    
+    \includepdf[pages={#2},link=true,width=#5\textwidth,pagecommand={},pagecommand=\section{{#3}~{}{#4}}]{#1}}
 }
 
 %=====================================================
@@ -535,7 +535,7 @@
 %        \end{Citemize}
 %        \item[Ejemplo:] ArgEjemplo
 %    \end{mensaje}
-%  @params: 
+%  @params:
 %    @required Id, identificador del mensaje debe se de la forma MSG# (# es un numero consecutivo)
 %    @required Nombre del mensaje
 %    @required Tipo, puede tener los valores Operación Realizada/Notificación/Alerta/Error
@@ -558,7 +558,7 @@
 }
 
 %==========================================================================================================================================
-% COMENTARIOS COMENTADOS O 
+% COMENTARIOS COMENTADOS O
 %==========================================================================================================================================
 
 %=====================================================================
