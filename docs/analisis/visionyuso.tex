@@ -2,5 +2,70 @@
 \section{Proceso completo de implementación}
 \label{analisis:visionyuso}
 
- Una de las principales 
- Esta sección consiste en describir la forma en que se 
+ Esta sección presenta la secuencia lógica en la que, partiendo de una instalación
+ de Moodle con la versión 3.5, se pueden agregar y utilizar los distintos módulos
+ que se desarrollarán a lo largo de este trabajo terminal. A continuación se
+ describen los pasos:
+
+% Definición de Macro ---------------------------------
+\newcommand{\Recomendacion}[2][Recomendación:]{%
+    %\begin{description}\item[#1] #2\end{description}
+}
+% ------------------------------------------------------
+
+ \begin{enumerate}
+  % \item El \refElem{aAdministrador} realiza las configuraciones extras como
+        % método de autenticación, correos de entrada y salida, restricciones de
+        % seguridad y demás configuraciones que requiera del sitio que administra.
+        % Este paso puede ser omitido si es que la institución ya posee una
+        % plataforma Moodle con la versión 3.5.
+
+        % \Recomendacion{%
+        %     Si se tiene acceso a un servidor de correo SMTP entonces se
+        %     recomienda habilitar el método automático de autenticación y
+        %     configurar el correo de salida, para permitir automatizar el
+        %     registro de los alumnos. % (ver anexo \ref{anexo:install:smtp}).
+        % }
+
+  % \item Se lleva a cabo el registro de los \refElem[profesores]{aProfesor} y
+        % \refElem[alumnos]{aEstudiante} que utilizarán la plataforma. Posteriormente
+        % el administrador otorga los permisos de {\it creador de curso} a los
+        % profesores dados de alta en la plataforma. Este paso puede ser omitido
+        % si es que la institución ya tiene definido un mecanismo para la creación
+        % y administración de cursos.
+        % (ver avexo \ref{anexo:install:permissions})
+
+  \item El \refElem{aAdministrador} procede a instalar los distintos plugins
+        correspondientes a los módulos identificados (experiencia, recompensa,
+        financiero, seguimiento, personalización y competencias).
+
+  \item El \refElem{aAdministrador} realiza las configuraciones de los plugins
+        de gamificación que haya instalado con base en las peticiones que requiera
+        la institución o que demanden los profesores. Dependiendo de los plugins
+        que se hayan instalado las configuraciones serán distintas.
+
+  \item Los \refElem[profesores]{aProfesor} crean los cursos correspondientes a
+        los grupos y materias que imparten, y de cada curso el \refElem[administrador]%
+        {aAdministrador} asigna a un profesor titular. Si la institución tiene
+        otro mecanismo para la creación y administración del curso este paso se
+        puede omitir.
+
+  \item El \refElem{aProfesor} crea el contenido del curso y establecer las
+        actividades pertenecientes a cada sección del curso. tambien procede
+        a realizar las configuraciones de aquellos elementos de gamificación
+        que haya decidido agrega a su curso.
+
+  \item Los \refElem[estudiantes]{aEstudiante} se inscriben a los cursos y
+        comienzan a realizar las actividades especificadas por los profesores,
+        si los módulos de experiencia y módulo financiero se encuentran instalados
+        y habilitados entonces el \refElem[estudiante]{aEstudiante} conforme vaya
+        completando actividades y secciones de los cursos comenzará a acumular puntos
+        de experiencia y monedas las cuales puede canjear por otros objetos.
+
+ \end{enumerate}
+
+ \noindent 
+ Adicionalmente los \refElem[estudiantes]{aEstudiante} pueden configurar ciertos
+ tipos de plugins para que estos se muestren u oculten. Así mismo también se otorga
+ la flexibilidad para que a los cursos que hayan sido creados anteriormente puedan
+ ser editados para que se les agreguen elementos de gamificación.
