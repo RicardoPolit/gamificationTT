@@ -121,7 +121,8 @@
     \CrearVariablesInternas{#1}%
     \cdtAddElement{#2}{#3}{\Autor}{\Version}{\Estado}%
     \hypertarget{#2}{}%
-    \subsubsection{#2 #3}
+    \item {\color{primary}{\bf #2} {#3}} %
+          {\it(Caso \IfBeginWith{#2}{CPC}{correcto}{incorrecto})}
 }%
 }
 
