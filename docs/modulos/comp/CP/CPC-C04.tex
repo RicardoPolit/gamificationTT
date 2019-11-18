@@ -1,2 +1,98 @@
 
 \TestCase{CPC-C04}{Crear nueva instancia de la actividad de competencia uno contra sistema}
+\begin{quote} %Contendrá la descripción del guión
+	\textbf{ID:} C04.\\
+    \textbf{Autor: } Ricardo Naranjo Polit\\
+	\textbf{Alcance:}  \refElem{CU-C04}.\\
+    \textbf{Preparación:}\\
+    	%Contendrá todos los distintos datos que deberán estar preparados
+      -Que se encuentre instalado el plugin {\bf gamedlemaster}.\\
+      -Que se encuentre instalado el plugin {\bf gmcompcpu}.\\
+      -Que esté creado un curso.
+      \begin{quote}
+      -Que exista al menos un banco de preguntas.\\
+      \textbf{Banco de preguntas 1}:
+        	\begin{itemize} %Contendrá todos los atributos de dicho ejemplo
+                \item \textbf{Nombre:} nueva.
+                \item \textbf{Pregunta 1:}
+                \begin{itemize}
+                  \item \textbf{Tipo:} Opción múltiple
+                  \item \textbf{Nombre:} ''Esta prueba es para ver si agrega solo la pregunta correcta''
+                  \item \textbf{Texto de la pregunta:} ''Correctamente''
+                  \item \textbf{Respuestas:}
+                  \begin{itemize}
+                    \item \textbf{si}, porcentaje: 100
+                    \item \textbf{no}, porcentaje: 0
+                    \item \textbf{definitivamente si}, porcentaje: 70
+                  \end{itemize}
+                \end{itemize}
+
+                \item \textbf{Pregunta 2:}
+                \begin{itemize}
+                  \item \textbf{Tipo:} Opción múltiple
+                  \item \textbf{Nombre:} ''nuevaPRegunta''
+                  \item \textbf{Texto de la pregunta:} ''Esto funciona?''
+                  \item \textbf{Respuestas:}
+                  \begin{itemize}
+                    \item \textbf{si}, porcentaje: 100
+                    \item \textbf{no}, porcentaje: 0
+                    \item \textbf{tal vez}, porcentaje: 60
+                  \end{itemize}
+                \end{itemize}
+
+                \item \textbf{Pregunta 3:}
+                \begin{itemize}
+                  \item \textbf{Tipo:} Numérica
+                  \item \textbf{Nombre:} ''Años''
+                  \item \textbf{Texto de la pregunta:} ''¿Cuantos años tengo?''
+                  \item \textbf{Respuestas:}
+                  \begin{itemize}
+                    \item \textbf{23}, porcentaje: 100
+                    \item \textbf{22}, porcentaje: 60
+                    \item \textbf{21}, porcentaje: 0
+                  \end{itemize}
+                \end{itemize}
+
+                \item \textbf{Pregunta 4:}
+                \begin{itemize}
+                  \item \textbf{Tipo:} Respuesta corta
+                  \item \textbf{Nombre:} ''PrimerShortAnswer''
+                  \item \textbf{Texto de la pregunta:} ''¿Cómo me llamo?''
+                  \item \textbf{Respuestas:}
+                  \begin{itemize}
+                    \item \textbf{Ricardo}, porcentaje: 100
+                    \item \textbf{David}, porcentaje: 0
+                    \item \textbf{Daniel}, porcentaje: 0
+                  \end{itemize}
+                \end{itemize}
+
+                \item \textbf{Pregunta 5:}
+                \begin{itemize}
+                  \item \textbf{Tipo:} Falso/Verdadero
+                  \item \textbf{Nombre:} ''Horario''
+                  \item \textbf{Texto de la pregunta:} ''Son las dos de la mañana''
+                  \item \textbf{Respuesta correcta:} Verdadero
+                \end{itemize}
+
+            \end{itemize}
+    \end{quote}
+
+
+\end{quote}
+
+    \textbf{Entradas:}\\
+    \begin{enumerate}
+        \item \textbf{Nombre de actividad:} ''Nueva competencia uno contra sistema''
+        \item \textbf{Categoría de preguntas:} ''nueva''
+        \item \textbf{Seguimiento de finalización:} ''Mostrar la actividad como completada cuando se cumplan las condiciones''
+        \item \textbf{Requerir ver:} Desactivado
+        \item \textbf{Dificultad requerida:} Activado
+        \item \textbf{El estudiante debe de vencer al menos a la dificultad:} ''Difícil''
+    \end{enumerate}
+    \textbf{Pasos:}\\
+
+    Trayectoria principal de \refElem{CU-C04}\\
+
+    \textbf{Salida:}\\
+
+     En la pantalla \refElem{IU-M08} la nueva instancia de la competencia uno contra sistema llamada ''Nueva competencia uno contra sistema''.

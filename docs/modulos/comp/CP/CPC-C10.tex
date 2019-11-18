@@ -1,2 +1,51 @@
 
 \TestCase{CPC-C10}{Desafiar a un estudiante apostando}
+
+\begin{quote} %Contendrá la descripción del guión
+	\textbf{ID:} C10.\\
+    \textbf{Autor: } Ricardo Naranjo Polit\\
+	\textbf{Alcance:}  \refElem{CU-C10}.\\
+    \textbf{Preparación:}\\
+    	%Contendrá todos los distintos datos que deberán estar preparados
+      -Que se haya realizado el caso de prueba \refElem{CPC-C01}\\
+
+      \begin{quote}
+      -Que haya usuarios inscritos en el curso.\\
+      \textbf{Usuario 1}:
+        	\begin{itemize} %Contendrá todos los atributos de dicho ejemplo
+                \item \textbf{Nombre\_de\_usuario:} ''usuario1''.
+                \item \textbf{Nombre:} ''Usuario uno''
+                \item \textbf{Apellidos:} ''Apellido usuario uno''
+                \item \textbf{Dirección Email:} ''usuario1@test.com''
+
+            \end{itemize}
+      \textbf{Usuario 2}:
+        	\begin{itemize} %Contendrá todos los atributos de dicho ejemplo
+                \item \textbf{Nombre\_de\_usuario:} ''usuario2''.
+                \item \textbf{Nombre:} ''Usuario dos''
+                \item \textbf{Apellidos:} ''Apellido usuario dos''
+                \item \textbf{Dirección Email:} ''usuario2@test.com''
+
+            \end{itemize}
+    \end{quote}
+
+
+\end{quote}
+
+    \textbf{Entradas:}\\
+    \begin{enumerate}
+        \item \textbf{Nombre de actividad:} ''Nueva competencia uno contra uno''
+        \item \textbf{Categoría de preguntas:} ''nueva''
+        \item \textbf{Apuestas:} ''Activada''
+        \item \textbf{Seguimiento de finalización:} ''Mostrar la actividad como completada cuando se cumplan las condiciones''
+        \item \textbf{Requerir ver:} Desactivado
+        \item \textbf{Competencias ganadas requeridas:} Activado
+        \item \textbf{Los estudiantes deben de haber ganado un mínimo de competencias de:} 1
+    \end{enumerate}
+    \textbf{Pasos:}\\
+
+    Trayectoria principal de \refElem{CU-C10}\\
+
+    \textbf{Salida:}\\
+
+     En la pantalla \refElem{IU-M08} la nueva instancia de la competencia uno contra uno llamada ''Nueva competencia uno contra uno''.
