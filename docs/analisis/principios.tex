@@ -1,32 +1,88 @@
 
-%\section{Soporte para los principios de gamificación}
-
-% Los módulos descritos anteriormente contemplan todas las funcionalidades que se desarrollarán
-% durante el desarrollo de este trabajo terminal, en conjunto todos los módulos planteados contienen
-% 19 submódulos. Los módulos y submódulos se presentan organizados en la figura \ref{fig:modulos}.\\
-
-% \noindent 
- % TAMBIEN SE DESEA QUE SEAN VARIAS OPCIONES PARA QUE LOS PROFES TENGAN UN ABANICO
- % AMPLIO DE OPCIONES
-
 \section{Relación entre los módulos, principios y tipos de usuario}
 \label{analisis:principios}
-    
-    La figura \ref{fig:modulosP} muestra la relación que cada submódulo tiene con los principios de gamificación.
-    
-    \addfigure{0.89}{analisis/diagrams/modulosTTyP}{fig:modulosP}{Relación entre los principios de Gamificación y los submódulos identificados}
 
-    Es importante recalcar que en este momento las divisiones de los usuarios son mapeados 
-    en los principios del marco de trabajo Octalysis de la siguiente manera en el cuadro
-    \ref{table:usuariosvprincipios} según el autor de Octalysis\cite[p. 414]{Octalysis}.
-    
-    \begin{table}[h!]
-    \centering
-    \begin{tabular}{|c|c|} \hline
-        Triunfadores & Principio II, Principio VI \\ \hline
-        Socializadores &  Principio V, Principio III, Principio VII\\\hline
-        Asesinos & Principio II, Principio V, Principio VIII, Principio IV \\\hline
-    \end{tabular}
-    \caption{Tabla de mapeo de tipos de usuario y principios de Octalysis}
-    \label{table:usuariosvprincipios}
-    \end{table}
+ Los módulos descritos en la sección \hyperrefx{analisis:modulos} fueron pensados para 
+ brindar soporte a distintos principios de gamificación. Los módulos están compuestos
+ por submódulos los cuales están vinculados directamente a los principios de
+ gamificación a los que brindan soporte (ver figura \ref{fig:modulosP}).
+
+    \addfigure{0.85}{analisis/diagrams/modulosTTyP}{fig:modulosP}%
+    {Relación entre los principios de Gamificación y los submódulos identificados}
+
+ \clearpage
+ \noindent 
+ En la tabla \ref{tbl:principiosxmodulos} se muestran los principios de gamificación
+ a los que cada módulo brinda soporte. Como se puede observar se puede brindar
+ soporte a la mayoría de los principios de gamificación desde distintos módulos,
+ exceptuando los principios de {\it diferenciación y pertenencia} y
+ {\it Personalización}.
+
+    \addtable{|l|c|c|c|c|c|c|}{tbl:principiosxmodulos}{
+        {\bf Principios de gamificación} &
+        \rotatebox[origin=c]{45}{\bf Experiencia} &
+        \rotatebox[origin=c]{45}{\bf Competencia} &
+        \rotatebox[origin=c]{45}{\bf Personalización} &
+        \rotatebox[origin=c]{45}{\bf Financiero} &
+        \rotatebox[origin=c]{45}{\bf Seguimiento} &
+        \rotatebox[origin=c]{45}{\bf Recompensa} \\\hline
+
+        Diferenciación y pertenencia  &   &   & x &   &   &   \\\hline 
+        Desarrollo y competencia      & x &   &   &   & x & x \\\hline 
+        Personalización               &   &   & x &   &   &   \\\hline 
+        Motivo e impulso social       &   & x &   &   &   & x \\\hline 
+        Codicia                       & x & x &   & x &   & x \\\hline 
+        Impredecibilidad y curiosidad &   & x &   & x & x &   \\\hline 
+        Miedo a la perdida            &   & x & x &   &   & x \\\hline 
+
+    }{Relación entre los principios de gamificación y los módulos identificados}
+
+ \noindent
+ De acuerdo con {\it Octalysis} \cite[p. 414]{Octalysis} los principios de
+ gamificación están relacionados con distintos tipos de usuarios dentro de la
+ clasificación propuesta por {\it Richard Bartle}, de tal forma que:
+
+    \begin{quote}
+    \begin{itemize}
+        \item Los {\bf triunfadores} son motivados en su mayoría por
+              los principios de desarrollo y recompensa, codicia,
+              personalización y descubrimiento y retroalimentación.
+
+        \item Los {\bf exploradores} son motivados principalmente por
+              el principio de impredecibilidad y curiosidad, así como
+              por el desarrollo y recompensa, el descubrimiento y
+              retroalimentación, y la codicia.
+
+        \item Los {\bf socializadores} son motivados por los principios
+              de motivo e impulso social, descubrimiento y retroalimentación,
+              impredecibilidad y curiosidad, y personalización.
+
+        \item Los {\bf asesinos} son motivados principalmente por una mezcla
+              del principio de desarrollo y recompensa y el de motivo e impulso
+              social, también son motivados en menor medida por el descubrimiento
+              y retroalimentación, el miedo a la perdida y la personalización.
+    \end{itemize}
+    \end{quote}
+
+ \noindent 
+ Como existe una relación entre los principios de gamificación y los tipos de usuarios
+ propuestos por {\it Richard Bartle} y de la misma forma existe una relación entre
+ los módulos identificados y los principios de {\it Octalysis}, es posible relacionar
+ cada uno de los módulos identificados con los distintos tipos de usuario, dichas 
+ relaciones se encuentran en la tabla \ref{tbl:usuariosxmodulos}
+
+    \addtable{|l|c|c|c|c|c|c|}{tbl:usuariosxmodulos}{
+        {\bf Tipos de usuarios} &
+        \rotatebox[origin=c]{40}{\bf Experiencia} &
+        \rotatebox[origin=c]{40}{\bf Competencia} &
+        \rotatebox[origin=c]{40}{\bf Personalización} &
+        \rotatebox[origin=c]{40}{\bf Financiero} &
+        \rotatebox[origin=c]{40}{\bf Seguimiento} &
+        \rotatebox[origin=c]{40}{\bf Recompensa} \\\hline
+
+        Triunfadores   & x & x &   &   & x & x \\\hline 
+        Exploradores   & x & x &   & x & x & x \\\hline 
+        Socializadores & x & x & x &   & x & x \\\hline 
+        Asesinos       & x & x & x &   & x & x \\\hline 
+
+    }{Relación entre los principios de gamificación y los tipos de usuarios}
