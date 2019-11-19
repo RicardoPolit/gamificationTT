@@ -30,8 +30,8 @@ class block_gmcz_dao {
         global $DB;
 
         $avatar = new stdClass();
-        /*$avatar->mdl_user = $userid;
-        $avatar->hair = $avatarname;
+        $avatar->mdl_user = $userid;
+        /*$avatar->hair = $avatarname;
         $avatar->head = $avatarname;
         $avatar->rightarm = $avatarname;
         $avatar->leftarm = $avatarname;
