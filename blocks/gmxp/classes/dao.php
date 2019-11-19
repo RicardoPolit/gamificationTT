@@ -11,6 +11,8 @@
 
 class block_gmxp_dao {
 
+    const PLUGIN = 'block_gmxp';
+    const TBL_GAMIFIED_USER = 'gmdl_usuario';
     const TBL_COURSE_MODULES = 'course_modules';
     const TBL_COURSE_MODULES_ID = 'id';
     const TBL_COURSE_MODULES_COURSE = 'course';
@@ -18,6 +20,40 @@ class block_gmxp_dao {
 
     const TBL_MODULES_COMPLETION = 'course_modules_completion';
     const TBL_MODULES_COMPLETION_ID = 'id';
+
+    static function get_level_xp($level) {
+        $increment = get_config(self::PLUGIN, block_gmxp_core::INCREMENT);
+        $value = get_config(self::PLUGIN, block_gmxp_core::VALUE);
+        $initial = get_config(self::PLUGIN, block_gmxp_core::LEVELXP);
+
+        if ($increment === block_gmxp_core::LINEAL) {
+            $xp = $initial + ( $value * ($level - 1) );
+
+        } else { // PORCENTUAL
+            $xp = $initial * pow( $value, $level - 1 );
+        }
+
+        return round($xp);
+    }
+
+    static function level_up($user) {
+
+        global $DB;
+        $levelxp = self::get_level_xp($user->nivel_actual);
+
+        if ($user->experiencia_nivel >= $levelxp) {
+            $user->nivel_actual++;
+            $user->experiencia_nivel -= $levelxp;
+            return self::level_up($user);
+
+        } else {
+            local_gamedlemaster_log::info(
+                "User {$user->mdl_id_usuario} reached level {$user->nivel_actual}",
+                'UPDATE');
+
+            return $DB->update_record(self::TBL_GAMIFIED_USER, $user);
+        }
+    }
 
     public function is_section_completed($section) {
     }
