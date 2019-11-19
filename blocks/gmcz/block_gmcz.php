@@ -35,27 +35,14 @@ class block_gmcz extends block_base {
             array('id'=>'canvasDiv')
         );
         $this->content->footer = "";
-        $avatar = self::get_avatar('knight');
 
-	    $PAGE->requires->js_call_amd('block_gmcz/sprite', 'init',array($avatar));
+        global $USER;
+        $avatar = block_gmcz_dao::get_avatar($USER->id);
+
+	    $PAGE->requires->js_call_amd('block_gmcz/sprite', 'init', array($avatar));
 	    return $this->content;
 	}
 
     function has_config() { return true; }
     function hide_header() { return false; }
-
-    static function get_avatar($avatar) {
-
-        global $CFG;
-        $path = "{$CFG->wwwroot}/blocks/gmcz/pix/{$avatar}";
-
-        return array(
-            array('name' => 'hair', 'src' => "$path/hair.png"),
-            array('name' => 'head', 'src' => "$path/head.png"),
-            array('name' => 'torso', 'src' => "$path/torso.png"),
-            array('name' => 'rightArm', 'src' => "$path/rightArm.png"),
-            array('name' => 'leftArm', 'src' => "$path/leftArm.png"),
-            array('name' => 'legs', 'src' => "$path/legs.png"),
-        );
-    }
 }

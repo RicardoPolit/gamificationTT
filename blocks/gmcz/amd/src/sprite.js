@@ -67,12 +67,12 @@ define(['jquery'], function($) {
 
       drawEllipse(x + 40, y + 29, 160 - breathAmt, 6); // Shadow
 
-      context.drawImage(images["leftArm"], x + 40, y - 42 - breathAmt);
+      context.drawImage(images["leftarm"], x + 40, y - 42 - breathAmt);
       context.drawImage(images["legs"], x, y);
       context.drawImage(images["torso"], x, y - 50);
       context.drawImage(images["head"], x - 10, y - 125 - breathAmt);
       context.drawImage(images["hair"], x - 37, y - 138 - breathAmt);
-      context.drawImage(images["rightArm"], x - 15, y - 42 - breathAmt);
+      context.drawImage(images["rightarm"], x - 15, y - 42 - breathAmt);
         
       drawEllipse(x + 47, y - 68 - breathAmt, 8, curEyeHeight); // Left Eye
       drawEllipse(x + 58, y - 68 - breathAmt, 8, curEyeHeight); // Right Eye
