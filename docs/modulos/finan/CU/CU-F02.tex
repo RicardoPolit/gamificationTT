@@ -1,0 +1,81 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-F02}{Instalar esquema financiero }{%
+%
+    El \refElem{aAdministrador} instala el complemento como lo especifica moodle y al instalarlo moodle le permite
+    configurar las opciones una vez instalado.
+    Este caso de uso es una extensión del caso de uso {\it Instalar complemento.}}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 17/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem El actor desea utilizar las funciones que brinda el módulo financiero .
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{
+        \imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-F01}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El complemento del módulo financiero no debe de estar instalado.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem El módulo financiero ahora estará funcionando en la plataforma del actor.
+        \Titem Se guardará la configuración del actor.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Modifica si desea que el módulo financiero esté activado o no en la plataforma, usando pantalla \refElem{IU-F02}.
+    \Actor Presiona el botón \textbf{Guardar cambios}.
+    \label{CU-F01-guardar-cambios}
+    \Sistema Redirige a la pantalla \refElem{IU-F01}.
+
+\end{UCtrayectoria}

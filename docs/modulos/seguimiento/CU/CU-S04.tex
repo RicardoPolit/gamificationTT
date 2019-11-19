@@ -1,0 +1,93 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-S04}{Eliminar instancia (Preguntas diarias)}{%
+%
+ Permite al actor eliminar una instancia de la actividad de preguntas diarias en el curso.
+ Este caso de uso es una extensión del caso de uso {\it Ver curso} que es propio de moodle.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitir quitar la actividad de su curso.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-M08}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El complemento de preguntas diarias debe estar instalado en moodle.
+        \Titem La instancia de la actividad de preguntas diarias debe estar creada.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem La instancia de la actividad eliminada no debe mostrarse en la pantalla \refElem{IU-M08}.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Activa la edición del curso en la pantalla \refElem{IU-M08}.
+    \Sistema Redirige a la pantalla de edición del curso \refElem{IU-M08aa}.
+    \Actor Presiona el botón {\bf Editar} de la instancia que desea eliminar.
+    \Sistema Despliega el menú \refElem{IU-M08b}.
+    \Actor Presiona el botón {\bf Eliminar} del menú desplegable \refElem{IU-M08b}.
+    \Sistema Despliega mensaje de confirmación de eliminación. \refElem{IU-M08c}
+    \Actor Presiona el botón {\bf Sí}. \refTray{A}
+    \Sistema  Elimina la instancia y los valores de la instancia \refElem{seg-gmpregdiarias}, y los valores que dependen de ella \refElem{seg-gmdl-intento-diario}.
+    \Sistema Redirige a la pantalla \refElem{IU-M08}
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{A}{El \refElem{aProfesor} o \refElem{aAdministrador} desea cancelar la eliminación después de mostrar el mensaje de confirmación}
+
+  \Actor Presiona el botón {\bf No} en la mensaje de confirmación \refElem{IU-M08c}.
+  \Sistema Redirige a la pantalla \refElem{IU-M08}.
+
+\end{UCtrayectoriaA}

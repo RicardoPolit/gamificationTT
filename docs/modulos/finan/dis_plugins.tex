@@ -1,0 +1,37 @@
+
+
+\subsubsection{Diseño de complementos}
+
+
+
+A continuación se presenta cómo el módulo financiero
+se implmenetan en moodle.\\
+
+
+\noindent Resumiendo el módulo financiero, se  tiene una pantalla donde se pueden comprar
+objetos, la cual es la misma donde se edita el perfil gamificado.
+Esta pantalla tiene diferente comporamiento dependiendo que complemento está activo.
+
+
+\noindent Tomando en consideración lo anterior y que existe el complemento gamedlemaster, se presenta en la figura \ref{fig:diseno-comp-finan}
+los complementos contemplados y las dependencias entre los mismos.
+
+
+    \addfigure{1}{modulos/finan/diagrams/diseno_complementos}{fig:diseno-comp-finan}{Implementación del modulo de competencia}
+
+
+Cada complemento en la figura \ref{fig:diseno-comp-finan} está representado con una cadena que sigue el formato 'tipo\_de\_complemento:nombre\_de\_complemento'.
+Los tipos de complemento son;
+\begin{itemize}
+    \item \textbf{local} -  Este complemento moodle lo iterpreta como un comdín, el cual puede ser usado para múltiples propósitos.
+    \item \textbf{block} - Este complemento permite desplegar una sección en la mayoría de las páginas de moodle, la cuál puede representar código html.
+\end{itemize}
+
+La función de cada uno de los complementos presentados en la figura \ref{fig:diseno-comp-finan} son:
+
+
+\begin{itemize}
+    \item \textbf{gamedlemaster} Definir la base de datos y los eventos a manejar.
+    \item \textbf{gmtienda} Permitirle al usuario comprar objetos para su perfil gamificado.
+\end{itemize} 
+

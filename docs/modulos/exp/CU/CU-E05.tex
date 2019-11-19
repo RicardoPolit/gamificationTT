@@ -57,7 +57,7 @@ Estado/\ucstEnEdicion]%
 	\UCitems{Errores}{%
         \Titem \UCerr{Err1}{%
         % CAUSA
-            Los plugins corespondientes al módulo de experiencia no se encuentran
+            Los plugins correspondientes al módulo de experiencia no se encuentran
             instalados,}{%
         % EFECTO
             no aparece la opción para cambiar el formato del curso al formato gamificado}
@@ -87,7 +87,7 @@ Estado/\ucstEnEdicion]%
 	\UCitem[admin]{Observaciones}{%
         Hay distintas formas de llegar a la pantalla para editar las configuraciones de
         un curso, sin embargo este caso de uso solo contempla el acceso mediante la gestión
-        de usuarios y categorias.
+        de usuarios y categorías.
 	}
 
 \end{UseCase}
@@ -127,14 +127,14 @@ Estado/\ucstEnEdicion]%
   \Sistema Obtiene los datos ingresados por el usuario.
   \Sistema Crea un \salida{xp-course} con los valores de  \salida{xp-course.hiddensections}
            y \salida{xp-course.coursedisplay} ingresados por el usuario.
-  \Sistema Actualiza los demas datos del \refElem{mdl-course}.
+  \Sistema Actualiza los demás datos del \refElem{mdl-course}.
   \Sistema Por cada una de las \entrada[secciones]{xp-course.sections} del curso crea las
            \salida[secciones gamificadas]{xp-course-section} correspondientes.
-  \Sistema Establece la \salida{xp-course-section.xp} de cada seccion del curso con base
+  \Sistema Establece la \salida{xp-course-section.xp} de cada sección del curso con base
            en la regla de negocio \regla{BR-E08}.
   \Sistema Brinda las \salida[recompensas]{xp-section-reward} de las secciones del curso
            gamificadas a los estudiantes que las hayan completado. \label{CU-E05-finish}
-  \Sistema Muestra la pantalla con \refElem{IU-E06a} con los datos del curso recien
+  \Sistema Muestra la pantalla con \refElem{IU-E06a} con los datos del curso recién
            creado.
 
 \end{UCtrayectoria}
@@ -149,7 +149,7 @@ El módulo de experiencia se encuentra deshabilitado
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}{B}{%
-Alguno de los campos introducidos por el usuario es erroneo.
+Alguno de los campos introducidos por el usuario es erróneo.
 }
 
   \Sistema Muestra los mensajes de error correspondientes en los campos que

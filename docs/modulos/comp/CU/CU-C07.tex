@@ -92,8 +92,10 @@ Estado/\ucstEnRevision]%
 
     \Sistema Valida que las partidas en curso cumplan con la \regla{BR-C01} y las partidas que no la cumplen son terminadas.
 
-    \Sistema Valida que la bandera \refElem{comp-1v1-gmcompvs.apuestas-activas} esté activa. \refTray{A}.
+    \Sistema Verifica que el actor esté dado de alto como usuario gamificado. \refTray{B}.
 
+    \Sistema Valida que la bandera \refElem{comp-1v1-gmcompvs.apuestas-activas} esté activa. \refTray{A}.
+    \label{CU-C07-mostrar informacion}
     \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-C02}.
 
     \Sistema Muestra el \salida{número de victorias}.
@@ -116,6 +118,14 @@ Estado/\ucstEnRevision]%
 
 \end{UCtrayectoriaA}
 
+
+\begin{UCtrayectoriaA}{B}{El actor no está dado de alta como usuario gamificado (\refElem{xp-user})}
+
+  \Sistema Registra al actor en la entidad (\refElem{xp-user}).
+    \item Se regresa al paso \ref{CU-C07-mostrar informacion} de la trayectoria principal.
+
+
+\end{UCtrayectoriaA}
 
 \subsubsection{Puntos de extensión}
 

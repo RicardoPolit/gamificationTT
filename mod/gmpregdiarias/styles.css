@@ -47,7 +47,9 @@
     align-items: center;
 
 }
-
+.gmpregdiarias-titulo-ganador{
+    margin: 10%;
+}
 #gmpregdiarias-activity-container{
     width: 100%;
     border: 4px solid black;
@@ -57,6 +59,7 @@
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    place-content: center;
 }
 
 .gmpregdiarias-section-contianer-menu-opcion{

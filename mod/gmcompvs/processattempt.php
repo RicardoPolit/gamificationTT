@@ -115,33 +115,35 @@ if(is_null($participacion->fecha_fin)){
 
         $monedasadar = 0;
 
-        if( $apuestacontrincanteexiste && $apuestausuarioexiste ){
+        if( $apuestacontrincanteexiste || $apuestausuarioexiste ){
+            if( $apuestacontrincanteexiste && $apuestausuarioexiste ){
 
-            $monedasadar = $apuestacontrincante->monedas_plata + $apuestausuario->monedas_plata;
-
-        }else{
-
-            if( $apuestacontrincanteexiste ){
-
-                $useridmonedas = $contrincante->idusuario;
-                $monedasdevolver = $apuestacontrincante->monedas_plata;
+                $monedasadar = $apuestacontrincante->monedas_plata + $apuestausuario->monedas_plata;
 
             }else{
 
-                $useridmonedas = $gmuserid;
-                $monedasdevolver = $apuestausuario->monedas_plata;
+                if( $apuestacontrincanteexiste ){
+
+                    $useridmonedas = $contrincante->idusuario;
+                    $monedasdevolver = $apuestacontrincante->monedas_plata;
+
+                }else{
+
+                    $useridmonedas = $gmuserid;
+                    $monedasdevolver = $apuestausuario->monedas_plata;
+
+                }
+
+                $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
+                    'objectid' => $gmcompvs->id,
+                    'context' => $context,
+                    'other' => array('userid' => $useridmonedas, 'monedas' => $monedasdevolver, 'rason' => 'bandera apagada'),
+                ));
+
+                $event->add_record_snapshot('gmcompvs', $gmcompvs);
+                $event->trigger();
 
             }
-
-            $event = \local_gamedlemaster\event\gmcompvs_compFinishedReturnCon::create(array(
-                'objectid' => $gmcompvs->id,
-                'context' => $context,
-                'other' => array('userid' => $useridmonedas, 'monedas' => $monedasdevolver, 'rason' => 'tu contrincante no aposto'),
-            ));
-
-            $event->add_record_snapshot('gmcompvs', $gmcompvs);
-            $event->trigger();
-
         }
 
         $vistausuario = $renderer->render_results_attempt($userScore,$contrincante->puntuacion);

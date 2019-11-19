@@ -162,12 +162,14 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
         $display = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
 
+        $mensaje = 'El desafío fue un empate!';
+        $class = 'ganador';
         if($userScore > $contrincanteScore){
 
             $mensaje = 'Felicidades! Ganaste el desaf&iacute;o!';
             $class = 'ganador';
 
-        }else{
+        }else if($userScore < $contrincanteScore){
 
             $mensaje = 'Oh no!, Perdiste el desaf&iacute;o!';
             $class = 'perdedor';

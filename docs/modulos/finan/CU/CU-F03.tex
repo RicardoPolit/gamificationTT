@@ -1,0 +1,107 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-F03}{Comprar objeto}{%
+%
+Permite al usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador} o un \refElem{aEstudiante})
+ de moodle adquirir un objeto para la personalización de su perfil utilizando sus monedas disponibles.
+ Este caso de uso es una extensión del caso de uso {\it \refElem{CU-P01}}.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 17/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor},
+        \refElem{aAdministrador},
+        \refElem{aEstudiante}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem El usuario quiere saber el estado actual de su perfil, así como las monedas que tiene disponibles.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{
+        \imprimeUC{salida}
+        \Titem ''¡Objeto [NombreDelObjeto] comprado!''%\refElem{MSG-F01}
+        \Titem ''¡Oh no!, No tienes suficiente dinero para comprar el objeto [NombreDelObjeto]!''%\refElem{MSG-F02}
+        \Titem ''¡Ya tenías desbloqueado el objeto [NombreDelObjeto]!''%\refElem{MSG-F03}
+
+        }
+
+	\UCitem{Destino}{%
+		\refElem{IU-P01}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El usuario debió de haber ejecutado el \refElem{CU-P01}.
+        \Titem El usuario debe contener las monedas suficientes para comprar el objeto.
+        \Titem El objeto que se quiere  comprar no debe estar ya adquirido.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem El usuario tendrá desbloqueado el objeto para usarlo.
+        \Titem El usuario se le restarán las \refElem{xp-user.monedas-plata} del objeto que adquirió.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem El usuario no cuenta con las suficientes monedas para adquirir el objeto.
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Selecciona dando clic a la opción \textbf{Comprar} (Indicado por el ícono de las monedas \IUMonedas{}) del objeto que desea comprar en la pantalla \refElem{IU-P01}.
+    \Sistema Comprueba que el actor cuenta con suficientes \refElem{xp-user.monedas-plata} para comprar el objeto. \refTray{A}
+    \Sistema Comprueba que el actor no cuente con ese objeto todavía. \refTray{B}
+    \Sistema Desbloquea el objeto seleccionado para el actor, guardándolo en \refElem{tienda-gmdl-objeto-desbloqueado}.
+    \Sistema Le resta al actor las \refElem{xp-user.monedas-plata} dependiendo el \refElem{tienda-gmdl-rareza-objeto.costo-adquisicion} del objeto seleccionado.
+    \Sistema Muestra el mensaje ''¡Objeto [NombreDelObjeto] comprado!''%\refElem{MSG-P01}
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+  {A}{El actor no cuenta con las monedas necesarias }
+
+  \Sistema Muestra el mensaje  ''¡Oh no!, No tienes suficiente dinero para comprar el objeto [NombreDelObjeto]!''%\refElem{MSG-F02}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+{B}{El actor ya tiene comprado el objeto}
+
+    \Sistema Muestra el mensaje ''¡Ya tenías desbloqueado el objeto [NombreDelObjeto]!''%\refElem{MSG-F03}
+
+\end{UCtrayectoriaA}

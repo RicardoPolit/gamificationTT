@@ -1,0 +1,108 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-P02}{Modificar perfil gamificado}{%
+%
+    Permite al usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador} o un \refElem{aEstudiante})
+ de moodle seleccionar qué objetos quiere que se muestren en su perfil.
+ Este caso de uso es una extensión del caso de uso {\it \refElem{CU-P01}}.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 17/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor},
+        \refElem{aAdministrador},
+        \refElem{aEstudiante}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem El usuario quiere modificar que objetos se mostrarán cuando se visualice su perfil gamificado en las actividades.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{
+        \imprimeUC{salida}
+        \Titem ''¡Cambios guardados!''%\refElem{MSG-P01}
+        }
+
+	\UCitem{Destino}{%
+		\refElem{IU-P01}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El usuario debió de haber ejecutado el \refElem{CU-P01}.
+        \Titem El usuario debe tener al menos un objeto desbloqueado.
+        \Titem Los objetos seleccionados deben estar desbloqueado para el usuario.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem Al mostrar el perfil gamificado del usuario se verán las nuevas opciones que seleccionó.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+    \Actor Da clic en algún objeto en la pantalla \refElem{IU-P01}.
+    \label{CU-P03-eligiendo-objeto}
+    \Sistema Carga la previsualización siguiendo la regla de negocio \regla{BR-P01}.
+    \Sistema Comprueba que el actor tenga adquirido el objeto. \refTray{A}
+    \Sistema Habilita la opción \textbf{Guardar} de la pantalla \refElem{IU-P01}.
+    \Actor Ve el resultado en la previsualización. \refTray{B}
+    \Actor Presiona el botón \textbf{Guardar}.
+    \Sistema Cambia los objetos seleccionados usando el atributo \refElem{tienda-gmdl-objeto-desbloqueado.elegido}.
+    \Sistema Muestra el mensaje ''¡Cambios guardados!''%\refElem{MSG-P01}
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}%
+  {A}{El actor no tiene el objeto desbloqueado }
+    \Sistema Inhabilita la opción \textbf{Guardar} de la pantalla \refElem{IU-P01}.
+    \item Se regresa al paso \ref{CU-P03-eligiendo-objeto}.
+
+\end{UCtrayectoriaA}
+
+
+\begin{UCtrayectoriaA}%
+  {B}{El actor desea deshacer los cambios }
+    \Actor  Presiona el botón \textbf{Deshacer}.
+    \Sistema Carga la configuración actual del actor,
+        cargando los objetos  (\salida{tienda-gmdl-objeto}) desbloqueados cuyo
+        \refElem{tienda-gmdl-objeto-desbloqueado.elegido} sea igual a 1  y lo muestra en pantalla.
+    \Sistema Habilita la opción \textbf{Guardar} de la pantalla \refElem{IU-P01}.
+    \item Se regresa al paso \ref{CU-P03-eligiendo-objeto}.
+
+\end{UCtrayectoriaA}

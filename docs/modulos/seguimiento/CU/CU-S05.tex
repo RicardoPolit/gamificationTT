@@ -1,0 +1,125 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-S05}{Crear instancia (Preguntas diarias)}{%
+%
+ Permite al actor crear una nueva instancia de la actividad competencia uno contra uno en su curso.
+ La conclusión de la trayectoria principal de esta caso de uso es una precondición para que
+ algunos casos de uso del módulo de competencia puedan ejecutarse.\\%
+ Este caso de uso es una extensión del caso de uso {\it Listar actividades disponibles} que es propio de moodle.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Permitir al actor incluir en su curso una nueva instancia de la actividad de competencia uno contra uno.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+        \Titem Teclado
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-M08}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El complemento de preguntas diarias debe estar instalado en moodle.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem La nueva instancia de la actividad debe mostrarse en la pantalla \refElem{IU-M08}.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem \UCerr{Err1}{%
+            No se ingresó un campo requerido en el formulario de creación de la actividad,}{% CAUSA
+            no se puede crear la nueva instancia de la actividad}% EFECTO
+	}
+
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+        \Titem \refElem{CPC-C01}
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+    \Actor Selecciona la actividad Gamedle - Preguntas diarias en la pantalla \refElem{IU-M08a}.
+    \Sistema Muestra la descripción de la actividad Gamedle - Competencia uno contra uno en la pantalla.
+    \Actor Presiona el botón {\bf Agregar} en la pantalla. \refTray{A}
+    \Sistema Redirige a la pantalla \refElem{IU-S05}.
+    \label{CU-C01-muestra-pantalla}
+    \Actor Ingresa los datos correspondientes en el formulario.
+    \Actor Presiona el botón {\bf Guardar cambios y regresar al curso}.\refTray{B} \refTray{C}
+    \Sistema Valida que los campos ingresados sean válidos. \refTray{D} \refErr{Err1}
+    \Sistema Establece los valores ingresados para la nueva instancia \refElem{seg-gmpregdiarias}, especificadas en el modelo de información.
+    \Sistema Redirige a la pantalla \refElem{IU-M08} y muestra la nueva instancia creada en el curso.
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+  {A}{El \refElem{aProfesor} o \refElem{aAdministrador} desea cancelar la creación de la nueva instancia después que se le muestra la descripción de la actividad}
+
+  \Actor Presiona el botón {\bf cancelar} en la pantalla \refElem{IU-M08a}.
+  \Sistema Cierra la pantalla \refElem{IU-M08a} y redirige a la pantalla \refElem{IU-M08}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{B}{El \refElem{aProfesor} o \refElem{aAdministrador} desea ver la nueva instancia de la actividad}
+
+    \Actor Presiona el botón {\bf Guardar cambios y mostrar} de la pantalla \refElem{IU-S05}.
+    \Sistema Valida que los campos ingresados sean válidos. \refTray{D} \refErr{Err1}
+    \Sistema Establece los valores ingresados para la nueva instancia \refElem{seg-gmpregdiarias}, especificadas en el modelo de información.
+    \Sistema Redirige a la pantalla \refElem{IU-S01}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+  {C}{El \refElem{aProfesor} desea cancelar la creación de la nueva instancia después de mostrar el formulario de creación}
+
+  \Actor Presiona el botón {\bf cancelar} en la pantalla \refElem{IU-S05}.
+  \Sistema Redirige a la pantalla \refElem{IU-S05}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{D}{Algún dato ingresado por el \refElem{aProfesor} o \refElem{aAdministrador} es inválido}
+
+  \Sistema Muestra un mensaje de error "-Usted debe poner un valor aquí", en los campos de la pantalla \refElem{IU-S05} que sean requeridos.
+  \Sistema Regresa al paso \ref{CU-C01-muestra-pantalla}
+
+\end{UCtrayectoriaA}

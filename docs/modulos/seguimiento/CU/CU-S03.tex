@@ -1,0 +1,112 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+%\addfigure[(adaptado de {\it For The Win} \cite{ForTheWin})]%
+%    {.4}{investigacion/images/forthewin}{fig:ForTheWin}%
+%    {Jerarquía de elementos de juego segun For The Win}
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-S03}{Responder pregunta diaria}{%
+%
+ El actor responde una pregunta diaria escogida al azara del banco de preguntas si aún tiene disponibles.
+ Este caso de uso es una extensión del caso de uso \refElem{CU-S01}.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aEstudiante},
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Avanzar en la actividad de preguntas diarias.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}
+        Pregunta a responder generada por moodle}
+
+	\UCitem{Destino}{%
+		\refElem{IU-S02}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El complemento de preguntas diarias esté instalado en moodle.
+        \Titem La instancia de la actividad de preguntas diarias debe estar creada.
+        \Titem Que el actor no haya respondido la pregunta diaria del día.
+        % Realizar el caso de uso "listar actividades disponibles?"
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem Se agrega la pregunta a las preguntas ya respondidas por el actor.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+    \Actor Presiona el botón {\bf Contestar} de la pantalla \refElem{IU-S01a}.
+    \Sistema Obtiene una pregunta de manera aleatoria de las preguntas que aún no ha respondido el actor. \refTray{A}
+    \Sistema Redirige a la pantalla \refElem{IU-S03}.
+    \Sistema Guarda que se intenta responder una pregunta diaria.
+    \Actor Responde la pregunta.
+    \Actor Presiona el botón {\bf Terminar}.
+    \Sistema Califica el intento. \refTray{B}
+    \Sistema Redirige a la pantalla \refElem{IU-S04}.
+    \Sistema Otorga experiencia al actor por haber contestado correctamente la pregunta diaria.
+    \Sistema Otorga monedas al actor por haber contestado correctamente la pregunta diaria.
+
+
+\end{UCtrayectoria}
+
+
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{A}{El actor ya ha contestado todas las preguntas disponibles}
+
+  \Sistema Muestra el mensaje \refElem{MSG-S01}.
+
+\end{UCtrayectoriaA}
+
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]{B}{El actor no contestó correctamente la pregunta}
+
+    \Sistema Redirige a la pantalla \refElem{IU-S04}.
+
+\end{UCtrayectoriaA}
