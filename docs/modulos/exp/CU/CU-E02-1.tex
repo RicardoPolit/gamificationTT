@@ -14,9 +14,9 @@ Estado/\ucstEnRevision]%
 {CU-E02-1}{Configurar visualización de niveles}{%
 %
  Permite al \refElem{aAdministrador} establecer y modificar los colores, textos e
- imagenes que se muestran en la visualización del nivel actual y en las ventanas
+ imágenes que se muestran en la visualización del nivel actual y en las ventanas
  emergentes de un nuevo nivel alcanzado. Cuando un administrador actualice los valores
- de la configuración los usuarios serán capaces de ver los cambios al renderizarse la
+ de la configuración los usuarios serán capaces de ver los cambios al mostrarse la
  siguiente página.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
@@ -81,14 +81,14 @@ Estado/\ucstEnRevision]%
         % EFECTO
             No se remplaza la imagen de la configuración actual, se realizan
             las demás actualizaciones con los datos ingresados por el usuario,
-            y se emite el mensage que indica que el nombre es inválido.}
+            y se emite el mensaje que indica que el nombre es inválido.}
 
         \Titem \UCerr{Err3}{%
         % CAUSA
             Ocurre un fallo durante la persistencia de la imagen en el sistema,}{%
         % EFECTO
             Se interrumpe la actualización de la imagen, se procede con las
-            demás actualizaciones y se emite el mensaje de error conrrespondiente}
+            demás actualizaciones y se emite el mensaje de error correspondiente}
 	}
 
  \UCsection[design]{Datos de Diseño}
@@ -138,11 +138,11 @@ Estado/\ucstEnRevision]%
   \Sistema Despliega la pantalla \refElem{IU-M00a} como pantalla emergente
            \label{CU-E02-1.seleccion-archivo}
 
-  \Actor Selecciona la opción {\it Subir un archivo} en el menu izquierdo de la
+  \Actor Selecciona la opción {\it Subir un archivo} en el menú izquierdo de la
          pantalla emergente y posteriormente presiona el botón {\it Browse}.
   \Actor Selecciona el archivo de la \entrada{xp-visual-settings.image}.
   \Actor Presiona el botón {\bf Subir este archivo}.
-  \Sistema Valida que el archivo tenga alguna de las extensiones de indicadas
+  \Sistema Valida que el archivo tenga alguna de las extensiones indicadas
            por la regla \regla{BR-E01}. \refTray{D}
   \Sistema Cierra la pantalla emergente y muestra el nombre del archivo seleccionado
            en la pantalla \refElem{IU-E03}.
@@ -156,7 +156,7 @@ Estado/\ucstEnRevision]%
   \Sistema Valida que la \refElem{xp-visual-settings.image} proporcionada cumpla con
            las restricciones de nombre de archivo establecida por la regla
            \refElem{BR-E01}. \refErr{Err2}
-  \Sistema Remplaza la imagen de los niveles por la imagen propocionada por el usuario,
+  \Sistema Remplaza la imagen de los niveles por la imagen proporcionada por el usuario,
            actualiza los demás valores de las configuraciones. \refErr{Err3}
   \Sistema Despliega la pantalla \refElem{IU-E03} con el mensaje que indica que
            los datos han sido actualizados exitosamente.
@@ -205,7 +205,7 @@ No desea cambiar la \refElem{xp-visual-settings.image} actual de los niveles}
 Desea cancelar la actualización de las configuraciones}
 
   \Actor Presiona el botón cancelar.
-  \Sistema Redirige a la pantala \refElem{IU-M01}.
+  \Sistema Redirige a la pantalla \refElem{IU-M01}.
 
 \end{UCtrayectoriaA}
 
@@ -219,4 +219,3 @@ información}
     \Sistema Regresa al paso \ref{CU-E02-1.formulario}
 
 \end{UCtrayectoriaA}
-

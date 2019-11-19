@@ -199,7 +199,7 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
         if ($data[$key] == null) {
             $errors[$key] = get_string('required');
 
-        } else if (strlen($data[$key]) >= self::TITLE_MAX_LENGTH) {
+        } else if (strlen($data[$key]) > self::TITLE_MAX_LENGTH) {
             $errors[$key] =
                 get_string('maxlength', self::PLUGIN, self::TITLE_MAX_LENGTH);
         }
@@ -209,7 +209,7 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
         if ($data[$key] == null) {
             $errors[$key] = get_string('required');
 
-        } else if (strlen($data[$key]) >= self::DESC_MAX_LENGTH) {
+        } else if (strlen($data[$key]) > self::DESC_MAX_LENGTH) {
             $errors[$key] =
               get_string('maxlength', self::PLUGIN, self::DESC_MAX_LENGTH);
         }
@@ -219,7 +219,7 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
         if ($data[$key] == null) {
             $errors[$key] = get_string('required');
 
-        } else if (strlen($data[$key]) >= self::MSG_MAX_LENGTH) {
+        } else if (strlen($data[$key]) > self::MSG_MAX_LENGTH) {
             $errors[$key] =
               get_string('maxlength', self::PLUGIN, self::MSG_MAX_LENGTH);
         }
@@ -241,7 +241,6 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
         } else if (!preg_match( self::COLOR_REGEX, $data[$key])) {
             $errors[$key] = get_string('color', self::PLUGIN);
         }
-
 
         return $errors;
     }
@@ -273,6 +272,9 @@ class block_gmxp_visualsettingsform extends local_gamedlemaster_form {
         foreach ($keys as $key => $value) {
             set_config($key, $value, self::PLUGIN);
         }
+
+        local_gamedlemaster_log::success(
+            'Block gmxp visual settings updated', 'UPDATE');
     }
 
     private function update_image_file(): bool {

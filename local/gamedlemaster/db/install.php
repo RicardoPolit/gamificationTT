@@ -7,35 +7,49 @@
  */
 
 require_once('gmdl_catalogue.php');
-function xmldb_local_gamedlemaster_install()
-{
-    copiarUsuariosInstall();
-    definirCatalogos();
-}
 
-function copiarUsuariosInstall()
-{
-    global $DB;
-    $result = $DB->get_records("user", array()); // get all records in mdl_user table
 
-    foreach ($result as $record) {
-        $data = new stdClass();
-        $data->mdl_id_usuario = $record->id;
-        $data->nivel_actual = 1;
-        $data->experiencia_actual = 0;
-        $data->experiencia_nivel = 0;
+    function xmldb_local_gamedlemaster_install() {
 
-        $DB->insert_record("gmdl_usuario", $data);
+        global $DB;
+
+        try {
+            $transaction = $DB->start_delegated_transaction();
+
+            gamify_existing_users();
+            local_gamedlemaster_log::success(
+                "Gamedle users avatars created", 'CREATE');
+
+            definirCatalogos();
+            local_gamedlemaster_log::success(
+                "Gamedle system catalogs created", 'CREATE');
+
+            $transaction->allow_commit();
+
+        } catch(Exception $ex) {
+            $transaction->rollback($ex);
+            local_gamedlemaster_log::error(
+                "Gamedle users avatars nor created",'CREATE');
+        }
     }
-}
 
+    function gamify_existing_users() {
 
-function definirCatalogos()
-{
-    guardarCatalogosDificultadCPU2019101501();
-    guardarCatalogosRarezaObjetos();
-    guardarCatalogosTipoObjetos();
-    guardarCatalogosObjetosTiposBordes();
-    guardarCatalogosObjetosImagenes();
-    guardarCatalogosObjetosColorBordes();
-}
+        $TABLE_USER = 'user';
+
+        global $DB;
+        $users = $DB->get_records("user", null, '', 'id');
+
+        foreach ($users as $user) {
+            local_gamedlemaster_dao::create_gamified_user($user->id);
+        }
+    }
+
+    function definirCatalogos() {
+        guardarCatalogosDificultadCPU2019101501();
+        guardarCatalogosRarezaObjetos();
+        guardarCatalogosTipoObjetos();
+        guardarCatalogosObjetosTiposBordes();
+        guardarCatalogosObjetosImagenes();
+        guardarCatalogosObjetosColorBordes();
+    }

@@ -86,7 +86,8 @@ class local_gamedlemaster_dao {
         $gamified_user->experiencia_nivel  = self::TBL_GAMIFIED_USER_ATTR_LEVELXP_INIT;
         $gamified_user->experiencia_actual = self::TBL_GAMIFIED_USER_ATTR_XP_INIT;
 
-        // Event Object Table is user
+        local_gamedlemaster_log::info(
+            "Gamified user create for moodle user $moodle_user", 'CREATE');
         return $DB->insert_record( self::TBL_GAMIFIED_USER, $gamified_user);
     }
 }

@@ -85,7 +85,7 @@ Estado/\ucstEnRevision]%
         % CAUSA
             Los plugins del módulo de experiencia no se encuentran instalados,}{%
         % EFECTO
-            No se presentan en el menu las opciones para modificar el esquema de %
+            No se presentan en el menú las opciones para modificar el esquema de %
             experiencia. No se puede llevar a cabo el caso de uso}
 	}
 
@@ -109,7 +109,6 @@ Estado/\ucstEnRevision]%
 
 \end{UseCase}
 
-\clearpage
 \subsubsection{Trayectorias del caso de uso}
 
 \begin{UCtrayectoria}%
@@ -121,7 +120,7 @@ Estado/\ucstEnRevision]%
   \Sistema Obtiene el valor establecido de los \salida[eventos activados]%
            {xp-general-settings.events} que determina si los eventos brindan
            experiencia o no. \label{CU-E03-formulario} \refTray{B}
-  \Sistema Obiene el valor \salida{xp-general-settings.activated} que define si el
+  \Sistema Obtiene el valor \salida{xp-general-settings.activated} que define si el
            módulo de experiencia está activado.
   \Sistema Carga la pantalla \refElem{IU-E02} estableciendo los valores por defecto del
            formulario con los valores obtenidos.
@@ -131,7 +130,7 @@ Estado/\ucstEnRevision]%
          \label{CU-E02-settings}
   \Actor Establece el valor para los \entrada[eventos activados]%
          {xp-general-settings.events}, indicando si se les brindará soporte a que
-         los eventos soportados brinden experiencia o no.
+         los eventos brinden experiencia.
   \Actor Presiona el botón {\bf Guardar cambios}.
   \Sistema Obtiene los valores indicados por el usuario y actualiza las
            \refElem{xp-general-settings}.

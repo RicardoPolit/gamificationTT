@@ -13,7 +13,7 @@ Estado/\ucstEnRevision]%
 %
 {CU-F01}{Modificar esquema financiero }{%
 %
-    Permite al \refElem{aAdministrador} modificar la cantidad de monedas que otorga cada evento, 
+    Permite al \refElem{aAdministrador} modificar la cantidad de monedas que otorga cada evento,
     así como, si desea que el esquema financiero esté activado o no.
     Este caso de uso es una extensión del caso de uso {\it Entrar a administración de complementos} que es propio de moodle }
 
@@ -54,7 +54,7 @@ Estado/\ucstEnRevision]%
 	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
 
 	\UCitems{Errores}{%
-        \Titem Alguno de los campos fueron ingresados de manera erronea.
+        \Titem Alguno de los campos fueron ingresados de manera errónea.
 	}
 
  \UCsection[design]{Datos de Diseño}
@@ -77,7 +77,7 @@ Estado/\ucstEnRevision]%
     \Sistema Redirige a la pantalla \refElem{IU-F01}.
     \Actor Modifica las opciones que desea. \refTray{B}
     \label{CU-F01-hacer-cambios}
-    \Actor Presiona el botón \textbf{Guardar cambios}. 
+    \Actor Presiona el botón \textbf{Guardar cambios}.
     \label{CU-F01-guardar-cambios}
     \Sistema Valida que los valores ingresados sean correctos. \refTray{C}
     \Sistema Guarda la nueva configuración.
@@ -95,7 +95,7 @@ Estado/\ucstEnRevision]%
 {B}{El actor desea modificar la configuración financiera}
     \Actor Selecciona dando clic a la opción \textbf{Gamedle: Módulo financiero} en la pantalla \refElem{IU-F01}.
     \Sistema Redirige a la pantalla \refElem{IU-F02}.
-    \Actor Modifica las opciones que desea. 
+    \Actor Modifica las opciones que desea.
     \item Se regresa al paso \ref{CU-F01-guardar-cambios} de la trayectoria principal.
 
 \end{UCtrayectoriaA}
@@ -104,7 +104,7 @@ Estado/\ucstEnRevision]%
 {B}{El actor desea modificar la configuración financiera}
     \Actor Selecciona dando clic a la opción \textbf{Gamedle: Módulo financiero} en la pantalla \refElem{IU-F01}.
     \Sistema Redirige a la pantalla \refElem{IU-F02}.
-    \Actor Modifica las opciones que desea. 
+    \Actor Modifica las opciones que desea.
     \item Se regresa al paso \ref{CU-F01-guardar-cambios} de la trayectoria principal.
 
 \end{UCtrayectoriaA}
@@ -112,7 +112,7 @@ Estado/\ucstEnRevision]%
 
 \begin{UCtrayectoriaA}%
 {C}{Se han ingresaron datos erróneos}
-    \Sistema Muestra el mensaje \refElem{MSG-F04} en cada campo con valores erróneos.. 
+    \Sistema Muestra el mensaje \refElem{MSG-F04} en cada campo con valores erróneos.
     \item Se regresa al paso \ref{CU-F01-hacer-cambios}.
 
 \end{UCtrayectoriaA}

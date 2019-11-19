@@ -22,6 +22,24 @@
 \subsubsection{Submódulo de niveles}
 \subsubsection{Funcionalidades}
 
+% \subsubsection{Esquema de experiencia.}
+
+ % El esquema de experiencia es la configuración sobre cómo funciona el sistema
+ % de puntos de experiencia, incluyendo la cantidad de experiencia que tiene
+ % cada nivel, el tipo de incremento en los puntos de experiencia nivel a nivel,
+ % las restricciones sobre la experiencia y la forma en que se otorgarán los puntos.
+
+% \subsubsection{Niveles.}
+
+ % Es el mecanismo que permite mostrarle a los estudiantes el progreso que han tenido
+ % a nivel plataforma mediante el nivel y los puntos de experiencia obtenidos en
+ % los cursos, además contiene la configuración para establecer el cómo se verá el
+ % nivel y la experiencia obtenida de dicho nivel.
+
+ % Los principios de gamificación a los cuales permite brindarles soporte son:
+ % \principioII
+ % \principioVI
+%
 \subsubsection{Reglas de negocio} %========================================================
 
  En esta sección se especifican todas las reglas de negocio relevantes para el módulo de
@@ -49,7 +67,7 @@
 
  En este apartado se especifican todos los casos de usos contemplados para el módulo de
  experiencia, para cada caso de uso se especifica su tabla de atributos la cual indica que casos
- de prueba deberán ejecutarse correctamente para corrobarar la completitud del caso de uso.
+ de prueba deberán ejecutarse correctamente para corroborar la completitud del caso de uso.
 
 \subsubsection*{Diagrama de casos de uso}
 
@@ -85,7 +103,7 @@
     \input{modulos/exp/CU/CU-E08}   % Agregar seccion con experiencia
     %\input{modulos/exp/CU/CU-E09}   % Eliminar seccion con experiencia
     \input{modulos/exp/CU/CU-E10}   % Eliminar un curso gamificado
-    %\input{modulos/exp/CU/CU-E11}   % Recibir Experiencia
+    %\input{modulos/exp/CU/CU-E11}   % Recibir Experiencia                                  %RICARDO: Por qué está comentado este caso de uso?
     \input{modulos/exp/CU/CU-E12}   % Crear cuenta de un usuario gamificado
     \input{modulos/exp/CU/CU-E13}   % Eliminar cuenta de un usuario gamificado
 
@@ -93,6 +111,14 @@
 \clearpage
 \subsection{Diseño}
 
+ En esta sección se presenta los distintos diagramas que ayudan a modelar el
+ software a desarrollar, de la misma forma todas las decisiones y consideraciones
+ relevantes para la implementación de las funcionalidades se encuentra documentada
+ en esta sección.
+
+    \input{modulos/exp/diseno}
+
+\begin{comment} % ==================================================================
 \subsubsection{Interfaces de Moodle}
 
     % INTERFACES DE MOODLE
@@ -111,16 +137,16 @@
     \input{modulos/moodle/IU/IU-M02c} % Cancelación Instalación Plugin
     \input{modulos/moodle/IU/IU-M02d} % Resultado Instalación Plugin
 
-    \input{modulos/moodle/IU/IU-M03}  % 
-    \input{modulos/moodle/IU/IU-M03a} % 
+    \input{modulos/moodle/IU/IU-M03}  %
+    \input{modulos/moodle/IU/IU-M03a} %
 
-    \input{modulos/moodle/IU/IU-M04}  % 
-    \input{modulos/moodle/IU/IU-M04a} % 
+    \input{modulos/moodle/IU/IU-M04}  %
+    \input{modulos/moodle/IU/IU-M04a} %
 
-    \input{modulos/moodle/IU/IU-M05}  % 
-    \input{modulos/moodle/IU/IU-M05a} % 
-    \input{modulos/moodle/IU/IU-M05b} % 
-    \input{modulos/moodle/IU/IU-M05c} % 
+    \input{modulos/moodle/IU/IU-M05}  %
+    \input{modulos/moodle/IU/IU-M05a} %
+    \input{modulos/moodle/IU/IU-M05b} %
+    \input{modulos/moodle/IU/IU-M05c} %
 
     \input{modulos/moodle/IU/IU-M06}  % Cursos y Categorías
     \input{modulos/moodle/IU/IU-M06a} % Confirmación eliminar curso
@@ -145,7 +171,8 @@
     %\input{modulos/modExpIU/IU-E04} % Configuraciones de Comportamiento
     %\input{modulos/modExpIU/IU-E05} % Configuraciones de eventos
 
-\input{modulos/exp/dis_plugins}
+
+\end{comment} % >>>>>>> d14b3c5df86665f3cc11f090d68bc3001772b4f5 ============asdsds
 
 \subsection{Pruebas}
 

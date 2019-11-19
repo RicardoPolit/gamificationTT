@@ -1,5 +1,5 @@
 
-% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones 
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
 %                    y al inicio del CU.
 %
 % \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
@@ -13,7 +13,7 @@ Estado/\ucstEnEdicion]%
 %
 {CU-E10}{Eliminar un curso gamificado}{%
 %
- Permite al \refElem{aAdministrador} eliminar un curso gamificado ...}
+ Permite al \refElem{aAdministrador} eliminar un curso gamificado. }
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ \today }
@@ -28,7 +28,7 @@ Estado/\ucstEnEdicion]%
         Permitir al administrador eliminar un curso que está gamificado junto
         con los datos de gamificación que este ha otorgado.
 	}
-	
+
 	\UCitem{Entradas}{\imprimeUC{entrada}}
 
 	\UCitems{Origen}{%
@@ -40,7 +40,7 @@ Estado/\ucstEnEdicion]%
 	\UCitem{Destino}{%
 		\refElem{IU-M02a}
 	}
-	
+
 	\UCitems{Precondiciones}{%
         \Titem El curso que se desea eliminar no debe haber sido eliminado
                anteriormente.
@@ -60,11 +60,11 @@ Estado/\ucstEnEdicion]%
             termina el caso de uso.}
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se 
+	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
 					  % extienden de Login.
 		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
 	% 	\TODO Especificar.
-	% }	
+	% }
 
  \UCsection[design]{Datos de Diseño}
 
@@ -87,32 +87,32 @@ Estado/\ucstEnEdicion]%
 \begin{UCtrayectoria}%
 %
   \Actor Presiona la opción {\bf Gestionar cursos y categorías}.
-  \Sistema Obtiene las \salida[categorias]{mdl-course-category} y 
+  \Sistema Obtiene las \salida[categorias]{mdl-course-category} y
            \salida{mdl-course.fullname} de los cursos presentes en la plataforma.
   \Sistema Muestra la pantalla \refElem{IU-M06}. \refErr{Err1}
 
   \Actor Presiona el botón \IUEliminar correspondiente al curso que desea eliminar.
          \label{CU-E05-delete-button}. \refTray{A}
-  \Sistema Despliega la pantalla \refElem{IU-M06a} pidiendo la confirmación del 
+  \Sistema Despliega la pantalla \refElem{IU-M06a} pidiendo la confirmación del
            usuario para continuar con la eliminación.
 
   \Actor Presiona la opción {\bf Eliminar}. \refTray{B}
-  \Sistema Elimina las \entrada{xp-section-reward} de experiencia que se han 
+  \Sistema Elimina las \entrada{xp-section-reward} de experiencia que se han
            entregado respetando la regla \regla{BR-E02}.
   \Sistema Elimina las \entrada[secciones gamificadas]{xp-course-section} del curso.
   \Sistema Elimina las opciones del \entrada{xp-course.format}.
-  \Sistema Procede con las demás tareas de eliminación para concluir con la 
+  \Sistema Procede con las demás tareas de eliminación para concluir con la
            eliminación del curso.
   \Sistema Muestra la pantalla \refElem{IU-M06b}.
 
   \Actor Presiona el botón {\bf Continuar}.
-  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
+  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y
            \refElem{mdl-course.fullname} de los cursos restantes en la plataforma.
   \Sistema Muestra la pantalla \refElem{IU-M06}.
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}{A}{%
-El \refElem{mdl-course} que el \refElem{aAdministrador} desea eliminar se encuentra 
+El \refElem{mdl-course} que el \refElem{aAdministrador} desea eliminar se encuentra
 en otra categoría diferente a la seleccionada por defecto.}
 
   \Actor Selecciona la \refElem{mdl-course-category} donde se encuentra el curso
@@ -127,6 +127,6 @@ en otra categoría diferente a la seleccionada por defecto.}
 El \refElem{aAdministrador} desea cancelar la eliminación del curso.}
 
   \Actor Presiona el botón {\bf Cancelar}
-  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y 
+  \Sistema Obtiene las \refElem[categorias]{mdl-course-category} y
            \refElem{mdl-course.fullname} de los cursos presentes en la plataforma.
 \end{UCtrayectoriaA}

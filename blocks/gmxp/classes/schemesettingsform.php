@@ -103,7 +103,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
         $mform = $this->_form;
 
         $key = self::ELEM_PERCENTUAL;
-        $mform->setType($key, PARAM_FLOAT);
+        $mform->setType($key, PARAM_TEXT);
         // $mform->addRule($key, get_string('required'), 'required', null, 'client');
         // $mform->addRule($key, get_string('float',self::PLUGIN), 'regex',
         //    self::PERCENTUAL_REGEX, 'client');
@@ -112,7 +112,7 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
 
         $key = self::ELEM_LINEAL;
         $errormsg = get_string('integer', self::PLUGIN);
-        $mform->setType($key, PARAM_INT);
+        $mform->setType($key, PARAM_TEXT);
         // $mform->addRule($key, get_string('required'), 'required', null, 'client');
         // $mform->addRule($key, $errormsg, 'regex', self::XP_REGEX, 'client');
         // $mform->addRule($key, $errormsg, 'nonzero', null, 'client');
@@ -254,8 +254,29 @@ class block_gmxp_schemesettingsform extends local_gamedlemaster_form {
         foreach ($keys as $key => $value) {
             set_config($key, $value, self::PLUGIN);
         }
+
+        local_gamedlemaster_log::success(
+            'Block gmxp scheme settings updated', 'UPDATE');
+
+        $this->update_user_levels();
     }
 
+    /**
+     * Function to update the level of the users
+     */ 
+    private function update_user_levels() {
+        global $DB;
+        $TBL_GAMIFIED_USER = 'gmdl_usuario';
+
+        $users = $DB->get_records($TBL_GAMIFIED_USER, null, '',
+            'id,mdl_id_usuario,nivel_actual,experiencia_nivel');
+
+        foreach($users as $user) {
+            block_gmxp_dao::level_up($user);
+        }
+        local_gamedlemaster_log::success(
+            'Block gmxp users levels updated', 'UPDATE');
+    }
 }
 
 ?>

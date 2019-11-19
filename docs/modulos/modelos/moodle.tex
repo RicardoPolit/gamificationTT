@@ -21,7 +21,7 @@ estructura de las preguntas creadas por el profesor y respondidas por el estudia
     \item Un usuario -{\it mdl\_user}- tiene un rol -{\it mdl\_role}- en un cierto contexto -{\it mdl\_context}-, cuyo  '{\it context\_level}' sea igual a cincuenta(50).
     \item Si el contexto '{\it context\_level}' es de 50, el atributo '{\it instance\_id}' hace referencia al atributo '{\it id}' de un curso -{\it mdl\_course}-.
     \item El curso -{\it mdl\_course}- tiene varias secciones -{\it mdl\_course\_sections}-.
-    \item Cada seccion -{\it mdl\_course\_sections}- tiene varias actividades -{\it mdl\_course\_modules}- que pertenecen a un tipo de actividad -{\it mdl\_modules}-.
+    \item Cada sección -{\it mdl\_course\_sections}- tiene varias actividades -{\it mdl\_course\_modules}- que pertenecen a un tipo de actividad -{\it mdl\_modules}-.
     \item Por cada registro en tipo de actividad -{\it mdl\_modules}-, se tiene una entidad que lleva el mismo nombre.
     \item El atributo '{\it instance\_id}' de una actividad  -{\it mdl\_course\_modules}- apunta a diferentes entidades. La entidad a la que apunta depende del nombre del tipo de actividad -{\it mdl\_modules}-.
     \item Un usuario -{\it mdl\_user}- se inscribió -{\it mdl\_user\_enrolments}- a un curso -{\it mdl\_course}-, por medio de un formato soportado de inscripción -{\it mdl\_enrol}-.
@@ -154,7 +154,7 @@ estructura de las preguntas creadas por el profesor y respondidas por el estudia
             \refElem{tRequired},
             \refElem{tLength} 0-120
         }
-	    \brAttr{country}{pais}{tVarchar}{%
+	    \brAttr{country}{país}{tVarchar}{%
 	        .\par
 
             \it Restricciones:
@@ -274,7 +274,7 @@ estructura de las preguntas creadas por el profesor y respondidas por el estudia
 
     \end{cdtEntidad}\schemeName{course\_format\_options}
 
-    \begin{cdtEntidad}{mdl-course-category}{Categoria de curso}{%
+    \begin{cdtEntidad}{mdl-course-category}{Categoría de curso}{%
     .}
         \brAttr{id}{id}{tInt}{%
         .}
@@ -359,7 +359,7 @@ estructura de las preguntas creadas por el profesor y respondidas por el estudia
         }
 
 	    \brAttr{version}{Versión}{tVersion}{%
-	        Numero entero de longitud de 10 dígitos que representa la versión del
+	        Número entero de longitud de 10 dígitos que representa la versión del
             plugin.\par
 
             \it Restricciones: Ninguna adicional al tipo de dato
