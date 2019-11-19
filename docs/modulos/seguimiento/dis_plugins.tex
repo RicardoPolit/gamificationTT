@@ -1,0 +1,44 @@
+
+
+\subsubsection{Diseño de complementos}
+
+
+
+A continuación se presenta cómo el módulo de seguimiento
+se implmeneta en moodle.\\
+
+
+\noindent Resumiendo el módulo de seguimiento, se tiene 1 actividad establecida, llamada; 
+preguntas diarias. 
+DIcha actividad debe aparecer dentro de la lista de actividades de moodle. Para ello 
+moodle cuenta con un tipo de complemento que se denomina \textbf{'mod'}, este tipo de complemento al ser instalado 
+en una plataforma de moodle, crea una nueva opción a la lista de actividades.\\
+
+\noindent Tomando en consideración lo anterior y que existe el complemento gamedlemaster, se presenta en la figura \ref{fig:diseno-comp-seguimeinto}
+los complementos contemplados y las dependencias entre los mismos.
+
+
+    \addfigure{1}{modulos/seguimiento/diagrams/diseno_complementos}{fig:diseno-comp-seguimeinto}{Implementación del modulo de seguimiento}
+
+
+Cada complemento en la figura \ref{fig:diseno-comp-seguimeinto} está representado con una cadena que sigue el formato 'tipo\_de\_complemento:nombre\_de\_complemento'. Los tipos de complemento son;
+\begin{itemize}
+    \item \textbf{mod} - Este complemento permite crear una actividad que aparece en la lista de actividades a agregar a un curso.
+    \item \textbf{local} -  Este complemento moodle lo iterpreta como un comdín, el cual puede ser usado para múltiples propósitos relacionados con la gestión de la información.
+\end{itemize}
+
+La función de cada uno de los complementos presentados en la figura \ref{fig:diseno-comp-seguimeinto} son:
+
+
+\begin{itemize}
+    \item \textbf{gamedlemaster} Definir la base de datos y los eventos a manejar.
+    \item \textbf{gmpregdiarias} Definir la actividad de preguntas diarias.
+\end{itemize}
+
+El complemento de tipo  \textbf{'mod'} tiene un requerimiento en su nombre, el cual es; 'El nombre del complemento a instalar debe ser igual a un nombre
+de una de las tablas en la base de datos'. Debido a esto y que moodle no soporta nombres de complementos que contengan quiones bajos, el
+nombre de la tabla ya no puede llevarlos.\\
+
+
+
+

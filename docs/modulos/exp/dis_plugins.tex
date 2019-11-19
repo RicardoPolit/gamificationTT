@@ -1,0 +1,44 @@
+
+
+\subsubsection{Diseño de complementos}
+
+
+
+A continuación se presenta cómo el módulo de experiencia
+se implmeneta en moodle.\\
+
+
+\noindent Resumiendo el módulo de experiencia, se tiene una sección que se encargará demostrar el nivel y al experiencia
+que tiene un usuairo. Moodle cuenta con un plugin denominado \textbf{block} que muestra en la mayoría de las pantallas
+la información que se le indique.\\
+
+\noindent Tomando en consideración lo anterior y que existe el complemento gamedlemaster, se presenta en la figura \ref{fig:diseno-comp-exp}
+los complementos contemplados y las dependencias entre los mismos.
+
+
+    \addfigure{1}{modulos/exp/diagrams/diseno_complementos}{fig:diseno-comp-exp}{Implementación del modulo de experiencia}
+
+
+Cada complemento en la figura \ref{fig:diseno-comp-exp} está representado con una cadena que sigue el formato 'tipo\_de\_complemento:nombre\_de\_complemento'. Los tipos de complemento son;
+\begin{itemize}
+    \item \textbf{mod} - Este complemento permite crear una actividad que aparece en la lista de actividades a agregar a un curso.
+    \item \textbf{local} -  Este complemento moodle lo iterpreta como un comdín, el cual puede ser usado para múltiples propósitos relacionados con la gestión de la información.
+    \item \textbf{format} -  Este complemento se utiliza para declarar un nuevo formato de visualización en un curso.
+\end{itemize}
+
+La función de cada uno de los complementos presentados en la figura \ref{fig:diseno-comp-exp} son:
+
+
+\begin{itemize}
+    \item \textbf{gamedlemaster} Definir la base de datos y los eventos a manejar.
+    \item \textbf{gmxp} Un bloque que muestre el avance de la experiencia que tiene el usuario.
+    \item \textbf{gamedle} Crear un formato que pueda ser editado para agregar experiencia a las secciones.
+\end{itemize}
+
+El complemento de tipo  \textbf{'mod'} tiene un requerimiento en su nombre, el cual es; 'El nombre del complemento a instalar debe ser igual a un nombre
+de una de las tablas en la base de datos'. Debido a esto y que moodle no soporta nombres de complementos que contengan quiones bajos, el
+nombre de la tabla ya no puede llevarlos.\\
+
+
+
+
