@@ -22,5 +22,5 @@ $plugin->version =  2019072517;     // YYYYMMDDHH (year, month, day, 24-hr time)
 $plugin->requires = 2010112400;     // YYYYMMDDHH (This is the release version for Moodle 2.0)
 
 $plugin->dependencies = array(
-    'local_gamedlemaster' => 2019042101 // Should Specify the version
+    'format_gamedle' => 2019052923 // Should Specify the version
 );
