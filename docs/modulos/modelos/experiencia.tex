@@ -219,22 +219,39 @@
             atributo debe de tener como valor ``Gamedle''. \par
 
             \it Restricciones:
+            \refElem{tLength} (0,21),
+            \refElem{tRequerido}
         }
 
-        \brAttr{xpEnabled}{experiencia habilitada}{tBoolean}{%
-            Para que un curso pueda ser manejado como un curso gamificado este
-            atributo debe de tener como valor ``Gamedle''. \par
+        %\brAttr{xpEnabled}{experiencia habilitada}{tBoolean}{%
+        %    Para que un curso pueda ser manejado como un curso gamificado este
+        %    atributo debe de tener como valor ``Gamedle''. \par
 
-            \it Restricciones:
-        }
+        %    \it Restricciones:
+        %    \refElem{tLengthi}
+        %}
 
         \brAttr{sections}{número de secciones}{tInt}{%
+            representa el número de secciones que constituyen al curso. \par
+
+            \it Restricciones:
+            \refElem{tRequired}
         }
 
-        \brAttr{hiddensections}{secciones ocultas}{tVarchar}{%
+        \brAttr{hiddensections}{secciones ocultas}{tBoolean}{%
+            Esta opción Permite decidir la forma en cómo se mostrarán las
+            secciones ocultas de un curso. \par
+
+            \it Restricciones:
+            \refElem{tRequired}
         }
 
-        \brAttr{coursedisplay}{aspecto del curso}{tVarchar}{%
+        \brAttr{coursedisplay}{aspecto del curso}{tBoolean}{%
+            Determina si el curso completo se visualiza en una página o mediante
+            distintas páginas. \par
+
+            \it Restricciones:
+            \refElem{tRequired}
         }
     \end{cdtEntidad}
 

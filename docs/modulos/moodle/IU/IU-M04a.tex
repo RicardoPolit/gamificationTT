@@ -1,7 +1,10 @@
 
 \subsubsection{IU-E04a Desinstalando plugin}
 
- Descripción ...
+ Cuando se desinstala un plugin moodle pide la confirmación del usuario para eliminar
+ los archivos correspondientes al plugin. Si el usuario decide no eliminar los
+ archivos entonces el plugin se detectará como una plugin para ser instalado desde
+ cero.
 
     \IUfig{1}{modulos/moodle/IU/DesinstalandoPlugin}%
         {IU-M04a}{Desinstalando plugin}
@@ -9,15 +12,23 @@
 \subsubsection{Elementos Relevantes}
 
     \begin{itemize}
-    \item {\bf Lorem ipsum}
-        ...
+    \item {\bf Mensaje de confirmación}
+        Contiene un mensaje que pide la confirmación del usuario para proceder con
+        la eliminación de los archivos de un plugin y si dejar los archivos para que
+        este sea instalado de nuevo.
     \end{itemize}
 
 \subsubsection{Acciones relevantes}
 
     \begin{itemize}
-    \item {\bf Lorem ipsum}
-        ...
+    \item {\bf Continuar}
+        Permite confirmar la eliminación de los archivos del plugin que fue
+        previamente desinstalado.
+
+    \item {\bf Cancelar}
+        Permite indicarle a moodle que no elimine los archivos correspondientes al
+        plugin se acaba de eliminar, esto permite que el plugin se pueda instalar
+        desde cero.
     \end{itemize}
 
 \clearpage
