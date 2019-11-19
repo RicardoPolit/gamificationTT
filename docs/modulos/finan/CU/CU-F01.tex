@@ -1,0 +1,118 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-F01}{Modificar esquema financiero }{%
+%
+    Permite al \refElem{aAdministrador} modificar la cantidad de monedas que otorga cada evento, 
+    así como, si desea que el esquema financiero esté activado o no.
+    Este caso de uso es una extensión del caso de uso {\it Entrar a administración de complementos} que es propio de moodle }
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 17/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem El actor desea cambiar la cantidad de monedas que da un evento o quiere activar  o desactivar el esquema financiero.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{
+        \imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-F01}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El complemento del módulo financiero debe estar instalado.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem Se guardará la nueva configuración del actor.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+        \Titem Alguno de los campos fueron ingresados de manera erronea.
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Actor Selecciona dando clic a la opción \textbf{Gamedle: Módulo financiero} en la pantalla \refElem{IU-M11}. \refTray{A}
+    \Sistema Redirige a la pantalla \refElem{IU-F01}.
+    \Actor Modifica las opciones que desea. \refTray{B}
+    \label{CU-F01-hacer-cambios}
+    \Actor Presiona el botón \textbf{Guardar cambios}. 
+    \label{CU-F01-guardar-cambios}
+    \Sistema Valida que los valores ingresados sean correctos. \refTray{C}
+    \Sistema Guarda la nueva configuración.
+
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+  {A}{El complemento del  módulo financiero no se encuentra instalado}
+
+  \Actor No encuentra la opción en la pantalla  \textbf{Gamedle: Módulo financiero}, porque el sistema no la generó.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}%
+{B}{El actor desea modificar la configuración financiera}
+    \Actor Selecciona dando clic a la opción \textbf{Gamedle: Módulo financiero} en la pantalla \refElem{IU-F01}.
+    \Sistema Redirige a la pantalla \refElem{IU-F02}.
+    \Actor Modifica las opciones que desea. 
+    \item Se regresa al paso \ref{CU-F01-guardar-cambios} de la trayectoria principal.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}%
+{B}{El actor desea modificar la configuración financiera}
+    \Actor Selecciona dando clic a la opción \textbf{Gamedle: Módulo financiero} en la pantalla \refElem{IU-F01}.
+    \Sistema Redirige a la pantalla \refElem{IU-F02}.
+    \Actor Modifica las opciones que desea. 
+    \item Se regresa al paso \ref{CU-F01-guardar-cambios} de la trayectoria principal.
+
+\end{UCtrayectoriaA}
+
+
+\begin{UCtrayectoriaA}%
+{C}{Se han ingresaron datos erróneos}
+    \Sistema Muestra el mensaje \refElem{MSG-F04} en cada campo con valores erróneos.. 
+    \item Se regresa al paso \ref{CU-F01-hacer-cambios}.
+
+\end{UCtrayectoriaA}
