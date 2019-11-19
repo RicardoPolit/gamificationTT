@@ -29,7 +29,7 @@ Estado/\ucstEnRevision]%
     }
 
 	\UCitems{Propósito}{%
-        \Titem El usuario quiere modificar que objetos se mostrarán cuando se visualize su perfil gamificado en las actividades.
+        \Titem El usuario quiere modificar que objetos se mostrarán cuando se visualice su perfil gamificado en las actividades.
 	}
 
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -40,7 +40,8 @@ Estado/\ucstEnRevision]%
 
 	\UCitem{Salidas}{
         \imprimeUC{salida}
-        \Titem \refElem{MSG-P01}}
+        \Titem ''¡Cambios guardados!''%\refElem{MSG-P01}
+        }
 
 	\UCitem{Destino}{%
 		\refElem{IU-P01}
@@ -48,8 +49,8 @@ Estado/\ucstEnRevision]%
 
 	\UCitems{Precondiciones}{%
         \Titem El usuario debió de haber ejecutado el \refElem{CU-P01}.
-        \Titem El usuario debe tener almenos un objeto desbloqueado.
-        \Titem Los objetos seleccionados deben estár desbloqueado para el usuario.
+        \Titem El usuario debe tener al menos un objeto desbloqueado.
+        \Titem Los objetos seleccionados deben estar desbloqueado para el usuario.
 	}
 
 	\UCitems{Postcondiciones}{%
@@ -84,7 +85,7 @@ Estado/\ucstEnRevision]%
     \Actor Ve el resultado en la previsualización. \refTray{B}
     \Actor Presiona el botón \textbf{Guardar}.
     \Sistema Cambia los objetos seleccionados usando el atributo \refElem{tienda-gmdl-objeto-desbloqueado.elegido}.
-    
+    \Sistema Muestra el mensaje ''¡Cambios guardados!''%\refElem{MSG-P01}
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}%
@@ -98,7 +99,7 @@ Estado/\ucstEnRevision]%
 \begin{UCtrayectoriaA}%
   {B}{El actor desea deshacer los cambios }
     \Actor  Presiona el botón \textbf{Deshacer}.
-    \Sistema Carga la configuración actual del actor, 
+    \Sistema Carga la configuración actual del actor,
         cargando los objetos  (\salida{tienda-gmdl-objeto}) desbloqueados cuyo
         \refElem{tienda-gmdl-objeto-desbloqueado.elegido} sea igual a 1  y lo muestra en pantalla.
     \Sistema Habilita la opción \textbf{Guardar} de la pantalla \refElem{IU-P01}.

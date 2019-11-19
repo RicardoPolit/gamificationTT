@@ -17,7 +17,7 @@ Permite a un usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador}
  de moodle ver las configuraciones de personalización que tiene activas en su perfil así como las monedas que tiene disponibles.
  La conclusión de la trayectoria principal de esta caso de uso es una precondición para que
  algunos casos de uso del módulo de personalización puedan ejecutarse.\\%
- Este caso de uso es una extensión del caso de uso {\it Iniciar sesion} que es propio de moodle.}
+ Este caso de uso es una extensión del caso de uso {\it Iniciar sesión} que es propio de moodle.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
 	\UCitem[control]{Último cambio}{ 17/NOV/19 }
@@ -31,7 +31,7 @@ Permite a un usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador}
     }
 
 	\UCitems{Propósito}{%
-        \Titem El usuario quiere agragar un objeto más a su colección, para poder usarlo en la personalización de si perfil.
+        \Titem El usuario quiere agregar un objeto más a su colección, para poder usarlo en la personalización de si perfil.
 	}
 
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -48,7 +48,7 @@ Permite a un usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador}
 	}
 
 	\UCitems{Precondiciones}{%
-        \Titem El usuario debió de haber ejecutado el CU {\it Iniciar sesion} que es propio de moodle.
+        \Titem El usuario debió de haber ejecutado el CU {\it Iniciar sesión} que es propio de moodle.
 	}
 
 	\UCitems{Postcondiciones}{%
@@ -81,13 +81,13 @@ Permite a un usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador}
     \Sistema Redirige a la pantalla \refElem{IU-P01}.
     \label{CU-P01-cargar-informacion}
     \Sistema Carga el nombre del actor (\salida{Nombre de usuario}) y lo muestra en pantalla.
-    \Sistema Carga la configuración actual del actor, 
+    \Sistema Carga la configuración actual del actor,
     cargando los objetos  (\salida{tienda-gmdl-objeto})
     desbloqueados cuyo \refElem{tienda-gmdl-objeto-desbloqueado.elegido} sea igual a 1  y los muestra en pantalla.
     \Sistema Comprueba que el módulo financiero esté desactivado. \refTray{C}
     \Sistema Carga todos los objetos en \refElem{tienda-gmdl-objeto} y los muestra en pantalla.
-    
-    
+
+
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
@@ -128,9 +128,8 @@ Permite a un usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador}
 
 \UCExtensionPoint{Comprar objeto}{%
 
-    El actor desea agregar un nuevo objeto a su colección.. 
+    El actor desea agregar un nuevo objeto a su colección..
   %
-      }{Al final de la trayectoria alternativ a C
+      }{Al final de la trayectoria alternativa C
   %
       }{\refElem{CU-F03}}
-

@@ -40,9 +40,11 @@ Permite al usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador} o
 
 	\UCitem{Salidas}{
         \imprimeUC{salida}
-        \Titem \refElem{MSG-F01}
-        \Titem \refElem{MSG-F02}
-        \Titem \refElem{MSG-F03}}
+        \Titem ''¡Objeto [NombreDelObjeto] comprado!''%\refElem{MSG-F01}
+        \Titem ''¡Oh no!, No tienes suficiente dinero para comprar el objeto [NombreDelObjeto]!''%\refElem{MSG-F02}
+        \Titem ''¡Ya tenías desbloqueado el objeto [NombreDelObjeto]!''%\refElem{MSG-F03}
+
+        }
 
 	\UCitem{Destino}{%
 		\refElem{IU-P01}
@@ -84,22 +86,22 @@ Permite al usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador} o
     \Actor Selecciona dando clic a la opción \textbf{Comprar} (Indicado por el ícono de las monedas \IUMonedas{}) del objeto que desea comprar en la pantalla \refElem{IU-P01}.
     \Sistema Comprueba que el actor cuenta con suficientes \refElem{xp-user.monedas-plata} para comprar el objeto. \refTray{A}
     \Sistema Comprueba que el actor no cuente con ese objeto todavía. \refTray{B}
-    \Sistema Desbloquea el objeto seleccionado para el actor, guardandolo en \refElem{tienda-gmdl-objeto-desbloqueado}.
+    \Sistema Desbloquea el objeto seleccionado para el actor, guardándolo en \refElem{tienda-gmdl-objeto-desbloqueado}.
     \Sistema Le resta al actor las \refElem{xp-user.monedas-plata} dependiendo el \refElem{tienda-gmdl-rareza-objeto.costo-adquisicion} del objeto seleccionado.
-    \Sistema Muestra el mensaje \refElem{MSG-P01}
+    \Sistema Muestra el mensaje ''¡Objeto [NombreDelObjeto] comprado!''%\refElem{MSG-P01}
 
 \end{UCtrayectoria}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
   {A}{El actor no cuenta con las monedas necesarias }
 
-  \Sistema Muestra el mensaje  \refElem{MSG-F02}.
+  \Sistema Muestra el mensaje  ''¡Oh no!, No tienes suficiente dinero para comprar el objeto [NombreDelObjeto]!''%\refElem{MSG-F02}.
 
 \end{UCtrayectoriaA}
 
 \begin{UCtrayectoriaA}[Fin del caso de uso]%
 {B}{El actor ya tiene comprado el objeto}
 
-    \Sistema Muestra el mensaje \refElem{MSG-F03} 
+    \Sistema Muestra el mensaje ''¡Ya tenías desbloqueado el objeto [NombreDelObjeto]!''%\refElem{MSG-F03}
 
 \end{UCtrayectoriaA}

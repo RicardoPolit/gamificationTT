@@ -11,7 +11,7 @@
 %    {Jerarquía de elementos de juego segun For The Win}
 
 \begin{UseCase}[%
-Autor/David Fllores Casanova,%
+Autor/David Flores Casanova,%
 Version/0.1,%
 Estado/\ucstEnRevision]%
 %
@@ -32,7 +32,7 @@ Estado/\ucstEnRevision]%
     }
 
 	\UCitems{Propósito}{%
-        \Titem El actor desea ver el progreso que lleva en la activdad, así como ver, si ya respondió la pregunta diaria.
+        \Titem El actor desea ver el progreso que lleva en la actividad, así como ver, si ya respondió la pregunta diaria.
 	}
 
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -77,14 +77,14 @@ Estado/\ucstEnRevision]%
 
 \begin{UCtrayectoria}%
 %
- 	\Actor Presiona el nombre de la instancia de la actvidad a la que quiere acceder en la pantalla \refElem{IU-M07}.
+ 	\Actor Presiona el nombre de la instancia de la actividad a la que quiere acceder en la pantalla \refElem{IU-M07}.
     \Sistema Verifica que el actor esté dado de alto como actor gamificado. \refTray{A}
     \label{CU-S01-cracion-usuario}
 	\Sistema Verifica que el actor no haya respondido la pregunta diaria. \refTray{B}
     \Sistema Redirige a la pantalla principal de la instancia \refElem{IU-S01a}.
-	\Sistema Obtiene el número de preguntas que el usuario ha repsondido
+	\Sistema Obtiene el número de preguntas que el usuario ha respondido.
     \label{CU-S01-mostrar-informacion}
-	y la cantidad de preguntas que le faltan por responder y genera la sección de la barra de progreso y la muestra en pantalla. 
+	y la cantidad de preguntas que le faltan por responder y genera la sección de la barra de progreso y la muestra en pantalla.
 
 \end{UCtrayectoria}
 
@@ -115,6 +115,6 @@ Estado/\ucstEnRevision]%
 
 \UCExtensionPoint{Responder pregunta diaria}{%
 
-    El actor desea reponder la pregunta del día.
+    El actor desea responder la pregunta del día.
 %
     }{Al final de la trayectoria principal del caso de uso.}{\refElem{CU-S03}}
