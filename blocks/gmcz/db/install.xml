@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="blocks/gmcz/db" VERSION="20191118" COMMENT="XMLDB file for Moodle blocks/gmcz"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
+>
+  <TABLES>
+    <TABLE NAME="block_gmcz" COMMENT="Default comment for block_gmcz, please edit me">
+      <FIELDS>
+        <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true"/>
+        <FIELD NAME="mdl_user" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" COMMENT="Id del usuario de moodle"/>
+        <FIELD NAME="hair" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="default" SEQUENCE="false"/>
+        <FIELD NAME="head" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="default" SEQUENCE="false"/>
+        <FIELD NAME="leftarm" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="default" SEQUENCE="false"/>
+        <FIELD NAME="rightarm" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="default" SEQUENCE="false"/>
+        <FIELD NAME="legs" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="default" SEQUENCE="false"/>
+        <FIELD NAME="torso" TYPE="char" LENGTH="20" NOTNULL="true" DEFAULT="default" SEQUENCE="false"/>
+      </FIELDS>
+      <KEYS>
+        <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+        <KEY NAME="mdl_user" TYPE="foreign-unique" FIELDS="mdl_user" REFTABLE="user" REFFIELDS="id" COMMENT="Foreign Key for moodle user"/>
+      </KEYS>
+    </TABLE>
+  </TABLES>
+</XMLDB>
