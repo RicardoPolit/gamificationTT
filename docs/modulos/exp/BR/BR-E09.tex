@@ -19,7 +19,10 @@ Estado/edicion]%
     \BRitem[admin]{Nivel}{\blControlling}
 
     \BRitem{Descripción}{%
-        Un evento puede ...
+        Para todas aquellas secciones de un curso gamificado que ya hayan sido
+        completadas por al menos un estudiante, se debe bloquear la edición de los
+        puntos de experiencia que otorgan con el propósito de impedir que una sección
+        en distintos momentos para distintos alumnos otorge puntos de experiencia.
     }
 
 %   \BRitem{Sentencia}{%
@@ -28,13 +31,17 @@ Estado/edicion]%
 
     \BRitem{Ejemplo positivo}{\hfill\par%
         \begin{itemize}
-        \item ...
+        \item Al abrir la edición de un curso con experiencia con cinco secciones,
+              se deshabilita la edición de las primeras tres secciones del curso
+              ya que estas han sido completadas por almenos un estudiante.
         \end{itemize}
     }
 
     \BRitem{Ejemplo negativo}{\hfill\par%
         \begin{itemize}
-        \item ...
+        \item Al abrir la edición de un curso con experiencia con cinco secciones,
+              no se deshabilitan la edición de las secciones del curso ya que hayan
+              sido completadas con anterioridad.
         \end{itemize}
     }
 
