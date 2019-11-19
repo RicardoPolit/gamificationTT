@@ -1,10 +1,11 @@
 \chapter{Marco Teórico}
 \label{ch:marcoTeorico}
 
- Este capítulo tiene como propósito establecer el soporte conceptual y documental del proyecto,
- especifica la metodología incluyendo roles, eventos y artefactos, además se especifican los
- marcos de trabajo de gamificación, los sistemas de aprendizaje contemplados y finalmente
- la elección de la plataforma sobre la cual se desarrollarán las distintas funcionalidades.
+ Este capítulo tiene como propósito establecer el soporte conceptual y documental del
+ proyecto, especifica la metodología incluyendo roles, eventos y artefactos, además 
+ se especifican los marcos de trabajo de gamificación y los sistemas de aprendizaje 
+ contemplados, finalmente se presenta la elección de la plataforma sobre la cual se 
+ desarrollarán las distintas funcionalidades.
 
     \input{investigacion/marcoTeorico/scrum}
 
@@ -43,10 +44,11 @@
     % https://docs.moodle.org/all/es/Acerca_de_Moodle
     % https://docs.moodle.org/all/es/19/Acerca_de_Moodle
 
- \noindent Moodle es proporcionado gratuitamente como programa de código Abierto, bajo la GNU-GPL
- (GNU General Public License), esta licencia permite que Moodle sea adecuado y personalizado libremente
- ya que su configuración modular y diseño inter-operable permite a los desarrolladores crear plugins
- e integrar aplicaciones externas para lograr funcionalidades específicas \cite{aboutMoodle}.
+ \noindent Moodle es proporcionado gratuitamente como programa de código Abierto,
+ bajo la licencia GNU-GPL (GNU General Public License), esta licencia permite que
+ Moodle sea adecuado y personalizado libremente ya que su configuración modular y
+ diseño inter-operable permite a los desarrolladores crear plugins e integrar
+ aplicaciones externas para lograr funcionalidades específicas \cite{aboutMoodle}.
 
  % La Licencia GPL indica que que cualquier persona puede adaptar, extender o modificar, tanto para
  % proyectos comerciales como no-comerciales, sin pago de cuotas por licenciamiento, bajo la condición
@@ -54,7 +56,7 @@
  % http://mchapman.com/amb/soft/gpl.pdf
 
     \begin{quote}
-    Durante el desarrollo del trabajo terminal se utiliza la versión 3.5 de moodle,
+    Durante el desarrollo del trabajo terminal se utiliza la versión 3.5 de Moodle,
     debido a que es la versión más reciente con soporte a largo plazo (Moodle 3.5 LTS)
     al mes de febrero de 2019. \cite{moodleHistorial}
     \end{quote}
@@ -78,15 +80,15 @@
     \addfigure[(adaptado de {\it Moodle Architecture}  \cite{moodleArch})]%
         {0.4}{investigacion/images/MoodleArch}{moodle:arch}{Componentes que conforman la estructura interna de Moodle}
 
- \noindent Debido a que Moodle está conformado tanto de elementos requeridos (núcleo/core y subsistemas)
+ \noindent Debido a que Moodle está conformado tanto de elementos requeridos (núcleo y subsistemas)
  como opcionales (plugins), los tipos de comunicación permitidos están regidos por un conjunto de reglas
- descritas a continuación \cite{moodleComponets}.
+ descritas a continuación \cite{moodleComponets}:
 
     % https://docs.moodle.org/dev/Communication_Between_Components
 
     \begin{itemize}
     \item Es permitido que cualquier componente se puede comunicar con los componentes
-          requeridos de moodle (núcleo y los subsistemas).
+          requeridos de Moodle (núcleo y los subsistemas).
 
     \item Cualquier componente puede comunicarse con sí mismo.
 
@@ -175,7 +177,7 @@
  % https://docs.moodle.org/dev/Moodle_3.5_release_notes
 
     \begin{itemize}
-        \item PHP Versión 7.0 como mínimo, PHP 7.1.x and 7.2.x también son soportados.
+        \item PHP Versión 7.0 como mínimo, PHP 7.1.x y 7.2.x también son soportados.
         %PHP 7.x could have some engine limitations
         \item Extensión {\it Intl} de PHP
         \item Bases de datos

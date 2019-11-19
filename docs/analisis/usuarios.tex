@@ -15,27 +15,30 @@
     permisos y funcionalidades que brinda moodle, desde configurar la visualización
     de la página principal del sitio hasta editar las políticas de seguridad. A
     continuación se describen las responsabilidades y cualidades que debe tener
-    un administrador.\\}
+    un administrador.}
 
     \item[Responsabilidades:] \hfill
         \begin{itemize}
-        \item Instalar/desinstalar plugins
-        \item configuración general de los plugins
+        \item Administrar el sitio de Moodle.
+        \item Instalar/desinstalar plugins dependiendo de las necesidades
+              institucionales.
+        \item Realizar las configuraciones requeridas de los plugins instalados.
         \end{itemize}
 
     \item[Perfil:] \hfill
         \begin{itemize}
         \item Contar con experiencia administrando moodle.
-        \item Conocimientos de permisos en LAMP (Linux, apache, MySQL and PHP).
+        \item Conocimientos de permisos en LAMP (Linux, Apache, MySQL y PHP).
         \item Conocimientos básicos de gamificación.\\
         \end{itemize}
     \end{actor}
 
     \noindent
-    Las funcionalidades extras que se le brindarán al administrador son las siguientes:
+    Las funcionalidades extras que se le brindarán al administrador son las
+    siguientes:
 
-
-    {\bf Funcionalidades Generales:}
+    \begin{quote}
+    {\bf Funcionalidades generales:}
         \begin{itemize}
         \item Elegir que conjunto de funcionalidades que desea instalar
               en la plataforma moodle que administra.
@@ -44,24 +47,48 @@
         \item Creación de usuarios gamificados de forma automática.
         \item Eliminar de moodle las funcionalidades de gamificación que desee.
         \end{itemize}
+    \end{quote}
 
+    \begin{quote}
     {\bf Del módulo de experiencia:}
         \begin{itemize}
         \item Establecer la cantidad de experiencia que brindarán los cursos.
+        \item Habilitar o deshabilitar de forma general el sistema de experiencia
+              en toda la plataforma.
+        \item Habilitar o deshabilitar la experiencia únicamente para los eventos
+              soportados.
+        \item Establecer el título, descripción, mensaje que se presentan en la
+              pantalla emergente cuando un usuario alcanza un nuevo nivel.
+        \item Configurar la imagen del nivel y los colores de la barra de progreso,
+              y el color del nivel con base en los colores institucionales.
         \item Especificar la experiencia correspondiente al primer nivel.
-        \item Elegir el tipo de incremento de la cantidad de experiencia en los niveles.
-        \item Especificar el factor o valor de incremento asociado al tipo de incremento.
-        \item Establecer la cantidad de experiencia que brindará la actividad 'uno contra uno'.
-        \item Establecer la cantidad de experiencia que brindará la actividad 'uno contra sistema'.
-        \item Establecer la cantidad de experiencia que brindará la actividad 'preguntas diarias'.
+        \item Elegir el tipo de incremento de la cantidad de experiencia en los
+              niveles y el factor o valor de incremento asociado al tipo de
+              incremento.
+        \item Configurar la cantidad de experiencia que se brinda cuando ocurre
+              algún evento emitido por otro módulo.
+        \item Elegir en que pantallas de moodle se debería mostrar la
+              visualizacion del nivel actual para cada usuario.
+        %\item Configurar la cantidad de experiencia que brindará la actividad
+        %      {\it uno contra uno}.
+        %\item Establecer la cantidad de experiencia que brindará la actividad
+        %      {\it uno contra sistema}.
+        %\item Establecer la cantidad de experiencia que brindará la actividad 
+        %      {\it preguntas diarias}.
         \end{itemize}
+    \end{quote}
 
+    \begin{quote}
     {\bf Del módulo financiero:}
         \begin{itemize}
-        \item Establecer la cantidad de monedas de plata que brindará la actividad 'uno contra uno'.
-        \item Establecer la cantidad de monedas de plata que brindará la actividad 'uno contra sistema'.
-        \item Establecer la cantidad de monedas de plata que brindará la actividad 'preguntas diarias'.
+        \item Establecer la cantidad de monedas de plata que brindará la actividad
+              'uno contra uno'.
+        \item Establecer la cantidad de monedas de plata que brindará la actividad
+              'uno contra sistema'.
+        \item Establecer la cantidad de monedas de plata que brindará la actividad
+              'preguntas diarias'.
         \end{itemize}
+    \end{quote}
 
 
  % =====================================
@@ -70,40 +97,44 @@
 
     \begin{actor}{aProfesor}{Profesor}{%
     Un profesor, visto desde el punto de vista de este desarrollo, es la persona
-    encargada de la creación y administración de los cursos desea impartir a través
-    de moodle, por lo tanto además de tener rol de {\it profesor} el cual le permite
-    gestionar y añadir contenido a los cursos así como el rol de {\it creador de
-    curso} \cite{MoodleRoles} \\}
+    encargada de la creación y administración de los cursos que desea impartir a
+    través de moodle, por lo tanto además de tener rol de {\it profesor} para
+    gestionar y añadir contenido a los cursos, debe tener el rol de {\it creador de
+    cursos} \cite{MoodleRoles} \\}
 
     \item[Responsabilidades:] \hfill
         \begin{itemize}
-        \item Creación de los cursos que imparte
-        \item Creación del contenido de los cursos que imparte
-        \item Gestión del curso
-        \item Establecer las formas de inscripción en el curso
-        \item Configuración de las funcionalidades escogidas para la gamificación
+        \item Crear de los cursos de las materias que imparte.
+        \item Crear del contenido de los cursos que imparte.
+        \item Administrar las actividades, secciones y demás elementos dentro de un
+              curso
+        \item Establecer las formas de inscripción en el curso.
+        \item Elegir y configurar las funcionalidades para la gamificación para el
+              curso..
         \end{itemize}
 
     \item[Perfil:] \hfill
         \begin{itemize}
-        \item Contar con experiencia en moodle en creación y administración de cursos.
-        \item Contar con conocimiento básicos de ludificación y/o gamificación.
+        \item Contar con experiencia en la creación y administración de cursos.
+        \item Contar con conocimiento básicos de gamificaciÓn.
         \end{itemize}
     \end{actor}
 
     \noindent
     Las funcionalidades extras que se le brindarán al profesor son las siguientes:
 
-
+    \begin{quote}
     {\bf Funcionalidades generales:}
         \begin{itemize}
-        \item Crear un curso con soporte da gamificación.
+        \item Crear un curso con soporte para gamificación.
         \item Establecer las funcionalidades que desea incluir en cada curso.
         \item Convertir un curso no gamificado a un curso gamificado y viceversa.
         \item Soporte para todas las funcionalidades de administración de un curso
               normal.
         \end{itemize}
+    \end{quote}
 
+    \begin{quote}
     {\bf Del módulo de experiencia:}
         \begin{itemize}
         \item Habilitar/Deshabilitar el soporte para entregar puntos de experiencia
@@ -114,9 +145,14 @@
               curso.
         \item Establecer si se mostrará por defecto el nivel actual de experiencia
               correspondiente al usuario que está viendo la pantalla.
+        \item Agregar una nueva sección a un curso con soporte para dar experiencia.
+        \item Eliminar una sección de un curso con soporte para brindar experiencia.
+        \item convertir un curso normal a un curso con experiencia.
+        \item Agregar y/o eliminar cursos con soporte para experiencia.
         \end{itemize}
+    \end{quote}
 
-
+    \begin{quote}
     {\bf Del módulo de competencias:}
         \begin{itemize}
         \item Establecer si desea que haya apuestas en las competencias 'uno contra uno' dentro de los cursos que imparte.
@@ -125,12 +161,15 @@
         \item Establecer qué banco de preguntas se usará en la actividad 'uno contra sistema' dentro de los cursos que imparte.
         \item Establecer cuál es el nivel de dificultad mínimo a derrotar, para que un estudiante complete la actividad 'uno contra sistema' dentro de los cursos que imparte.
         \end{itemize}
+    \end{quote}
 
 
+    \begin{quote}
     {\bf Del módulo de seguimiento:}
         \begin{itemize}
         \item Establecer qué preguntas se usarán en la actividad 'preguntas diarias' dentro de los cursos que imparte.
         \end{itemize}
+    \end{quote}
 
  % =====================================
  %    A L U M N O
@@ -163,11 +202,18 @@
     {\bf Del módulo de experiencia:}
         \begin{itemize}
         \item Reconocimiento/notificación al haber superado un nivel.
-        \item Visualización del nivel actual en el que se encuentra.
-        \item Visualización de los puntos que tiene del nivel actual.
-        \item Ganar puntos de experiencia cada vez que derrote al sistema en un nuevo nivel de dificultad en una competencia contra el sistema.
-        \item Ganar puntos de experiencia cada vez que derrote a uno de sus compañeros en una competencia uno contra uno.
-        \item Ganar puntos de experiencia cada vez que conteste correctamente una pregunta diaria.
+        \item visualizar del nivel actual en el que se encuentra.
+        \item Visualizar de los puntos que tiene del nivel actual.
+        \item Elegir ocultar o mostrar la visualización del nivel de experiencia.
+
+        \item Ganar puntos de experiencia cada vez que derrote al sistema en un
+              nuevo nivel de dificultad en una competencia contra el sistema.
+
+        \item Ganar puntos de experiencia cada vez que derrote a uno
+              de sus compañeros en una competencia uno contra uno.
+
+        \item Ganar puntos de experiencia cada vez que conteste correctamente
+              una pregunta diaria.
         \end{itemize}
     \end{quote}
 
@@ -210,53 +256,53 @@
         \end{itemize}
     \end{quote}
 
-    \subsubsection{Tipos de usuarios de gamificación segun Richard Bartle}
+\subsubsection{Tipos de usuarios de gamificación según Richard Bartle}
 
-    La clasificación de usuarios propuesta por Richard Bartle \cite{BartleUsuarios}, define
-    4 tipos de usuarios: triunfadores, exploradores, socializadores y asesinos, los cuales son
-    descritos a continuación:
+ La clasificación de usuarios propuesta por Richard Bartle \cite{BartleUsuarios},
+ define 4 tipos de usuarios: triunfadores, exploradores, socializadores y asesinos,
+ los cuales son descritos a continuación:
 
-        \begin{quote}
-        \begin{description}
-        \item[Triunfadores.]
-            Son aquellos jugadores que establecen sus propios objetivos relacionados con
-            el juego o sistema y se proponen vigorosamente alcanzarlos, lo cual generalmente
-            se traduce en la acumulación y liberación de elementos de alto valor
-            \cite[p. 3]{BartleUsuarios}.
+    \begin{quote}
+    \begin{description}
+    \item[Triunfadores.]
+        Son aquellos jugadores que establecen sus propios objetivos relacionados con
+        el juego o sistema y se proponen vigorosamente alcanzarlos, lo cual
+        generalmente se traduce en la acumulación y liberación de elementos de alto
+        valor \cite[p. 3]{BartleUsuarios}.
 
-        \item[Exploradores]
-            Son aquellos que intentan y buscan cada acción que se puede realizar en el
-            juego o sistema, comúnmente recorren y hacen un mapeo de la amplitud que se
-            les proporciona, y posteriormente experimentan explorando la profundidad
-            \cite[p. 4]{BartleUsuarios}.
+    \item[Exploradores]
+        Son aquellos que intentan y buscan cada acción que se puede realizar en el
+        juego o sistema, comúnmente recorren y hacen un mapeo de la amplitud que se
+        les proporciona, y posteriormente experimentan explorando la profundidad
+        \cite[p. 4]{BartleUsuarios}.
 
-        \item[Socializadores]
-            Son aquellos que utilizan los distintos mecanismos del juego o sistema brinda
-            con el propósito de comunicarse y naturalmente establecer roles interactuando
-            con las demás personas presentes en el juego o sistema
-            \cite[p. 4]{BartleUsuarios}.
+    \item[Socializadores]
+        Son aquellos que utilizan los distintos mecanismos del juego o sistema brinda
+        con el propósito de comunicarse y naturalmente establecer roles interactuando
+        con las demás personas presentes en el juego o sistema
+        \cite[p. 4]{BartleUsuarios}.
 
-        \item[Asesinos]
-            Son aquellos que usan las herramientas del juego o sistema para obtener la
-            vistoria sobre los demás jugadores, normalmente este implica utilizar las
-            herramientas, armas, entre otras en contra de los demás y así ganar
-            \cite[p. 4]{BartleUsuarios}.
+    \item[Asesinos]
+        Son aquellos que usan las herramientas del juego o sistema para obtener la
+        historia sobre los demás jugadores, normalmente este implica utilizar las
+        herramientas, armas, entre otras en contra de los demás y así ganar
+        \cite[p. 4]{BartleUsuarios}.
+    \end{description}
+    \end{quote}
 
-        \end{description}
-        \end{quote}
-
-    \noindent
-    Al final de este capitulo, en la seccion \hyperrefx{analisis:principios} se detalla
-    la relación que existe entre los distintos tipos de usuario, los principios de
-    gamificación y los distintos tipos de usuarios en la clasificación propuesta por
-    {\it Richart Bartle}.
+ \noindent
+ Al final de este capitulo, en la sección \hyperrefx{analisis:principios} se detalla
+ la relación que existe entre los distintos tipos de usuario, los principios de
+ gamificación y los distintos tipos de usuarios en la clasificación propuesta por
+ {\it Richart Bartle}.
 
 
 \section{Características principales}
 
  Con base en las funcionalidades generales que se desean proporcionar a los distintos
- actores, se determinaron cuatro características se deben tener en consideración durante
- todo el desarrollo del trabajo terminal, dichas características son descritas a continuación:
+ actores, se determinaron cuatro características se deben tener en consideración
+ durante todo el desarrollo del trabajo terminal, dichas características son
+ descritas a continuación:
 
 % % TAMBIEN SE DESEA QUE SEAN VARIAS OPCIONES PARA QUE LOS PROFES TENGAN UN ABANICO
  % AMPLIO DE OPCIONES
@@ -266,32 +312,29 @@
     \item{\bf\color{primary} Altamente configurable }
 
     \item[] Hace referencia a que se debe proporcionar al administrador, profesores
-            y estudiantes la flexibilidad para que puedan configurar, habilitar o deshabilitar
-            los distintos componentes que se desarrollarán dependiendo de las funcionalidades
-            correspondientes a cada rol.
+            y estudiantes la flexibilidad para que puedan configurar, habilitar o
+            deshabilitar los distintos componentes que se desarrollarán dependiendo
+            de las funcionalidades correspondientes a cada rol.
 
-    \item{\bf\color{primary} Escoge que quieres incluir }
+    \item{\bf\color{primary} Escoge qué quieres incluir }
 
-    \item[] Se le debe brindar al administrador la opción de poder escoger únicamente los
-            elementos requeridos dentro del conjunto de todos los componentes, de forma similar
-            dentro de todos las elementos de gamificación que brindan los componentes instalados
-            el profesor podrá escoger cuales desea incluir en sus cursos.
-
-    %\vfill\null
-    %\columnbreak
-    %\vfill\null
+    \item[] Se le debe brindar al administrador la opción de poder escoger únicamente
+            los elementos requeridos dentro del conjunto de todos los componentes, de
+            forma similar dentro de todos las elementos de gamificación que brindan
+            los componentes instalados el profesor podrá escoger cuales desea incluir
+            en sus cursos.
 
     \item{\bf\color{primary} Bajo acoplamiento }
 
     \item[] El hecho de permitirle al administrador de la plataforma poder elegir los
-            componentes que desea instalar, implica que los mismos deben estar diseñados
-            para poder trabajar sin depender de las funciones de los demás componentes.
+            componentes que desea instalar, implica que los mismos deben estar
+            diseñados para poder trabajar sin depender de las funciones de los demás
+            componentes.
 
     \item{\bf\color{primary} Comunicación entre módulos }
 
-    \item[] Que las cosas que pasen en módulo puedan impulsar acciones con otros módulos
-            para que cuando se deseen múltiples funcionalidades de distintos componentes
-            estos puedan trabajar en conjunto como una única herramienta.
+    \item[] Que las cosas que pasen en módulo puedan impulsar acciones con otros
+            módulos para que cuando se deseen múltiples funcionalidades de distintos
+            componentes estos puedan trabajar en conjunto como una única herramienta.
     \end{itemize}
-    %\vfill\null
     \end{multicols}

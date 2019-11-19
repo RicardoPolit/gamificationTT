@@ -11,11 +11,11 @@
  \noindent
  Los módulos identificados permitirán extender la funcionalidad de la plataforma web
  de aprendizaje Moodle, la cual fue elegida con base en la investigación realizada en
- la sección \hyperrefx{sec:sistemasaprendizaje}. A continuación se describe cada uno de los módulos y
- submódulos identificados.\\
+ la sección \hyperrefx{sec:sistemasaprendizaje}. Cada uno de estos módulos está
+ compuesto de distintos submódulos que están destinados a funcionalidades específicas
+ A continuación se describe cada uno de los módulos y submódulos identificados.
 
     \addfigure{1}{analisis/diagrams/modulosTT}{fig:modulos}{Diseño modular del sistema}
-
 
  % SOLO EXPLICAR QUE LOS MÓDULOS FUERON PLANEADOS PARA
  % BRINDAR SOPORTE A LOS PRINCIPIOS A,B,C,  Y TENER
@@ -27,143 +27,131 @@
  % FIND-QUOTE: Education must by itself enough engaging
 
 
-\subsection{Módulo de Experiencia}
+\subsection*{Módulo de Experiencia}
 
+ \noindent
  Este módulo brindará un mecanismo que permite a los usuarios medir su progreso
  como puntos de experiencia a nivel plataforma, además define la forma en que se
  obtendrán los puntos de experiencia, la forma en que se visualizará la información,
  el número requerido para superar cada nivel y la barra de progreso del nivel
  actual.
 
-\subsubsection{Esquema de experiencia.}
+\subsection*{Módulo de Competencias}
 
- El esquema de experiencia es la configuración sobre cómo funciona el sistema
- de puntos de experiencia, incluyendo la cantidad de experiencia que tiene
- cada nivel, el tipo de incremento en los puntos de experiencia nivel a nivel,
- las restricciones sobre la experiencia y la forma en que se otorgarán los puntos.
+ \noindent 
+ Este módulo brindará dos opciones para competir que otorgan al usuario
+ la posibilidad de poner en práctica sus conocimientos del curso y a su vez
+ interactuar con otros usuarios inscritos al curso.
 
-\subsubsection{Niveles.}
+ \noindent El resultado de la competencia se mide respecto a puntos y estos son
+ utilizados para determinar al ganador.
 
- Es el mecanismo que permite mostrarle a los estudiantes el progreso que han tenido
- a nivel plataforma mediante el nivel y los puntos de experiencia obtenidos en
- los cursos, además contiene la configuración para establecer el cómo se verá el
- nivel y la experiencia obtenida de dicho nivel.
-
- % Los principios de gamificación a los cuales permite brindarles soporte son:
- % \principioII
- % \principioVI
-%
-
-\subsection{Módulo de Competencias}
-
-  Este módulo brindará dos opciones para competir que otorgan al usuario
-  la posibilidad de poner en práctica sus conocimientos del curso y a su vez interactuar
-  con otros usuarios inscritos al curso.
-
-  \noindent El resultado de la competencia se mide respecto a puntos y estos son utilizados para determinar al ganador.
-
-\subsubsection{Competencia uno contra uno}
+% \subsubsection{Competencia uno contra uno}
 
 
-La competencia uno contra uno es una actividad que se puede llevar acabo en un curso, 
-la cual le permite al usuario competir con otro mientras responde un cuestionario.
-Esto para permitirle practicar y medir sus conocimientos con el resto de sus compañeros.\\
+% La competencia uno contra uno es una actividad que se puede llevar acabo en un curso, 
+% la cual le permite al usuario competir con otro mientras responde un cuestionario.
+% Esto para permitirle practicar y medir sus conocimientos con el resto de sus compañeros.\\
 
-\subsubsection{Competencia uno contra sistema}
+% \subsubsection{Competencia uno contra sistema}
 
-  Esta competencia es una actividad que se puede llevar acabo en un curso, la cual consiste en competir con el sistema al responder un cuestionario.
-  El sistema cuenta con varios niveles de dificultad, los cuales son; \\
-  \begin{enumerate}
-    \item Fácil.
-    \item Normal.
-    \item Difícil.
-    \item Imposible.
-  \end{enumerate}
-  \noindent Mientras más alto sea el nivel de dificultad, es más probable que el sistema conteste correctamente las preguntas del cuestionario. 
-  Así un estudiante, puede poner en práctica sus conocimientos mientras intenta vencer al sistema.
+  % Esta competencia es una actividad que se puede llevar acabo en un curso, la cual consiste en competir con el sistema al responder un cuestionario.
+  % El sistema cuenta con varios niveles de dificultad, los cuales son; \\
+  % \begin{enumerate}
+  %   \item Fácil.
+  %   \item Normal.
+  %   \item Difícil.
+  %   \item Imposible.
+  % \end{enumerate}
+  % \noindent Mientras más alto sea el nivel de dificultad, es más probable que el sistema conteste correctamente las preguntas del cuestionario. 
+  % Así un estudiante, puede poner en práctica sus conocimientos mientras intenta vencer al sistema.
 
-%\subsection{Módulo de Recompensa}
+\subsection*{Módulo de Recompensa}
 %
 %\subsubsection{Marcadores}
 %\subsubsection{Logros}
 %\subsubsection{Advertencias}
 
-\subsection{Módulo de Personalización}
+\subsection*{Módulo de Personalización}
 
-Este módulo pondrá a disposición de los usuarios una extensión a su perfil de moodle llamado "perfil gamificado". En el cual se podrá
-seleccionar objetos para personalizar su perfil. Esta personalización será visible en los diferentes módulos de este proyecto que soporten
-esta función.
+ \noindent 
+ Este módulo pondrá a disposición de los usuarios una extensión a su perfil de moodle llamado ``perfil gamificado''. En el cual se podrá
+ seleccionar objetos para personalizar su perfil. Esta personalización será visible en los diferentes módulos de este proyecto que soporten
+ esta función.
 
-\subsubsection{Objetos de personalización}
-
-
-Los objetos se clasifican mediante 2 características, las cuales son; el tipo y su rareza.\\
-
-\noindent Se tienen 3 tipos de objetos:
-
-\begin{multicols}{2}
-  \begin{Titemize}
-    \Titem Imagen de perfil
-    \Titem Tipo de marco
-    \Titem Color de marco
-  \end{Titemize}
-
-  \noindent Se tienen 4 rarezas:
-
-  \begin{Titemize}
-    \Titem Común
-    \Titem Rara
-    \Titem Épica
-    \Titem Legendaria
-  \end{Titemize}
-\end{multicols}
+% \subsubsection{Objetos de personalización}
 
 
-\subsubsection{Perfil gamificado}
+% Los objetos se clasifican mediante 2 características, las cuales son; el tipo y su rareza.\\
 
-  El usuario tiene la posibilidad de personalizar su perfil gamificado al establecer 
-  los objetos que quiere mostrar. Los objetos a disposición del usuario debieron haber sido desbloqueados
-  previamente al intercambiar sus monedas por estos. 
+% \noindent Se tienen 3 tipos de objetos:
+
+% \begin{multicols}{2}
+%   \begin{Titemize}
+%     \Titem Imagen de perfil
+%     \Titem Tipo de marco
+%     \Titem Color de marco
+%   \end{Titemize}
+
+%   \noindent Se tienen 4 rarezas:
+
+%   \begin{Titemize}
+%     \Titem Común
+%     \Titem Rara
+%     \Titem Épica
+%     \Titem Legendaria
+%   \end{Titemize}
+% \end{multicols}
+
+
+% \subsubsection{Perfil gamificado}
+
+%   El usuario tiene la posibilidad de personalizar su perfil gamificado al establecer 
+%   los objetos que quiere mostrar. Los objetos a disposición del usuario debieron haber sido desbloqueados
+%   previamente al intercambiar sus monedas por estos. 
   
-  \noindent Esto otorga un grado de importancia a los objetos dependiendo de la cantidad de monedas necesarias para desbloquearlos,
-  es por ello, que lo que determina la cantidad de monedas requeridas es la rareza del objeto.
+%   \noindent Esto otorga un grado de importancia a los objetos dependiendo de la cantidad de monedas necesarias para desbloquearlos,
+%   es por ello, que lo que determina la cantidad de monedas requeridas es la rareza del objeto.
 %\subsubsection{Narrativa}
 
-\subsection{Módulo Financiero}
+\subsection*{Módulo Financiero}
 
-Este módulo brindará un mecanismo que otorga la posiblidad a los usuarios de 
-obtener monedas al realizar diferentes acciones en el sistema, las cuales son:
+ \noindent 
+ Este módulo brindará un mecanismo que otorga la posibilidad a los usuarios de 
+ obtener monedas al realizar diferentes acciones en el sistema, las cuales son:
 
-\begin{itemize}
-  \item Derrotar al sistema en una competencia uno contra sistema.
-  \item Derrotar a otro usuario en una competencia uno contra uno (Incluyendo las monedas apostadas).
-  \item Contestar correctamente una pregunta diaria.
-\end{itemize}
+% \begin{itemize}
+%   \item Derrotar al sistema en una competencia uno contra sistema.
+%   \item Derrotar a otro usuario en una competencia uno contra uno (Incluyendo las monedas apostadas).
+%   \item Contestar correctamente una pregunta diaria.
+% \end{itemize}
 
-  \noindent El lugar donde se pueden utilizar las monedas adquiridas es en el módulo de personalización.
+%   \noindent El lugar donde se pueden utilizar las monedas adquiridas es en el módulo de personalización.
 
-\subsubsection{Esquema Financiero}
+% \subsubsection{Esquema Financiero}
 
-Este esquema es la configuración del módulo financiero, lo cual incluye la posibilidad de habilitar o deshabilitar qué acciones anteriormente descritas
- otorgan monedas a los usuarios y la cantidad de monedas que reciben por esa acción en concreto.
+% Este esquema es la configuración del módulo financiero, lo cual incluye la posibilidad de habilitar o deshabilitar qué acciones anteriormente descritas
+%  otorgan monedas a los usuarios y la cantidad de monedas que reciben por esa acción en concreto.
 
-\subsection{Módulo de Seguimiento}
+\subsection*{Módulo de Seguimiento}
 
-Este módulo permitirá a los usuarios tener un seguimiento de su progreso en el sistema. 
-Lo cual otorga al usuario una manera de evaluar su rendimiento.
+ \noindent
+ Este módulo permitirá a los usuarios tener un seguimiento de su progreso en el sistema. 
+ Lo cual otorga al usuario una manera de evaluar su rendimiento.
 
-\subsubsection{Preguntas diarias}
+% \subsubsection{Preguntas diarias}
 
-Las preguntas diarias permiten al usuario contestar únicamente una pregunta por día,
-la cual es seleccionada de manera aleatoria de un banco de preguntas. 
-Esto brinda la posibilidad de desafiar diariamente los conocimientos del usuario sobre el curso.
+% Las preguntas diarias permiten al usuario contestar únicamente una pregunta por día,
+% la cual es seleccionada de manera aleatoria de un banco de preguntas. 
+% Esto brinda la posibilidad de desafiar diariamente los conocimientos del usuario sobre el curso.
+% 
+% \subsubsection{Barras de progreso}
 
-\subsubsection{Barras de progreso}
+% Las barras de progreso brindarán al usuario una manera visual de comparar su progreso y conocer
+%  la cantidad de acciones que tiene que seguir realizando para llegar a la meta establecida en dicha barra de progreso.
+% Tomando como ejemplo las preguntas diarias se le mostrará al usuario cuantas preguntas ha contestado 
+% y cuantas le faltan por contestar para llegar a la meta.
 
-Las barras de progreso brindarán al usuario una manera visual de comparar su progreso y conocer
- la cantidad de acciones que tiene que seguir realizando para llegar a la meta establecida en dicha barra de progreso.
-Tomando como ejemplo las preguntas diarias se le mostrará al usuario cuantas preguntas ha contestado 
-y cuantas le faltan por contestar para llegar a la meta.
 
 % =========================================
 %  N O T E S
