@@ -7,13 +7,13 @@
 % \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
 
 \begin{UseCase}[%
-Autor/Ricardo Naranjo,%
+Autor/David Flores Casanova,%
 Version/0.1,%
 Estado/\ucstEnRevision]%
 %
-{CU-C06}{Eliminar instancia (Competencia uno contra sistema)}{%
+{CU-S04}{Eliminar instancia (Preguntas diarias)}{%
 %
- Permite al \refElem{aProfesor} y al \refElem{aAdministrador} eliminar una instancia de la actividad competencia uno contra sistema en su curso.
+ Permite al actor eliminar una instancia de la actividad de preguntas diarias en el curso.
  Este caso de uso es una extensión del caso de uso {\it Ver curso} que es propio de moodle.}
 
 	\UCitem[control]{Revisor}{ Sin asignar }
@@ -27,7 +27,7 @@ Estado/\ucstEnRevision]%
     }
 
 	\UCitems{Propósito}{%
-        \Titem Permitir al \refElem{aProfesor} y al \refElem{aAdministrador} eliminar una instancia de la actividad de competencia uno contra sistema.
+        \Titem Permitir quitar la actividad de su curso.
 	}
 
 	\UCitem{Entradas}{\imprimeUC{entrada}}
@@ -43,11 +43,8 @@ Estado/\ucstEnRevision]%
 	}
 
 	\UCitems{Precondiciones}{%
-        \Titem El plugin de competencia uno contra sistema debe estar instalado en moodle.
-        \Titem La instancia de la actividad de competencia uno contra sistema debe estar creada.
-        % Realizar el caso de uso "listar actividades disponibles?"
-        % \Titem Si se trata de una actualización de un plugin la versión de este debe
-               % cumplir con la regla \refElem{BR-M02}.
+        \Titem El complemento de preguntas diarias debe estar instalado en moodle.
+        \Titem La instancia de la actividad de preguntads diarias debe estar creada.
 	}
 
 	\UCitems{Postcondiciones}{%
@@ -60,16 +57,9 @@ Estado/\ucstEnRevision]%
 	\UCitems{Errores}{%
 	}
 
-	% \UCitem{Viene de}{% Indicar si el Caso de uso es primario o se extiende de otro. La mayoría se
-					  % extienden de Login.
-		% EJEMPLO: \refIdElem{PY-CU1} o Caso de uso primario.
-	% 	\TODO Especificar.
-	% }
-
  \UCsection[design]{Datos de Diseño}
 
 	\UCitems[design]{Casos de Prueba}{%
-        \Titem \refElem{CPC-C01}
 	}
 
  \UCsection[admin]{Datos de Administración de Requerimiento}
@@ -84,20 +74,14 @@ Estado/\ucstEnRevision]%
 %
 
     \Actor Activa la edición del curso en la pantalla \refElem{IU-M08}.
-
     \Sistema Redirige a la pantalla de edición del curso \refElem{IU-M08aa}.
-
     \Actor Presiona el botón {\bf Editar} de la instancia que desea eliminar.
-
     \Sistema Despliega el menú \refElem{IU-M08b}.
-
     \Actor Presiona el botón {\bf Eliminar} del menú desplegable \refElem{IU-M08b}.
-
     \Sistema Despliega mensaje de confirmación de eliminación. \refElem{IU-M08c}
-
-    \Actor Presiona el botón {\bf Si}. \refTray{A}
-
-    \Sistema Redirige a la pantalla \refElem{IU-M08} y elimina la instancia y los valores de la instancia \refElem{comp-cpu-gmcompcpu}, así como los datos que dependen de la instancia en las siguientes entidades: \refElem{comp-cpu-gmdl-intento} y \refElem{comp-cpu-gmdl-respuesta-cpu}.
+    \Actor Presiona el botón {\bf Sí}. \refTray{A}
+    \Sistema  Elimina la instancia y los valores de la instancia \refElem{seg-gmpregdiarias}, y los valores que dependen de ella \refElem{seg-gmdl-intento-diario}.
+    \Sistema Redirige a la pantalla \refElem{IU-M08}
 
 \end{UCtrayectoria}
 

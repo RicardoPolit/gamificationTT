@@ -1,0 +1,88 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+%\addfigure[(adaptado de {\it For The Win} \cite{ForTheWin})]%
+%    {.4}{investigacion/images/forthewin}{fig:ForTheWin}%
+%    {Jerarquía de elementos de juego segun For The Win}
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-S02}{Ver tabla de posiciones (Preguntas diarias)}{%
+%
+ Permite al actor ver la tabla de posiciones de una instancia de la actividadpreguntas diarias.
+ Este caso de uso es una extensión del caso de uso \refElem{CU-S01}.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 13/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aEstudiante},
+        \refElem{aProfesor},
+        \refElem{aAdministrador}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Ver la posición de cada usuario que participa en la instancia de la actividad.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{\imprimeUC{salida}
+	}
+
+	\UCitem{Destino}{%
+		\refElem{IU-S02}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El complemento de preguntas diarias esté instalado en moodle.
+        \Titem La instancia de la actividad de preguntas diarias debe estar creada.
+        % Realizar el caso de uso "listar actividades disponibles?"
+        % \Titem Si se trata de una actualización de un plugin la versión de este debe
+               % cumplir con la regla \refElem{BR-M02}.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem Se muestra la pantalla de tabla de posiciones perteneciente a la instancia de la actividad preguntas diarias.%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+    \Actor Presiona el botón {\bf Tabla posiciones} de la pantalla \refElem{IU-S01a} o \refElem{IU-S01b}.
+    \Sistema Redirige a la pantalla \refElem{IU-S02}.
+    \Sistema Carga el estado de cada usuario que ha participado en la actividad y los ordene de acuerdo a cuántas preguntas diarias han contestado de mayor a menor.
+
+\end{UCtrayectoria}
