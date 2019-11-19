@@ -166,6 +166,9 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
         foreach ($keys as $key => $value) {
             set_config($key, $value, self::PLUGIN);
         }
+
+        local_gamedlemaster_log::success(
+            'Block gmxp event settings updated', 'UPDATE');
     }
 
 }
