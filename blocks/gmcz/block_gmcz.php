@@ -35,7 +35,7 @@ class block_gmcz extends block_base {
             array('id'=>'canvasDiv')
         );
         $this->content->footer = "";
-        $avatar = self::get_avatar('default');
+        $avatar = self::get_avatar('knight');
 
 	    $PAGE->requires->js_call_amd('block_gmcz/sprite', 'init',array($avatar));
 	    return $this->content;
