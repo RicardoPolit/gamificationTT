@@ -21,6 +21,14 @@ Estado/revision]%
     %\BRitem[admin]{Nivel}{\blInfluencing}
     
     \BRitem{Descripción}{%
+        El calculo para obtener la experiencia del nivel $i$ uando el tipo de
+        incremento es porcentual está dado por la siguiente fórmula: Sea {\it exp()}
+        la función que optiene la experiencia de un nivel en específico, sea tambien
+        $i$ el nivel del cual se calcula la experiencia, sea $inc$ el factor de
+        incremento de nivel a nivel, y finalmente sea $round()$ una función de
+        redondeo a números enteros, entonces:
+
+            $$ exp(i) = round( exp(1) * (inc)^{(i-1)})$$
     }
 
 %   \BRitem{Sentencia}{%
@@ -29,13 +37,17 @@ Estado/revision]%
 
     \BRitem{Ejemplo positivo}{\hfill\par%
         \begin{itemize}
-        \item ...
+        \item La experiencia requerida para superar el nivel 1 es de 2000 puntos y el
+              factor de incremento entre los niveles es 1.1, entonces la experiencia
+              requerida para pasar el nivel 5 es de 2928 puntos.
         \end{itemize}
     }
 
     \BRitem{Ejemplo negativo}{\hfill\par%
         \begin{itemize}
-        \item ...
+        \item La experinecia requerida para superar el nivel 1 es de 2000 puntos y el
+              factor de incremento entre los niveles es 1.1, entonces la experiencia
+              requerida para pasar el nivel 5 es de 2300 puntos.
         \end{itemize}
     }% 
     
