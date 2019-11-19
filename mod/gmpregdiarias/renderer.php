@@ -170,7 +170,7 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
         $display = "<link href='styles.css' rel='stylesheet' type='text/css'>";
 
-        $display .= html_writer::start_tag('div');
+        $display .= html_writer::start_tag('div', array('id'=> 'gmpregdiarias-activity-container'));
 
             $display .= html_writer::start_tag('h2',array('class' => 'gmpregdiarias-titulo-'.$class));
 
@@ -182,27 +182,27 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
 
             $display .= html_writer::end_tag('h2');
 
-        $display .= html_writer::end_tag('div');
 
-        $display .= html_writer::start_tag('form',
+            $display .= html_writer::start_tag('form',
             array('action' => new moodle_url('/mod/gmpregdiarias/view.php',
                 array('id' => $cmid)), 'method' => 'post',
                 'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
                 'id' => 'responseform'));
-        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
-            'value' => 'Volver', 'class' => "btn btn-primary gmpregdiarias-button"));
-        $display .= html_writer::end_tag('form');
+            $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+                'value' => 'Volver', 'class' => "btn btn-primary gmpregdiarias-button"));
+            $display .= html_writer::end_tag('form');
 
+        $display .= html_writer::end_tag('div');
         return $display;
 
     }
-    public function render_main_page($gmpregdiarias, $userid,$id)
+    public function render_main_page($gmpregdiarias, $userid, $id)
         {
             $moodleUserId = $userid;
             $userid = $this->obtener_usuario_gamedle($moodleUserId);
             if(is_null($userid))
                 {
-                    $userid = $$this->obtener_usuario_gamedle($moodleUserId);
+                    $userid = $this->insertar_usuario($moodleUserId);
                 }
 
             $preguntasDisponibles = $this->obtener_num_preguntas_disponibles($gmpregdiarias->id);
@@ -495,5 +495,17 @@ class mod_gmpregdiarias_renderer extends plugin_renderer_base {
         {
             global $DB;
             return $DB->get_record('gmdl_usuario', $conditions=array("mdl_id_usuario" => $moodleUserId), $fields='*', $strictness=IGNORE_MISSING)->id;
+        }
+
+    
+
+    private function insertar_usuario($usuario)
+        {
+            global $DB;
+            $data = new stdClass();
+            $data->mdl_id_usuario = $usuario;
+            $data->nivel_actual = 1;
+            $data->experiencia_actual = 0;
+            return $DB->insert_record('gmdl_usuario', $data, $returnid=true, $bulk=false);
         }
 }

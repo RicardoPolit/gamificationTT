@@ -1,0 +1,84 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-P05}{Desactivar complemento}{%
+%
+    Para desactivar el complemento se necesita que el actor\refElem{aAdministrador} haga unas modificaciones
+    en la configuración de moodle. Esto ya es soportado por moodle, solo se indica qué es lo que debe de ingresar
+    el actor. Este caso de uso es una extensión del caso de uso {\it Acceder a la administración del sistio} propio de moodle.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 17/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}.
+    }
+
+	\UCitems{Propósito}{%
+        \Titem Se quiere dejar de ver la opción de perfil gamificado.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+        \Titem Teclado
+	}
+
+	\UCitem{Salidas}{
+        \imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-P01}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem se debió de haber ejecutado el CU 'Acceder a la administración del sistio'.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem La cabezera de moodle dejará de contar con la opción de 'Perfil gamificado'.
+        \Titem El submenú del usuario de moodle  dejará de contar con la opción de 'Perfil gamificado'.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+    \Actor Selecciona la opción \textbf{Apariencia}  y presiona la opción -> 'Ajustes de temas'.
+    \Sistema Redirige a la pantalla \refElem{IU-M10}.
+    \Actor Borra el texto \textbf{Perfil gamificado|/local/gmtienda/perfilgamificado.php} en la caja de texto \textbf{Ítems del menú personalizado}.
+    \Actor Borra el texto \textbf{Perfil gamificado|/local/gmtienda/perfilgamificado.php} en la caja de texto \textbf{Ítems del menú de usuario}.
+    \Actor Presiona el botón \textbf{Guardar cambios}.
+    \Sistema Guarda la configuración.
+    \Sistema Recarga la pestaña  \refElem{IU-M10}.
+    
+\end{UCtrayectoria}

@@ -1,0 +1,41 @@
+
+
+\subsubsection{Diseño de complementos}
+
+
+
+A continuación se presenta cómo el módulo personalización
+se implmenetan en moodle.\\
+
+
+\noindent Resumiendo el módulo de personalización, se  tiene una pantalla donde se gestiona qué objetos
+desea un usuario en su perfil gamificado
+y se debe acceder a ella utilizando una opción en la cabezera de moodle.
+
+La cabezera de moodle no tiene un tipo de complemento asociado como se tuvo con las actividades, sin embargo,
+ moodle le da soporte dejando editar al \refElem{aAdministrador}
+lo que se muestra en el menú y las acciones que realizan.
+
+\noindent Tomando en consideración lo anterior y que existe el complemento gamedlemaster, se presenta en la figura \ref{fig:diseno-comp-person}
+los complementos contemplados y las dependencias entre los mismos.
+
+
+    \addfigure{1}{modulos/person/diagrams/diseno_complementos}{fig:diseno-comp-person}{Implementación del modulo de competencia}
+
+
+Cada complemento en la figura \ref{fig:diseno-comp-person} está representado con una cadena que sigue el formato 'tipo\_de\_complemento:nombre\_de\_complemento'.
+Los tipos de complemento son;
+\begin{itemize}
+    \item \textbf{local} -  Este complemento moodle lo iterpreta como un comdín, el cual puede ser usado para múltiples propósitos.
+    \item \textbf{block} - Este complemento permite desplegar una sección en la mayoría de las páginas de moodle, la cuál puede representar código html.
+\end{itemize}
+
+La función de cada uno de los complementos presentados en la figura \ref{fig:diseno-comp-person} son:
+
+
+\begin{itemize}
+    \item \textbf{gamedlemaster} Definir la base de datos y los eventos a manejar.
+    \item \textbf{gmtienda} Permitirle al usuario personalizar su perfil gamificado.
+\end{itemize}
+
+

@@ -1,0 +1,78 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-P03}{Eliminar datos del complemento}{%
+%
+    Si ya no se quiere contar con el complemento de la tienda, se puede desintalar y se borrarán los datos guardados en la base de datos.
+    Este caso de uso es una extensión del caso de uso {\it Desinstalar un complemento} que es propio de moodle.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 17/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aAdministrador}.
+    }
+
+	\UCitems{Propósito}{%
+        \Titem El actor ya no quiere utilizar el complemento de tienda.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{
+        \imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-P01}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem se debió de haber ejecutado el CU 'Desinstalar complemento'.
+	}
+
+	\UCitems{Postcondiciones}{%
+        \Titem Los datos guardados relacionados a qué usuario debloqueó qué objeto estarpan eliminados.
+        \Titem La opción Perfil gamificado ahora arrojará un error de pagina no encontrada.
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{La postcondición del error 'paǵina no encontrada' se debe a que el caso de uso que agrega la opción 'Perfil gamificado',
+    es soportado únicamente por moodle.}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+
+    \Sistema se elimina toda la información de la entidad \refElem{tienda-gmdl-objeto-desbloqueado}. 
+    
+\end{UCtrayectoria}

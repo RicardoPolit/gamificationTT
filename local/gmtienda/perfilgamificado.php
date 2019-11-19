@@ -138,7 +138,7 @@ function obtener_mensaje_compra( $objeto, $objetocomprado ){
 
     }elseif ( $objetocomprado == -1 ){
 
-        $respuesta->mensaje = "¡Que raro, Felicidades parece ser que ya tienes desbloqueado el objeto $objeto->nombre!";
+        $respuesta->mensaje = "¡Ya tenías desbloqueado el objeto $objeto->nombre!";
         $respuesta->tipo = \core\output\notification::NOTIFY_INFO;
 
     }else{
