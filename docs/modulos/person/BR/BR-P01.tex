@@ -1,0 +1,41 @@
+\begin{BusinessRule}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/edicion]%
+%
+{BR-P01}{Solo se puede tener un objeto seleccionado de cada tipo de objeto}
+
+     \BRitem[control]{Revisada por}{Pendiente.}
+
+ \BRsection[control]{Atributos}
+    % Clases: \bcCondition, \bcIntegridad, \bcAutorization o \bcDerivation
+    % Tipos: \btEnabler, \btTimer o \btExecutive
+    % Niveles: \blControlling o \blInfluencing.
+    
+    \BRitem[admin]{Clase}{\bcIntegridad}%
+        
+    \BRitem[admin]{Tipo}{\btEnabler}%
+        
+    \BRitem[admin]{Nivel}{\blControlling}
+    
+    \BRitem{Descripción}{%
+       Un usuario solo puede tener un objeto de un mismo tipo seleccionado para mostrarse en el perfil gamificado.
+    }
+
+    \BRitem{Ejemplo positivo}{\hfill\par%
+        Un usuario tiene seleccionado para su perfil;
+        \begin{itemize}
+            \item Un objeto de tipo imagen.
+            \item Un objeto de tipo estilo de marco.
+            \item Un objeto de tipo color de marco.
+        \end{itemize}
+    }
+
+    \BRitem{Ejemplo negativo}{\hfill\par%
+        Un usuario tiene seleccionado para su perfil;
+        \begin{itemize}
+            \item Tres objetos de tipo imagen.
+        \end{itemize}
+        }
+    
+ \end{BusinessRule}

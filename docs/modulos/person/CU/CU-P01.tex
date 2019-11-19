@@ -1,0 +1,136 @@
+
+% \ucstEnEdicion     Al terminar una revisión/aprobación con observaciones
+%                    y al inicio del CU.
+%
+% \ucstEnRevision    Al terminar la edición del CU (version += 0.1).
+% \ucstEnAprobacion  Al pasar la revision sin observaciones.
+% \ucstAprobado      Al ser aprobado por el usuario (version += 1.0)
+
+\begin{UseCase}[%
+Autor/David Flores Casanova,%
+Version/0.1,%
+Estado/\ucstEnRevision]%
+%
+{CU-P01}{Ver perfil gamificado}{%
+%
+Permite a un usuario (Ya sea un \refElem{aProfesor}, un \refElem{aAdministrador} o un \refElem{aEstudiante})
+ de moodle ver las configuraciones de personalización que tiene activas en su perfil así como las monedas que tiene disponibles.
+ La conclusión de la trayectoria principal de esta caso de uso es una precondición para que
+ algunos casos de uso del módulo de personalización puedan ejecutarse.\\%
+ Este caso de uso es una extensión del caso de uso {\it Iniciar sesion} que es propio de moodle.}
+
+	\UCitem[control]{Revisor}{ Sin asignar }
+	\UCitem[control]{Último cambio}{ 17/NOV/19 }
+
+ \UCsection{Atributos}
+
+    \UCitem{Actor(es)}{%
+        \refElem{aProfesor},
+        \refElem{aAdministrador},
+        \refElem{aEstudiante}
+    }
+
+	\UCitems{Propósito}{%
+        \Titem El usuario quiere agragar un objeto más a su colección, para poder usarlo en la personalización de si perfil.
+	}
+
+	\UCitem{Entradas}{\imprimeUC{entrada}}
+
+	\UCitems{Origen}{%
+        \Titem Mouse
+	}
+
+	\UCitem{Salidas}{
+        \imprimeUC{salida}}
+
+	\UCitem{Destino}{%
+		\refElem{IU-P01}
+	}
+
+	\UCitems{Precondiciones}{%
+        \Titem El usuario debió de haber ejecutado el CU {\it Iniciar sesion} que es propio de moodle.
+	}
+
+	\UCitems{Postcondiciones}{%
+
+	}
+
+	\UCitem{Reglas de negocio}{\imprimeUC{regla}}
+
+	\UCitems{Errores}{%
+	}
+
+ \UCsection[design]{Datos de Diseño}
+
+	\UCitems[design]{Casos de Prueba}{%
+	}
+
+ \UCsection[admin]{Datos de Administración de Requerimiento}
+
+	\UCitem[admin]{Observaciones}{}
+
+\end{UseCase}
+
+\subsubsection{Trayectorias del caso de uso}
+
+\begin{UCtrayectoria}%
+%
+    \Actor Selecciona dando clic a la opción \textbf{Perfil gamificado} de la pantalla \refElem{IU-M09}.
+    \Sistema Corrobora que el actor haya iniciado sesión. \refTray{A}
+    \Sistema Corrobora que el actor esté registrado en la entidad \refElem{xp-user}.  \refTray{B}
+    \Sistema Redirige a la pantalla \refElem{IU-P01}.
+    \label{CU-P01-cargar-informacion}
+    \Sistema Carga el nombre del actor (\salida{Nombre de usuario}) y lo muestra en pantalla.
+    \Sistema Carga la configuración actual del actor, 
+    cargando los objetos  (\salida{tienda-gmdl-objeto})
+    desbloqueados cuyo \refElem{tienda-gmdl-objeto-desbloqueado.elegido} sea igual a 1  y los muestra en pantalla.
+    \Sistema Comprueba que el módulo financiero esté desactivado. \refTray{C}
+    \Sistema Carga todos los objetos en \refElem{tienda-gmdl-objeto} y los muestra en pantalla.
+    
+    
+\end{UCtrayectoria}
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+  {A}{El actor aun no ha iniciado sesión}
+
+  \Sistema Cierra la pantalla \refElem{IU-P01} y redirige a la pantalla \refElem{IU-M00b}.
+
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}%
+{B}{El actor no está registrado en \refElem{xp-user}}
+
+    \Sistema Registra al actor en \refElem{xp-user}.
+    \item Se regresa al paso \ref{CU-P01-cargar-informacion}.
+
+\end{UCtrayectoriaA}
+
+
+\begin{UCtrayectoriaA}[Fin del caso de uso]%
+{C}{El módulo financiero está activado}
+    \Sistema Carga todos los objetos en \refElem{tienda-gmdl-objeto} y muestra la opción \textbf{'Comprar'} (utilizando el ícono \IUMonedas{})
+     en aquellos objetos que el actor
+    aun no tiene en \refElem{tienda-gmdl-objeto-desbloqueado}  y los muestra en pantalla.
+    \Sistema Carga (\salida{xp-user.monedas-plata}) y lo muestra en pantalla.
+
+\end{UCtrayectoriaA}
+
+
+
+
+\UCExtensionPoint{Modificar perfil gamificado}{%
+
+    El actor desea modificar qué objetos mostrar en su perfil gamificado.
+%
+    }{Al final de la trayectoria principal del caso de uso.
+%
+    }{\refElem{CU-P02}}
+
+\UCExtensionPoint{Comprar objeto}{%
+
+    El actor desea agregar un nuevo objeto a su colección.. 
+  %
+      }{Al final de la trayectoria alternativ a C
+  %
+      }{\refElem{CU-F03}}
+
