@@ -1,0 +1,103 @@
+
+\subsection*{Interfaces de Moodle}
+
+ Como primera instancia se presentan las tanto las interfaces utilizadas de moodle
+ que son utilizadas a lo largo de los distintos casos de uso del módulo de
+ experiencia. La especificación de las interfaces de moodle contiene una imagen de
+ la interfaz y una descripción de los elementos y acciones más relevantes por cada
+ interfaz.
+
+    % INTERFACES DE MOODLE
+    \input{modulos/moodle/IU/IU-M00}  % Tablero (Dashboard)
+    \input{modulos/moodle/IU/IU-M00a} % Form: Selector de archivos
+    \input{modulos/moodle/IU/IU-M00b} % Login
+
+    \input{modulos/moodle/IU/IU-M01}  % Administración del sitio
+    \input{modulos/moodle/IU/IU-M01a} % Administración del sitio plugins
+    \input{modulos/moodle/IU/IU-M01b} % Administración del sitio usuarios
+    \input{modulos/moodle/IU/IU-M01c} % Administración del sitio Cursos
+
+    \input{modulos/moodle/IU/IU-M02}  % Instalación de Plugin
+    \input{modulos/moodle/IU/IU-M02a} % Validación de archivo ZIP
+    \input{modulos/moodle/IU/IU-M02b} % Comprobación de plugibs
+    \input{modulos/moodle/IU/IU-M02c} % Cancelación Instalación Plugin
+    \input{modulos/moodle/IU/IU-M02d} % Resultado Instalación Plugin
+
+    \input{modulos/moodle/IU/IU-M03}  % 
+    \input{modulos/moodle/IU/IU-M03a} % 
+
+    \input{modulos/moodle/IU/IU-M04}  % 
+    \input{modulos/moodle/IU/IU-M04a} % 
+
+    \input{modulos/moodle/IU/IU-M05}  % 
+    \input{modulos/moodle/IU/IU-M05a} % 
+    \input{modulos/moodle/IU/IU-M05b} % 
+    \input{modulos/moodle/IU/IU-M05c} % 
+
+    \input{modulos/moodle/IU/IU-M06}  % Cursos y Categorías
+    \input{modulos/moodle/IU/IU-M06a} % Confirmación eliminar curso
+    \input{modulos/moodle/IU/IU-M06b} % Estado de eliminación de un curso
+    \input{modulos/moodle/IU/IU-M06c} % Curso de moodle
+
+    \input{modulos/moodle/IU/IU-M07} % Pagina Inicial del Sitio
+
+\subsection*{Interfaces diseñadas}
+
+ A continuación se presentan todas las interfaces que fueron requeridas agregar
+ a moodle para brindar las funcionalidades planteadas por los casos de uso. Al igual
+ que la especificación de las interfaces de moodle, la especificación de estas
+ interfaces contiene la imagen de la interfaz y una descripción de los elementos
+ y acciones más relevantes por cada interfaz.
+
+    \input{modulos/exp/IU/IU-E01}  % Configuraciones
+    \input{modulos/exp/IU/IU-E02}  % Configuraciones Generales
+    \input{modulos/exp/IU/IU-E03}  % Configuraciones Visuales
+    \input{modulos/exp/IU/IU-E03a} % Configuraciones Mod Exp desactivado
+    \input{modulos/exp/IU/IU-E04}  % Configuraciones Esquema
+    \input{modulos/exp/IU/IU-E05}  % Configuraciones de Eventos
+    \input{modulos/exp/IU/IU-E05a} % Configuraciones Events desativados
+    \input{modulos/exp/IU/IU-E06}  % Curso Gamificado
+    \input{modulos/exp/IU/IU-E06a}  % Curso Gamificado
+    \input{modulos/exp/IU/IU-E06b} % Curso Gamificado (editing)
+
+    %\input{modulos/modExpIU/IU-E04} % Configuraciones de Comportamiento
+    %\input{modulos/modExpIU/IU-E05} % Configuraciones de eventos
+
+\subsection*{Diseño de plugins} % TODO CHANGE FOR INPUTS
+
+ Para poder desarrollar las funcionalidades especificadas mediante los casos de uso
+ es requerido el desarrollo de tres plugins distintos. Dichos plugins son listados a
+ continuación:
+
+    \begin{itemize}
+    \item {\bf\color{primary}%
+    \hypertarget{local:gamedlemaster}{Gamedlemaster} (local)}
+
+        Este plugin ayudará a extender el esquema de la base de datos de moodle
+        para que los plugins de experiencia y los de los demás módulos puedan
+        acceder a los datos sin la necesidad de depender explícitamente de otro
+        módulo.
+
+    \item {\bf\color{primary}%
+    \hypertarget{format:gamedle}{Curso con puntos de experiencia} (course format)}
+
+        Este es un plugin de tipo {\it course format} lo cual permite cambiar
+        la estructura de cómo se presentan las secciones y actividades del curso
+        \cite{MoodleCourseFormat}. Este tipo de plugin fue escogido para que los
+        cursos en moodle puedan otorgar puntos de experiencia.
+        % https://docs.moodle.org/dev/Course_formats
+
+    \item {\bf\color{primary}%
+    \hypertarget{block:gmxp}{Nivel Gamedle} (block)}
+
+        Los plugins de tipo {\it block} permiten desplegar información y/o brindar una 
+        funcionalidad a lo largo de distintas páginas de moodle \cite{MoodleBlocks},
+        además permite a cualquier usuario agregarlo u ocultarlo en las distintas
+        pantallas a las que tiene acceso, debido a estar razones este plugin se
+        encargará de mostrar el nivel y puntos de experiencia de dicho nivel que
+        tiene un usuario.
+        % https://docs.moodle.org/dev/Plugin_types
+    \end{itemize}
+
+\subsubsection{Diagrama de componentes} % TODO CHANGE FOR INPUTS
+\subsubsection{Diagrama de clases} % TODO CHANGE FOR INPUTS
