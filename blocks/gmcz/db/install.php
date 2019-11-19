@@ -10,27 +10,15 @@
 */
 
     function set_default_avatars () {
+
         $TABLE_USER = 'user';
-        $TABLE_AVATAR = 'avatar';
         $DEFAULT_AVATAR = 'default';
 
         global $DB;
-        $users = $DB->get_records($TABLE_USER);
-        local_gamedlemaster_log($users);
+        $users = $DB->get_records($TABLE_USER, null, '', 'id');
 
         foreach($users as $user) {
-            $avatar = new stdClass();
-            $avatar->mdl_user = $user->id;
-            $avatar->hair = $DEFAULT_AVATAR;
-            $avatar->head = $DEFAULT_AVATAR;
-            $avatar->rightarm = $DEFAULT_AVATAR;
-            $avatar->leftarm = $DEFAULT_AVATAR;
-            $avatar->torso = $DEFAULT_AVATAR;
-            $avatar->legs = $DEFAULT_AVATAR;
-
-            local_gamedlemaster_log::info(
-                $DB->insert_record($TABLE_AVATAR, $avatar)
-            );
+            block_gmcz_dao::create_avatar( $user->id, $DEFAULT_AVATAR);
         }
     }
 
@@ -40,12 +28,13 @@
 
         try {
             $transaction = $DB->start_delegated_transaction();
+
             set_default_avatars();
 
             $transaction->allow_commit();
 
             local_gamedlemaster_log::success(
-                "Gamedle users avatars created",'DELETE');
+                "Gamedle users avatars created", 'CREATE');
 
         } catch(Exception $ex) {
             $transaction->rollback($ex);
