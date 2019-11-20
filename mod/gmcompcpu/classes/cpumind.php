@@ -65,7 +65,7 @@ class mod_gmcompcpu__cpumind {
                     {
                         $w = self::intentarQuitarRespuesta($resp, $w, $espacio);
                     }
-                
+
 
                 if( $lenW > sizeof($w) &&  sizeof($w) > 0) {
 
@@ -181,7 +181,7 @@ class mod_gmcompcpu__cpumind {
 
         if( $dificultad <= 2 ){
 
-            $valorQuitado = $x*((2-$dificultad)*5);
+            $valorQuitado = $x*((3-$dificultad)*5);
 
         }else{
 
@@ -200,11 +200,10 @@ class mod_gmcompcpu__cpumind {
                     $answer->weighing -= (2-$dificultad)*5;
 
                 }else{
-                    if ((sizeof($w)-$x) == 0)
+                    if ((sizeof($w)-$x) != 0)
                         {
-
+                            $answer->weighing += $valorQuitado/(sizeof($w)-$x);
                         }
-                    $answer->weighing += $valorQuitado/(sizeof($w)-$x);
 
                 }
 

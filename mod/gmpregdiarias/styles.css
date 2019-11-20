@@ -112,7 +112,7 @@
     padding: 4px;
     border: 0 none;
     background: black;
-    border-radius: 14px;
+    border-radius: 10px;
 }
 #gmpregdiarias-progress::-moz-progress-bar {
     border-radius: 12px;
@@ -120,6 +120,12 @@
 
 }
 
+
+#gmpregdiarias-progress::-webkit-progress-bar{
+    border-radius: 12px;
+    background: whitesmoke;
+
+}
 #gmpregdiarias-contianer-menu-opcion-scores-container{
     height: 100%;
     width: 100%;
