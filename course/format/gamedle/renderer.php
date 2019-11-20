@@ -16,6 +16,7 @@ require_once($CFG->dirroot.'/course/format/topics/renderer.php');
 
 class format_gamedle_renderer extends format_topics_renderer{
 
+    const PLUGIN  = 'format_gamedle';
     private $format = null;
 
     public function print_multiple_section_page($course, $sections, $mods, $modnames, $modnamesused){
@@ -52,8 +53,6 @@ class format_gamedle_renderer extends format_topics_renderer{
 
     protected function section_right_content($section, $course, $onsectionpage){
 
-        
-    
         $input = "";
         $id  = $section->section;
         $exp = $this->format->getSectionXP($section->section);
@@ -75,7 +74,22 @@ class format_gamedle_renderer extends format_topics_renderer{
         }
         return $o.$input;
     }
-    
+   
+    protected function start_section_list() {
+        
+        $output = '';
+
+        //  If experience not activated - print message
+        if (!get_config(block_gmxp_dao::PLUGIN, block_gmxp_core::ACTIVATED)) {
+            $output = html_writer::tag('h6',
+                get_string('XP_DISABLED_TEXT', self::PLUGIN) . $output,
+                array( 'style' => 'width:100%;text-align:right;' )
+            );
+        }
+
+        return $output.html_writer::start_tag('ul', array('class' => 'topics'));
+    }
+
     private function debugWebConsole($tag,$object){
         echo("<script>console.log('".$tag.": ".json_encode($object)."');</script>");
     }

@@ -24,11 +24,12 @@ require_once($CFG->dirroot. '/course/format/topics/lib.php');
 
 class format_gamedle extends format_topics {
 
+    const PLUGIN = 'format_gamedle';
     private $sections   = array(); // Ids en tabla course_sections
     private $sectionsXP = array(); // Ids en tabla gmdl_seccion_curso
 
     public function experienceEnabled(){
-        return ($this->get_course()->xpEnabled == 1);
+        return get_config(block_gmxp_dao::PLUGIN, block_gmxp_core::ACTIVATED);
     }
     
     public function createSectionXP($section){
@@ -249,10 +250,6 @@ class format_gamedle extends format_topics {
                 'default' => $courseconfig->coursedisplay,
                 'type' => PARAM_INT,
             );
-            $options['xpEnabled'] = array(
-                'default' => 1,
-                'type' => PARAM_INT,
-            );
             
         } // Create the elements of the form in course edir/settings
         if ($foreditform && !isset($options['coursedisplay']['label'])) {
@@ -282,16 +279,6 @@ class format_gamedle extends format_topics {
                 ),
                 'help' => 'coursedisplay',
                 'help_component' => 'moodle',
-            );
-
-            $optionsedit['xpEnabled'] = array(
-                'label' => new lang_string('optionXP','format_gamedle'),
-                'element_type' => 'advcheckbox',
-                'element_attributes' => array(
-                    new lang_string('optionXP_desc','format_gamedle'),
-                ),
-                'help' => 'optionXP',
-                'help_component' => 'format_gamedle',
             );
 
             $options = array_merge_recursive($options, $optionsedit);

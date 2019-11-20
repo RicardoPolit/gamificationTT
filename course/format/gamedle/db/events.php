@@ -27,6 +27,7 @@ $observers = array (
     array (
         'eventname' => 'core\event\enrol_instance_created',
         'callback'  => 'format_gamedle_observer::enrol_instance_created',
+        'internal'  => true,
     ),
 );
 

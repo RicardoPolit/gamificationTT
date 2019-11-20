@@ -44,6 +44,9 @@ $string['msgErrorNum']   = 'This value must be an integer';
 $string['submitError']   = 'This operation could not succedd';
 $string['submitSuccess'] = 'Experience points assigned!';
 
+$string['XP_DISABLED'] = 'Warning';
+$string['XP_DISABLED_TEXT'] = 'The experience module is disabled';
+
 /*
 $string['editsectionname'] = 'Edit mission name';
 $string['newsectionname']  = 'New name for mission {$a}';
