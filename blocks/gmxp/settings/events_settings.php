@@ -50,3 +50,4 @@ if($experience_activated && $events_activated){
 echo $OUTPUT->header();
 echo $CONTENT;
 echo $OUTPUT->footer();
+

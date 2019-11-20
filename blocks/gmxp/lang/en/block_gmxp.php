@@ -176,6 +176,8 @@ $string['EVENTS_SETTING_HELP_COMPCPU'] = "the {$string['EVENTS_SETTING_TEXT_COMP
 $string['EVENTS_SETTING_HELP_COMPCPU_help'] =
     "This events is triggered when a user wins a competence in the competence module 
     of 'Gamedle Suite Components'";
+$string['EVENTS_SETTING_TEXT_COMPCPU_DISABLED'] =
+    'To support this feature the plugin *mod_gmcompcpu* should be installed';
 
 $string['EVENTS_SETTING_TEXT_COMPCPU_GROUP'] = "Competencia vs CPU ganar evento";
 $string['EVENTS_SETTING_HELP_COMPCPU_GROUP'] = "la {$string['EVENTS_SETTING_TEXT_COMPCPU_GROUP']}";
@@ -188,6 +190,8 @@ $string['EVENTS_SETTING_HELP_COMPVS'] = "the {$string['EVENTS_SETTING_TEXT_COMPV
 $string['EVENTS_SETTING_HELP_COMPVS_help'] =
     "This events is triggered when a user wins a competence in the competence module 
     of 'Gamedle Suite Components'";
+$string['EVENTS_SETTING_TEXT_COMPVS_DISABLED'] =
+    'To support this feature the plugin *mod_gmcompvs* should be installed';
 
 $string['EVENTS_SETTING_TEXT_COMPVS_GROUP'] = "Competencia 1vs1 ganar evento";
 $string['EVENTS_SETTING_HELP_COMPVS_GROUP'] = "la {$string['EVENTS_SETTING_TEXT_COMPVS_GROUP']}";
@@ -200,6 +204,8 @@ $string['EVENTS_SETTING_HELP_PREGDIARIA'] = "the {$string['EVENTS_SETTING_TEXT_P
 $string['EVENTS_SETTING_HELP_PREGDIARIA_help'] =
     "This events is triggered when a user wins a competence in the competence module 
     of 'Gamedle Suite Components'";
+$string['EVENTS_SETTING_TEXT_PREGDIARIA_DISABLED'] =
+    'To support this feature the plugin *mod_gmpregdiarias* should be installed';
 
 $string['EVENTS_SETTING_TEXT_PREGDIARIA_GROUP'] = "Pregunta diaria correcta evento";
 $string['EVENTS_SETTING_HELP_PREGDIARIA_GROUP'] = "la {$string['EVENTS_SETTING_TEXT_PREGDIARIA_GROUP']}";
