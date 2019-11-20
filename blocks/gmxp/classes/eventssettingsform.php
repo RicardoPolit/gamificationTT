@@ -15,14 +15,17 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
     const COMPETENCECPU = block_gmxp_core::COMPETENCECPU;
     const COMPETENCECPUXP = block_gmxp_core::COMPETENCECPUXP;
     const COMPETENCECPUGROUP = block_gmxp_core::COMPETENCECPUGROUP;
+    const COMPCPU = 'gmcompcpu';
 
     const COMPETENCEVS = block_gmxp_core::COMPETENCEVS;
     const COMPETENCEVSXP = block_gmxp_core::COMPETENCEVSXP;
     const COMPETENCEVSGROUP = block_gmxp_core::COMPETENCEVSGROUP;
+    const COMPVS = 'gmcompvs';
 
     const PREGUNTADIARIA = block_gmxp_core::PREGUNTADIARIA;
     const PREGUNTADIARIAXP = block_gmxp_core::PREGUNTADIARIAXP;
     const PREGUNTADIARIAGROUP = block_gmxp_core::PREGUNTADIARIAGROUP;
+    const PREGDIARIAS = 'gmpregdiarias';
 
     const XP_REGEX = '/^([0-9]){1,9}$/';
     const XP_MAX_REGEX_LENGTH = 9;
@@ -42,34 +45,71 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
 
     private function create_definition() {
 
-        $this->create_group('COMPCPU',self::COMPETENCECPU,self::COMPETENCECPUXP,self::COMPETENCECPUGROUP);
+        $mform = $this->_form;
+        $this->create_field('COMPCPU',
+            self::COMPCPU,
+            self::COMPETENCECPU,
+            self::COMPETENCECPUXP,
+            self::COMPETENCECPUGROUP);
 
-        $this->create_group('COMPVS',self::COMPETENCEVS,self::COMPETENCEVSXP,self::COMPETENCEVSGROUP);
+        $this->create_field('COMPVS',
+            self::COMPVS,
+            self::COMPETENCEVS,
+            self::COMPETENCEVSXP,
+            self::COMPETENCEVSGROUP);
 
-        $this->create_group('PREGDIARIA',self::PREGUNTADIARIA,self::PREGUNTADIARIAXP,self::PREGUNTADIARIAGROUP);
+        $this->create_field('PREGDIARIA',
+            self::PREGDIARIAS,
+            self::PREGUNTADIARIA,
+            self::PREGUNTADIARIAXP,
+            self::PREGUNTADIARIAGROUP);
+    }
 
+    private function create_field($string, $class, $idcheck, $idxp, $idgroup){
+
+        global $CFG;
+        $mform = $this->_form;
+
+        if ( file_exists($CFG->dirroot."/mod/$class")) {
+            $this->create_group($string, $idcheck, $idxp, $idgroup);
+
+        } else {
+            $text = html_writer::tag('span', '* ', array('style' => 'color:red'));
+            $text.= html_writer::tag('i',
+                get_string("EVENTS_SETTING_TEXT_{$string}_DISABLED", self::PLUGIN));
+
+            $mform->addElement('static',$idgroup,
+                get_string("EVENTS_SETTING_TEXT_{$string}_GROUP", self::PLUGIN),
+                $text
+            );
+
+            $this->create_help_messages($string, $idgroup);
+        }
     }
 
     private function create_group($string,$idcheck,$idxp,$idgroup){
 
         $mform =& $this->_form;
         $group1 = array();
+
         $group1[] =& $mform->createElement('advcheckbox', $idcheck,
             get_string('EVENTS_SETTING_TEXT_'.$string, self::PLUGIN),
             get_string('EVENTS_SETTING_TEXT_XP_SUPPORT', self::PLUGIN),
             array('group' => 1), array(0, 1));
+
         $group1[] =& $mform->createElement('text', $idxp,
             get_string('EVENTS_SETTING_TEXT_XP', self::PLUGIN), array(
                 'size' => self::XP_MAX_REGEX_LENGTH,
                 'maxlength' => self::XP_MAX_REGEX_LENGTH
             ));
+
         $mform->addGroup($group1, $idgroup,
-            get_string('EVENTS_SETTING_TEXT_'.$string.'_GROUP',self::PLUGIN ), array(' '), false);
+            get_string('EVENTS_SETTING_TEXT_'.$string.'_GROUP', self::PLUGIN),
+            array(' '), false);
 
         $this->create_help_messages($string,$idgroup);
         $this->create_form_restrictions($idcheck,$idxp);
         $this->set_default_values($idcheck,$idxp);
-
     }
 
     private function create_help_messages($string,$idgroup) {
@@ -81,7 +121,7 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
 
     }
 
-    private function create_form_restrictions($idcheck,$idxp) {
+    private function create_form_restrictions($idcheck, $idxp) {
 
         $mform = $this->_form;
         $errormsg = get_string('integer', self::PLUGIN);
@@ -94,7 +134,7 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
 
     }
 
-    private function set_default_values($idcheck,$idxp) {
+    private function set_default_values($idcheck, $idxp) {
 
         $mform = $this->_form;
 
@@ -117,7 +157,7 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
 
         // TODO Validate self::COMPETENCECPU & parent::VALIDATE(SESSKEY)i
 
-        if ($data[self::COMPETENCECPU]) {
+        if ( isset($data[self::COMPETENCECPU]) && $data[self::COMPETENCECPU] ) {
 
             $key = self::COMPETENCECPUXP;
             if ( !isset($data[$key]) ) {
@@ -151,15 +191,18 @@ class block_gmxp_eventssettingsform extends local_gamedlemaster_form {
         $keys = get_object_vars($changes);
         unset($keys['submitbutton']);
 
-        if($keys[self::COMPETENCECPU] == 0) {
+        if(!isset($keys[self::COMPETENCECPU]) || $keys[self::COMPETENCECPU] == 0) {
+            $keys[self::COMPETENCECPU] = 0;
             unset($keys[self::COMPETENCECPUXP]);
         }
 
-        if($keys[self::COMPETENCEVS] == 0) {
+        if(!isset($keys[self::COMPETENCEVS]) || $keys[self::COMPETENCEVS] == 0) {
+            $keys[self::COMPETENCEVS] = 0;
             unset($keys[self::COMPETENCEVSXP]);
         }
 
-        if($keys[self::PREGUNTADIARIA] == 0) {
+        if(!isset($keys[self::PREGUNTADIARIA]) || $keys[self::PREGUNTADIARIA] == 0) {
+            $keys[self::PREGUNTADIARIA] = 0;
             unset($keys[self::PREGUNTADIARIAXP]);
         }
 
