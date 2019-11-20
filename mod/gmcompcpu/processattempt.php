@@ -37,11 +37,11 @@ $userScore = calculateScoreUser($quba,$timenow);
         $questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$i);
         $currentScore = calculateScoreCpu($questionswithAnswers);
 
-        $scoreAv += (int)($currentScore/50);
+        $scoreAv += (int)($currentScore/60);
 
-        $scores[] = (int)($currentScore/50);
+        $scores[] = (int)($currentScore/60);
 
-        $scorePercents[(int)($currentScore/50)]++;
+        $scorePercents[(int)($currentScore/60)]++;
 
     }
 
@@ -77,7 +77,7 @@ $userScore = calculateScoreUser($quba,$timenow);
 
 }*/
 
-$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$intento->gmdl_dificultad_cpu_id);         //ESTA
+$questionswithAnswers = mod_gmcompcpu__cpumind::cpuattempt($quba,$cm,$intento->gmdl_dificultad_cpu_id);        //ESTA
 
 /*echo json_encode($questionswithAnswers);
 echo '<br>';*/
@@ -156,7 +156,7 @@ $DB->update_record('gmdl_intento',$values);
 
 /*$urltogo = new moodle_url('/mod/gmcompcpu/view.php', array('id' => $idredirect));
 
-redirect($urltogo);*/
+redirect($urltogo);
 
 /*echo $userScore;
 echo '<br>';
