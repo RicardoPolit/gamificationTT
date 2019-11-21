@@ -187,14 +187,7 @@ class block_gmxp_observer {
             'mdl_id_usuario' => $USER->id
         ));
 
-        $GMXP = array(
-            'gamified_user' => $user->id,
-            'level' => $user->nivel_actual,
-            'experiencia_actual' => $user->experiencia_nivel,
-            'experiencia_nivel' => $user->experiencia_actual
-        );
-
-        $_SESSION['GMXP'] = $GMXP;
+        $_SESSION['GMXP'] = $user;
     }
 
     public static function user_loggedout(core\event\user_loggedout $event) {
