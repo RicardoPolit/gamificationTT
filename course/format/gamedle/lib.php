@@ -31,10 +31,35 @@ class format_gamedle extends format_topics {
     public function experienceEnabled(){
         return get_config(block_gmxp_dao::PLUGIN, block_gmxp_core::ACTIVATED);
     }
-    
-    public function createSectionXP($section){
 
-        $id  = $this->getSectionid($section);
+    public function bring_xp($userid, $sectionid) {
+        global $DB;
+
+        $user = $DB->get_record('gmdl_usuario', array(
+            'mdl_id_usuario' => $userid
+        ));
+
+        $section = $DB->get_record('gmdl_seccion_curso', array(
+            'mdl_id_seccion_curso' => $sectionid
+        ));
+
+        $record = new stdClass();
+        $record->gmdl_id_usuario = $user->id;
+        $record->gmdl_id_seccion_curso = $section->id;
+        $record->experiencia_dada = $section->experiencia_de_seccion;
+
+        local_gamedlemaster_log::success(
+            "User $userid wins {$record->experiencia_dada} for complete
+            section ${sectionid}");
+
+        $DB->insert_record('gmdl_recompensas_seccion', $record);
+    }
+    
+    public function createSectionXP($section, $id = null){
+
+        if ($id === null) {
+            $id  = $this->getSectionid($section);
+        }
         
         global $DB;
         $record = new stdClass();

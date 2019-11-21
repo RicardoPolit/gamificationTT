@@ -29,6 +29,10 @@ $observers = array (
         'callback'  => 'format_gamedle_observer::enrol_instance_created',
         'internal'  => true,
     ),
+    array (
+        'eventname' => 'core\event\course_updated',
+        'callback'  => 'format_gamedle_observer::course_updated',
+    )
 );
 
 ?>
