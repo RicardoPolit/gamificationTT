@@ -15,6 +15,9 @@
 class block_gmxp extends block_base {
 
     const PLUGIN = 'block_gmxp';
+    const XP_UP = 'block_gmxp/experienceUp';
+    const LVL_UP = 'block_gmxp/levelUp';
+
     private $image = "";
 
     /* @Override */
@@ -25,28 +28,48 @@ class block_gmxp extends block_base {
 	public function get_content() {
 		
 	    global $PAGE;
-	    if($this->content !== null){
-	        return $this->content;
-	    }
+        global $DB;
+
+        $user = $_SESSION['GMXP'];
+        $update = $DB->get_record(block_gmxp_dao::TBL_GAMIFIED_USER, array(
+            'id' => $user->id
+        ));
+
+        $levelxp = block_gmxp_dao::get_level_xp($update->nivel_actual);
+
+        if ($update->nivel_actual > $user->nivel_actual) {
+
+            $experience = array("inicio"=>0,"final"=>$update->experiencia_nivel);
+            $PAGE->requires->js_call_amd(self::LVL_UP, 'init', array($experience));
+            local_gamedlemaster_log::info('increased levels!!!');
+
+        } else if ($update->experiencia_nivel > $user->experiencia_nivel) {
+
+            $experience = array(
+                "inicio" => ($user->experiencia_nivel / $levelxp)*100,
+                "final" => ($update->experiencia_nivel / $levelxp)*100
+            );
+            $PAGE->requires->js_call_amd(self::XP_UP,  'init', array($experience));
+            local_gamedlemaster_log::info($experience, 'increased points!!!');
+        } else {
+        }
+
+        $_SESSION['GMXP'] = $update;
+        $this->build_content(
+            (int) ($update->experiencia_nivel / $levelxp)*100, $levelxp
+        );
+	    return $this->content;
+    }
+
+    private function build_content($progress, $level) {
 
 	    $this->content = new StdClass;
 
         $this->loadImage();
-	    $this->content->text   = self::htmlMedal(3, $this->image);
-
-        //$this->representarDeExperiencia();
-	    $this->content->footer = self::htmlProgressBar(3,100,200,100);
-	    $this->content->footer.= self::htmlPopUp(3, $this->image);
-	   
-	    $experience = array("inicio"=>0,"final"=>53);
-	    //$PAGE->requires->js_call_amd('block_gmxp/levelUp', 'init',array($experience));
-	    $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array($experience));
-	    
-	    /*if(isset($_SESSION['Gamedle']['format']))
-        $this->debugWebConsole("USER",$_SESSION['Gamedle']['format']);*/
-        
-	    return $this->content;
-	}
+	    $this->content->text   = self::htmlMedal($this->image);
+	    $this->content->footer = self::htmlProgressBar($progress, $level);
+	    $this->content->footer.= self::htmlPopUp($level, $this->image);
+    }
 
     function has_config() { return true; }
     function hide_header() { return false; }
@@ -60,30 +83,35 @@ class block_gmxp extends block_base {
         $this->image = $CFG->wwwroot . block_gmxp_core::PATH_IMAGE . $image;
     }
 
-    static function htmlMedal($level, $urlimage){
+    static function htmlMedal($urlimage){
+
+        $COLOR = get_config(self::PLUGIN, block_gmxp_core::COLORLVL);
+        $level = $_SESSION['GMXP']->nivel_actual;
+
         if($level<1)
             $level = 1;
 
         return "<div class=\"gmxp-container\">".
-                   "<img class=\"gmxp-medal\" src=\"$urlimage\" />
-                   <div class=\"gmxp-level\" style=\"color:".get_config('block_gmxp','defaultColorPickerLevels')."\">$level</div>
+                   "<img class=\"gmxp-medal\" src=\"$urlimage\"/>
+                   <div class=\"gmxp-level\" style=\"color:$COLOR\">$level</div>
                </div>";
     }
     
-    static function htmlProgressBar($progress,$exp_updated,$exp_need,$acumulada,
-      $detail = true) {
+    static function htmlProgressBar($progress, $levelxp, $detail = true) {
 
+        $COLOR = get_config(self::PLUGIN, block_gmxp_core::COLORBAR);
         $content = "<div class=\"gmxp-bar\">
                     <div class=\"gmxp-progress\"
-                      style=\"width:$progress%;background-color:".
-                        get_config(self::PLUGIN, block_gmxp_core::COLORBAR)."\">
+                      style=\"width:$progress%;background-color:$COLOR\">
                     </div>
                 </div>";
 
+        $user = $_SESSION['GMXP'];
+
         if($detail) {
             $content .= "<div class='gmxp-txt-lvl'>
-                Level XP: <b>$exp_updated/$exp_need </b><br>
-                Total XP: <b> $acumulada</b>
+                Level XP: <b>{$user->experiencia_nivel}/{$levelxp}</b><br>
+                Total XP: <b>{$user->experiencia_actual}</b>
             </div>";
         }
 
@@ -100,34 +128,6 @@ class block_gmxp extends block_base {
                     "</div>
                </div>";
     }
-    
-    private function debugWebConsole($tag,$object){
-        echo("<script>console.log('".$tag.": ".json_encode($object)."');</script>");
-    }
-    
-    /*private function representarDeExperiencia()
-        {
-            global $USER;
-            $exp_act = $_SESSION['Gamedle']['user_xp'] ;
-            $exp_neces = $this->calcularExpNecesaria();
-            $porcentaje  = $exp_act*100/$exp_neces;
-            $this->content->footer = $this->htmlProgressBar("#1177d1",$porcentaje,$exp_act,$exp_neces,$this->calcularExpAcumulada($exp_act));
-            if($_SESSION['Gamedle']['xp_por_dar'] > 0) //El usuario recebirá la experiencia
-                {
-                    if($_SESSION['Gamedle']['xp_por_dar'] >= $exp_neces) //La experiencia que recibirá es más de la que necesita el nivel
-                        {
-                            $_SESSION['Gamedle']['xp_por_dar'] = $_SESSION['Gamedle']['xp_por_dar'] - $exp_neces;
-                            $this->content->footer.= $this->htmlPopUp(null,13,"#31a7f1",26,"#1177d1");
-                        }
-                    else
-                        {
-                            $_SESSION['Gamedle']['xp_por_dar'] = 0;
-                            $porcentajef  = ($exp_act+$_SESSION['Gamedle']['xp_por_dar'])*100/$exp_neces;
-                            $PAGE->requires->js_call_amd('block_gmxp/experienceUp', 'init',array(array("inicio"=>$porcentaje,"final"=>$porcentajef)));
-
-                        }
-                }
-        }*/
 }
 
 

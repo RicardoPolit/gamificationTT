@@ -81,30 +81,15 @@ function block_gmxp_myprofile_navigation(core_user\output\myprofile\tree $tree,
   $user, $iscurrentuser, $course){
  
     $PLUGIN = "block_gmxp";
-
-    /*local_gamedlemaster_log::info($tree);
-    local_gamedlemaster_log::info($user);
-    local_gamedlemaster_log::info($course);
-    local_gamedlemaster_log::info($iscurrentuser);*/
-
-    /*global $CFG;
-    $image = get_config($PLUGIN, block_gmxp_core::IMAGE);
-    $image = $CFG->wwwroot . block_gmxp_core::PATH_IMAGE . $image;*/
-
     $level = 3;
 
     $node_title = get_string('gmxp', $PLUGIN).' '.$level;
-    $node_content = block_gmxp::htmlProgressBar($level,100,200,100,false);
-    //$node_content = block_gmxp::htmlMedal(3, $image);*/
+    $node_content = block_gmxp::htmlProgressBar($level,false);
 
     $node = new core_user\output\myprofile\node( //block_gmxp_core::CATEGORY
         'contact', block_gmxp_core::PERFIL_EXPERIENCE,
         $node_title, null, null, $node_content);
 
-    /*$category = new core_user\output\myprofile\category(
-        block_gmxp_core::CATEGORY, get_string('gmxp', $PLUGIN), 'contact');
-
-    $tree->add_category($category);*/
     $tree->add_node($node);
 }
 

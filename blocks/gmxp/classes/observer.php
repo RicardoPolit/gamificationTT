@@ -163,7 +163,8 @@ class block_gmxp_observer {
 
     }
 
-    public static function module_completion_updated(core\event\course_module_completion_updated $event){
+    public static function module_completion_updated(
+      core\event\course_module_completion_updated $event) {
 
         global $USER;
         $courseGamified = true;
@@ -177,18 +178,21 @@ class block_gmxp_observer {
         }
     }
 
-    public static function course_completed(core\event\course_completed $event){
-        $fp = fopen('proof.txt', 'a+');
-        fwrite($fp, "\\\\".json_encode($event->get_data())." * " );
-        fclose($fp);
+    public static function user_loggedin(core\event\user_loggedin $event) {
+
+        global $USER;
+        global $DB;
+
+        $user = $DB->get_record(block_gmxp_dao::TBL_GAMIFIED_USER, array(
+            'mdl_id_usuario' => $USER->id
+        ));
+
+        $_SESSION['GMXP'] = $user;
     }
 
-    // Used with
-    // $_SESSION['Gamedle']['CC'] .= "\\\\".json_encode($event->get_data());
-    private static function escapeJS($input){
-        $input = str_replace("\\","\\\\",$input);
-        $input = str_replace("\n"," * ",$input);
-        return $input;
+    public static function user_loggedout(core\event\user_loggedout $event) {
+        local_gamedlemaster_log::info("User logged out");
+        unset($_SESSION['GMXP']);
     }
 }
 
