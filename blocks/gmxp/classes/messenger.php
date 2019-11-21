@@ -31,7 +31,28 @@ class block_gmxp_messenger{
 
 // ... and send it.
         return message_send($eventdata);
+    }
 
+     public static function notifica_gral($recipient, $subject, $smallmessage, $fullmessage){
+
+// Prepare the message.
+        $eventdata = new \core\message\message();
+        $eventdata->courseid          = 1;
+        $eventdata->component         = 'block_gmxp';
+        $eventdata->name              = 'expgiven';
+        $eventdata->notification      = 1;
+
+        $eventdata->userfrom          = core_user::get_noreply_user();
+        $eventdata->userto            = $recipient;
+        $eventdata->subject           = $subject;
+        $eventdata->fullmessage       = $fullmessage;
+
+        $eventdata->fullmessageformat = FORMAT_PLAIN;
+        $eventdata->fullmessagehtml   = '';
+
+        $eventdata->smallmessage      = $smallmessage;
+
+        return message_send($eventdata);
     }
 
 }

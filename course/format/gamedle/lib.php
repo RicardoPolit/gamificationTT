@@ -53,6 +53,18 @@ class format_gamedle extends format_topics {
             section ${sectionid}");
 
         $DB->insert_record('gmdl_recompensas_seccion', $record);
+        $this->message_bring_xp($userid, $section->experiencia_de_seccion);
+    }
+
+    private function message_bring_xp($userid, $xp) {
+
+        $subject = "Has recibido {$xp} puntos de experiencia";
+        $small   = "Recibiste {$xp} puntos de experiencia";
+
+        $full = "{$small} por haber completado una o más ".
+                "secciones de un curso gamificado";
+
+        block_gmxp_messenger::notifica_gral($userid, $subject, $small, $full);
     }
     
     public function createSectionXP($section, $id = null){
