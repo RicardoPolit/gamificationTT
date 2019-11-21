@@ -7,7 +7,8 @@ define(['block_gmxp/experienceUp'], function(experienceUp) {
 
     function hidePopup(params) {
         popup.style.display = "none";
-        experienceUp.parametrized($(".gmxp-progress")[0],params);
+        params.start = true;
+        experienceUp.init(params);
     }
 
     function showPopup() {

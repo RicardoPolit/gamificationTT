@@ -13,22 +13,43 @@
 
 define(['jquery'], function($) {
 
-    function experienceUp(progressBar,ini,fin){
+    function experienceUp(ini,fin,lvl,tot){
+
+        progressBar = $(".gmxp-progress")[0];
+        inicio = $(".gmxp-ini")[0];
+        total  = $(".gmxp-tot")[0];
         
-        if( fin > 100 ) fin = 100;
-        var width = ini;
-        var id = setInterval(draw,30);
-        
+        let width = (ini / lvl)*100;
+        let id = setInterval(draw,30);
+
         function draw(){
-            width++;
+            ini++;
+            tot++;
+            total.innerHTML = tot;
+            inicio.innerHTML = `${ini}/${lvl}`;
+            width = (ini / lvl)*100;
             progressBar.style.width = width+'%';
             
-            if( width > fin )
+            if( ini >= fin )
                 clearInterval(id);
         }
-    }    
+    }
  
-    return { init: function(params){ experienceUp($(".gmxp-progress")[0],params.inicio,params.final,); },
-             parametrized: function(progressBar,params){ experienceUp(progressBar,params.inicio,params.final); }
-         };
+    return {
+        init: function(params) {
+
+            console.log(params);
+
+            if(params.start)
+            experienceUp(
+                params.inicio,
+                params.final,
+                params.nivel,
+                params.total
+            );
+        },
+        parametrized: function(progressBar,params){
+            experienceUp(progressBar,params.inicio,params.final);
+        }
+    };
 });
