@@ -54,6 +54,7 @@ class format_gamedle extends format_topics {
 
         $DB->insert_record('gmdl_recompensas_seccion', $record);
         $this->message_bring_xp($userid, $section->experiencia_de_seccion);
+        block_gmxp_dao::bring_experience($user->id, $section->experiencia_de_seccion);
     }
 
     private function message_bring_xp($userid, $xp) {
