@@ -36,6 +36,29 @@ class block_gmxp_dao {
         return round($xp);
     }
 
+    static function bring_experience($userid, $xp) {
+        global $DB;
+
+        $user = $DB->get_record('gmdl_usuario', array('id' => $userid));
+        $levelxp = self::get_level_xp($user->nivel_actual);
+
+        $xp_points = $xp + $user->experiencia_nivel;
+        
+        if ( $xp_points > $levelxp ) {
+            $user->nivel_actual++;
+            $user->experiencia_actual += $levelxp - $user->experiencia_nivel;
+            $user->experiencia_nivel = 0;
+            $DB->update_record('gmdl_usuario', $user);
+            local_gamedlemaster_log::info($user, 'UPDATE LVL');
+            self::bring_experience($userid, $xp_points - $levelxp);
+        } else {
+            $user->experiencia_nivel += $xp;
+            $user->experiencia_actual += $xp;
+            local_gamedlemaster_log::info($user, 'UPDATE XP');
+            $DB->update_record('gmdl_usuario', $user);
+        }
+    }
+
     static function level_up($user) {
 
         global $DB;
