@@ -190,8 +190,8 @@ class block_gmxp_observer {
         $GMXP = array(
             'gamified_user' => $user->id,
             'level' => $user->nivel_actual,
-            'experiencia_actual' => $this->experiencia_nivel,
-            'experiencia_nivel' => $this->experiencia_actual
+            'experiencia_actual' => $user->experiencia_nivel,
+            'experiencia_nivel' => $user->experiencia_actual
         );
 
         $_SESSION['GMXP'] = $GMXP;
