@@ -40,10 +40,10 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
      * @return string The HTML code of the game
      */
 
-    public function render_wait_page(){
+    public function render_wait_page($cmid){
 
         $display = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
-
+        $display .= html_writer::start_tag('div', array("id"=>"gmcompcpu-activity-container", "class"=>"gmcompcpu-container-results"));
         $display .= html_writer::start_tag('div', array("class"=>"gmcompvs-container-columns", "id"=>"gmcompvs-activity-container"));
 
         $display .= html_writer::start_tag('h2',array('class' => ''));
@@ -56,6 +56,16 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
 
         $display .= html_writer::end_tag('h2');
 
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::start_tag('form',
+            array('action' => new moodle_url('/mod/gmcompvs/view.php',
+                array('id' => $cmid)), 'method' => 'post',
+                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                'id' => 'responseform'));
+        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+            'value' => 'Volver', 'class' => "btn btn-primary gmcompcpu-button"));
+        $display .= html_writer::end_tag('form');
         $display .= html_writer::end_tag('div');
 
         return $display;
@@ -158,7 +168,37 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
     }
 
 
-    public function render_results_attempt($userScore,$contrincanteScore){
+    public function render_mensaje($mensaje,$cmid){
+
+        $display = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
+
+
+            $class = 'ganador';
+
+        $display .= html_writer::start_tag('div', array("id"=>"gmcompcpu-activity-container", "class"=>"gmcompcpu-container-results"));
+        $display .= html_writer::start_tag('div', array("class"=>"gmcompvs-container-columns"));
+        $display .= html_writer::start_tag('h2',array('class' => 'gmcompvs-titulo-'.$class));
+        $display .= html_writer::start_tag('b');
+        $display .= $mensaje;
+        $display .= html_writer::end_tag('b');
+        $display .= html_writer::end_tag('h2');
+        $display .= html_writer::end_tag('div');
+
+        $display .= html_writer::start_tag('form',
+            array('action' => new moodle_url('/mod/gmcompvs/view.php',
+                array('id' => $cmid)), 'method' => 'post',
+                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                'id' => 'responseform'));
+        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+            'value' => 'Volver', 'class' => "btn btn-primary gmcompcpu-button"));
+        $display .= html_writer::end_tag('form');
+        $display .= html_writer::end_tag('div');
+
+        return $display;
+
+    }
+
+    public function render_results_attempt($userScore,$contrincanteScore,$cmid){
 
         $display = "<link href='estilos.css' rel='stylesheet' type='text/css'>";
 
@@ -175,6 +215,7 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
             $class = 'perdedor';
 
         }
+        $display .= html_writer::start_tag('div', array("id"=>"gmcompcpu-activity-container", "class"=>"gmcompcpu-container-results"));
         $display .= html_writer::start_tag('div', array("class"=>"gmcompvs-container-columns"));
         $display .= html_writer::start_tag('h2',array('class' => 'gmcompvs-titulo-'.$class));
         $display .= html_writer::start_tag('b');
@@ -199,6 +240,15 @@ class mod_gmcompvs_renderer extends plugin_renderer_base {
         $display .= html_writer::end_tag('b');
         $display .= html_writer::end_tag('h3');
         $display .= html_writer::end_tag('div');
+        $display .= html_writer::end_tag('div');
+        $display .= html_writer::start_tag('form',
+            array('action' => new moodle_url('/mod/gmcompvs/view.php',
+                array('id' => $cmid)), 'method' => 'post',
+                'enctype' => 'multipart/form-data', 'accept-charset' => 'utf-8',
+                'id' => 'responseform'));
+        $display .= html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'next',
+            'value' => 'Volver', 'class' => "btn btn-primary gmcompcpu-button"));
+        $display .= html_writer::end_tag('form');
         $display .= html_writer::end_tag('div');
 
         return $display;
