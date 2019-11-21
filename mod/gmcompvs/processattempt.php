@@ -27,7 +27,7 @@ $userScore = calculateScoreUser($quba,$timenow);
 $tiempotardado = $timenow-$participacion->fecha_inicio;
 
 
-if(is_null($participacion->fecha_fin)){
+if(is_null($participacion->fecha_fin)&&!is_null($participacion->fecha_inicio)){
 
     $participacion->puntuacion = $userScore;
     $participacion->fecha_fin = $timenow;
@@ -146,7 +146,7 @@ if(is_null($participacion->fecha_fin)){
             }
         }
 
-        $vistausuario = $renderer->render_results_attempt($userScore,$contrincante->puntuacion);
+        $vistausuario = $renderer->render_results_attempt($userScore,$contrincante->puntuacion,$cm->id);
 
         $moodleuserid = $DB->get_record('gmdl_usuario',array('id' => $userid));
 
@@ -211,7 +211,7 @@ if(is_null($participacion->fecha_fin)){
 
     }else {
 
-        $vistausuario = $renderer->render_wait_page();
+        $vistausuario = $renderer->render_wait_page($cm->id);
 
     }
 
@@ -221,7 +221,29 @@ if(is_null($participacion->fecha_fin)){
 
 }else{
 
-    echo "Tiempo terminado, pasó un día";
+    $gmcompvs  = $DB->get_record('gmcompvs', array('id' => $cm), '*', MUST_EXIST);
+    $course     = $DB->get_record('course', array('id' => $gmcompvs->course), '*', MUST_EXIST);
+    $cm         = get_coursemodule_from_instance('gmcompvs', $gmcompvs->id, $course->id, false, MUST_EXIST);
+
+
+    require_login($course, true, $cm);
+
+    $context = context_module::instance($cm->id);
+
+    $PAGE->set_title(format_string($gmcompvs->name));
+    $PAGE->set_heading(format_string($course->fullname));
+    $PAGE->set_context($context);
+    $renderer = $PAGE->get_renderer('mod_gmcompvs');
+
+    echo $OUTPUT->header();
+
+    echo $OUTPUT->heading($gmcompvs->name);
+
+    echo "<link href='https://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>";
+
+    echo $renderer->render_mensaje("Ve a tu historial para ver el resultado de la partida",$cm->id);
+
+    echo $OUTPUT->footer();
 
 }
 
