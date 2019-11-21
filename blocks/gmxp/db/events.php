@@ -29,7 +29,15 @@ $observers = array (
     array (
         'eventname' => '\local_gamedlemaster\event\gmpregdiarias_pregCorrecta',
         'callback' => 'block_gmxp_observer::daily_question_answered'
-    )
+    ),
+    array (
+        'eventname' => 'core\event\user_loggedin',
+        'callback' => 'block_gmxp_observer::user_loggedin'
+    ),
+    array (
+        'eventname' => 'core\event\user_loggedout',
+        'callback' => 'block_gmxp_observer::user_loggedout'
+    ),
 );
 
 ?>
