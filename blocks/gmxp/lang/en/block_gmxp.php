@@ -242,7 +242,7 @@ $string['float'] =
     points';
 
 // ===== NOTIFICATION MESSAGES =========================================
-$string['messageprovider:coinsgiven'] = 'Notificacion de experiencia recibida';
+$string['messageprovider:expgiven'] = 'Notificacion de experiencia recibida';
 
 $string['expgivensubject'] = '{$a->nombre} has recibido {$a->exp} experiencia!';
 $string['expgivenbody'] = 'Hola {$a->nombre}
