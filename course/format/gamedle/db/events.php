@@ -32,7 +32,11 @@ $observers = array (
     array (
         'eventname' => 'core\event\course_updated',
         'callback'  => 'format_gamedle_observer::course_updated',
-    )
+    ),
+    array (
+        'eventname' => 'core\event\course_module_completion_updated',
+        'callback'  => 'format_gamedle_observer::module_completion_updated',
+    ),
 );
 
 ?>
