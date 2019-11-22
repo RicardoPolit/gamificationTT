@@ -20,7 +20,7 @@ define(['jquery'], function($) {
         total  = $(".gmxp-tot")[0];
         
         let width = (ini / lvl)*100;
-        let id = setInterval(draw,30);
+        let id = setInterval(draw,1);
 
         function draw(){
             ini++;
