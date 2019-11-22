@@ -9,7 +9,7 @@
  *
  * PRACTICE _:  TITULO DE LA PRACTICA
  *               - DESCRIPCION
- *		
+ *
 */
 
 /**
@@ -33,14 +33,14 @@ function block_gmxp_pluginfile($course, $cm, $context, $filearea, $args, $forced
 
     // Check the contextlevel is as expected - if your plugin is a block, this becomes CONTEXT_BLOCK, etc.
     if ($context->contextlevel != CONTEXT_BLOCK) {
-        return false; 
+        return false;
     }
 
     // Make sure the filearea is one of those used by the plugin.
     if( $filearea !== "level_images_simplehtml" ){
         return false;
     }
- 
+
     // Make sure the user is logged in and has access to the module (plugins that are not course modules should leave out the 'cm' part).
     // require_login($course, true, $cm);
 
@@ -73,13 +73,13 @@ function block_gmxp_pluginfile($course, $cm, $context, $filearea, $args, $forced
         return false; // The file does not exist.
     }
 
-    // We can now send the file back to the browser - in this case with a cache lifetime of 1 day and no filtering. 
+    // We can now send the file back to the browser - in this case with a cache lifetime of 1 day and no filtering.
     send_stored_file($file, 86400, 0, $forcedownload, $options);
 }
 
-function block_gmxp_myprofile_navigation(core_user\output\myprofile\tree $tree,
+/*function block_gmxp_myprofile_navigation(core_user\output\myprofile\tree $tree,
   $user, $iscurrentuser, $course){
- 
+
     $PLUGIN = "block_gmxp";
     $level = 3;
 
@@ -91,11 +91,11 @@ function block_gmxp_myprofile_navigation(core_user\output\myprofile\tree $tree,
         $node_title, null, null, $node_content);
 
     $tree->add_node($node);
-}
+}*/
 
 function block_gmxp_extend_navigation($node, $course, $module, $cm) {
     local_gamedlemaster_log::info($node);
-    local_gamedlemaster_log::info($coourse);
+    local_gamedlemaster_log::info($course);
     local_gamedlemaster_log::info($module);
     local_gamedlemaster_log::info($cm);
 }

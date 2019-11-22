@@ -53,9 +53,7 @@ class block_gmxp_observer {
 
             $usuariogamificado = $DB->get_record('gmdl_usuario',array('id' => $userid));
 
-            $usuariogamificado->experiencia_actual += $experiencia;
-
-            $DB->update_record('gmdl_usuario',$usuariogamificado);
+            block_gmxp_dao::bring_experience($userid, $experiencia);
 
             $userid = $usuariogamificado->mdl_id_usuario;
             $userto = $DB->get_record('user', array('id' => $userid));
@@ -97,9 +95,7 @@ class block_gmxp_observer {
 
             $usuariogamificado = $DB->get_record('gmdl_usuario',array('id' => $userid));
 
-            $usuariogamificado->experiencia_actual += ($experiencia);
-
-            $DB->update_record('gmdl_usuario',$usuariogamificado);
+            block_gmxp_dao::bring_experience($userid, $experiencia);
 
             $userid = $usuariogamificado->mdl_id_usuario;
             $userto = $DB->get_record('user', array('id' => $userid));
@@ -141,9 +137,7 @@ class block_gmxp_observer {
 
             $usuariogamificado = $DB->get_record('gmdl_usuario',array('id' => $userid));
 
-            $usuariogamificado->experiencia_actual += $experiencia;
-
-            $DB->update_record('gmdl_usuario',$usuariogamificado);
+            block_gmxp_dao::bring_experience($userid, $experiencia);
 
             $userid = $usuariogamificado->mdl_id_usuario;
             $userto = $DB->get_record('user', array('id' => $userid));
