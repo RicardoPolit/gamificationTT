@@ -101,4 +101,21 @@ class mod_gmpregdiarias_mod_form extends moodleform_mod {
         return (!empty($data['completionpregdiarenabled']) );
     }
 
+
+    public function data_preprocessing(&$defaultvalues) {
+        parent::data_preprocessing($defaultvalues);
+        $data = parent::get_data();
+        if($data){
+            $defaultvalues['completionpregdiarenabled'] = 0;
+            if (!empty($data->completionunlocked)) {
+
+                $autocompletion = !empty($data->completion) && $data->completion == COMPLETION_TRACKING_AUTOMATIC;
+                if($autocompletion){
+                    $defaultvalues['completionpregdiarenabled'] = 1;
+                }
+            }
+        }
+
+    }
+
 }
