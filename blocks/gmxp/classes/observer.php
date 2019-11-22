@@ -160,14 +160,54 @@ class block_gmxp_observer {
     public static function module_completion_updated(
       core\event\course_module_completion_updated $event) {
 
+        global $DB;
         global $USER;
-        $courseGamified = true;
-        if( $courseGamified  &&  $event->relateduserid == $USER->id ){
+        $eventdata = $event->get_data();
+        $courseid = $eventdata['courseid'];
+        $format   = course_get_format($courseid);
 
-            $eventdata = $event->get_data();
-            local_gamedlemaster_log::info($eventdata);
-            if(isset($eventdata['other']['completionstate']) && $eventdata['other']['completionstate'] == 1){
+        if ($format->get_format() === "gamedle") {
 
+            $conditions = array( 'course' => $courseid );
+            $modcompletion = $DB->get_record('course_module_completion',
+                array( 'id' => $eventdata['objectid'] )
+            );
+
+            $module = $DB->get_record('course_modules',
+                array( 'id' => $modcompletion->coursemoduleid ),
+                'section'
+            );
+
+            $section = $DB->get_record('course_sections',
+                array( 'id' => $module->course )
+            );
+
+            // y por cada seccion que no sea la seccion 0 
+            if ($section->section != 0) {
+                $conditions = array( 'section' => $section->id );
+                $modules = $DB->get_records('course_modules', $conditions);
+
+                // Revisa si ya completo todas las actividades de dicha
+                // seccion
+                $completed = true;
+                foreach($modules as $module) {
+
+                    $conditions = array(
+                        'coursemoduleid' => $module->id,
+                        'userid' => $USER->id
+                    );
+
+                    $completion = $DB->get_record('course_modules_completion',
+                        $conditions
+                    );
+
+                    $completed = $completed && (boolean)$completion;
+                    $completed = $completed && $completion->completionstate;
+                }
+
+                if($completed) {
+                    $format->bring_xp($USER->id,$section->id);
+                }
             }
         }
     }
