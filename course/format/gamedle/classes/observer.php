@@ -13,6 +13,7 @@
 */
 
 defined('MOODLE_INTERNAL') || die();
+require_once($CFG->dirroot.'/course/format/lib.php');
 
 class format_gamedle_observer {
     
