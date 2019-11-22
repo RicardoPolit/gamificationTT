@@ -44,7 +44,7 @@ class block_gmxp_dao {
 
         $xp_points = $xp + $user->experiencia_nivel;
         
-        if ( $xp_points > $levelxp ) {
+        if ( $xp_points >= $levelxp ) {
             $user->nivel_actual++;
             $user->experiencia_actual += $levelxp - $user->experiencia_nivel;
             $user->experiencia_nivel = 0;
