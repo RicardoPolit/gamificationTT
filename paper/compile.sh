@@ -36,7 +36,7 @@ if [ -z "$1" ]; then
 elif [ -z "$2" ]; then
     echo ""
     mkdir -p output
-	echo $(eval "${latexCmd} ${1}.tex | $ackGreen | $ackRed")
+	echo $(eval "${latexCmd} ${1}.tex | $grepAll | $ackGreen | $ackRed | $ackYellow")
 	mv output/*.pdf ./
 
 else
