@@ -1,0 +1,11 @@
+output/**/*
+!output/modulos
+!output/modulos/.gitkeep
+!output/analisis
+!output/analisis/.gitkeep
+!output/investigacion
+!output/investigacion/.gitkeep
+*.csv
+*.gz
+main.pdf
+**/*.swp
