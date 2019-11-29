@@ -59,7 +59,7 @@ IPN Reporte Tecnico Class, Author Daniel Ortega (https://gitlab.com/DanielOrtega
         {\huge\bf\tituloTT}\par
         {\large\@author,\ \@director}\par
         {\@escuela.\ \@instituto}\par
-        {Tel. \@telefono.\ E-mail: \@contacto}
+        {Tel. \@telefono.\\E-mail: \@contacto}
     \end{center}
 }
 \thispagestyle{empty}
