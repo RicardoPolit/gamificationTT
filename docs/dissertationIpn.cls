@@ -60,15 +60,15 @@
         \centering
         \vspace{0pt}
         \includegraphics[width=0.45\textwidth]{\institutoImg}
-        
+
         \par\bigskip\bigskip
         \rule{1pt}{12cm}\hspace{0.4cm}
         \rule{2pt}{12cm}\hspace{0.4cm}
         \rule{1pt}{12cm}
         \par\bigskip\bigskip
-        
+
         \includegraphics[width=0.6\textwidth]{\escuelaImg}
-        
+
     \end{minipage}%
     %
     \hfill%
@@ -78,29 +78,29 @@
         {\fontsize{14pt}{14pt}\bf\sffamily \@instituto}\par\bigskip
         \rule{1.0\textwidth}{2pt}\par
         \rule{0.9\textwidth}{1pt}\par
-        
+
         \null\vfill
         \vspace{1.5cm}
         {\fontsize{14pt}{14pt}\sffamily\bf \@escuela}\par\bigskip
-        
+
         \vspace{1.5cm}
         {\fontsize{14pt}{14pt}\sffamily Trabajo Terminal \numeroTT\par\bf``\tituloTT''}\par\bigskip
-        
+
         \vspace{2cm}
         {\fontsize{14pt}{14pt}\sffamily\bf REPORTE DE TRABAJO TERMINAL}\par
         {\fontsize{12pt}{12pt}\sffamily COMO REQUISITO PARA OBTENER EL TÍTULO:}\par\bigskip
         {\fontsize{14pt}{14pt}\sffamily\bf \@titulo}\par
-        
+
         \vspace{1cm}
         {\fontsize{14pt}{14pt}\sffamily\hfill P\hfill R\hfill E\hfill S\hfill E\hfill N\hfill T\hfill A\hfill}\bigskip
-        
+
         \vspace{1cm}
         {\fontsize{12pt}{12pt}\sffamily \@author}\par
-        
+
         \vspace{1cm}
         {\fontsize{14pt}{14pt}\sffamily\bf DIRECTORES:}\par
         {\fontsize{12pt}{12pt}\sffamily \@director}\par\bigskip\@date
-        
+
     \end{minipage}
 }
 \thispagestyle{empty}

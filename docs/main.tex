@@ -1,4 +1,4 @@
-\documentclass[10pt]{dissertationIpn}
+\documentclass[12pt]{dissertationIpn}
 \usepackage{comment}
 \usepackage[testView]{cdt/cdtAnalisis}
 \usepackage{academic}
@@ -28,9 +28,9 @@
 \gdef\listtablename{Índice de tablas}
 
     \frontmatter
-        \maketitle
+        %\maketitle
 
-        \newgeometry{hmargin=2cm,vmargin=3.5cm,head=3cm}
+        \newgeometry{lmargin=3cm,rmargin=2cm,tmargin=3.5cm,bmargin=3.5cm,head=3cm}
         %\include{cesionDerechos}
         %\include{actaRevision}
         %\include{agradecimientos}
@@ -43,7 +43,7 @@
 	    %\part{Investigación}\label{part:investigacion}
         \include{investigacion/introduccion}
         \include{investigacion/marcoTeorico}
-
+	\include{metodologia/scrum}
         %\part{Gamedle} % Motor de Gamificación
         \include{analisis/analisis}
 
@@ -51,9 +51,12 @@
 
         \include{conclusiones/conclusiones}
 
+        \include{trabajofuturo/futuro}
+
     \backmatter{}
         \include{investigacion/references}
-        \printglossary{}
+        \include{glosario/glosario}
+        %\printglossary{}
         %\makeReferenciasCruzadas
         %\printglossaries
 
