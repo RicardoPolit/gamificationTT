@@ -3,7 +3,7 @@
 
     Crear una experiencia gamificada exitosa no solo consiste en aplicar mecánicas
     de juegos a una actividad específica, también requiere del seguimiento de un
-    marco de instrucción apropiado \cite[p. 1110]{GamInE-Learning}, razon por lo
+    marco de instrucción apropiado \cite{GamInE-Learning}, razon por lo
     cual se decidió utilizan como principal referencia los marcos de trabajo
     {\it Octalysis} \cite{Octalysis} y {\it For The Win} \cite{ForTheWin}.\par
 %
@@ -24,7 +24,7 @@
 %
     El primer y segundo paso del marco {\it For The Win} consisten en definir
     los objetivos del sistema y delimitar las acciones de los usuarios, especificando
-    el comportamiento que tendrán dentro del sistema \cite[p. 61, 63]{ForTheWin}.
+    el comportamiento que tendrán dentro del sistema \cite{ForTheWin}.
     Tomando en consideración ambos marcos de trabajo se detectaron 5 módulos
     principales a desarrollar sobre la plataforma de aprendizaje en linea de código
     abierto {\it Moodle}, el diagrama modular del sistema puede ser visto en la
@@ -64,7 +64,7 @@
     \noindent
     El siguiente paso o siguiente etapa consistió en definir los usuarios
     interactuarán con el sistema y construir las funcionalidades con base en los
-    tipos de usuarios que lo usarán \cite[p. 64]{ForTheWin}. Los usuarios
+    tipos de usuarios que lo usarán \cite{ForTheWin}. Los usuarios
     identificados son el {\it Administrador del sitio}, los {\it profesores} y
     {\it alumnos}. Con base a estos usuarios además de los requerimientos de cada se
     identificaron cuatro requerimientos generales los cuales son listados a
@@ -97,7 +97,7 @@
     \noindent
     El siguiente paso consiste en definir los ciclos de actividades o las etapas
     por las que pasa un usuario para avanzar en el sistema gamificado.
-    \cite[p. 66]{ForTheWin}. Por lo que el administrador podrá instalar cualquiera
+    \cite{ForTheWin}. Por lo que el administrador podrá instalar cualquiera
     de los módulos que deseé, en la siguiente etapa los profesores procederan a crear
     los cursos y con respecto a los cursos, diseñar y general el contenido incluyendo
     las funcionalidades específicas de gamificación que ellos requiran. Finalmente
@@ -109,7 +109,7 @@
     El quinto consisten en diseñar el producto o sistema de forma apropiada para
     que este sea divertido, de acuerdo con {\it For The Win} para solventar este
     punto el diseño de los elementos de juego debe contemplar tanto elementos que
-    apoyen a la motivación extrínseca cómo a la motivación intrínseca \cite[p. 68]%
+    apoyen a la motivación extrínseca cómo a la motivación intrínseca \cite%
     {ForTheWin}. Para llevar a cabo este punto se procedió vinculando los distintos
     módulos identificados con los principios de gamificación, estos módulos pueden
     ser vistos en la figura 2.
@@ -121,13 +121,13 @@
 
     En conjunto, los módulos identificados permiten brindar soporte a siete de los 
     ocho principios de gamificación (exceptuando el principio de descubrimiento y
-    retroalimentación). De acuerdo con {\it Octalysis} \cite[p. 414]{Octalysis} los
+    retroalimentación). De acuerdo con {\it Octalysis} \cite{Octalysis} los
     principios de gamificación estan relacionados con el tipo de motivación a la que
     brindan soporte, esta relación se muestra en la siguiente tabla. Con la relación
     entre los módulos identificados, los principios de {\it Octalysis} y tipos de
     motivación se brinda soporte a este punto. En la tabla mostrada a continuación
     los principios de gamificación se encuentran clasificados entre los que brindan
-    soporte a la motivación intrínseca y extrínseca \cite[p. 28]{Octalysis}.\\
+    soporte a la motivación intrínseca y extrínseca \cite{Octalysis}.\\
 
     \begin{center}
     \begin{tabular}{|p{0.4\linewidth}|p{0.4\linewidth}|} \hline
@@ -146,7 +146,7 @@
     Finalmente el último paso consiste en escoger específicamente que elementos
     de juego se deciden utilizar en el diseño del sistema, probarlos, ajustarlos y
     ejecutar los cambios requeridos para mejorar la implementación
-    \cite[p. 69]{ForTheWin}. Este punto es tratado en parte del documento destinada
+    \cite{ForTheWin}. Este punto es tratado en parte del documento destinada
     al análisis, diseño y pruebas los módulos.\\
 
     {\it - Análisis}. El desarrollo del sistema se realizó de forma incrementan
@@ -164,7 +164,7 @@
     encontrar en la figura 3.\par
 %
     \noindent
-    Se designo un plugin para ser el plugin central el cual tendría la única
+    Se designó un plugin para ser el plugin central el cual tendría la única
     responsabilidad de especificar la forma en que se comunicarían los distintos
     plugins así como la responsabilidad de extender la esquema de base de datos de
     moodle con finalidad de establecer las relaciones del modelo de información usado
@@ -199,4 +199,9 @@
     uso iba siendo desarrollado. En total se identificaron 77 casos de prueba para
     los cuales el desarrollo brinda soporte.\\
 
-    
+    Además de las pruebas de integración y funcionalidad se realizo una prueba de
+    sistema donde alrededor de 15 estudiantes de la Escuela Superior de cómputo
+    participaron resolviendo las actividades gamificadas que se encuentran dentro de
+    un curso, especificamente el curso creado para la prueba contiene tres actividades
+    principales del módulo de competencias.
+
