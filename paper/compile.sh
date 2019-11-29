@@ -26,7 +26,7 @@ ackRed="   ack --filter --passthru --color --color-match=red    \"Error|error|Un
 ackBlue="  ack --filter --passthru --color --color-match=blue   \"Overfull|Underfull\""
 
 # Commands for filtering output
-grepAll="grep -E \"Output|This is pdfTeX|Info |arning|rror|Undefined|->|l\.[0-9]* ...\""
+grepAll="grep -E \"Output|This is pdfTeX|Info |arning|rror|Undefined|->|l\.[0-9]*...\" -A 3"
 #grepAll="grep -E \"Output|This is pdfTeX|Info |arning|rror|erfull|Undefined|->|l\.[0-9]* ...\""
 
 # Start of Main Script process
@@ -36,7 +36,7 @@ if [ -z "$1" ]; then
 elif [ -z "$2" ]; then
     echo ""
     mkdir -p output
-	echo $(eval "${latexCmd} ${1}.tex")
+	echo $(eval "${latexCmd} ${1}.tex | $ackGreen | $ackRed")
 	mv output/*.pdf ./
 
 else
